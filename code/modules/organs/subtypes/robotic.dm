@@ -13,6 +13,9 @@
 	src.name = "[name] [desc.name]"
 	src.amputation_point = desc.amputation_point
 	src.joint = desc.joint
+	src.max_damage = desc.max_damage
+	src.min_broken_damage = desc.min_broken_damage
+	src.w_class = desc.w_class
 
 /obj/item/organ/external/robotic/install()
 	if(..()) return 1
@@ -79,3 +82,55 @@
 	min_broken_damage = 15
 	w_class = 2
 
+//Helper proc used by various tools for repairing robot limbs
+/obj/item/organ/external/robotic/robo_repair(var/repair_amount, var/damage_type, var/damage_desc, obj/item/tool, mob/living/user)
+	if((src.robotic < ORGAN_ROBOT))
+		return 0
+
+	var/damage_amount
+	switch(damage_type)
+		if(BRUTE)   damage_amount = brute_dam
+		if(BURN)    damage_amount = burn_dam
+		if("omni")  damage_amount = max(brute_dam,burn_dam)
+		else return 0
+
+	if(!damage_amount)
+		user << "<span class='notice'>Nothing to fix!</span>"
+		return 0
+
+	if(damage_amount >= 15)//ROBOLIMB_REPAIR_CAP)
+		user << SPAN_DANG("The damage is far too severe to patch over externally.")
+		return 0
+
+	if(user == src.owner)
+		var/obj/item/organ/used
+		if(user.l_hand == tool && (src.body_part & (ARM_LEFT|HAND_LEFT)))
+			used = owner.get_organ(BP_L_HAND)
+		else if(user.r_hand == tool && (src.body_part & (ARM_RIGHT|HAND_RIGHT)))
+			used = owner.get_organ(BP_R_HAND)
+
+		if(used)
+			user << SPAN_WARN("You can't reach your [src.name] while holding [tool] in your [used].")
+			return 0
+
+	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
+	if(!do_mob(user, owner, 10))
+		user << SPAN_WARN("You must stand still to do that.")
+		return 0
+
+	switch(damage_type)
+		if(BRUTE) src.heal_damage(repair_amount, 0, 0, 1)
+		if(BURN)  src.heal_damage(0, repair_amount, 0, 1)
+		if("omni")src.heal_damage(repair_amount, repair_amount, 0, 1)
+
+	if(damage_desc)
+		if(user == src.owner)
+			user.visible_message(
+				SPAN_NOTE("\The [user] patches [damage_desc] on \his [src.name] with [tool].")
+			)
+		else
+			user.visible_message(
+				SPAN_NOTE("\The [user] patches [damage_desc] on [owner]'s [src.name] with [tool].")
+			)
+
+	return 1
