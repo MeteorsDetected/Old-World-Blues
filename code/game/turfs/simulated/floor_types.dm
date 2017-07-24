@@ -160,6 +160,15 @@
 	density = 1
 	blocks_air = 1
 
+/turf/simulated/shuttle/wall/edge
+	icon_state = "s_edge"
+
+/turf/simulated/shuttle/wall/line
+	icon_state = "s_line"
+
+/turf/simulated/shuttle/wall/trine
+	icon_state = "s_trine"
+
 /turf/simulated/shuttle/floor
 	name = "floor"
 	icon_state = "floor"
