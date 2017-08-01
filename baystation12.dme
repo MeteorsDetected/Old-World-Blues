@@ -757,6 +757,7 @@
 #include "code\game\objects\structures\clock.dm"
 #include "code\game\objects\structures\coathanger.dm"
 #include "code\game\objects\structures\curtains.dm"
+#include "code\game\objects\structures\cyberplants.dm"
 #include "code\game\objects\structures\displaycase.dm"
 #include "code\game\objects\structures\door_assembly.dm"
 #include "code\game\objects\structures\electricchair.dm"
