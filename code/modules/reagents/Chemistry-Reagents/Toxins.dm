@@ -16,13 +16,6 @@
 		if(issmall(M)) removed *= 2 // Small bodymass, more effect from lower volume.
 		M.adjustToxLoss(strength * removed)
 
-/datum/reagent/toxin/luminophore
-	name = "Luminophore"
-	id = "luminophore"
-	color = "#ffffff"
-	metabolism = REM * 1.2
-	strength = 1
-
 /datum/reagent/toxin/plasticide
 	name = "Plasticide"
 	id = "plasticide"
