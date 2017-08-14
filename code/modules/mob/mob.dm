@@ -581,7 +581,7 @@
 	var/downed = 0
 	var/lying = 0
 	var/canmove = 1
-	if(istype(buckled, /obj/vehicle))
+	if(istype(buckled, /obj/vehicle) || istype(buckled, /obj/motorcycle))
 		var/obj/vehicle/V = buckled
 		if(stat || paralysis || sleeping || (status_flags & FAKEDEATH))
 			lying = 1
