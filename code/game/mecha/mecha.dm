@@ -1226,7 +1226,7 @@
 	var/atom/movable/mob_container
 	if(ishuman(occupant))
 		mob_container = src.occupant
-	else if(istype(occupant, /mob/living/carbon/brain))
+	else if(isbrain(occupant))
 		var/mob/living/carbon/brain/brain = occupant
 		mob_container = brain.container
 	else
@@ -1516,7 +1516,7 @@
 	if(!id_card || !user) return
 
 	var/maint_options = "<a href='?src=\ref[src];set_internal_tank_valve=1;user=\ref[user]'>Set Cabin Air Pressure</a>"
-	if(istype(occupant, /mob/living/carbon/brain))
+	if(isbrain(occupant))
 		maint_options += "<a href='?src=\ref[src];remove_MMI=1'>Remove MMI-occupant.</a>"
 	if (locate(/obj/item/mecha_parts/mecha_equipment/tool/passenger) in contents)
 		maint_options += "<a href='?src=\ref[src];remove_passenger=1;user=\ref[user]'>Remove Passenger</a>"
@@ -1683,7 +1683,7 @@
 			if(new_pressure)
 				internal_tank_valve = new_pressure
 				user << "The internal pressure valve has been set to [internal_tank_valve]kPa."
-	if(href_list["remove_MMI"] && state>= 1 && istype(occupant, /mob/living/carbon/brain))
+	if(href_list["remove_MMI"] && state>= 1 && isbrain(occupant))
 		var/mob/user = usr
 		var/mob/living/carbon/brain/brainmob = occupant
 		user.visible_message(
@@ -1753,7 +1753,7 @@
 		return
 	if(href_list["dna_lock"])
 		if(usr != src.occupant)	return
-		if(istype(occupant, /mob/living/carbon/brain))
+		if(isbrain(occupant))
 			occupant_message("You are a brain. No.")
 			usr << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_15_stereo_error.wav',channel=4, volume=100);
 			return
