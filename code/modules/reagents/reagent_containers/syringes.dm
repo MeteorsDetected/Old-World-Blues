@@ -90,7 +90,7 @@
 				if(reagents.has_reagent("blood"))
 					user << "<span class='notice'>There is already a blood sample in this syringe.</span>"
 					return
-				if(istype(target, /mob/living/carbon))
+				if(iscarbon(target))
 					if(istype(target, /mob/living/carbon/slime))
 						user << "<span class='warning'>You are unable to locate any blood.</span>"
 						return

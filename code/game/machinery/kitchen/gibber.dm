@@ -119,7 +119,7 @@
 		user << SPAN_DANG("The gibber is locked and running, wait for it to finish.")
 		return
 
-	if(!(istype(victim, /mob/living/carbon)) && !(istype(victim, /mob/living/simple_animal)) )
+	if(!(iscarbon(victim)) && !(istype(victim, /mob/living/simple_animal)) )
 		user << SPAN_DANG("This is not suitable for the gibber!")
 		return
 

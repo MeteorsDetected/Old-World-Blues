@@ -47,7 +47,7 @@
 		qdel(src)
 		return 0
 
-	if(istype(M, /mob/living/carbon))
+	if(iscarbon(M))
 		//TODO: replace with standard_feed_mob() call.
 
 		var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)

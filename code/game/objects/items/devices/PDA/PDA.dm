@@ -729,7 +729,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		if("Message")
 
 			var/obj/item/device/pda/P = locate(href_list["target"])
-			var/tap = istype(U, /mob/living/carbon)
+			var/tap = iscarbon(U)
 			src.create_message(U, P, tap)
 			if(mode == 2)
 				if(href_list["target"] in conversations)            // Need to make sure the message went through, if not welp.
@@ -1206,7 +1206,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	return
 
 /obj/item/device/pda/attack(mob/living/C as mob, mob/living/user as mob)
-	if (istype(C, /mob/living/carbon))
+	if (iscarbon(C))
 		switch(scanmode)
 			if(1)
 

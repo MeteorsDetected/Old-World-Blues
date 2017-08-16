@@ -137,7 +137,7 @@
 		siemens = gloves.siemens_coefficient
 
 	//Excuse the copypasta.
-	if(istype(target,/mob/living/carbon))
+	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 
 		if(user.mind.changeling.chem_charges < shock_cost)

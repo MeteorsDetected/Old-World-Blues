@@ -272,7 +272,7 @@
 	if(!istype(M))
 		return
 
-	if(istype(M, /mob/living/carbon))
+	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		var/cuff = 1
 		if(ishuman(C))

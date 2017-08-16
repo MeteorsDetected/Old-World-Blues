@@ -80,7 +80,7 @@
 	..()
 
 /mob/living/carbon/attack_hand(mob/M as mob)
-	if(!istype(M, /mob/living/carbon)) return
+	if(!iscarbon(M)) return
 	if (ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/temp = H.get_organ(H.hand ? BP_L_HAND : BP_R_HAND)

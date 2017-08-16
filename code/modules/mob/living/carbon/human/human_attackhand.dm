@@ -63,7 +63,7 @@
 
 			return
 
-	if(istype(M,/mob/living/carbon))
+	if(iscarbon(M))
 		M.spread_disease_to(src, "Contact")
 
 	switch(M.a_intent)

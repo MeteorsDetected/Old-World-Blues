@@ -814,7 +814,7 @@ var/list/sacrificed = list()
 			var/mob/living/user = usr
 			var/list/mob/living/carbon/cultists = new
 			for(var/datum/mind/H in cult.current_antagonists)
-				if (istype(H.current,/mob/living/carbon))
+				if (iscarbon(H.current))
 					cultists+=H.current
 			var/list/mob/living/carbon/users = new
 			for(var/mob/living/carbon/C in orange(1,src))
@@ -861,7 +861,7 @@ var/list/sacrificed = list()
 			var/mob/living/user = usr
 			var/list/mob/living/carbon/cultists = new
 			for(var/datum/mind/H in cult.current_antagonists)
-				if (istype(H.current,/mob/living/carbon))
+				if (iscarbon(H.current))
 					cultists+=H.current
 			var/list/mob/living/carbon/users = new
 			for(var/mob/living/carbon/C in orange(1,src))
@@ -987,7 +987,7 @@ var/list/sacrificed = list()
 /*
 			var/list/mob/living/carbon/cultists = new
 			for(var/datum/mind/H in ticker.mode.cult)
-				if (istype(H.current,/mob/living/carbon))
+				if (iscarbon(H.current))
 					cultists+=H.current
 */
 			var/list/cultists = new //also, wording for it is old wording for obscure rune, which is now hide-see-blood.

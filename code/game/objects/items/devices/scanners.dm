@@ -96,7 +96,7 @@ REAGENT SCANNER
 	if(M.status_flags & FAKEDEATH)
 		OX = fake_oxy > 50 ? 		"<span class='warning'>Severe oxygen deprivation detected</span>" 	: 	"Subject bloodstream oxygen level normal"
 	user.show_message("[OX] | [TX] | [BU] | [BR]")
-	if(istype(M, /mob/living/carbon))
+	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.reagents.total_volume)
 			var/unknown = 0

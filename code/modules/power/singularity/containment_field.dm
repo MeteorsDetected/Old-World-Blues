@@ -43,7 +43,7 @@
 	if(istype(AM,/mob/living/silicon) && prob(40))
 		shock(AM)
 		return 1
-	if(istype(AM,/mob/living/carbon) && prob(50))
+	if(iscarbon(AM) && prob(50))
 		shock(AM)
 		return 1
 	return 0
@@ -65,7 +65,7 @@
 		user.throw_at(target, 200, 4)
 
 		sleep(20)
-		
+
 		hasShocked = 0
 	return
 
