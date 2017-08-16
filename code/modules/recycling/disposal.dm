@@ -600,7 +600,7 @@
 	// called when player tries to move while in a pipe
 	relaymove(mob/user as mob)
 
-		if(!istype(user,/mob/living))
+		if(!isliving(user))
 			return
 
 		var/mob/living/U = user

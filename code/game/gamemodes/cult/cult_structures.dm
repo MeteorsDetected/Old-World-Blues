@@ -132,7 +132,7 @@
 		qdel(src)
 
 /obj/effect/gateway/active/Crossed(var/atom/A)
-	if(!istype(A, /mob/living))
+	if(!isliving(A))
 		return
 
 	var/mob/living/M = A

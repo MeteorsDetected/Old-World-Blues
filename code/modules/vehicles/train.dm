@@ -47,7 +47,7 @@
 			A.Move(T)	//bump things away when hit
 
 	if(emagged)
-		if(istype(A, /mob/living))
+		if(isliving(A))
 			var/mob/living/M = A
 			visible_message("\red [src] knocks over [M]!")
 			M.apply_effects(5, 5)				//knock people down if you hit them

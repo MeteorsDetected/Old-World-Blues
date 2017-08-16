@@ -151,7 +151,7 @@
 	if(!..())
 		return
 
-	if(melee_damage_upper == 0 && istype(A,/mob/living))
+	if(melee_damage_upper == 0 && isliving(A))
 		custom_emote(1,"[friendly] [A]!")
 		return
 

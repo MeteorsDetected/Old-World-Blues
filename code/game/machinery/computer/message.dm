@@ -289,7 +289,7 @@
 		return 1
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if(!istype(usr, /mob/living))
+	if(!isliving(usr))
 		return
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
 		//Authenticate
