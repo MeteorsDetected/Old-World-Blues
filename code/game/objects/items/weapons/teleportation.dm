@@ -323,7 +323,7 @@ Frequency:
 
 /obj/item/weapon/vortex_manipulator/emp_act(var/severity)
 	var/vm_owner = get_owner()
-	if(!istype(vm_owner, /mob/living/carbon/human))
+	if(!ishuman(vm_owner))
 		return
 	var/mob/living/carbon/human/H = vm_owner
 	if(!vcell || !cover_open)
@@ -397,7 +397,7 @@ Frequency:
 // Gets CURRENT HOLDER (or turf, if no mob is holding it) of VM, avoiding runtimes. Returns 0 just in case it's located in sth wrong.
 /obj/item/weapon/vortex_manipulator/proc/get_owner()
 	var/obj/item/temp_loc = src
-	while(!istype(temp_loc.loc, /mob/living/carbon/human) && !istype(temp_loc.loc, /turf))
+	while(!ishuman(temp_loc.loc) && !istype(temp_loc.loc, /turf))
 		if(!ismob(temp_loc.loc) && !istype(temp_loc.loc, /obj))
 			return 0
 		temp_loc = temp_loc.loc
@@ -408,7 +408,7 @@ Frequency:
 	if(timelord_mode)
 		return
 	var/vm_owner = get_owner()
-	if(!istype(vm_owner, /mob/living/carbon/human))
+	if(!ishuman(vm_owner))
 		return
 	var/mob/living/carbon/human/H = vm_owner
 	H.visible_message(SPAN_NOTE("The Vortex Manipulator malfunctions!"))
@@ -524,7 +524,7 @@ Frequency:
 	var/input = sanitize(input(user, "Enter what you want to announce"))
 	for(var/obj/item/weapon/vortex_manipulator/VM in world)
 		var/H = VM.get_owner()
-		if (istype(H, /mob/living/carbon/human) && (VM.active || nonactive_announce))
+		if (ishuman(H) && (VM.active || nonactive_announce))
 			H << SPAN_DANG("Your Vortex Manipulator suddenly announces with voice of [user]: [input]")
 	deductcharge(chargecost_beacon)
 
