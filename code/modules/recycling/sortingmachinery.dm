@@ -398,7 +398,7 @@
 		if(WEST)
 			if(AM.loc.x != src.loc.x-1) return
 
-	if(istype(AM, /obj))
+	if(isobj(AM))
 		var/obj/O = AM
 		O.forceMove(src)
 	else if(ismob(AM))

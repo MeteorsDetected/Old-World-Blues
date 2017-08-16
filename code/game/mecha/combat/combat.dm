@@ -110,7 +110,7 @@
 
 /*
 /obj/mecha/combat/proc/mega_shake(target)
-	if(!istype(target, /obj) && !ismob(target)) return
+	if(!isobj(target) && !ismob(target)) return
 	if(ismob(target))
 		var/mob/M = target
 		M.make_dizzy(3)

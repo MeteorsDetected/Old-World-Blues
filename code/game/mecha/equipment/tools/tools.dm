@@ -17,7 +17,7 @@
 		if(!cargo_holder) return
 
 		//loading
-		if(istype(target,/obj))
+		if(isobj(target))
 			var/obj/O = target
 			if(O.buckled_mob)
 				return
@@ -604,7 +604,7 @@
 			if(isliving(A))
 				var/mob/living/M = A
 				M.take_organ_damage(10)
-		else if(istype(A, /obj))
+		else if(isobj(A))
 			var/obj/O = A
 			if(O.throwforce)
 				chassis.take_damage(round(O.throwforce*damage_coeff))
@@ -1016,7 +1016,7 @@
 	action(atom/target)
 		if(!action_checks(target)) return
 		if(!cargo_holder) return
-		if(istype(target,/obj))
+		if(isobj(target))
 			var/obj/O = target
 			if(!O.anchored)
 				if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
