@@ -242,9 +242,6 @@
 	for(var/obj/item/organ/external/temp in organs)
 		if((temp.organ_tag in hidden) && hidden[temp.organ_tag])
 			continue //Organ is hidden, don't talk about it
-		if(temp.status & ORGAN_DESTROYED)
-			wound_flavor_text[temp.name] = SPAN_DANG("[T.He] [T.is] missing [T.his] [temp.name].")
-			continue
 		if(!looks_synth && (temp.robotic >= ORGAN_ROBOT))
 			if(!(temp.brute_dam + temp.burn_dam))
 				wound_flavor_text[temp.name] = "[T.He] [T.has] a [temp.name]."
