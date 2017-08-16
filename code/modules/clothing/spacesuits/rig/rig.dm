@@ -262,7 +262,7 @@
 				else
 					failed_to_seal = 1
 
-		if((M && !(istype(M) && M.back == src) && !istype(M,/mob/living/silicon)) || (!seal_target && !suit_is_deployed()))
+		if((M && !(istype(M) && M.back == src) && !issilicon(M)) || (!seal_target && !suit_is_deployed()))
 			failed_to_seal = 1
 
 	sealing = null

@@ -479,7 +479,7 @@
 
 			if (href_list["search"])
 				var/t1 = input("Search String: (Name, DNA, or ID)", "Med. records", null, null)  as text
-				if ((!( t1 ) || usr.stat || !( src.authenticated ) || usr.restrained() || ((!interactable()) && (!istype(usr, /mob/living/silicon)))))
+				if ((!( t1 ) || usr.stat || !( src.authenticated ) || usr.restrained() || ((!interactable()) && (!issilicon(usr)))))
 					return
 				src.active1 = null
 				src.active2 = null

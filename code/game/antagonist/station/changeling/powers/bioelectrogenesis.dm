@@ -159,7 +159,7 @@
 		user.mind.changeling.chem_charges -= shock_cost
 		return 1
 
-	else if(istype(target,/mob/living/silicon))
+	else if(issilicon(target))
 		var/mob/living/silicon/S = target
 
 		if(user.mind.changeling.chem_charges < 10)

@@ -413,7 +413,7 @@
 
 /*	var/list/choices = list()
 	for(var/mob/living/M in view(6,src))
-		if(!istype(M,/mob/living/silicon))
+		if(!issilicon(M))
 			choices += M
 	choices -= src*/
 
