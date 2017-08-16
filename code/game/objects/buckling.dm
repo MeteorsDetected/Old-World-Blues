@@ -63,7 +63,7 @@
 	if(!user.Adjacent(M) || user.restrained() || user.lying || user.stat || istype(user, /mob/living/silicon/pai))
 		return
 
-	if(istype(M, /mob/living/carbon/slime))
+	if(isslime(M))
 		user << "<span class='warning'>The [M] is too squishy to buckle in.</span>"
 		return
 

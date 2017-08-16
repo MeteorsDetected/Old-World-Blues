@@ -91,7 +91,7 @@
 					user << "<span class='notice'>There is already a blood sample in this syringe.</span>"
 					return
 				if(iscarbon(target))
-					if(istype(target, /mob/living/carbon/slime))
+					if(isslime(target))
 						user << "<span class='warning'>You are unable to locate any blood.</span>"
 						return
 					var/amount = reagents.get_free_space()
