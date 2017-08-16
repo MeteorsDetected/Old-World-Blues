@@ -1,4 +1,5 @@
-/*	What this file contains:
+/*
+	What this file contains:
 
 	* A specialized stun prod, for handling fiesty slimes
 
@@ -20,7 +21,7 @@
 	var/stasisforce = 60	//How much stasis it does to slimes, and 1/3rd to non-slimes.
 
 /obj/item/weapon/melee/baton/slime/attack(mob/M, mob/user)
-	if(istype(M, /mob/living/simple_animal/xeno))
+	if(isxeno(M))
 		var/mob/living/simple_animal/xeno/X = M
 		if(istype(M, /mob/living/simple_animal/xeno/slime))
 			X.stasis += stasisforce
@@ -54,7 +55,7 @@
 	impact_type = /obj/effect/projectile/laser_omni/impact
 
 /obj/item/projectile/beam/stun/xeno/on_hit(var/atom/target, var/blocked = 0)
-	if(istype(target, /mob/living/simple_animal/xeno))
+	if(isxeno(target))
 		var/mob/living/simple_animal/xeno/X = target
 		if(istype(target, /mob/living/simple_animal/xeno/slime))
 			X.stasis += stasisforce
