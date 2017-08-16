@@ -44,7 +44,7 @@ var/global/floorIsLava = 0
 		body += " played by <b>[M.client]</b> "
 		body += "\[<A href='?src=\ref[src];editrights=show'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\]"
 
-	if(istype(M, /mob/new_player))
+	if(isnewplayer(M))
 		body += " <B>Hasn't Entered Game</B> "
 	else
 		body += " \[<A href='?src=\ref[src];revive=\ref[M]'>Heal</A>\] "
@@ -99,7 +99,7 @@ var/global/floorIsLava = 0
 	"}
 
 	if (M.client)
-		if(!istype(M, /mob/new_player))
+		if(!isnewplayer(M))
 			body += "<br><br>"
 			body += "<b>Transformation:</b>"
 			body += "<br>"
