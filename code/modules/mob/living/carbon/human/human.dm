@@ -362,7 +362,7 @@
 /mob/living/carbon/human/Topic(href, href_list)
 
 	if (href_list["refresh"])
-		if(machine &&in_range(src, machine))
+		if(machine && in_range(src, machine))
 			var/mob/living/L = machine
 			L.show_inv(src)
 
@@ -1140,10 +1140,14 @@
 	for(var/obj/item/organ/organ in (organs|internal_organs))
 		qdel(organ)
 
-	if(organs.len)                  organs.Cut()
-	if(internal_organs.len)         internal_organs.Cut()
-	if(organs_by_name.len)          organs_by_name.Cut()
-	if(internal_organs_by_name.len) internal_organs_by_name.Cut()
+	if(organs.len)
+		organs.Cut()
+	if(internal_organs.len)
+		internal_organs.Cut()
+	if(organs_by_name.len)
+		organs_by_name.Cut()
+	if(internal_organs_by_name.len)
+		internal_organs_by_name.Cut()
 
 
 	if(from_preference)
@@ -1392,7 +1396,7 @@
 	else
 		U << "<span class='warning'>You begin to relocate [S]'s [current_limb.joint]...</span>"
 
-	if(!do_after(U, 30))
+	if(!do_mob(U, src, 30))
 		return
 	if(!choice || !current_limb || !S || !U)
 		return
