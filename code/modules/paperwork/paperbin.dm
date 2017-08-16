@@ -15,7 +15,7 @@
 
 /obj/item/weapon/paper_bin/MouseDrop(mob/user as mob)
 	if((user == usr && (!( usr.restrained() ) && (!( usr.stat ) && (usr.contents.Find(src) || in_range(src, usr))))))
-		if(!isslime(usr) && !istype(usr, /mob/living/simple_animal))
+		if(!isslime(usr) && !isanimal(usr))
 			if( !usr.get_active_hand() )		//if active hand is empty
 				attack_hand(usr, 1, 1)
 

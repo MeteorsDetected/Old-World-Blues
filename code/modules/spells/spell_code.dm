@@ -219,7 +219,7 @@ var/list/spells = typesof(/spell) //needed for the badmin verb for now
 			if(findNullRod(T))
 				return FALSE
 
-	if(istype(user, /mob/living/simple_animal) && holder == user)
+	if(isanimal(user) && holder == user)
 		var/mob/living/simple_animal/SA = user
 		if(SA.purge)
 			SA << SPAN_WARN("The nullrod's power interferes with your own!")
