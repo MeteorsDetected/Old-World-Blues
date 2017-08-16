@@ -37,7 +37,7 @@
 	proc/authenticate()
 		if(access_medical in scan.access)
 			return 1
-		if(istype(usr,/mob/living/silicon/ai))
+		if(isAI(usr))
 			return 1
 		return 0
 
