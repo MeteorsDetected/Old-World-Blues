@@ -98,8 +98,6 @@
 	return uses
 
 /obj/item/weapon/dnainjector/attack(mob/M as mob, mob/user as mob)
-	if (!istype(M, /mob))
-		return
 	if (!usr.IsAdvancedToolUser())
 		return
 	if(inuse)

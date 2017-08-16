@@ -1112,7 +1112,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if ( can_use(usr) )
 		var/obj/item/weapon/pen/O = locate() in src
 		if(O)
-			if (istype(loc, /mob))
+			if (ismob(loc))
 				loc:put_in_hands(O)
 				usr << "<span class='notice'>You remove \the [O] from \the [src].</span>"
 				return

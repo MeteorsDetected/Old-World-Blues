@@ -124,7 +124,7 @@
 
 /obj/item/weapon/melee/energy/sword/dropped(var/mob/user)
 	..()
-	if(!istype(loc,/mob))
+	if(!ismob(loc))
 		deactivate(user)
 
 /obj/item/weapon/melee/energy/sword/New()

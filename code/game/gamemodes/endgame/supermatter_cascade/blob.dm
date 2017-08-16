@@ -50,7 +50,7 @@
 				if(A)
 					if(istype(A,/mob/living))
 						qdel(A)
-					else if(istype(A,/mob)) // Observers, AI cameras.
+					else if(ismob(A)) // Observers, AI cameras.
 						continue
 					else
 						qdel(A)

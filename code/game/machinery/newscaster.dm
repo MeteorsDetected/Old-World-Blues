@@ -927,7 +927,7 @@ obj/item/weapon/newspaper/Topic(href, href_list)
 			src.curr_page--
 			playsound(src.loc, "pageturn", 50, 1)
 
-		if (istype(src.loc, /mob))
+		if (ismob(src.loc))
 			src.attack_self(src.loc)
 
 

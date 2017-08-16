@@ -693,7 +693,7 @@
 			else
 				product = new /obj/item/weapon/reagent_containers/food/snacks/grown(get_turf(user),name)
 			if(get_trait(TRAIT_PRODUCT_COLOUR))
-				if(!istype(product, /mob))
+				if(!ismob(product))
 					product.color = get_trait(TRAIT_PRODUCT_COLOUR)
 					if(istype(product,/obj/item/weapon/reagent_containers/food))
 						var/obj/item/weapon/reagent_containers/food/food = product

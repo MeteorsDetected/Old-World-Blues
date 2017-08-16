@@ -449,7 +449,7 @@
 			step(obstacle,src.dir)
 		else //I have no idea why I disabled this
 			obstacle.Bumped(src)
-	else if(istype(obstacle, /mob))
+	else if(ismob(obstacle))
 		step(obstacle,src.dir)
 	else
 		obstacle.Bumped(src)
@@ -588,7 +588,7 @@
 		A.forceMove(src)
 		src.visible_message("The [A] fastens firmly to [src].")
 		return
-	if(prob(src.deflect_chance) || istype(A, /mob))
+	if(prob(src.deflect_chance) || ismob(A))
 		src.occupant_message("\blue The [A] bounces off the armor.")
 		src.visible_message("The [A] bounces off the [src.name] armor")
 		src.log_append_to_last("Armor saved.")

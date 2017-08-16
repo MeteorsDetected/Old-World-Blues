@@ -452,7 +452,7 @@
 	proc/validate_target(atom/target)
 		if(get_dist(target, src)>scan_range)
 			return 0
-		if(istype(target, /mob))
+		if(ismob(target))
 			var/mob/M = target
 			if(!M.stat && !M.lying)//ninjas can't catch you if you're lying
 				return 1

@@ -193,7 +193,7 @@
 		if(!firer)
 			self_attack_log(target_mob, "UNKNOWN SUBJECT (No longer exists) shot [key_name(target_mob)] with \a [src]", 1)
 
-		if(istype(firer, /mob))
+		if(ismob(firer))
 			var/attacker_message = "shot with \a [src.type]"
 			var/victim_message = "shot with \a [src.type]"
 			var/admin_message = "shot (\a [src.type])"

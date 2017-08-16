@@ -12,7 +12,7 @@
 
 //MOB LEVEL
 
-#define ismob(A) istype(A, /mob)
+#define ismob(A) istype(A, /mob) //istype\(([a-z0-9:._]+), ?/mob\)
 
 #define isobserver(A) istype(A, /mob/observer/dead)
 
