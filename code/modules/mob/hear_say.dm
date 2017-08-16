@@ -100,7 +100,7 @@
 		jobname = "AI"
 	else if(isrobot(speaker))
 		jobname = "Cyborg"
-	else if(istype(speaker, /mob/living/silicon/pai))
+	else if(ispAI(speaker))
 		jobname = "Personal AI"
 	else
 		jobname = "Unknown"
