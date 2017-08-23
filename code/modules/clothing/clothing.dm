@@ -458,7 +458,7 @@
 					"Your suit will now report your vital lifesigns as well as your coordinate position."
 				)
 
-	else if (istype(src.loc, /mob))
+	else if (ismob(src.loc))
 		usr.visible_message("[usr] adjusts [src.loc]'s sensors.", "You adjust [src.loc]'s sensors.")
 
 /obj/item/clothing/under/AltClick(mob/living/carbon/human/user)
@@ -478,7 +478,7 @@
 	set name = "Roll Down Jumpsuit"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)) return
+	if(!isliving(usr)) return
 	if(usr.stat || usr.restrained()) return
 
 	if(status != ROLL_DOWN)
@@ -498,7 +498,7 @@
 	set name = "Roll Up Sleeves"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)) return
+	if(!isliving(usr)) return
 	if(usr.stat || usr.restrained()) return
 
 	if(status != ROLL_SLEV)

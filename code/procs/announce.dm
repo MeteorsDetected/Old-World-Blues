@@ -46,7 +46,7 @@
 
 datum/announcement/proc/Message(message as text, message_title as text)
 	for(var/mob/M in player_list)
-		if(!istype(M,/mob/new_player) && !isdeaf(M))
+		if(!isnewplayer(M) && !isdeaf(M))
 			M << "<h2 class='alert'>[title]</h2>"
 			M << "<span class='alert'>[message]</span>"
 			if (announcer)
@@ -71,7 +71,7 @@ datum/announcement/priority/command/Message(message as text, message_title as te
 	command += "<br><span class='alert'>[message]</span><br>"
 	command += "<br>"
 	for(var/mob/M in player_list)
-		if(!istype(M,/mob/new_player) && !isdeaf(M))
+		if(!isnewplayer(M) && !isdeaf(M))
 			M << command
 
 datum/announcement/priority/security/Message(message as text, message_title as text)
@@ -94,7 +94,7 @@ datum/announcement/proc/PlaySound(var/message_sound)
 	if(!message_sound)
 		return
 	for(var/mob/M in player_list)
-		if(!istype(M,/mob/new_player) && !isdeaf(M))
+		if(!isnewplayer(M) && !isdeaf(M))
 			M << message_sound
 
 datum/announcement/proc/Sound(var/message_sound)

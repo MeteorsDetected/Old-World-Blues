@@ -101,7 +101,7 @@
 		updateDialog()
 
 	updateDialog()
-		if(istype(src.loc,/mob))
+		if(ismob(src.loc))
 			attack_self(src.loc)
 
 /obj/item/weapon/circuitboard/camera/emag_act(var/remaining_charges, var/mob/user)

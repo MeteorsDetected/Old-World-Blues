@@ -55,11 +55,11 @@
 				target.name = "wall"
 				qdel(O) // prevents multiple shuttle corners from stacking
 				continue
-			if(!istype(O,/obj)) continue
+			if(!isobj(O)) continue
 			O.loc = target
 		for(var/mob/M in T)
 			// If we need to check for more mobs, I'll add a variable
-			if(!istype(M,/mob)) continue
+			if(!ismob(M)) continue
 			M.loc = target
 
 		if(turftoleave)

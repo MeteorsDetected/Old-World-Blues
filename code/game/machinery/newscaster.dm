@@ -791,7 +791,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		var/obj/item/photo = user.get_active_hand()
 		user.drop_from_inventory(photo, src)
 		photo_data = new(photo, 0)
-	else if(istype(user,/mob/living/silicon))
+	else if(issilicon(user))
 		var/mob/living/silicon/tempAI = user
 		var/obj/item/weapon/photo/selection = tempAI.GetPicture()
 		if (!selection)
@@ -927,7 +927,7 @@ obj/item/weapon/newspaper/Topic(href, href_list)
 			src.curr_page--
 			playsound(src.loc, "pageturn", 50, 1)
 
-		if (istype(src.loc, /mob))
+		if (ismob(src.loc))
 			src.attack_self(src.loc)
 
 

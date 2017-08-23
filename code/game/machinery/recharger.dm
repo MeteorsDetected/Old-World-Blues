@@ -46,7 +46,7 @@ obj/machinery/recharger/proc/chargepercentage()
 	return 0
 
 obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob)
-	if(istype(user,/mob/living/silicon))
+	if(issilicon(user))
 		return
 
 	var/allowed = 0
@@ -86,7 +86,7 @@ obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob)
 		playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
 
 obj/machinery/recharger/attack_hand(mob/user as mob)
-	if(istype(user,/mob/living/silicon))
+	if(issilicon(user))
 		return
 
 	add_fingerprint(user)
