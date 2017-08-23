@@ -17,7 +17,7 @@
 		if(!cargo_holder) return
 
 		//loading
-		if(istype(target,/obj))
+		if(isobj(target))
 			var/obj/O = target
 			if(O.buckled_mob)
 				return
@@ -50,7 +50,7 @@
 					O.anchored = initial(O.anchored)
 
 		//attacking
-		else if(istype(target,/mob/living))
+		else if(isliving(target))
 			var/mob/living/M = target
 			if(M.stat>1) return
 			if(chassis.occupant.a_intent == I_HURT)
@@ -597,14 +597,14 @@
 	proc/dynhitby(atom/movable/A)
 		if(!action_checks(A))
 			return chassis.dynhitby(A)
-		if(prob(chassis.deflect_chance*deflect_coeff) || istype(A, /mob/living) || istype(A, /obj/item/mecha_parts/mecha_tracking))
+		if(prob(chassis.deflect_chance*deflect_coeff) || isliving(A) || istype(A, /obj/item/mecha_parts/mecha_tracking))
 			chassis.occupant_message("<span class='notice'>The [A] bounces off the armor.</span>")
 			chassis.visible_message("The [A] bounces off the [chassis] armor")
 			chassis.log_append_to_last("Armor saved.")
-			if(istype(A, /mob/living))
+			if(isliving(A))
 				var/mob/living/M = A
 				M.take_organ_damage(10)
-		else if(istype(A, /obj))
+		else if(isobj(A))
 			var/obj/O = A
 			if(O.throwforce)
 				chassis.take_damage(round(O.throwforce*damage_coeff))
@@ -1016,7 +1016,7 @@
 	action(atom/target)
 		if(!action_checks(target)) return
 		if(!cargo_holder) return
-		if(istype(target,/obj))
+		if(isobj(target))
 			var/obj/O = target
 			if(!O.anchored)
 				if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
@@ -1041,7 +1041,7 @@
 			else
 				chassis.occupant_message("<span class='warning'>[target] is firmly secured.</span>")
 
-		else if(istype(target,/mob/living))
+		else if(isliving(target))
 			var/mob/living/M = target
 			if(M.stat>1) return
 			if(chassis.occupant.a_intent == I_HURT)

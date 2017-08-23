@@ -44,7 +44,7 @@
 	var/growth_max
 	if(istype(target,/obj/structure/table))
 		return ..()
-	else if(istype(target,/mob/living/simple_animal/xeno))
+	else if(isxeno(target))
 
 		var/mob/living/simple_animal/xeno/X = target
 		if(istype(X, /mob/living/simple_animal/xeno/slime))

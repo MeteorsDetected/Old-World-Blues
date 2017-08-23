@@ -207,7 +207,7 @@
 			update_icon()
 			computer.update_icon()
 			for(var/mob/living/L in viewers(1))
-				if(!istype(L,/mob/living/silicon/ai) && L.machine == src)
+				if(!isAI(L) && L.machine == src)
 					L.reset_view(null)
 
 
@@ -215,7 +215,7 @@
 		..()
 		reset_current()
 		for(var/mob/living/L in viewers(1))
-			if(!istype(L,/mob/living/silicon/ai) && L.machine == src)
+			if(!isAI(L) && L.machine == src)
 				L.reset_view(null)
 
 	interact()

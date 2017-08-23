@@ -222,7 +222,7 @@ var/global/photo_count = 0
 		// If what we got back is actually a picture, draw it.
 		if(istype(img, /icon))
 			// Check if we're looking at a mob that's lying down
-			if(istype(A, /mob/living) && A:lying)
+			if(isliving(A) && A:lying)
 				// If they are, apply that effect to their picture.
 				img.BecomeLying()
 			// Calculate where we are relative to the center of the photo

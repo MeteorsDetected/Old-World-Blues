@@ -381,7 +381,7 @@
 	set name = "Roll Sleeves"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living))
+	if(!isliving(usr))
 		return
 	if(usr.stat)
 		return
@@ -398,7 +398,7 @@
 	set name = "Toggle Shirt Tucking"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)||usr.stat)
+	if(!isliving(usr)||usr.stat)
 		return
 
 	if(tucked == 0)
@@ -413,7 +413,7 @@
 	set name = "Toggle Shirt Buttons"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)||usr.stat)
+	if(!isliving(usr)||usr.stat)
 		return
 
 	if(buttoned == 0)

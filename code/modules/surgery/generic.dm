@@ -3,7 +3,7 @@
 //						COMMON STEPS							//
 //////////////////////////////////////////////////////////////////
 
-/datum/surgery_step/generic/
+/datum/surgery_step/generic
 	can_infect = 1
 	disallowed_species = list("Arachna")
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -14,9 +14,7 @@
 		if (!hasorgans(target))
 			return 0
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if (affected == null)
-			return 0
-		if (affected.status & ORGAN_DESTROYED)
+		if (!affected)
 			return 0
 		if (target_zone == BP_HEAD && target.species && (target.species.flags & IS_SYNTHETIC))
 			return 1
@@ -324,9 +322,7 @@
 		if (!hasorgans(target))
 			return 0
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if (affected == null)
-			return 0
-		if (affected.status & ORGAN_DESTROYED)
+		if (!affected)
 			return 0
 		return !affected.cannot_amputate
 

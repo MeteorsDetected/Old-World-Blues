@@ -288,7 +288,7 @@
 					var/turf/T = object
 					T.ChangeTurf(/turf/space)
 					return
-				else if(istype(object,/obj))
+				else if(isobj(object))
 					qdel(object)
 					return
 			else if(istype(object,/turf) && pa.Find("alt") && pa.Find("left"))

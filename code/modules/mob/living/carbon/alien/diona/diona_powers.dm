@@ -8,7 +8,7 @@
 	if(stat == DEAD || paralysis || weakened || stunned || restrained())
 		return
 
-	if(istype(src.loc,/mob/living/carbon))
+	if(iscarbon(src.loc))
 		src.verbs -= /mob/living/carbon/alien/diona/proc/merge
 		return
 
@@ -49,7 +49,7 @@
 	if(stat == DEAD || paralysis || weakened || stunned || restrained())
 		return
 
-	if(!(istype(src.loc,/mob/living/carbon)))
+	if(!(iscarbon(src.loc)))
 		src.verbs -= /mob/living/carbon/alien/diona/proc/split
 		return
 

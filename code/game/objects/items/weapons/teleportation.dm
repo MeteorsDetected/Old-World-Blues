@@ -111,7 +111,7 @@ Frequency:
 			else
 				if (href_list["temp"])
 					src.temp = null
-		if (istype(src.loc, /mob))
+		if(ismob(src.loc))
 			attack_self(src.loc)
 		else
 			for(var/mob/M in viewers(1, src))
@@ -207,7 +207,7 @@ Frequency:
 	throw_range = 5
 	origin_tech = list(TECH_MATERIAL = 9, TECH_BLUESPACE = 10, TECH_MAGNET = 8, TECH_POWER = 8, TECH_ARCANE = 4, TECH_ILLEGAL = 5)
 	matter = list(MATERIAL_STEEL = 10000, MATERIAL_GLASS = 5000)
-	
+
 /obj/item/weapon/vortex_manipulator/attack_self(mob/user as mob)
 	if(cover_open)
 		user.set_machine(src)
@@ -237,7 +237,7 @@ Frequency:
 				dat += "<A href='byond://?src=\ref[src];attempt_activate=1'>Activate the Vortex Manipulator</A><BR>"
 			else
 				dat += "<B>INSTALL POWER CELL! (vortex power cell recommended)</B><BR>"
-		
+
 		dat += "Kind regards,<br>Dominus temporis. <br><br>P.S. Don't forget to ask someone to say something nice.<HR>"
 		user << browse(dat, "window=scroll")
 		onclose(user, "scroll")
@@ -245,12 +245,12 @@ Frequency:
 	else
 		user << SPAN_NOTE("You flip Vortex Manipulator's protective cover open")
 		cover_open = 1
-		
+
 		if(vcell)
 			icon_state = "vm_open"
 		else
 			icon_state = "vm_nocell"
-		
+
 		update_icon()
 
 /obj/item/weapon/vortex_manipulator/attackby(obj/item/weapon/W, mob/user)
@@ -319,11 +319,11 @@ Frequency:
 			return
 
 	attack_self(H)
-	return		
+	return
 
 /obj/item/weapon/vortex_manipulator/emp_act(var/severity)
 	var/vm_owner = get_owner()
-	if(!istype(vm_owner, /mob/living/carbon/human))
+	if(!ishuman(vm_owner))
 		return
 	var/mob/living/carbon/human/H = vm_owner
 	if(!vcell || !cover_open)
@@ -335,12 +335,12 @@ Frequency:
 				beaconteleport(H, 1)
 			else
 				malfunction()
-		else 
+		else
 			if(prob(75))
 				H.visible_message(SPAN_NOTE("The Vortex Manipulator is automatically trying to avoid local space-time anomaly."))
 				localteleport(H, 1)
 			else
-				malfunction()	
+				malfunction()
 	else
 		if(prob(50))
 			if(prob(50))
@@ -351,7 +351,7 @@ Frequency:
 				areateleport(H, 1)
 			else
 				malfunction()
-		else 
+		else
 			if(prob(50))
 				H.visible_message(SPAN_WARN("The Vortex Manipulator violently shakes and extracts Space Carps from local bluespace anomaly!"))
 				playsound(get_turf(src), 'sound/effects/phasein.ogg', 50, 1)
@@ -397,8 +397,8 @@ Frequency:
 // Gets CURRENT HOLDER (or turf, if no mob is holding it) of VM, avoiding runtimes. Returns 0 just in case it's located in sth wrong.
 /obj/item/weapon/vortex_manipulator/proc/get_owner()
 	var/obj/item/temp_loc = src
-	while(!istype(temp_loc.loc, /mob/living/carbon/human) && !istype(temp_loc.loc, /turf))
-		if(!istype(temp_loc.loc, /mob) && !istype(temp_loc.loc, /obj))
+	while(!ishuman(temp_loc.loc) && !istype(temp_loc.loc, /turf))
+		if(!ismob(temp_loc.loc) && !isobj(temp_loc.loc))
 			return 0
 		temp_loc = temp_loc.loc
 	return temp_loc.loc
@@ -408,7 +408,7 @@ Frequency:
 	if(timelord_mode)
 		return
 	var/vm_owner = get_owner()
-	if(!istype(vm_owner, /mob/living/carbon/human))
+	if(!ishuman(vm_owner))
 		return
 	var/mob/living/carbon/human/H = vm_owner
 	H.visible_message(SPAN_NOTE("The Vortex Manipulator malfunctions!"))
@@ -486,7 +486,7 @@ Frequency:
 		return
 	playsound(T, 'sound/effects/phasein.ogg', 50, 1)
 	anim(T,M,'icons/mob/mob.dmi',,"phasein",,M.dir)
-	
+
 /obj/item/weapon/vortex_manipulator/proc/phase_out(var/mob/M,var/turf/T)
 	if(!M || !T)
 		return
@@ -524,10 +524,10 @@ Frequency:
 	var/input = sanitize(input(user, "Enter what you want to announce"))
 	for(var/obj/item/weapon/vortex_manipulator/VM in world)
 		var/H = VM.get_owner()
-		if (istype(H, /mob/living/carbon/human) && (VM.active || nonactive_announce))
+		if (ishuman(H) && (VM.active || nonactive_announce))
 			H << SPAN_DANG("Your Vortex Manipulator suddenly announces with voice of [user]: [input]")
 	deductcharge(chargecost_beacon)
-	
+
 
 /*
  * VM basic teleporation types:

@@ -197,6 +197,11 @@
 /obj/machinery/cryopod/right
 	dir = EAST
 
+/obj/machinery/cryopod/syndie
+	icon_state = "syndipod_0"
+	base_icon_state = "syndipod_0"
+	occupied_icon_state = "syndipod_1"
+
 /obj/machinery/cryopod/robot
 	name = "robotic storage unit"
 	desc = "A storage unit for robots."

@@ -294,7 +294,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			else
 				log_debug("Client prefs found to be null in /proc/Broadcast_Message() for mob [R] and client [R.ckey], this should be investigated.")
 
-		if(istype(R, /mob/new_player)) // we don't want new players to hear messages. rare but generates runtimes.
+		if(isnewplayer(R)) // we don't want new players to hear messages. rare but generates runtimes.
 			continue
 
 		// Ghosts hearing all radio chat don't want to hear syndicate intercepts, they're duplicates

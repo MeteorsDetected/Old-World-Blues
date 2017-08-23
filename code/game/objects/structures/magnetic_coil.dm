@@ -68,7 +68,7 @@
 					step_towards(M, src)
 
 			for(var/mob/living/silicon/S in orange(magnetic_range, src.loc))
-				if(istype(S, /mob/living/silicon/ai)) continue
+				if(isAI(S)) continue
 				step_towards(S, src)
 
 	proc/power()

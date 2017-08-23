@@ -19,7 +19,7 @@
 	reagents.add_reagent("cleaner", 5)
 
 /obj/item/weapon/soap/Crossed(AM as mob|obj)
-	if (istype(AM, /mob/living))
+	if (isliving(AM))
 		var/mob/living/M =	AM
 		M.slip("the [src.name]",3)
 

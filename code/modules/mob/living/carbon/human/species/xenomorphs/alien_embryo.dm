@@ -14,7 +14,7 @@
 /obj/item/alien_embryo/New()
 	..()
 	process_larva()
-	if(istype(loc, /mob/living))
+	if(isliving(loc))
 		affected_mob = loc
 		spawn(0)
 			AddInfectionImages(affected_mob)

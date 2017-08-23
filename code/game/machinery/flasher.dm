@@ -76,7 +76,7 @@
 			if(!H.eyecheck() <= 0)
 				continue
 
-		if (istype(O, /mob/living/carbon/alien))//So aliens don't get flashed (they have no external eyes)/N
+		if (isalien(O))//So aliens don't get flashed (they have no external eyes)/N
 			continue
 
 		O.Weaken(strength)
@@ -103,7 +103,7 @@
 	if ((src.disable) || (src.last_flash && world.time < src.last_flash + 150))
 		return
 
-	if(istype(AM, /mob/living/carbon))
+	if(iscarbon(AM))
 		var/mob/living/carbon/M = AM
 		if ((M.m_intent != "walk") && (src.anchored))
 			src.flash()

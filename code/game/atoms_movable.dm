@@ -70,7 +70,7 @@
 
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, var/speed)
-	if(istype(hit_atom,/mob/living))
+	if(isliving(hit_atom))
 		var/mob/living/M = hit_atom
 		M.hitby(src,speed)
 
@@ -86,7 +86,7 @@
 		if(T.density)
 			spawn(2)
 				step(src, turn(src.dir, 180))
-			if(istype(src,/mob/living))
+			if(isliving(src))
 				var/mob/living/M = src
 				M.turf_collision(T, speed)
 
@@ -95,7 +95,7 @@
 	if(src.throwing)
 		for(var/atom/A in get_turf(src))
 			if(A == src) continue
-			if(istype(A,/mob/living))
+			if(isliving(A))
 				if(A:lying) continue
 				src.throw_impact(A,speed)
 			if(isobj(A))

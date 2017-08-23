@@ -186,7 +186,7 @@
 				else
 					M << "\red The floor lurches beneath you!"
 					shake_camera(M, 10, 1)
-		if(istype(M, /mob/living/carbon))
+		if(iscarbon(M))
 			if(!M.buckled)
 				M.Weaken(3)
 

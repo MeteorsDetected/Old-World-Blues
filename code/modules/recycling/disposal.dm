@@ -437,7 +437,7 @@
 
 			AM.loc = src.loc
 			AM.pipe_eject(0)
-			if(!istype(AM,/mob/living/silicon/robot/drone)) //Poor drones kept smashing windows and taking system damage being fired out of disposals. ~Z
+			if(!isdrone(AM)) //Poor drones kept smashing windows and taking system damage being fired out of disposals. ~Z
 				spawn(1)
 					if(AM)
 						AM.throw_at(target, 5, 1)
@@ -486,7 +486,7 @@
 		//Check for any living mobs trigger hasmob.
 		//hasmob effects whether the package goes to cargo or its tagged destination.
 		for(var/mob/living/M in D)
-			if(M && M.stat != DEAD && !istype(M,/mob/living/silicon/robot/drone))
+			if(M && M.stat != DEAD && !isdrone(M))
 				hasmob = 1
 
 		//Checks 1 contents level deep. This means that players can be sent through disposals...
@@ -494,7 +494,7 @@
 		for(var/obj/O in D)
 			if(O.contents)
 				for(var/mob/living/M in O.contents)
-					if(M && M.stat != DEAD && !istype(M,/mob/living/silicon/robot/drone))
+					if(M && M.stat != DEAD && !isdrone(M))
 						hasmob = 1
 
 		// now everything inside the disposal gets put into the holder
@@ -508,7 +508,7 @@
 				var/obj/item/smallDelivery/T = AM
 				src.destinationTag = T.sortTag
 			//Drones can mail themselves through maint.
-			if(istype(AM, /mob/living/silicon/robot/drone))
+			if(isdrone(AM))
 				var/mob/living/silicon/robot/drone/drone = AM
 				src.destinationTag = drone.mail_destination
 
@@ -537,7 +537,7 @@
 
 			if(hasmob && prob(3))
 				for(var/mob/living/H in src)
-					if(!istype(H,/mob/living/silicon/robot/drone)) //Drones use the mailing code to move through the disposal system,
+					if(!isdrone(H)) //Drones use the mailing code to move through the disposal system,
 						H.take_overall_damage(20, 0, "Blunt Trauma")//horribly maim any living creature jumping down disposals.  c'est la vie
 
 			var/obj/structure/disposalpipe/curr = loc
@@ -600,7 +600,7 @@
 	// called when player tries to move while in a pipe
 	relaymove(mob/user as mob)
 
-		if(!istype(user,/mob/living))
+		if(!isliving(user))
 			return
 
 		var/mob/living/U = user
@@ -1472,7 +1472,7 @@
 			for(var/atom/movable/AM in H)
 				AM.loc = src.loc
 				AM.pipe_eject(dir)
-				if(!istype(AM,/mob/living/silicon/robot/drone)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
+				if(!isdrone(AM)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 					spawn(5)
 						AM.throw_at(target, 3, 1)
 			H.vent_gas(src.loc)

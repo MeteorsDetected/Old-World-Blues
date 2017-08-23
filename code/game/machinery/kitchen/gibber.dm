@@ -119,7 +119,7 @@
 		user << SPAN_DANG("The gibber is locked and running, wait for it to finish.")
 		return
 
-	if(!(istype(victim, /mob/living/carbon)) && !(istype(victim, /mob/living/simple_animal)) )
+	if(!(iscarbon(victim)) && !(isanimal(victim)) )
 		user << SPAN_DANG("This is not suitable for the gibber!")
 		return
 
@@ -183,7 +183,7 @@
 	var/slab_nutrition = src.occupant.nutrition / 15
 
 	// Some mobs have specific meat item types.
-	if(istype(src.occupant,/mob/living/simple_animal))
+	if(isanimal(src.occupant))
 		var/mob/living/simple_animal/critter = src.occupant
 		if(critter.meat_amount)
 			slab_count = critter.meat_amount
