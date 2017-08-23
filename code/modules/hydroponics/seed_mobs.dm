@@ -8,7 +8,7 @@
 
 	spawn(0)
 		request_player(host)
-	if(istype(host,/mob/living/simple_animal))
+	if(isanimal(host))
 		return
 	spawn(75)
 		if(!host.ckey && !host.client)

@@ -6,7 +6,7 @@
 	if(stat)
 		return
 
-	if(istype(usr, /mob/living) && src != usr)
+	if(isliving(usr) && src != usr)
 		var/mob/living/L = usr
 		L.handle_give(src)
 

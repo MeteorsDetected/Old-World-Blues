@@ -380,7 +380,7 @@ var/list/admin_verbs_mod = list(
 		var/mob/observer/dead/ghost = mob
 		ghost.reenter_corpse()
 
-	else if(istype(mob,/mob/new_player))
+	else if(isnewplayer(mob))
 		src << "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or Observe first.</font>"
 	else
 		//ghostize
@@ -510,7 +510,7 @@ var/list/admin_verbs_mod = list(
 	if(holder)
 		if(holder.fakekey)
 			holder.fakekey = null
-			if(istype(src.mob, /mob/new_player))
+			if(isnewplayer(src.mob))
 				mob.name = capitalize(ckey)
 		else
 			var/new_key = sanitizeName(input("Enter your desired display name.", "Fake Key", key) as text|null, allow_numbers = 1)
@@ -518,7 +518,7 @@ var/list/admin_verbs_mod = list(
 			if(length(new_key) >= 26)
 				new_key = copytext(new_key, 1, 26)
 			holder.fakekey = new_key
-			if(istype(mob, /mob/new_player))
+			if(isnewplayer(mob))
 				mob.name = new_key
 		log_admin("[usr.key] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]", null, 0)
 

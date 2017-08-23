@@ -19,7 +19,7 @@
 		var/obj/mecha/Mech = O
 		if( Mech.occupant )
 			turretTargets |= Mech
-	else if(istype(O,/mob/living/simple_animal))
+	else if(isanimal(O))
 		turretTargets |= O
 	return 1
 
@@ -163,7 +163,7 @@
 			var/obj/mecha/ME = T
 			if( ME.occupant )
 				return 1
-		else if(istype(T,/mob/living/simple_animal))
+		else if(isanimal(T))
 			var/mob/living/simple_animal/A = T
 			if( !A.stat )
 				if(lasers)
@@ -452,7 +452,7 @@
 	proc/validate_target(atom/target)
 		if(get_dist(target, src)>scan_range)
 			return 0
-		if(istype(target, /mob))
+		if(ismob(target))
 			var/mob/M = target
 			if(!M.stat && !M.lying)//ninjas can't catch you if you're lying
 				return 1

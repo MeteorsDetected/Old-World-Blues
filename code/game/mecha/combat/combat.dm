@@ -23,7 +23,7 @@
 	if(internal_damage&MECHA_INT_CONTROL_LOST)
 		target = safepick(oview(1,src))
 	if(!melee_can_hit || !istype(target, /atom)) return
-	if(istype(target, /mob/living))
+	if(isliving(target))
 		var/mob/living/M = target
 		if(src.occupant.a_intent == I_HURT)
 			playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
@@ -110,8 +110,8 @@
 
 /*
 /obj/mecha/combat/proc/mega_shake(target)
-	if(!istype(target, /obj) && !istype(target, /mob)) return
-	if(istype(target, /mob))
+	if(!isobj(target) && !ismob(target)) return
+	if(ismob(target))
 		var/mob/M = target
 		M.make_dizzy(3)
 		M.adjustBruteLoss(1)

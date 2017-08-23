@@ -1,12 +1,12 @@
 /obj
-	var/can_buckle = 0
+	var/tmp/can_buckle = FALSE
 	var/tmp/buckle_movable = 0
 	var/tmp/buckle_dir = 0
 	var/tmp/buckle_lying = -1 //bed-like behavior, forces mob.lying = buckle_lying if != -1
 	var/tmp/buckle_require_restraints = 0 //require people to be handcuffed before being able to buckle. eg: pipes
 	var/tmp/mob/living/buckled_mob = null
 
-	var/mob_offset_y = 0		//pixel_y offset for mob overlay
+	var/tmp/mob_offset_y = 0		//pixel_y offset for mob overlay
 
 /obj/attack_hand(mob/living/user)
 	. = ..()
@@ -60,10 +60,10 @@
 /obj/proc/user_buckle_mob(mob/living/M, mob/user)
 	if(!ticker)
 		user << "<span class='warning'>You can't buckle anyone in before the game starts.</span>"
-	if(!user.Adjacent(M) || user.restrained() || user.lying || user.stat || istype(user, /mob/living/silicon/pai))
+	if(!user.Adjacent(M) || user.restrained() || user.lying || user.stat || ispAI(user))
 		return
 
-	if(istype(M, /mob/living/carbon/slime))
+	if(isslime(M))
 		user << "<span class='warning'>The [M] is too squishy to buckle in.</span>"
 		return
 

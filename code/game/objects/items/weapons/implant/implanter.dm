@@ -35,7 +35,7 @@
 	return
 
 /obj/item/weapon/implanter/attack(mob/living/M, mob/user)
-	if (!istype(M, /mob/living/carbon))
+	if (!iscarbon(M))
 		return
 
 	var/obj/item/organ/external/affected = null

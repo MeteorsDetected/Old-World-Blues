@@ -1364,7 +1364,7 @@
 			if(M.loc != src)
 				stomach_contents.Remove(M)
 				continue
-			if(istype(M, /mob/living) && stat != DEAD)
+			if(isliving(M) && stat != DEAD)
 				if(M.stat == DEAD)
 					M.death(1)
 					stomach_contents.Remove(M)

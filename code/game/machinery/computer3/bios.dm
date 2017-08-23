@@ -22,7 +22,7 @@
 		if(!istype(loc,/turf) || !istype(user.loc,/turf)) // todo handheld maybe
 			return 0
 
-		if(istype(user,/mob/living/silicon))
+		if(issilicon(user))
 			if(!program.ai_allowed)
 				user << "\blue You are forbidden from accessing this program."
 				return 0

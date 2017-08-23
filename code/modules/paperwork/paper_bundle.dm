@@ -182,7 +182,7 @@
 			update_icon()
 	else
 		usr << "<span class='notice'>You need to hold it in hands!</span>"
-	if (istype(src.loc, /mob) ||istype(src.loc.loc, /mob))
+	if(ismob(src.loc) || ismob(src.loc.loc))
 		src.attack_self(usr)
 		updateUsrDialog()
 

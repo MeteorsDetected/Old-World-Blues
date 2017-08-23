@@ -234,7 +234,7 @@ RPD
 	var/spawn_dir = get_dir
 	if(!proximity) return
 
-	if(istype(user,/mob/living/silicon/robot))
+	if(isrobot(user))
 		var/mob/living/silicon/robot/R = user
 		if(R.stat || !R.cell || R.cell.charge <= 0)
 			return

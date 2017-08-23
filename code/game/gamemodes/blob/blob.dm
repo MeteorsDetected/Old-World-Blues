@@ -120,7 +120,7 @@ var/list/blob_nodes = list()
 					"Biohazard Alert"
 				)
 				for(var/mob/M in player_list)
-					if(!istype(M,/mob/new_player))
+					if(!isnewplayer(M))
 						M << sound('sound/AI/outbreak5.ogg')
 				autoexpand = 0//No more extra pulses
 				stage = -1

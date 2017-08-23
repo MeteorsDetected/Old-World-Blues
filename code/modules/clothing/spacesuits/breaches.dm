@@ -189,7 +189,7 @@ var/global/list/breach_burn_descriptors = list(
 		if(!repair_power)
 			return
 
-		if(istype(src.loc,/mob/living))
+		if(isliving(src.loc))
 			user << "<span class='warning'>How do you intend to patch a hardsuit while someone is wearing it?</span>"
 			return
 
@@ -205,7 +205,7 @@ var/global/list/breach_burn_descriptors = list(
 
 	else if(istype(W, /obj/item/weapon/weldingtool))
 
-		if(istype(src.loc,/mob/living))
+		if(isliving(src.loc))
 			user << "<span class = 'warning'>How do you intend to patch a hardsuit while someone is wearing it?</span>"
 			return
 

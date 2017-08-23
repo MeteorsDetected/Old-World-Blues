@@ -362,7 +362,7 @@
 /mob/living/carbon/human/Topic(href, href_list)
 
 	if (href_list["refresh"])
-		if(machine &&in_range(src, machine))
+		if(machine && in_range(src, machine))
 			var/mob/living/L = machine
 			L.show_inv(src)
 
@@ -407,7 +407,7 @@
 											if(ishuman(usr))
 												var/mob/living/carbon/human/U = usr
 												U.handle_regular_hud_updates()
-											if(istype(usr,/mob/living/silicon/robot))
+											if(isrobot(usr))
 												var/mob/living/silicon/robot/U = usr
 												U.handle_regular_hud_updates()
 
@@ -499,7 +499,7 @@
 								if(ishuman(usr))
 									var/mob/living/carbon/human/U = usr
 									R.fields[text("com_[counter]")] = text("Made by [U.get_authentification_name()] ([U.get_assignment()]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
-								if(istype(usr,/mob/living/silicon/robot))
+								if(isrobot(usr))
 									var/mob/living/silicon/robot/U = usr
 									R.fields[text("com_[counter]")] = text("Made by [U.name] ([U.modtype] [U.braintype]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
 
@@ -535,7 +535,7 @@
 										if(ishuman(usr))
 											var/mob/living/carbon/human/U = usr
 											U.handle_regular_hud_updates()
-										if(istype(usr,/mob/living/silicon/robot))
+										if(isrobot(usr))
 											var/mob/living/silicon/robot/U = usr
 											U.handle_regular_hud_updates()
 
@@ -628,7 +628,7 @@
 								if(ishuman(usr))
 									var/mob/living/carbon/human/U = usr
 									R.fields[text("com_[counter]")] = text("Made by [U.get_authentification_name()] ([U.get_assignment()]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
-								if(istype(usr,/mob/living/silicon/robot))
+								if(isrobot(usr))
 									var/mob/living/silicon/robot/U = usr
 									R.fields[text("com_[counter]")] = text("Made by [U.name] ([U.modtype] [U.braintype]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
 
@@ -1140,10 +1140,14 @@
 	for(var/obj/item/organ/organ in (organs|internal_organs))
 		qdel(organ)
 
-	if(organs.len)                  organs.Cut()
-	if(internal_organs.len)         internal_organs.Cut()
-	if(organs_by_name.len)          organs_by_name.Cut()
-	if(internal_organs_by_name.len) internal_organs_by_name.Cut()
+	if(organs.len)
+		organs.Cut()
+	if(internal_organs.len)
+		internal_organs.Cut()
+	if(organs_by_name.len)
+		organs_by_name.Cut()
+	if(internal_organs_by_name.len)
+		internal_organs_by_name.Cut()
 
 
 	if(from_preference)
@@ -1392,7 +1396,7 @@
 	else
 		U << "<span class='warning'>You begin to relocate [S]'s [current_limb.joint]...</span>"
 
-	if(!do_after(U, 30))
+	if(!do_mob(U, src, 30))
 		return
 	if(!choice || !current_limb || !S || !U)
 		return
