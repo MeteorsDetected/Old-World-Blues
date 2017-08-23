@@ -63,7 +63,7 @@
 
 			return
 
-	if(istype(M,/mob/living/carbon))
+	if(iscarbon(M))
 		M.spread_disease_to(src, "Contact")
 
 	switch(M.a_intent)
@@ -140,7 +140,7 @@
 			var/hit_zone = H.zone_sel.selecting
 			var/obj/item/organ/external/affecting = get_organ(hit_zone)
 
-			if(!affecting || affecting.is_stump() || (affecting.status & ORGAN_DESTROYED))
+			if(!affecting || affecting.is_stump())
 				M << "<span class='danger'>They are missing that limb!</span>"
 				return 1
 

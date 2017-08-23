@@ -68,7 +68,7 @@
 			update_icon()
 			return
 
-	if(cistern && !istype(user,/mob/living/silicon/robot)) //STOP PUTTING YOUR MODULES IN THE TOILET.
+	if(cistern && !isrobot(user)) //STOP PUTTING YOUR MODULES IN THE TOILET.
 		if(I.w_class > ITEM_SIZE_NORMAL)
 			user << "<span class='notice'>\The [I] does not fit.</span>"
 			return

@@ -34,7 +34,7 @@
 			overlays += filling
 
 /obj/machinery/iv_drip/MouseDrop(over_object, src_location, over_location)
-	if(!ishuman(usr) && !istype(usr, /mob/living/silicon/robot)) return
+	if(!ishuman(usr) && !isrobot(usr)) return
 	if(in_range(src, usr) && ishuman(over_object) && get_dist(over_object, src) <= 1)
 		if(attached)
 			visible_message("[src.attached] is detached from \the [src]")
@@ -131,7 +131,7 @@
 	set name = "Toggle Mode"
 	set src in view(1)
 
-	if(!istype(usr, /mob/living))
+	if(!isliving(usr))
 		usr << "<span class='warning'>You can't do that.</span>"
 		return
 

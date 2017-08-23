@@ -272,7 +272,7 @@ var/list/valid_secondary_effect_types = list(\
 
 /obj/machinery/artifact/Bumped(M as mob|obj)
 	..()
-	if(istype(M,/obj))
+	if(isobj(M))
 		if(M:throwforce >= 10)
 			if(my_effect.trigger == TRIGGER_FORCE)
 				my_effect.ToggleActivate()

@@ -124,7 +124,7 @@
 
 /obj/item/weapon/melee/energy/sword/dropped(var/mob/user)
 	..()
-	if(!istype(loc,/mob))
+	if(!ismob(loc))
 		deactivate(user)
 
 /obj/item/weapon/melee/energy/sword/New()
@@ -240,7 +240,7 @@
 /obj/item/weapon/melee/energy/blade/process()
 	if(!creator || loc != creator || (creator.l_hand != src && creator.r_hand != src))
 		// Tidy up a bit.
-		if(istype(loc,/mob/living))
+		if(isliving(loc))
 			var/mob/living/carbon/human/host = loc
 			if(istype(host))
 				for(var/obj/item/organ/external/organ in host.organs)

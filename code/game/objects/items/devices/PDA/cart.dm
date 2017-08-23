@@ -217,7 +217,7 @@
 			if(loc)
 				var/obj/item/PDA = loc
 				var/mob/user = PDA.fingerprintslast
-				if(istype(PDA.loc,/mob/living))
+				if(isliving(PDA.loc))
 					name = PDA.loc
 				log_game("STATUS: [key_name(user)] set status screen with [PDA]. Message: [data1] [data2]", src)
 

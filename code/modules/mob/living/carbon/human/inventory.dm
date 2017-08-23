@@ -87,7 +87,7 @@ This saves us from having to call add_fingerprint() any time something is put in
 /mob/living/carbon/human/proc/has_organ(name)
 	var/obj/item/organ/external/O = organs_by_name[name]
 
-	return (O && !(O.status & ORGAN_DESTROYED) && !O.is_stump())
+	return (O && !O.is_stump())
 
 /mob/living/carbon/human/proc/has_organ_for_slot(slot)
 	switch(slot)
@@ -243,7 +243,7 @@ This saves us from having to call add_fingerprint() any time something is put in
 	if(!istype(W)) return
 	if(!has_organ_for_slot(slot)) return
 	if(slot!=slot_socks && (!species || !species.hud || !(slot in species.hud.equip_slots))) return
-	W.loc = src
+	W.forceMove(src)
 	switch(slot)
 		if(slot_back)
 			src.back = W
@@ -330,7 +330,7 @@ This saves us from having to call add_fingerprint() any time something is put in
 		if(slot_in_backpack)
 			if(src.get_active_hand() == W)
 				src.remove_from_mob(W)
-			W.loc = src.back
+			W.forceMove(src.back)
 		if(slot_tie)
 			var/obj/item/clothing/under/uniform = src.w_uniform
 			uniform.attackby(W,src)
@@ -347,7 +347,7 @@ This saves us from having to call add_fingerprint() any time something is put in
 			W.equipped(src, slot)
 			update_inv_underwear(redraw_mob)
 		else
-			src << "\red You are trying to eqip this item to an unsupported inventory slot. How the heck did you manage that? Stop it..."
+			src << "<span class='danger'>You are trying to eqip this item to an unsupported inventory slot. If possible, please write a ticket with steps to reproduce. Slot was: [slot]</span>"
 			return
 
 	if((W == src.l_hand) && (slot != slot_l_hand))

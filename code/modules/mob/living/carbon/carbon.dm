@@ -80,7 +80,7 @@
 	..()
 
 /mob/living/carbon/attack_hand(mob/M as mob)
-	if(!istype(M, /mob/living/carbon)) return
+	if(!iscarbon(M)) return
 	if (ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/temp = H.get_organ(H.hand ? BP_L_HAND : BP_R_HAND)
@@ -188,7 +188,7 @@
 					if(40 to INFINITY)
 						status += "peeling away"
 
-				if(org.status & ORGAN_DESTROYED)
+				if(org.is_stump())
 					status += "MISSING"
 				if(org.status & ORGAN_MUTATED)
 					status += "weirdly shapen"
@@ -413,7 +413,7 @@
 	if(now_pushing || !yes)
 		return
 	..()
-	if(istype(AM, /mob/living/carbon) && prob(10))
+	if(iscarbon(AM) && prob(10))
 		src.spread_disease_to(AM, "Contact")
 
 /mob/living/carbon/cannot_use_vents()

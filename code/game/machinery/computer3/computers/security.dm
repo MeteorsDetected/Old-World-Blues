@@ -40,7 +40,7 @@
 	proc/authenticate()
 		if(access_security in scan.access || access_forensics_lockers in scan.access )
 			return 1
-		if(istype(usr,/mob/living/silicon/ai))
+		if(isAI(usr))
 			return 1
 		return 0
 
@@ -284,7 +284,7 @@ What a mess.*/
 					src.authenticated = usr.name
 					src.rank = "AI"
 					src.screen = 1
-				else if (istype(usr, /mob/living/silicon/robot))
+				else if (isrobot(usr))
 					src.active1 = null
 					src.active2 = null
 					src.authenticated = usr.name

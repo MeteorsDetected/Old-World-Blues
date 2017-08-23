@@ -37,7 +37,7 @@
 	proc/authenticate()
 		if(access_medical in scan.access)
 			return 1
-		if(istype(usr,/mob/living/silicon/ai))
+		if(isAI(usr))
 			return 1
 		return 0
 
@@ -214,7 +214,7 @@
 				src.rank = "AI"
 				src.screen = 1
 
-			else if (istype(usr, /mob/living/silicon/robot))
+			else if (isrobot(usr))
 				src.active1 = null
 				src.active2 = null
 				src.authenticated = usr.name
@@ -479,7 +479,7 @@
 
 			if (href_list["search"])
 				var/t1 = input("Search String: (Name, DNA, or ID)", "Med. records", null, null)  as text
-				if ((!( t1 ) || usr.stat || !( src.authenticated ) || usr.restrained() || ((!interactable()) && (!istype(usr, /mob/living/silicon)))))
+				if ((!( t1 ) || usr.stat || !( src.authenticated ) || usr.restrained() || ((!interactable()) && (!issilicon(usr)))))
 					return
 				src.active1 = null
 				src.active2 = null

@@ -47,7 +47,7 @@
 		qdel(src)
 		return 0
 
-	if(istype(M, /mob/living/carbon))
+	if(iscarbon(M))
 		//TODO: replace with standard_feed_mob() call.
 
 		var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
@@ -85,7 +85,7 @@
 					user << "<span class='warning'>\The [blocked] is in the way!</span>"
 					return
 
-			if(!istype(M, /mob/living/carbon/slime))		//If you're feeding it to someone else.
+			if(!isslime(M))		//If you're feeding it to someone else.
 
 				if (fullness <= (550 * (1 + M.overeatduration / 1000)))
 					user.visible_message("<span class='danger'>[user] attempts to feed [M] [src].</span>")

@@ -335,7 +335,7 @@
 
 	if(client.holder && (client.holder.rights & R_ADMIN))
 		is_admin = 1
-	else if(stat != DEAD || istype(src, /mob/new_player))
+	else if(stat != DEAD || isnewplayer(src))
 		usr << "\blue You must be observing to use this!"
 		return
 
@@ -451,7 +451,7 @@
 	if(M != usr) return
 	if(usr == src) return
 	if(!Adjacent(usr)) return
-	if(istype(M,/mob/living/silicon/ai)) return
+	if(isAI(M)) return
 	show_inv(usr)
 
 

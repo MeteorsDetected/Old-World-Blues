@@ -297,7 +297,7 @@ var/list/donator_icons
 						UpdateFactionList(player)
 		if(captainless)
 			for(var/mob/M in player_list)
-				if(!istype(M,/mob/new_player))
+				if(!isnewplayer(M))
 					M << "Captainship not forced on anyone."
 
 	proc/check_queue()
@@ -426,7 +426,7 @@ var/list/donator_icons
 
 	for (var/mob/living/silicon/robot/robo in mob_list)
 
-		if(istype(robo,/mob/living/silicon/robot/drone))
+		if(isdrone(robo))
 			dronecount++
 			continue
 

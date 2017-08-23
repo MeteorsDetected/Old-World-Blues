@@ -60,10 +60,10 @@
 /obj/proc/user_buckle_mob(mob/living/M, mob/user)
 	if(!ticker)
 		user << "<span class='warning'>You can't buckle anyone in before the game starts.</span>"
-	if(!user.Adjacent(M) || user.restrained() || user.lying || user.stat || istype(user, /mob/living/silicon/pai))
+	if(!user.Adjacent(M) || user.restrained() || user.lying || user.stat || ispAI(user))
 		return
 
-	if(istype(M, /mob/living/carbon/slime))
+	if(isslime(M))
 		user << "<span class='warning'>The [M] is too squishy to buckle in.</span>"
 		return
 

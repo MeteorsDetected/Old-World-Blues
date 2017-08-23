@@ -272,7 +272,7 @@
 	if(!istype(M))
 		return
 
-	if(istype(M, /mob/living/carbon))
+	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		var/cuff = 1
 		if(ishuman(C))
@@ -300,7 +300,7 @@
 					C.update_inv_handcuffed()
 				if(preparing_arrest_sounds.len)
 					playsound(loc, pick(preparing_arrest_sounds), 50, 0)
-	else if(istype(M, /mob/living/simple_animal))
+	else if(isanimal(M))
 		var/mob/living/simple_animal/S = M
 		S.AdjustStunned(10)
 		S.adjustBruteLoss(15)

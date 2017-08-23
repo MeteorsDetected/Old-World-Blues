@@ -259,7 +259,7 @@
 					step_towards(D,trg)
 
 					for(var/mob/living/M in D.loc)
-						if(!istype(M,/mob/living)) continue
+						if(!isliving(M)) continue
 						if(M == user) continue
 						for(var/mob/O in viewers(world.view, D))
 							O.show_message(text("\red [] was hit by the foam dart!", M), 1)

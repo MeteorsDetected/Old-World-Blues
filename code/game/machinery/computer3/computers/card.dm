@@ -192,7 +192,7 @@
 	proc/authenticate()
 		if(access_change_ids in reader.access)
 			return 1
-		if(istype(usr,/mob/living/silicon/ai))
+		if(isAI(usr))
 			return 1
 		return 0
 

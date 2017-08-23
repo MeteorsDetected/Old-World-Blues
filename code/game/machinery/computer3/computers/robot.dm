@@ -46,7 +46,7 @@
 					if(isAI(usr))
 						if (R.connected_ai != usr)
 							continue
-					if(istype(usr, /mob/living/silicon/robot))
+					if(isrobot(usr))
 						if (R != usr)
 							continue
 					if(R.scrambledcodes)
