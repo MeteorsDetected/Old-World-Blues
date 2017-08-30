@@ -9,12 +9,35 @@
 	var/interference = FALSE
 	var/icon/plant = null
 	var/global/list/possible_plants = list(
-		"plant-1",
-		"plant-10",
+		"applebush",
+		"plant-01",
+		"plant-02",
+		"plant-03",
+		"plant-03",
+		"plant-04",
+		"plant-05",
+		"plant-06",
+		"plant-07",
+		"plant-08",
 		"plant-09",
-		"plant-15",
+		"plant-10",
+		"plant-11",
+		"plant-12",
 		"plant-13",
-		"plant-xmas",
+		"plant-14",
+		"plant-15",
+		"plant-16",
+		"plant-17",
+		"plant-18",
+		"plant-19",
+		"plant-20",
+		"plant-21",
+		"plant-22",
+		"plant-23",
+		"plant-24",
+		"plant-25",
+		"plant-26",
+		"plant-xmas"
 	)
 
 /obj/structure/cyberplant/New()
