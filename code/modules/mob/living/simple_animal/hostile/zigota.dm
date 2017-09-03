@@ -11,11 +11,11 @@
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
 	response_harm = "hits the"
 	speed = 6
-	maxHealth = 40
-	health = 30
-	harm_intent_damage = 10
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	maxHealth = 80
+	health = 70
+	harm_intent_damage = 40
+	melee_damage_lower = 30
+	melee_damage_upper = 35
 	attacktext = "bitten"
 	attack_sound = 'sound/effects/blobattack.ogg'
 
@@ -30,9 +30,9 @@
 	max_n2 = 0
 	minbodytemp = 0
 
-	/mob/living/simple_animal/hostile/zigota/AttackingTarget()
-	. =..()
-	var/mob/living/L = .
-	if(istype(L))
-		if(prob(15))
-			L.Weaken(3)
+/mob/living/simple_animal/hostile/zigota/AttackingTarget()
+    . =..()
+    var/mob/living/L = .
+    if(istype(L))
+        if(prob(15))
+            L.Weaken(3)
