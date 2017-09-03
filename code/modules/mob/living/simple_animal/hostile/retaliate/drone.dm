@@ -1,4 +1,3 @@
-
 //malfunctioning combat drones
 /mob/living/simple_animal/hostile/retaliate/malf_drone
 	name = "combat drone"
