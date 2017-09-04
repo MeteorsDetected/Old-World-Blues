@@ -135,7 +135,7 @@
 		src << "Only administrators may use this command."
 		return
 	M.status_flags ^= GODMODE
-	usr << "\blue Toggled [(M.status_flags & GODMODE) ? "ON" : "OFF"]"
+	usr << SPAN_NOTE("Toggled [(M.status_flags & GODMODE) ? "ON" : "OFF"]")
 
 	log_admin("[key_name(usr)] has toggled [key_name(M)]'s nodamage to [(M.status_flags & GODMODE) ? "On" : "Off"]", M)
 
@@ -256,7 +256,7 @@ Ccomp's first proc.
 	G.has_enabled_antagHUD = 2
 	G.can_reenter_corpse = 1
 
-	G.show_message(text("\blue <B>You may now respawn.  You should roleplay as if you learned nothing about the round during your time with the dead.</B>"), 1)
+	G.show_message(SPAN_NOTE("<B>You may now respawn.  You should roleplay as if you learned nothing about the round during your time with the dead.</B>"), 1)
 	log_admin("[key_name(usr)] allowed [key_name(G)] to bypass the [config.respawn_time] minute respawn limit")
 
 
@@ -283,10 +283,10 @@ Ccomp's first proc.
 		for(var/mob/observer/dead/g in get_ghosts())
 			if(!g.client.holder)						// Add the verb back for all non-admin ghosts
 				g.verbs += /mob/observer/dead/verb/toggle_antagHUD
-			g << "\blue <B>The Administrator has enabled AntagHUD </B>"	// Notify all observers they can now use AntagHUD
+			g << SPAN_NOTE("<B>The Administrator has enabled AntagHUD </B>")	// Notify all observers they can now use AntagHUD
 		config.antag_hud_allowed = 1
 		action = "enabled"
-		src << "\blue <B>AntagHUD usage has been enabled</B>"
+		src << SPAN_NOTE("<B>AntagHUD usage has been enabled</B>")
 
 
 	log_admin("[key_name(usr)] has [action] antagHUD usage for observers")
@@ -302,10 +302,10 @@ Ccomp's first proc.
 	var/action=""
 	if(config.antag_hud_restricted)
 		for(var/mob/observer/dead/g in get_ghosts())
-			g << "\blue <B>The administrator has lifted restrictions on joining the round if you use AntagHUD</B>"
+			g << SPAN_NOTE("<B>The administrator has lifted restrictions on joining the round if you use AntagHUD</B>")
 		action = "lifted restrictions"
 		config.antag_hud_restricted = 0
-		src << "\blue <B>AntagHUD restrictions have been lifted</B>"
+		src << SPAN_NOTE("<B>AntagHUD restrictions have been lifted</B>")
 	else
 		for(var/mob/observer/dead/g in get_ghosts())
 			g << "\red <B>The administrator has placed restrictions on joining the round if you use AntagHUD</B>"
@@ -723,7 +723,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("Admin [key_name(src)] has forced the players to have random appearances.")
 
 	if(notifyplayers == "Yes")
-		world << "\blue <b>Admin [usr.key] has forced the players to have completely random identities!</b>"
+		world << SPAN_NOTE("<b>Admin [usr.key] has forced the players to have completely random identities!</b>")
 
 	usr << "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet</i>."
 

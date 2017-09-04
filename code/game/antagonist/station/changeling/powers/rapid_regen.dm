@@ -23,7 +23,7 @@
 		var/healing_amount = 40
 		if(src.mind.changeling.recursive_enhancement)
 			healing_amount = C.maxHealth
-			src << "<span class='notice'>We completely heal ourselves.</span>"
+			src << SPAN_NOTE("We completely heal ourselves.")
 			src.mind.changeling.recursive_enhancement = 0
 		spawn(0)
 			C.adjustBruteLoss(-healing_amount)
@@ -48,7 +48,7 @@
 			new /obj/effect/gibspawner/human(T)
 			visible_message(
 				"<span class='warning'>With a sickening squish, [src] reforms their whole body, casting their old parts on the floor!</span>",
-				"<span class='notice'>We reform our body.  We are whole once more.</span>",
+				SPAN_NOTE("We reform our body.  We are whole once more."),
 				"<span class='italics'>You hear organic matter ripping and tearing!</span>"
 			)
 

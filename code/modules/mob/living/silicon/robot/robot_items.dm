@@ -102,7 +102,7 @@
 		I.loc = src
 		loaded_item = I
 		for(var/mob/M in viewers())
-			M.show_message(text("<span class='notice'>[user] adds the [I] to the [src].</span>"), 1)
+			M.show_message(text(SPAN_NOTE("[user] adds the [I] to the [src].")), 1)
 		desc = initial(desc) + "<br>It is holding \the [loaded_item]."
 		flick("portable_analyzer_load", src)
 		icon_state = "portable_analyzer_full"
@@ -164,7 +164,7 @@
 		var/prev_carry = carry
 		grab_objects(target.loc)
 		if(prev_carry != carry)
-			user.visible_message("\blue [user] load some items onto their service tray.")
+			user.visible_message(SPAN_NOTE("[user] load some items onto their service tray."))
 		return
 
 	// Unloads the tray, copied from base item's proc dropped() and altered
@@ -203,9 +203,9 @@
 							sleep(rand(2,4))
 		if ( droppedSomething )
 			if ( foundtable )
-				user.visible_message("\blue [user] unloads their service tray.")
+				user.visible_message(SPAN_NOTE("[user] unloads their service tray."))
 			else
-				user.visible_message("\blue [user] drops all the items on their tray.")
+				user.visible_message(SPAN_NOTE("[user] drops all the items on their tray."))
 
 	return ..()
 
@@ -281,7 +281,7 @@
 	deploy_paper(get_turf(src))
 
 /obj/item/weapon/form_printer/proc/deploy_paper(var/turf/T)
-	T.visible_message("\blue \The [src.loc] dispenses a sheet of crisp white paper.")
+	T.visible_message(SPAN_NOTE("\The [src.loc] dispenses a sheet of crisp white paper."))
 	new /obj/item/weapon/paper(T)
 
 

@@ -152,9 +152,9 @@
 			a_right.toggle_secure()
 			secured = !secured
 			if(secured)
-				user << "\blue \The [src] is ready!"
+				user << SPAN_NOTE("\The [src] is ready!")
 			else
-				user << "\blue \The [src] can now be taken apart!"
+				user << SPAN_NOTE("\The [src] can now be taken apart!")
 			update_icon()
 			return
 		else if(W.IsSpecialAssembly())
@@ -260,17 +260,17 @@
 			if(!istype(tmr,/obj/item/device/assembly/timer))
 				tmr = holder.a_right
 			if(!istype(tmr,/obj/item/device/assembly/timer))
-				usr << "<span class='notice'>This detonator has no timer.</span>"
+				usr << SPAN_NOTE("This detonator has no timer.")
 				return
 
 			if(tmr.timing)
-				usr << "<span class='notice'>Clock is ticking already.</span>"
+				usr << SPAN_NOTE("Clock is ticking already.")
 			else
 				var/ntime = input("Enter desired time in seconds", "Time", "5") as num
 				if (ntime>0 && ntime<1000)
 					tmr.time = ntime
 					name = initial(name) + "([tmr.time] secs)"
-					usr << "<span class='notice'>Timer set to [tmr.time] seconds.</span>"
+					usr << SPAN_NOTE("Timer set to [tmr.time] seconds.")
 				else
 					usr << "<span class='notice'>Timer can't be [ntime<=0?"negative":"more than 1000 seconds"].</span>"
 		else

@@ -57,7 +57,7 @@
 	set hidden = 1
 
 	if(!usr.pulling)
-		usr << "\blue You are not pulling anything."
+		usr << SPAN_NOTE("You are not pulling anything.")
 		return
 	usr.stop_pulling()
 
@@ -241,13 +241,13 @@
 			for(var/mob/M in range(1,mob))
 				if(M.pulling == mob)
 					if(!M.restrained() && !M.stat && M.canmove && mob.Adjacent(M))
-						src << "\blue You're restrained! You can't move!"
+						src << SPAN_NOTE("You're restrained! You can't move!")
 						return 0
 					else
 						M.stop_pulling()
 
 		if(mob.pinned.len)
-			src << "\blue You're pinned to a wall by [mob.pinned[1]]!"
+			src << SPAN_NOTE("You're pinned to a wall by [mob.pinned[1]]!")
 			return 0
 
 		move_delay = world.time//set move delay
@@ -444,7 +444,7 @@
 
 	//Check to see if we slipped
 	if(prob(Process_Spaceslipping(5)))
-		src << "\blue <B>You slipped!</B>"
+		src << SPAN_NOTE("<B>You slipped!</B>")
 		src.inertia_dir = src.last_move
 		step(src, src.inertia_dir)
 		return 0

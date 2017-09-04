@@ -30,7 +30,7 @@
 /obj/item/ammo_casing/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(!BB)
-			user << "\blue There is no bullet in the casing to inscribe anything into."
+			user << SPAN_NOTE("There is no bullet in the casing to inscribe anything into.")
 			return
 
 		var/tmp_label = ""
@@ -38,10 +38,10 @@
 		if(length(label_text) > 20)
 			user << "\red The inscription can be at most 20 characters long."
 		else if(!label_text)
-			user << "\blue You scratch the inscription off of [initial(BB)]."
+			user << SPAN_NOTE("You scratch the inscription off of [initial(BB)].")
 			BB.name = initial(BB.name)
 		else
-			user << "\blue You inscribe \"[label_text]\" into \the [initial(BB.name)]."
+			user << SPAN_NOTE("You inscribe \"[label_text]\" into \the [initial(BB.name)].")
 			BB.name = "[initial(BB.name)] (\"[label_text]\")"
 
 /obj/item/ammo_casing/update_icon()
@@ -117,9 +117,9 @@
 
 /obj/item/ammo_magazine/attack_self(mob/user)
 	if(!stored_ammo.len)
-		user << "<span class='notice'>[src] is already empty!</span>"
+		user << SPAN_NOTE("[src] is already empty!")
 		return
-	user << "<span class='notice'>You empty [src].</span>"
+	user << SPAN_NOTE("You empty [src].")
 	for(var/obj/item/ammo_casing/C in stored_ammo)
 		C.loc = user.loc
 		C.set_dir(pick(cardinal))

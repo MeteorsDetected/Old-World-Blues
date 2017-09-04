@@ -110,11 +110,11 @@ LINEN BINS
 		user.drop_from_inventory(I, src)
 		sheets.Add(I)
 		amount++
-		user << "<span class='notice'>You put [I] in [src].</span>"
+		user << SPAN_NOTE("You put [I] in [src].")
 	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
 	else if(amount && !hidden && I.w_class < ITEM_SIZE_HUGE && user.unEquip(I, src))
 		hidden = I
-		user << "<span class='notice'>You hide [I] among the sheets.</span>"
+		user << SPAN_NOTE("You hide [I] among the sheets.")
 
 /obj/structure/bedsheetbin/attack_hand(mob/user as mob)
 	if(amount >= 1)
@@ -129,11 +129,11 @@ LINEN BINS
 			B = new /obj/item/weapon/bedsheet(loc)
 
 		user.put_in_hands(B)
-		user << "<span class='notice'>You take [B] out of [src].</span>"
+		user << SPAN_NOTE("You take [B] out of [src].")
 
 		if(hidden)
 			hidden.loc = user.loc
-			user << "<span class='notice'>[hidden] falls out of [B]!</span>"
+			user << SPAN_NOTE("[hidden] falls out of [B]!")
 			hidden = null
 
 
@@ -152,7 +152,7 @@ LINEN BINS
 			B = new /obj/item/weapon/bedsheet(loc)
 
 		B.loc = loc
-		user << "<span class='notice'>You telekinetically remove [B] from [src].</span>"
+		user << SPAN_NOTE("You telekinetically remove [B] from [src].")
 		update_icon()
 
 		if(hidden)

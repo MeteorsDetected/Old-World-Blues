@@ -139,7 +139,7 @@
 		icon_state = "eshield[active]"
 		w_class = ITEM_SIZE_HUGE
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
-		user << "<span class='notice'>\The [src] is now active.</span>"
+		user << SPAN_NOTE("\The [src] is now active.")
 
 	else
 		force = 3
@@ -147,7 +147,7 @@
 		w_class = ITEM_SIZE_TINY
 		slot_flags = SLOT_EARS
 		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
-		user << "<span class='notice'>\The [src] can now be concealed.</span>"
+		user << SPAN_NOTE("\The [src] can now be concealed.")
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -174,10 +174,10 @@
 /obj/item/weapon/cloaking_device/attack_self(mob/user as mob)
 	src.active = !( src.active )
 	if (src.active)
-		user << "\blue The cloaking device is now active."
+		user << SPAN_NOTE("The cloaking device is now active.")
 		src.icon_state = "shield1"
 	else
-		user << "\blue The cloaking device is now inactive."
+		user << SPAN_NOTE("The cloaking device is now inactive.")
 		src.icon_state = "shield0"
 	src.add_fingerprint(user)
 	return

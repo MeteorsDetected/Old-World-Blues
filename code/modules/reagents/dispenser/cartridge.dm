@@ -41,13 +41,13 @@
 /obj/item/weapon/reagent_containers/chem_disp_cartridge/proc/setLabel(L, mob/user = null)
 	if(L)
 		if(user)
-			user << "<span class='notice'>You set the label on \the [src] to '[L]'.</span>"
+			user << SPAN_NOTE("You set the label on \the [src] to '[L]'.")
 
 		label = L
 		name = "[initial(name)] - '[L]'"
 	else
 		if(user)
-			user << "<span class='notice'>You clear the label on \the [src].</span>"
+			user << SPAN_NOTE("You clear the label on \the [src].")
 		label = ""
 		name = initial(name)
 
@@ -76,7 +76,7 @@
 			return
 
 		var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
-		user << "<span class='notice'>You fill \the [src] with [trans] units of the contents of \the [target].</span>"
+		user << SPAN_NOTE("You fill \the [src] with [trans] units of the contents of \the [target].")
 
 	else if(target.is_open_container() && target.reagents) //Something like a glass. Player probably wants to transfer TO it.
 
@@ -89,7 +89,7 @@
 			return
 
 		var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
-		user << "<span class='notice'>You transfer [trans] units of the solution to \the [target].</span>"
+		user << SPAN_NOTE("You transfer [trans] units of the solution to \the [target].")
 
 	else
 		return ..()

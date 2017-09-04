@@ -156,11 +156,11 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	var/datum/gas_mixture/env = T.return_air()
 
-	var/t = "\blue Coordinates: [T.x],[T.y],[T.z]\n"
+	var/t = SPAN_NOTE("Coordinates: [T.x],[T.y],[T.z]\n")
 	t += "\red Temperature: [env.temperature]\n"
 	t += "\red Pressure: [env.return_pressure()]kPa\n"
 	for(var/g in env.gas)
-		t += "\blue [g]: [env.gas[g]] / [env.gas[g] * R_IDEAL_GAS_EQUATION * env.temperature / env.volume]kPa\n"
+		t += SPAN_NOTE("[g]: [env.gas[g]] / [env.gas[g] * R_IDEAL_GAS_EQUATION * env.temperature / env.volume]kPa\n")
 
 	usr.show_message(t, 1)
 
@@ -253,7 +253,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		spawn(10)
 			M:slimeize()
 		log_admin("[key_name(usr)] made [key_name(M)] into a slime.", M, 0)
-		message_admins("\blue [key_name_admin(usr)] made [key_name(M)] into a slime.", 1)
+		message_admins(SPAN_NOTE("[key_name_admin(usr)] made [key_name(M)] into a slime."), 1)
 	else
 		alert("Invalid mob")
 

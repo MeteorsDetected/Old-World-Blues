@@ -60,16 +60,16 @@
 			if(host.reagents.has_reagent("sugar"))
 				if(!docile)
 					if(controlling)
-						host << "\blue You feel the soporific flow of sugar in your host's blood, lulling you into docility."
+						host << SPAN_NOTE("You feel the soporific flow of sugar in your host's blood, lulling you into docility.")
 					else
-						src << "\blue You feel the soporific flow of sugar in your host's blood, lulling you into docility."
+						src << SPAN_NOTE("You feel the soporific flow of sugar in your host's blood, lulling you into docility.")
 					docile = 1
 			else
 				if(docile)
 					if(controlling)
-						host << "\blue You shake off your lethargy as the sugar leaves your host's blood."
+						host << SPAN_NOTE("You shake off your lethargy as the sugar leaves your host's blood.")
 					else
-						src << "\blue You shake off your lethargy as the sugar leaves your host's blood."
+						src << SPAN_NOTE("You shake off your lethargy as the sugar leaves your host's blood.")
 					docile = 0
 
 			if(chemicals < 250)
@@ -77,7 +77,7 @@
 			if(controlling)
 
 				if(docile)
-					host << "\blue You are feeling far too docile to continue controlling your host..."
+					host << SPAN_NOTE("You are feeling far too docile to continue controlling your host...")
 					host.release_control()
 					return
 

@@ -81,14 +81,14 @@
 
 	if(reagents.total_volume)
 		var/target_text = trans_dest? "\the [trans_dest]" : "\the [user.loc]"
-		user.visible_message("<span class='danger'>\The [user] begins to wring out [src] over [target_text].</span>", "<span class='notice'>You begin to wring out [src] over [target_text].</span>")
+		user.visible_message("<span class='danger'>\The [user] begins to wring out [src] over [target_text].</span>", SPAN_NOTE("You begin to wring out [src] over [target_text]."))
 
 		if(do_after(user, reagents.total_volume*5)) //50 for a fully soaked rag
 			if(trans_dest)
 				reagents.trans_to(trans_dest, reagents.total_volume)
 			else
 				reagents.splash(user.loc, reagents.total_volume)
-			user.visible_message("<span class='danger'>\The [user] wrings out [src] over [target_text].</span>", "<span class='notice'>You finish to wringing out [src].</span>")
+			user.visible_message("<span class='danger'>\The [user] wrings out [src] over [target_text].</span>", SPAN_NOTE("You finish to wringing out [src]."))
 			update_name()
 
 /obj/item/weapon/reagent_containers/rag/proc/wipe_down(atom/A, mob/user)
@@ -137,7 +137,7 @@
 			return
 
 		if(A.reagents && A.reagents.trans_to_obj(src, reagents.maximum_volume))
-			user.visible_message("<span class='notice'>\The [user] soaks [src] using [A].</span>", "<span class='notice'>You soak [src] using [A].</span>")
+			user.visible_message(SPAN_NOTE("\The [user] soaks [src] using [A]."), SPAN_NOTE("You soak [src] using [A]."))
 			update_name()
 		return
 

@@ -37,7 +37,7 @@ var/list/global/wall_cache = list()
 	processing_turfs -= src
 	dismantle_wall(null,null,1)
 	..()
-		
+
 /turf/simulated/wall/process()
 	// Calling parent will kill processing
 	if(!radiate())
@@ -62,7 +62,7 @@ var/list/global/wall_cache = list()
 		if(check_x0 - check_x1 > 0)
 			corner_x0 = corner_x0 - 16
 		else
-			corner_x0 = corner_x0 + 16	
+			corner_x0 = corner_x0 + 16
 		var/new_y = (check_y2 - corner_y0) * (check_x1 - corner_x0) - (check_x2 - corner_x0) * (check_y1 - corner_y0)
 		var/new_func = (corner_x0 - check_x1) * (corner_y0 - check_y1)
 		if((new_y * new_func) > 0)
@@ -98,8 +98,8 @@ var/list/global/wall_cache = list()
 			corner_x0 = corner_x0 - 16
 		else
 			corner_x0 = corner_x0 + 16
-		
-		// Checks if original is lower or upper than line connecting proj's starting and wall 
+
+		// Checks if original is lower or upper than line connecting proj's starting and wall
 		// In specific coordinate system that has wall as (0,0) and 'starting' as (r, 0), where r > 0.
 		// So, this checks whether 'original's' y-coordinate is positive or negative in new c.s.
 		// In order to understand, in which direction bullet will ricochet.
@@ -141,7 +141,7 @@ var/list/global/wall_cache = list()
 					visible_message("\red <B>\The [Proj] gets reflected by shiny surface of reinforced wall!</B>")
 					bullet_ricochet(Proj)
 					return PROJECTILE_CONTINUE // complete projectile permutation
-				else 
+				else
 					if(material.name == MATERIAL_DIAMOND && reinf_material.name == MATERIAL_DIAMOND)
 						// Diamond-walls can deal with laser beams.
 						burn(500)
@@ -167,7 +167,7 @@ var/list/global/wall_cache = list()
 						burn(2000)
 			else
 				burn(2500)
-				
+
 	//else if(istype(Proj,/obj/item/projectile/ion))
 	//	burn(500)
 
@@ -239,7 +239,7 @@ var/list/global/wall_cache = list()
 	. = ..()
 
 	if(!damage)
-		user << "<span class='notice'>It looks fully intact.</span>"
+		user << SPAN_NOTE("It looks fully intact.")
 	else
 		var/dam = damage / material.integrity
 		if(dam <= 0.3)

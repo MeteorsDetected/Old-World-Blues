@@ -17,11 +17,11 @@
 	if(!changeling)
 		return 0
 	changeling.chem_charges -= 10
-	src << "<span class='notice'>Your throat adjusts to launch the sting.</span>"
+	src << SPAN_NOTE("Your throat adjusts to launch the sting.")
 	var/range = 2
 	if(src.mind.changeling.recursive_enhancement)
 		range = range + 3
-		src << "<span class='notice'>We can fire our next sting from five squares away.</span>"
+		src << SPAN_NOTE("We can fire our next sting from five squares away.")
 		src.mind.changeling.recursive_enhancement = 0
 	changeling.sting_range = range
 	src.verbs -= /mob/living/proc/changeling_boost_range

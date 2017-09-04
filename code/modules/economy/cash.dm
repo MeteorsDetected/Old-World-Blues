@@ -34,7 +34,7 @@
 		user.drop_from_inventory(src)
 		user.drop_from_inventory(bundle)
 		user.put_in_hands(bundle)
-		user << "<span class='notice'>You add [src.worth] Thalers worth of money to the bundles.<br>It holds [bundle.worth] Thalers now.</span>"
+		user << SPAN_NOTE("You add [src.worth] Thalers worth of money to the bundles.<br>It holds [bundle.worth] Thalers now.")
 		qdel(src)
 
 /obj/item/weapon/spacecash/bundle
@@ -162,4 +162,4 @@ proc/spawn_money(var/sum, spawnloc, mob/living/carbon/human/human_user as mob)
 /obj/item/weapon/spacecash/ewallet/examine(mob/user, return_dist=1)
 	. = ..()
 	if (.<=2)
-		user << "\blue Charge card's owner: [src.owner_name]. Thalers remaining: [src.worth]."
+		user << SPAN_NOTE("Charge card's owner: [src.owner_name]. Thalers remaining: [src.worth].")

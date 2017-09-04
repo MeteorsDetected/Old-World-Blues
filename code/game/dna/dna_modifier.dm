@@ -88,7 +88,7 @@
 	if (usr.stat)
 		return
 	if (!ishuman(usr) && !issmall(usr)) //Make sure they're a mob that has dna
-		usr << "<span class='notice'>Try as you might, you can not climb up into the scanner.</span>"
+		usr << SPAN_NOTE("Try as you might, you can not climb up into the scanner.")
 		return
 	if (src.occupant)
 		usr << "<span class='warning'>The scanner is already occupied!</span>"
@@ -162,7 +162,10 @@
 	if (target.buckled)
 		user << "<span class='warning'>Unbuckle the subject before attempting to move them.</span>"
 		return
-	user.visible_message("<span class='notice'>\The [user] begins placing \the [target] into \the [src].</span>", "<span class='notice'>You start placing \the [target] into \the [src].</span>")
+	user.visible_message(
+		SPAN_NOTE("\The [user] begins placing \the [target] into \the [src]."),
+		SPAN_NOTE("You start placing \the [target] into \the [src].")
+	)
 	if(!do_after(user, 30, src))
 		return
 	put_in(target)

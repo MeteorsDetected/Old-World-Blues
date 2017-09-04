@@ -90,7 +90,7 @@
 			if(0.25 to 0.5)
 				user << "<span class='warning'>It looks damaged!</span>"
 			if(0.5 to 1.0)
-				user << "<span class='notice'>It has a few scrapes and dents.</span>"
+				user << SPAN_NOTE("It has a few scrapes and dents.")
 
 /obj/structure/table/attackby(obj/item/weapon/W, mob/user)
 
@@ -103,8 +103,8 @@
 		return 1
 
 	if(carpeted && istype(W, /obj/item/weapon/crowbar))
-		user.visible_message("<span class='notice'>\The [user] removes the carpet from \the [src].</span>",
-		                              "<span class='notice'>You remove the carpet from \the [src].</span>")
+		user.visible_message(SPAN_NOTE("\The [user] removes the carpet from \the [src]."),
+		                              SPAN_NOTE("You remove the carpet from \the [src]."))
 		new /obj/item/stack/tile/carpet(loc)
 		carpeted = 0
 		update_icon()
@@ -113,8 +113,8 @@
 	if(!carpeted && material && istype(W, /obj/item/stack/tile/carpet))
 		var/obj/item/stack/tile/carpet/C = W
 		if(C.use(1))
-			user.visible_message("<span class='notice'>\The [user] adds \the [C] to \the [src].</span>",
-			                              "<span class='notice'>You add \the [C] to \the [src].</span>")
+			user.visible_message(SPAN_NOTE("\The [user] adds \the [C] to \the [src]."),
+			                              SPAN_NOTE("You add \the [C] to \the [src]."))
 			carpeted = 1
 			update_icon()
 			return 1
@@ -139,12 +139,12 @@
 	if(health < maxhealth && istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/F = W
 		if(F.welding)
-			user << "<span class='notice'>You begin reparing damage to \the [src].</span>"
+			user << SPAN_NOTE("You begin reparing damage to \the [src].")
 			playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 			if(!do_after(user, 20) || !F.remove_fuel(1, user))
 				return
-			user.visible_message("<span class='notice'>\The [user] repairs some damage to \the [src].</span>",
-			                              "<span class='notice'>You repair some damage to \the [src].</span>")
+			user.visible_message(SPAN_NOTE("\The [user] repairs some damage to \the [src]."),
+			                              SPAN_NOTE("You repair some damage to \the [src]."))
 			health = max(health+(maxhealth/5), maxhealth) // 20% repair per application
 			return 1
 
@@ -210,7 +210,7 @@
 
 	if(manipulating) return M
 	manipulating = 1
-	user << "<span class='notice'>You begin [verb]ing \the [src] with [M.display_name].</span>"
+	user << SPAN_NOTE("You begin [verb]ing \the [src] with [M.display_name].")
 	if(!do_after(user, 20) || !S.use(1))
 		manipulating = 0
 		return null
@@ -258,16 +258,16 @@
 	if(manipulating) return
 	manipulating = 1
 	user.visible_message(
-		"<span class='notice'>\The [user] begins dismantling \the [src].</span>",
-		"<span class='notice'>You begin dismantling \the [src].</span>"
+		SPAN_NOTE("\The [user] begins dismantling \the [src]."),
+		SPAN_NOTE("You begin dismantling \the [src].")
 	)
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	if(!do_after(user, 20))
 		manipulating = 0
 		return
 	user.visible_message(
-		"<span class='notice'>\The [user] dismantles \the [src].</span>",
-		"<span class='notice'>You dismantle \the [src].</span>"
+		SPAN_NOTE("\The [user] dismantles \the [src]."),
+		SPAN_NOTE("You dismantle \the [src].")
 	)
 	PoolOrNew(/obj/item/stack/material/steel, src.loc)
 	qdel(src)

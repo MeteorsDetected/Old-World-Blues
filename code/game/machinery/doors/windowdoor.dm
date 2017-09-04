@@ -198,7 +198,7 @@
 	)
 	if (do_after(user,40,src) && panel_open)
 		in_use = 0
-		user << "<span class='notice'>You removed the windoor electronics!</span>"
+		user << SPAN_NOTE("You removed the windoor electronics!")
 		..()
 	if(src)
 		in_use = 0

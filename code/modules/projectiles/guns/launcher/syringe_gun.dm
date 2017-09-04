@@ -64,7 +64,7 @@ obj/item/weapon/reagent_containers/syringe/throw_impact(atom/hit_atom, var/speed
 		var/obj/item/weapon/reagent_containers/syringe/S = darts[1]
 		darts -= S
 		user.put_in_hands(S)
-		user.visible_message("[user] removes \a [S] from [src].", "<span class='notice'>You remove \a [S] from [src].</span>")
+		user.visible_message("[user] removes \a [S] from [src].", SPAN_NOTE("You remove \a [S] from [src]."))
 	else
 		..()
 
@@ -77,7 +77,7 @@ obj/item/weapon/reagent_containers/syringe/throw_impact(atom/hit_atom, var/speed
 		user.remove_from_mob(S)
 		S.loc = src
 		darts += S //add to the end
-		user.visible_message("[user] inserts \a [S] into [src].", "<span class='notice'>You insert \a [S] into [src].</span>")
+		user.visible_message("[user] inserts \a [S] into [src].", SPAN_NOTE("You insert \a [S] into [src]."))
 	else
 		..()
 

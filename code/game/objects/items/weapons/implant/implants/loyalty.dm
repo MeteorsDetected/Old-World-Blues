@@ -35,4 +35,4 @@
 
 	on_implanted(var/mob/living/carbon/human/H)
 		clear_antag_roles(H.mind, 1)
-		H << "<span class='notice'>You feel a surge of loyalty towards Nanotrasen.</span>"
+		H << SPAN_NOTE("You feel a surge of loyalty towards Nanotrasen.")

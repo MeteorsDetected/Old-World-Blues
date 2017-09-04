@@ -17,7 +17,7 @@
 		return 0
 	src.mind.changeling.chem_charges -= 20
 
-	src << "<span class='notice'>We cleanse impurities from our form.</span>"
+	src << SPAN_NOTE("We cleanse impurities from our form.")
 
 	var/mob/living/carbon/human/C = src
 
@@ -29,7 +29,7 @@
 	var/heal_amount = 5
 	if(src.mind.changeling.recursive_enhancement)
 		heal_amount = heal_amount * 2
-		src << "<span class='notice'>We will heal much faster.</span>"
+		src << SPAN_NOTE("We will heal much faster.")
 		src.mind.changeling.recursive_enhancement = 0
 
 	for(var/i = 0, i<10,i++)

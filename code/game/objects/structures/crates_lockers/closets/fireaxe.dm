@@ -49,7 +49,7 @@
 				else
 					playsound(user, 'sound/effects/Glasshit.ogg', 100, 1) //We don't want this playing every time
 				if(W.force < 15)
-					user << "<span class='notice'>The cabinet's protective glass glances off the hit.</span>"
+					user << SPAN_NOTE("The cabinet's protective glass glances off the hit.")
 				else
 					src.hitstaken++
 					if(src.hitstaken == 4)
@@ -67,7 +67,7 @@
 				fireaxe = O
 				user.remove_from_mob(O)
 				src.contents += O
-				user << "<span class='notice'>You place the fire axe back in the [src.name].</span>"
+				user << SPAN_NOTE("You place the fire axe back in the [src.name].")
 				update_icon()
 			else
 				if(src.smashed)
@@ -93,7 +93,7 @@
 					user << "<span class='warning'>Resetting circuitry...</span>"
 					sleep(50)
 					src.locked = 1
-					user << "<span class='notice'>You re-enable the locking modules.</span>"
+					user << SPAN_NOTE("You re-enable the locking modules.")
 					playsound(user, 'sound/machines/lockenable.ogg', 50, 1)
 					if(do_after(user,20))
 						src.locked = 1
@@ -124,7 +124,7 @@
 			if(fireaxe)
 				user.put_in_hands(fireaxe)
 				fireaxe = null
-				user << "<span class='notice'>You take the fire axe from the [name].</span>"
+				user << SPAN_NOTE("You take the fire axe from the [name].")
 				src.add_fingerprint(user)
 				update_icon()
 			else
@@ -151,7 +151,7 @@
 	attack_tk(mob/user as mob)
 		if(localopened && fireaxe)
 			fireaxe.forceMove(loc)
-			user << "<span class='notice'>You telekinetically remove the fire axe.</span>"
+			user << SPAN_NOTE("You telekinetically remove the fire axe.")
 			fireaxe = null
 			update_icon()
 			return
@@ -165,7 +165,7 @@
 			if(src.locked)
 				usr << "<span class='warning'>The cabinet won't budge!</span>"
 			else if(src.smashed)
-				usr << "<span class='notice'>The protective glass is broken!</span>"
+				usr << SPAN_NOTE("The protective glass is broken!")
 			return
 
 		localopened = !localopened
@@ -182,11 +182,11 @@
 			if(fireaxe)
 				usr.put_in_hands(fireaxe)
 				fireaxe = null
-				usr << "<span class='notice'>You take the Fire axe from the [name].</span>"
+				usr << SPAN_NOTE("You take the Fire axe from the [name].")
 			else
-				usr << "<span class='notice'>The [src.name] is empty.</span>"
+				usr << SPAN_NOTE("The [src.name] is empty.")
 		else
-			usr << "<span class='notice'>The [src.name] is closed.</span>"
+			usr << SPAN_NOTE("The [src.name] is closed.")
 		update_icon()
 
 	attack_ai(mob/user as mob)
@@ -198,7 +198,7 @@
 			if(locked)
 				user << "<span class='warning'>Cabinet locked.</span>"
 			else
-				user << "<span class='notice'>Cabinet unlocked.</span>"
+				user << SPAN_NOTE("Cabinet unlocked.")
 			return
 
 	update_icon() //Template: fireaxe[has fireaxe][is opened][hits taken][is smashed]. If you want the opening or closing animations, add "opening" or "closing" right after the numbers

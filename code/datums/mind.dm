@@ -322,7 +322,7 @@
 						if(I in organs.implants)
 							qdel(I)
 							break
-				H << "<span class='notice'><font size =3><B>Your loyalty implant has been deactivated.</B></font></span>"
+				H << SPAN_NOTE("<font size =3><B>Your loyalty implant has been deactivated.</B></font>")
 				log_admin("[key_name_admin(usr)] has de-loyalty implanted [current].", current)
 			if("add")
 				H << "<span class='danger'><font size =3>You somehow have become the recepient of a loyalty transplant, and it just activated!</font></span>"
@@ -390,7 +390,7 @@
 
 	else if (href_list["obj_announce"])
 		var/obj_count = 1
-		current << "\blue Your current objectives:"
+		current << SPAN_NOTE("Your current objectives:")
 		for(var/datum/objective/objective in objectives)
 			current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 			obj_count++

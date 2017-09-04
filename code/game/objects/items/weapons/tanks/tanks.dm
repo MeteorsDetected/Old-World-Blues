@@ -61,7 +61,7 @@
 				descriptive = "room temperature"
 			else
 				descriptive = "cold"
-		user << "<span class='notice'>\The [src] feels [descriptive].</span>"
+		user << SPAN_NOTE("\The [src] feels [descriptive].")
 
 /obj/item/weapon/tank/blob_act()
 	if(prob(50))
@@ -178,7 +178,7 @@
 			if(location.internal == src)
 				location.internal = null
 				location.internals.icon_state = "internal0"
-				usr << "\blue You close the tank release valve."
+				usr << SPAN_NOTE("You close the tank release valve.")
 				if (location.internals)
 					location.internals.icon_state = "internal0"
 			else
@@ -193,7 +193,7 @@
 
 				if(can_open_valve)
 					location.internal = src
-					usr << "<span class='notice'>You open \the [src] valve.</span>"
+					usr << SPAN_NOTE("You open \the [src] valve.")
 					if (location.internals)
 						location.internals.icon_state = "internal1"
 				else

@@ -20,7 +20,7 @@
 		holstered = I
 		holstered.add_fingerprint(user)
 		w_class = max(w_class, holstered.w_class)
-		user.visible_message("<span class='notice'>[user] holsters \the [holstered].</span>", "<span class='notice'>You holster \the [holstered].</span>")
+		user.visible_message(SPAN_NOTE("[user] holsters \the [holstered]."), SPAN_NOTE("You holster \the [holstered]."))
 		name = "occupied [initial(name)]"
 
 /obj/item/clothing/accessory/holster/proc/clear_holster()
@@ -118,8 +118,8 @@
 				)
 		else
 			user.visible_message(
-				"<span class='notice'>[user] draws \the [holstered], pointing it at the ground.</span>",
-				"<span class='notice'>You draw \the [holstered], pointing it at the ground.</span>"
+				SPAN_NOTE("[user] draws \the [holstered], pointing it at the ground."),
+				SPAN_NOTE("You draw \the [holstered], pointing it at the ground.")
 				)
 		return ..()
 

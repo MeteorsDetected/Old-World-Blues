@@ -27,10 +27,10 @@
 			if(T.welding)
 				user << "\red That was close!"
 			src.reagents.trans_to_obj(W, T.max_fuel)
-			user << "\blue Welder refilled!"
+			user << SPAN_NOTE("Welder refilled!")
 			playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
 			return
-	user << "\blue The tank scoffs at your insolence.  It only provides services to welders."
+	user << SPAN_NOTE("The tank scoffs at your insolence.  It only provides services to welders.")
 	return
 
 /obj/item/weapon/weldpack/afterattack(obj/O as obj, mob/user as mob, proximity)
@@ -38,11 +38,11 @@
 		return
 	if (istype(O, /obj/structure/reagent_dispensers/fueltank) && src.reagents.total_volume < max_fuel)
 		O.reagents.trans_to_obj(src, max_fuel)
-		user << "\blue You crack the cap off the top of the pack and fill it back up again from the tank."
+		user << SPAN_NOTE("You crack the cap off the top of the pack and fill it back up again from the tank.")
 		playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
 		return
 	else if (istype(O, /obj/structure/reagent_dispensers/fueltank) && src.reagents.total_volume == max_fuel)
-		user << "\blue The pack is already full!"
+		user << SPAN_NOTE("The pack is already full!")
 		return
 
 /obj/item/weapon/weldpack/examine(mob/user, return_dist = 1)

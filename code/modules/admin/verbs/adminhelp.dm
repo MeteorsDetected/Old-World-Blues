@@ -35,7 +35,7 @@
 	src << "<font color='blue'>PM to-<b>Staff </b>: [msg]</font>"
 	log_admin("HELP: [key_name(src)]: [msg]", src, 0)
 
-	msg = "\blue <b><font color=red>Request for Help:: </font>[get_options_bar(mob, 2, 1, 1)]:</b> [msg]"
+	msg = SPAN_NOTE("<b><font color=red>Request for Help:: </font>[get_options_bar(mob, 2, 1, 1)]:</b> [msg]")
 
 	for(var/client/X in admins)
 		if((R_ADMIN|R_MOD|R_SERVER) & X.holder.rights)

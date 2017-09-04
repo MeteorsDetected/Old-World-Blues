@@ -136,7 +136,7 @@
 
 /obj/structure/bed/chair/holochair/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/wrench))
-		user << ("<span class='notice'>It's a holochair, you can't dismantle it!</span>")
+		user << (SPAN_NOTE("It's a holochair, you can't dismantle it!"))
 	return
 
 /obj/item/weapon/holo
@@ -197,13 +197,13 @@
 		icon_state = "sword[item_color]"
 		w_class = ITEM_SIZE_HUGE
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
-		user << "<span class='notice'>[src] is now active.</span>"
+		user << SPAN_NOTE("[src] is now active.")
 	else
 		force = 3
 		icon_state = "sword0"
 		w_class = ITEM_SIZE_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
-		user << "<span class='notice'>[src] can now be concealed.</span>"
+		user << SPAN_NOTE("[src] can now be concealed.")
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -368,5 +368,5 @@
 	derez()
 
 /mob/living/simple_animal/hostile/carp/holodeck/proc/derez()
-	visible_message("<span class='notice'>\The [src] fades away!</span>")
+	visible_message(SPAN_NOTE("\The [src] fades away!"))
 	qdel(src)

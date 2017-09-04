@@ -404,7 +404,11 @@
 				if(!parrot_perch || parrot_interest.loc != parrot_perch.loc)
 					held_item = parrot_interest
 					parrot_interest.loc = src
-					visible_message("[src] grabs the [held_item]!", "\blue You grab the [held_item]!", "You hear the sounds of wings flapping furiously.")
+					visible_message(
+						"[src] grabs the [held_item]!",
+						SPAN_NOTE("You grab the [held_item]!"),
+						"You hear the sounds of wings flapping furiously."
+					)
 
 			parrot_interest = null
 			parrot_state = PARROT_SWOOP | PARROT_RETURN
@@ -577,7 +581,11 @@
 
 			held_item = I
 			I.loc = src
-			visible_message("[src] grabs the [held_item]!", "\blue You grab the [held_item]!", "You hear the sounds of wings flapping furiously.")
+			visible_message(
+				"[src] grabs the [held_item]!",
+				SPAN_NOTE("You grab the [held_item]!"),
+				"You hear the sounds of wings flapping furiously."
+			)
 			return held_item
 
 	src << "\red There is nothing of interest to take."

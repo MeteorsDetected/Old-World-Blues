@@ -532,7 +532,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(germ_level >= INFECTION_LEVEL_THREE && antibiotics < 30)	//overdosing is necessary to stop severe infections
 		if (!(status & ORGAN_DEAD))
 			status |= ORGAN_DEAD
-			owner << "<span class='notice'>You can't feel your [name] anymore...</span>"
+			owner << SPAN_NOTE("You can't feel your [name] anymore...")
 			owner.update_body(1)
 
 		germ_level++
@@ -862,7 +862,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			if(isnull(suit.supporting_limbs))
 				return
 
-			owner << "<span class='notice'>You feel \the [suit] constrict about your [name], supporting it.</span>"
+			owner << SPAN_NOTE("You feel \the [suit] constrict about your [name], supporting it.")
 			status |= ORGAN_SPLINTED
 			suit.supporting_limbs |= src
 	return

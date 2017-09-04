@@ -110,7 +110,7 @@
 
 	clonemind.transfer_to(H)
 	H.ckey = R.ckey
-	H << "<span class='notice'><b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i></span>"
+	H << SPAN_NOTE("<b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i>")
 
 	// -- Mode/mind specific stuff goes here
 	callHook("clone", list(H))
@@ -219,7 +219,7 @@
 			locked = 0
 			user << "System unlocked."
 	else if(istype(W, /obj/item/weapon/reagent_containers/food/snacks/meat))
-		user << "<span class='notice'>\The [src] processes \the [W].</span>"
+		user << SPAN_NOTE("\The [src] processes \the [W].")
 		biomass += 50
 		user.drop_from_inventory(W)
 		qdel(W)
@@ -240,7 +240,7 @@
 	else if(istype(W, /obj/item/device/multitool))
 		var/obj/item/device/multitool/M = W
 		M.connecting = src
-		user << "<span class='notice'>You load connection data from [src] to [M].</span>"
+		user << SPAN_NOTE("You load connection data from [src] to [M].")
 		return
 	else
 		..()

@@ -209,7 +209,7 @@ RPD
 	//Change the mode
 /*	if(++mode > 3)
 		mode = 1
-	user << "<span class='notice'>Changed mode to '[modes[mode]]'</span>"
+	user << SPAN_NOTE("Changed mode to '[modes[mode]]'")
 	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
 	if(prob(20)) src.spark_system.start()*/
 	return build_pipe(user)
@@ -221,11 +221,11 @@ RPD
 			if (1)
 				return build_pipe(user)
 			if (2)
-				user << "<span class='notice'>not working right now</span>"
+				user << SPAN_NOTE("not working right now")
 			if (3)
-				user << "<span class='notice'>deconstruct not working right now</span>"
+				user << SPAN_NOTE("deconstruct not working right now")
 	/*else //if (istype(M,/turf/simulated/floor))
-		user << "<span class='notice'>alter turf go!</span>"
+		user << SPAN_NOTE("alter turf go!")
 		return alter_turf (M,user,(mode == 3))*/
 	return 0*/
 
@@ -346,13 +346,13 @@ RPD
 
 	if(istype(W, /obj/item/weapon/rpd_ammo))
 		if((stored_matter + 10) > 30)
-			user << "<span class='notice'>The RCD can't hold any more matter-units.</span>"
+			user << SPAN_NOTE("The RCD can't hold any more matter-units.")
 			return
 		user.drop_from_inventory(W)
 		qdel(W)
 		stored_matter += 10
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-		user << "<span class='notice'>The RCD now holds [stored_matter]/30 matter-units.</span>"
+		user << SPAN_NOTE("The RCD now holds [stored_matter]/30 matter-units.")
 		return
 	..()*/
 

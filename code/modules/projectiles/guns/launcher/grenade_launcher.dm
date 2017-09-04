@@ -50,14 +50,14 @@
 	user.remove_from_mob(G)
 	G.loc = src
 	grenades.Insert(1, G) //add to the head of the list, so that it is loaded on the next pump
-	user.visible_message("[user] inserts \a [G] into [src].", "<span class='notice'>You insert \a [G] into [src].</span>")
+	user.visible_message("[user] inserts \a [G] into [src].", SPAN_NOTE("You insert \a [G] into [src]."))
 
 /obj/item/weapon/gun/launcher/grenade/proc/unload(mob/user)
 	if(grenades.len)
 		var/obj/item/weapon/grenade/G = grenades[grenades.len]
 		grenades.len--
 		user.put_in_hands(G)
-		user.visible_message("[user] removes \a [G] from [src].", "<span class='notice'>You remove \a [G] from [src].</span>")
+		user.visible_message("[user] removes \a [G] from [src].", SPAN_NOTE("You remove \a [G] from [src]."))
 	else
 		user << "<span class='warning'>[src] is empty.</span>"
 
@@ -105,12 +105,12 @@
 	user.remove_from_mob(G)
 	G.loc = src
 	chambered = G
-	user.visible_message("[user] load \a [G] into [src].", "<span class='notice'>You load \a [G] into [src].</span>")
+	user.visible_message("[user] load \a [G] into [src].", SPAN_NOTE("You load \a [G] into [src]."))
 
 /obj/item/weapon/gun/launcher/grenade/underslung/unload(mob/user)
 	if(chambered)
 		user.put_in_hands(chambered)
-		user.visible_message("[user] removes \a [chambered] from [src].", "<span class='notice'>You remove \a [chambered] from [src].</span>")
+		user.visible_message("[user] removes \a [chambered] from [src].", SPAN_NOTE("You remove \a [chambered] from [src]."))
 		chambered = null
 	else
 		user << "<span class='warning'>[src] is empty.</span>"

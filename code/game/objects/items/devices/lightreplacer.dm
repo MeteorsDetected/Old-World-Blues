@@ -74,7 +74,7 @@
 			return
 		else if(G.use(1))
 			AddUses(16) //Autolathe converts 1 sheet into 16 lights.
-			user << "<span class='notice'>You insert a piece of glass into \the [src.name]. You have [uses] light\s remaining.</span>"
+			user << SPAN_NOTE("You insert a piece of glass into \the [src.name]. You have [uses] light\s remaining.")
 			return
 		else
 			user << "<span class='warning'>You need one sheet of glass to replace lights.</span>"
@@ -128,7 +128,7 @@
 	if(target.status != LIGHT_OK)
 		if(CanUse(U))
 			if(!Use(U)) return
-			U << "<span class='notice'>You replace the [target.fitting] with the [src].</span>"
+			U << SPAN_NOTE("You replace the [target.fitting] with the [src].")
 
 			if(target.status != LIGHT_EMPTY)
 

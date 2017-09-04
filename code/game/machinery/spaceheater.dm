@@ -58,14 +58,20 @@
 				cell = C
 				C.add_fingerprint(usr)
 
-				user.visible_message("\blue [user] inserts a power cell into [src].", "\blue You insert the power cell into [src].")
+				user.visible_message(
+					SPAN_NOTE("[user] inserts a power cell into [src]."),
+					SPAN_NOTE("You insert the power cell into [src].")
+				)
 				power_change()
 		else
 			user << "The hatch must be open to insert a power cell."
 			return
 	else if(istype(I, /obj/item/weapon/screwdriver))
 		panel_open = !panel_open
-		user.visible_message("\blue [user] [panel_open ? "opens" : "closes"] the hatch on the [src].", "\blue You [panel_open ? "open" : "close"] the hatch on the [src].")
+		user.visible_message(
+			SPAN_NOTE("[user] [panel_open ? "opens" : "closes"] the hatch on the [src]."),
+			SPAN_NOTE("You [panel_open ? "open" : "close"] the hatch on the [src].")
+		)
 		update_icon()
 		if(!panel_open && user.machine == src)
 			user << browse(null, "window=spaceheater")
@@ -103,7 +109,10 @@
 		onclose(user, "spaceheater")
 	else
 		on = !on
-		user.visible_message("\blue [user] switches [on ? "on" : "off"] the [src].","\blue You switch [on ? "on" : "off"] the [src].")
+		user.visible_message(
+			SPAN_NOTE("[user] switches [on ? "on" : "off"] the [src]."),
+			SPAN_NOTE("You switch [on ? "on" : "off"] the [src].")
+		)
 		update_icon()
 	return
 
@@ -125,8 +134,8 @@
 			if("cellremove")
 				if(panel_open && cell)
 					usr.visible_message(
-						"\blue [usr] removes \the [cell] from \the [src].",
-						"\blue You remove \the [cell] from \the [src]."
+						SPAN_NOTE("[usr] removes \the [cell] from \the [src]."),
+						SPAN_NOTE("You remove \the [cell] from \the [src].")
 					)
 					cell.update_icon()
 					cell = null
@@ -143,7 +152,10 @@
 						cell = C
 						C.add_fingerprint(usr)
 						power_change()
-						usr.visible_message("\blue [usr] inserts \the [C] into \the [src].", "\blue You insert \the [C] into \the [src].")
+						usr.visible_message(
+							SPAN_NOTE("[usr] inserts \the [C] into \the [src]."),
+							SPAN_NOTE("You insert \the [C] into \the [src].")
+						)
 
 		updateDialog()
 	else

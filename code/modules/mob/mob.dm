@@ -180,7 +180,7 @@
 	set category = "IC"
 
 	if((is_blind(src) || usr.stat) && !isobserver(src))
-		src << "<span class='notice'>Something is there but you can't see it.</span>"
+		src << SPAN_NOTE("Something is there but you can't see it.")
 		return 1
 
 	face_atom(A)
@@ -288,9 +288,9 @@
 		var/msg = trim(replacetext(flavor_text, "\n", " "))
 		if(!msg) return ""
 		if(lentext(msg) <= 40)
-			return "\blue [msg]"
+			return SPAN_NOTE(msg)
 		else
-			return "\blue [copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a>"
+			return SPAN_NOTE("[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a>")
 
 /*
 /mob/verb/help()
@@ -336,7 +336,7 @@
 	if(client.holder && (client.holder.rights & R_ADMIN))
 		is_admin = 1
 	else if(stat != DEAD || isnewplayer(src))
-		usr << "\blue You must be observing to use this!"
+		usr << SPAN_NOTE("You must be observing to use this!")
 		return
 
 	if(is_admin && stat == DEAD)
@@ -960,5 +960,5 @@ mob/proc/yank_out_object()
 		src << "<span class='warning'>You prepare [CH_name].</span>"
 	else
 		qdel(src.client.CH)
-		src << "<span class='notice'>You unprepare [CH_name].</span>"
+		src << SPAN_NOTE("You unprepare [CH_name].")
 	return

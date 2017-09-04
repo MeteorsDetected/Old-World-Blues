@@ -21,7 +21,7 @@
 		var/effect = 30 //percent
 		if(src.mind.changeling.recursive_enhancement)
 			effect = effect + 20
-			src << "<span class='notice'>We make them extremely weak.</span>"
+			src << SPAN_NOTE("We make them extremely weak.")
 			src.mind.changeling.recursive_enhancement = 0
 		var/health_to_take_away = H.maxHealth * (effect / 100)
 
@@ -30,9 +30,9 @@
 		src.verbs -= /mob/living/proc/changeling_enfeebling_string
 		spawn(5 MINUTES)
 			src.verbs |= /mob/living/proc/changeling_enfeebling_string
-			src << "<span class='notice'>Our enfeebling string is ready to be used once more.</span>"
+			src << SPAN_NOTE("Our enfeebling string is ready to be used once more.")
 			if(H) //Just incase we stop existing in five minutes for whatever reason.
 				H.maxHealth += health_to_take_away
 				if(!H.stat) //It'd be weird to no longer feel weak when you're dead.
-					H << "<span class='notice'>You no longer feel extremly weak.</span>"
+					H << SPAN_NOTE("You no longer feel extremly weak.")
 	return 1

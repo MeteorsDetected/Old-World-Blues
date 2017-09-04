@@ -189,9 +189,9 @@
 			return
 		status = !status
 		if(status)
-			user << "<span class='notice'>You secure the welder.</span>"
+			user << SPAN_NOTE("You secure the welder.")
 		else
-			user << "<span class='notice'>The welder can now be attached and modified.</span>"
+			user << SPAN_NOTE("The welder can now be attached and modified.")
 		src.add_fingerprint(user)
 		return
 
@@ -239,7 +239,7 @@
 	if(!proximity) return
 	if (istype(O, /obj/structure/reagent_dispensers/fueltank) && !src.welding)
 		O.reagents.trans_to_obj(src, max_fuel)
-		user << "<span class='notice'>Welder refueled</span>"
+		user << SPAN_NOTE("Welder refueled")
 		playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
 		return
 	else if (istype(O, /obj/structure/reagent_dispensers/fueltank) && src.welding)
@@ -298,7 +298,7 @@
 		return 1
 	else
 		if(M)
-			M << "<span class='notice'>You need more welding fuel to complete this task.</span>"
+			M << SPAN_NOTE("You need more welding fuel to complete this task.")
 		return 0
 
 //Returns whether or not the welding tool is currently on.
@@ -323,7 +323,7 @@
 	if(set_welding && !welding)
 		if (get_fuel() > 0)
 			if(M)
-				M << "<span class='notice'>You switch the [src] on.</span>"
+				M << SPAN_NOTE("You switch the [src] on.")
 			else if(T)
 				T.visible_message("<span class='danger'>\The [src] turns on.</span>")
 			src.force = 15
@@ -334,13 +334,13 @@
 			processing_objects |= src
 		else
 			if(M)
-				M << "<span class='notice'>You need more welding fuel to complete this task.</span>"
+				M << SPAN_NOTE("You need more welding fuel to complete this task.")
 			return
 	//Otherwise
 	else if(!set_welding && welding)
 		processing_objects -= src
 		if(M)
-			M << "<span class='notice'>You switch \the [src] off.</span>"
+			M << SPAN_NOTE("You switch \the [src] off.")
 		else if(T)
 			T.visible_message("<span class='warning'>\The [src] turns off.</span>")
 		src.force = 3

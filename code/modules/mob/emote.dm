@@ -32,7 +32,7 @@
 			if(emotes.len)
 				usr << "<span class='notice'>Possible emotes: [jointext(emotes, ", ")]</span>"
 			else
-				usr << "<span class='notice'>You can't use emotes</span>"
+				usr << SPAN_NOTE("You can't use emotes")
 		else
 			var/list/emotes = get_possible_emotes()
 			if(act in emotes)
@@ -44,7 +44,7 @@
 				if(act in emotes)
 					var/datum/emote/E = emotes[act]
 					E.act(src)
-				else src << "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>"
+				else src << SPAN_NOTE("Unusable emote '[act]'. Say *help for a list.")
 				return
 
 

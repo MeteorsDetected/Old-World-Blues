@@ -36,7 +36,7 @@
 		user.drop_from_inventory(W, src)
 		if(istype(W, /obj/item/weapon/paper))
 			toppaper = W
-		user << "<span class='notice'>You clip the [W] onto \the [src].</span>"
+		user << SPAN_NOTE("You clip the [W] onto \the [src].")
 		update_icon()
 
 	else if(istype(W, /obj/item/weapon/pen))
@@ -44,7 +44,7 @@
 			usr.drop_from_inventory(W, src)
 			W.loc = src
 			haspen = W
-			usr << "<span class='notice'>You slot the pen into \the [src].</span>"
+			usr << SPAN_NOTE("You slot the pen into \the [src].")
 
 	else if(istype(toppaper) && istype(W, /obj/item/weapon/pen))
 		toppaper.attackby(W, usr)
@@ -152,7 +152,7 @@
 			var/obj/item/P = locate(href_list["top"])
 			if(P && (P.loc == src) && istype(P, /obj/item/weapon/paper) )
 				toppaper = P
-				usr << "<span class='notice'>You move [P.name] to the top.</span>"
+				usr << SPAN_NOTE("You move [P.name] to the top.")
 
 		//Update everything
 		attack_self(usr)

@@ -87,7 +87,7 @@
 					user.unEquip(W, src)
 					component_parts += W
 					RefreshParts()
-					user << "<span class='notice'>You upgrade the [src] with [W.name].</span>"
+					user << SPAN_NOTE("You upgrade the [src] with [W.name].")
 				else
 					user << "<span class='warning'>Turn off the [src] before dismantling it.</span>"
 			else

@@ -95,7 +95,7 @@ var/list/name_to_material
 	var/explosion_resistance = 5 // Only used by walls currently.
 	var/conductive = 1           // Objects with this var add CONDUCTS to flags on spawn.
 	var/list/composite_material  // If set, object matter var will be a list containing these values.
-	var/resilience = 1           // If set on higher values, bullets may ricochet from walls made of this material. 
+	var/resilience = 1           // If set on higher values, bullets may ricochet from walls made of this material.
 	var/reflectance = -50    // Defines whether material in walls raises (positive values) or decreases (negative values) reflection chance
 
 	// Placeholder vars for the time being, todo properly integrate windows/light tiles/rods.
@@ -141,7 +141,7 @@ var/list/name_to_material
 
 	used_stack.use(5)
 	target_stack.use(1)
-	user << "<span class='notice'>You attach wire to the [name].</span>"
+	user << SPAN_NOTE("You attach wire to the [name].")
 	var/obj/item/product = new wire_product(get_turf(user))
 	user.put_in_hands(product)
 

@@ -52,23 +52,23 @@
 			nutrilevel += 10
 			user.drop_from_inventory(O)
 			qdel(O)
-			user << "\blue You carefully insert the queen into [src], she gets busy making a hive."
+			user << SPAN_NOTE("You carefully insert the queen into [src], she gets busy making a hive.")
 			bees_in_hive = 0
 	else if(istype(O, /obj/item/beezeez))
 		beezeez += 100
 		nutrilevel += 10
 		user.drop_from_inventory(O)
 		if(health > 0)
-			user << "\blue You insert [O] into [src]. A relaxed humming appears to pick up."
+			user << SPAN_NOTE("You insert [O] into [src]. A relaxed humming appears to pick up.")
 		else
-			user << "\blue You insert [O] into [src]. Now it just needs some bees."
+			user << SPAN_NOTE("You insert [O] into [src]. Now it just needs some bees.")
 		qdel(O)
 	else if(istype(O, /obj/item/weapon/material/minihoe))
 		if(health > 0)
 			user << "\red <b>You begin to dislodge the apiary from the tray, the bees don't like that.</b>"
 			angry_swarm(user)
 		else
-			user << "\blue You begin to dislodge the dead apiary from the tray."
+			user << SPAN_NOTE("You begin to dislodge the dead apiary from the tray.")
 		if(do_after(user, 50))
 			new hydrotray_type(src.loc)
 			new /obj/item/apiary(src.loc)
@@ -77,11 +77,11 @@
 	else if(istype(O, /obj/item/weapon/bee_net))
 		var/obj/item/weapon/bee_net/N = O
 		if(N.caught_bees > 0)
-			user << "\blue You empty the bees into the apiary."
+			user << SPAN_NOTE("You empty the bees into the apiary.")
 			bees_in_hive += N.caught_bees
 			N.caught_bees = 0
 		else
-			user << "\blue There are no more bees in the net."
+			user << SPAN_NOTE("There are no more bees in the net.")
 	else if(istype(O, /obj/item/weapon/reagent_containers/glass))
 		var/obj/item/weapon/reagent_containers/glass/G = O
 		if(harvestable_honey > 0)
@@ -89,13 +89,13 @@
 				user << "\red You begin to harvest the honey. The bees don't seem to like it."
 				angry_swarm(user)
 			else
-				user << "\blue You begin to harvest the honey."
+				user << SPAN_NOTE("You begin to harvest the honey.")
 			if(do_after(user,50))
 				G.reagents.add_reagent("honey",harvestable_honey)
 				harvestable_honey = 0
-				user << "\blue You successfully harvest the honey."
+				user << SPAN_NOTE("You successfully harvest the honey.")
 		else
-			user << "\blue There is no honey left to harvest."
+			user << SPAN_NOTE("There is no honey left to harvest.")
 	else
 		angry_swarm(user)
 		..()
@@ -236,5 +236,5 @@
 		if(toxic > 0)
 			H.reagents.add_reagent("toxin", toxic)
 
-	usr << "\blue You harvest the honeycomb from the hive. There is a wild buzzing!"
+	usr << SPAN_NOTE("You harvest the honeycomb from the hive. There is a wild buzzing!")
 	angry_swarm(usr)

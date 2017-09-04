@@ -85,7 +85,7 @@
 
 	unload(user, direction)
 
-	user << "\blue You climb down from [src]."
+	user << SPAN_NOTE("You climb down from [src].")
 
 	return 1
 
@@ -159,7 +159,7 @@
 	set_dir(lead.dir)
 
 	if(user)
-		user << "\blue You hitch [src] to [T]."
+		user << SPAN_NOTE("You hitch [src] to [T].")
 
 	update_stats()
 
@@ -173,7 +173,7 @@
 	lead.tow = null
 	lead.update_stats()
 
-	user << "\blue You unhitch [src] from [lead]."
+	user << SPAN_NOTE("You unhitch [src] from [lead].")
 	lead = null
 
 	update_stats()

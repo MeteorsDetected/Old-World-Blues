@@ -48,7 +48,7 @@
 	if(!proximity) return
 	if (istype(A, /obj/structure/reagent_dispensers/watertank) && get_dist(src,A) <= 1)
 		A.reagents.trans_to_obj(src, 10)
-		user << "\blue You fill the balloon with the contents of [A]."
+		user << SPAN_NOTE("You fill the balloon with the contents of [A].")
 		src.desc = "A translucent balloon with some form of liquid sloshing around in it."
 		src.update_icon()
 	return
@@ -65,7 +65,7 @@
 					qdel(src)
 				else
 					src.desc = "A translucent balloon with some form of liquid sloshing around in it."
-					user << "\blue You fill the balloon with the contents of [O]."
+					user << SPAN_NOTE("You fill the balloon with the contents of [O].")
 					O.reagents.trans_to_obj(src, 10)
 	src.update_icon()
 	return
@@ -161,7 +161,7 @@
 
 		if (istype(A, /obj/item/toy/ammo/gun))
 			if (src.bullets >= 7)
-				user << "\blue It's already fully loaded!"
+				user << SPAN_NOTE("It's already fully loaded!")
 				return 1
 			if (A.amount_left <= 0)
 				user << "\red There is no more caps!"
@@ -226,7 +226,7 @@
 	examine(mob/user, return_dist = 1)
 		. = ..()
 		if(.<=2 && bullets)
-			user << "\blue It is loaded with [bullets] foam darts!"
+			user << SPAN_NOTE("It is loaded with [bullets] foam darts!")
 
 	attackby(obj/item/I as obj, mob/user as mob)
 		if(istype(I, /obj/item/toy/ammo/crossbow))
@@ -234,7 +234,7 @@
 				user.drop_from_inventory(I)
 				qdel(I)
 				bullets++
-				user << "\blue You load the foam dart into the crossbow."
+				user << SPAN_NOTE("You load the foam dart into the crossbow.")
 			else
 				usr << "\red It's already fully loaded."
 
@@ -349,12 +349,12 @@
 	attack_self(mob/user as mob)
 		src.active = !src.active
 		if (src.active)
-			user << "\blue You extend the plastic blade with a quick flick of your wrist."
+			user << SPAN_NOTE("You extend the plastic blade with a quick flick of your wrist.")
 			playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
 			src.icon_state = "swordblue"
 			src.w_class = ITEM_SIZE_HUGE
 		else
-			user << "\blue You push the plastic blade back down into the handle."
+			user << SPAN_NOTE("You push the plastic blade back down into the handle.")
 			playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
 			src.icon_state = "sword0"
 			src.w_class = ITEM_SIZE_TINY
@@ -442,12 +442,12 @@
 
 	else if (istype(A, /obj/structure/reagent_dispensers/watertank) && get_dist(src,A) <= 1)
 		A.reagents.trans_to(src, 10)
-		user << "\blue You refill your flower!"
+		user << SPAN_NOTE("You refill your flower!")
 		return
 
 	else if (src.reagents.total_volume < 1)
 		src.empty = 1
-		user << "\blue Your flower has run dry!"
+		user << SPAN_NOTE("Your flower has run dry!")
 		return
 
 	else
@@ -495,7 +495,7 @@
 
 /obj/item/toy/bosunwhistle/attack_self(mob/user as mob)
 	if(cooldown < world.time - 35)
-		user << "<span class='notice'>You blow on [src], creating an ear-splitting noise!</span>"
+		user << SPAN_NOTE("You blow on [src], creating an ear-splitting noise!")
 		playsound(user, 'sound/misc/boatswain.ogg', 20, 1)
 		cooldown = world.time
 
@@ -510,14 +510,14 @@
 //all credit to skasi for toy mech fun ideas
 /obj/item/toy/prize/attack_self(mob/user as mob)
 	if(cooldown < world.time - 8)
-		user << "<span class='notice'>You play with [src].</span>"
+		user << SPAN_NOTE("You play with [src].")
 		playsound(user, 'sound/mecha/mechstep.ogg', 20, 1)
 		cooldown = world.time
 
 /obj/item/toy/prize/attack_hand(mob/user as mob)
 	if(loc == user)
 		if(cooldown < world.time - 8)
-			user << "<span class='notice'>You play with [src].</span>"
+			user << SPAN_NOTE("You play with [src].")
 			playsound(user, 'sound/mecha/mechturn.ogg', 20, 1)
 			cooldown = world.time
 			return
@@ -845,8 +845,8 @@
 /obj/structure/plushie/attack_hand(mob/user)
 	if(user.a_intent == I_HELP)
 		user.visible_message(
-			"<span class='notice'><b>[user]</b> hugs [src]!</span>",
-			"<span class='notice'>You hug [src]!</span>"
+			SPAN_NOTE("<b>[user]</b> hugs [src]!"),
+			SPAN_NOTE("You hug [src]!")
 		)
 	else if (user.a_intent == I_HURT)
 		user.visible_message(
@@ -860,8 +860,8 @@
 		)
 	else
 		user.visible_message(
-			"<span class='notice'><b>[user]</b> pokes the [src].</span>",
-			"<span class='notice'>You poke the [src].</span>"
+			SPAN_NOTE("<b>[user]</b> pokes the [src]."),
+			SPAN_NOTE("You poke the [src].")
 		)
 		visible_message("[src] says, \"[phrase]\"")
 
@@ -900,7 +900,7 @@
 
 /obj/item/toy/plushie/attack(mob/living/carbon/target as mob, mob/user as mob)
 	if(istype(target))
-		user.visible_message("<span class='notice'><b>[target] has been [pick(attack_verb)] with [src] by [user]!</b></span>")
+		user.visible_message(SPAN_NOTE("<b>[target] has been [pick(attack_verb)] with [src] by [user]!</b>"))
 		return 1
 
 	return ..()
@@ -908,8 +908,8 @@
 /obj/item/toy/plushie/attack_self(mob/user as mob)
 	if(user.a_intent == I_HELP)
 		user.visible_message(
-			"<span class='notice'><b>[user]</b> hugs [src]!</span>",
-			"<span class='notice'>You hug [src]!</span>"
+			SPAN_NOTE("<b>[user]</b> hugs [src]!"),
+			SPAN_NOTE("You hug [src]!")
 		)
 	else if (user.a_intent == I_HURT)
 		user.visible_message(
@@ -923,8 +923,8 @@
 		)
 	else
 		user.visible_message(
-			"<span class='notice'><b>[user]</b> pokes the [src].</span>",
-			"<span class='notice'>You poke the [src].</span>"
+			SPAN_NOTE("<b>[user]</b> pokes the [src]."),
+			SPAN_NOTE("You poke the [src].")
 		)
 
 /obj/item/toy/plushie/nymph

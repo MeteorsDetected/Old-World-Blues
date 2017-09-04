@@ -43,7 +43,7 @@
 					cargo_holder.cargo += O
 					O.loc = chassis
 					O.anchored = 0
-					occupant_message("<span class='notice'>[target] succesfully loaded.</span>")
+					occupant_message(SPAN_NOTE("[target] succesfully loaded."))
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 				else
 					occupant_message("<span class='warning'>You must hold still while handling objects.</span>")
@@ -204,7 +204,7 @@
 			if( istype(target, /obj/structure/reagent_dispensers/watertank) && get_dist(chassis,target) <= 1)
 				var/obj/o = target
 				var/amount = o.reagents.trans_to_obj(src, 200)
-				occupant_message("<span class='notice'>[amount] units transferred into internal tank.</span>")
+				occupant_message(SPAN_NOTE("[amount] units transferred into internal tank."))
 				playsound(chassis, 'sound/effects/refill.ogg', 50, 1, -6)
 				return
 
@@ -582,7 +582,7 @@
 		if(!action_checks(src))
 			return chassis.dynbulletdamage(Proj)
 		if(prob(chassis.deflect_chance*deflect_coeff))
-			chassis.occupant_message("<span class='notice'>The armor deflects incoming projectile.</span>")
+			chassis.occupant_message(SPAN_NOTE("The armor deflects incoming projectile."))
 			chassis.visible_message("The [chassis.name] armor deflects the projectile")
 			chassis.log_append_to_last("Armor saved.")
 		else
@@ -598,7 +598,7 @@
 		if(!action_checks(A))
 			return chassis.dynhitby(A)
 		if(prob(chassis.deflect_chance*deflect_coeff) || isliving(A) || istype(A, /obj/item/mecha_parts/mecha_tracking))
-			chassis.occupant_message("<span class='notice'>The [A] bounces off the armor.</span>")
+			chassis.occupant_message(SPAN_NOTE("The [A] bounces off the armor."))
 			chassis.visible_message("The [A] bounces off the [chassis] armor")
 			chassis.log_append_to_last("Armor saved.")
 			if(isliving(A))
@@ -1031,7 +1031,7 @@
 							cargo_holder.cargo += O
 							O.loc = chassis
 							O.anchored = 0
-							chassis.occupant_message("<span class='notice'>[target] succesfully loaded.</span>")
+							chassis.occupant_message(SPAN_NOTE("[target] succesfully loaded."))
 							chassis.log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 						else
 							chassis.occupant_message("<span class='warning'>You must hold still while handling objects.</span>")
@@ -1083,7 +1083,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/tool/passenger/proc/move_inside(var/mob/user)
 	if (chassis)
-		chassis.visible_message("<span class='notice'>[user] starts to climb into [chassis].</span>")
+		chassis.visible_message(SPAN_NOTE("[user] starts to climb into [chassis]."))
 
 	if(do_after(user, 40, needhand=0))
 		if(!src.occupant)

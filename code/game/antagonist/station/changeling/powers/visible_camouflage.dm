@@ -29,7 +29,7 @@
 		changeling.chem_charges -= 10
 		var/old_regen_rate = H.mind.changeling.chem_recharge_rate
 
-		H << "<span class='notice'>We vanish from sight, and will remain hidden, so long as we move carefully.</span>"
+		H << SPAN_NOTE("We vanish from sight, and will remain hidden, so long as we move carefully.")
 		H.set_m_intent("walk")
 		H.mind.changeling.cloaked = 1
 		H.mind.changeling.chem_recharge_rate = 0
@@ -37,7 +37,7 @@
 
 		if(src.mind.changeling.recursive_enhancement)
 			H.invisibility = INVISIBILITY_OBSERVER
-			src << "<span class='notice'>We are now truly invisible.</span>"
+			src << SPAN_NOTE("We are now truly invisible.")
 			src.mind.changeling.recursive_enhancement = 0
 
 		while(H.m_intent == "walk" && H.mind.changeling.cloaked && !H.stat) //This loop will keep going until the player uncloaks.
@@ -49,7 +49,7 @@
 
 		H.invisibility = initial(invisibility)
 		visible_message("<span class='warning'>[src] suddenly fades in, seemingly from nowhere!</span>",
-		"<span class='notice'>We revert our camouflage, revealing ourselves.</span>")
+		SPAN_NOTE("We revert our camouflage, revealing ourselves."))
 		H.set_m_intent("run")
 		H.mind.changeling.cloaked = 0
 		H.mind.changeling.chem_recharge_rate = old_regen_rate

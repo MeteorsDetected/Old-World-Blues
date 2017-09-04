@@ -11,7 +11,7 @@ mob/living/carbon/human/proc/prepare_bite()
 		src << "<span class='warning'>You prepare for bite.</span>"
 	else
 		src.client.CH = null
-		src << "<span class='notice'>You unprepare for bite.</span>"
+		src << SPAN_NOTE("You unprepare for bite.")
 	return
 
 mob/living/carbon/human/proc/try_bite(atom/A)
