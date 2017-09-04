@@ -262,7 +262,7 @@
 
 
 
-	usr << "\blue SQDL Query: [query_text]"
+	usr << SPAN_NOTE("SQDL Query: [query_text]")
 	message_admins("[usr] executed SDQL query: \"[query_text]\".")
 /*
 	for(var/t in types)

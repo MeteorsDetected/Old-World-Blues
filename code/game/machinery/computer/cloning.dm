@@ -75,7 +75,7 @@
 			pods += P
 			P.connected = src
 			P.name = "[initial(P.name)] #[pods.len]"
-			user << "<span class='notice'>You connect [P] to [src].</span>"
+			user << SPAN_NOTE("You connect [P] to [src].")
 	else
 		..()
 	return

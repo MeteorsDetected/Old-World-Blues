@@ -13,7 +13,7 @@
 /*
 	if(src.mind.changeling.recursive_enhancement)
 		if(changeling_generic_weapon(/obj/item/weapon/melee/arm_blade/greater))
-			src << "<span class='notice'>We prepare an extra sharp blade.</span>"
+			src << SPAN_NOTE("We prepare an extra sharp blade.")
 			src.mind.changeling.recursive_enhancement = 0
 			return 1
 
@@ -62,7 +62,7 @@
 /obj/item/weapon/melee/arm_blade/dropped(var/mob/user)
 	user.visible_message(
 		"<span class='warning'>With a sickening crunch, [user] reforms their arm blade into an arm!</span>",
-		"<span class='notice'>We assimilate the weapon back into our body.</span>",
+		SPAN_NOTE("We assimilate the weapon back into our body."),
 		"<span class='italics'>You hear organic matter ripping and tearing!</span>"
 	)
 	playsound(src, 'sound/effects/blobattack.ogg', 30, 1)

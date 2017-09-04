@@ -52,7 +52,7 @@
 
 	attack_self(mob/living/user as mob)
 		if(!armed)
-			user << "<span class='notice'>You arm [src].</span>"
+			user << SPAN_NOTE("You arm [src].")
 		else
 			//TODO: DNA3 clown_block
 			//TODO: BrainLoss >= 60 mean dead
@@ -63,7 +63,7 @@
 					"<span class='warning'>You accidentally trigger [src]!</span>"
 				)
 				return
-			user << "<span class='notice'>You disarm [src].</span>"
+			user << SPAN_NOTE("You disarm [src].")
 		armed = !armed
 		update_icon()
 		playsound(user.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -3)
@@ -130,4 +130,4 @@
 		return
 
 	layer = TURF_LAYER+0.2
-	usr << "<span class='notice'>You hide [src].</span>"
+	usr << SPAN_NOTE("You hide [src].")

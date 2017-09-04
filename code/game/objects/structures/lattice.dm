@@ -61,7 +61,7 @@
 	if (istype(C, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = C
 		if(WT.remove_fuel(1, user))
-			user << "\blue Slicing lattice joints ..."
+			user << SPAN_NOTE("Slicing lattice joints ...")
 		PoolOrNew(/obj/item/stack/rods, src.loc)
 		qdel(src)
 

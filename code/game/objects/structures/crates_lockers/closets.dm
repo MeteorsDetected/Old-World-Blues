@@ -162,7 +162,7 @@
 
 /obj/structure/closet/proc/toggle(mob/user as mob)
 	if(!(src.opened ? src.close() : src.open()))
-		user << "<span class='notice'>It won't budge!</span>"
+		user << SPAN_NOTE("It won't budge!")
 		return
 	update_icon()
 
@@ -252,7 +252,7 @@
 			if(!WT.isOn())
 				return
 			else
-				user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
+				user << SPAN_NOTE("You need more welding fuel to complete this task.")
 				return
 		src.welded = !src.welded
 		src.update_icon()
@@ -302,7 +302,7 @@
 		return
 
 	if(!src.open())
-		user << "<span class='notice'>It won't budge!</span>"
+		user << SPAN_NOTE("It won't budge!")
 
 /obj/structure/closet/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)
@@ -312,7 +312,7 @@
 /obj/structure/closet/attack_self_tk(mob/user as mob)
 	src.add_fingerprint(user)
 	if(!src.toggle())
-		usr << "<span class='notice'>It won't budge!</span>"
+		usr << SPAN_NOTE("It won't budge!")
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)

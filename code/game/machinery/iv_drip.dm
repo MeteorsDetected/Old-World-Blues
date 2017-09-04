@@ -147,11 +147,11 @@
 		user << "The IV drip is [mode ? "injecting" : "taking blood"]."
 		if(beaker)
 			if(beaker.reagents && beaker.reagents.reagent_list.len)
-				usr << "<span class='notice'>Attached is \a [beaker] with [beaker.reagents.total_volume] units of liquid.</span>"
+				usr << SPAN_NOTE("Attached is \a [beaker] with [beaker.reagents.total_volume] units of liquid.")
 			else
-				usr << "<span class='notice'>Attached is an empty [beaker].</span>"
+				usr << SPAN_NOTE("Attached is an empty [beaker].")
 		else
-			usr << "<span class='notice'>No chemicals are attached.</span>"
+			usr << SPAN_NOTE("No chemicals are attached.")
 
 		usr << "<span class='notice'>[attached ? attached : "No one"] is attached.</span>"
 

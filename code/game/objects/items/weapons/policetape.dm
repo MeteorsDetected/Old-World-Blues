@@ -61,11 +61,11 @@ var/list/tape_roll_applications = list()
 	if(!start)
 		start = get_turf(src)
 		update_icon()
-		usr << "\blue You place the first end of the [src]."
+		usr << SPAN_NOTE("You place the first end of the [src].")
 	else
 		end = get_turf(src)
 		if(start.y != end.y && start.x != end.x || start.z != end.z)
-			usr << "\blue [src] can only be laid horizontally or vertically."
+			usr << SPAN_NOTE("[src] can only be laid horizontally or vertically.")
 			return
 
 		var/turf/cur = start
@@ -94,7 +94,7 @@ var/list/tape_roll_applications = list()
 						break
 			cur = get_step_towards(cur,end)
 		if (!can_place)
-			usr << "\blue You can't run \the [src] through that!"
+			usr << SPAN_NOTE("You can't run \the [src] through that!")
 			return
 
 		cur = start
@@ -107,7 +107,7 @@ var/list/tape_roll_applications = list()
 				var/obj/item/tape/P = new tape_type(cur)
 				P.icon_state = "[P.icon_base]_[dir]"
 			cur = get_step_towards(cur,end)
-		usr << "\blue You finish placing the [src]."	//Git Test
+		usr << SPAN_NOTE("You finish placing the [src].")	//Git Test
 		start = null
 		update_icon()
 
@@ -121,7 +121,7 @@ var/list/tape_roll_applications = list()
 		P.loc = locate(T.x,T.y,T.z)
 		P.icon_state = "[src.icon_state]_door"
 		P.layer = 3.2
-		user << "\blue You finish placing the [src]."
+		user << SPAN_NOTE("You finish placing the [src].")
 
 	if (istype(A, /turf/simulated/floor) ||istype(A, /turf/unsimulated/floor))
 		var/turf/F = A
@@ -160,7 +160,7 @@ var/list/tape_roll_applications = list()
 
 /obj/item/tape/attack_hand(mob/user as mob)
 	if (user.a_intent == I_HELP && src.allowed(user))
-		user.show_viewers("\blue [user] lifts [src], allowing passage.")
+		user.show_viewers(SPAN_NOTE("[user] lifts [src], allowing passage."))
 		crumple()
 		lifted = 1
 		spawn(200)
@@ -174,7 +174,7 @@ var/list/tape_roll_applications = list()
 	if(user.a_intent == I_HELP && ((!can_puncture(W) && src.allowed(user))))
 		user << "You can't break the [src] with that!"
 		return
-	user.show_viewers("\blue [user] breaks the [src]!")
+	user.show_viewers(SPAN_NOTE("[user] breaks the [src]!"))
 
 	var/dir[2]
 	var/icon_dir = src.icon_state

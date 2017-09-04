@@ -116,8 +116,7 @@
 						new /mob/living/simple_animal/hostile/carp(get_turf(H))
 
 			else
-				for(var/mob/O in hearers(src, null))
-					O.show_message("\blue Locked In", 2)
+				src.visible_message(SPAN_NOTE("Locked In"))
 				src.locked = L
 				one_time_use = 1
 
@@ -224,8 +223,7 @@
 		var/datum/teleport_target/target = locate(href_list["target"])
 		if(target in locations)
 			locked = target
-			for(var/mob/O in hearers(src, null))
-				O.show_message("\blue Locked In", 2)
+			src.visible_message(SPAN_NOTE("Locked In"))
 
 	spawn()
 		interact(usr)
@@ -296,9 +294,9 @@
 		s.set_up(5, 1, src)
 		s.start()
 		accurate = 1
-		spawn(3000)	accurate = 0 //Accurate teleporting for 5 minutes
-		for(var/mob/B in hearers(src, null))
-			B.show_message("\blue Test fire completed.")
+		spawn(3000)
+			accurate = 0 //Accurate teleporting for 5 minutes
+		src.visible_message(SPAN_NOTE("Test fire completed."))
 	return
 /*
 /proc/do_teleport(atom/movable/M as mob|obj, atom/destination, precision)
@@ -425,8 +423,7 @@
 		use_power(5000)
 		update_use_power(2)
 		com.update_use_power(2)
-		for(var/mob/O in hearers(src, null))
-			O.show_message("\blue Teleporter engaged!", 2)
+		src.visible_message(SPAN_NOTE("Teleporter engaged!"))
 	src.add_fingerprint(usr)
 	src.engaged = 1
 	return
@@ -440,8 +437,7 @@
 		com.accurate = 0
 		com.update_use_power(1)
 		update_use_power(1)
-		for(var/mob/O in hearers(src, null))
-			O.show_message("\blue Teleporter disengaged!", 2)
+		src.visible_message(SPAN_NOTE("Teleporter disengaged!"))
 	src.add_fingerprint(usr)
 	src.engaged = 0
 	return
@@ -456,8 +452,7 @@
 
 	if (com && !active)
 		active = 1
-		for(var/mob/O in hearers(src, null))
-			O.show_message("\blue Test firing!", 2)
+		src.visible_message(SPAN_NOTE("Test firing!"))
 		com.teleport()
 		use_power(5000)
 

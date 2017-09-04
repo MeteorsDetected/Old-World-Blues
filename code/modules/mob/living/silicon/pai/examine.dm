@@ -23,7 +23,7 @@
 	set category = "IC"
 
 	if(is_blind(src) || usr.stat)
-		src << "<span class='notice'>Something is there but you can't see it.</span>"
+		src << SPAN_NOTE("Something is there but you can't see it.")
 		return 1
 
 	face_atom(A)

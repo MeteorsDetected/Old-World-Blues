@@ -24,7 +24,7 @@
 /obj/machinery/artifact_harvester/attackby(var/obj/I as obj, var/mob/user as mob)
 	if(istype(I,/obj/item/weapon/anobattery))
 		if(!inserted_battery)
-			user << "\blue You insert [I] into [src]."
+			user << SPAN_NOTE("You insert [I] into [src].")
 			user.drop_from_inventory(I, src)
 			src.inserted_battery = I
 			updateDialog()

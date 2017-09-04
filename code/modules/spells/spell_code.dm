@@ -12,7 +12,7 @@ var/list/spells = typesof(/spell) //needed for the badmin verb for now
 
 	var/charge_max = 100 //recharge time in deciseconds if charge_type = Sp_RECHARGE or starting charges if charge_type = Sp_CHARGES
 	var/charge_counter = 0 //can only cast spells if it equals recharge, ++ each decisecond if charge_type = Sp_RECHARGE or -- each cast if charge_type = Sp_CHARGES
-	var/still_recharging_msg = "<span class='notice'>The spell is still recharging.</span>"
+	var/still_recharging_msg = "The spell is still recharging."
 
 	var/silenced = 0 //not a binary - the length of time we can't cast this for
 
@@ -62,7 +62,7 @@ var/list/spells = typesof(/spell) //needed for the badmin verb for now
 /spell/New()
 	..()
 
-	//still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
+	//still_recharging_msg = SPAN_NOTE("[name] is still recharging.")
 	charge_counter = charge_max
 
 /spell/proc/process()
@@ -115,7 +115,7 @@ var/list/spells = typesof(/spell) //needed for the badmin verb for now
 			usr << "<span class='warning'>You prepare [src.name].</span>"
 		else
 			qdel(usr.client.CH)
-			usr << "<span class='notice'>You unprepare [src.name].</span>"
+			usr << SPAN_NOTE("You unprepare [src.name].")
 	else
 		src.perform(usr)
 	return
@@ -250,11 +250,11 @@ var/list/spells = typesof(/spell) //needed for the badmin verb for now
 		switch(charge_type)
 			if(Sp_RECHARGE)
 				if(charge_counter < charge_max)
-					user << still_recharging_msg
+					user << SPAN_NOTE(still_recharging_msg)
 					return 0
 			if(Sp_CHARGES)
 				if(!charge_counter)
-					user << "<span class='notice'>[name] has no charges left.</span>"
+					user << SPAN_NOTE("[name] has no charges left.")
 					return 0
 	return 1
 

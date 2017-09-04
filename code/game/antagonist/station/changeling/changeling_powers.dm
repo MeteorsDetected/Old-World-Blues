@@ -172,7 +172,7 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 	src.verbs -= verb_path
 	spawn(10)	src.verbs += verb_path
 
-	src << "<span class='notice'>We stealthily sting [T].</span>"
+	src << SPAN_NOTE("We stealthily sting [T].")
 	if(!T.mind || !T.mind.changeling)	return T	//T will be affected by the sting
 	T << "<span class='warning'>You feel a tiny prick.</span>"
 	return

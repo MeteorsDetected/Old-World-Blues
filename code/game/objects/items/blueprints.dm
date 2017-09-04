@@ -157,7 +157,7 @@ move an amendment</a> to the drawing.</p>
 		return
 	set_area_machinery_title(A,str,prevname)
 	A.name = str
-	usr << "\blue You set the area '[prevname]' title to '[str]'."
+	usr << SPAN_NOTE("You set the area '[prevname]' title to '[str]'.")
 	interact()
 	return
 

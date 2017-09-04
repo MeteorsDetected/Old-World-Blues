@@ -44,7 +44,7 @@
 	if((HUSK & T.status_flags) || !ishuman(T) || issmall(T))
 		src << "<span class='warning'>Our sting appears ineffective against its DNA.</span>"
 		return 0
-	src << "<span class='notice'>We stealthily sting [T] in the neck.</span>"
+	src << SPAN_NOTE("We stealthily sting [T] in the neck.")
 	if(!T.mind || !T.mind.changeling)
 		T.visible_message("<span class='warning'>[T] transforms!</span>")
 		T.dna = chosen_dna.Clone()

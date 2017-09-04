@@ -332,7 +332,7 @@
 	mouthshoot = 1
 	M.visible_message("\red [user] sticks their gun in their mouth, ready to pull the trigger...")
 	if(!do_after(user, 40))
-		M.visible_message("\blue [user] decided life was worth living")
+		M.visible_message(SPAN_NOTE("[user] decided life was worth living"))
 		mouthshoot = 0
 		return
 	var/obj/item/projectile/in_chamber = consume_next_projectile()
@@ -393,7 +393,7 @@
 	if(sel_mode > firemodes.len)
 		sel_mode = 1
 	var/datum/firemode/new_mode = firemodes[sel_mode]
-	user << "<span class='notice'>\The [src] is now set to [new_mode.name].</span>"
+	user << SPAN_NOTE("\The [src] is now set to [new_mode.name].")
 
 /obj/item/weapon/gun/attack_self(mob/user)
 	if(firemodes.len > 1)

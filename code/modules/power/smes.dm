@@ -207,7 +207,7 @@
 		if(tempLoc.intact)
 			user << "<span class='warning'>You must remove the floor plating first.</span>"
 			return 1
-	user << "<span class='notice'>You start adding cable to the [src].</span>"
+	user << SPAN_NOTE("You start adding cable to the [src].")
 	if(do_after(user, 50))
 		terminal = new /obj/machinery/power/terminal(tempLoc)
 		terminal.set_dir(tempDir)
@@ -238,11 +238,11 @@
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(!open_hatch)
 			open_hatch = 1
-			user << "<span class='notice'>You open the maintenance hatch of [src].</span>"
+			user << SPAN_NOTE("You open the maintenance hatch of [src].")
 			return 0
 		else
 			open_hatch = 0
-			user << "<span class='notice'>You close the maintenance hatch of [src].</span>"
+			user << SPAN_NOTE("You close the maintenance hatch of [src].")
 			return 0
 
 	if (!open_hatch)
@@ -262,8 +262,8 @@
 		building_terminal = 0
 		CC.use(10)
 		user.visible_message(\
-				"<span class='notice'>[user.name] has added cables to the [src].</span>",\
-				"<span class='notice'>You added cables to the [src].</span>")
+				SPAN_NOTE("[user.name] has added cables to the [src]."),\
+				SPAN_NOTE("You added cables to the [src]."))
 		terminal.connect_to_network()
 		stat = 0
 		return 0
@@ -275,7 +275,7 @@
 			if(tempTDir.intact)
 				user << "<span class='warning'>You must remove the floor plating first.</span>"
 			else
-				user << "<span class='notice'>You begin to cut the cables...</span>"
+				user << SPAN_NOTE("You begin to cut the cables...")
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 				if(do_after(user, 50))
 					if (prob(50) && electrocute_mob(usr, terminal.powernet, terminal))
@@ -287,8 +287,8 @@
 							return 0
 					new /obj/item/stack/cable_coil(loc,10)
 					user.visible_message(\
-						"<span class='notice'>[user.name] cut the cables and dismantled the power terminal.</span>",\
-						"<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
+						SPAN_NOTE("[user.name] cut the cables and dismantled the power terminal."),\
+						SPAN_NOTE("You cut the cables and dismantle the power terminal."))
 					qdel(terminal)
 		building_terminal = 0
 		return 0

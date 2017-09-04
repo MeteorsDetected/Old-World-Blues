@@ -22,7 +22,7 @@
 	if (istype(W, /obj/item/weapon/paper/carbon))
 		var/obj/item/weapon/paper/carbon/C = W
 		if (!C.iscopy && !C.copied)
-			user << "<span class='notice'>Take off the carbon copy first.</span>"
+			user << SPAN_NOTE("Take off the carbon copy first.")
 			add_fingerprint(user)
 			return
 	// adding sheets
@@ -99,7 +99,7 @@
 	if(.<=1)
 		src.show_content(user)
 	else
-		user << "<span class='notice'>It is too far away.</span>"
+		user << SPAN_NOTE("It is too far away.")
 	return
 
 /obj/item/weapon/paper_bundle/proc/show_content(mob/user as mob)
@@ -166,7 +166,7 @@
 			usr.put_in_hands(W)
 			pages.Remove(pages[page])
 
-			usr << "<span class='notice'>You remove the [W.name] from the bundle.</span>"
+			usr << SPAN_NOTE("You remove the [W.name] from the bundle.")
 
 			if(pages.len <= 1)
 				var/obj/item/weapon/paper/P = src[1]
@@ -181,7 +181,7 @@
 
 			update_icon()
 	else
-		usr << "<span class='notice'>You need to hold it in hands!</span>"
+		usr << SPAN_NOTE("You need to hold it in hands!")
 	if(ismob(src.loc) || ismob(src.loc.loc))
 		src.attack_self(usr)
 		updateUsrDialog()
@@ -203,7 +203,7 @@
 	set category = "Object"
 	set src in usr
 
-	usr << "<span class='notice'>You loosen the bundle.</span>"
+	usr << SPAN_NOTE("You loosen the bundle.")
 	for(var/obj/O in src)
 		O.loc = usr.loc
 		O.layer = initial(O.layer)

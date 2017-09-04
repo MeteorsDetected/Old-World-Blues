@@ -19,7 +19,7 @@
 		H.maxHealth = initial(H.maxHealth) //Revert endoarmor too.
 	src.make_changeling() //And give back our freebies.
 
-	src << "<span class='notice'>We have removed our evolutions from this form, and are now ready to readapt.</span>"
+	src << SPAN_NOTE("We have removed our evolutions from this form, and are now ready to readapt.")
 
 	ling_datum.purchased_powers_history.Add("Re-adapt (Reset to [ling_datum.max_geneticpoints])")
 

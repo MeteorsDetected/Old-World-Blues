@@ -73,20 +73,20 @@
 	else if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 		if(rigged)
-			user << "<span class='notice'>[src] is already rigged!</span>"
+			user << SPAN_NOTE("[src] is already rigged!")
 			return
 		if (C.use(1))
-			user  << "<span class='notice'>You rig [src].</span>"
+			user  << SPAN_NOTE("You rig [src].")
 			rigged = 1
 			return
 	else if(istype(W, /obj/item/device/radio/electropack))
 		if(rigged)
-			user  << "<span class='notice'>You attach [W] to [src].</span>"
+			user  << SPAN_NOTE("You attach [W] to [src].")
 			user.drop_from_inventory(W, src)
 			return
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(rigged)
-			user  << "<span class='notice'>You cut away the wiring.</span>"
+			user  << SPAN_NOTE("You cut away the wiring.")
 			playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
 			rigged = 0
 			return
@@ -145,7 +145,7 @@
 
 /obj/structure/closet/crate/secure/proc/togglelock(mob/user as mob)
 	if(src.opened)
-		user << "<span class='notice'>Close the crate first.</span>"
+		user << SPAN_NOTE("Close the crate first.")
 		return
 	if(src.broken)
 		user << "<span class='warning'>The crate appears to be broken.</span>"
@@ -153,7 +153,7 @@
 	if(src.allowed(user))
 		set_locked(!locked, user)
 	else
-		user << "<span class='notice'>Access Denied</span>"
+		user << SPAN_NOTE("Access Denied")
 
 /obj/structure/closet/crate/secure/proc/set_locked(var/newlocked, mob/user = null)
 	if(locked == newlocked) return
@@ -227,7 +227,7 @@
 		overlays += sparks
 		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
 		playsound(src.loc, "sparks", 60, 1)
-		user << "<span class='notice'>You unlock \the [src].</span>"
+		user << SPAN_NOTE("You unlock \the [src].")
 		return 1
 	else
 		return -1

@@ -40,10 +40,10 @@
 	if(usr.stat)
 		return
 	if(src.occupant)
-		usr << "\blue <B>The scanner is already occupied!</B>"
+		usr << SPAN_NOTE("<B>The scanner is already occupied!</B>")
 		return
 	if(usr.abiotic())
-		usr << "\blue <B>Subject cannot have abiotic items on.</B>"
+		usr << SPAN_NOTE("<B>Subject cannot have abiotic items on.</B>")
 		return
 	set_occupant(usr)
 	src.add_fingerprint(usr)

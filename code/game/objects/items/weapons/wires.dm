@@ -27,7 +27,7 @@
 /obj/item/weapon/wire/attack_self(mob/user as mob)
 	if (src.laying)
 		src.laying = 0
-		user << "\blue You're done laying wire!"
+		user << SPAN_NOTE("You're done laying wire!")
 	else
-		user << "\blue You are not using this to lay wire..."
+		user << SPAN_NOTE("You are not using this to lay wire...")
 	return

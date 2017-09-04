@@ -53,7 +53,7 @@
 
 	if(user)
 		user.drop_from_inventory(C)
-		user << "<span class='notice'>You add \the [C] to \the [src].</span>"
+		user << SPAN_NOTE("You add \the [C] to \the [src].")
 
 	C.loc = src
 	cartridges[C.label] = C
@@ -86,7 +86,7 @@
 		if(!label) return
 		var/obj/item/weapon/reagent_containers/chem_disp_cartridge/C = remove_cartridge(label)
 		if(C)
-			user << "<span class='notice'>You remove \the [C] from \the [src].</span>"
+			user << SPAN_NOTE("You remove \the [C] from \the [src].")
 			C.loc = loc
 
 	else if(istype(W, /obj/item/weapon/reagent_containers/glass) || istype(W, /obj/item/weapon/reagent_containers/food))
@@ -107,7 +107,7 @@
 		container =  RC
 		user.drop_from_inventory(RC)
 		RC.loc = src
-		user << "<span class='notice'>You set \the [RC] on \the [src].</span>"
+		user << SPAN_NOTE("You set \the [RC] on \the [src].")
 		nanomanager.update_uis(src) // update all UIs attached to src
 
 	else

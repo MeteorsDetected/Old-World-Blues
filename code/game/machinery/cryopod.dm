@@ -97,7 +97,7 @@
 		if(!allow_items) return
 
 		if(frozen_items.len == 0)
-			user << "<span class='notice'>There is nothing to recover from storage.</span>"
+			user << SPAN_NOTE("There is nothing to recover from storage.")
 			return
 
 		var/obj/item/I = input(usr, "Please choose which object to retrieve.","Object recovery",null) as null|anything in frozen_items
@@ -105,10 +105,10 @@
 			return
 
 		if(!(I in frozen_items))
-			user << "<span class='notice'>\The [I] is no longer in storage.</span>"
+			user << SPAN_NOTE("\The [I] is no longer in storage.")
 			return
 
-		visible_message("<span class='notice'>The console beeps happily as it disgorges \the [I].</span>", 3)
+		visible_message(SPAN_NOTE("The console beeps happily as it disgorges \the [I]."), 3)
 
 		I.forceMove(get_turf(src))
 		frozen_items -= I
@@ -117,10 +117,10 @@
 		if(!allow_items) return
 
 		if(frozen_items.len == 0)
-			user << "<span class='notice'>There is nothing to recover from storage.</span>"
+			user << SPAN_NOTE("There is nothing to recover from storage.")
 			return
 
-		visible_message("<span class='notice'>The console beeps happily as it disgorges the desired objects.</span>", 3)
+		visible_message(SPAN_NOTE("The console beeps happily as it disgorges the desired objects."), 3)
 
 		for(var/obj/item/I in frozen_items)
 			I.forceMove(get_turf(src))
@@ -370,7 +370,7 @@
 	log_and_message_admins("[key_name(occupant)] ([occupant.mind.role_alt_title]) entered cryostorage.")
 
 	announce.autosay("[occupant.real_name], [occupant.mind.role_alt_title], [on_store_message]", "[on_store_name]")
-	visible_message("<span class='notice'>\The [initial(name)] hums and hisses as it moves [occupant.real_name] into storage.</span>", 3)
+	visible_message(SPAN_NOTE("\The [initial(name)] hums and hisses as it moves [occupant.real_name] into storage."), 3)
 
 	//This should guarantee that ghosts don't spawn.
 	occupant.ckey = null
@@ -390,7 +390,7 @@
 
 /obj/machinery/cryopod/proc/put_inside(var/mob/living/affecting, var/mob/living/user)
 	if(occupant)
-		user << "<span class='notice'>\The [src] is in use.</span>"
+		user << SPAN_NOTE("\The [src] is in use.")
 		return
 
 	if(!ismob(affecting) || !Adjacent(affecting) || !Adjacent(user))
@@ -421,8 +421,8 @@
 			return
 
 		set_occupant(affecting)
-		affecting << "<span class='notice'>[on_enter_occupant_message]</span>"
-		affecting << "<span class='notice'><b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b></span>"
+		affecting << SPAN_NOTE("[on_enter_occupant_message]")
+		affecting << SPAN_NOTE("<b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b>")
 
 		// Book keeping!
 		if(user == affecting)
@@ -466,7 +466,7 @@
 		return
 
 	if(src.occupant)
-		usr << "<span class='notice'><B>\The [src] is in use.</B></span>"
+		usr << SPAN_NOTE("<B>\The [src] is in use.</B>")
 		return
 
 	for(var/mob/living/carbon/slime/M in range(1,usr))
@@ -482,14 +482,14 @@
 			return
 
 		if(src.occupant)
-			usr << "<span class='notice'><B>\The [src] is in use.</B></span>"
+			usr << SPAN_NOTE("<B>\The [src] is in use.</B>")
 			return
 
 		usr.stop_pulling()
 		set_occupant(usr)
 
-		usr << "<span class='notice'>[on_enter_occupant_message]</span>"
-		usr << "<span class='notice'><b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b></span>"
+		usr << SPAN_NOTE("[on_enter_occupant_message]")
+		usr << SPAN_NOTE("<b>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</b>")
 
 		src.add_fingerprint(usr)
 

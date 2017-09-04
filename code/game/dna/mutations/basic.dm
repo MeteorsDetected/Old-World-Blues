@@ -20,7 +20,7 @@ var/list/all_mutations = new
 	H.mutations.Add(src)
 	if(activation_messages && activation_messages.len)
 		var/msg = pick(activation_messages)
-		H << "<span class='notice'>[msg]</span>"
+		H << SPAN_NOTE(msg)
 
 /datum/mutation/proc/deactivate(var/mob/living/carbon/human/H)
 	H.mutations.Remove(src)

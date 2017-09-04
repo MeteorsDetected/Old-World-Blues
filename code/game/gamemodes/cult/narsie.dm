@@ -314,7 +314,7 @@ var/global/list/narsie_list = list()
 /obj/singularity/narsie/proc/acquire(const/mob/food)
 	var/capname = uppertext(name)
 
-	target << "<span class='notice'><b>[capname] HAS LOST INTEREST IN YOU.</b></span>"
+	target << SPAN_NOTE("<b>[capname] HAS LOST INTEREST IN YOU.</b>")
 	target = food
 
 	if (ishuman(target))

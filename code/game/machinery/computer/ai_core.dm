@@ -16,8 +16,8 @@
 		if(0)
 			if(istype(P, /obj/item/weapon/wrench))
 				playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-				if(do_after(user, 20))
-					user << "\blue You wrench the frame into place."
+				if(do_after(user, 20, src))
+					user << SPAN_NOTE("You wrench the frame into place.")
 					anchored = 1
 					state = 1
 			if(istype(P, /obj/item/weapon/weldingtool))
@@ -26,32 +26,32 @@
 					user << "The welder must be on for this task."
 					return
 				playsound(loc, 'sound/items/Welder.ogg', 50, 1)
-				if(do_after(user, 20))
+				if(do_after(user, 20, src))
 					if(!src || !WT.remove_fuel(0, user)) return
-					user << "\blue You deconstruct the frame."
+					user << SPAN_NOTE("You deconstruct the frame.")
 					new /obj/item/stack/material/plasteel( loc, 4)
 					qdel(src)
 		if(1)
 			if(istype(P, /obj/item/weapon/wrench))
 				playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
-				if(do_after(user, 20))
-					user << "\blue You unfasten the frame."
+				if(do_after(user, 20, src))
+					user << SPAN_NOTE("You unfasten the frame.")
 					anchored = 0
 					state = 0
 			if(istype(P, /obj/item/weapon/circuitboard/aicore) && !circuit)
 				playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
-				user << "\blue You place the circuit board inside the frame."
+				user << SPAN_NOTE("You place the circuit board inside the frame.")
 				icon_state = "1"
 				circuit = P
 				user.drop_from_inventory(P, src)
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
 				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
-				user << "\blue You screw the circuit board into place."
+				user << SPAN_NOTE("You screw the circuit board into place.")
 				state = 2
 				icon_state = "2"
 			if(istype(P, /obj/item/weapon/crowbar) && circuit)
 				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
-				user << "\blue You remove the circuit board."
+				user << SPAN_NOTE("You remove the circuit board.")
 				state = 1
 				icon_state = "0"
 				circuit.loc = loc
@@ -59,7 +59,7 @@
 		if(2)
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
 				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
-				user << "\blue You unfasten the circuit board."
+				user << SPAN_NOTE("You unfasten the circuit board.")
 				state = 1
 				icon_state = "1"
 			if(istype(P, /obj/item/stack/cable_coil))
@@ -67,13 +67,13 @@
 				if (C.get_amount() < 5)
 					user << "<span class='warning'>You need five coils of wire to add them to the frame.</span>"
 					return
-				user << "<span class='notice'>You start to add cables to the frame.</span>"
+				user << SPAN_NOTE("You start to add cables to the frame.")
 				playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
 				if (do_after(user, 20) && state == 2)
 					if (C.use(5))
 						state = 3
 						icon_state = "3"
-						user << "<span class='notice'>You add cables to the frame.</span>"
+						user << SPAN_NOTE("You add cables to the frame.")
 				return
 		if(3)
 			if(istype(P, /obj/item/weapon/wirecutters))
@@ -81,7 +81,7 @@
 					user << "Get that brain out of there first"
 				else
 					playsound(loc, 'sound/items/Wirecutter.ogg', 50, 1)
-					user << "\blue You remove the cables."
+					user << SPAN_NOTE("You remove the cables.")
 					state = 2
 					icon_state = "2"
 					var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
@@ -92,11 +92,11 @@
 				if (RG.get_amount() < 2)
 					user << "<span class='warning'>You need two sheets of glass to put in the glass panel.</span>"
 					return
-				user << "<span class='notice'>You start to put in the glass panel.</span>"
+				user << SPAN_NOTE("You start to put in the glass panel.")
 				playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
 				if (do_after(user, 20) && state == 3)
 					if(RG.use(2))
-						user << "<span class='notice'>You put in the glass panel.</span>"
+						user << SPAN_NOTE("You put in the glass panel.")
 						state = 4
 						icon_state = "4"
 
@@ -145,7 +145,7 @@
 
 			if(istype(P, /obj/item/weapon/crowbar) && brain)
 				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
-				user << "\blue You remove the brain."
+				user << SPAN_NOTE("You remove the brain.")
 				brain.loc = loc
 				brain = null
 				icon_state = "3"
@@ -153,7 +153,7 @@
 		if(4)
 			if(istype(P, /obj/item/weapon/crowbar))
 				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
-				user << "\blue You remove the glass panel."
+				user << SPAN_NOTE("You remove the glass panel.")
 				state = 3
 				if (brain)
 					icon_state = "3b"
@@ -164,7 +164,7 @@
 
 			if(istype(P, /obj/item/weapon/screwdriver))
 				playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
-				user << "\blue You connect the monitor."
+				user << SPAN_NOTE("You connect the monitor.")
 				if(!brain)
 					var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
 					var/obj/structure/AIcore/deactivated/D = new(loc)
@@ -199,7 +199,7 @@
 	transfer.loc = get_turf(src)
 	transfer.create_eyeobj()
 	transfer.cancel_camera()
-	user << "\blue <b>Transfer successful</b>: \black [transfer.name] ([rand(1000,9999)].exe) downloaded to host terminal. Local copy wiped."
+	user << SPAN_NOTE("<b>Transfer successful</b>: \black [transfer.name] ([rand(1000,9999)].exe) downloaded to host terminal. Local copy wiped.")
 	transfer << "You have been uploaded to a stationary terminal. Remote device connection restored."
 
 	if(card)
@@ -225,19 +225,19 @@
 		return
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(anchored)
-			user.visible_message("\blue \The [user] starts to unbolt \the [src] from the plating...")
-			if(!do_after(user,40))
-				user.visible_message("\blue \The [user] decides not to unbolt \the [src].")
+			user.visible_message(SPAN_NOTE("\The [user] starts to unbolt \the [src] from the plating..."))
+			if(!do_after(user, 40, src))
+				user.visible_message(SPAN_NOTE("\The [user] decides not to unbolt \the [src]."))
 				return
-			user.visible_message("\blue \The [user] finishes unfastening \the [src]!")
+			user.visible_message(SPAN_NOTE("\The [user] finishes unfastening \the [src]!"))
 			anchored = 0
 			return
 		else
-			user.visible_message("\blue \The [user] starts to bolt \the [src] to the plating...")
+			user.visible_message(SPAN_NOTE("\The [user] starts to bolt \the [src] to the plating..."))
 			if(!do_after(user,40))
-				user.visible_message("\blue \The [user] decides not to bolt \the [src].")
+				user.visible_message(SPAN_NOTE("\The [user] decides not to bolt \the [src]."))
 				return
-			user.visible_message("\blue \The [user] finishes fastening down \the [src]!")
+			user.visible_message(SPAN_NOTE("\The [user] finishes fastening down \the [src]!"))
 			anchored = 1
 			return
 	else

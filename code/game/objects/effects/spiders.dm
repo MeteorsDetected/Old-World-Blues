@@ -153,7 +153,7 @@
 							return
 
 						if(prob(50))
-							src.visible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>",2)
+							src.visible_message(SPAN_NOTE("You hear something squeezing through the ventilation ducts."),2)
 						sleep(travel_time)
 
 						if(!exit_vent || exit_vent.welded)
@@ -190,7 +190,7 @@
 			new spawn_type(src.loc)
 			qdel(src)
 	else if(prob(1))
-		src.visible_message("<span class='notice'>\The [src] skitters.</span>")
+		src.visible_message(SPAN_NOTE("\The [src] skitters."))
 
 	if(amount_grown)
 		amount_grown += rand(0,2)

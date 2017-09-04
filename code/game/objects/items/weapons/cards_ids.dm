@@ -93,11 +93,11 @@
 	if(istype(O, /obj/item/stack/telecrystal))
 		var/obj/item/stack/telecrystal/T = O
 		if(T.amount < 1)
-			usr << "<span class='notice'>You are not adding enough telecrystals to fuel \the [src].</span>"
+			usr << SPAN_NOTE("You are not adding enough telecrystals to fuel \the [src].")
 			return
 		uses += T.amount/2 //Gives 5 uses per 10 TC
 		uses = ceil(uses) //Ensures no decimal uses nonsense, rounds up to be nice
-		usr << "<span class='notice'>You add \the [O] to \the [src]. Increasing the uses of \the [src] to [uses].</span>"
+		usr << SPAN_NOTE("You add \the [O] to \the [src]. Increasing the uses of \the [src] to [uses].")
 		qdel(O)
 */
 
@@ -186,7 +186,7 @@
 		src.access |= I.access
 		if(isliving(user) && user.mind)
 			if(user.mind.special_role)
-				usr << "\blue The card's microscanners activate as you pass it over the ID, copying its access."
+				usr << SPAN_NOTE("The card's microscanners activate as you pass it over the ID, copying its access.")
 
 /obj/item/weapon/card/id/syndicate/attack_self(mob/user as mob)
 	if(!src.registered_name)
@@ -204,7 +204,7 @@
 			return
 		src.assignment = u
 		src.name = "[src.registered_name]'s ID Card ([src.assignment])"
-		user << "\blue You successfully forge the ID card."
+		user << SPAN_NOTE("You successfully forge the ID card.")
 		registered_user = user
 	else if(!registered_user || registered_user == user)
 
@@ -224,7 +224,7 @@
 					return
 				src.assignment = u
 				src.name = "[src.registered_name]'s ID Card ([src.assignment])"
-				user << "\blue You successfully forge the ID card."
+				user << SPAN_NOTE("You successfully forge the ID card.")
 				return
 			if("Show")
 				..()

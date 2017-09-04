@@ -26,7 +26,7 @@
 	icon_state = "lizard"
 
 /obj/effect/decal/remains/attack_hand(mob/user as mob)
-	user << "<span class='notice'>[src] sinks together into a pile of ash.</span>"
+	user << SPAN_NOTE("[src] sinks together into a pile of ash.")
 	var/turf/simulated/floor/F = get_turf(src)
 	if (istype(F))
 		new /obj/effect/decal/cleanable/ash(F)

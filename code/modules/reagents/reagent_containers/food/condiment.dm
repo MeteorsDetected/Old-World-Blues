@@ -35,15 +35,15 @@
 	// These are not opencontainers but we can transfer to them
 	if(istype(target, /obj/item/weapon/reagent_containers/food/snacks))
 		if(!reagents || !reagents.total_volume)
-			user << "<span class='notice'>There is no condiment left in \the [src].</span>"
+			user << SPAN_NOTE("There is no condiment left in \the [src].")
 			return
 
 		if(!target.reagents.get_free_space())
-			user << "<span class='notice'>You can't add more condiment to \the [target].</span>"
+			user << SPAN_NOTE("You can't add more condiment to \the [target].")
 			return
 
 		var/trans = reagents.trans_to_obj(target, amount_per_transfer_from_this)
-		user << "<span class='notice'>You add [trans] units of the condiment to \the [target].</span>"
+		user << SPAN_NOTE("You add [trans] units of the condiment to \the [target].")
 	else
 		..()
 
@@ -51,7 +51,7 @@
 	playsound(user.loc, 'sound/items/drink.ogg', rand(10, 50), 1)
 
 /obj/item/weapon/reagent_containers/condiment/self_feed_message(var/mob/user)
-	user << "<span class='notice'>You swallow some of contents of \the [src].</span>"
+	user << SPAN_NOTE("You swallow some of contents of \the [src].")
 
 /obj/item/weapon/reagent_containers/condiment/on_reagent_change()
 	if(reagents.reagent_list.len > 0)

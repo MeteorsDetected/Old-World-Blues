@@ -196,7 +196,7 @@
 					var/choice = input("Are you certain you wish to hack [R.name]?") in list("Confirm", "Abort")
 					if(choice == "Confirm")
 						if(R && istype(R))
-//							message_admins("\blue [key_name_admin(usr)] emagged [R.name] using robotic console!")
+//							message_admins(SPAN_NOTE("[key_name_admin(usr)] emagged [R.name] using robotic console!"))
 							log_game("[key_name(usr)] emagged [R.name] using robotic console!", src)
 							R.emagged = 1
 							if(R.mind.special_role)

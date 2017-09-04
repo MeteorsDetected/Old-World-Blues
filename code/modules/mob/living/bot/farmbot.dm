@@ -67,7 +67,7 @@
 	. = ..()
 	if(!emagged)
 		if(user)
-			user << "<span class='notice'>You short out [src]'s plant identifier circuits.</span>"
+			user << SPAN_NOTE("You short out [src]'s plant identifier circuits.")
 		spawn(rand(30, 50))
 			visible_message("<span class='warning'>[src] buzzes oddly.</span>")
 			emagged = 1
@@ -180,27 +180,27 @@
 			if(FARMBOT_WATER)
 				action = "water"
 				update_icons()
-				visible_message("<span class='notice'>[src] starts watering \the [A].</span>")
+				visible_message(SPAN_NOTE("[src] starts watering \the [A]."))
 				attacking = 1
 				if(do_after(src, 30))
 					playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
-					visible_message("<span class='notice'>[src] waters \the [A].</span>")
+					visible_message(SPAN_NOTE("[src] waters \the [A]."))
 					tank.reagents.trans_to(T, 100 - T.waterlevel)
 			if(FARMBOT_UPROOT)
 				action = "hoe"
 				update_icons()
-				visible_message("<span class='notice'>[src] starts uprooting the weeds in \the [A].</span>")
+				visible_message(SPAN_NOTE("[src] starts uprooting the weeds in \the [A]."))
 				attacking = 1
 				if(do_after(src, 30))
-					visible_message("<span class='notice'>[src] uproots the weeds in \the [A].</span>")
+					visible_message(SPAN_NOTE("[src] uproots the weeds in \the [A]."))
 					T.weedlevel = 0
 			if(FARMBOT_NUTRIMENT)
 				action = "fertile"
 				update_icons()
-				visible_message("<span class='notice'>[src] starts fertilizing \the [A].</span>")
+				visible_message(SPAN_NOTE("[src] starts fertilizing \the [A]."))
 				attacking = 1
 				if(do_after(src, 30))
-					visible_message("<span class='notice'>[src] waters \the [A].</span>")
+					visible_message(SPAN_NOTE("[src] waters \the [A]."))
 					T.reagents.add_reagent("ammonia", 10)
 		attacking = 0
 		action = ""
@@ -211,7 +211,7 @@
 			return
 		action = "water"
 		update_icons()
-		visible_message("<span class='notice'>[src] starts refilling its tank from \the [A].</span>")
+		visible_message(SPAN_NOTE("[src] starts refilling its tank from \the [A]."))
 		attacking = 1
 		while(do_after(src, 10) && tank.reagents.total_volume < tank.reagents.maximum_volume)
 			tank.reagents.add_reagent("water", 10)
@@ -220,7 +220,7 @@
 		attacking = 0
 		action = ""
 		update_icons()
-		visible_message("<span class='notice'>[src] finishes refilling its tank.</span>")
+		visible_message(SPAN_NOTE("[src] finishes refilling its tank."))
 	else if(emagged && ishuman(A))
 		var/action = pick("weed", "water")
 		attacking = 1

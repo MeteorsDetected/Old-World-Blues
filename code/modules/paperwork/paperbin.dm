@@ -55,9 +55,9 @@
 				P = new /obj/item/weapon/paper/carbon
 
 		user.put_in_hands(P)
-		user << "<span class='notice'>You take [P] out of the [src].</span>"
+		user << SPAN_NOTE("You take [P] out of the [src].")
 	else
-		user << "<span class='notice'>[src] is empty!</span>"
+		user << SPAN_NOTE("[src] is empty!")
 
 	add_fingerprint(user)
 	return
@@ -68,7 +68,7 @@
 		return
 
 	user.drop_from_inventory(i, src)
-	user << "<span class='notice'>You put [i] in [src].</span>"
+	user << SPAN_NOTE("You put [i] in [src].")
 	papers.Add(i)
 	amount++
 
@@ -79,7 +79,7 @@
 		if(amount)
 			user << "<span class='notice'>There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.</span>"
 		else
-			user << "<span class='notice'>There are no papers in the bin.</span>"
+			user << SPAN_NOTE("There are no papers in the bin.")
 	return
 
 

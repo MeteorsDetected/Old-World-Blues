@@ -164,15 +164,15 @@
 /mob/living/bot/medbot/attackby(var/obj/item/O, var/mob/user)
 	if(istype(O, /obj/item/weapon/reagent_containers/glass))
 		if(locked)
-			user << "<span class='notice'>You cannot insert a beaker because the panel is locked.</span>"
+			user << SPAN_NOTE("You cannot insert a beaker because the panel is locked.")
 			return
 		if(!isnull(reagent_glass))
-			user << "<span class='notice'>There is already a beaker loaded.</span>"
+			user << SPAN_NOTE("There is already a beaker loaded.")
 			return
 
 		if(user.unEquip(O, src))
 			reagent_glass = O
-			user << "<span class='notice'>You insert [O].</span>"
+			user << SPAN_NOTE("You insert [O].")
 		return
 	else
 		..()
@@ -212,7 +212,7 @@
 			reagent_glass.loc = get_turf(src)
 			reagent_glass = null
 		else
-			usr << "<span class='notice'>You cannot eject the beaker because the panel is locked.</span>"
+			usr << SPAN_NOTE("You cannot eject the beaker because the panel is locked.")
 
 	else if ((href_list["togglevoice"]) && (!locked || issilicon(usr)))
 		vocal = !vocal
@@ -298,7 +298,7 @@
 		return
 
 	if(contents.len >= 1)
-		user << "<span class='notice'>You need to empty [src] out first.</span>"
+		user << SPAN_NOTE("You need to empty [src] out first.")
 		return
 
 	var/obj/item/weapon/firstaid_arm_assembly/A = new /obj/item/weapon/firstaid_arm_assembly
@@ -311,7 +311,7 @@
 
 	qdel(S)
 	user.put_in_hands(A)
-	user << "<span class='notice'>You add the robot arm to the first aid kit.</span>"
+	user << SPAN_NOTE("You add the robot arm to the first aid kit.")
 	user.drop_from_inventory(src)
 	qdel(src)
 
@@ -347,7 +347,7 @@
 					if(user.unEquip(W)) // Mounted Healhanalyzer and so on.
 						qdel(W)
 						build_step++
-						user << "<span class='notice'>You add the health sensor to [src].</span>"
+						user << SPAN_NOTE("You add the health sensor to [src].")
 						name = "First aid/robot arm/health analyzer assembly"
 						overlays += image('icons/obj/aibots.dmi', "na_scanner")
 
@@ -355,7 +355,7 @@
 				if(isprox(W))
 					user.drop_from_inventory(W)
 					qdel(W)
-					user << "<span class='notice'>You complete the Medibot! Beep boop.</span>"
+					user << SPAN_NOTE("You complete the Medibot! Beep boop.")
 					var/turf/T = get_turf(src)
 					var/mob/living/bot/medbot/S = new /mob/living/bot/medbot(T)
 					S.skin = skin

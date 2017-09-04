@@ -20,7 +20,7 @@
 			user.remove_from_mob(O)
 			contents += O
 			has_extinguisher = O
-			user << "<span class='notice'>You place [O] in [src].</span>"
+			user << SPAN_NOTE("You place [O] in [src].")
 		else
 			opened = !opened
 	else
@@ -39,7 +39,7 @@
 			return
 	if(has_extinguisher)
 		user.put_in_hands(has_extinguisher)
-		user << "<span class='notice'>You take [has_extinguisher] from [src].</span>"
+		user << SPAN_NOTE("You take [has_extinguisher] from [src].")
 		has_extinguisher = null
 		opened = 1
 	else
@@ -49,7 +49,7 @@
 /obj/structure/extinguisher_cabinet/attack_tk(mob/user)
 	if(has_extinguisher)
 		has_extinguisher.loc = loc
-		user << "<span class='notice'>You telekinetically remove [has_extinguisher] from [src].</span>"
+		user << SPAN_NOTE("You telekinetically remove [has_extinguisher] from [src].")
 		has_extinguisher = null
 		opened = 1
 	else

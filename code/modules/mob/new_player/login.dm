@@ -16,7 +16,7 @@ var/obj/effect/lobby_image = new /obj/effect/lobby_image
 		src << "<div class=\"motd\">[join_motd]</div>"
 
 	if(config.soft_popcap && living_player_count() >= config.soft_popcap)
-		src << "<span class='notice'><b>Server Notice:</b>\n \t [config.soft_popcap_message]</span>"
+		src << SPAN_NOTE("<b>Server Notice:</b>\n \t [config.soft_popcap_message]")
 
 	if(!mind)
 		mind = new /datum/mind(key)

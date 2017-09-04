@@ -181,7 +181,7 @@ For copy-pasting:
 
 		H.mind.initial_account = M
 
-	H << "<span class='notice'><b>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</b></span>"
+	H << SPAN_NOTE("<b>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</b>")
 
 /datum/job/proc/get_access()
 	if(!config || config.jobs_have_minimal_access)

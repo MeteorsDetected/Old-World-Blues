@@ -19,7 +19,7 @@
 	var/duration = 300
 	if(src.mind.changeling.recursive_enhancement)
 		duration = duration + 150
-		src << "<span class='notice'>They will be deprived of sight for longer.</span>"
+		src << SPAN_NOTE("They will be deprived of sight for longer.")
 		src.mind.changeling.recursive_enhancement = 0
 	spawn(duration)
 		T.disabilities &= ~NEARSIGHTED

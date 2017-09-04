@@ -18,10 +18,10 @@
 			R.adjustFireLoss(-15)
 			R.updatehealth()
 			use(1)
-			user.visible_message("<span class='notice'>\The [user] applied some [src] on [R]'s damaged areas.</span>",\
-				"<span class='notice'>You apply some [src] at [R]'s damaged areas.</span>")
+			user.visible_message(SPAN_NOTE("\The [user] applied some [src] on [R]'s damaged areas."),\
+				SPAN_NOTE("You apply some [src] at [R]'s damaged areas."))
 		else
-			user << "<span class='notice'>All [R]'s systems are nominal.</span>"
+			user << SPAN_NOTE("All [R]'s systems are nominal.")
 
 	if (ishuman(M))		//Repairing robolimbs
 		var/mob/living/carbon/human/H = M
@@ -32,7 +32,7 @@
 
 		if(S.open == 1 && S.robotic >= ORGAN_ROBOT)
 			if(!S.get_damage())
-				user << "<span class='notice'>Nothing to fix here.</span>"
+				user << SPAN_NOTE("Nothing to fix here.")
 			else if(can_use(1))
 				user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 				S.heal_damage(15, 15, robo_repair = 1)

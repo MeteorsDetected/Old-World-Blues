@@ -45,7 +45,7 @@
 				user << "<span class='warning'>You aren't sure where this brain came from, but you're pretty sure it's useless.</span>"
 				return
 
-			user.visible_message("<span class='notice'>\The [user] sticks \a [O] into \the [src].</span>")
+			user.visible_message(SPAN_NOTE("\The [user] sticks \a [O] into \the [src]."))
 
 			brainmob = B.brainmob
 			B.brainmob = null
@@ -90,7 +90,7 @@
 		else if(locked)
 			user << "<span class='warning'>You upend the MMI, but the brain is clamped into place.</span>"
 		else
-			user << "<span class='notice'>You upend the MMI, spilling the brain onto the floor.</span>"
+			user << SPAN_NOTE("You upend the MMI, spilling the brain onto the floor.")
 			var/obj/item/organ/internal/brain/brain
 			if (brainobj)	//Pull brain organ out of MMI.
 				brainobj.loc = user.loc

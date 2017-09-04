@@ -18,7 +18,7 @@
 	if(!proximity) return
 	if(istype(A, /turf) || istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/overlay) || istype(A, /obj/effect/rune))
 		if(reagents.total_volume < 1)
-			user << "<span class='notice'>Your mop is dry!</span>"
+			user << SPAN_NOTE("Your mop is dry!")
 			return
 
 		user.visible_message("<span class='warning'>[user] begins to clean \the [get_turf(A)].</span>")
@@ -27,7 +27,7 @@
 			var/turf/T = get_turf(A)
 			if(T)
 				T.clean(src, user)
-			user << "<span class='notice'>You have finished mopping!</span>"
+			user << SPAN_NOTE("You have finished mopping!")
 
 
 /obj/effect/attackby(obj/item/I, mob/user)

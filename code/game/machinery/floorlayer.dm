@@ -44,18 +44,18 @@
 		return
 
 	if(istype(W, /obj/item/stack/tile))
-		user << "<span class='notice'>\The [W] successfully loaded.</span>"
+		user << SPAN_NOTE("\The [W] successfully loaded.")
 		user.drop_from_inventory(W, T)
 		TakeTile(T)
 		return
 
 	if(istype(W, /obj/item/weapon/crowbar))
 		if(!length(contents))
-			user << "<span class='notice'>\The [src] is empty.</span>"
+			user << SPAN_NOTE("\The [src] is empty.")
 		else
 			var/obj/item/stack/tile/E = input("Choose remove tile type.", "Tiles") as null|anything in contents
 			if(E)
-				user <<  "<span class='notice'>You remove the [E] from /the [src].</span>"
+				user <<  SPAN_NOTE("You remove the [E] from /the [src].")
 				E.loc = src.loc
 				T = null
 		return

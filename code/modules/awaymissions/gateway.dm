@@ -82,10 +82,10 @@ obj/machinery/gateway/centerstation/process()
 	if(linked.len != 8)	return
 	if(!powered())		return
 	if(!awaygate)
-		user << "<span class='notice'>Error: No destination found.</span>"
+		user << SPAN_NOTE("Error: No destination found.")
 		return
 	if(world.time < wait)
-		user << "<span class='notice'>Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes.</span>"
+		user << SPAN_NOTE("Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes.")
 		return
 
 	for(var/obj/machinery/gateway/G in linked)
@@ -185,7 +185,7 @@ obj/machinery/gateway/centerstation/process()
 	if(!ready)			return
 	if(linked.len != 8)	return
 	if(!stationgate)
-		user << "<span class='notice'>Error: No destination found.</span>"
+		user << SPAN_NOTE("Error: No destination found.")
 		return
 
 	for(var/obj/machinery/gateway/G in linked)
@@ -231,6 +231,6 @@ obj/machinery/gateway/centerstation/process()
 			user << "\black The gate is already calibrated, there is no work for you to do here."
 			return
 		else
-			user << "\blue <b>Recalibration successful!</b>: \black This gate's systems have been fine tuned.  Travel to this gate will now be on target."
+			user << SPAN_NOTE("<b>Recalibration successful!</b>: \black This gate's systems have been fine tuned.  Travel to this gate will now be on target.")
 			calibrated = 1
 			return

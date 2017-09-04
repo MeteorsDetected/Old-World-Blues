@@ -112,7 +112,7 @@
 			if(BLOOD_VOLUME_SAFE/100 to 1)
 				if(!blood_state)
 					blood_state = BLOOD_VOLUME_SAFE
-					src << "<span class='notice'>[H] is full of life essence.</span>"
+					src << SPAN_NOTE("[H] is full of life essence.")
 			if(BLOOD_VOLUME_OKAY/100 to BLOOD_VOLUME_SAFE/100)
 				if(blood_state != BLOOD_VOLUME_OKAY)
 					blood_state = BLOOD_VOLUME_OKAY
@@ -133,7 +133,7 @@
 
 	src.visible_message(
 		"<span class='warning'>[src] released [H] [body_part].</span>",
-		"<span class='notice'>We stop dringing [H] blood.</span>"
+		SPAN_NOTE("We stop dringing [H] blood.")
 	)
 	if(G)
 		qdel(G)

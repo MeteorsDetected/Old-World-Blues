@@ -39,7 +39,7 @@
 
 	C.halloss = 0
 	C.shock_stage = 0 //Pain
-	C << "<span class='notice'>We have regenerated.</span>"
+	C << SPAN_NOTE("We have regenerated.")
 	C.update_canmove()
 	C.mind.changeling.purchased_powers -= C
 	C.stat = CONSCIOUS

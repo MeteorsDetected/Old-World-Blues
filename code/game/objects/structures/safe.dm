@@ -147,11 +147,11 @@ FLOOR SAFES
 		if(I.w_class + space <= maxspace)
 			if(user.unEquip(I, src))
 				space += I.w_class
-				user << "<span class='notice'>You put [I] in [src].</span>"
+				user << SPAN_NOTE("You put [I] in [src].")
 				updateUsrDialog()
 				return
 		else
-			user << "<span class='notice'>[I] won't fit in [src].</span>"
+			user << SPAN_NOTE("[I] won't fit in [src].")
 			return
 	else
 		if(istype(I, /obj/item/clothing/accessory/stethoscope))

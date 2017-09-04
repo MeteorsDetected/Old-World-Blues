@@ -746,10 +746,10 @@ About the new airlock wires panel:
 			if (stat & BROKEN)
 				usr << "<span class='warning'>The panel is broken and cannot be closed.</span>"
 			else
-				usr << "<span class='notice'>You close '[name]' airlock panel.</span>"
+				usr << SPAN_NOTE("You close '[name]' airlock panel.")
 				src.p_open = 0
 		else
-			usr << "<span class='notice'>You open '[name]' airlock panel.</span>"
+			usr << SPAN_NOTE("You open '[name]' airlock panel.")
 			src.p_open = 1
 		src.update_icon()
 	else if(istype(C, /obj/item/weapon/wirecutters))
@@ -766,7 +766,7 @@ About the new airlock wires panel:
 			playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
 			user.visible_message("[user] removes the electronics from the airlock assembly.", "You start to remove electronics from the airlock assembly.")
 			if(do_after(user,40))
-				user << "<span class='notice'>You removed the airlock electronics!</span>"
+				user << SPAN_NOTE("You removed the airlock electronics!")
 
 				var/obj/structure/door_assembly/da = new assembly_type(src.loc)
 				if (istype(da, /obj/structure/door_assembly/multi_tile))
@@ -794,9 +794,9 @@ About the new airlock wires panel:
 				qdel(src)
 				return
 		else if(arePowerSystemsOn())
-			user << "<span class='notice'>The airlock's motors resist your efforts to force it.</span>"
+			user << SPAN_NOTE("The airlock's motors resist your efforts to force it.")
 		else if(locked)
-			user << "<span class='notice'>The airlock's bolts prevent it from being forced.</span>"
+			user << SPAN_NOTE("The airlock's bolts prevent it from being forced.")
 		else
 			if(density)
 				spawn(0)	open(1)
@@ -808,7 +808,7 @@ About the new airlock wires panel:
 		var/obj/item/weapon/W = C
 		if((W.pry == 1) && !arePowerSystemsOn())
 			if(locked)
-				user << "<span class='notice'>The airlock's bolts prevent it from being forced.</span>"
+				user << SPAN_NOTE("The airlock's bolts prevent it from being forced.")
 			else if( !welded && !operating )
 				if(istype(C, /obj/item/weapon/material/twohanded/fireaxe)) // If this is a fireaxe, make sure it's held in two hands.
 					var/obj/item/weapon/material/twohanded/fireaxe/F = C

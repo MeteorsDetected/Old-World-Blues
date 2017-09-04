@@ -51,7 +51,7 @@
 			else
 				user << "You failed to salvage anything valuable from [src]."
 		else
-			user << "\blue You need more welding fuel to complete this task."
+			user << SPAN_NOTE("You need more welding fuel to complete this task.")
 			return
 	if(istype(W, /obj/item/weapon/wirecutters))
 		if(salvage_num <= 0)

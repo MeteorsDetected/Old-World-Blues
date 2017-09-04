@@ -62,14 +62,14 @@
 		var/obj/machinery/computer/C = user
 
 		if(world.time <= reset_time)
-			C.visible_message("\blue Central Command will not allow the Special Operations shuttle to launch yet.")
+			C.visible_message(SPAN_NOTE("Central Command will not allow the Special Operations shuttle to launch yet."))
 			if (((world.time - reset_time)/10) > 60)
-				C.visible_message("\blue [-((world.time - reset_time)/10)/60] minutes remain!")
+				C.visible_message(SPAN_NOTE("[-((world.time - reset_time)/10)/60] minutes remain!"))
 			else
-				C.visible_message("\blue [-(world.time - reset_time)/10] seconds remain!")
+				C.visible_message(SPAN_NOTE("[-(world.time - reset_time)/10] seconds remain!"))
 			return
 
-		C.visible_message("\blue The Special Operations shuttle will depart in [(specops_countdown_time/10)] seconds.")
+		C.visible_message(SPAN_NOTE("The Special Operations shuttle will depart in [(specops_countdown_time/10)] seconds."))
 
 	if (location)	//returning
 		radio_announce("THE SPECIAL OPERATIONS SHUTTLE IS PREPARING TO RETURN")
