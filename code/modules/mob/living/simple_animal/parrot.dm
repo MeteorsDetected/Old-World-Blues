@@ -616,8 +616,8 @@
 			held_item = stolen_item
 			stolen_item.loc = src
 			visible_message(\
-				"<span class = 'notice'>[src] grabs the [held_item] out of [C]'s hand!</span>",
-				"<span class = 'notice'>You snag the [held_item] out of [C]'s hand!</span>",
+				SPAN_NOTE("[src] grabs the [held_item] out of [C]'s hand!"),
+				SPAN_NOTE("You snag the [held_item] out of [C]'s hand!"),
 				"You hear the sounds of wings flapping furiously."
 			)
 			return held_item

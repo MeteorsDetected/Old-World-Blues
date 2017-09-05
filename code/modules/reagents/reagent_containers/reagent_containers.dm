@@ -70,7 +70,10 @@
 		"used [name] (reagents: [contained]) for splash"
 	)
 
-	user.visible_message("<span class='danger'>[target] has been splashed with something by [user]!</span>", "<span class = 'notice'>You splash the solution onto [target].</span>")
+	user.visible_message(
+		"<span class='danger'>[target] has been splashed with something by [user]!</span>",
+		SPAN_NOTE("You splash the solution onto [target].")
+	)
 	reagents.splash(target, reagents.total_volume*0.5)
 	return 1
 

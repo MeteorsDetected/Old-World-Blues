@@ -322,7 +322,7 @@ var/global/vs_control/vsc = new
 			plc.N2O_HALLUCINATION 			= initial(plc.N2O_HALLUCINATION)
 
 
-	world << "<span class='notice'><b>[key_name(user)] changed the global phoron/ZAS settings to \"[def]\"</b></span>"
+	world << SPAN_NOTE("<b>[key_name(user)] changed the global phoron/ZAS settings to \"[def]\"</b>")
 
 /pl_control/var/list/settings = list()
 

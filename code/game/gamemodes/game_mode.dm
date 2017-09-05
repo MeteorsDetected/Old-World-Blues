@@ -548,7 +548,7 @@ var/global/list/additional_antag_types = list()
 //Reports player logouts//
 //////////////////////////
 proc/display_roundstart_logout_report()
-	var/msg = "<span class='notice'><b>Roundstart logout report</b>\n\n"
+	var/msg = "<b>Roundstart logout report</b>\n\n"
 	for(var/mob/living/L in mob_list)
 
 		if(L.ckey)
@@ -594,7 +594,7 @@ proc/display_roundstart_logout_report()
 						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>Ghosted</b></font>)\n"
 						continue //Ghosted while alive
 
-	msg += "</span>" // close the span from right at the top
+	msg = SPAN_NOTE(msg)
 
 	for(var/mob/M in mob_list)
 		if(M.client && M.client.holder)

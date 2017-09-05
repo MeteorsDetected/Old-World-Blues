@@ -92,7 +92,7 @@
 		else if(anchored && !reinf_material)
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
 			reinforcing = !reinforcing
-			user << "<span class='notice'>\The [src] can now be [reinforcing? "reinforced" : "constructed"]!</span>"
+			user << SPAN_NOTE("\The [src] can now be [reinforcing? "reinforced" : "constructed"]!")
 
 	else if(istype(W, /obj/item/weapon/wirecutters) && state == 1)
 		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)

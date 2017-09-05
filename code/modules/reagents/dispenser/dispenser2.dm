@@ -68,15 +68,15 @@
 /obj/machinery/chemical_dispenser/attackby(obj/item/weapon/W, mob/user)
 	if(istype(W, /obj/item/weapon/wrench))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		user << "<span class='notice'>You begin to [anchored ? "un" : ""]fasten \the [src].</span>"
+		user << SPAN_NOTE("You begin to [anchored ? "un" : ""]fasten \the [src].")
 		if (do_after(user, 20))
 			user.visible_message(
-				"<span class='notice'>\The [user] [anchored ? "un" : ""]fastens \the [src].</span>",
-				"<span class='notice'>You have [anchored ? "un" : ""]fastened \the [src].</span>",
+				SPAN_NOTE("\The [user] [anchored ? "un" : ""]fastens \the [src]."),
+				SPAN_NOTE("You have [anchored ? "un" : ""]fastened \the [src]."),
 				"You hear a ratchet.")
 			anchored = !anchored
 		else
-			user << "<span class='notice'>You decide not to [anchored ? "un" : ""]fasten \the [src].</span>"
+			user << SPAN_NOTE("You decide not to [anchored ? "un" : ""]fasten \the [src].")
 
 	else if(istype(W, /obj/item/weapon/reagent_containers/chem_disp_cartridge))
 		add_cartridge(W, user)

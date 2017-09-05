@@ -22,7 +22,7 @@
 		user << "<span class='warning'>The [E.encased ? E.encased : "bone in the [E.name]"] moves slightly when you poke it!</span>"
 		H.custom_pain("Your [E.name] hurts where it's poked.")
 	else
-		user << "<span class='notice'>The [E.encased ? E.encased : "bones in the [E.name]"] seem to be fine.</span>"
+		user << SPAN_NOTE("The [E.encased ? E.encased : "bones in the [E.name]"] seem to be fine.")
 
 	user << SPAN_NOTE("Checking skin now...")
 	if(!do_mob(user, H, 10))

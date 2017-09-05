@@ -60,7 +60,8 @@
 		if(fibers.evidence)
 			report.info = "Molecular analysis on provided sample has determined the presence of unique fiber strings.<br><br>"
 			for(var/fiber in fibers.evidence)
-				report.info += "<span class='notice'>Most likely match for fibers: [fiber]</span><br><br>"
+				report.info += SPAN_NOTE("Most likely match for fibers: [fiber]")
+				report.info += "<br><br>"
 		else
 			report.info += "No fibers found."
 	else if(istype(sample, /obj/item/weapon/sample/print))

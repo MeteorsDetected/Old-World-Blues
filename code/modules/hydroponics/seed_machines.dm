@@ -92,7 +92,7 @@
 
 	if(istype(W,/obj/item/weapon/screwdriver))
 		open = !open
-		user << "<span class='notice'>You [open ? "open" : "close"] the maintenance panel.</span>"
+		user << SPAN_NOTE("You [open ? "open" : "close"] the maintenance panel.")
 		return
 
 	if(open)

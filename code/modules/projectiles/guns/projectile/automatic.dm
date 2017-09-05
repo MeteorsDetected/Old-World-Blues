@@ -244,7 +244,7 @@
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/proc/toggle_cover(mob/user)
 	cover_open = !cover_open
-	user << "<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>"
+	user << SPAN_NOTE("You [cover_open ? "open" : "close"] [src]'s cover.")
 	update_icon()
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/attack_self(mob/user as mob)

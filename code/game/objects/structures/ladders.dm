@@ -34,9 +34,11 @@
 				M << SPAN_NOTE("\A [A] is blocking \the [src].")
 				return
 
-		M.visible_message("<span class='notice'>\A [M] climbs [icon_state == "ladderup" ? "up" : "down"] \a [src]!</span>",
+		M.visible_message(
+			SPAN_NOTE("\A [M] climbs [icon_state == "ladderup" ? "up" : "down"] \a [src]!"),
 			"You climb [icon_state == "ladderup"  ? "up" : "down"] \the [src]!",
-			"You hear the grunting and clanging of a metal ladder being used.")
+			"You hear the grunting and clanging of a metal ladder being used."
+		)
 		M.Move(T)
 
 	CanPass(obj/mover, turf/source, height, airflow)

@@ -48,7 +48,7 @@
 	else if(istype(P, /obj/item/weapon/wrench))
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		anchored = !anchored
-		user << "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>"
+		user << SPAN_NOTE("You [anchored ? "wrench" : "unwrench"] \the [src].")
 	else
 		user << SPAN_NOTE("You can't put [P] in [src]!")
 

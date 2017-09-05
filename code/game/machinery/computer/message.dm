@@ -133,10 +133,11 @@
 				dat += "<br>"
 
 			//Bottom message
+			dat += "<br><hr><dd>"
 			if(!auth)
-				dat += "<br><hr><dd><span class='notice'>Please authenticate with the server in order to show additional options.</span>"
+				dat += SPAN_NOTE("Please authenticate with the server in order to show additional options.")
 			else
-				dat += "<br><hr><dd><span class='warning'>Reg, #514 forbids sending messages to a Head of Staff containing Erotic Rendering Properties.</span>"
+				dat += "<span class='warning'>Reg, #514 forbids sending messages to a Head of Staff containing Erotic Rendering Properties.</span>"
 
 		//Message Logs
 		if(1)

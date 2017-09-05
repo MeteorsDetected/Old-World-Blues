@@ -18,8 +18,10 @@
 			R.adjustFireLoss(-15)
 			R.updatehealth()
 			use(1)
-			user.visible_message(SPAN_NOTE("\The [user] applied some [src] on [R]'s damaged areas."),\
-				SPAN_NOTE("You apply some [src] at [R]'s damaged areas."))
+			user.visible_message(
+				SPAN_NOTE("\The [user] applied some [src] on [R]'s damaged areas."),
+				SPAN_NOTE("You apply some [src] at [R]'s damaged areas.")
+			)
 		else
 			user << SPAN_NOTE("All [R]'s systems are nominal.")
 
@@ -38,5 +40,7 @@
 				S.heal_damage(15, 15, robo_repair = 1)
 				H.updatehealth()
 				use(1)
-				user.visible_message("<span class='notice'>\The [user] applies some nanite paste on [user != M ? "[M]'s [S.name]" : "[S]"] with [src].</span>",\
-				"<span class='notice'>You apply some nanite paste on [user == M ? "your" : "[M]'s"] [S.name].</span>")
+				user.visible_message(
+					"<span class = 'notice'>\The [user] applies some nanite paste on [user != M ? "[M]\'s [S.name]" : "[S]"] with [src].</span>",
+					"<span class = 'notice'>You apply some nanite paste on [user == M ? "your" : "[M]\'s"] [S.name].</span>"
+				)

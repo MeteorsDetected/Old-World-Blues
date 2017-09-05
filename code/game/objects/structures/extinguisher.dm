@@ -35,7 +35,7 @@
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.get_organ(H.hand ? BP_L_HAND : BP_R_HAND)
 		if(temp && !temp.is_usable())
-			user << "<span class='notice'>You try to move your [temp.name], but cannot!"
+			user << SPAN_NOTE("You try to move your [temp.name], but cannot!")
 			return
 	if(has_extinguisher)
 		user.put_in_hands(has_extinguisher)

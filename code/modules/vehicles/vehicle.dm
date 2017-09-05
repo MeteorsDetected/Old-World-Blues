@@ -80,7 +80,7 @@
 		if(!locked)
 			open = !open
 			update_icon()
-			user << "<span class='notice'>Maintenance panel is now [open ? "opened" : "closed"].</span>"
+			user << SPAN_NOTE("Maintenance panel is now [open ? "opened" : "closed"].")
 	else if(istype(W, /obj/item/weapon/crowbar) && cell && open)
 		remove_cell(user)
 

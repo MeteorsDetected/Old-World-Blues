@@ -212,7 +212,7 @@
 
 		anchored = !anchored
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		user << "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>"
+		user << SPAN_NOTE("You [anchored ? "wrench" : "unwrench"] \the [src].")
 
 		return
 

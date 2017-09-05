@@ -172,10 +172,10 @@
 			if(FARMBOT_COLLECT)
 				action = "water" // Needs a better one
 				update_icons()
-				visible_message("<span class='notice'>[src] starts [T.dead? "removing the plant from" : "harvesting"] \the [A].</span>")
+				visible_message(SPAN_NOTE("[src] starts [T.dead? "removing the plant from" : "harvesting"] \the [A]."))
 				attacking = 1
 				if(do_after(src, 30))
-					visible_message("<span class='notice'>[src] [T.dead? "removes the plant from" : "harvests"] \the [A].</span>")
+					visible_message(SPAN_NOTE("[src] [T.dead? "removes the plant from" : "harvests"] \the [A]."))
 					T.attack_hand(src)
 			if(FARMBOT_WATER)
 				action = "water"

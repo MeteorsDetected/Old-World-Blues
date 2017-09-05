@@ -272,6 +272,6 @@
 					name = initial(name) + "([tmr.time] secs)"
 					usr << SPAN_NOTE("Timer set to [tmr.time] seconds.")
 				else
-					usr << "<span class='notice'>Timer can't be [ntime<=0?"negative":"more than 1000 seconds"].</span>"
+					usr << SPAN_NOTE("Timer can't be [ntime<=0?"negative":"more than 1000 seconds"].")
 		else
-			usr << "<span class='notice'>You cannot do this while [usr.stat?"unconscious/dead":"restrained"].</span>"
+			usr << SPAN_NOTE("You cannot do this while [usr.stat?"unconscious/dead":"restrained"].")

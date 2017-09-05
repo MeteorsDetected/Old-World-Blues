@@ -73,7 +73,7 @@
 		if(length(tmp_label) > max_label_len)
 			user << SPAN_NOTE("The label can be at most [max_label_len] characters long.")
 		else
-			user << "<span class='notice'>You set the label to \"[tmp_label]\".</span>"
+			user << SPAN_NOTE("You set the label to \"[tmp_label]\".")
 			label_text = tmp_label
 			update_name_label()
 

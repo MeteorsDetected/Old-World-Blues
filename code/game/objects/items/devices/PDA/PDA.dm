@@ -267,7 +267,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		usr << "You can't do that because you are dead!"
 		return
 	toff = !toff
-	usr << "<span class='notice'>PDA sender/receiver toggled [(toff ? "Off" : "On")]!</span>"
+	usr << SPAN_NOTE("PDA sender/receiver toggled [(toff ? "Off" : "On")]!")
 
 
 /obj/item/device/pda/ai/verb/cmd_toggle_pda_silent()
@@ -278,7 +278,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		usr << "You can't do that because you are dead!"
 		return
 	message_silent=!message_silent
-	usr << "<span class='notice'>PDA ringer toggled [(message_silent ? "Off" : "On")]!</span>"
+	usr << SPAN_NOTE("PDA ringer toggled [(message_silent ? "Off" : "On")]!")
 
 
 /obj/item/device/pda/ai/verb/cmd_show_message_log()
@@ -1214,7 +1214,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					O.show_message("<span class='warning'>\The [user] has analyzed [C]'s vitals!</span>", 1)
 
 				user.show_message(SPAN_NOTE("Analyzing Results for [C]:"))
-				user.show_message("<span class='notice'>    Overall Status: [C.stat == DEAD ? "dead" : "[C.health - C.halloss]% healthy"]</span>", 1)
+				user.show_message(SPAN_NOTE("    Overall Status: [C.stat == DEAD ? "dead" : "[C.health - C.halloss]% healthy"]"), 1)
 				var/OX = "<span class='[(C.getOxyLoss() > 50) ? "warning" : "" ]'>[C.getOxyLoss()]</span>"
 				var/TX = "<span class='[(C.getToxLoss() > 50) ? "warning" : ""]'>[C.getToxLoss()]</span>"
 				var/FR = "<span class='[(C.getFireLoss() > 50) ? "warning" : ""]'>[C.getFireLoss()]</span>"
@@ -1271,7 +1271,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			if(!isnull(A.reagents))
 				if(A.reagents.reagent_list.len > 0)
 					var/reagents_length = A.reagents.reagent_list.len
-					user << "<span class='notice'>[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.</span>"
+					user << SPAN_NOTE("[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.")
 					for (var/re in A.reagents.reagent_list)
 						user << SPAN_NOTE("    [re]")
 				else

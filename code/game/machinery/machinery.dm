@@ -344,7 +344,7 @@ Class Procs:
 		return 0
 	playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 	panel_open = !panel_open
-	user << "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance hatch of \the [src].</span>"
+	user << SPAN_NOTE("You [panel_open ? "open" : "close"] the maintenance hatch of \the [src].")
 	update_icon()
 	return 1
 

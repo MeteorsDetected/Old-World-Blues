@@ -53,7 +53,7 @@
 			return
 		if(check_access(I))
 			locked = !locked
-			user << "<span class='notice'>You [locked ? "" : "un"]lock the circuit controls.</span>"
+			user << SPAN_NOTE("You [locked ? "" : "un"]lock the circuit controls.")
 		else
 			user << "<span class='warning'>Access denied.</span>"
 	else if(istype(I,/obj/item/device/multitool))

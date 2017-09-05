@@ -426,10 +426,11 @@
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			user << SPAN_NOTE("You begin to tighten \the [src] to the floor...")
 			if (do_after(user, 20))
-				user.visible_message( \
-					"[user] tightens \the [src]'s casters.", \
-					"<span class='notice'>You have tightened \the [src]'s casters. Now it can be played again</span>.", \
-					"You hear ratchet.")
+				user.visible_message(
+					"[user] tightens \the [src]'s casters.",
+					SPAN_NOTE("You have tightened \the [src]'s casters. Now it can be played again."),
+					"You hear ratchet."
+				)
 				src.anchored = 1
 	else
 		..()
