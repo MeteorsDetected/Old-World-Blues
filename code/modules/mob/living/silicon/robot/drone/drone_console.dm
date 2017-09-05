@@ -115,6 +115,6 @@
 			return
 
 		dronefab.produce_drones = !dronefab.produce_drones
-		usr << "<span class='notice'>You [dronefab.produce_drones ? "enable" : "disable"] drone production in the nearby fabricator.</span>"
+		usr << SPAN_NOTE("You [dronefab.produce_drones ? "enable" : "disable"] drone production in the nearby fabricator.")
 
 	src.updateUsrDialog()

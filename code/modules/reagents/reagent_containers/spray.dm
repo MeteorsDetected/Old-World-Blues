@@ -129,7 +129,7 @@
 
 /obj/item/weapon/reagent_containers/spray/pepper/attack_self(var/mob/user)
 	safety = !safety
-	usr << "<span class = 'notice'>You switch the safety [safety ? "on" : "off"].</span>"
+	usr << SPAN_NOTE("You switch the safety [safety ? "on" : "off"].")
 
 /obj/item/weapon/reagent_containers/spray/pepper/Spray_at(atom/A as mob|obj)
 	if(safety)

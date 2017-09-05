@@ -1049,14 +1049,18 @@
 
 	var/self = (usr == src)
 	if(!self)
-		usr.visible_message(SPAN_NOTE("[usr] kneels down, puts \his hand on [src]'s wrist and begins counting their pulse."),\
-		"You begin counting [src]'s pulse")
+		usr.visible_message(
+			SPAN_NOTE("[usr] kneels down, puts \his hand on [src]'s wrist and begins counting their pulse."),
+			"You begin counting [src]'s pulse"
+		)
 	else
-		usr.visible_message(SPAN_NOTE("[usr] begins counting their pulse."),\
-		"You begin counting your pulse.")
+		usr.visible_message(
+			SPAN_NOTE("[usr] begins counting their pulse."),
+			"You begin counting your pulse."
+		)
 
 	if(src.pulse)
-		usr << "<span class='notice'>[self ? "You have a" : "[src] has a"] pulse! Counting...</span>"
+		usr << SPAN_NOTE("[self ? "You have a" : "[src] has a"] pulse! Counting...")
 	else
 		usr << "<span class='danger'>[src] has no pulse!</span>"	//it is REALLY UNLIKELY that a dead person would check his own pulse
 		return

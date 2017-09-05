@@ -75,8 +75,10 @@
 	if(do_after(user, 50))
 		set_state(!on)
 		user.visible_message(\
-		"<span class='notice'>[user.name] [on ? "enabled" : "disabled"] the breaker box!</span>",\
-		"<span class='notice'>You [on ? "enabled" : "disabled"] the breaker box!</span>")
+		SPAN_NOTE(
+			"[user.name] [on ? "enabled" : "disabled"] the breaker box!"),\
+			SPAN_NOTE("You [on ? "enabled" : "disabled"] the breaker box!")
+		)
 		update_locked = 1
 		spawn(600)
 			update_locked = 0

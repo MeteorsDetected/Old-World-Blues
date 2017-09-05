@@ -203,7 +203,7 @@
 
 		if(do_after(user, 20, src))
 			if(!src) return
-			user << "<span class='notice'>You [anchored? "un" : ""]secured \the [src]!</span>"
+			user << SPAN_NOTE("You [anchored? "un" : ""]secured \the [src]!")
 			anchored = !anchored
 		return
 

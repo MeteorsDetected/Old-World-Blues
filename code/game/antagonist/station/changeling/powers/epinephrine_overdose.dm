@@ -18,7 +18,7 @@
 	changeling.chem_charges -= 30
 
 	var/mob/living/carbon/human/C = src
-	C << "<span class='notice'>Energy rushes through us.  [C.lying ? "We arise." : ""]</span>"
+	C << SPAN_NOTE("Energy rushes through us.  [C.lying ? "We arise." : ""]")
 	C.stat = 0
 	C.SetParalysis(0)
 	C.SetStunned(0)

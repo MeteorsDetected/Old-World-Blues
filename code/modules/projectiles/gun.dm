@@ -352,7 +352,7 @@
 			user.apply_damage(in_chamber.damage*2.5, in_chamber.damage_type, BP_HEAD, used_weapon = "Point blank shot in the mouth with \a [in_chamber]", sharp=1)
 			user.death()
 		else
-			user << "<span class = 'notice'>Ow...</span>"
+			user << SPAN_NOTE("Ow...")
 			user.apply_effect(110,AGONY,0)
 		qdel(in_chamber)
 		mouthshoot = 0

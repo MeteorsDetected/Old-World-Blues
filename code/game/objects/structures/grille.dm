@@ -112,8 +112,10 @@
 		if(!shock(user, 90))
 			playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
 			anchored = !anchored
-			user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] the grille.</span>", \
-								 "<span class='notice'>You have [anchored ? "fastened the grille to" : "unfastened the grill from"] the floor.</span>")
+			user.visible_message(
+				SPAN_NOTE("[user] [anchored ? "fastens" : "unfastens"] the grille."), \
+				SPAN_NOTE("You have [anchored ? "fastened the grille to" : "unfastened the grill from"] the floor.")
+			)
 			return
 
 //window placing begin //TODO CONVERT PROPERLY TO MATERIAL DATUM

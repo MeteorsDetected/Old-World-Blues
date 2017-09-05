@@ -164,21 +164,21 @@
 			if (candidates.len)
 				var/obj/item/organ/external/O = pick(candidates)
 				O.mutate()
-				src << "<span class = 'notice'>Something is not right with your [O.name]...</span>"
+				src << SPAN_NOTE("Something is not right with your [O.name]...")
 				return
 	else
 		if (prob(heal_prob))
 			for (var/obj/item/organ/external/O in organs)
 				if (O.status & ORGAN_MUTATED)
 					O.unmutate()
-					src << "<span class = 'notice'>Your [O.name] is shaped normally again.</span>"
+					src << SPAN_NOTE("Your [O.name] is shaped normally again.")
 					return
 
 	if (getCloneLoss() < 1)
 		for (var/obj/item/organ/external/O in organs)
 			if (O.status & ORGAN_MUTATED)
 				O.unmutate()
-				src << "<span class = 'notice'>Your [O.name] is shaped normally again.</span>"
+				src << SPAN_NOTE("Your [O.name] is shaped normally again.")
 	BITSET(hud_updateflag, HEALTH_HUD)
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.

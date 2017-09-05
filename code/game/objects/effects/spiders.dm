@@ -176,7 +176,7 @@
 				var/target_atom = pick(nearby)
 				walk_to(src, target_atom, 5)
 				if(prob(25))
-					src.visible_message("<span class='notice'>\The [src] skitters[pick(" away"," around","")].</span>")
+					src.visible_message(SPAN_NOTE("\The [src] skitters[pick(" away"," around","")]."))
 		else if(prob(5))
 			//vent crawl!
 			for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))

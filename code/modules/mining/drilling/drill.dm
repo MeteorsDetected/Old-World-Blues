@@ -294,7 +294,7 @@
 			return
 
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-		user << "<span class='notice'>You [anchored ? "un" : ""]anchor the brace.</span>"
+		user << SPAN_NOTE("You [anchored ? "un" : ""]anchor the brace.")
 
 		anchored = !anchored
 		if(anchored)

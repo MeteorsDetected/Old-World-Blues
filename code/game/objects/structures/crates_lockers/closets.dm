@@ -266,7 +266,7 @@
 				user.visible_message("\The [user] begins securing \the [src] to the floor.", "You start securing \the [src] to the floor.")
 			if(do_after(user, 20))
 				if(!src) return
-				user << "<span class='notice'>You [anchored? "un" : ""]secured \the [src]!</span>"
+				user << SPAN_NOTE("You [anchored? "un" : ""]secured \the [src]!")
 				anchored = !anchored
 	else
 		src.attack_hand(user)

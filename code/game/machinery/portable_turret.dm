@@ -305,7 +305,7 @@ var/list/turret_icons
 
 		user.visible_message( \
 				"<span class='warning'>[user] begins [anchored ? "un" : ""]securing the turret.</span>", \
-				"<span class='notice'>You begin [anchored ? "un" : ""]securing the turret.</span>" \
+				SPAN_NOTE("You begin [anchored ? "un" : ""]securing the turret.") \
 			)
 
 		wrenching = 1
@@ -327,7 +327,7 @@ var/list/turret_icons
 		//Behavior lock/unlock mangement
 		if(allowed(user))
 			locked = !locked
-			user << "<span class='notice'>Controls are now [locked ? "locked" : "unlocked"].</span>"
+			user << SPAN_NOTE("Controls are now [locked ? "locked" : "unlocked"].")
 			updateUsrDialog()
 		else
 			user << SPAN_NOTE("Access denied.")

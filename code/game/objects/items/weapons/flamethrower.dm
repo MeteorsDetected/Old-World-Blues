@@ -88,7 +88,7 @@
 
 	if(isscrewdriver(W) && igniter && !lit)
 		status = !status
-		user << "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>"
+		user << SPAN_NOTE("[igniter] is now [status ? "secured" : "unsecured"]!")
 		update_icon()
 		return
 

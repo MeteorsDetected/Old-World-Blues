@@ -30,7 +30,8 @@
 		if ("help")
 			var/list/emotes = get_possible_emotes()
 			if(emotes.len)
-				usr << "<span class='notice'>Possible emotes: [jointext(emotes, ", ")]</span>"
+				var/msg = jointext(emotes, ", ")
+				usr << SPAN_NOTE("Possible emotes: [msg].")
 			else
 				usr << SPAN_NOTE("You can't use emotes")
 		else

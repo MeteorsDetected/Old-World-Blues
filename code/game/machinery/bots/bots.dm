@@ -55,7 +55,7 @@
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(!locked)
 			open = !open
-			user << "<span class='notice'>Maintenance panel is now [src.open ? "opened" : "closed"].</span>"
+			user << SPAN_NOTE("Maintenance panel is now [src.open ? "opened" : "closed"].")
 	else if(istype(W, /obj/item/weapon/weldingtool))
 		if(health < maxhealth)
 			if(open)

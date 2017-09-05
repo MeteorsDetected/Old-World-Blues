@@ -46,7 +46,7 @@
 
 /obj/item/weapon/lipstick/attack_self(mob/user as mob)
 	open = !open
-	user << "<span class='notice'>You twist \the [src] [open ? "open" : "closed"].</span>"
+	user << SPAN_NOTE("You twist \the [src] [open ? "open" : "closed"].")
 	update_icon()
 
 /obj/item/weapon/lipstick/update_icon()

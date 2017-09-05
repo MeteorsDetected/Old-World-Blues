@@ -201,9 +201,9 @@
 				if(!org.is_usable())
 					status += "dangling uselessly"
 				if(status.len)
-					src.show_message("My [org.name] is <span class='warning'> [english_list(status)].",1)
+					src.show_message("My [org.name] is <span class='warning'> [english_list(status)].</span>",1)
 				else
-					src.show_message("My [org.name] is <span class='notice'> OK.",1)
+					src.show_message("My [org.name] is <span class='notice'> OK.</span>",1)
 
 			if((SKELETON & H.status_flags) && (!H.w_uniform) && (!H.wear_suit))
 				H.play_xylophone()
@@ -244,14 +244,18 @@
 			var/mob/living/carbon/human/H = src
 			if(istype(H)) show_ssd = H.species.show_ssd
 			if(show_ssd && !client && !teleop)
-				M.visible_message(SPAN_NOTE("[M] shakes [src] trying to wake [t_him] up!"), \
-				SPAN_NOTE("You shake [src], but they do not respond... Maybe they have S.S.D?"))
+				M.visible_message(
+					SPAN_NOTE("[M] shakes [src] trying to wake [t_him] up!"),
+					SPAN_NOTE("You shake [src], but they do not respond... Maybe they have S.S.D?")
+				)
 			else if(lying || src.sleeping)
 				src.sleeping = max(0,src.sleeping-5)
 				if(src.sleeping == 0)
 					src.resting = 0
-				M.visible_message(SPAN_NOTE("[M] shakes [src] trying to wake [t_him] up!"), \
-									SPAN_NOTE("You shake [src] trying to wake [t_him] up!"))
+				M.visible_message(
+					SPAN_NOTE("[M] shakes [src] trying to wake [t_him] up!"),
+					SPAN_NOTE("You shake [src] trying to wake [t_him] up!")
+				)
 			else
 				var/mob/living/carbon/human/hugger = M
 				if(istype(hugger))

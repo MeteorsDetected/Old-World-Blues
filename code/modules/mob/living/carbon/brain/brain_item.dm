@@ -108,7 +108,7 @@
 	clonnig_process = 1
 	attemps--
 
-	visible_message("<span class = 'notice'>It seems [src] start moving!</span>")
+	visible_message(SPAN_NOTE("It seems [src] start moving!"))
 	if(!brainmob || !brainmob.mind)
 		clonnig_process = 0
 		return 0
@@ -121,7 +121,7 @@
 
 		for(var/i = 0; i < 6; i++)
 			sleep(100)
-			visible_message("<span class = 'notice'>[src] moving slightly!</span>")
+			visible_message(SPAN_NOTE("[src] moving slightly!"))
 			if(brainmob.client) break
 
 	if(!brainmob.client)

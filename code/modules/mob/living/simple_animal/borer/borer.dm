@@ -203,9 +203,9 @@
 		src.mind.assigned_role = "Cortical Borer"
 		src.mind.special_role = "Cortical Borer"
 
-	src << "<span class='notice'>You are a cortical borer!</span> You are a brain slug that worms its way \
+	src << SPAN_NOTE("You are a cortical borer!</span> You are a brain slug that worms its way \
 	into the head of its victim. Use stealth, persuasion and your powers of mind control to keep you, \
-	your host and your eventual spawn safe and warm."
+	your host and your eventual spawn safe and warm.")
 	src << "You can speak to your victim with <b>say</b>, to other borers with <b>say :x</b>, and use your Abilities tab to access powers."
 
 /mob/living/simple_animal/borer/cannot_use_vents()

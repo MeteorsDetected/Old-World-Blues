@@ -31,7 +31,10 @@
 
 /obj/machinery/floorlayer/attack_hand(mob/user as mob)
 	on=!on
-	user.visible_message("<span class='notice'>[user] has [!on?"de":""]activated \the [src].</span>", "<span class='notice'>You [!on?"de":""]activate \the [src].</span>")
+	user.visible_message(
+		SPAN_NOTE("[user] has [!on?"de":""]activated \the [src]."),
+		SPAN_NOTE("You [!on?"de":""]activate \the [src].")
+	)
 	return
 
 /obj/machinery/floorlayer/attackby(var/obj/item/W as obj, var/mob/user as mob)
@@ -40,7 +43,10 @@
 		var/m = input("Choose work mode", "Mode") as null|anything in mode
 		mode[m] = !mode[m]
 		var/O = mode[m]
-		user.visible_message("<span class='notice'>[usr] has set \the [src] [m] mode [!O?"off":"on"].</span>", "<span class='notice'>You set \the [src] [m] mode [!O?"off":"on"].</span>")
+		user.visible_message(
+			SPAN_NOTE("[usr] has set \the [src] [m] mode [!O?"off":"on"]."),
+			SPAN_NOTE("You set \the [src] [m] mode [!O?"off":"on"].")
+		)
 		return
 
 	if(istype(W, /obj/item/stack/tile))
@@ -67,10 +73,11 @@
 
 /obj/machinery/floorlayer/examine(mob/user)
 	. = ..()
-	var/dismantle = mode["dismantle"]
-	var/laying = mode["laying"]
-	var/collect = mode["collect"]
-	user << "<span class='notice'>\The [src] [!T?"don't ":""]has [!T?"":"[T.get_amount()] [T] "]tile\s, dismantle is [dismantle?"on":"off"], laying is [laying?"on":"off"], collect is [collect?"on":"off"].</span>"
+	var/amount = T ? "has [T.get_amount()] tiles\s" : "don't has tiles"
+	var/dismantle = mode["dismantle"] ? "dismantle is on" : "dismantle is off"
+	var/laying = mode["laying"] ? "laying is on" : "laying is off"
+	var/collect = mode["collect"] ? "collect is on" : "collect is off"
+	user << SPAN_NOTE("\The [src] [amount], [dismantle], [laying], [collect].")
 
 /obj/machinery/floorlayer/proc/reset()
 	on=0

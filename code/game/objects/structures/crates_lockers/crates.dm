@@ -161,7 +161,7 @@
 	locked = newlocked
 	if(user)
 		for(var/mob/O in viewers(user, 3))
-			O.show_message( "<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>", 1)
+			O.show_message( SPAN_NOTE("The crate has been [locked ? null : "un"]locked by [user]."), 1)
 	update_icon()
 
 /obj/structure/closet/crate/secure/verb/verb_togglelock()

@@ -66,7 +66,7 @@
 		if((istype(O,/obj/item/weapon/card/id)||istype(O,/obj/item/device/pda)) && brainmob)
 			if(allowed(user))
 				locked = !locked
-				user << "<span class='notice'>You [locked ? "lock" : "unlock"] the brain holder.</span>"
+				user << SPAN_NOTE("You [locked ? "lock" : "unlock"] the brain holder.")
 			else
 				user << "<span class='warning'>Access denied.</span>"
 			return
@@ -156,7 +156,7 @@
 				brainmob << "Can't do that while incapacitated or dead."
 
 			radio.broadcasting = radio.broadcasting==1 ? 0 : 1
-			brainmob << "<span class='notice'>Radio is [radio.broadcasting==1 ? "now" : "no longer"] broadcasting.</span>"
+			brainmob << SPAN_NOTE("Radio is [radio.broadcasting==1 ? "now" : "no longer"] broadcasting.")
 
 		Toggle_Listening()
 			set name = "Toggle Listening"
@@ -169,7 +169,7 @@
 				brainmob << "Can't do that while incapacitated or dead."
 
 			radio.listening = radio.listening==1 ? 0 : 1
-			brainmob << "<span class='notice'>Radio is [radio.listening==1 ? "now" : "no longer"] receiving broadcast.</span>"
+			brainmob << SPAN_NOTE("Radio is [radio.listening==1 ? "now" : "no longer"] receiving broadcast.")
 
 /obj/item/device/mmi/emp_act(severity)
 	if(!brainmob)

@@ -22,10 +22,10 @@
 /obj/item/weapon/reagent_containers/glass/beaker/attack_self()
 	..()
 	if(is_open_container())
-		usr << "<span class = 'notice'>You put the lid on \the [src].</span>"
+		usr << SPAN_NOTE("You put the lid on \the [src].")
 		flags ^= OPENCONTAINER
 	else
-		usr << "<span class = 'notice'>You take the lid off \the [src].</span>"
+		usr << SPAN_NOTE("You take the lid off \the [src].")
 		flags |= OPENCONTAINER
 	update_icon()
 

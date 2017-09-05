@@ -69,7 +69,7 @@
 		src.locked = !src.locked
 		for(var/mob/O in viewers(user, 3))
 			if((O.client && !( O.blinded )))
-				O << "<span class='notice'>The locker has been [locked ? null : "un"]locked by [user].</span>"
+				O << SPAN_NOTE("The locker has been [locked ? null : "un"]locked by [user].")
 		update_icon()
 	else
 		user << SPAN_NOTE("Access Denied")
@@ -112,7 +112,7 @@
 					user.visible_message("\The [user] begins securing \the [src] to the floor.", "You start securing \the [src] to the floor.")
 				if(do_after(user, 20))
 					if(!src) return
-					user << "<span class='notice'>You [anchored? "un" : ""]secured \the [src]!</span>"
+					user << SPAN_NOTE("You [anchored? "un" : ""]secured \the [src]!")
 					anchored = !anchored
 					return
 		else if(istype(W,/obj/item/weapon/packageWrap) || istype(W,/obj/item/weapon/weldingtool))

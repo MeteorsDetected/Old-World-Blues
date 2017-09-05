@@ -90,7 +90,7 @@
 				user << SPAN_NOTE("The turret control is unresponsive.")
 			else
 				locked = !locked
-				user << "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>"
+				user << SPAN_NOTE("You [ locked ? "lock" : "unlock"] the panel.")
 		return
 	return ..()
 

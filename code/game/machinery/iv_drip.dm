@@ -153,7 +153,7 @@
 		else
 			usr << SPAN_NOTE("No chemicals are attached.")
 
-		usr << "<span class='notice'>[attached ? attached : "No one"] is attached.</span>"
+		usr << SPAN_NOTE("[attached ? attached : "No one"] is attached.")
 
 /obj/machinery/iv_drip/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(height && istype(mover) && mover.checkpass(PASSTABLE)) //allow bullets, beams, thrown objects, mice, drones, and the like through.

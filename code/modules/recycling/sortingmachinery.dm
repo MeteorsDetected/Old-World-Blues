@@ -49,9 +49,11 @@
 				if(!str || !length(str))
 					usr << "<span class='warning'> Invalid text.</span>"
 					return
-				user.visible_message("\The [user] titles \the [src] with \a [W], marking down: \"[str]\"",\
-				"<span class='notice'>You title \the [src]: \"[str]\"</span>",\
-				"You hear someone scribbling a note.")
+				user.visible_message(
+					"\The [user] titles \the [src] with \a [W], marking down: \"[str]\"",
+					SPAN_NOTE("You title \the [src]: \"[str]\""),
+					"You hear someone scribbling a note."
+				)
 				name = "[name] ([str])"
 				if(!examtext && !nameset)
 					nameset = 1
@@ -68,9 +70,11 @@
 					update_icon()
 				else
 					examtext = str
-				user.visible_message("\The [user] labels \the [src] with \a [W], scribbling down: \"[examtext]\"",\
-				"<span class='notice'>You label \the [src]: \"[examtext]\"</span>",\
-				"You hear someone scribbling a note.")
+				user.visible_message(
+					"\The [user] labels \the [src] with \a [W], scribbling down: \"[examtext]\"",
+					SPAN_NOTE("You label \the [src]: \"[examtext]\""),
+					"You hear someone scribbling a note."
+				)
 	return
 
 /obj/structure/bigDelivery/update_icon()
@@ -106,9 +110,9 @@
 	.=..()
 	if(.<=4)
 		if(sortTag)
-			user << "<span class='notice'>It is labeled \"[sortTag]\"</span>"
+			user << SPAN_NOTE("It is labeled \"[sortTag]\"")
 		if(examtext)
-			user << "<span class='notice'>It has a note attached which reads, \"[examtext]\"</span>"
+			user << SPAN_NOTE("It has a note attached which reads, \"[examtext]\"")
 	return
 
 /obj/item/smallDelivery
@@ -153,9 +157,11 @@
 				if(!str || !length(str))
 					usr << "<span class='warning'> Invalid text.</span>"
 					return
-				user.visible_message("\The [user] titles \the [src] with \a [W], marking down: \"[str]\"",\
-				"<span class='notice'>You title \the [src]: \"[str]\"</span>",\
-				"You hear someone scribbling a note.")
+				user.visible_message(
+					"\The [user] titles \the [src] with \a [W], marking down: \"[str]\"",
+					SPAN_NOTE("You title \the [src]: \"[str]\""),
+					"You hear someone scribbling a note."
+				)
 				name = "[name] ([str])"
 				if(!examtext && !nameset)
 					nameset = 1
@@ -173,9 +179,11 @@
 					update_icon()
 				else
 					examtext = str
-				user.visible_message("\The [user] labels \the [src] with \a [W], scribbling down: \"[examtext]\"",\
-				"<span class='notice'>You label \the [src]: \"[examtext]\"</span>",\
-				"You hear someone scribbling a note.")
+				user.visible_message(
+					"\The [user] labels \the [src] with \a [W], scribbling down: \"[examtext]\"",
+					SPAN_NOTE("You label \the [src]: \"[examtext]\""),
+					"You hear someone scribbling a note."
+				)
 	return
 
 /obj/item/smallDelivery/update_icon()
@@ -207,9 +215,9 @@
 	.=..()
 	if(.<=4)
 		if(sortTag)
-			user << "<span class='notice'>It is labeled \"[sortTag]\"</span>"
+			user << SPAN_NOTE("It is labeled \"[sortTag]\"")
 		if(examtext)
-			user << "<span class='notice'>It has a note attached which reads, \"[examtext]\"</span>"
+			user << SPAN_NOTE("It has a note attached which reads, \"[examtext]\"")
 	return
 
 /obj/item/weapon/c_tube

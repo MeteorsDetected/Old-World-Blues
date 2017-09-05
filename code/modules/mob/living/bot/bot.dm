@@ -61,7 +61,7 @@
 	if(O.GetID())
 		if(access_scanner.allowed(user) && !open && !emagged)
 			locked = !locked
-			user << "<span class='notice'>Controls are now [locked ? "locked." : "unlocked."]</span>"
+			user << SPAN_NOTE("Controls are now [locked ? "locked." : "unlocked."]")
 			attack_hand(user)
 		else
 			if(emagged)
@@ -74,7 +74,7 @@
 	else if(istype(O, /obj/item/weapon/screwdriver))
 		if(!locked)
 			open = !open
-			user << "<span class='notice'>Maintenance panel is now [open ? "opened" : "closed"].</span>"
+			user << SPAN_NOTE("Maintenance panel is now [open ? "opened" : "closed"].")
 		else
 			user << SPAN_NOTE("You need to unlock the controls first.")
 		return
