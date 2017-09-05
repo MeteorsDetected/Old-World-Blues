@@ -24,7 +24,7 @@
 
 		if(issilicon(user))
 			if(!program.ai_allowed)
-				user << "\blue You are forbidden from accessing this program."
+				user << SPAN_NOTE("You are forbidden from accessing this program.")
 				return 0
 		else
 			if(program.human_controls)

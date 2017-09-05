@@ -151,8 +151,8 @@
 		src.update_icon()
 		user.put_in_hands(I)
 		user.visible_message(
-			"<span class='notice'>[user] pick [I] from [src].</span>",
-			"<span class='notice'>You pick [I] from [src].</span>"
+			SPAN_NOTE("[user] pick [I] from [src]."),
+			SPAN_NOTE("You pick [I] from [src].")
 		)
 		return
 

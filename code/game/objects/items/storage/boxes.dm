@@ -56,7 +56,7 @@
 	if ( !found )	// User is too far away
 		return
 	// Now make the cardboard
-	user << "<span class='notice'>You fold [src] flat.</span>"
+	user << SPAN_NOTE("You fold [src] flat.")
 	new src.foldable(get_turf(src))
 	qdel(src)
 

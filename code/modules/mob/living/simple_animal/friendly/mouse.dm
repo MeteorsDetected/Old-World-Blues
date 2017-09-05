@@ -83,7 +83,7 @@
 	if( ishuman(AM) )
 		if(!stat)
 			var/mob/M = AM
-			M << "\blue \icon[src] Squeek!"
+			M << SPAN_NOTE("\icon[src] Squeek!")
 			M << 'sound/effects/mousesqueek.ogg'
 	..()
 

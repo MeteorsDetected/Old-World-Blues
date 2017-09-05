@@ -223,7 +223,7 @@
 			if(new_key)
 				if(new_key == " ") drop_language_key(L)
 				else if(set_language_key(L, new_key))
-					usr << "<span class = 'notice'>New key for \"[L.name]\" is \"[new_key]\"</span>"
+					usr << SPAN_NOTE("New key for \"[L.name]\" is \"[new_key]\"")
 		check_languages()
 		return 1
 	else

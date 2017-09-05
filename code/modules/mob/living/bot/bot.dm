@@ -61,7 +61,7 @@
 	if(O.GetID())
 		if(access_scanner.allowed(user) && !open && !emagged)
 			locked = !locked
-			user << "<span class='notice'>Controls are now [locked ? "locked." : "unlocked."]</span>"
+			user << SPAN_NOTE("Controls are now [locked ? "locked." : "unlocked."]")
 			attack_hand(user)
 		else
 			if(emagged)
@@ -74,19 +74,19 @@
 	else if(istype(O, /obj/item/weapon/screwdriver))
 		if(!locked)
 			open = !open
-			user << "<span class='notice'>Maintenance panel is now [open ? "opened" : "closed"].</span>"
+			user << SPAN_NOTE("Maintenance panel is now [open ? "opened" : "closed"].")
 		else
-			user << "<span class='notice'>You need to unlock the controls first.</span>"
+			user << SPAN_NOTE("You need to unlock the controls first.")
 		return
 	else if(istype(O, /obj/item/weapon/weldingtool))
 		if(health < maxHealth)
 			if(open)
 				health = min(maxHealth, health + 10)
-				user.visible_message("<span class='notice'>[user] repairs [src].</span>","<span class='notice'>You repair [src].</span>")
+				user.visible_message(SPAN_NOTE("[user] repairs [src]."),SPAN_NOTE("You repair [src]."))
 			else
-				user << "<span class='notice'>Unable to repair with the maintenance panel closed.</span>"
+				user << SPAN_NOTE("Unable to repair with the maintenance panel closed.")
 		else
-			user << "<span class='notice'>[src] does not need a repair.</span>"
+			user << SPAN_NOTE("[src] does not need a repair.")
 		return
 	else
 		..()

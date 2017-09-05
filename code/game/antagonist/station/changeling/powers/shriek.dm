@@ -37,7 +37,7 @@
 	var/range = 4
 	if(src.mind.changeling.recursive_enhancement)
 		range = range * 2
-		src << "<span class='notice'>We are extra loud.</span>"
+		src << SPAN_NOTE("We are extra loud.")
 		src.mind.changeling.recursive_enhancement = 0
 
 	for(var/mob/living/M in range(range, src))
@@ -53,12 +53,12 @@
 				C << sound('sound/effects/screech.ogg')
 			else
 				if(M != src)
-					M << "<span class='notice'>You hear a familiar screech from nearby.  It has no effect on you.</span>"
+					M << SPAN_NOTE("You hear a familiar screech from nearby.  It has no effect on you.")
 				M << sound('sound/effects/screech.ogg')
 
 		if(issilicon(M))
 			M << sound('sound/weapons/flash.ogg')
-			M << "<span class='notice'>Auditory input overloaded.  Reinitializing...</span>"
+			M << SPAN_NOTE("Auditory input overloaded.  Reinitializing...")
 			M.Weaken(rand(5,10))
 
 	for(var/obj/machinery/light/L in range(range, src))
@@ -93,7 +93,7 @@
 	if(src.mind.changeling.recursive_enhancement)
 		range_heavy = range_heavy * 2
 		range_light = range_light * 2
-		src << "<span class='notice'>We are extra loud.</span>"
+		src << SPAN_NOTE("We are extra loud.")
 		src.mind.changeling.recursive_enhancement = 0
 
 	for(var/obj/machinery/light/L in range(5, src))

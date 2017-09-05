@@ -14,7 +14,7 @@
 	set category = "Object"
 	if(aim_targets)
 		stop_aim()
-		usr.visible_message("<span class='notice'> \The [usr] lowers \the [src]...</span>")
+		usr.visible_message(SPAN_NOTE(" \The [usr] lowers \the [src]..."))
 
 //Removing the lock and the buttons.
 /obj/item/weapon/gun/dropped(mob/user as mob)

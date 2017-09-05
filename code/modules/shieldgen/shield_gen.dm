@@ -44,7 +44,7 @@
 		field.Remove(D)
 		D.loc = null
 	..()
-	
+
 /obj/machinery/shield_gen/emag_act(var/remaining_charges, var/mob/user)
 	if(prob(75))
 		src.locked = !src.locked
@@ -66,7 +66,10 @@
 			user << "\red Access denied."
 	else if(istype(W, /obj/item/weapon/wrench))
 		src.anchored = !src.anchored
-		src.visible_message("\blue \icon[src] [src] has been [anchored?"bolted to the floor":"unbolted from the floor"] by [user].")
+		if(anchored)
+			src.visible_message(SPAN_NOTE("\icon[src] [src] has been bolted to the floor by [user]."))
+		else
+			src.visible_message(SPAN_NOTE("\icon[src] [src] has been unbolted from the floor by [user]."))
 
 		if(active)
 			toggle()

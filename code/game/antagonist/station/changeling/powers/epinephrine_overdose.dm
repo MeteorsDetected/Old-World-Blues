@@ -18,7 +18,7 @@
 	changeling.chem_charges -= 30
 
 	var/mob/living/carbon/human/C = src
-	C << "<span class='notice'>Energy rushes through us.  [C.lying ? "We arise." : ""]</span>"
+	C << SPAN_NOTE("Energy rushes through us.  [C.lying ? "We arise." : ""]")
 	C.stat = 0
 	C.SetParalysis(0)
 	C.SetStunned(0)
@@ -29,7 +29,7 @@
 	C.reagents.add_reagent("epinephrine", 20)
 
 	if(src.mind.changeling.recursive_enhancement)
-		src << "<span class='notice'>We feel unstoppable.</span>"
+		src << SPAN_NOTE("We feel unstoppable.")
 		src.mind.changeling.recursive_enhancement = 0
 		spawn(1)
 			var/i = 30
@@ -41,7 +41,7 @@
 				C.update_canmove()
 				i--
 				sleep(10)
-			src << "<span class='notice'>We feel our newfound energy fade.</span>"
+			src << SPAN_NOTE("We feel our newfound energy fade.")
 
 	return 1
 

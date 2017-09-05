@@ -52,9 +52,9 @@
 	.=..()
 	if(.<=1) return
 	if(active)
-		usr << "\blue The generator is on."
+		usr << SPAN_NOTE("The generator is on.")
 	else
-		usr << "\blue The generator is off."
+		usr << SPAN_NOTE("The generator is off.")
 
 /obj/machinery/power/port_gen/emp_act(severity)
 	var/duration = 6000 //ten minutes
@@ -286,10 +286,10 @@
 		else if(istype(O, /obj/item/weapon/wrench))
 			if(!anchored)
 				connect_to_network()
-				user << "\blue You secure the generator to the floor."
+				user << SPAN_NOTE("You secure the generator to the floor.")
 			else
 				disconnect_from_network()
-				user << "\blue You unsecure the generator from the floor."
+				user << SPAN_NOTE("You unsecure the generator from the floor.")
 
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 			anchored = !anchored

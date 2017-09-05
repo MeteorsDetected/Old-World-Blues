@@ -129,11 +129,11 @@
 	update_coverage()
 	// DECONSTRUCTION
 	if(isscrewdriver(W))
-		//user << "<span class='notice'>You start to [panel_open ? "close" : "open"] the camera's panel.</span>"
+		//user << SPAN_NOTE("You start to [panel_open ? "close" : "open"] the camera's panel.")
 		//if(toggle_panel(user)) // No delay because no one likes screwdrivers trying to be hip and have a duration cooldown
 		panel_open = !panel_open
 		user.visible_message("<span class='warning'>[user] screws the camera's panel [panel_open ? "open" : "closed"]!</span>",
-		"<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
+		SPAN_NOTE("You screw the camera's panel [panel_open ? "open" : "closed"]."))
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 
 	else if((iswirecutter(W) || ismultitool(W)) && panel_open)
@@ -204,17 +204,17 @@
 		set_status(!src.status)
 		if (!(src.status))
 			if(user)
-				visible_message("<span class='notice'> [user] has deactivated [src]!</span>")
+				visible_message(SPAN_NOTE(" [user] has deactivated [src]!"))
 			else
-				visible_message("<span class='notice'> [src] clicks and shuts down. </span>")
+				visible_message(SPAN_NOTE(" [src] clicks and shuts down. "))
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
 			icon_state = "[initial(icon_state)]1"
 			add_hiddenprint(user)
 		else
 			if(user)
-				visible_message("<span class='notice'> [user] has reactivated [src]!</span>")
+				visible_message(SPAN_NOTE(" [user] has reactivated [src]!"))
 			else
-				visible_message("<span class='notice'> [src] clicks and reactivates itself. </span>")
+				visible_message(SPAN_NOTE(" [src] clicks and reactivates itself. "))
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
 			icon_state = initial(icon_state)
 			add_hiddenprint(user)
@@ -344,7 +344,7 @@
 		return 0
 
 	// Do after stuff here
-	user << "<span class='notice'>You start to weld the [src]..</span>"
+	user << SPAN_NOTE("You start to weld the [src]..")
 	playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 	WT.eyecheck(user)
 	busy = 1

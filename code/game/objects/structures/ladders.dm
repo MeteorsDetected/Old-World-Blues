@@ -25,18 +25,20 @@
 
 	attack_hand(var/mob/M)
 		if(!target || !istype(target.loc, /turf))
-			M << "<span class='notice'>\The [src] is incomplete and can't be climbed.</span>"
+			M << SPAN_NOTE("\The [src] is incomplete and can't be climbed.")
 			return
 
 		var/turf/T = target.loc
 		for(var/atom/A in T)
 			if(A.density)
-				M << "<span class='notice'>\A [A] is blocking \the [src].</span>"
+				M << SPAN_NOTE("\A [A] is blocking \the [src].")
 				return
 
-		M.visible_message("<span class='notice'>\A [M] climbs [icon_state == "ladderup" ? "up" : "down"] \a [src]!</span>",
+		M.visible_message(
+			SPAN_NOTE("\A [M] climbs [icon_state == "ladderup" ? "up" : "down"] \a [src]!"),
 			"You climb [icon_state == "ladderup"  ? "up" : "down"] \the [src]!",
-			"You hear the grunting and clanging of a metal ladder being used.")
+			"You hear the grunting and clanging of a metal ladder being used."
+		)
 		M.Move(T)
 
 	CanPass(obj/mover, turf/source, height, airflow)

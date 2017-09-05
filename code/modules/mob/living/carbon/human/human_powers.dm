@@ -187,7 +187,7 @@
 
 	log_say("[key_name(src)] communed to [key_name(M)]: [text]")
 
-	M << "\blue Like lead slabs crashing into the ocean, alien thoughts drop into your mind: [text]"
+	M << SPAN_NOTE("Like lead slabs crashing into the ocean, alien thoughts drop into your mind: [text]")
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.species.name == src.species.name)

@@ -37,7 +37,7 @@ obj/mecha/working/hoverpod/cargo/New()
 			"stabilization_command",
 			"[stabilization_enabled?"Dis":"En"]able thruster stabilization"
 		)
-		src.occupant_message("\blue Thruster stabilization [stabilization_enabled? "enabled" : "disabled"].")
+		src.occupant_message(SPAN_NOTE("Thruster stabilization [stabilization_enabled? "enabled" : "disabled"]."))
 		return
 
 /obj/mecha/working/hoverpod/get_commands()

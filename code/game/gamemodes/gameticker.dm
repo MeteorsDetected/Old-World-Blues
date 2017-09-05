@@ -355,19 +355,19 @@ var/list/donator_icons
 
 				if (mode.station_was_nuked)
 					if(!delay_end)
-						world << "\blue <B>Rebooting due to destruction of station in [restart_timeout/10] seconds</B>"
+						world << SPAN_NOTE("<B>Rebooting due to destruction of station in [restart_timeout/10] seconds</B>")
 				else
 					if(!delay_end)
-						world << "\blue <B>Restarting in [restart_timeout/10] seconds</B>"
+						world << SPAN_NOTE("<B>Restarting in [restart_timeout/10] seconds</B>")
 
 				if(!delay_end)
 					sleep(restart_timeout)
 					if(!delay_end)
 						world.Reboot()
 					else
-						world << "\blue <B>An admin has delayed the round end</B>"
+						world << SPAN_NOTE("<B>An admin has delayed the round end</B>")
 				else
-					world << "\blue <B>An admin has delayed the round end</B>"
+					world << SPAN_NOTE("<B>An admin has delayed the round end</B>")
 
 		else if (mode_finished)
 			post_game = 1

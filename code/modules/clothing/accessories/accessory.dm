@@ -26,7 +26,7 @@
 	has_suit.overlays += inv_overlay
 
 	if(user)
-		user << "<span class='notice'>You attach \the [src] to \the [has_suit].</span>"
+		user << SPAN_NOTE("You attach \the [src] to \the [has_suit].")
 		add_fingerprint(user)
 
 /obj/item/clothing/accessory/proc/on_removed(var/mob/user)

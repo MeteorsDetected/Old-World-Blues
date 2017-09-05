@@ -24,11 +24,11 @@
 	if(reagents.total_volume)
 
 		if(!target.reagents.get_free_space())
-			user << "<span class='notice'>[target] is full.</span>"
+			user << SPAN_NOTE("[target] is full.")
 			return
 
 		if(!target.is_open_container() && !ismob(target) && !istype(target, /obj/item/weapon/reagent_containers/food) && !istype(target, /obj/item/clothing/mask/smokable/cigarette)) //You can inject humans and food but you cant remove the shit.
-			user << "<span class='notice'>You cannot directly fill this object.</span>"
+			user << SPAN_NOTE("You cannot directly fill this object.")
 			return
 
 		var/trans = 0
@@ -57,7 +57,7 @@
 
 				if(safe_thing)
 					trans = reagents.trans_to_obj(safe_thing, amount_per_transfer_from_this)
-					user.visible_message("<span class='warning'>[user] tries to squirt something into [target]'s eyes, but fails!</span>", "<span class='notice'>You transfer [trans] units of the solution.</span>")
+					user.visible_message("<span class='warning'>[user] tries to squirt something into [target]'s eyes, but fails!</span>", SPAN_NOTE("You transfer [trans] units of the solution."))
 					return
 
 			var/mob/living/M = target
@@ -68,26 +68,26 @@
 				"used [name] (reagents: [contained]) for  squirted"
 			)
 			trans = reagents.trans_to_mob(target, reagents.total_volume, CHEM_INGEST)
-			user.visible_message("<span class='warning'>[user] squirts something into [target]'s eyes!</span>", "<span class='notice'>You transfer [trans] units of the solution.</span>")
+			user.visible_message("<span class='warning'>[user] squirts something into [target]'s eyes!</span>", SPAN_NOTE("You transfer [trans] units of the solution."))
 			return
 
 		else
 			trans = reagents.splash(target, amount_per_transfer_from_this) //sprinkling reagents on generic non-mobs
-			user << "<span class='notice'>You transfer [trans] units of the solution.</span>"
+			user << SPAN_NOTE("You transfer [trans] units of the solution.")
 
 	else // Taking from something
 
 		if(!target.is_open_container() && !istype(target,/obj/structure/reagent_dispensers))
-			user << "<span class='notice'>You cannot directly remove reagents from [target].</span>"
+			user << SPAN_NOTE("You cannot directly remove reagents from [target].")
 			return
 
 		if(!target.reagents || !target.reagents.total_volume)
-			user << "<span class='notice'>[target] is empty.</span>"
+			user << SPAN_NOTE("[target] is empty.")
 			return
 
 		var/trans = target.reagents.trans_to_obj(src, amount_per_transfer_from_this)
 
-		user << "<span class='notice'>You fill the dropper with [trans] units of the solution.</span>"
+		user << SPAN_NOTE("You fill the dropper with [trans] units of the solution.")
 
 	return
 

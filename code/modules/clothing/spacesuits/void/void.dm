@@ -65,7 +65,7 @@
 		part_list += "\a [I]"
 	user << "\The [src] has [english_list(part_list)] installed."
 	if(tank && .<=1)
-		user << "<span class='notice'>The wrist-mounted pressure gauge reads [max(round(tank.air_contents.return_pressure()),0)] kPa remaining in \the [tank].</span>"
+		user << SPAN_NOTE("The wrist-mounted pressure gauge reads [max(round(tank.air_contents.return_pressure()),0)] kPa remaining in \the [tank].")
 
 /obj/item/clothing/suit/space/void/refit_for_species(var/target_species)
 	..()
@@ -147,7 +147,7 @@
 	if(H.wear_suit != src) return
 
 	if(H.head == helmet)
-		H << "<span class='notice'>You retract your suit helmet.</span>"
+		H << SPAN_NOTE("You retract your suit helmet.")
 		helmet.canremove = 1
 		H.drop_from_inventory(helmet)
 		helmet.forceMove(src)
@@ -183,7 +183,7 @@
 	if(H.wear_suit != src) return
 
 	if(H.shoes == boots)
-		H << "<span class='notice'>You retract your suit helmet.</span>"
+		H << SPAN_NOTE("You retract your suit helmet.")
 		boots.canremove = 1
 		H.drop_from_inventory(boots)
 		boots.loc = src

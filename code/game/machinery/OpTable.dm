@@ -47,7 +47,7 @@
 	//TODO: DNA3 hulk
 	/*
 	if (HULK in usr.mutations)
-		usr << text("\blue You destroy the table.")
+		usr << text(SPAN_NOTE("You destroy the table."))
 		visible_message("\red [usr] destroys the operating table!")
 		src.density = 0
 		qdel(src)

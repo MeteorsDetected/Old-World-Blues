@@ -122,12 +122,12 @@
 			for (var/obj/C in src)
 				C.loc = src.loc
 			if (src.stat & BROKEN)
-				user << "<span class='notice'>The broken glass falls out.</span>"
+				user << SPAN_NOTE("The broken glass falls out.")
 				new /obj/item/weapon/material/shard( src.loc )
 				A.state = 3
 				A.icon_state = "3"
 			else
-				user << "<span class='notice'>You disconnect the monitor.</span>"
+				user << SPAN_NOTE("You disconnect the monitor.")
 				A.state = 4
 				A.icon_state = "4"
 			circuit.deconstruct(src)

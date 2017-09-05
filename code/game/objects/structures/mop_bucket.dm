@@ -25,5 +25,5 @@
 			user << "[src] is out of water!</span>"
 		else
 			reagents.trans_to_obj(I, 5)
-			user << "<span class='notice'>You wet [I] in [src].</span>"
+			user << SPAN_NOTE("You wet [I] in [src].")
 			playsound(loc, 'sound/effects/slosh.ogg', 25, 1)

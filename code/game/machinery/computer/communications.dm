@@ -187,7 +187,7 @@
 				if(!input || !(usr in view(1,src)))
 					return
 				Centcomm_announce(input, usr)
-				usr << "<span class='notice'>Message transmitted.</span>"
+				usr << SPAN_NOTE("Message transmitted.")
 				log_game("[key_name(usr)] has made an IA Centcomm announcement: [input]", null, 0)
 				centcomm_message_cooldown = 1
 				spawn(300)//30 second cooldown
@@ -204,7 +204,7 @@
 				if(!input || !(usr in view(1,src)))
 					return
 				Syndicate_announce(input, usr)
-				usr << "<span class='notice'>Message transmitted.</span>"
+				usr << SPAN_NOTE("Message transmitted.")
 				log_game("[key_name(usr)] has made an illegal announcement: [input]", null, 0)
 				centcomm_message_cooldown = 1
 				spawn(300)//10 minute cooldown
@@ -424,7 +424,7 @@
 		return
 
 	if(!universe.OnShuttleCall(usr))
-		user << "<span class='notice'>Cannot establish a bluespace connection.</span>"
+		user << SPAN_NOTE("Cannot establish a bluespace connection.")
 		return
 
 	if(deathsquad.deployed)

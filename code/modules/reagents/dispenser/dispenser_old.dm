@@ -26,12 +26,12 @@
 	examine(mob/user, return_dist=1)
 		.=..()
 		if(.<=2)
-			user << "<span class='notice'>It contains:</span>"
+			user << SPAN_NOTE("It contains:")
 			if(reagents && reagents.reagent_list.len)
 				for(var/datum/reagent/R in reagents.reagent_list)
-					user << "<span class='notice'>[R.volume] units of [R.name]</span>"
+					user << SPAN_NOTE("[R.volume] units of [R.name]")
 			else
-				user << "<span class='notice'>Nothing.</span>"
+				user << SPAN_NOTE("Nothing.")
 
 	verb/set_APTFT() //set amount_per_transfer_from_this
 		set name = "Set transfer amount"
@@ -99,13 +99,13 @@
 		if (modded)
 			user << "<span class='warning'>Fuel faucet is wrenched open, leaking the fuel!</span>"
 		if(rig)
-			user << "<span class='notice'>There is some kind of device rigged to the tank.</span>"
+			user << SPAN_NOTE("There is some kind of device rigged to the tank.")
 
 /obj/structure/reagent_dispensers/fueltank/attack_hand()
 	if (rig)
 		usr.visible_message("[usr] begins to detach [rig] from \the [src].", "You begin to detach [rig] from \the [src]")
 		if(do_after(usr, 20))
-			usr.visible_message("<span class='notice'>[usr] detaches [rig] from \the [src].</span>", "<span class='notice'>You detach [rig] from \the [src]</span>")
+			usr.visible_message(SPAN_NOTE("[usr] detaches [rig] from \the [src]."), SPAN_NOTE("You detach [rig] from \the [src]"))
 			rig.loc = get_turf(usr)
 			rig = null
 			overlays = new/list()
@@ -125,7 +125,7 @@
 			return ..()
 		user.visible_message("[user] begins rigging [W] to \the [src].", "You begin rigging [W] to \the [src]")
 		if(do_after(user, 20))
-			user.visible_message("<span class='notice'>[user] rigs [W] to \the [src].</span>", "<span class='notice'>You rig [W] to \the [src]</span>")
+			user.visible_message(SPAN_NOTE("[user] rigs [W] to \the [src]."), SPAN_NOTE("You rig [W] to \the [src]"))
 
 			var/obj/item/device/assembly_holder/H = W
 			if (istype(H.a_left,/obj/item/device/assembly/igniter) || istype(H.a_right,/obj/item/device/assembly/igniter))

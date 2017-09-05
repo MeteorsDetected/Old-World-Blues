@@ -391,7 +391,7 @@
 		src << "<span class='warning'>You prepare for jump.</span>"
 	else
 		src.client.CH = null
-		src << "<span class='notice'>You unprepare for jump.</span>"
+		src << SPAN_NOTE("You unprepare for jump.")
 	return
 
 /mob/living/carbon/human/proc/arachna_jump(atom/A)

@@ -191,7 +191,7 @@
 		user.drop_from_inventory(W, src)
 		coin = W
 		categories |= CAT_COIN
-		user << "<span class='notice'>You insert \the [W] into \the [src].</span>"
+		user << SPAN_NOTE("You insert \the [W] into \the [src].")
 		nanomanager.update_uis(src)
 		return
 	else if(istype(W, /obj/item/weapon/wrench))
@@ -203,7 +203,7 @@
 
 		if(do_after(user, 20, src))
 			if(!src) return
-			user << "<span class='notice'>You [anchored? "un" : ""]secured \the [src]!</span>"
+			user << SPAN_NOTE("You [anchored? "un" : ""]secured \the [src]!")
 			anchored = !anchored
 		return
 
@@ -410,7 +410,7 @@
 			return
 
 		usr.put_in_hands(coin)
-		usr << "\blue You remove the [coin] from the [src]"
+		usr << SPAN_NOTE("You remove the [coin] from the [src]")
 		coin = null
 		categories &= ~CAT_COIN
 
@@ -463,13 +463,13 @@
 
 	if (R.category & CAT_COIN)
 		if(!coin)
-			user << "\blue You need to insert a coin to get this item."
+			user << SPAN_NOTE("You need to insert a coin to get this item.")
 			return
 		if(coin.string_attached)
 			if(prob(50))
-				user << "\blue You successfully pull the coin out before \the [src] could swallow it."
+				user << SPAN_NOTE("You successfully pull the coin out before \the [src] could swallow it.")
 			else
-				user << "\blue You weren't able to pull the coin out fast enough, the machine ate it, string and all."
+				user << SPAN_NOTE("You weren't able to pull the coin out fast enough, the machine ate it, string and all.")
 				qdel(coin)
 				coin = null
 				categories &= ~CAT_COIN
@@ -491,7 +491,7 @@
 		if(prob(1))
 			sleep(3)
 			if(R.get_product(get_turf(src)))
-				src.visible_message("<span class='notice'>\The [src] clunks as it vends an additional item.</span>")
+				src.visible_message(SPAN_NOTE("\The [src] clunks as it vends an additional item."))
 
 		src.status_message = ""
 		src.status_error = 0
@@ -509,7 +509,7 @@
 	if(!user.unEquip(W))
 		return
 
-	user << "\blue You stock \the [src] with \a [R.item_name]"
+	user << SPAN_NOTE("You stock \the [src] with \a [R.item_name]")
 	R.add_product(W)
 
 	nanomanager.update_uis(src)

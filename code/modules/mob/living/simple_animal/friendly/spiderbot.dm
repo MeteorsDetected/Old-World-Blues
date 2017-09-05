@@ -67,7 +67,7 @@
 						ghost_can_reenter = 1
 						break
 			if(!ghost_can_reenter)
-				user << "<span class='notice'>[O] is completely unresponsive; there's no point.</span>"
+				user << SPAN_NOTE("[O] is completely unresponsive; there's no point.")
 				return
 
 		if(B.brainmob.stat == DEAD)
@@ -78,7 +78,7 @@
 			user << "<span class='warning'>\The [O] does not seem to fit.</span>"
 			return
 
-		user << "<span class='notice'>You install \the [O] in \the [src]!</span>"
+		user << SPAN_NOTE("You install \the [O] in \the [src]!")
 
 		if(istype(O, /obj/item/device/mmi/digital))
 			positronic = 1
@@ -99,7 +99,7 @@
 				if(health > maxHealth)
 					health = maxHealth
 				add_fingerprint(user)
-				src.visible_message("<span class='notice'>\The [user] has spot-welded some of the damage to \the [src]!</span>")
+				src.visible_message(SPAN_NOTE("\The [user] has spot-welded some of the damage to \the [src]!"))
 			else
 				user << "<span class='warning'>\The [src] is undamaged!</span>"
 		else
@@ -119,7 +119,7 @@
 			id_card = pda.id
 
 		if(access_robotics in id_card.access)
-			user << "<span class='notice'>You swipe your access card and pop the brain out of \the [src].</span>"
+			user << SPAN_NOTE("You swipe your access card and pop the brain out of \the [src].")
 			eject_brain()
 			if(held_item)
 				held_item.loc = src.loc
@@ -137,7 +137,7 @@
 		user << "<span class='warning'>[src] is already overloaded - better run.</span>"
 		return 0
 	else
-		user << "<span class='notice'>You short out the security protocols and overload [src]'s cell, priming it to explode in a short time.</span>"
+		user << SPAN_NOTE("You short out the security protocols and overload [src]'s cell, priming it to explode in a short time.")
 		spawn(100)	src << "<span class='danger'>Your cell seems to be outputting a lot of power...</span>"
 		spawn(200)	src << "<span class='danger'>Internal heat sensors are spiking! Something is badly wrong with your cell!</span>"
 		spawn(300)	src.explode()
@@ -232,8 +232,8 @@
 		held_item = null
 		return 1
 
-	visible_message("<span class='notice'>\The [src] drops \the [held_item].</span>", \
-		"<span class='notice'>You drop \the [held_item].</span>", \
+	visible_message(SPAN_NOTE("\The [src] drops \the [held_item]."), \
+		SPAN_NOTE("You drop \the [held_item]."), \
 		"You hear a skittering noise and a soft thump.")
 
 	held_item.loc = src.loc
@@ -266,8 +266,8 @@
 			if(selection == I)
 				held_item = selection
 				selection.loc = src
-				visible_message("<span class='notice'>\The [src] scoops up \the [held_item].</span>", \
-					"<span class='notice'>You grab \the [held_item].</span>", \
+				visible_message(SPAN_NOTE("\The [src] scoops up \the [held_item]."), \
+					SPAN_NOTE("You grab \the [held_item]."), \
 					"You hear a skittering noise and a clink.")
 				return held_item
 		src << "<span class='warning'>\The [selection] is too far away.</span>"

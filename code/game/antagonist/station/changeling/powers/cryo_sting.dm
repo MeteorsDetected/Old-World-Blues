@@ -18,13 +18,13 @@
 	var/inject_amount = 10
 	if(src.mind.changeling.recursive_enhancement)
 		inject_amount = inject_amount * 1.5
-		src << "<span class='notice'>We inject extra chemicals.</span>"
+		src << SPAN_NOTE("We inject extra chemicals.")
 		src.mind.changeling.recursive_enhancement = 0
 	if(T.reagents)
 		T.reagents.add_reagent("cryotoxin", inject_amount)
 	src.verbs -= /mob/living/proc/changeling_cryo_sting
 	spawn(3 MINUTES)
-		src << "<span class='notice'>Our cryogenic string is ready to be used once more.</span>"
+		src << SPAN_NOTE("Our cryogenic string is ready to be used once more.")
 		src.verbs |= /mob/living/proc/changeling_cryo_sting
 	return 1
 

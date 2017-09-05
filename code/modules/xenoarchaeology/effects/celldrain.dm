@@ -11,7 +11,7 @@
 			var/mob/living/silicon/robot/R = user
 			for (var/obj/item/weapon/cell/D in R.contents)
 				D.charge = max(D.charge - rand() * 100, 0)
-				R << "\blue SYSTEM ALERT: Energy drain detected!"
+				R << SPAN_NOTE("SYSTEM ALERT: Energy drain detected!")
 			return 1
 
 		return 1

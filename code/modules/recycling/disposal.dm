@@ -111,7 +111,7 @@
 
 	if(istype(I, /obj/item/storage/bag/trash))
 		var/obj/item/storage/bag/trash/T = I
-		user << "\blue You empty the bag."
+		user << SPAN_NOTE("You empty the bag.")
 		for(var/obj/item/O in T.contents)
 			T.remove_from_storage(O,src)
 		T.update_icon()
@@ -1145,7 +1145,7 @@
 			if(O.currTag)// Tag set
 				sort_tag = O.currTag
 				playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
-				user << "\blue Changed tag to '[sort_tag]'."
+				user << SPAN_NOTE("Changed tag to '[sort_tag]'.")
 				updatename()
 				updatedesc()
 

@@ -81,7 +81,7 @@
 
 	//The reagents in the bottle splash all over the target, thanks for the idea Nodrak
 	if(reagents)
-		user.visible_message("<span class='notice'>The contents of the [src] splash all over [target]!</span>")
+		user.visible_message(SPAN_NOTE("The contents of the [src] splash all over [target]!"))
 		reagents.splash(target, reagents.total_volume)
 
 	//Finally, smash the bottle. This kills (qdel) the bottle.

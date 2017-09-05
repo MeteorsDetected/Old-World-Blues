@@ -18,7 +18,7 @@
 
 	if (layer != 2.45)
 		layer = 2.45 //Just above cables with their 2.44
-		src << text("\blue You are now hiding.")
+		src << SPAN_NOTE("You are now hiding.")
 	else
 		layer = MOB_LAYER
-		src << text("\blue You have stopped hiding.")
+		src << SPAN_NOTE("You have stopped hiding.")

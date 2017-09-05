@@ -147,7 +147,7 @@
 				if(!ismob(my_atom) && C.mix_message)
 					var/list/seen = viewers(4, get_turf(my_atom))
 					for(var/mob/M in seen)
-						M << "<span class='notice'>\icon[my_atom] [C.mix_message]</span>"
+						M << SPAN_NOTE("\icon[my_atom] [C.mix_message]")
 					playsound(get_turf(my_atom), 'sound/effects/bubbles.ogg', 80, 1)
 
 				C.on_reaction(src, C.result_amount * use)

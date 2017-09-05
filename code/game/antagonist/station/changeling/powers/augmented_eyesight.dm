@@ -23,13 +23,13 @@
 
 	active = !active
 	if(active)
-		C << "<span class='notice'>We feel a minute twitch in our eyes, and darkness creeps away.</span>"
+		C << SPAN_NOTE("We feel a minute twitch in our eyes, and darkness creeps away.")
 		C.sight |= SEE_MOBS
 		C.permanent_sight_flags |= SEE_MOBS
 		C.see_in_dark = 8
 		C.dna.species.invis_sight = SEE_INVISIBLE_MINIMUM
 	else
-		C << "<span class='notice'>Our vision dulls. Shadows gather.</span>"
+		C << SPAN_NOTE("Our vision dulls. Shadows gather.")
 		C.sight &= ~SEE_MOBS
 		C.permanent_sight_flags &= ~SEE_MOBS
 		C.see_in_dark = 0

@@ -890,7 +890,7 @@
 				qdel(a)
 
 		if(halloss >= species.total_health)
-			src << "<span class='notice'>You're in too much pain to keep going...</span>"
+			src << SPAN_NOTE("You're in too much pain to keep going...")
 			src.visible_message("<B>[src]</B> slumps to the ground, too weak to continue fighting.")
 			Paralyse(10)
 			setHalLoss(species.total_health - 1)

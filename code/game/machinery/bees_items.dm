@@ -21,9 +21,15 @@
 		if(B.feral < 0)
 			caught_bees += B.strength
 			qdel(B)
-			user.visible_message("\blue [user] nets some bees.","\blue You net up some of the becalmed bees.")
+			user.visible_message(
+				SPAN_NOTE("[user] nets some bees."),
+				SPAN_NOTE("You net up some of the becalmed bees.")
+			)
 		else
-			user.visible_message("\red [user] swings at some bees, they don't seem to like it.","\red You swing at some bees, they don't seem to like it.")
+			user.visible_message(
+				"\red [user] swings at some bees, they don't seem to like it.",
+				"\red You swing at some bees, they don't seem to like it."
+			)
 			B.feral = 5
 			B.target_mob = user
 

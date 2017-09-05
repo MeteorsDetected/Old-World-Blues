@@ -95,7 +95,7 @@ var/global/list/rnwords = list("ire","ego","nahlizet","certum","veri","jatkaa","
 			qdel(src)
 			return
 		else if(istype(I, /obj/item/weapon/nullrod))
-			user << "<span class='notice'>You disrupt the vile magic with the deadening field of the null rod!</span>"
+			user << SPAN_NOTE("You disrupt the vile magic with the deadening field of the null rod!")
 			qdel(src)
 			return
 		return

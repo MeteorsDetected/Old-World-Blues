@@ -55,7 +55,7 @@
 			calc_reimburse(L)
 			usr.drop_from_inventory(L, src)
 			vendmode = 3
-			usr << "<span class='notice'>You slot your [L.name] into \The [src.name]</span>"
+			usr << SPAN_NOTE("You slot your [L.name] into \The [src.name]")
 	else
 		..()
 

@@ -145,7 +145,7 @@ default behaviour is:
 	if ((src.health < 0 && src.health > (5-src.maxHealth))) // Health below Zero but above 5-away-from-death, as before, but variable
 		src.adjustOxyLoss(src.health + src.maxHealth * 2) // Deal 2x health in OxyLoss damage, as before but variable.
 		src.health = src.maxHealth - src.getOxyLoss() - src.getToxLoss() - src.getFireLoss() - src.getBruteLoss()
-		src << "\blue You have given up life and succumbed to death."
+		src << SPAN_NOTE("You have given up life and succumbed to death.")
 
 
 /mob/living/proc/updatehealth()
@@ -632,7 +632,7 @@ default behaviour is:
 	set category = "IC"
 
 	resting = !resting
-	src << "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>"
+	src << SPAN_NOTE("You are now [resting ? "resting" : "getting up"]")
 
 /mob/living/proc/is_allowed_vent_crawl_item(var/obj/item/carried_item)
 	return isnull(get_inventory_slot(carried_item))

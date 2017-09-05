@@ -153,7 +153,7 @@
 			scan_data += "<br>"
 
 	for(var/mob/O in viewers(usr))
-		O.show_message("<span class='notice'>\The [src] rattles and prints out a sheet of paper.</span>", 1)
+		O.show_message(SPAN_NOTE("\The [src] rattles and prints out a sheet of paper."), 1)
 
 	sleep(10)
 
@@ -173,7 +173,7 @@
 		src.wdata = list()
 		src.chemtraces = list()
 		src.timeofdeath = null
-		user << "<span class='notice'>A new patient has been registered. Purging data for previous patient.</span>"
+		user << SPAN_NOTE("A new patient has been registered. Purging data for previous patient.")
 
 	src.timeofdeath = M.timeofdeath
 
@@ -184,7 +184,7 @@
 	if(!S.open)
 		usr << "<span class='warning'>You have to cut [S] open first!</span>"
 		return
-	M.visible_message("<span class='notice'>\The [user] scans the wounds on [M]'s [S.name] with [src]</span>")
+	M.visible_message(SPAN_NOTE("\The [user] scans the wounds on [M]'s [S.name] with [src]"))
 
 	src.add_data(S)
 

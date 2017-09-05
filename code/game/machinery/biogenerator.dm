@@ -42,43 +42,43 @@
 		return
 	if(istype(O, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
-			user << "<span class='notice'>]The [src] is already loaded.</span>"
+			user << SPAN_NOTE("The [src] is already loaded.")
 		else
 			user.remove_from_mob(O)
 			O.loc = src
 			beaker = O
 			updateUsrDialog()
 	else if(processing)
-		user << "<span class='notice'>\The [src] is currently processing.</span>"
+		user << SPAN_NOTE("\The [src] is currently processing.")
 	else if(istype(O, /obj/item/storage/bag/plants))
 		var/i = 0
 		for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in contents)
 			i++
 		if(i >= 10)
-			user << "<span class='notice'>\The [src] is already full! Activate it.</span>"
+			user << SPAN_NOTE("\The [src] is already full! Activate it.")
 		else
 			for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in O.contents)
 				G.loc = src
 				i++
 				if(i >= 10)
-					user << "<span class='notice'>You fill \the [src] to its capacity.</span>"
+					user << SPAN_NOTE("You fill \the [src] to its capacity.")
 					break
 			if(i < 10)
-				user << "<span class='notice'>You empty \the [O] into \the [src].</span>"
+				user << SPAN_NOTE("You empty \the [O] into \the [src].")
 
 
 	else if(!istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown))
-		user << "<span class='notice'>You cannot put this in \the [src].</span>"
+		user << SPAN_NOTE("You cannot put this in \the [src].")
 	else
 		var/i = 0
 		for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in contents)
 			i++
 		if(i >= 10)
-			user << "<span class='notice'>\The [src] is full! Activate it.</span>"
+			user << SPAN_NOTE("\The [src] is full! Activate it.")
 		else
 			user.remove_from_mob(O)
 			O.loc = src
-			user << "<span class='notice'>You put \the [O] in \the [src]</span>"
+			user << SPAN_NOTE("You put \the [O] in \the [src]")
 	update_icon()
 	return
 
@@ -138,7 +138,7 @@
 	if (stat) //NOPOWER etc
 		return
 	if(processing)
-		usr << "<span class='notice'>The biogenerator is in the process of working.</span>"
+		usr << SPAN_NOTE("The biogenerator is in the process of working.")
 		return
 	var/S = 0
 	for(var/obj/item/weapon/reagent_containers/food/snacks/grown/I in contents)

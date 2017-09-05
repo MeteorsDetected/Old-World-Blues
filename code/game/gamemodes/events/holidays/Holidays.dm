@@ -173,7 +173,7 @@ var/global/Holiday = null
 				if(isNotStationLevel(S.z))	continue
 				containers += S
 
-			message_admins("\blue DEBUG: Event: Egg spawned at [Egg.loc] ([Egg.x],[Egg.y],[Egg.z])")*/
+			message_admins(SPAN_NOTE("DEBUG: Event: Egg spawned at [Egg.loc] ([Egg.x],[Egg.y],[Egg.z])"))*/
 		if("End of the World")
 			if(prob(eventchance))	GameOver()
 

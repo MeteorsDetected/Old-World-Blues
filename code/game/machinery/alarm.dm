@@ -798,7 +798,7 @@
 				else
 					if(allowed(usr) && !wires.IsIndexCut(AALARM_WIRE_IDSCAN))
 						locked = !locked
-						user << "\blue You [ locked ? "lock" : "unlock"] the Air Alarm interface."
+						user << SPAN_NOTE("You [ locked ? "lock" : "unlock"] the Air Alarm interface.")
 					else
 						user << "\red Access denied."
 			return
@@ -807,7 +807,7 @@
 			if(istype(W, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = W
 				if (C.use(5))
-					user << "<span class='notice'>You wire \the [src].</span>"
+					user << SPAN_NOTE("You wire \the [src].")
 					buildstage = 2
 					update_icon()
 					first_run()
@@ -952,7 +952,7 @@ FIRE ALARM
 				if(istype(W, /obj/item/stack/cable_coil))
 					var/obj/item/stack/cable_coil/C = W
 					if (C.use(5))
-						user << "<span class='notice'>You wire \the [src].</span>"
+						user << SPAN_NOTE("You wire \the [src].")
 						buildstage = 2
 						return
 					else

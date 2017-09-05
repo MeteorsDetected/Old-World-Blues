@@ -259,18 +259,18 @@ Frequency:
 			if(!vcell)
 				user.drop_from_inventory(W, src)
 				vcell = W
-				user << "<span class='notice'>You install a cell in [src].</span>"
+				user << SPAN_NOTE("You install a cell in [src].")
 				icon_state = "vm_open"
 				update_icon()
 			else
-				user << "<span class='notice'>[src] already has a cell.</span>"
+				user << SPAN_NOTE("[src] already has a cell.")
 
 		else if(istype(W, /obj/item/weapon/screwdriver))
 			if(vcell)
 				vcell.update_icon()
 				vcell.loc = get_turf(src.loc)
 				vcell = null
-				user << "<span class='notice'>You remove the cell from the [src].</span>"
+				user << SPAN_NOTE("You remove the cell from the [src].")
 				icon_state = "vm_nocell"
 				update_icon()
 				return

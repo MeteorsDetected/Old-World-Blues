@@ -10,13 +10,13 @@
 		mail_destination = ""
 		return
 
-	src << "\blue You configure your internal beacon, tagging yourself for delivery to '[new_tag]'."
+	src << SPAN_NOTE("You configure your internal beacon, tagging yourself for delivery to '[new_tag]'.")
 	mail_destination = new_tag
 
 	//Auto flush if we use this verb inside a disposal chute.
 	var/obj/machinery/disposal/D = src.loc
 	if(istype(D))
-		src << "\blue \The [D] acknowledges your signal."
+		src << SPAN_NOTE("\The [D] acknowledges your signal.")
 		D.flush_count = D.flush_every_ticks
 
 	return
