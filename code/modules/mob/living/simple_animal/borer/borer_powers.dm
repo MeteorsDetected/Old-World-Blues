@@ -11,7 +11,7 @@
 		src << "You cannot leave your host in your current state."
 
 	if(docile)
-		src << "\blue You are feeling far too docile to do that."
+		src << SPAN_NOTE("You are feeling far too docile to do that.")
 		return
 
 	if(!host || !src) return
@@ -144,7 +144,7 @@
 		src << "You cannot do that in your current state."
 
 	if(docile)
-		src << "\blue You are feeling far too docile to do that."
+		src << SPAN_NOTE("You are feeling far too docile to do that.")
 		return
 
 
@@ -212,7 +212,7 @@
 		src << "You cannot secrete chemicals in your current state."
 
 	if(docile)
-		src << "\blue You are feeling far too docile to do that."
+		src << SPAN_NOTE("You are feeling far too docile to do that.")
 		return
 
 	if(chemicals < 50)
@@ -281,7 +281,7 @@
 		return
 
 	if(docile)
-		src << "\blue You are feeling far too docile to do that."
+		src << SPAN_NOTE("You are feeling far too docile to do that.")
 		return
 
 	src << "You begin delicately adjusting your connection to the host brain..."

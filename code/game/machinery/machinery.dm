@@ -322,14 +322,14 @@ Class Procs:
 						component_parts -= A
 						component_parts += B
 						B.loc = null
-						user << "<span class='notice'>[A.name] replaced with [B.name].</span>"
+						user << SPAN_NOTE("[A.name] replaced with [B.name].")
 						break
 			update_icon()
 			RefreshParts()
 	else
-		user << "<span class='notice'>Following parts detected in the machine:</span>"
+		user << SPAN_NOTE("Following parts detected in the machine:")
 		for(var/var/obj/item/C in component_parts)
-			user << "<span class='notice'>    [C.name]</span>"
+			user << SPAN_NOTE("    [C.name]")
 	return 1
 
 /obj/machinery/proc/default_deconstruction_crowbar(var/mob/user, var/obj/item/weapon/crowbar/C)
@@ -344,7 +344,7 @@ Class Procs:
 		return 0
 	playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 	panel_open = !panel_open
-	user << "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance hatch of \the [src].</span>"
+	user << SPAN_NOTE("You [panel_open ? "open" : "close"] the maintenance hatch of \the [src].")
 	update_icon()
 	return 1
 

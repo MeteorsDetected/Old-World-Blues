@@ -60,16 +60,16 @@
 			if(host.reagents.has_reagent("sugar"))
 				if(!docile)
 					if(controlling)
-						host << "\blue You feel the soporific flow of sugar in your host's blood, lulling you into docility."
+						host << SPAN_NOTE("You feel the soporific flow of sugar in your host's blood, lulling you into docility.")
 					else
-						src << "\blue You feel the soporific flow of sugar in your host's blood, lulling you into docility."
+						src << SPAN_NOTE("You feel the soporific flow of sugar in your host's blood, lulling you into docility.")
 					docile = 1
 			else
 				if(docile)
 					if(controlling)
-						host << "\blue You shake off your lethargy as the sugar leaves your host's blood."
+						host << SPAN_NOTE("You shake off your lethargy as the sugar leaves your host's blood.")
 					else
-						src << "\blue You shake off your lethargy as the sugar leaves your host's blood."
+						src << SPAN_NOTE("You shake off your lethargy as the sugar leaves your host's blood.")
 					docile = 0
 
 			if(chemicals < 250)
@@ -77,7 +77,7 @@
 			if(controlling)
 
 				if(docile)
-					host << "\blue You are feeling far too docile to continue controlling your host..."
+					host << SPAN_NOTE("You are feeling far too docile to continue controlling your host...")
 					host.release_control()
 					return
 
@@ -203,9 +203,9 @@
 		src.mind.assigned_role = "Cortical Borer"
 		src.mind.special_role = "Cortical Borer"
 
-	src << "<span class='notice'>You are a cortical borer!</span> You are a brain slug that worms its way \
+	src << SPAN_NOTE("You are a cortical borer!</span> You are a brain slug that worms its way \
 	into the head of its victim. Use stealth, persuasion and your powers of mind control to keep you, \
-	your host and your eventual spawn safe and warm."
+	your host and your eventual spawn safe and warm.")
 	src << "You can speak to your victim with <b>say</b>, to other borers with <b>say :x</b>, and use your Abilities tab to access powers."
 
 /mob/living/simple_animal/borer/cannot_use_vents()

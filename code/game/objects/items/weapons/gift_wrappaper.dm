@@ -30,16 +30,16 @@
 /obj/effect/spresent/relaymove(mob/user as mob)
 	if (user.stat)
 		return
-	user << "\blue You cant move."
+	user << SPAN_NOTE("You cant move.")
 
 /obj/effect/spresent/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
 
 	if (!istype(W, /obj/item/weapon/wirecutters))
-		user << "\blue I need wirecutters for that."
+		user << SPAN_NOTE("I need wirecutters for that.")
 		return
 
-	user << "\blue You cut open the present."
+	user << SPAN_NOTE("You cut open the present.")
 
 	for(var/mob/M in src) //Should only be one but whatever.
 		M.loc = src.loc
@@ -178,7 +178,7 @@
 /obj/item/weapon/wrapping_paper/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
 	if (!( locate(/obj/structure/table, src.loc) ))
-		user << "\blue You MUST put the paper on a table!"
+		user << SPAN_NOTE("You MUST put the paper on a table!")
 	if (W.w_class < ITEM_SIZE_HUGE)
 		if ((istype(user.l_hand, /obj/item/weapon/wirecutters) || istype(user.r_hand, /obj/item/weapon/wirecutters)))
 			var/a_used = W.get_storage_cost()
@@ -236,6 +236,6 @@
 			)
 
 		else
-			user << "\blue You need more paper."
+			user << SPAN_NOTE("You need more paper.")
 	else
 		user << "They are moving around too much. A straightjacket would help."

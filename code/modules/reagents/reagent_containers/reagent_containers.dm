@@ -36,19 +36,19 @@
 		return 0
 
 	if(!reagents)
-		user << "<span class='notice'>[src] can't hold reagents anymore.</span>"
+		user << SPAN_NOTE("[src] can't hold reagents anymore.")
 		return 1
 
 	if(!target.reagents || !target.reagents.total_volume)
-		user << "<span class='notice'>[target] is empty.</span>"
+		user << SPAN_NOTE("[target] is empty.")
 		return 1
 
 	if(reagents && !reagents.get_free_space())
-		user << "<span class='notice'>[src] is full.</span>"
+		user << SPAN_NOTE("[src] is full.")
 		return 1
 
 	var/trans = target.reagents.trans_to_obj(src, target:amount_per_transfer_from_this)
-	user << "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>"
+	user << SPAN_NOTE("You fill [src] with [trans] units of the contents of [target].")
 	return 1
 
 /obj/item/weapon/reagent_containers/proc/standard_splash_mob(var/mob/user, var/mob/target) // This goes into afterattack
@@ -56,11 +56,11 @@
 		return
 
 	if(!reagents || !reagents.total_volume)
-		user << "<span class='notice'>[src] is empty.</span>"
+		user << SPAN_NOTE("[src] is empty.")
 		return 1
 
 	if(target.reagents && !target.reagents.get_free_space())
-		user << "<span class='notice'>[target] is full.</span>"
+		user << SPAN_NOTE("[target] is full.")
 		return 1
 
 	var/contained = reagentlist()
@@ -70,12 +70,15 @@
 		"used [name] (reagents: [contained]) for splash"
 	)
 
-	user.visible_message("<span class='danger'>[target] has been splashed with something by [user]!</span>", "<span class = 'notice'>You splash the solution onto [target].</span>")
+	user.visible_message(
+		"<span class='danger'>[target] has been splashed with something by [user]!</span>",
+		SPAN_NOTE("You splash the solution onto [target].")
+	)
 	reagents.splash(target, reagents.total_volume*0.5)
 	return 1
 
 /obj/item/weapon/reagent_containers/proc/self_feed_message(var/mob/user)
-	user << "<span class='notice'>You eat \the [src]</span>"
+	user << SPAN_NOTE("You eat \the [src]")
 
 /obj/item/weapon/reagent_containers/proc/other_feed_message_start(var/mob/user, var/mob/target)
 	user.visible_message("<span class='warning'>[user] is trying to feed [target] \the [src]!</span>")
@@ -91,7 +94,7 @@
 		return 0
 
 	if(!reagents || !reagents.total_volume)
-		user << "<span class='notice'>\The [src] is empty.</span>"
+		user << SPAN_NOTE("\The [src] is empty.")
 		return 1
 
 	if(target == user)
@@ -148,13 +151,13 @@
 		return 0
 
 	if(!reagents || !reagents.total_volume)
-		user << "<span class='notice'>[src] is empty.</span>"
+		user << SPAN_NOTE("[src] is empty.")
 		return 1
 
 	if(!target.reagents.get_free_space())
-		user << "<span class='notice'>[target] is full.</span>"
+		user << SPAN_NOTE("[target] is full.")
 		return 1
 
 	var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-	user << "<span class='notice'>You transfer [trans] units of the solution to [target].</span>"
+	user << SPAN_NOTE("You transfer [trans] units of the solution to [target].")
 	return 1

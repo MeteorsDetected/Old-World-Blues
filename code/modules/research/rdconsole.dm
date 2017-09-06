@@ -117,7 +117,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			user << "\red Machine cannot accept disks in that format."
 			return
 		user.drop_from_inventory(D, src)
-		user << "\blue You add the disk to the machine!"
+		user << SPAN_NOTE("You add the disk to the machine!")
 	else
 		//The construction/deconstruction of the console code.
 		..()
@@ -129,7 +129,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		user << "<span class='notice'>You you disable the security protocols.</span>"
+		user << SPAN_NOTE("You you disable the security protocols.")
 		return 1
 
 /obj/machinery/computer/rdconsole/Topic(href, href_list)
@@ -224,7 +224,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					if(linked_destroy)
 						linked_destroy.busy = 0
 						if(!linked_destroy.loaded_item)
-							usr <<"<span class='notice'>The destructive analyzer appears to be empty.</span>"
+							usr <<SPAN_NOTE("The destructive analyzer appears to be empty.")
 							screen = 1.0
 							return
 

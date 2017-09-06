@@ -189,7 +189,7 @@
 					if(!src || !WT.isOn())
 						src.in_use = 0
 						return
-					user << "\blue You dissasembled the airlock assembly!"
+					user << SPAN_NOTE("You dissasembled the airlock assembly!")
 					new /obj/item/stack/material/steel(src.loc, 4)
 					qdel (src)
 			src.in_use = 0
@@ -243,7 +243,7 @@
 		)
 
 		if(do_after(user, 40, src) && src && state)
-			user << "<span class='notice'>You cut the airlock wires!</span>"
+			user << SPAN_NOTE("You cut the airlock wires!")
 			new/obj/item/stack/cable_coil(src.loc, 1)
 			src.state = 0
 		src.in_use = 0
@@ -280,7 +280,7 @@
 		)
 
 		if(do_after(user, 40, src) && src && (state != 1))
-			user << "<span class='notice'>You removed the airlock electronics!</span>"
+			user << SPAN_NOTE("You removed the airlock electronics!")
 			src.state = 1
 			src.name = "Wired Airlock Assembly"
 			electronics.loc = src.loc
@@ -322,10 +322,10 @@
 	else if(istype(W, /obj/item/weapon/screwdriver) && state == 2 )
 		src.in_use = 1
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
-		user << "\blue Now finishing the airlock."
+		user << SPAN_NOTE("Now finishing the airlock.")
 
 		if(do_after(user, 40, src) && src)
-			user << "\blue You finish the airlock!"
+			user << SPAN_NOTE("You finish the airlock!")
 			var/path
 			if(istext(glass))
 				path = text2path("/obj/machinery/door/airlock/[glass]")

@@ -92,7 +92,7 @@
 					++Friends[Victim.LAssailant]
 
 		else
-			src << "<span class='notice'>This subject does not have a strong enough life energy anymore...</span>"
+			src << SPAN_NOTE("This subject does not have a strong enough life energy anymore...")
 
 	Victim = null
 
@@ -111,7 +111,7 @@
 	set desc = "This will let you evolve from baby to adult slime."
 
 	if(stat)
-		src << "<span class='notice'>I must be conscious to do this...</span>"
+		src << SPAN_NOTE("I must be conscious to do this...")
 		return
 
 	if(!is_adult)
@@ -123,9 +123,9 @@
 			real_name = text("[colour] [is_adult ? "adult" : "baby"] slime ([number])")
 			name = real_name
 		else
-			src << "<span class='notice'>I am not ready to evolve yet...</span>"
+			src << SPAN_NOTE("I am not ready to evolve yet...")
 	else if(!dna)
-		src << "<span class='notice'>I have already evolved...</span>"
+		src << SPAN_NOTE("I have already evolved...")
 	else
 		if(amount_grown >= 15)
 			var/mob/living/carbon/human/H = new /mob/living/carbon/human(src.loc, dna.species)
@@ -141,24 +141,24 @@
 				H.add_language(L.name)
 			del(src)
 		else
-			src << "<span class='notice'>I am not ready to evolve yet...</span>"
+			src << SPAN_NOTE("I am not ready to evolve yet...")
 
 /mob/living/carbon/slime/verb/Reproduce()
 	set category = "Slime"
 	set desc = "This will make you split into four Slimes."
 
 	if(stat)
-		src << "<span class='notice'>I must be conscious to do this...</span>"
+		src << SPAN_NOTE("I must be conscious to do this...")
 		return
 
 	if(dna)
-		src << "<span class='notice'>I can't reproduce... </span>"
+		src << SPAN_NOTE("I can't reproduce... ")
 		return
 
 	if(is_adult)
 		if(amount_grown >= 10)
 			if(stat)
-				src << "<span class='notice'>I must be conscious to do this...</span>"
+				src << SPAN_NOTE("I must be conscious to do this...")
 				return
 
 			var/list/babies = list()
@@ -183,6 +183,6 @@
 				new_slime.key = src.key
 			qdel(src)
 		else
-			src << "<span class='notice'>I am not ready to reproduce yet...</span>"
+			src << SPAN_NOTE("I am not ready to reproduce yet...")
 	else
-		src << "<span class='notice'>I am not old enough to reproduce yet...</span>"
+		src << SPAN_NOTE("I am not old enough to reproduce yet...")

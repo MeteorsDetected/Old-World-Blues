@@ -28,13 +28,8 @@ obj/item/weapon/reagent_containers/glass/solution_tray/attackby(obj/item/weapon/
 
 	New()
 		..()
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
+		for(var/i = 1 to 7)
+			new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
 
 /obj/item/weapon/reagent_containers/glass/beaker/tungsten
 	name = "beaker 'tungsten'"

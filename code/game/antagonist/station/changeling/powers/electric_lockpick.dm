@@ -32,10 +32,10 @@
 
 /obj/item/weapon/finger_lockpick/New()
 	if(ismob(loc))
-		loc << "<span class='notice'>We shape our finger to fit inside electronics, and are ready to force them open.</span>"
+		loc << SPAN_NOTE("We shape our finger to fit inside electronics, and are ready to force them open.")
 
 /obj/item/weapon/finger_lockpick/dropped(mob/user)
-	user << "<span class='notice'>We discreetly shape our finger back to a less suspicious form.</span>"
+	user << SPAN_NOTE("We discreetly shape our finger back to a less suspicious form.")
 	spawn(1)
 		if(src)
 			qdel(src)
@@ -57,7 +57,7 @@
 	//Airlocks require an ugly block of code, but we don't want to just call emag_act(), since we don't want to break airlocks forever.
 	if(istype(target,/obj/machinery/door))
 		var/obj/machinery/door/door = target
-		user << "<span class='notice'>We send an electrical pulse up our finger, and into \the [target], attempting to open it.</span>"
+		user << SPAN_NOTE("We send an electrical pulse up our finger, and into \the [target], attempting to open it.")
 
 		if(door.density && door.operable())
 			door.do_animate("spark")
@@ -68,13 +68,13 @@
 
 				if(airlock.locked) //Check if we're bolted.
 					airlock.unlock()
-					user << "<span class='notice'>We've unlocked \the [airlock].  Another pulse is requried to open it.</span>"
+					user << SPAN_NOTE("We've unlocked \the [airlock].  Another pulse is requried to open it.")
 				else	//We're not bolted, so open the door already.
 					airlock.open()
-					user << "<span class='notice'>We've opened \the [airlock].</span>"
+					user << SPAN_NOTE("We've opened \the [airlock].")
 			else
 				door.open() //If we're a windoor, open the windoor.
-				user << "<span class='notice'>We've opened \the [door].</span>"
+				user << SPAN_NOTE("We've opened \the [door].")
 		else //Probably broken or no power.
 			user << "<span class='warning'>The door does not respond to the pulse.</span>"
 		door.add_fingerprint(user)
@@ -84,7 +84,7 @@
 
 	else if(istype(target,/obj/)) //This should catch everything else we might miss, without a million typechecks.
 		var/obj/O = target
-		user << "<span class='notice'>We send an electrical pulse up our finger, and into \the [O].</span>"
+		user << SPAN_NOTE("We send an electrical pulse up our finger, and into \the [O].")
 		O.add_fingerprint(user)
 		O.emag_act(1,user,src)
 		log_and_message_admins("finger-lockpicked \an [O].")

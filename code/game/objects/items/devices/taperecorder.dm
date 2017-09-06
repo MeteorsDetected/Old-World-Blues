@@ -61,7 +61,7 @@
 		return
 	icon_state = "taperecorderrecording"
 	if(timerecorded < 3600 && playing == 0)
-		usr << "<span class='notice'>Recording started.</span>"
+		usr << SPAN_NOTE("Recording started.")
 		recording = 1
 		timestamp+= timerecorded
 		storedinfo += "\[[time2text(timerecorded*10,"mm:ss")]\] Recording started."
@@ -74,7 +74,7 @@
 		icon_state = "taperecorderidle"
 		return
 	else
-		usr << "<span class='notice'>Either your tape recorder's memory is full, or it is currently playing back its memory.</span>"
+		usr << SPAN_NOTE("Either your tape recorder's memory is full, or it is currently playing back its memory.")
 
 
 /obj/item/device/taperecorder/verb/stop()
@@ -90,7 +90,7 @@
 		recording = 0
 		timestamp+= timerecorded
 		storedinfo += "\[[time2text(timerecorded*10,"mm:ss")]\] Recording stopped."
-		usr << "<span class='notice'>Recording stopped.</span>"
+		usr << SPAN_NOTE("Recording stopped.")
 		icon_state = "taperecorderidle"
 		return
 	else if(playing == 1)
@@ -111,13 +111,13 @@
 		usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
 		return
 	if(recording == 1 || playing == 1)
-		usr << "<span class='notice'>You can't clear the memory while playing or recording!</span>"
+		usr << SPAN_NOTE("You can't clear the memory while playing or recording!")
 		return
 	else
 		if(storedinfo)	storedinfo.Cut()
 		if(timestamp)	timestamp.Cut()
 		timerecorded = 0
-		usr << "<span class='notice'>Memory cleared.</span>"
+		usr << SPAN_NOTE("Memory cleared.")
 		return
 
 
@@ -131,14 +131,14 @@
 		usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
 		return
 	if(recording == 1)
-		usr << "<span class='notice'>You can't playback when recording!</span>"
+		usr << SPAN_NOTE("You can't playback when recording!")
 		return
 	if(playing == 1)
-		usr << "<span class='notice'>You're already playing!</span>"
+		usr << SPAN_NOTE("You're already playing!")
 		return
 	playing = 1
 	icon_state = "taperecorderplaying"
-	usr << "<span class='notice'>Playing started.</span>"
+	usr << SPAN_NOTE("Playing started.")
 	for(var/i=1,timerecorded<3600,sleep(10 * (playsleepseconds) ))
 		if(playing == 0)
 			break
@@ -190,12 +190,12 @@
 		usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
 		return
 	if(!canprint)
-		usr << "<span class='notice'>The recorder can't print that fast!</span>"
+		usr << SPAN_NOTE("The recorder can't print that fast!")
 		return
 	if(recording == 1 || playing == 1)
-		usr << "<span class='notice'>You can't print the transcript while playing or recording!</span>"
+		usr << SPAN_NOTE("You can't print the transcript while playing or recording!")
 		return
-	usr << "<span class='notice'>Transcript printed.</span>"
+	usr << SPAN_NOTE("Transcript printed.")
 	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"
 	for(var/i=1,storedinfo.len >= i,i++)
@@ -216,7 +216,7 @@
 			return
 		icon_state = "taperecorderrecording"
 		if(timerecorded < 3600 && playing == 0)
-			usr << "<span class='notice'>Recording started.</span>"
+			usr << SPAN_NOTE("Recording started.")
 			recording = 1
 			timestamp+= timerecorded
 			storedinfo += "\[[time2text(timerecorded*10,"mm:ss")]\] Recording started."
@@ -238,7 +238,7 @@
 			recording = 0
 			timestamp+= timerecorded
 			storedinfo += "\[[time2text(timerecorded*10,"mm:ss")]\] Recording stopped."
-			usr << "<span class='notice'>Recording stopped.</span>"
+			usr << SPAN_NOTE("Recording stopped.")
 			icon_state = "taperecorderidle"
 			return
 		else if(playing == 1)

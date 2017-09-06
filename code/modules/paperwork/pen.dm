@@ -51,7 +51,7 @@
 	else
 		icon_state = "pen_[colour]"
 
-	user << "<span class='notice'>Changed color to '[colour].'</span>"
+	user << SPAN_NOTE("Changed color to '[colour].'")
 
 /obj/item/weapon/pen/invisible
 	desc = "It's an invisble pen marker."

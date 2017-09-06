@@ -117,7 +117,7 @@
 			if (istype(I))
 				if(src.check_access(I))
 					if (!status)
-						log_game("\blue [key_name(usr)] has initiated the global cyborg killswitch!", usr) //TODO: replace usr jump with holder.
+						log_game(SPAN_NOTE("[key_name(usr)] has initiated the global cyborg killswitch!"), usr) //TODO: replace usr jump with holder.
 						src.status = 1
 						src.start_sequence()
 						src.temp = null
@@ -194,7 +194,7 @@
 					var/choice = input("Are you certain you wish to hack [R.name]?") in list("Confirm", "Abort")
 					if(choice == "Confirm")
 						if(R && istype(R))
-//							message_admins("\blue [key_name_admin(usr)] emagged [R.name] using robotic console!")
+//							message_admins(SPAN_NOTE("[key_name_admin(usr)] emagged [R.name] using robotic console!"))
 							log_game("[key_name(usr)] emagged [R.name] using robotic console!", usr)
 							R.emagged = 1
 							if(R.mind.special_role)

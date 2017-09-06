@@ -336,7 +336,7 @@
 
 		log_admin("[key_name(usr)] edited [banned_key]'s ban. Reason: [reason], Duration: [duration]")
 		ban_unban_log_save("[key_name(usr)] edited [banned_key]'s ban. Reason: [reason] Duration: [duration]")
-		message_admins("\blue [key_name_admin(usr)] edited [banned_key]'s ban. Reason: [reason] Duration: [duration]", 1)
+		message_admins(SPAN_NOTE("[key_name_admin(usr)] edited [banned_key]'s ban. Reason: [reason] Duration: [duration]"), 1)
 		Banlist.cd = "/base/[banfolder]"
 		Banlist["reason"] << reason
 		Banlist["temp"] << temp
@@ -710,7 +710,7 @@
 						else
 							msg += ", [job]"
 					notes_add(M.ckey, "Banned  from [msg] - [reason]", usr)
-					message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes", 1)
+					message_admins(SPAN_NOTE("[key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes"), 1)
 					M << "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>"
 					M << "\red <B>The reason is: [reason]</B>"
 					M << "\red This jobban will be lifted in [mins] minutes."
@@ -729,7 +729,7 @@
 							if(!msg)	msg = job
 							else		msg += ", [job]"
 						notes_add(M.ckey, "Banned  from [msg] - [reason]", usr)
-						message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg]", 1)
+						message_admins(SPAN_NOTE("[key_name_admin(usr)] banned [key_name_admin(M)] from [msg]"), 1)
 						M << "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>"
 						M << "\red <B>The reason is: [reason]</B>"
 						M << "\red Jobban can be lifted only upon request."
@@ -760,7 +760,7 @@
 					else
 						continue
 			if(msg)
-				message_admins("\blue [key_name_admin(usr)] unbanned [key_name_admin(M)] from [msg]", 1)
+				message_admins(SPAN_NOTE("[key_name_admin(usr)] unbanned [key_name_admin(M)] from [msg]"), 1)
 				M << "\red<BIG><B>You have been un-jobbanned by [usr.client.ckey] from [msg].</B></BIG>"
 				href_list["jobban2"] = 1 // lets it fall through and refresh
 			return 1
@@ -950,7 +950,7 @@
 			return alert(usr, "The game has already started.", null, null, null, null)
 		master_mode = href_list["c_mode2"]
 		log_admin("[key_name(usr)] set the mode as [master_mode].")
-		world << "\blue <b>The mode is now: [master_mode]</b>"
+		world << SPAN_NOTE("<b>The mode is now: [master_mode]</b>")
 		Game() // updates the main game menu
 		world.save_mode(master_mode)
 		.(href, list("c_mode"=1))
@@ -1063,7 +1063,7 @@
 		sleep(5)
 		M.loc = pick(tdome1)
 		spawn(50)
-			M << "\blue You have been sent to the Thunderdome."
+			M << SPAN_NOTE("You have been sent to the Thunderdome.")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Team 1)", M)
 
 	else if(href_list["tdome2"])
@@ -1087,7 +1087,7 @@
 		sleep(5)
 		M.loc = pick(tdome2)
 		spawn(50)
-			M << "\blue You have been sent to the Thunderdome."
+			M << SPAN_NOTE("You have been sent to the Thunderdome.")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Team 2)", M)
 
 	else if(href_list["tdomeadmin"])
@@ -1108,7 +1108,7 @@
 		sleep(5)
 		M.loc = pick(tdomeadmin)
 		spawn(50)
-			M << "\blue You have been sent to the Thunderdome."
+			M << SPAN_NOTE("You have been sent to the Thunderdome.")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Admin.)", M)
 
 	else if(href_list["tdomeobserve"])
@@ -1136,7 +1136,7 @@
 		sleep(5)
 		M.loc = pick(tdomeobserve)
 		spawn(50)
-			M << "\blue You have been sent to the Thunderdome."
+			M << SPAN_NOTE("You have been sent to the Thunderdome.")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Observer.)", M)
 
 	else if(href_list["revive"])
@@ -1300,7 +1300,7 @@
 			log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(src.owner)].", H)
 			return
 		log_admin("[key_name(H)] got their cookie, spawned by [key_name(src.owner)]", H)
-		H << "\blue Your prayers have been answered!! You received the <b>best cookie</b>!"
+		H << SPAN_NOTE("Your prayers have been answered!! You received the <b>best cookie</b>!")
 
 	else if(href_list["BlueSpaceArtillery"])
 		if(!check_rights(R_ADMIN|R_FUN))	return
@@ -1360,7 +1360,7 @@
 				L << "<span class='info'>You hear something crackle in your headset for a moment before a voice speaks.</span>"
 			L << "<span class='info'>Please stand by for a message from Central Command.</span>"
 			L << "<span class='info'>Message as follows.</span>"
-			L << "<span class='notice'>[input]</span>"
+			L << SPAN_NOTE("[input]")
 			L << "<span class='info'>Message ends.</span>"
 		else
 			src.owner << "The person you are trying to contact does not have functional radio equipment."
@@ -1444,7 +1444,7 @@
 		P.stamps += "<HR><i>This paper has been stamped by the Central Command Quantum Relay.</i>"
 
 		if(fax.recievefax(P))
-			src.owner << "\blue Message reply to transmitted successfully."
+			src.owner << SPAN_NOTE("Message reply to transmitted successfully.")
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
 		else
 			src.owner << "\red Message reply failed."

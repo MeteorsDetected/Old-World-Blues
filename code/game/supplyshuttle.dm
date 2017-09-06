@@ -56,10 +56,10 @@ var/list/mechtoys = list(
 /obj/structure/plasticflaps/attackby(obj/item/P, mob/user)
 	if(istype(P, /obj/item/weapon/wirecutters))
 		playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
-		user << "<span class='notice'>You start to cut the plastic flaps.</span>"
+		user << SPAN_NOTE("You start to cut the plastic flaps.")
 		if(do_after(user, 10))
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
-			user << "<span class='notice'>You cut the plastic flaps.</span>"
+			user << SPAN_NOTE("You cut the plastic flaps.")
 			new /obj/item/stack/material/plastic(src.loc, 4)
 			qdel(src)
 		return

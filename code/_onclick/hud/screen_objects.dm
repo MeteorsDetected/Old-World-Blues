@@ -233,7 +233,7 @@
 			if(iscarbon(usr))
 				var/mob/living/carbon/C = usr
 				if(C.legcuffed)
-					C << "<span class='notice'>You are legcuffed! You cannot run until you get [C.legcuffed] removed!</span>"
+					C << SPAN_NOTE("You are legcuffed! You cannot run until you get [C.legcuffed] removed!")
 					C.m_intent = "walk"	//Just incase
 					C.hud_used.move_intent.icon_state = "walking"
 					return 1
@@ -272,7 +272,7 @@
 				if(!C.stat && !C.stunned && !C.paralysis && !C.restrained())
 					if(C.internal)
 						C.internal = null
-						C << "<span class='notice'>No longer running on internals.</span>"
+						C << SPAN_NOTE("No longer running on internals.")
 						if(C.internals)
 							C.internals.icon_state = "internal0"
 					else
@@ -284,7 +284,7 @@
 								no_mask = 1
 
 						if(no_mask)
-							C << "<span class='notice'>You are not wearing a suitable mask or helmet.</span>"
+							C << SPAN_NOTE("You are not wearing a suitable mask or helmet.")
 							return 1
 						else
 							var/list/nicename = null
@@ -358,7 +358,7 @@
 							//We've determined the best container now we set it as our internals
 
 							if(best)
-								C << "<span class='notice'>You are now running on internals from [tankcheck[best]] [from] your [nicename[best]].</span>"
+								C << SPAN_NOTE("You are now running on internals from [tankcheck[best]] [from] your [nicename[best]].")
 								C.internal = tankcheck[best]
 
 
@@ -366,7 +366,7 @@
 								if(C.internals)
 									C.internals.icon_state = "internal1"
 							else
-								C << "<span class='notice'>You don't have a[breathes=="oxygen" ? "n oxygen" : addtext(" ",breathes)] tank.</span>"
+								C << SPAN_NOTE("You don't have a[breathes=="oxygen" ? "n oxygen" : addtext(" ",breathes)] tank.")
 		if("act_intent")
 			usr.a_intent_change("right")
 		if(I_HELP)

@@ -13,7 +13,7 @@
 		I.forceMove(src)
 
 /obj/structure/largecrate/attack_hand(mob/user as mob)
-	user << "<span class='notice'>You need a crowbar to pry this open!</span>"
+	user << SPAN_NOTE("You need a crowbar to pry this open!")
 	return
 
 /obj/structure/largecrate/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -23,9 +23,9 @@
 		for(var/atom/movable/M in contents)
 			M.forceMove(T)
 		user.visible_message(
-			"<span class='notice'>[user] pries \the [src] open.</span>",
-			"<span class='notice'>You pry open \the [src].</span>",
-			"<span class='notice'>You hear splitting wood.</span>"
+			SPAN_NOTE("[user] pries \the [src] open."),
+			SPAN_NOTE("You pry open \the [src]."),
+			SPAN_NOTE("You hear splitting wood.")
 		)
 		qdel(src)
 	else

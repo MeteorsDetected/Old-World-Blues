@@ -434,9 +434,9 @@
 	. = ..()
 	if (.<=1)
 		if (b_stat)
-			user << "<span class='notice'>\the [src] can be attached and modified!</span>"
+			user << SPAN_NOTE("\the [src] can be attached and modified!")
 		else
-			user << "<span class='notice'>\the [src] can not be modified or attached!</span>"
+			user << SPAN_NOTE("\the [src] can not be modified or attached!")
 	return
 
 /obj/item/device/radio/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -447,9 +447,9 @@
 	b_stat = !( b_stat )
 	if(!istype(src, /obj/item/device/radio/beacon))
 		if (b_stat)
-			user.show_message("<span class='notice'>\The [src] can now be attached and modified!</span>")
+			user.show_message(SPAN_NOTE("\The [src] can now be attached and modified!"))
 		else
-			user.show_message("<span class='notice'>\The [src] can no longer be modified or attached!</span>")
+			user.show_message(SPAN_NOTE("\The [src] can no longer be modified or attached!"))
 		updateDialog()
 			//Foreach goto(83)
 		add_fingerprint(user)

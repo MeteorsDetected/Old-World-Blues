@@ -86,8 +86,8 @@
 		attack_verb = list("smacked", "struck", "slapped")
 	else
 		user.visible_message(
-			"<span class='notice'>\The [user] collapses their telescopic baton.</span>",\
-			"<span class='notice'>You collapse the baton.</span>",\
+			SPAN_NOTE("\The [user] collapses their telescopic baton."),\
+			SPAN_NOTE("You collapse the baton."),\
 			"You hear a click."
 		)
 		icon_state = "telebaton_0"

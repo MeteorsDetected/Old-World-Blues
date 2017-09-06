@@ -173,7 +173,7 @@
 		result = target_mob.bullet_act(src, def_zone)
 
 	if(result == PROJECTILE_FORCE_MISS)
-		visible_message("<span class='notice'>\The [src] misses [target_mob] narrowly!</span>")
+		visible_message(SPAN_NOTE("\The [src] misses [target_mob] narrowly!"))
 		return 0
 
 	//hit messages

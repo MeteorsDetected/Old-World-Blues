@@ -164,7 +164,7 @@
 		if(!user.unEquip(B, src))
 			return
 		if(!accept_glass && istype(B,/obj/item/weapon/reagent_containers/food))
-			user << "<span class='notice'>This machine only accepts beakers</span>"
+			user << SPAN_NOTE("This machine only accepts beakers")
 			return
 		src.beaker =  B
 		user << "You set [B] on the machine."

@@ -335,7 +335,7 @@
 
 /obj/mecha/proc/interface_action(obj/machinery/target)
 	if(istype(target, /obj/machinery/access_button))
-		src.occupant_message("<span class='notice'>Interfacing with [target].</span>")
+		src.occupant_message(SPAN_NOTE("Interfacing with [target]."))
 		src.log_message("Interfaced with [target].")
 		target.attack_hand(src.occupant)
 		return 1
@@ -351,7 +351,7 @@
 		if(src_object == src || (src_object in src))
 			return STATUS_INTERACTIVE
 		if(src.Adjacent(src_object))
-			src.occupant_message("<span class='notice'>Interfacing with [src_object]...</span>")
+			src.occupant_message(SPAN_NOTE("Interfacing with [src_object]..."))
 			src.log_message("Interfaced with [src_object].")
 			return STATUS_INTERACTIVE
 		if(src_object in view(2, src))
@@ -550,8 +550,8 @@
 				src.log_append_to_last("Armor saved.")
 				playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
 				user << "\green Your claws had no effect!"
-				src.occupant_message("\blue The [user]'s claws are stopped by the armor.")
-				visible_message("\blue The [user] rebounds off [src.name]'s armor!")
+				src.occupant_message(SPAN_NOTE("The [user]'s claws are stopped by the armor."))
+				visible_message(SPAN_NOTE("The [user] rebounds off [src.name]'s armor!"))
 		else
 			user.visible_message(
 				"<font color='red'><b>[user] hits [src.name]. Nothing happens</b></font>",
@@ -589,7 +589,7 @@
 		src.visible_message("The [A] fastens firmly to [src].")
 		return
 	if(prob(src.deflect_chance) || ismob(A))
-		src.occupant_message("\blue The [A] bounces off the armor.")
+		src.occupant_message(SPAN_NOTE("The [A] bounces off the armor."))
 		src.visible_message("The [A] bounces off the [src.name] armor")
 		src.log_append_to_last("Armor saved.")
 		if(isliving(A))
@@ -611,7 +611,7 @@
 
 /obj/mecha/proc/dynbulletdamage(var/obj/item/projectile/Proj)
 	if(prob(src.deflect_chance))
-		src.occupant_message("\blue The armor deflects incoming projectile.")
+		src.occupant_message(SPAN_NOTE("The armor deflects incoming projectile."))
 		src.visible_message("The [src.name] armor deflects the projectile")
 		src.log_append_to_last("Armor saved.")
 		return
@@ -683,10 +683,10 @@
 		src.log_append_to_last("Armor saved.")
 		playsound(src.loc, 'sound/effects/blobattack.ogg', 50, 1, -1)
 		user << "\green Your attack had no effect!"
-		src.occupant_message("\blue The [user]'s attack is stopped by the armor.")
+		src.occupant_message(SPAN_NOTE("The [user]'s attack is stopped by the armor."))
 		for (var/mob/V in viewers(src))
 			if(V.client && !(V.blinded))
-				V.show_message("\blue The [user] rebounds off the [src.name] armor!", 1)
+				V.show_message(SPAN_NOTE("The [user] rebounds off the [src.name] armor!"), 1)
 	return
 */
 
@@ -859,11 +859,11 @@
 		if (WT.remove_fuel(0,user))
 			if (hasInternalDamage(MECHA_INT_TANK_BREACH))
 				clearInternalDamage(MECHA_INT_TANK_BREACH)
-				user << "\blue You repair the damaged gas tank."
+				user << SPAN_NOTE("You repair the damaged gas tank.")
 		else
 			return
 		if(src.health<initial(src.health))
-			user << "\blue You repair some damage to [src.name]."
+			user << SPAN_NOTE("You repair some damage to [src.name].")
 			src.health += min(10, initial(src.health)-src.health)
 		else
 			user << "The [src.name] is at full integrity"
@@ -1004,7 +1004,7 @@
 	var/obj/machinery/atmospherics/portables_connector/possible_port = locate(/obj/machinery/atmospherics/portables_connector/) in loc
 	if(possible_port)
 		if(connect(possible_port))
-			src.occupant_message("\blue [name] connects to the port.")
+			src.occupant_message(SPAN_NOTE("[name] connects to the port."))
 			src.verbs += /obj/mecha/verb/disconnect_from_port
 			src.verbs -= /obj/mecha/verb/connect_to_port
 			return
@@ -1024,7 +1024,7 @@
 	if(usr!=src.occupant)
 		return
 	if(disconnect())
-		src.occupant_message("\blue [name] disconnects from the port.")
+		src.occupant_message(SPAN_NOTE("[name] disconnects from the port."))
 		src.verbs -= /obj/mecha/verb/disconnect_from_port
 		src.verbs += /obj/mecha/verb/connect_to_port
 	else
@@ -1071,12 +1071,12 @@
 			usr << "\red Kinda hard to climb in while handcuffed don't you think?"
 			return
 	if (src.occupant)
-		usr << "\blue <B>The [src.name] is already occupied!</B>"
+		usr << SPAN_NOTE("<B>The [src.name] is already occupied!</B>")
 		src.log_append_to_last("Permission denied.")
 		return
 /*
 	if (usr.abiotic())
-		usr << "\blue <B>Subject cannot have abiotic items on.</B>"
+		usr << SPAN_NOTE("<B>Subject cannot have abiotic items on.</B>")
 		return
 */
 	var/passed
@@ -1095,7 +1095,7 @@
 			return
 //	usr << "You start climbing into [src.name]"
 
-	visible_message("\blue [usr] starts to climb into [src.name]")
+	visible_message(SPAN_NOTE("[usr] starts to climb into [src.name]"))
 
 	if(enter_after(40,usr))
 		if(!src.occupant)
@@ -1145,7 +1145,7 @@
 //	user << "Installing MMI, please stand by."
 
 	user.visible_message(
-		"\blue [usr] starts to insert an MMI into [src.name]"
+		SPAN_NOTE("[usr] starts to insert an MMI into [src.name]")
 	)
 
 	if(do_after(user, 40, src))
@@ -1888,8 +1888,8 @@
 	else
 		src.log_append_to_last("Armor saved.")
 		playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-		src.occupant_message("\blue The [user]'s attack is stopped by the armor.")
-		visible_message("\blue The [user] rebounds off [src.name]'s armor!")
+		src.occupant_message(SPAN_NOTE("The [user]'s attack is stopped by the armor."))
+		visible_message(SPAN_NOTE("The [user] rebounds off [src.name]'s armor!"))
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
 	return 1
 

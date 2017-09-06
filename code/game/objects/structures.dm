@@ -29,7 +29,7 @@
 	if(climbers.len && !(user in climbers))
 		user.visible_message(
 			"<span class='warning'>[user.name] shakes \the [src].</span>",
-			"<span class='notice'>You shake \the [src].</span>"
+			SPAN_NOTE("You shake \the [src].")
 		)
 		structure_shaken()
 
@@ -186,12 +186,12 @@
 	if(!Adjacent(user))
 		return 0
 	if (user.restrained() || user.buckled)
-		user << "<span class='notice'>You need your hands and legs free for this.</span>"
+		user << SPAN_NOTE("You need your hands and legs free for this.")
 		return 0
 	if (user.stat || user.paralysis || user.sleeping || user.lying || user.weakened)
 		return 0
 	if (issilicon(user))
-		user << "<span class='notice'>You need hands for this.</span>"
+		user << SPAN_NOTE("You need hands for this.")
 		return 0
 	return 1
 

@@ -69,7 +69,7 @@ be able to influence the host through various commands.
 	set category = "IC"
 
 	if(is_blind(host) || usr.stat)
-		src << "<span class='notice'>Something is there but you can't see it.</span>"
+		src << SPAN_NOTE("Something is there but you can't see it.")
 		return 1
 
 	A.examine(src)
@@ -542,7 +542,7 @@ be able to influence the host through various commands.
 		meme_mind.transfer_to(host)
 		host_mind.current.clearHUD()
 
-		dummy << "\blue You feel very drowsy.. Your eyelids become heavy..."
+		dummy << SPAN_NOTE("You feel very drowsy.. Your eyelids become heavy...")
 
 		sleep(600)
 

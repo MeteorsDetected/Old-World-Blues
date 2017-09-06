@@ -233,8 +233,8 @@
 			t_him = "her"
 
 	H.visible_message(
-		"<span class='notice'>[H] hugs [target] to make [t_him] feel better!</span>",
-		"<span class='notice'>You hug [target] to make [t_him] feel better!</span>"
+		SPAN_NOTE("[H] hugs [target] to make [t_him] feel better!"),
+		SPAN_NOTE("You hug [target] to make [t_him] feel better!")
 	)
 
 /datum/species/proc/remove_inherent_verbs(var/mob/living/carbon/human/H)

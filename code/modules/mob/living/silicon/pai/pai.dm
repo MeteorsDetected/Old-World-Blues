@@ -210,7 +210,7 @@
 	medicalActive2 = null
 	medical_cannotfind = 0
 	nanomanager.update_uis(src)
-	usr << "<span class='notice'>You reset your record-viewing software.</span>"
+	usr << SPAN_NOTE("You reset your record-viewing software.")
 
 /mob/living/silicon/pai/cancel_camera()
 	set category = "pAI Commands"
@@ -241,7 +241,7 @@
 				cameralist[C.network] = C.network
 
 	src.network = input(usr, "Which network would you like to view?") as null|anything in cameralist
-	src << "\blue Switched to [src.network] camera network."
+	src << SPAN_NOTE("Switched to [src.network] camera network.")
 //End of code by Mord_Sith
 */
 
@@ -362,7 +362,7 @@
 	else
 		resting = !resting
 		icon_state = resting ? "[chassis]_rest" : "[chassis]"
-		src << "\blue You are now [resting ? "resting" : "getting up"]"
+		src << SPAN_NOTE("You are now [resting ? "resting" : "getting up"]")
 
 	canmove = !resting
 

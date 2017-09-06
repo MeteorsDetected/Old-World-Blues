@@ -171,7 +171,7 @@
 
 /obj/item/clothing/gloves/proc/clipped(var/mob/user)
 	if (clipped)
-		user << "<span class='notice'>The [src] have already been clipped!</span>"
+		user << SPAN_NOTE("The [src] have already been clipped!")
 		update_icon()
 		return
 
@@ -485,11 +485,11 @@
 		status = ROLL_DOWN
 		update_status()
 		if(status == ROLL_DOWN)
-			usr << "<span class='notice'>You roll down your [src].</span>"
+			usr << SPAN_NOTE("You roll down your [src].")
 		else
 			usr << "<span class='warning'>You can't roll down [src].</span>"
 	else
-		usr << "<span class='notice'>You roll up your [src].</span>"
+		usr << SPAN_NOTE("You roll up your [src].")
 		status = ROLL_NONE
 		update_status()
 
@@ -505,12 +505,12 @@
 		status = ROLL_SLEV
 		update_status()
 		if(status == ROLL_SLEV)
-			usr << "<span class='notice'>You roll up your [src]'s sleeves.</span>"
+			usr << SPAN_NOTE("You roll up your [src]'s sleeves.")
 		else
 			usr << "<span class='warning'>You can't roll up your [src]'s sleeves.</span>"
 	else
 		status = ROLL_NONE
-		usr << "<span class='notice'>You roll down your [src]'s sleeves.</span>"
+		usr << SPAN_NOTE("You roll down your [src]'s sleeves.")
 		update_status()
 
 

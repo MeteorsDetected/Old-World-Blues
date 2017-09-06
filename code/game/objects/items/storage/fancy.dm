@@ -175,7 +175,7 @@
 		user.equip_to_slot_if_possible(W, slot_wear_mask)
 		reagents.maximum_volume = 15 * contents.len
 		contents.len--
-		user << "<span class='notice'>You take a cigarette out of the pack.</span>"
+		user << SPAN_NOTE("You take a cigarette out of the pack.")
 		update_icon()
 	else
 		..()
@@ -228,7 +228,7 @@
 		user.equip_to_slot_if_possible(W, slot_wear_mask)
 		reagents.maximum_volume = 15 * contents.len
 		contents.len--
-		user << "<span class='notice'>You take a cigar out of the case.</span>"
+		user << SPAN_NOTE("You take a cigar out of the case.")
 		update_icon()
 	else
 		..()

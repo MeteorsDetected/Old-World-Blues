@@ -22,10 +22,10 @@
 /obj/item/weapon/reagent_containers/glass/beaker/attack_self()
 	..()
 	if(is_open_container())
-		usr << "<span class = 'notice'>You put the lid on \the [src].</span>"
+		usr << SPAN_NOTE("You put the lid on \the [src].")
 		flags ^= OPENCONTAINER
 	else
-		usr << "<span class = 'notice'>You take the lid off \the [src].</span>"
+		usr << SPAN_NOTE("You take the lid off \the [src].")
 		flags |= OPENCONTAINER
 	update_icon()
 
@@ -33,11 +33,11 @@
 	.=..()
 	if(.<=2)
 		if(reagents && reagents.reagent_list.len)
-			user << "<span class='notice'>It contains [reagents.total_volume] units of liquid.</span>"
+			user << SPAN_NOTE("It contains [reagents.total_volume] units of liquid.")
 		else
-			user << "<span class='notice'>It is empty.</span>"
+			user << SPAN_NOTE("It is empty.")
 		if(!is_open_container())
-			user << "<span class='notice'>Airtight lid seals it completely.</span>"
+			user << SPAN_NOTE("Airtight lid seals it completely.")
 
 /obj/item/weapon/reagent_containers/glass/beaker/on_reagent_change()
 	update_icon()
@@ -139,7 +139,7 @@
 
 /obj/item/weapon/reagent_containers/glass/beaker/bucket/attackby(var/obj/D, mob/user as mob)
 	if(isprox(D))
-		user << "<span class='notice'>You add [D] to [src].</span>"
+		user << SPAN_NOTE("You add [D] to [src].")
 		user.drop_from_inventory(D, src)
 		sensor = D
 		desc += " With a sensor attached."
@@ -148,7 +148,7 @@
 	else if(isscrewdriver(D))
 		if(sensor)
 			user.put_in_hands(sensor)
-			user << "<span class='notice'>You remove [sensor] from [src].</span>"
+			user << SPAN_NOTE("You remove [sensor] from [src].")
 			sensor = null
 			desc = initial(desc)
 			update_icon()
@@ -160,7 +160,7 @@
 			var/turf/T = get_turf(loc)
 			var/mob/living/bot/cleanbot/A = new (T)
 			A.name = label_text ? label_text : "Cleanbot"
-			user << "<span class='notice'>You add the robot arm to the bucket and sensor assembly. Beep boop!</span>"
+			user << SPAN_NOTE("You add the robot arm to the bucket and sensor assembly. Beep boop!")
 			user.drop_from_inventory(src)
 			qdel(src)
 	else if(istype(D, /obj/item/weapon/mop))
@@ -168,7 +168,7 @@
 			user << "<span class='warning'>\The [src] is empty!</span>"
 		else
 			reagents.trans_to_obj(D, 5)
-			user << "<span class='notice'>You wet \the [D] in \the [src].</span>"
+			user << SPAN_NOTE("You wet \the [D] in \the [src].")
 			playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 		return
 	else

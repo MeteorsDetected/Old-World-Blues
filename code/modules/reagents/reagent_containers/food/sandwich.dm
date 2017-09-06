@@ -26,12 +26,12 @@
 		user << "\red If you put anything else on \the [src] it's going to collapse."
 		return
 	else if(istype(W,/obj/item/weapon/material/shard))
-		user << "\blue You hide [W] in \the [src]."
+		user << SPAN_NOTE("You hide [W] in \the [src].")
 		user.drop_from_inventory(W, src)
 		update()
 		return
 	else if(istype(W,/obj/item/weapon/reagent_containers/food/snacks))
-		user << "\blue You layer [W] over \the [src]."
+		user << SPAN_NOTE("You layer [W] over \the [src].")
 		var/obj/item/weapon/reagent_containers/F = W
 		F.reagents.trans_to_obj(src, F.reagents.total_volume)
 		user.drop_from_inventory(W, src)
@@ -80,7 +80,7 @@
 	.=..()
 	if(.<=2)
 		var/obj/item/O = pick(contents)
-		user << "\blue You think you can see [O.name] in there."
+		user << SPAN_NOTE("You think you can see [O.name] in there.")
 
 /obj/item/weapon/reagent_containers/food/snacks/csandwich/attack(mob/M as mob, mob/user as mob, def_zone)
 	var/obj/item/shard

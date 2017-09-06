@@ -23,31 +23,31 @@
 
 /obj/item/weapon/reagent_containers/glass/drinks/proc/open(mob/user)
 	playsound(loc,'sound/effects/canopen.ogg', rand(10,50), 1)
-	user << "<span class='notice'>You open [src] with an audible pop!</span>"
+	user << SPAN_NOTE("You open [src] with an audible pop!")
 	flags |= OPENCONTAINER
 
 /obj/item/weapon/reagent_containers/glass/drinks/examine(var/mob/user)
 	.=..()
 	if(.<=2)
 		if(!reagents)
-			user << "<span class='notice'>\The [src] can't hold reagents anymore!</span>"
+			user << SPAN_NOTE("\The [src] can't hold reagents anymore!")
 			return
 
 		if(reagents.reagent_list.len)
 			switch(round(reagents.total_volume/volume, 0.01))
 				if(0 to 0.25)
-					user << "<span class='notice'>\The [src] is almost empty!</span>"
+					user << SPAN_NOTE("\The [src] is almost empty!")
 				if(0.26 to 0.66)
-					user << "<span class='notice'>\The [src] is half full!</span>"
+					user << SPAN_NOTE("\The [src] is half full!")
 				if(0.67 to 0.90)
-					user << "<span class='notice'>\The [src] is almost full!</span>"
+					user << SPAN_NOTE("\The [src] is almost full!")
 				else
-					user << "<span class='notice'>\The [src] is full!</span>"
+					user << SPAN_NOTE("\The [src] is full!")
 		else
-			user << "<span class='notice'>It is empty.</span>"
+			user << SPAN_NOTE("It is empty.")
 
 		if(!is_open_container())
-			user << "<span class='notice'>Must be open before use!</span>"
+			user << SPAN_NOTE("Must be open before use!")
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Drinks. END

@@ -224,8 +224,8 @@
 		if(allowed(user))
 			locked = !locked
 			user.visible_message(
-				"<span class='notice'>User [!locked?"un":null]locked [recharge_port].</span>",
-				"<span class='notice'>[recharge_port] now [!locked?"un":null]locked.</span>"
+				SPAN_NOTE("User [!locked?"un":null]locked [recharge_port]."),
+				SPAN_NOTE("[recharge_port] now [!locked?"un":null]locked.")
 			)
 	else if(istype(I, /obj/item/weapon/card/emag) && locked)
 		locked = 0

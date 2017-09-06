@@ -54,7 +54,7 @@
 				M << "Something is blocking the ladder."
 			else
 				M.visible_message(
-					"\blue \The [M] climbs [src.icon_state == "ladderup" ? "up" : "down"] \the [src]!",
+					SPAN_NOTE("\The [M] climbs [src.icon_state == "ladderup" ? "up" : "down"] \the [src]!"),
 					"You climb [src.icon_state == "ladderup"  ? "up" : "down"] \the [src]!",
 					"You hear some grunting, and clanging of a metal ladder being used."
 				)

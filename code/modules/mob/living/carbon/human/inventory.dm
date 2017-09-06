@@ -65,7 +65,7 @@ This saves us from having to call add_fingerprint() any time something is put in
 
 	var/obj/item/I = get_active_hand()
 	if(!I)
-		src << "<span class='notice'>You are not holding anything to equip.</span>"
+		src << SPAN_NOTE("You are not holding anything to equip.")
 		return
 	if(equip_to_appropriate_slot(I))
 		if(hand)

@@ -444,13 +444,13 @@
 					if ((stat & BROKEN))
 						user.visible_message(\
 							"<span class='warning'>[user.name] has broken the power control board inside [src.name]!</span>",\
-							"<span class='notice'>You broke the charred power control board and remove the remains.</span>",
+							SPAN_NOTE("You broke the charred power control board and remove the remains."),
 							"You hear a crack!")
 						//ticker.mode:apcs-- //XSI said no and I agreed. -rastaf0
 					else
 						user.visible_message(\
 							"<span class='warning'>[user.name] has removed the power control board from [src.name]!</span>",\
-							"<span class='notice'>You remove the power control board.</span>")
+							SPAN_NOTE("You remove the power control board."))
 						new /obj/item/weapon/power_control(loc)
 		else if (opened!=2) //cover isn't removed
 			opened = 0
@@ -477,7 +477,7 @@
 		cell = W
 		user.visible_message(\
 			"<span class='warning'>[user.name] has inserted the power cell to [src.name]!</span>",\
-			"<span class='notice'>You insert the power cell.</span>")
+			SPAN_NOTE("You insert the power cell."))
 		chargecount = 0
 		update_icon()
 	else if	(istype(W, /obj/item/weapon/screwdriver))	// haxing
@@ -568,7 +568,7 @@
 					if(usr.stunned)
 						return
 				new /obj/item/stack/cable_coil(loc,10)
-				user << "<span class='notice'>You cut the cables and dismantle the power terminal.</span>"
+				user << SPAN_NOTE("You cut the cables and dismantle the power terminal.")
 				qdel(terminal)
 	else if (istype(W, /obj/item/weapon/power_control) && opened && has_electronics==0)
 		if ((stat & BROKEN))
@@ -580,7 +580,7 @@
 		if(do_after(user, 10))
 			if(has_electronics==0)
 				has_electronics = 1
-				user << "<span class='notice'>You place the power control board inside the frame.</span>"
+				user << SPAN_NOTE("You place the power control board inside the frame.")
 				qdel(W)
 	else if (istype(W, /obj/item/weapon/weldingtool) && opened && has_electronics==0 && !terminal)
 		var/obj/item/weapon/weldingtool/WT = W
@@ -597,13 +597,13 @@
 				new /obj/item/stack/material/steel(loc)
 				user.visible_message(\
 					"<span class='warning'>[src] has been cut apart by [user.name] with the weldingtool.</span>",\
-					"<span class='notice'>You disassembled the broken APC frame.</span>",\
+					SPAN_NOTE("You disassembled the broken APC frame."),\
 					"You hear welding.")
 			else
 				new /obj/item/frame/apc(loc)
 				user.visible_message(\
 					"<span class='warning'>[src] has been cut from the wall by [user.name] with the weldingtool.</span>",\
-					"<span class='notice'>You cut the APC frame from the wall.</span>",\
+					SPAN_NOTE("You cut the APC frame from the wall."),\
 					"You hear welding.")
 			qdel(src)
 			return
@@ -613,7 +613,7 @@
 			opened = 1
 		user.visible_message(\
 			"<span class='warning'>[user.name] has replaced the damaged APC frontal panel with a new one.</span>",\
-			"<span class='notice'>You replace the damaged APC frontal panel with a new one.</span>")
+			SPAN_NOTE("You replace the damaged APC frontal panel with a new one."))
 		qdel(W)
 		update_icon()
 	else if (istype(W, /obj/item/frame/apc) && opened && ((stat & BROKEN) || hacker))
@@ -624,7 +624,7 @@
 							"You begin to replace the damaged APC frame...")
 		if(do_after(user, 50))
 			user.visible_message(\
-				"<span class='notice'>[user.name] has replaced the damaged APC frame with new one.</span>",\
+				SPAN_NOTE("[user.name] has replaced the damaged APC frame with new one."),\
 				"You replace the damaged APC frame with new one.")
 			qdel(W)
 			stat &= ~BROKEN
@@ -673,7 +673,7 @@
 				if(prob(50))
 					emagged = 1
 					locked = 0
-					user << "<span class='notice'>You emag the APC interface.</span>"
+					user << SPAN_NOTE("You emag the APC interface.")
 					update_icon()
 				else
 					user << "<span class='warning'>You fail to [ locked ? "unlock" : "lock"] the APC interface.</span>"
@@ -707,18 +707,21 @@
 						H.nutrition += src.cell.charge/10
 						src.cell.charge = 0
 
-					user << "\blue You slot your fingers into the APC interface and siphon off some of the stored charge for your own use."
+					user << SPAN_NOTE("You slot your fingers into the APC interface and siphon off some of the stored charge for your own use.")
 					if(src.cell.charge < 0) src.cell.charge = 0
 					if(H.nutrition > 500) H.nutrition = 500
 					src.charging = 1
 
 				else
-					user << "\blue You are already fully charged."
+					user << SPAN_NOTE("You are already fully charged.")
 			else
 				user << "There is no charge to draw from that APC."
 			return
 		else if(H.can_shred())
-			user.visible_message("\red [user.name] slashes at the [src.name]!", "\blue You slash at the [src.name]!")
+			user.visible_message(
+				"\red [user.name] slashes at the [src.name]!",
+				SPAN_NOTE("You slash at the [src.name]!")
+			)
 			playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
 
 			var/allcut = wires.IsAllCut()
@@ -744,7 +747,7 @@
 
 			src.cell = null
 			user.visible_message("<span class='warning'>[user.name] removes the power cell from [src.name]!</span>",\
-								 "<span class='notice'>You remove the power cell.</span>")
+								 SPAN_NOTE("You remove the power cell."))
 			//user << "You remove the power cell."
 			charging = 0
 			src.update_icon()
@@ -1243,9 +1246,9 @@ obj/machinery/power/apc/proc/autoset(var/val, var/on)
 
 /obj/machinery/power/apc/proc/set_broken()
 	// Aesthetically much better!
-	src.visible_message("<span class='notice'>[src]'s screen flickers with warnings briefly!</span>")
+	src.visible_message(SPAN_NOTE("[src]'s screen flickers with warnings briefly!"))
 	spawn(rand(2,5))
-		src.visible_message("<span class='notice'>[src]'s screen suddenly explodes in rain of sparks and small debris!</span>")
+		src.visible_message(SPAN_NOTE("[src]'s screen suddenly explodes in rain of sparks and small debris!"))
 		stat |= BROKEN
 		operating = 0
 		update_icon()

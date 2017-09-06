@@ -88,7 +88,7 @@
 
 			if(ismob(target))//Blood!
 				if(reagents.has_reagent("blood"))
-					user << "<span class='notice'>There is already a blood sample in this syringe.</span>"
+					user << SPAN_NOTE("There is already a blood sample in this syringe.")
 					return
 				if(iscarbon(target))
 					if(isslime(target))
@@ -118,21 +118,21 @@
 						reagents.update_total()
 						on_reagent_change()
 						reagents.handle_reactions()
-					user << "<span class='notice'>You take a blood sample from [target].</span>"
+					user << SPAN_NOTE("You take a blood sample from [target].")
 					for(var/mob/O in viewers(4, user))
-						O.show_message("<span class='notice'>[user] takes a blood sample from [target].</span>", 1)
+						O.show_message(SPAN_NOTE("[user] takes a blood sample from [target]."), 1)
 
 			else //if not mob
 				if(!target.reagents.total_volume)
-					user << "<span class='notice'>[target] is empty.</span>"
+					user << SPAN_NOTE("[target] is empty.")
 					return
 
 				if(!target.is_open_container() && !istype(target, /obj/structure/reagent_dispensers) && !istype(target, /obj/item/slime_extract))
-					user << "<span class='notice'>You cannot directly remove reagents from this object.</span>"
+					user << SPAN_NOTE("You cannot directly remove reagents from this object.")
 					return
 
 				var/trans = target.reagents.trans_to_obj(src, amount_per_transfer_from_this)
-				user << "<span class='notice'>You fill the syringe with [trans] units of the solution.</span>"
+				user << SPAN_NOTE("You fill the syringe with [trans] units of the solution.")
 				update_icon()
 
 			if(!reagents.get_free_space())
@@ -141,17 +141,17 @@
 
 		if(SYRINGE_INJECT)
 			if(!reagents.total_volume)
-				user << "<span class='notice'>The syringe is empty.</span>"
+				user << SPAN_NOTE("The syringe is empty.")
 				mode = SYRINGE_DRAW
 				return
 			if(istype(target, /obj/item/weapon/implantcase/chem))
 				return
 
 			if(!target.is_open_container() && !ismob(target) && !istype(target, /obj/item/weapon/reagent_containers/food) && !istype(target, /obj/item/slime_extract) && !istype(target, /obj/item/clothing/mask/smokable/cigarette) && !istype(target, /obj/item/storage/fancy/cigarettes))
-				user << "<span class='notice'>You cannot directly fill this object.</span>"
+				user << SPAN_NOTE("You cannot directly fill this object.")
 				return
 			if(!target.reagents.get_free_space())
-				user << "<span class='notice'>[target] is full.</span>"
+				user << SPAN_NOTE("[target] is full.")
 				return
 
 			var/mob/living/carbon/human/H = target
@@ -200,7 +200,7 @@
 				admin_inject_log(user, target, src, contained, trans)
 			else
 				trans = reagents.trans_to(target, amount_per_transfer_from_this)
-			user << "<span class='notice'>You inject [trans] units of the solution. The syringe now contains [src.reagents.total_volume] units.</span>"
+			user << SPAN_NOTE("You inject [trans] units of the solution. The syringe now contains [src.reagents.total_volume] units.")
 			if (reagents.total_volume <= 0 && mode == SYRINGE_INJECT)
 				mode = SYRINGE_DRAW
 				update_icon()
@@ -300,10 +300,10 @@
 
 /obj/item/weapon/reagent_containers/syringe/ld50_syringe/afterattack(obj/target, mob/user, flag)
 	if(mode == SYRINGE_DRAW && ismob(target)) // No drawing 50 units of blood at once
-		user << "<span class='notice'>This needle isn't designed for drawing blood.</span>"
+		user << SPAN_NOTE("This needle isn't designed for drawing blood.")
 		return
 	if(user.a_intent == "hurt" && ismob(target)) // No instant injecting
-		user << "<span class='notice'>This syringe is too big to stab someone with it.</span>"
+		user << SPAN_NOTE("This syringe is too big to stab someone with it.")
 	..()
 
 ////////////////////////////////////////////////////////////////////////////////

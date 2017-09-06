@@ -23,7 +23,7 @@
 
 	if(!C.stat && alert("Are we sure we wish to regenerate?  We will appear to be dead while doing so.","Revival","Yes","No") == "No")
 		return
-	C << "<span class='notice'>We will attempt to regenerate our form.</span>"
+	C << SPAN_NOTE("We will attempt to regenerate our form.")
 
 	C.update_canmove()
 	C.remove_changeling_powers()
@@ -37,6 +37,6 @@
 	spawn(rand(800,2000))
 		//The ling will now be able to choose when to revive
 		src.verbs |= /mob/living/proc/changeling_revive
-		src << "<span class='notice'><font size='5'>We are ready to rise.  Use the <b>Revive</b> verb when you are ready.</font></span>"
+		src << SPAN_NOTE("<font size='5'>We are ready to rise.  Use the <b>Revive</b> verb when you are ready.</font>")
 
 	return 1

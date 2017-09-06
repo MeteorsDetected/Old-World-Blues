@@ -48,7 +48,7 @@
 		usr << "\red It's active."
 		return
 	if (bet == 0)
-		usr << "\blue Today's jackpot: $[jackpot]. Insert 1-100 Thalers."
+		usr << SPAN_NOTE("Today's jackpot: $[jackpot]. Insert 1-100 Thalers.")
 	else
 		spinning = 1
 		plays++
@@ -67,7 +67,7 @@
 				slots[slot] = pick("Cherry","Apple","Blueberry","Bell","Watermelon","JACKPOT")
 				last_slot = slots[slot]
 			update_icon()
-			src.visible_message("<span class='notice'>Reel stops.. \the [slots[slot]].</span>")
+			src.visible_message(SPAN_NOTE("Reel stops.. \the [slots[slot]]."))
 			playsound(src.loc, 'sound/machines/ping.ogg', 50, 1)
 		sleep(5)
 		if (check_win())
@@ -104,7 +104,7 @@
 		else
 			user << "\red You must bet 1-100 Thalers!"
 	else if (istype(S, /obj/item/weapon/coin))
-		user << "\blue You add the [S.name] into the [src]. It will slightly increase chance to win."
+		user << SPAN_NOTE("You add the [S.name] into the [src]. It will slightly increase chance to win.")
 		user.drop_from_inventory(S)
 		bet = 100
 		plays = 45

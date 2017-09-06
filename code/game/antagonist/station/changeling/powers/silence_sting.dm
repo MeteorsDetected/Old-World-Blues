@@ -17,7 +17,7 @@
 	var/duration = 30
 	if(src.mind.changeling.recursive_enhancement)
 		duration = duration + 10
-		src << "<span class='notice'>They will be unable to cry out in fear for a little longer.</span>"
+		src << SPAN_NOTE("They will be unable to cry out in fear for a little longer.")
 		src.mind.changeling.recursive_enhancement = 0
 	T.silent += duration
 	return 1

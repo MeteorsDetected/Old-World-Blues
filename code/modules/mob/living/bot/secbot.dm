@@ -127,7 +127,7 @@
 	. = ..()
 	if(!emagged)
 		if(user)
-			user << "<span class='notice'>\The [src] buzzes and beeps.</span>"
+			user << SPAN_NOTE("\The [src] buzzes and beeps.")
 		emagged = 1
 /*
 		patrol_speed = 3
@@ -135,7 +135,7 @@
 */
 		return 1
 	else
-		user << "<span class='notice'>\The [src] is already corrupt.</span>"
+		user << SPAN_NOTE("\The [src] is already corrupt.")
 
 /mob/living/bot/secbot/attackby(var/obj/item/O, var/mob/user)
 	var/curhealth = health

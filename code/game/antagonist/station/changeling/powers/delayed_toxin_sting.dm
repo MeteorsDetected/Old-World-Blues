@@ -18,7 +18,7 @@
 	var/i = rand(20,30)
 	if(src.mind.changeling.recursive_enhancement)
 		i = i * 2
-		src << "<span class='notice'>Our toxin will be extra potent, when it strikes.</span>"
+		src << SPAN_NOTE("Our toxin will be extra potent, when it strikes.")
 		src.mind.changeling.recursive_enhancement = 0
 	spawn(2 MINUTES)
 		if(T) //We might not exist in two minutes, for whatever reason.
@@ -29,7 +29,7 @@
 				sleep(2 SECONDS)
 	src.verbs -= /mob/living/proc/changeling_delayed_toxic_sting
 	spawn(3 MINUTES)
-		src << "<span class='notice'>We are ready to use our delayed toxic string once more.</span>"
+		src << SPAN_NOTE("We are ready to use our delayed toxic string once more.")
 		src.verbs |= /mob/living/proc/changeling_delayed_toxic_sting
 
 	return 1

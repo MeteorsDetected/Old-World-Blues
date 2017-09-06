@@ -14,15 +14,15 @@
 		return ..()
 
 	if(istype(I, /obj/item/weapon/evidencebag))
-		user << "<span class='notice'>You find putting an evidence bag in another evidence bag to be slightly absurd.</span>"
+		user << SPAN_NOTE("You find putting an evidence bag in another evidence bag to be slightly absurd.")
 		return
 
 	if(contents.len)
-		user << "<span class='notice'>[src] already has something inside it.</span>"
+		user << SPAN_NOTE("[src] already has something inside it.")
 		return ..()
 
 	if(I.w_class > ITEM_SIZE_NORMAL)
-		user << "<span class='notice'>[I] won't fit in [src].</span>"
+		user << SPAN_NOTE("[I] won't fit in [src].")
 		return ..()
 
 	if(ismob(I.loc))

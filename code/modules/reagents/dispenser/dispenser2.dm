@@ -53,7 +53,7 @@
 
 	if(user)
 		user.drop_from_inventory(C)
-		user << "<span class='notice'>You add \the [C] to \the [src].</span>"
+		user << SPAN_NOTE("You add \the [C] to \the [src].")
 
 	C.loc = src
 	cartridges[C.label] = C
@@ -68,15 +68,15 @@
 /obj/machinery/chemical_dispenser/attackby(obj/item/weapon/W, mob/user)
 	if(istype(W, /obj/item/weapon/wrench))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		user << "<span class='notice'>You begin to [anchored ? "un" : ""]fasten \the [src].</span>"
+		user << SPAN_NOTE("You begin to [anchored ? "un" : ""]fasten \the [src].")
 		if (do_after(user, 20))
 			user.visible_message(
-				"<span class='notice'>\The [user] [anchored ? "un" : ""]fastens \the [src].</span>",
-				"<span class='notice'>You have [anchored ? "un" : ""]fastened \the [src].</span>",
+				SPAN_NOTE("\The [user] [anchored ? "un" : ""]fastens \the [src]."),
+				SPAN_NOTE("You have [anchored ? "un" : ""]fastened \the [src]."),
 				"You hear a ratchet.")
 			anchored = !anchored
 		else
-			user << "<span class='notice'>You decide not to [anchored ? "un" : ""]fasten \the [src].</span>"
+			user << SPAN_NOTE("You decide not to [anchored ? "un" : ""]fasten \the [src].")
 
 	else if(istype(W, /obj/item/weapon/reagent_containers/chem_disp_cartridge))
 		add_cartridge(W, user)
@@ -86,7 +86,7 @@
 		if(!label) return
 		var/obj/item/weapon/reagent_containers/chem_disp_cartridge/C = remove_cartridge(label)
 		if(C)
-			user << "<span class='notice'>You remove \the [C] from \the [src].</span>"
+			user << SPAN_NOTE("You remove \the [C] from \the [src].")
 			C.loc = loc
 
 	else if(istype(W, /obj/item/weapon/reagent_containers/glass) || istype(W, /obj/item/weapon/reagent_containers/food))
@@ -107,7 +107,7 @@
 		container =  RC
 		user.drop_from_inventory(RC)
 		RC.loc = src
-		user << "<span class='notice'>You set \the [RC] on \the [src].</span>"
+		user << SPAN_NOTE("You set \the [RC] on \the [src].")
 		nanomanager.update_uis(src) // update all UIs attached to src
 
 	else

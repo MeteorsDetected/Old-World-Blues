@@ -30,7 +30,7 @@
 		var/obj/item/device/destTagger/O = W
 		if(O.currTag)
 			if(src.sortTag != O.currTag)
-				user << "<span class='notice'>You have labeled the destination as [O.currTag].</span>"
+				user << SPAN_NOTE("You have labeled the destination as [O.currTag].")
 				if(!src.sortTag)
 					src.sortTag = O.currTag
 					update_icon()
@@ -49,9 +49,11 @@
 				if(!str || !length(str))
 					usr << "<span class='warning'> Invalid text.</span>"
 					return
-				user.visible_message("\The [user] titles \the [src] with \a [W], marking down: \"[str]\"",\
-				"<span class='notice'>You title \the [src]: \"[str]\"</span>",\
-				"You hear someone scribbling a note.")
+				user.visible_message(
+					"\The [user] titles \the [src] with \a [W], marking down: \"[str]\"",
+					SPAN_NOTE("You title \the [src]: \"[str]\""),
+					"You hear someone scribbling a note."
+				)
 				name = "[name] ([str])"
 				if(!examtext && !nameset)
 					nameset = 1
@@ -68,9 +70,11 @@
 					update_icon()
 				else
 					examtext = str
-				user.visible_message("\The [user] labels \the [src] with \a [W], scribbling down: \"[examtext]\"",\
-				"<span class='notice'>You label \the [src]: \"[examtext]\"</span>",\
-				"You hear someone scribbling a note.")
+				user.visible_message(
+					"\The [user] labels \the [src] with \a [W], scribbling down: \"[examtext]\"",
+					SPAN_NOTE("You label \the [src]: \"[examtext]\""),
+					"You hear someone scribbling a note."
+				)
 	return
 
 /obj/structure/bigDelivery/update_icon()
@@ -106,9 +110,9 @@
 	.=..()
 	if(.<=4)
 		if(sortTag)
-			user << "<span class='notice'>It is labeled \"[sortTag]\"</span>"
+			user << SPAN_NOTE("It is labeled \"[sortTag]\"")
 		if(examtext)
-			user << "<span class='notice'>It has a note attached which reads, \"[examtext]\"</span>"
+			user << SPAN_NOTE("It has a note attached which reads, \"[examtext]\"")
 	return
 
 /obj/item/smallDelivery
@@ -134,7 +138,7 @@
 		var/obj/item/device/destTagger/O = W
 		if(O.currTag)
 			if(src.sortTag != O.currTag)
-				user << "<span class='notice'>You have labeled the destination as [O.currTag].</span>"
+				user << SPAN_NOTE("You have labeled the destination as [O.currTag].")
 				if(!src.sortTag)
 					src.sortTag = O.currTag
 					update_icon()
@@ -153,9 +157,11 @@
 				if(!str || !length(str))
 					usr << "<span class='warning'> Invalid text.</span>"
 					return
-				user.visible_message("\The [user] titles \the [src] with \a [W], marking down: \"[str]\"",\
-				"<span class='notice'>You title \the [src]: \"[str]\"</span>",\
-				"You hear someone scribbling a note.")
+				user.visible_message(
+					"\The [user] titles \the [src] with \a [W], marking down: \"[str]\"",
+					SPAN_NOTE("You title \the [src]: \"[str]\""),
+					"You hear someone scribbling a note."
+				)
 				name = "[name] ([str])"
 				if(!examtext && !nameset)
 					nameset = 1
@@ -173,9 +179,11 @@
 					update_icon()
 				else
 					examtext = str
-				user.visible_message("\The [user] labels \the [src] with \a [W], scribbling down: \"[examtext]\"",\
-				"<span class='notice'>You label \the [src]: \"[examtext]\"</span>",\
-				"You hear someone scribbling a note.")
+				user.visible_message(
+					"\The [user] labels \the [src] with \a [W], scribbling down: \"[examtext]\"",
+					SPAN_NOTE("You label \the [src]: \"[examtext]\""),
+					"You hear someone scribbling a note."
+				)
 	return
 
 /obj/item/smallDelivery/update_icon()
@@ -207,9 +215,9 @@
 	.=..()
 	if(.<=4)
 		if(sortTag)
-			user << "<span class='notice'>It is labeled \"[sortTag]\"</span>"
+			user << SPAN_NOTE("It is labeled \"[sortTag]\"")
 		if(examtext)
-			user << "<span class='notice'>It has a note attached which reads, \"[examtext]\"</span>"
+			user << SPAN_NOTE("It has a note attached which reads, \"[examtext]\"")
 	return
 
 /obj/item/weapon/c_tube
@@ -275,7 +283,7 @@
 			src.add_fingerprint(usr)
 			src.amount -= 1
 			user.visible_message("\The [user] wraps \a [target] with \a [src].",\
-			"<span class='notice'>You wrap \the [target], leaving [amount] units of paper on \the [src].</span>",\
+			SPAN_NOTE("You wrap \the [target], leaving [amount] units of paper on \the [src]."),\
 			"You hear someone taping paper around a small object.")
 	else if (istype(target, /obj/structure/closet/crate))
 		var/obj/structure/closet/crate/O = target
@@ -286,7 +294,7 @@
 			O.forceMove(P)
 			src.amount -= 3
 			user.visible_message("\The [user] wraps \a [target] with \a [src].",\
-			"<span class='notice'>You wrap \the [target], leaving [amount] units of paper on \the [src].</span>",\
+			SPAN_NOTE("You wrap \the [target], leaving [amount] units of paper on \the [src]."),\
 			"You hear someone taping paper around a large object.")
 		else if(src.amount < 3)
 			user << "<span class='warning'>You need more paper.</span>"
@@ -299,12 +307,12 @@
 			O.forceMove(P)
 			src.amount -= 3
 			user.visible_message("\The [user] wraps \a [target] with \a [src].",\
-			"<span class='notice'>You wrap \the [target], leaving [amount] units of paper on \the [src].</span>",\
+			SPAN_NOTE("You wrap \the [target], leaving [amount] units of paper on \the [src]."),\
 			"You hear someone taping paper around a large object.")
 		else if(src.amount < 3)
 			user << "<span class='warning'>You need more paper.</span>"
 	else
-		user << "\blue The object you are trying to wrap is unsuitable for the sorting machinery!"
+		user << SPAN_NOTE("The object you are trying to wrap is unsuitable for the sorting machinery!")
 	if (src.amount <= 0)
 		new /obj/item/weapon/c_tube( src.loc )
 		qdel(src)
@@ -314,7 +322,7 @@
 /obj/item/weapon/packageWrap/examine(mob/user, return_dist=1)
 	.=..()
 	if(.<=1)
-		user << "\blue There are [amount] units of package wrap left!"
+		user << SPAN_NOTE("There are [amount] units of package wrap left!")
 	return
 
 /obj/structure/bigDelivery/Destroy()

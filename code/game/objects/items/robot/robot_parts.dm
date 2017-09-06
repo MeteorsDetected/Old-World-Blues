@@ -260,7 +260,7 @@
 		else
 			user.drop_from_inventory(W, src)
 			src.cell = W
-			user << "<span class='notice'>You insert the cell!</span>"
+			user << SPAN_NOTE("You insert the cell!")
 		return
 	else if(iswirecutter(W))
 		if(wires)
@@ -279,7 +279,7 @@
 			var/obj/item/stack/cable_coil/coil = W
 			coil.use(1)
 			src.wires = W.color
-			user << "<span class='notice'>You insert the wire!</span>"
+			user << SPAN_NOTE("You insert the wire!")
 	return
 
 /obj/item/robot_parts/head/attackby(obj/item/W as obj, mob/user as mob)
@@ -297,17 +297,17 @@
 	else if(isscrewdriver(W) && (flash1 || flash2))
 		if(flash2)
 			user.put_in_hands(flash2)
-			user.visible_message("<span class='notice'>[user] eject [flash2] from [src].</span>")
+			user.visible_message(SPAN_NOTE("[user] eject [flash2] from [src]."))
 			flash2 = null
 		else if(flash1)
 			user.put_in_hands(flash1)
-			user.visible_message("<span class='notice'>[user] eject [flash1] from [src].</span>")
+			user.visible_message(SPAN_NOTE("[user] eject [flash1] from [src]."))
 			flash1 = null
 		else
 			user << "<span class='warning'There is nothing to eject.</span>"
 			return
 	else if(istype(W, /obj/item/weapon/stock_parts/manipulator))
-		user << "<span class='notice'>You install some manipulators and modify the head, creating a functional spider-bot!</span>"
+		user << SPAN_NOTE("You install some manipulators and modify the head, creating a functional spider-bot!")
 		new /mob/living/simple_animal/spiderbot(get_turf(loc))
 		user.drop_from_inventory(W)
 		qdel(W)
@@ -318,11 +318,11 @@
 //Made into a seperate proc to avoid copypasta
 /obj/item/robot_parts/head/proc/add_flashes(obj/item/W as obj, mob/user as mob)
 	if(src.flash1 && src.flash2)
-		user << "<span class='notice'>You have already inserted the eyes!</span>"
+		user << SPAN_NOTE("You have already inserted the eyes!")
 		return
 	else if(src.flash1)
 		src.flash2 = W
 	else
 		src.flash1 = W
 	user.drop_from_inventory(W, src)
-	user << "<span class='notice'>You insert the flash into the eye socket!</span>"
+	user << SPAN_NOTE("You insert the flash into the eye socket!")

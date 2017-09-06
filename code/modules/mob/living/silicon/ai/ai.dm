@@ -363,7 +363,7 @@ var/list/ai_verbs_default = list(
 	if(!input)
 		return
 	Centcomm_announce(input, usr)
-	usr << "<span class='notice'>Message transmitted.</span>"
+	usr << SPAN_NOTE("Message transmitted.")
 	log_say("[key_name(usr)] has made an IA Centcomm announcement: [input]")
 	emergency_message_cooldown = 1
 	spawn(300)
@@ -405,7 +405,7 @@ var/list/ai_verbs_default = list(
 			if(H)
 				H.attack_ai(src) //may as well recycle
 			else
-				src << "<span class='notice'>Unable to locate the holopad.</span>"
+				src << SPAN_NOTE("Unable to locate the holopad.")
 
 	if (href_list["track"])
 		var/mob/target = locate(href_list["track"]) in mob_list
@@ -498,7 +498,7 @@ var/list/ai_verbs_default = list(
 		if(network in C.network)
 			eyeobj.setLoc(get_turf(C))
 			break
-	src << "\blue Switched to [network] camera network."
+	src << SPAN_NOTE("Switched to [network] camera network.")
 //End of code by Mord_Sith
 
 /mob/living/silicon/ai/proc/ai_statuschange()
@@ -609,19 +609,19 @@ var/list/ai_verbs_default = list(
 
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(anchored)
-			user.visible_message("\blue \The [user] starts to unbolt \the [src] from the plating...")
+			user.visible_message(SPAN_NOTE("\The [user] starts to unbolt \the [src] from the plating..."))
 			if(!do_after(user,40))
-				user.visible_message("\blue \The [user] decides not to unbolt \the [src].")
+				user.visible_message(SPAN_NOTE("\The [user] decides not to unbolt \the [src]."))
 				return
-			user.visible_message("\blue \The [user] finishes unfastening \the [src]!")
+			user.visible_message(SPAN_NOTE("\The [user] finishes unfastening \the [src]!"))
 			anchored = 0
 			return
 		else
-			user.visible_message("\blue \The [user] starts to bolt \the [src] to the plating...")
+			user.visible_message(SPAN_NOTE("\The [user] starts to bolt \the [src] to the plating..."))
 			if(!do_after(user,40))
-				user.visible_message("\blue \The [user] decides not to bolt \the [src].")
+				user.visible_message(SPAN_NOTE("\The [user] decides not to bolt \the [src]."))
 				return
-			user.visible_message("\blue \The [user] finishes fastening down \the [src]!")
+			user.visible_message(SPAN_NOTE("\The [user] finishes fastening down \the [src]!"))
 			anchored = 1
 			return
 	else
@@ -757,7 +757,7 @@ var/list/ai_verbs_default = list(
 		return
 	if(hardware_integrity() < 50)
 		if(!shutup)
-			src << "<span class='notice'>Starting APU... <b>FAULT</b>(System Damaged)</span>"
+			src << SPAN_NOTE("Starting APU... <b>FAULT</b>(System Damaged)")
 		return
 	if(!shutup)
 		src << "Starting APU... ONLINE"

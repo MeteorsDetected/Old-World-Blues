@@ -90,12 +90,12 @@
 /obj/item/weapon/melee/energy/axe/activate(mob/living/user)
 	..()
 	icon_state = "axe1"
-	user << "<span class='notice'>\The [src] is now energised.</span>"
+	user << SPAN_NOTE("\The [src] is now energised.")
 
 /obj/item/weapon/melee/energy/axe/deactivate(mob/living/user)
 	..()
 	icon_state = initial(icon_state)
-	user << "<span class='notice'>\The [src] is de-energised. It's just a regular axe now.</span>"
+	user << SPAN_NOTE("\The [src] is de-energised. It's just a regular axe now.")
 
 /obj/item/weapon/melee/energy/axe/suicide_act(mob/user)
 	viewers(user) << "<span class='warning'>\The [user] swings \the [src] towards \his head! It looks like \he's trying to commit suicide.</span>"
@@ -144,7 +144,7 @@
 
 /obj/item/weapon/melee/energy/sword/activate(mob/living/user)
 	if(!active)
-		user << "<span class='notice'>\The [src] is now energised.</span>"
+		user << SPAN_NOTE("\The [src] is now energised.")
 
 	..()
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -153,7 +153,7 @@
 
 /obj/item/weapon/melee/energy/sword/deactivate(mob/living/user)
 	if(active)
-		user << "<span class='notice'>\The [src] deactivates!</span>"
+		user << SPAN_NOTE("\The [src] deactivates!")
 	..()
 	attack_verb = null
 	icon_state = initial(icon_state)

@@ -15,7 +15,7 @@
 	set src in usr
 
 	changer.active = !changer.active
-	usr << "<span class='notice'>You [changer.active ? "enable" : "disable"] the voice-changing module in \the [src].</span>"
+	usr << SPAN_NOTE("You [changer.active ? "enable" : "disable"] the voice-changing module in \the [src].")
 
 /obj/item/clothing/mask/gas/voice/verb/Set_Voice(name as text)
 	set category = "Object"
@@ -24,7 +24,7 @@
 	var/voice = sanitize(name, MAX_NAME_LEN)
 	if(!voice || !length(voice)) return
 	changer.voice = voice
-	usr << "<span class='notice'>You are now mimicking <B>[changer.voice]</B>.</span>"
+	usr << SPAN_NOTE("You are now mimicking <B>[changer.voice]</B>.")
 
 /obj/item/clothing/mask/gas/voice/New()
 	..()
@@ -46,5 +46,5 @@
 	set src in usr
 
 	changer.active = !changer.active
-	usr << "<span class='notice'>You [changer.active ? "enable" : "disable"] the voice module in \the [src].</span>"
+	usr << SPAN_NOTE("You [changer.active ? "enable" : "disable"] the voice module in \the [src].")
 

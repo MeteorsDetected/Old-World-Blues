@@ -75,7 +75,7 @@
 	if(.<=1 || isobserver(user))
 		show_content(user)
 	else
-		user << "<span class='notice'>You have to go closer if you want to read it.</span>"
+		user << SPAN_NOTE("You have to go closer if you want to read it.")
 	return
 
 /obj/item/weapon/paper/proc/show_content(var/mob/user, var/forceshow=0)
@@ -144,23 +144,23 @@
 
 /obj/item/weapon/paper/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(user.zone_sel.selecting == O_EYES)
-		user.visible_message("<span class='notice'> [user] holds up a paper and shows it to [M]. </span>",\
-			"<span class='notice'>You show the paper to [M]. </span>")
+		user.visible_message(SPAN_NOTE(" [user] holds up a paper and shows it to [M]. "),\
+			SPAN_NOTE("You show the paper to [M]. "))
 		M.examinate(src)
 
 	else if(user.zone_sel.selecting == O_MOUTH) // lipstick wiping
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H == user)
-				user << "<span class='notice'>You wipe off the lipstick with [src].</span>"
+				user << SPAN_NOTE("You wipe off the lipstick with [src].")
 				H.lip_color = null
 				H.update_body()
 			else
 				user.visible_message("<span class='warning'>[user] begins to wipe [H]'s lipstick off with \the [src].</span>", \
-								 	 "<span class='notice'>You begin to wipe off [H]'s lipstick.</span>")
+								 	 SPAN_NOTE("You begin to wipe off [H]'s lipstick."))
 				if (do_mob(user, H, 10))//user needs to keep their active hand, H does not.
-					user.visible_message("<span class='notice'>[user] wipes [H]'s lipstick off with \the [src].</span>", \
-										 "<span class='notice'>You wipe off [H]'s lipstick.</span>")
+					user.visible_message(SPAN_NOTE("[user] wipes [H]'s lipstick off with \the [src]."), \
+										 SPAN_NOTE("You wipe off [H]'s lipstick."))
 					H.lip_color = null
 					H.update_body()
 
@@ -353,7 +353,7 @@
 		// check for exploits
 		for(var/bad in paper_blacklist)
 			if(findtext(t,bad))
-				usr << "\blue You think to yourself, \"Hm.. this is only paper...\""
+				usr << SPAN_NOTE("You think to yourself, \"Hm.. this is only paper...\"")
 				log_admin("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")
 				message_admins("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")
 				return
@@ -410,7 +410,7 @@
 		if (istype(P, /obj/item/weapon/paper/carbon))
 			var/obj/item/weapon/paper/carbon/C = P
 			if (!C.iscopy && !C.copied)
-				user << "<span class='notice'>Take off the carbon copy first.</span>"
+				user << SPAN_NOTE("Take off the carbon copy first.")
 				add_fingerprint(user)
 				return
 		var/obj/item/weapon/paper_bundle/B = new(src.loc)
@@ -446,7 +446,7 @@
 				src.loc = get_turf(h_user)
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
-		user << "<span class='notice'>You clip the [P.name] to [(src.name == "paper") ? "the paper" : src.name].</span>"
+		user << SPAN_NOTE("You clip the [P.name] to [(src.name == "paper") ? "the paper" : src.name].")
 		src.loc = B
 		P.loc = B
 
@@ -487,7 +487,7 @@
 
 		if(istype(P, /obj/item/weapon/stamp/clown))
 			if(!clown)
-				user << "<span class='notice'>You are totally unable to use the stamp. HONK!</span>"
+				user << SPAN_NOTE("You are totally unable to use the stamp. HONK!")
 				return
 
 		if(!ico)
@@ -500,7 +500,7 @@
 		stamped += P.type
 		overlays += stampoverlay
 
-		user << "<span class='notice'>You stamp the paper with your rubber stamp.</span>"
+		user << SPAN_NOTE("You stamp the paper with your rubber stamp.")
 
 	else if(istype(P, /obj/item/weapon/flame))
 		burnpaper(P, user)

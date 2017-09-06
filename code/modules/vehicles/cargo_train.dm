@@ -66,8 +66,8 @@
 	if(open && istype(W, /obj/item/weapon/wirecutters))
 		passenger_allowed = !passenger_allowed
 		user.visible_message(
-			"<span class='notice'>[user] [passenger_allowed ? "cuts" : "mends"] a cable in [src].</span>",
-			"<span class='notice'>You [passenger_allowed ? "cut" : "mend"] the load limiter cable.</span>"
+			SPAN_NOTE("[user] [passenger_allowed ? "cuts" : "mends"] a cable in [src]."),
+			SPAN_NOTE("You [passenger_allowed ? "cut" : "mend"] the load limiter cable.")
 		)
 	else
 		..()

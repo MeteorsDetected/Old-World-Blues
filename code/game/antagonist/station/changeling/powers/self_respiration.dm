@@ -11,6 +11,6 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		C.does_not_breathe = 1
-		src << "<span class='notice'>We stop breathing, as we no longer need to.</span>"
+		src << SPAN_NOTE("We stop breathing, as we no longer need to.")
 		return 1
 	return 0
