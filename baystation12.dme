@@ -1873,5 +1873,5 @@
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
 #include "maps\exodus-2.dmm"
-#include "maps\ShutterIsland.dmm"
+#include "maps\WrongPlace.dmm"
 // END_INCLUDE
