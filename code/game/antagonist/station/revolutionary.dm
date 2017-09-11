@@ -42,5 +42,5 @@ var/datum/antagonist/revolutionary/revs
 			continue
 		var/datum/objective/rev/rev_obj = new
 		rev_obj.target = player.mind
-		rev_obj.explanation_text = "Assassinate, capture or convert [player.real_name], the [player.mind.assigned_role]."
+		rev_obj.update_explanation()
 		global_objectives += rev_obj

@@ -624,7 +624,8 @@ proc/get_nt_opposed()
 
 /proc/show_objectives(var/datum/mind/player)
 
-	if(!player || !player.current) return
+	if(!player || !player.current)
+		return
 
 	if(config.objectives_disabled)
 		show_generic_antag_text(player)
