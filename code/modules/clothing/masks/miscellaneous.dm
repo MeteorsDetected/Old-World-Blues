@@ -24,7 +24,7 @@
 	desc = "It's a robust DIY muzzle!"
 	icon_state = "tape"
 	item_state = null
-	w_class = 1
+	w_class = ITEM_SIZE_TINY
 
 /obj/item/clothing/mask/muzzle/tape/New()
 	..()

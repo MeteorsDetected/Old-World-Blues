@@ -1458,7 +1458,3 @@
 		get_scooped(H)
 		return
 	return ..()
-
-/mob/living/carbon/human/is_muzzled()
-	return (wear_mask && (istype(wear_mask, /obj/item/clothing/mask/muzzle) || istype(src.wear_mask, /obj/item/weapon/grenade)))
-

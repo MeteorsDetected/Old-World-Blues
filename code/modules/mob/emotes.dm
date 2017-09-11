@@ -383,7 +383,7 @@ var/global/list/robot_emotes_list = list()
 	r_message = "зевает."
 	m_type = MESSAGE_HEARABLE
 	act(var/mob/living/carbon/human/H)
-		if (!istype(H.wear_mask, /obj/item/clothing/mask/muzzle))
+		if(!H.is_muzzled())
 			return ..()
 
 ////SELECT////
