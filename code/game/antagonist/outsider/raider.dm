@@ -129,12 +129,11 @@ var/datum/antagonist/raider/raiders
 			O = new /datum/objective/heist/loot()
 		else
 			O = new /datum/objective/heist/salvage()
-		O.choose_target()
-		global_objectives |= O
+		global_objectives += O
 
 		i++
 
-	global_objectives |= new /datum/objective/heist/preserve_crew
+	global_objectives += new /datum/objective/heist/preserve_crew
 	return 1
 
 /datum/antagonist/raider/check_victory()
@@ -150,7 +149,8 @@ var/datum/antagonist/raider/raiders
 	var/success = global_objectives.len
 	//Decrease success for failed objectives.
 	for(var/datum/objective/O in global_objectives)
-		if(!(O.check_completion())) success--
+		if(!(O.check_completion()))
+			success--
 	//Set result by objectives.
 	if(success == global_objectives.len)
 		win_type = "Major"

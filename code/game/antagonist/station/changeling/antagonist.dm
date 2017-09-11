@@ -26,33 +26,17 @@
 	//No escape alone because changelings aren't suited for it and it'd probably just lead to rampant robusting
 	//If it seems like they'd be able to do it in play, add a 10% chance to have to escape alone
 
-	var/datum/objective/absorb/absorb_objective = new
-	absorb_objective.owner = changeling
-	absorb_objective.gen_amount_goal(2, 3)
-	changeling.objectives += absorb_objective
-
-	var/datum/objective/assassinate/kill_objective = new
-	kill_objective.owner = changeling
-	kill_objective.find_target()
-	changeling.objectives += kill_objective
-
-	var/datum/objective/steal/steal_objective = new
-	steal_objective.owner = changeling
-	steal_objective.find_target()
-	changeling.objectives += steal_objective
+	new /datum/objective/absorb (changeling)
+	new /datum/objective/assassinate (changeling)
+	new /datum/objective/steal (changeling)
 
 	switch(rand(1,100))
 		if(1 to 80)
 			if (!(locate(/datum/objective/escape) in changeling.objectives))
-				var/datum/objective/escape/escape_objective = new
-				escape_objective.owner = changeling
-				changeling.objectives += escape_objective
+				new /datum/objective/escape (changeling)
 		else
 			if (!(locate(/datum/objective/survive) in changeling.objectives))
-				var/datum/objective/survive/survive_objective = new
-				survive_objective.owner = changeling
-				changeling.objectives += survive_objective
-	return
+				new /datum/objective/survive (changeling)
 
 /datum/antagonist/changeling/can_become_antag(var/datum/mind/player, var/ignore_role)
 	if(..())

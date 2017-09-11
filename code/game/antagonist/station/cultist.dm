@@ -43,14 +43,11 @@ var/datum/antagonist/cultist/cult
 
 	global_objectives = list()
 	if(prob(50))
-		global_objectives |= new /datum/objective/cult/survive
+		global_objectives += new /datum/objective/cult/survive
 	else
-		global_objectives |= new /datum/objective/cult/eldergod
+		global_objectives += new /datum/objective/cult/eldergod
 
-	var/datum/objective/cult/sacrifice/sacrifice = new()
-	sacrifice.find_target()
-	sacrifice_target = sacrifice.target
-	global_objectives |= sacrifice
+	global_objectives += new /datum/objective/cult/sacrifice
 
 /datum/antagonist/cultist/equip(var/mob/living/carbon/human/player)
 

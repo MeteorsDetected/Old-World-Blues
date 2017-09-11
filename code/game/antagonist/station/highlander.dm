@@ -18,14 +18,10 @@ var/datum/antagonist/highlander/highlanders
 
 /datum/antagonist/highlander/create_objectives(var/datum/mind/player)
 
-	var/datum/objective/steal/steal_objective = new
-	steal_objective.owner = player
+	new /datum/objective/hijack (player)
+	var/datum/objective/steal/steal_objective = new (player)
 	steal_objective.set_target("nuclear authentication disk")
-	player.objectives |= steal_objective
 
-	var/datum/objective/hijack/hijack_objective = new
-	hijack_objective.owner = player
-	player.objectives |= hijack_objective
 
 /datum/antagonist/highlander/equip(var/mob/living/carbon/human/player)
 

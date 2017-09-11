@@ -44,24 +44,13 @@ var/datum/antagonist/wizard/wizards
 			hijack = 1
 
 	if(kill)
-		var/datum/objective/assassinate/kill_objective = new
-		kill_objective.owner = wizard
-		kill_objective.find_target()
-		wizard.objectives |= kill_objective
+		new /datum/objective/assassinate (wizard)
 	if(steal)
-		var/datum/objective/steal/steal_objective = new
-		steal_objective.owner = wizard
-		steal_objective.find_target()
-		wizard.objectives |= steal_objective
+		new /datum/objective/steal (wizard)
 	if(escape)
-		var/datum/objective/survive/survive_objective = new
-		survive_objective.owner = wizard
-		wizard.objectives |= survive_objective
+		new /datum/objective/survive (wizard)
 	if(hijack)
-		var/datum/objective/hijack/hijack_objective = new
-		hijack_objective.owner = wizard
-		wizard.objectives |= hijack_objective
-	return
+		new /datum/objective/hijack(wizard)
 
 /datum/antagonist/wizard/update_antag_mob(var/datum/mind/wizard)
 	..()
