@@ -85,7 +85,7 @@
 	recoil = 1
 	fire_delay = 2
 	accuracy = 0
-	w_class = 2
+	w_class = ITEM_SIZE_SMALL
 
 /obj/item/weapon/gun/projectile/sec/shortbarrel/update_icon()
 	..()
@@ -278,7 +278,7 @@
 	desc = "That's the Mk.15, standard-issue secondary weapon of NT colonial infantry. Uses 9mm rounds."
 	icon_state = "mk15"
 	item_state = "mk15"
-	w_class = 3
+	w_class = ITEM_SIZE_NORMAL
 	caliber = "9mm"
 	fire_sound = 'sound/weapons/eventpistol.ogg'
 	load_method = MAGAZINE

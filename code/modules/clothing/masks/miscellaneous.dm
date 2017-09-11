@@ -180,7 +180,7 @@
 	name = "tuskmask"
 	desc = "Standart Boars mask."
 	icon_state = "tuskmask"
-	w_class = 1
+	w_class = ITEM_SIZE_TINY
 	item_flags = FLEXIBLEMATERIAL
 	gas_transfer_coefficient = 0.90
 	siemens_coefficient = 0
@@ -218,7 +218,7 @@
 /obj/item/clothing/mask/bandana
 	name = "black bandana"
 	desc = "A fine black bandana with nanotech lining."
-	w_class = 1
+	w_class = ITEM_SIZE_TINY
 	body_parts_covered = FACE
 	slot_flags = SLOT_MASK
 	flags_inv = HIDEFACE

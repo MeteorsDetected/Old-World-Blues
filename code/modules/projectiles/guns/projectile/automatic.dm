@@ -36,7 +36,7 @@
 	magazine_type = /obj/item/ammo_magazine/carbine40
 	caliber = ".40"
 	max_shells = 15
-	w_class = 4
+	w_class = ITEM_SIZE_LARGE
 	slot_flags = SLOT_BACK
 	fire_delay = 5
 	fire_sound = 'sound/weapons/gunshotcarbine.ogg'
@@ -57,7 +57,7 @@
 	caliber = ".40"
 	load_method = MAGAZINE
 	max_shells = 30
-	w_class = 4
+	w_class = ITEM_SIZE_LARGE
 	slot_flags = SLOT_BACK
 	fire_delay = 3
 	fire_sound = 'sound/weapons/gunshotcarbine.ogg'
@@ -278,7 +278,7 @@
 	name = "Hornet SMG"
 	desc = "A protoype lightweight, fast firing gun. Uses 11.9x33mm rounds."
 	icon_state = "hornet"
-	w_class = 4
+	w_class = ITEM_SIZE_LARGE
 	max_shells = 30
 	caliber = "11.9x33"
 	load_method = MAGAZINE
@@ -304,7 +304,7 @@
 	desc = "That's the M94A2, standard-issue rifle of the NT colonial infantry."
 	icon_state = "m94a2"
 	item_state = "m94a2"
-	w_class = 4
+	w_class = ITEM_SIZE_LARGE
 	max_shells = 20
 	caliber = "a556"
 	load_method = MAGAZINE
@@ -333,7 +333,7 @@
 	desc = "That's the HAR-17, shortened version of the M94A2 and the standard-issue carbine of the NT colonial infantry."
 	icon_state = "har-17"
 	item_state = "har-17"
-	w_class = 4
+	w_class = ITEM_SIZE_LARGE
 	max_shells = 20
 	caliber = "a556"
 	load_method = MAGAZINE

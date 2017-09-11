@@ -13,7 +13,7 @@
 	icon_state = "swatclava"
 	item_state = "balaclava"
 	flags_inv = HIDEFACE|BLOCKHAIR
-	w_class = 2
+	w_class = ITEM_SIZE_SMALL
 
 /obj/item/clothing/mask/luchador
 	name = "Luchador Mask"

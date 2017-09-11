@@ -77,23 +77,23 @@
 /datum/organ_description/hand/left/diona
 	name = "left grasper"
 	min_broken_damage = 10
-	w_class = 2
+	w_class = ITEM_SIZE_SMALL
 	default_type = /obj/item/organ/external/diona
 
 /datum/organ_description/hand/right/diona
 	name = "right grasper"
 	min_broken_damage = 10
-	w_class = 2
+	w_class = ITEM_SIZE_SMALL
 	default_type = /obj/item/organ/external/diona
 
 /datum/organ_description/foot/left/diona
 	min_broken_damage = 10
-	w_class = 2
+	w_class = ITEM_SIZE_SMALL
 	default_type = /obj/item/organ/external/diona
 
 /datum/organ_description/foot/right/diona
 	min_broken_damage = 10
-	w_class = 2
+	w_class = ITEM_SIZE_SMALL
 	default_type = /obj/item/organ/external/diona
 
 
