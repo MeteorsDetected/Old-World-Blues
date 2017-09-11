@@ -33,22 +33,6 @@
 /datum/click_handler/human/use_ability(mob/living/carbon/human/user,atom/target)
 	return
 
-/datum/click_handler/human/arachna_bite
-//	mob_type = /mob/living/carbon/human
-	species = "Arachna"
-	handler_name = "Poison Bite"
-
-/datum/click_handler/human/arachna_bite/use_ability(mob/living/carbon/human/user,atom/target)
-	return user.try_bite(target)
-
-/datum/click_handler/human/arachna_leap
-//	mob_type = /mob/living/carbon/human
-	species = "Arachna"
-	handler_name = "Arachna Jump"
-
-/datum/click_handler/human/arachna_leap/use_ability(mob/living/carbon/human/user,atom/target)
-	return user.arachna_jump(target)
-
 //Changeling CH
 
 /datum/click_handler/changeling/mob_check(mob/living/carbon/human/user)
