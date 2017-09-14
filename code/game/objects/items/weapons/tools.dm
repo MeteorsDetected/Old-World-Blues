@@ -268,15 +268,15 @@
 		var/mob/living/carbon/human/H = A
 		var/obj/item/organ/external/S = H.get_organ(user.zone_sel.selecting)
 
-		if (!S || S.robotic<ORGAN_ROBOT)
+		if(!S || S.robotic < ORGAN_ROBOT || S.open == 3)
 			return ..()
 
-		if(S.brute_dam)
-			S.heal_damage(15,0,0,1)
-			user.visible_message("\red \The [user] patches some dents on \the [H]'s [S.name] with \the [src].")
-			return
-		else
-			user << "Nothing to fix!"
+		if(!welding)
+			user << "<span class='warning'>You'll need to turn [src] on to patch the damage on [H]'s [S.name]!</span>"
+			return 1
+
+		if(S.robo_repair(15, BRUTE, "some dents", src, user))
+			remove_fuel(1, user)
 
 	else
 		return ..()
