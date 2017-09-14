@@ -119,7 +119,7 @@ var/const/tk_maxrange = 15
 			if(8 to tk_maxrange)
 				user.next_move += 10
 			else
-				user << "\blue Your mind won't reach that far."
+				user << SPAN_NOTE("Your mind won't reach that far.")
 				return
 
 		if(!focus)

@@ -33,14 +33,14 @@
 		return
 
 	user.setClickCooldown(DEFAULT_QUICK_COOLDOWN)
-	user << "<span class='notice'>You inject [M] with [src].</span>"
-	M << "<span class='notice'>You feel a tiny prick!</span>"
+	user << SPAN_NOTE("You inject [M] with [src].")
+	M << SPAN_NOTE("You feel a tiny prick!")
 
 	if(M.reagents)
 		var/contained = reagentlist()
 		var/trans = reagents.trans_to_mob(M, amount_per_transfer_from_this, CHEM_BLOOD)
 		admin_inject_log(user, M, src, contained, trans)
-		user << "<span class='notice'>[trans] units injected. [reagents.total_volume] units remaining in \the [src].</span>"
+		user << SPAN_NOTE("[trans] units injected. [reagents.total_volume] units remaining in \the [src].")
 
 	return
 
@@ -51,7 +51,7 @@
 	item_state = "autoinjector"
 	amount_per_transfer_from_this = 5
 	volume = 5
-	w_class = 1
+	w_class = ITEM_SIZE_TINY
 	center_of_mass = list("x"=16, "y"=16)
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/New()
@@ -76,9 +76,9 @@
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/examine(mob/user)
 	.=..()
 	if(reagents && reagents.reagent_list.len)
-		user << "<span class='notice'>It is currently loaded.</span>"
+		user << SPAN_NOTE("It is currently loaded.")
 	else
-		user << "<span class='notice'>It is spent.</span>"
+		user << SPAN_NOTE("It is spent.")
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/combat
 	amount_per_transfer_from_this = 10

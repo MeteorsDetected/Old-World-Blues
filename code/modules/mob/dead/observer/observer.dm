@@ -138,20 +138,20 @@ var/global/list/image/ghost_sightless_images = list() //this is a list of images
 	set category = "OOC"
 
 	if (!config.abandon_allowed)
-		usr << "<span class='notice'>Respawn is disabled.</span>"
+		usr << SPAN_NOTE("Respawn is disabled.")
 		return
 	if (stat != DEAD || !ticker)
-		usr << "<span class='notice'><B>You must be dead to use this!</B></span>"
+		usr << SPAN_NOTE("<B>You must be dead to use this!</B>")
 		return
 	if (ticker.mode.deny_respawn) //BS12 EDIT
-		usr << "<span class='notice'>Respawn is disabled for this roundtype.</span>"
+		usr << SPAN_NOTE("Respawn is disabled for this roundtype.")
 		return
 	else if(!MayRespawn(1))
 		return
 
 	log_game("[usr.name]/[usr.key] used abandon mob.", src, 0)
 
-	usr << "\blue <B>Make sure to play a different character, and please roleplay correctly!</B>"
+	usr << SPAN_NOTE("<B>Make sure to play a different character, and please roleplay correctly!</B>")
 
 	if(!client)
 		log_game("[usr.key] AM failed due to disconnect.", src, 0)
@@ -328,10 +328,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	if(medHUD)
 		medHUD = 0
-		src << "\blue <B>Medical HUD Disabled</B>"
+		src << SPAN_NOTE("<B>Medical HUD Disabled</B>")
 	else
 		medHUD = 1
-		src << "\blue <B>Medical HUD Enabled</B>"
+		src << SPAN_NOTE("<B>Medical HUD Enabled</B>")
 
 /mob/observer/dead/verb/toggle_antagHUD()
 	set category = "Ghost"
@@ -355,10 +355,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		M.has_enabled_antagHUD = 1
 	if(M.antagHUD)
 		M.antagHUD = 0
-		src << "\blue <B>AntagHUD Disabled</B>"
+		src << SPAN_NOTE("<B>AntagHUD Disabled</B>")
 	else
 		M.antagHUD = 1
-		src << "\blue <B>AntagHUD Enabled</B>"
+		src << SPAN_NOTE("<B>AntagHUD Enabled</B>")
 
 /mob/observer/dead/proc/dead_tele(A in ghostteleportlocs)
 	set category = "Ghost"
@@ -417,7 +417,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(following && following == target)
 			return
 		following = target
-		src << "<span class='notice'>Now following [target]</span>"
+		src << SPAN_NOTE("Now following [target]")
 		if(ismob(target))
 			forceMove(get_turf(target))
 			var/mob/M = target
@@ -537,16 +537,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/pressure = environment.return_pressure()
 	var/total_moles = environment.total_moles
 
-	src << "\blue <B>Results:</B>"
+	src << SPAN_NOTE("<B>Results:</B>")
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		src << "\blue Pressure: [round(pressure,0.1)] kPa"
+		src << SPAN_NOTE("Pressure: [round(pressure,0.1)] kPa")
 	else
 		src << "\red Pressure: [round(pressure,0.1)] kPa"
 	if(total_moles)
 		for(var/g in environment.gas)
-			src << "\blue [gas_data.name[g]]: [round((environment.gas[g] / total_moles) * 100)]% ([round(environment.gas[g], 0.01)] moles)"
-		src << "\blue Temperature: [round(environment.temperature-T0C,0.1)]&deg;C ([round(environment.temperature,0.1)]K)"
-		src << "\blue Heat Capacity: [round(environment.heat_capacity(),0.1)]"
+			src << SPAN_NOTE("[gas_data.name[g]]: [round((environment.gas[g] / total_moles) * 100)]% ([round(environment.gas[g], 0.01)] moles)")
+		src << SPAN_NOTE("Temperature: [round(environment.temperature-T0C,0.1)]&deg;C ([round(environment.temperature,0.1)]K)")
+		src << SPAN_NOTE("Heat Capacity: [round(environment.heat_capacity(),0.1)]")
 
 /mob/observer/dead/verb/become_mouse()
 	set name = "Become mouse"
@@ -820,7 +820,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(!is_admin)
 		if(has_enabled_antagHUD == 1 && config.antag_hud_restricted)
-			usr << "\blue <B>Upon using the antagHUD you forfeighted the ability to join the round.</B>"
+			usr << SPAN_NOTE("<B>Upon using the antagHUD you forfeighted the ability to join the round.</B>")
 			return 0
 
 	var/deathtime = world.time - src.timeofdeath

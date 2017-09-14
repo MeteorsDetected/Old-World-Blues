@@ -16,7 +16,7 @@
 	if(src.mind.changeling.recursive_enhancement)
 		src << "<span class='warning'>We have already prepared to enhance our next ability.</span>"
 		return 0
-	src << "<span class='notice'>We empower ourselves.  Our next ability will be extra potent.</span>"
+	src << SPAN_NOTE("We empower ourselves.  Our next ability will be extra potent.")
 	src.mind.changeling.recursive_enhancement = 1
 	src.mind.changeling.chem_charges -= 10
 	return 1

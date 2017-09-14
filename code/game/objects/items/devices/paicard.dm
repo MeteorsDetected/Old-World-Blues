@@ -307,8 +307,10 @@
 
 /obj/item/device/paicard/proc/alertUpdate()
 	var/turf/T = get_turf_or_move(src.loc)
-	for (var/mob/M in viewers(T))
-		M.show_message("<span class='notice'>\The [src] flashes a message across its screen, \"Additional personalities available for download.\"</span>", 3, "<span class='notice'>\The [src] bleeps electronically.</span>", 2)
+	T.visible_message(
+		SPAN_NOTE("\The [src] flashes a message across its screen, \"Additional personalities available for download.\""),
+		SPAN_NOTE("\The [src] bleeps electronically.")
+	)
 
 /obj/item/device/paicard/emp_act(severity)
 	for(var/mob/M in src)

@@ -263,12 +263,12 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 							src.safety = !src.safety
 							spawn(100) src.safety = !src.safety
 							if(src.safety == 1)
-								visible_message("\blue The [src] quiets down.")
+								visible_message(SPAN_NOTE("The [src] quiets down."))
 								if(!src.lighthack)
 									if (src.icon_state == "nuclearbomb2")
 										src.icon_state = "nuclearbomb1"
 							else
-								visible_message("\blue The [src] emits a quiet whirling noise!")
+								visible_message(SPAN_NOTE("The [src] emits a quiet whirling noise!"))
 			if(href_list["act"] == "wire")
 				if (!istype(usr.get_active_hand(), /obj/item/weapon/wirecutters))
 					usr << "You need wirecutters!"

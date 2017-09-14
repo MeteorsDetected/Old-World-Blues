@@ -3,14 +3,14 @@
 		return 0
 
 	if(src != A)
-		user.visible_message("<span class='notice'>\The [user] has used \an [src] on \the [A]</span>")
+		user.visible_message(SPAN_NOTE("\The [user] has used \an [src] on \the [A]"))
 
 	A.add_fingerprint(user)
 	var/list/result = A.atmosanalyze(user)
 	if(result && result.len)
-		user << "<span class='notice'>Results of the analysis[src == A ? "" : " of \the [A]"]</span>"
+		user << SPAN_NOTE("Results of the analysis[src == A ? "" : " of \the [A]"]")
 		for(var/line in result)
-			user << "<span class='notice'>[line]</span>"
+			user << SPAN_NOTE(line)
 		return 1
 
 	user << "<span class='warning'>Your [src] flashes a red light as it fails to analyze \the [A].</span>"
@@ -22,12 +22,12 @@
 
 	var/list/results = list()
 	if (total_moles>0)
-		results += "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>"
+		results += SPAN_NOTE("Pressure: [round(pressure,0.1)] kPa")
 		for(var/mix in mixture.gas)
-			results += "<span class='notice'>[gas_data.name[mix]]: [round((mixture.gas[mix] / total_moles) * 100)]%</span>"
-		results += "<span class='notice'>Temperature: [round(mixture.temperature-T0C)]&deg;C</span>"
+			results += SPAN_NOTE("[gas_data.name[mix]]: [round((mixture.gas[mix] / total_moles) * 100)]%")
+		results += SPAN_NOTE("Temperature: [round(mixture.temperature-T0C)]&deg;C")
 	else
-		results += "<span class='notice'>\The [target] is empty!</span>"
+		results += SPAN_NOTE("\The [target] is empty!")
 
 	return results
 

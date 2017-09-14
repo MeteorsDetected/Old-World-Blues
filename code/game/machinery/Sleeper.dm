@@ -212,7 +212,7 @@
 
 		if(do_after(user, 20, src) && Adjacent(target))
 			if(src.occupant)
-				user << "\blue <B>The sleeper is already occupied!</B>"
+				user << SPAN_NOTE("<B>The sleeper is already occupied!</B>")
 				return
 			target.reset_view(src)
 			target.forceMove(src)
@@ -328,14 +328,14 @@
 
 	proc/check(mob/living/user as mob)
 		if(src.occupant)
-			user << text("\blue <B>Occupant ([]) Statistics:</B>", src.occupant)
+			user << SPAN_NOTE("<B>Occupant ([src.occupant]) Statistics:</B>")
 			var/t1
 			switch(src.occupant.stat)
 				if(0.0)
 					t1 = "Conscious"
 				if(1.0)
 					t1 = "Unconscious"
-				if(2.0)
+				if(DEAD)
 					t1 = "*dead*"
 				else
 			user << text("[]\t Health %: [] ([])", (src.occupant.health > 50 ? "\blue " : "\red "), src.occupant.health, t1)
@@ -344,14 +344,14 @@
 			user << text("[]\t -Respiratory Damage %: []", (src.occupant.getOxyLoss() < 60 ? "\blue " : "\red "), src.occupant.getOxyLoss())
 			user << text("[]\t -Toxin Content %: []", (src.occupant.getToxLoss() < 60 ? "\blue " : "\red "), src.occupant.getToxLoss())
 			user << text("[]\t -Burn Severity %: []", (src.occupant.getFireLoss() < 60 ? "\blue " : "\red "), src.occupant.getFireLoss())
-			user << "\blue Expected time till occupant can safely awake: (note: If health is below 20% these times are inaccurate)"
-			user << text("\blue \t [] second\s (if around 1 or 2 the sleeper is keeping them asleep.)", src.occupant.paralysis / 5)
+			user << SPAN_NOTE("Expected time till occupant can safely awake: (note: If health is below 20% these times are inaccurate)")
+			user << SPAN_NOTE("\t [src.occupant.paralysis / 5] second\s (if around 1 or 2 the sleeper is keeping them asleep.)")
 			if(src.beaker)
 				user << text("\blue \t Dialysis Output Beaker has [] of free space remaining.", src.beaker.reagents.maximum_volume - src.beaker.reagents.total_volume)
 			else
-				user << "\blue No Dialysis Output Beaker loaded."
+				user << SPAN_NOTE("No Dialysis Output Beaker loaded.")
 		else
-			user << "\blue There is no one inside!"
+			user << SPAN_NOTE("There is no one inside!")
 		return
 
 
@@ -388,7 +388,7 @@
 			return
 
 		if(src.occupant)
-			usr << "\blue <B>The sleeper is already occupied!</B>"
+			usr << SPAN_NOTE("<B>The sleeper is already occupied!</B>")
 			return
 
 		for(var/mob/living/carbon/slime/M in range(1,usr))
@@ -398,7 +398,7 @@
 		visible_message("[usr] starts climbing into the sleeper.", 3)
 		if(do_after(usr, 20))
 			if(src.occupant)
-				usr << "\blue <B>The sleeper is already occupied!</B>"
+				usr << SPAN_NOTE("<B>The sleeper is already occupied!</B>")
 				return
 			usr.stop_pulling()
 			usr.reset_view()

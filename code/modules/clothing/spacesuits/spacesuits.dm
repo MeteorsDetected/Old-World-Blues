@@ -35,7 +35,7 @@
 		camera = new /obj/machinery/camera(src)
 		camera.replace_networks(camera_networks)
 		camera.c_tag = user.name
-		user << "\blue User scanned as [camera.c_tag]. Camera activated."
+		user << SPAN_NOTE("User scanned as [camera.c_tag]. Camera activated.")
 		return 1
 
 	..()

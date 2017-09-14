@@ -34,13 +34,13 @@
 
 	var/obj/item/clothing/I = O
 	if (!istype(I) || !allowed)
-		user << "<span class='notice'>[src] is unable to modify that.</span>"
+		user << SPAN_NOTE("[src] is unable to modify that.")
 		return
 
 	var/excluding = ("exclude" in I.species_restricted)
 	var/in_list = (target_species in I.species_restricted)
 	if (excluding ^ in_list)
-		user << "<span class='notice'>[I] is already modified.</span>"
+		user << SPAN_NOTE("[I] is already modified.")
 		return
 
 	if(!isturf(O.loc))

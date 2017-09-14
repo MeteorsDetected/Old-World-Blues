@@ -231,7 +231,7 @@ var/specops_shuttle_timeleft = 0
 
 	for(var/turf/T in get_area_turfs(end_location) )
 		var/mob/M = locate(/mob) in T
-		M << "<span class='notice'>You have arrived to [station_name]. Commence operation!</span>"
+		M << SPAN_NOTE("You have arrived to [station_name]. Commence operation!")
 
 	for(var/obj/machinery/computer/specops_shuttle/S in machines)
 		S.specops_shuttle_timereset = world.time + SPECOPS_RETURN_DELAY
@@ -250,7 +250,7 @@ var/specops_shuttle_timeleft = 0
 	return attack_hand(user)
 
 /obj/machinery/computer/specops_shuttle/emag_act(var/remaining_charges, var/mob/user)
-	user << "<span class='notice'>The electronic systems in this console are far too advanced for your primitive hacking peripherals.</span>"
+	user << SPAN_NOTE("The electronic systems in this console are far too advanced for your primitive hacking peripherals.")
 
 /obj/machinery/computer/specops_shuttle/attack_hand(var/mob/user as mob)
 	if(!allowed(user))
@@ -285,14 +285,14 @@ var/specops_shuttle_timeleft = 0
 		if(!specops_shuttle_at_station|| specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom) return
 
 		if (!specops_can_move())
-			usr << "\blue Central Command will not allow the Special Operations shuttle to return yet."
+			usr << SPAN_NOTE("Central Command will not allow the Special Operations shuttle to return yet.")
 			if(world.timeofday <= specops_shuttle_timereset)
 				if (((world.timeofday - specops_shuttle_timereset)/10) > 60)
-					usr << "\blue [-((world.timeofday - specops_shuttle_timereset)/10)/60] minutes remain!"
-				usr << "\blue [-(world.timeofday - specops_shuttle_timereset)/10] seconds remain!"
+					usr << SPAN_NOTE("[-((world.timeofday - specops_shuttle_timereset)/10)/60] minutes remain!")
+				usr << SPAN_NOTE("[-(world.timeofday - specops_shuttle_timereset)/10] seconds remain!")
 			return
 
-		usr << "\blue The Special Operations shuttle will arrive at Central Command in [(SPECOPS_MOVETIME/10)] seconds."
+		usr << SPAN_NOTE("The Special Operations shuttle will arrive at Central Command in [(SPECOPS_MOVETIME/10)] seconds.")
 
 		temp += "Shuttle departing.<BR><BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
 		updateUsrDialog()
@@ -309,7 +309,7 @@ var/specops_shuttle_timeleft = 0
 			usr << "<span class='warning'>The Special Operations shuttle is unable to leave.</span>"
 			return
 
-		usr << "<span class='notice'>The Special Operations shuttle will arrive on [station_name] in [(SPECOPS_MOVETIME/10)] seconds.</span>"
+		usr << SPAN_NOTE("The Special Operations shuttle will arrive on [station_name] in [(SPECOPS_MOVETIME/10)] seconds.")
 
 		temp += "Shuttle departing.<BR><BR><A href='?src=\ref[src];mainmenu=1'>OK</A>"
 		updateUsrDialog()

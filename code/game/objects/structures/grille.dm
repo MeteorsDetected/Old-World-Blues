@@ -112,8 +112,10 @@
 		if(!shock(user, 90))
 			playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
 			anchored = !anchored
-			user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] the grille.</span>", \
-								 "<span class='notice'>You have [anchored ? "fastened the grille to" : "unfastened the grill from"] the floor.</span>")
+			user.visible_message(
+				SPAN_NOTE("[user] [anchored ? "fastens" : "unfastens"] the grille."), \
+				SPAN_NOTE("You have [anchored ? "fastened the grille to" : "unfastened the grill from"] the floor.")
+			)
 			return
 
 //window placing begin //TODO CONVERT PROPERLY TO MATERIAL DATUM
@@ -138,23 +140,23 @@
 					else
 						dir_to_set = 4
 			else
-				user << "<span class='notice'>You can't reach.</span>"
+				user << SPAN_NOTE("You can't reach.")
 				return //Only works for cardinal direcitons, diagonals aren't supposed to work like this.
 		for(var/obj/structure/window/WINDOW in loc)
 			if(WINDOW.dir == dir_to_set)
-				user << "<span class='notice'>There is already a window facing this way there.</span>"
+				user << SPAN_NOTE("There is already a window facing this way there.")
 				return
-		user << "<span class='notice'>You start placing the window.</span>"
+		user << SPAN_NOTE("You start placing the window.")
 		if(do_after(user,20))
 			for(var/obj/structure/window/WINDOW in loc)
 				if(WINDOW.dir == dir_to_set)//checking this for a 2nd time to check if a window was made while we were waiting.
-					user << "<span class='notice'>There is already a window facing this way there.</span>"
+					user << SPAN_NOTE("There is already a window facing this way there.")
 					return
 
 			var/wtype = ST.material.created_window
 			if (ST.use(1))
 				var/obj/structure/window/WD = new wtype(loc, dir_to_set, 1)
-				user << "<span class='notice'>You place the [WD] on [src].</span>"
+				user << SPAN_NOTE("You place the [WD] on [src].")
 				WD.update_icon()
 		return
 //window placing end

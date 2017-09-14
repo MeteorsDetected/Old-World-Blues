@@ -7,7 +7,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "solution_tray"
 	matter = list(MATERIAL_GLASS = 5)
-	w_class = 2.0
+	w_class = ITEM_SIZE_SMALL
 	amount_per_transfer_from_this = 1
 	possible_transfer_amounts = list(1, 2)
 	volume = 2
@@ -28,13 +28,8 @@ obj/item/weapon/reagent_containers/glass/solution_tray/attackby(obj/item/weapon/
 
 	New()
 		..()
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
+		for(var/i = 1 to 7)
+			new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
 
 /obj/item/weapon/reagent_containers/glass/beaker/tungsten
 	name = "beaker 'tungsten'"

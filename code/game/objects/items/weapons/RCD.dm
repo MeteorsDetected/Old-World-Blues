@@ -51,20 +51,20 @@
 
 	if(istype(W, /obj/item/weapon/rcd_ammo))
 		if((stored_matter + 20) > 100)
-			user << "<span class='notice'>The RCD can't hold any more matter-units.</span>"
+			user << SPAN_NOTE("The RCD can't hold any more matter-units.")
 			return
 		user.drop_from_inventory(W)
 		qdel(W)
 		stored_matter += 20
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-		user << "<span class='notice'>The RCD now holds [stored_matter]/100 matter-units.</span>"
+		user << SPAN_NOTE("The RCD now holds [stored_matter]/100 matter-units.")
 		return
 	..()
 
 /obj/item/weapon/rcd/attack_self(mob/user)
 	//Change the mode
 	if(++mode > 3) mode = 1
-	user << "<span class='notice'>Changed mode to '[modes[mode]]'</span>"
+	user << SPAN_NOTE("Changed mode to '[modes[mode]]'")
 	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
 	if(prob(20)) src.spark_system.start()
 

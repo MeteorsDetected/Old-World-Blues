@@ -25,7 +25,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/proc/On_Consume(var/mob/M)
 	if(!usr)	return
 	if(!reagents.total_volume)
-		M.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>","<span class='notice'>You finish eating \the [src].</span>")
+		M.visible_message(SPAN_NOTE("[M] finishes eating \the [src]."),SPAN_NOTE("You finish eating \the [src]."))
 		usr.drop_from_inventory(src)	//so icons update :[
 
 		if(trash)
@@ -66,11 +66,11 @@
 			if (fullness <= 50)
 				M << "<span class='danger'>You hungrily chew out a piece of [src] and gobble it!</span>"
 			if (fullness > 50 && fullness <= 150)
-				M << "<span class='notice'>You hungrily begin to eat [src].</span>"
+				M << SPAN_NOTE("You hungrily begin to eat [src].")
 			if (fullness > 150 && fullness <= 350)
-				M << "<span class='notice'>You take a bite of [src].</span>"
+				M << SPAN_NOTE("You take a bite of [src].")
 			if (fullness > 350 && fullness <= 550)
-				M << "<span class='notice'>You unwillingly chew a bit of [src].</span>"
+				M << SPAN_NOTE("You unwillingly chew a bit of [src].")
 			if (fullness > 550)
 				M << "<span class='danger'>You cannot force any more of [src] to go down your throat.</span>"
 				return 0
@@ -124,11 +124,11 @@
 		if (bitecount==0)
 			return
 		else if (bitecount==1)
-			user << "<span class='notice'>\The [src] was bitten by someone!</span>"
+			user << SPAN_NOTE("\The [src] was bitten by someone!")
 		else if (bitecount<=3)
-			user << "<span class='notice'>\The [src] was bitten [bitecount] time\s!</span>"
+			user << SPAN_NOTE("\The [src] was bitten [bitecount] time\s!")
 		else
-			user << "<span class='notice'>\The [src] was bitten multiple times!</span>"
+			user << SPAN_NOTE("\The [src] was bitten multiple times!")
 
 /obj/item/weapon/reagent_containers/food/snacks/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/storage))
@@ -155,14 +155,14 @@
 		var/slices_lost = 0
 		if (W.w_class > 3)
 			user.visible_message(
-				"<span class='notice'>\The [user] crudely slices \the [src] with [W]!</span>",
-				"<span class='notice'>You crudely slice \the [src] with your [W]!</span>"
+				SPAN_NOTE("\The [user] crudely slices \the [src] with [W]!"),
+				SPAN_NOTE("You crudely slice \the [src] with your [W]!")
 			)
 			slices_lost = rand(1,min(1,round(slices_num/2)))
 		else
 			user.visible_message(
-				"<span class='notice'>\The [user] slices \the [src]!</span>",
-				"<span class='notice'>You slice \the [src]!</span>"
+				SPAN_NOTE("\The [user] slices \the [src]!"),
+				SPAN_NOTE("You slice \the [src]!")
 			)
 
 		var/reagents_per_slice = reagents.total_volume/slices_num
@@ -186,7 +186,7 @@
 
 		user.visible_message(
 			"[user] scoops up some [src] with \the [U]!",
-			"<span class='notice'>You scoop up some [src] with \the [U]!</span>"
+			SPAN_NOTE("You scoop up some [src] with \the [U]!")
 		)
 
 		src.bitecount++
@@ -526,9 +526,9 @@
 		var/clr = C.colourName
 
 		if(!(clr in list("blue","green","mime","orange","purple","rainbow","red","yellow")))
-			usr << "<span class='notice'>The egg refuses to take on this color!</span>"
+			usr << SPAN_NOTE("The egg refuses to take on this color!")
 			return
-		usr << "<span class='notice'>You color \the [src] [clr]</span>"
+		usr << SPAN_NOTE("You color \the [src] [clr]")
 		icon_state = "egg-[clr]"
 	else
 		..()
@@ -767,10 +767,10 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/donkpocket/sinpocket/attack_self(mob/user)
 	if(has_been_heated)
-		user << "<span class='notice'>The heating chemicals have already been spent.</span>"
+		user << SPAN_NOTE("The heating chemicals have already been spent.")
 		return
 	has_been_heated = 1
-	user.visible_message("<span class='notice'>[user] crushes \the [src] package.</span>", "You crush \the [src] package and feel a comfortable heat build up.")
+	user.visible_message(SPAN_NOTE("[user] crushes \the [src] package."), "You crush \the [src] package and feel a comfortable heat build up.")
 	spawn(200)
 		user << "You think \the [src] is ready to eat about now."
 		heat()
@@ -1611,7 +1611,7 @@
 		Unwrap(user)
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/proc/Expand()
-	src.visible_message("<span class='notice'>\The [src] expands!</span>")
+	src.visible_message(SPAN_NOTE("\The [src] expands!"))
 	var/mob/living/carbon/human/H = new(get_turf(src))
 	H.set_species(monkey_type)
 	H.real_name = H.species.get_random_name()

@@ -23,9 +23,9 @@
 			vine.mature_time = 0
 			vine.process()
 
-			message_admins("<span class='notice'>Event: Spacevines spawned at [T.loc] ([T.x],[T.y],[T.z])</span>")
+			message_admins(SPAN_NOTE("Event: Spacevines spawned at [T.loc] ([T.x],[T.y],[T.z])"))
 			return
-		message_admins("<span class='notice'>Event: Spacevines failed to find a viable turf.</span>")
+		message_admins(SPAN_NOTE("Event: Spacevines failed to find a viable turf."))
 
 /obj/effect/dead_plant
 	anchored = 1

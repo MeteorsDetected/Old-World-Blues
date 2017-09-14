@@ -158,10 +158,10 @@
 	if (src.health >= config.health_threshold_crit)
 		if(src == M && ishuman(src))
 			var/mob/living/carbon/human/H = src
-			src.visible_message( \
-				text("\blue [src] examines [].",src.gender==MALE?"himself":"herself"), \
-				"\blue You check yourself for injuries." \
-				)
+			src.visible_message(
+				SPAN_NOTE("[src] examines [gender==MALE?"himself":"herself"]."),
+				SPAN_NOTE("You check yourself for injuries.")
+			)
 
 			for(var/obj/item/organ/external/org in H.organs)
 				var/list/status = list()
@@ -201,9 +201,9 @@
 				if(!org.is_usable())
 					status += "dangling uselessly"
 				if(status.len)
-					src.show_message("My [org.name] is <span class='warning'> [english_list(status)].",1)
+					src.show_message("My [org.name] is <span class='warning'> [english_list(status)].</span>",1)
 				else
-					src.show_message("My [org.name] is <span class='notice'> OK.",1)
+					src.show_message("My [org.name] is <span class='notice'> OK.</span>",1)
 
 			if((SKELETON & H.status_flags) && (!H.w_uniform) && (!H.wear_suit))
 				H.play_xylophone()
@@ -244,21 +244,25 @@
 			var/mob/living/carbon/human/H = src
 			if(istype(H)) show_ssd = H.species.show_ssd
 			if(show_ssd && !client && !teleop)
-				M.visible_message("<span class='notice'>[M] shakes [src] trying to wake [t_him] up!</span>", \
-				"<span class='notice'>You shake [src], but they do not respond... Maybe they have S.S.D?</span>")
+				M.visible_message(
+					SPAN_NOTE("[M] shakes [src] trying to wake [t_him] up!"),
+					SPAN_NOTE("You shake [src], but they do not respond... Maybe they have S.S.D?")
+				)
 			else if(lying || src.sleeping)
 				src.sleeping = max(0,src.sleeping-5)
 				if(src.sleeping == 0)
 					src.resting = 0
-				M.visible_message("<span class='notice'>[M] shakes [src] trying to wake [t_him] up!</span>", \
-									"<span class='notice'>You shake [src] trying to wake [t_him] up!</span>")
+				M.visible_message(
+					SPAN_NOTE("[M] shakes [src] trying to wake [t_him] up!"),
+					SPAN_NOTE("You shake [src] trying to wake [t_him] up!")
+				)
 			else
 				var/mob/living/carbon/human/hugger = M
 				if(istype(hugger))
 					hugger.species.hug(hugger,src)
 				else
-					M.visible_message("<span class='notice'>[M] hugs [src] to make [t_him] feel better!</span>", \
-								"<span class='notice'>You hug [src] to make [t_him] feel better!</span>")
+					M.visible_message(SPAN_NOTE("[M] hugs [src] to make [t_him] feel better!"), \
+								SPAN_NOTE("You hug [src] to make [t_him] feel better!"))
 				if(M.fire_stacks >= (src.fire_stacks + 3))
 					src.fire_stacks += 1
 					M.fire_stacks -= 1

@@ -107,14 +107,14 @@
 		if(success)
 			playsound(src, 'sound/effects/splat.ogg', 30, 1)
 			visible_message("<span class='warning'>[src] pulls on their clothes, peeling it off along with parts of their skin attached!</span>",
-			"<span class='notice'>We remove and deform our equipment.</span>")
+			SPAN_NOTE("We remove and deform our equipment."))
 		M.update_icons()
 		M.mind.changeling.armor_deployed = 0
 		return success
 
 	else
 
-		M << "<span class='notice'>We begin growing our new equipment...</span>"
+		M << SPAN_NOTE("We begin growing our new equipment...")
 
 		var/list/grown_items_list = list()
 
@@ -220,7 +220,7 @@
 
 		var/feedback = english_list(grown_items_list, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
 
-		M << "<span class='notice'>We have grown [feedback].</span>"
+		M << SPAN_NOTE("We have grown [feedback].")
 
 		M.update_icons()
 		if(success)

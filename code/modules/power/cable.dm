@@ -570,10 +570,10 @@ obj/structure/cable/proc/cableColor(var/colorC)
 			return
 		var/obj/item/weapon/handcuffs/cable/B = new /obj/item/weapon/handcuffs/cable(usr.loc)
 		B.color = color
-		usr << "<span class='notice'>You wind some cable together to make some restraints.</span>"
+		usr << SPAN_NOTE("You wind some cable together to make some restraints.")
 		src.use(15)
 	else
-		usr << "\blue You cannot do that."
+		usr << SPAN_NOTE("You cannot do that.")
 	..()
 
 /obj/item/stack/cable_coil/cyborg/verb/set_colour()

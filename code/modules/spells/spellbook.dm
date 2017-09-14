@@ -213,7 +213,7 @@
 								H.sight |= (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 								H.see_in_dark = 8
 								H.see_invisible = SEE_INVISIBLE_LEVEL_TWO
-								H << "span class='notice'>The walls suddenly disappear.</span>"
+								H << SPAN_NOTE("The walls suddenly disappear.")
 							temp = "You have purchased a scrying orb, and gained x-ray vision."
 							*/
 							temp = "You have purchased a scrying orb."
@@ -251,15 +251,15 @@
 			if(user.mind)
 				// TODO: Update to new antagonist system.
 				if(user.mind.special_role == "apprentice" || user.mind.special_role == "Wizard")
-					user <<"<span class='notice'>You're already far more versed in this spell than this flimsy how-to book can provide.</span>"
+					user <<SPAN_NOTE("You're already far more versed in this spell than this flimsy how-to book can provide.")
 				else
-					user <<"<span class='notice'>You've already read this one.</span>"
+					user <<SPAN_NOTE("You've already read this one.")
 			return
 	if(used)
 		recoil(user)
 	else
 		user.add_spell(S)
-		user <<"<span class='notice'>you rapidly read through the arcane book. Suddenly you realize you understand [spellname]!</span>"
+		user <<SPAN_NOTE("you rapidly read through the arcane book. Suddenly you realize you understand [spellname]!")
 		user.attack_log += text("\[[time_stamp()]\] <font color='orange'>[user.real_name] ([user.ckey]) learned the spell [spellname] ([S]).</font>")
 		onlearned(user)
 		origin_tech[TECH_ARCANE]--
@@ -334,7 +334,7 @@
 		user <<"<span class='warning'>For a moment you feel like you don't even know who you are anymore.</span>"
 		return
 	if(stored_swap == user)
-		user <<"<span class='notice'>You stare at the book some more, but there doesn't seem to be anything else to learn...</span>"
+		user <<SPAN_NOTE("You stare at the book some more, but there doesn't seem to be anything else to learn...")
 		return
 
 	if(user.mind.special_verbs.len)
@@ -409,7 +409,7 @@
 		user.equip_to_slot_if_possible(magichead, slot_wear_mask, 1, 1)
 		qdel(src)
 	else
-		user <<"<span class='notice'>I say thee neigh</span>"
+		user <<SPAN_NOTE("I say thee neigh")
 
 /obj/item/weapon/spellbook/oneuse/charge
 	spell = /spell/aoe_turf/charge

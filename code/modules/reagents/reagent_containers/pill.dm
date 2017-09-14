@@ -33,7 +33,7 @@
 	return 0
 
 /obj/item/weapon/reagent_containers/pill/self_feed_message(var/mob/user)
-	user << "<span class='notice'>You swallow \the [src].</span>"
+	user << SPAN_NOTE("You swallow \the [src].")
 
 /obj/item/weapon/reagent_containers/pill/other_feed_message_start(var/mob/user, var/mob/target)
 	user.visible_message("<span class='warning'>[user] attempts to force [target] to swallow \the [src].</span>")
@@ -48,9 +48,9 @@
 
 	if(target.is_open_container() && target.reagents)
 		if(!target.reagents.total_volume)
-			user << "<span class='notice'>[target] is empty. Can't dissolve \the [src].</span>"
+			user << SPAN_NOTE("[target] is empty. Can't dissolve \the [src].")
 			return
-		user << "<span class='notice'>You dissolve \the [src] in [target].</span>"
+		user << SPAN_NOTE("You dissolve \the [src] in [target].")
 
 		self_attack_log(user, "Spiked \a [key_name(target)] with a pill. Reagents: [reagentlist()]", 1)
 

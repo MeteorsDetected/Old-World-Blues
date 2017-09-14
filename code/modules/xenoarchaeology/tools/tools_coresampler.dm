@@ -19,7 +19,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "sampler0"
 	item_state = "screwdriver_brown"
-	w_class = 1.0
+	w_class = ITEM_SIZE_TINY
 	//slot_flags = SLOT_BELT
 	var/sampled_turf = ""
 	var/num_stored_bags = 10
@@ -28,15 +28,15 @@
 /obj/item/device/core_sampler/examine(mob/user, return_dist=1)
 	.=..()
 	if(.<=2)
-		user << "\blue Used to extract geological core samples - this one is [sampled_turf ? "full" : "empty"],\
-		 and has [num_stored_bags] bag[num_stored_bags != 1 ? "s" : ""] remaining."
+		user << SPAN_NOTE("Used to extract geological core samples - this one is [sampled_turf ? "full" : "empty"],\
+		 and has [num_stored_bags] bag[num_stored_bags != 1 ? "s" : ""] remaining.")
 
 /obj/item/device/core_sampler/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/evidencebag))
 		if(num_stored_bags < 10)
 			qdel(W)
 			num_stored_bags += 1
-			user << "\blue You insert the [W] into the core sampler."
+			user << SPAN_NOTE("You insert the [W] into the core sampler.")
 		else
 			user << "\red The core sampler can not fit any more bags!"
 	else
@@ -76,15 +76,15 @@
 			var/image/I = image("icon"=R, "layer"=FLOAT_LAYER)
 			filled_bag.overlays += I
 			filled_bag.overlays += "evidence"
-			filled_bag.w_class = 1
+			filled_bag.w_class = ITEM_SIZE_TINY
 
-			user << "\blue You take a core sample of the [item_to_sample]."
+			user << SPAN_NOTE("You take a core sample of the [item_to_sample].")
 	else
 		user << "\red You are unable to take a sample of [item_to_sample]."
 
 /obj/item/device/core_sampler/attack_self()
 	if(filled_bag)
-		usr << "\blue You eject the full sample bag."
+		usr << SPAN_NOTE("You eject the full sample bag.")
 		var/success = 0
 		if(ismob(src.loc))
 			var/mob/M = src.loc

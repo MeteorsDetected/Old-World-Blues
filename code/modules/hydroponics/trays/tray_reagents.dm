@@ -57,7 +57,7 @@
 	flags = CONDUCT | NOBLUDGEON
 	force = 5.0
 	throwforce = 7.0
-	w_class = 2.0
+	w_class = ITEM_SIZE_SMALL
 	matter = list(MATERIAL_STEEL = 50)
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
 
@@ -105,7 +105,7 @@
 	icon_state = "bottle16"
 	flags = OPENCONTAINER
 	possible_transfer_amounts = null
-	w_class = 2.0
+	w_class = ITEM_SIZE_SMALL
 	randpixel = 5
 
 	var/fertilizer //Reagent contained, if any.

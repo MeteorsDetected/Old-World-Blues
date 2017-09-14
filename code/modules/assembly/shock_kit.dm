@@ -29,7 +29,7 @@
 		return
 	if(istype(W, /obj/item/weapon/screwdriver))
 		status = !status
-		user << "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>"
+		user << SPAN_NOTE("[src] is now [status ? "secured" : "unsecured"]!")
 	add_fingerprint(user)
 	return
 

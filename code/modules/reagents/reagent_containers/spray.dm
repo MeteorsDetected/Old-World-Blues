@@ -37,7 +37,7 @@
 		return
 
 	if(reagents.total_volume < amount_per_transfer_from_this)
-		user << "<span class='notice'>\The [src] is empty!</span>"
+		user << SPAN_NOTE("\The [src] is empty!")
 		return
 
 	Spray_at(A, user, proximity)
@@ -74,7 +74,7 @@
 		return
 	amount_per_transfer_from_this = next_in_list(amount_per_transfer_from_this, possible_transfer_amounts)
 	spray_size = next_in_list(spray_size, spray_sizes)
-	user << "<span class='notice'>You adjusted the pressure nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>"
+	user << SPAN_NOTE("You adjusted the pressure nozzle. You'll now use [amount_per_transfer_from_this] units per spray.")
 
 /obj/item/weapon/reagent_containers/spray/examine(mob/user, return_dist=1)
 	.=..()
@@ -91,7 +91,7 @@
 	if (alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
 		return
 	if(isturf(usr.loc))
-		usr << "<span class='notice'>You empty \the [src] onto the floor.</span>"
+		usr << SPAN_NOTE("You empty \the [src] onto the floor.")
 		reagents.splash(usr.loc, reagents.total_volume)
 
 //space cleaner
@@ -129,7 +129,7 @@
 
 /obj/item/weapon/reagent_containers/spray/pepper/attack_self(var/mob/user)
 	safety = !safety
-	usr << "<span class = 'notice'>You switch the safety [safety ? "on" : "off"].</span>"
+	usr << SPAN_NOTE("You switch the safety [safety ? "on" : "off"].")
 
 /obj/item/weapon/reagent_containers/spray/pepper/Spray_at(atom/A as mob|obj)
 	if(safety)

@@ -90,7 +90,7 @@
 /obj/machinery/bot/mulebot/attackby(var/obj/item/I, var/mob/user)
 	if(istype(I,/obj/item/weapon/card/emag))
 		locked = !locked
-		user << "\blue You [locked ? "lock" : "unlock"] the mulebot's controls!"
+		user << SPAN_NOTE("You [locked ? "lock" : "unlock"] the mulebot's controls!")
 		flick("mulebot-emagged", src)
 		playsound(src.loc, 'sound/effects/sparks1.ogg', 100, 0)
 	else if(istype(I,/obj/item/weapon/cell) && open && !cell)
@@ -105,11 +105,17 @@
 
 		open = !open
 		if(open)
-			src.visible_message("[user] opens the maintenance hatch of [src]", "\blue You open [src]'s maintenance hatch.")
+			src.visible_message(
+				"[user] opens the maintenance hatch of [src]",
+				SPAN_NOTE("You open [src]'s maintenance hatch.")
+			)
 			on = 0
 			icon_state="mulebot-hatch"
 		else
-			src.visible_message("[user] closes the maintenance hatch of [src]", "\blue You close [src]'s maintenance hatch.")
+			src.visible_message(
+				"[user] closes the maintenance hatch of [src]",
+				SPAN_NOTE("You close [src]'s maintenance hatch.")
+			)
 			icon_state = "mulebot0"
 
 		updateDialog()
@@ -118,10 +124,10 @@
 			src.health = min(maxhealth, src.health+25)
 			user.visible_message(
 				"\red [user] repairs [src]!",
-				"\blue You repair [src]!"
+				SPAN_NOTE("You repair [src]!")
 			)
 		else
-			user << "\blue [src] does not need a repair!"
+			user << SPAN_NOTE("[src] does not need a repair!")
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1+I.force * 2))
 			unload(0)
@@ -271,7 +277,10 @@
 					cell.add_fingerprint(usr)
 					cell = null
 
-					usr.visible_message("\blue [usr] removes the power cell from [src].", "\blue You remove the power cell from [src].")
+					usr.visible_message(
+						SPAN_NOTE("[usr] removes the power cell from [src]."),
+						SPAN_NOTE("You remove the power cell from [src].")
+					)
 					updateDialog()
 
 			if("cellinsert")
@@ -282,7 +291,10 @@
 						cell = C
 						C.add_fingerprint(usr)
 
-						usr.visible_message("\blue [usr] inserts a power cell into [src].", "\blue You insert the power cell into [src].")
+						usr.visible_message(
+							SPAN_NOTE("[usr] inserts a power cell into [src]."),
+							SPAN_NOTE("You insert the power cell into [src].")
+						)
 						updateDialog()
 
 

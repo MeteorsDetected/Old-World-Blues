@@ -53,61 +53,61 @@
 	Click()
 		switch(build_master.mode)
 			if(1) // Basic Build
-				usr << "<span class='notice'>***********************************************************</span>"
-				usr << "<span class='notice'>Left Mouse Button        = Construct / Upgrade</span>"
-				usr << "<span class='notice'>Right Mouse Button       = Deconstruct / Delete / Downgrade</span>"
-				usr << "<span class='notice'>Left Mouse Button + ctrl = R-Window</span>"
-				usr << "<span class='notice'>Left Mouse Button + alt  = Airlock</span>"
+				usr << SPAN_NOTE("***********************************************************")
+				usr << SPAN_NOTE("Left Mouse Button        = Construct / Upgrade")
+				usr << SPAN_NOTE("Right Mouse Button       = Deconstruct / Delete / Downgrade")
+				usr << SPAN_NOTE("Left Mouse Button + ctrl = R-Window")
+				usr << SPAN_NOTE("Left Mouse Button + alt  = Airlock")
 				usr << ""
-				usr << "<span class='notice'>Use the button in the upper left corner to</span>"
-				usr << "<span class='notice'>change the direction of built objects.</span>"
-				usr << "<span class='notice'>***********************************************************</span>"
+				usr << SPAN_NOTE("Use the button in the upper left corner to")
+				usr << SPAN_NOTE("change the direction of built objects.")
+				usr << SPAN_NOTE("***********************************************************")
 			if(2) // Adv. Build
-				usr << "<span class='notice'>***********************************************************</span>"
-				usr << "<span class='notice'>Right Mouse Button on buildmode button = Set object type</span>"
-				usr << "<span class='notice'>Middle Mouse Button on buildmode button= On/Off object type saying</span>"
-				usr << "<span class='notice'>Middle Mouse Button on turf/obj        = Capture object type</span>"
-				usr << "<span class='notice'>Left Mouse Button on turf/obj          = Place objects</span>"
-				usr << "<span class='notice'>Right Mouse Button                     = Delete objects</span>"
-				usr << "<span class='notice'>Mouse Button + ctrl                    = Copy object type</span>"
+				usr << SPAN_NOTE("***********************************************************")
+				usr << SPAN_NOTE("Right Mouse Button on buildmode button = Set object type")
+				usr << SPAN_NOTE("Middle Mouse Button on buildmode button= On/Off object type saying")
+				usr << SPAN_NOTE("Middle Mouse Button on turf/obj        = Capture object type")
+				usr << SPAN_NOTE("Left Mouse Button on turf/obj          = Place objects")
+				usr << SPAN_NOTE("Right Mouse Button                     = Delete objects")
+				usr << SPAN_NOTE("Mouse Button + ctrl                    = Copy object type")
 				usr << ""
-				usr << "<span class='notice'>Use the button in the upper left corner to</span>"
-				usr << "<span class='notice'>change the direction of built objects.</span>"
-				usr << "<span class='notice'>***********************************************************</span>"
+				usr << SPAN_NOTE("Use the button in the upper left corner to")
+				usr << SPAN_NOTE("change the direction of built objects.")
+				usr << SPAN_NOTE("***********************************************************")
 			if(3) // Edit
-				usr << "<span class='notice'>***********************************************************</span>"
-				usr << "<span class='notice'>Right Mouse Button on buildmode button = Select var(type) & value</span>"
-				usr << "<span class='notice'>Left Mouse Button on turf/obj/mob      = Set var(type) & value</span>"
-				usr << "<span class='notice'>Right Mouse Button on turf/obj/mob     = Reset var's value</span>"
-				usr << "<span class='notice'>Middle Mouse Button on turf/obj/mob    = Copy var's value</span>"
-				usr << "<span class='notice'>***********************************************************</span>"
+				usr << SPAN_NOTE("***********************************************************")
+				usr << SPAN_NOTE("Right Mouse Button on buildmode button = Select var(type) & value")
+				usr << SPAN_NOTE("Left Mouse Button on turf/obj/mob      = Set var(type) & value")
+				usr << SPAN_NOTE("Right Mouse Button on turf/obj/mob     = Reset var's value")
+				usr << SPAN_NOTE("Middle Mouse Button on turf/obj/mob    = Copy var's value")
+				usr << SPAN_NOTE("***********************************************************")
 			if(4) // Throw
-				usr << "<span class='notice'>***********************************************************</span>"
-				usr << "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select</span>"
-				usr << "<span class='notice'>Right Mouse Button on turf/obj/mob     = Throw</span>"
-				usr << "<span class='notice'>***********************************************************</span>"
+				usr << SPAN_NOTE("***********************************************************")
+				usr << SPAN_NOTE("Left Mouse Button on turf/obj/mob      = Select")
+				usr << SPAN_NOTE("Right Mouse Button on turf/obj/mob     = Throw")
+				usr << SPAN_NOTE("***********************************************************")
 			if(5) // Room Build
-				usr << "<span class='notice'>***********************************************************</span>"
-				usr << "<span class='notice'>Left Mouse Button on turf              = Select as point A</span>"
-				usr << "<span class='notice'>Right Mouse Button on turf             = Select as point B</span>"
-				usr << "<span class='notice'>Right Mouse Button on buildmode button = Change floor/wall type</span>"
-				usr << "<span class='notice'>***********************************************************</span>"
+				usr << SPAN_NOTE("***********************************************************")
+				usr << SPAN_NOTE("Left Mouse Button on turf              = Select as point A")
+				usr << SPAN_NOTE("Right Mouse Button on turf             = Select as point B")
+				usr << SPAN_NOTE("Right Mouse Button on buildmode button = Change floor/wall type")
+				usr << SPAN_NOTE("***********************************************************")
 			if(6) // Make Ladders
-				usr << "<span class='notice'>***********************************************************</span>"
-				usr << "<span class='notice'>Left Mouse Button on turf              = Set as upper ladder loc</span>"
-				usr << "<span class='notice'>Right Mouse Button on turf             = Set as lower ladder loc</span>"
-				usr << "<span class='notice'>***********************************************************</span>"
+				usr << SPAN_NOTE("***********************************************************")
+				usr << SPAN_NOTE("Left Mouse Button on turf              = Set as upper ladder loc")
+				usr << SPAN_NOTE("Right Mouse Button on turf             = Set as lower ladder loc")
+				usr << SPAN_NOTE("***********************************************************")
 			if(7) // Move Into Contents
-				usr << "<span class='notice'>***********************************************************</span>"
-				usr << "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select</span>"
-				usr << "<span class='notice'>Right Mouse Button on turf/obj/mob     = Move into selection</span>"
-				usr << "<span class='notice'>***********************************************************</span>"
+				usr << SPAN_NOTE("***********************************************************")
+				usr << SPAN_NOTE("Left Mouse Button on turf/obj/mob      = Select")
+				usr << SPAN_NOTE("Right Mouse Button on turf/obj/mob     = Move into selection")
+				usr << SPAN_NOTE("***********************************************************")
 			if(8) // Make Lights
-				usr << "<span class='notice'>***********************************************************</span>"
-				usr << "<span class='notice'>Left Mouse Button on turf/obj/mob      = Make it glow</span>"
-				usr << "<span class='notice'>Right Mouse Button on turf/obj/mob     = Reset glowing</span>"
-				usr << "<span class='notice'>Right Mouse Button on buildmode button = Change glow properties</span>"
-				usr << "<span class='notice'>***********************************************************</span>"
+				usr << SPAN_NOTE("***********************************************************")
+				usr << SPAN_NOTE("Left Mouse Button on turf/obj/mob      = Make it glow")
+				usr << SPAN_NOTE("Right Mouse Button on turf/obj/mob     = Reset glowing")
+				usr << SPAN_NOTE("Right Mouse Button on buildmode button = Change glow properties")
+				usr << SPAN_NOTE("***********************************************************")
 		return 1
 
 /obj/screen/bmode/buildquit
@@ -299,7 +299,7 @@
 		if(2) // Adv. Build
 			if(pa.Find("middle") || pa.Find("ctrl"))
 				objholder = object.type
-				user << "<span class='notice'>[object] ([object.type]) copied to buildmode.</span>"
+				user << SPAN_NOTE("[object] ([object.type]) copied to buildmode.")
 			else if(pa.Find("left"))
 				if(ispath(objholder,/turf))
 					var/turf/T = get_turf(object)
@@ -340,12 +340,12 @@
 		if(5) // Room build
 			if(pa.Find("left"))
 				coordA = get_turf(object)
-				user << "<span class='notice'>Defined [object] ([object.type]) as point A.</span>"
+				user << SPAN_NOTE("Defined [object] ([object.type]) as point A.")
 			if(pa.Find("right"))
 				coordB = get_turf(object)
-				user << "<span class='notice'>Defined [object] ([object.type]) as point B.</span>"
+				user << SPAN_NOTE("Defined [object] ([object.type]) as point B.")
 			if(coordA && coordB)
-				user << "<span class='notice'>A and B set, creating rectangle.</span>"
+				user << SPAN_NOTE("A and B set, creating rectangle.")
 				make_rectangle(
 					coordA,
 					coordB,
@@ -357,12 +357,12 @@
 		if(6) // Ladders
 			if(pa.Find("left"))
 				coordA = get_turf(object)
-				user << "<span class='notice'>Defined [object] ([object.type]) as upper ladder location.</span>"
+				user << SPAN_NOTE("Defined [object] ([object.type]) as upper ladder location.")
 			if(pa.Find("right"))
 				coordB = get_turf(object)
-				user << "<span class='notice'>Defined [object] ([object.type]) as lower ladder location.</span>"
+				user << SPAN_NOTE("Defined [object] ([object.type]) as lower ladder location.")
 			if(coordA && coordB)
-				user << "<span class='notice'>Ladder locations set, building ladders.</span>"
+				user << SPAN_NOTE("Ladder locations set, building ladders.")
 				var/obj/structure/ladder/A = new /obj/structure/ladder(coordA)
 				var/obj/structure/ladder/B = new /obj/structure/ladder(coordB)
 				A.target = B

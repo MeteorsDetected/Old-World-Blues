@@ -2,7 +2,7 @@
 	var/wear_slot = 0
 	var/slot_name = ""
 	desc = "Totally what you think it is"
-	w_class = 1
+	w_class = ITEM_SIZE_TINY
 
 /obj/item/clothing/hidden/New()
 	..()
@@ -28,4 +28,4 @@
 /obj/item/clothing/hidden/attack_self(mob/living/carbon/human/user)
 	if(!istype(user)) return
 	if(user.equip_to_slot_if_possible(src, wear_slot))
-		user << "<span class = 'notice'>You equip [name] in [slot_name] slot.</span>"
+		user << SPAN_NOTE("You equip [name] in [slot_name] slot.")

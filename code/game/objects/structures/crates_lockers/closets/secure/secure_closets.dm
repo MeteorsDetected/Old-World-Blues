@@ -57,22 +57,22 @@
 
 /obj/structure/closet/secure_closet/proc/togglelock(mob/user as mob)
 	if(src.opened)
-		user << "<span class='notice'>Close the locker first.</span>"
+		user << SPAN_NOTE("Close the locker first.")
 		return
 	if(src.broken)
 		user << "<span class='warning'>The locker appears to be broken.</span>"
 		return
 	if(user.loc == src)
-		user << "<span class='notice'>You can't reach the lock from inside.</span>"
+		user << SPAN_NOTE("You can't reach the lock from inside.")
 		return
 	if(src.allowed(user))
 		src.locked = !src.locked
 		for(var/mob/O in viewers(user, 3))
 			if((O.client && !( O.blinded )))
-				O << "<span class='notice'>The locker has been [locked ? null : "un"]locked by [user].</span>"
+				O << SPAN_NOTE("The locker has been [locked ? null : "un"]locked by [user].")
 		update_icon()
 	else
-		user << "<span class='notice'>Access Denied</span>"
+		user << SPAN_NOTE("Access Denied")
 
 /obj/structure/closet/secure_closet/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(!src.opened)
@@ -112,7 +112,7 @@
 					user.visible_message("\The [user] begins securing \the [src] to the floor.", "You start securing \the [src] to the floor.")
 				if(do_after(user, 20))
 					if(!src) return
-					user << "<span class='notice'>You [anchored? "un" : ""]secured \the [src]!</span>"
+					user << SPAN_NOTE("You [anchored? "un" : ""]secured \the [src]!")
 					anchored = !anchored
 					return
 		else if(istype(W,/obj/item/weapon/packageWrap) || istype(W,/obj/item/weapon/weldingtool))

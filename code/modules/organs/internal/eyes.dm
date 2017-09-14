@@ -167,14 +167,14 @@
 	if(owner.client.eye == linked_camera || (linked_camera in src))
 		owner.reset_view()
 		owner.visible_message(
-			"<span class='notice'>You can hear something beeps in [owner] head.</span>",
-			"<span class='notice'>You successfuly enable eye-cam remote view</span>",
+			SPAN_NOTE("You can hear something beeps in [owner] head."),
+			SPAN_NOTE("You successfuly enable eye-cam remote view"),
 			"<span class='warning'>You can hear long BEEP.</span>"
 		)
 	else
 		owner.visible_message(
-			"<span class='notice'>You can hear something beeps in [owner] head.</span>",
-			"<span class='notice'>You successfuly disable eye-cam remote view</span>",
+			SPAN_NOTE("You can hear something beeps in [owner] head."),
+			SPAN_NOTE("You successfuly disable eye-cam remote view"),
 			"<span class='warning'>You can hear long BEEP.</span>"
 		)
 		owner.machine = src
@@ -209,7 +209,7 @@
 	else if(user == owner)
 		user.visible_message(
 			"<span class='warning'>[user] start inserting [C] into eye-socket!</span>",
-			"<span class='notice'>You start inserting [C] into your eye-socket</span>"
+			SPAN_NOTE("You start inserting [C] into your eye-socket")
 		)
 		sleep(5)
 		if(usr.get_active_hand() != C)
@@ -221,7 +221,7 @@
 	else
 		user.visible_message(
 			"<span class='warning'>[user] try to insert [C] into [owner]'s eye-socket</span>",
-			"<span class='notice'>You try to insert [C] into [owner]'s eye-socket</span>"
+			SPAN_NOTE("You try to insert [C] into [owner]'s eye-socket")
 		)
 		if(do_mob(user, owner, 15))
 			if(camera)

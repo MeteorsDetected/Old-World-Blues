@@ -224,8 +224,8 @@
 			return
 		rig.reset()
 		user.visible_message(
-				"<span class='notice'>[user] has cut through the support systems of [target]'s [rig] with \the [tool].</span>",
-				"<span class='notice'>You have cut through the support systems of [target]'s [rig] with \the [tool].</span>"
+				SPAN_NOTE("[user] has cut through the support systems of [target]'s [rig] with \the [tool]."),
+				SPAN_NOTE("You have cut through the support systems of [target]'s [rig] with \the [tool].")
 			)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)

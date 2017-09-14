@@ -65,7 +65,7 @@ var/global/list/chameleons_categories = list(
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
 	origin_tech = list(TECH_ILLEGAL = 2)
-	w_class = 1
+	w_class = ITEM_SIZE_TINY
 	var/category = ""
 	var/obj/item/captured_item
 	var/default_type
@@ -107,7 +107,7 @@ var/global/list/chameleons_categories = list(
 	if(iswirecutter(W) && captured_item)
 		if(isturf(loc))
 			change_item_appearance(src, type)
-			user << "<span class='notice'>You cut [src] from [captured_item].</span>"
+			user << SPAN_NOTE("You cut [src] from [captured_item].")
 			category = null
 			captured_item.forceMove(src.loc)
 			src.transfer_fingerprints_to(captured_item)
@@ -152,7 +152,7 @@ var/global/list/chameleons_categories = list(
 			src.w_class = captured_item.w_class
 			A.forceMove(src)
 			change_item_appearance(src, captured_item.type)
-			user << "<span class='notice'>You attach [src] to [captured_item]</span>"
+			user << SPAN_NOTE("You attach [src] to [captured_item]")
 			return 1
 	return ..()
 

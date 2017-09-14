@@ -24,7 +24,7 @@
 	var/mob/living/carbon/human/M = usr
 	if(knife && istype(M))
 		if(M.put_in_hands(knife))
-			M << "<div class='notice'>You slide the [knife] out of [src].</div>"
+			M << SPAN_NOTE("You slide the [knife] out of [src].")
 			knife = null
 			update_icon()
 
@@ -33,7 +33,7 @@
 		if(knife) return
 		M.drop_from_inventory(I, src)
 		knife = I
-		M << "<div class='notice'>You slide the [I] into [src].<div>"
+		M << SPAN_NOTE("You slide the [I] into [src].")
 		update_icon()
 	else ..()
 

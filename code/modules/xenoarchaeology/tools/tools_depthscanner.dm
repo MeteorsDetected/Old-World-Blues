@@ -9,7 +9,7 @@
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "crap"
 	item_state = "analyzer"
-	w_class = 2.0
+	w_class = ITEM_SIZE_SMALL
 	slot_flags = SLOT_BELT
 	var/list/positive_locations = list()
 	var/datum/depth_scan/current
@@ -24,7 +24,7 @@
 	var/material = "unknown"
 
 /obj/item/device/depth_scanner/proc/scan_atom(var/mob/user, var/atom/A)
-	user.visible_message("\blue [user] scans [A], the air around them humming gently.")
+	user.visible_message(SPAN_NOTE("[user] scans [A], the air around them humming gently."))
 	if(istype(A,/turf/simulated/mineral))
 		var/turf/simulated/mineral/M = A
 		if((M.finds && M.finds.len) || M.artifact_find)
@@ -46,7 +46,7 @@
 			positive_locations.Add(D)
 
 			for(var/mob/L in range(1,src))
-				L << "\blue \icon[src] [src] pings."
+				L << SPAN_NOTE("\icon[src] [src] pings.")
 
 	else if(istype(A,/obj/structure/boulder))
 		var/obj/structure/boulder/B = A
@@ -65,7 +65,7 @@
 			positive_locations.Add(D)
 
 			for(var/mob/L in range(1,src))
-				L << "\blue \icon[src] [src] pings [pick("madly","wildly","excitedly","crazily")]!"
+				L << SPAN_NOTE("\icon[src] [src] pings [pick("madly","wildly","excitedly","crazily")]!")
 
 /obj/item/device/depth_scanner/attack_self(var/mob/user as mob)
 	return src.interact(user)

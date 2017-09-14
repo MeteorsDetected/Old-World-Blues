@@ -634,7 +634,8 @@ var/global/floorIsLava = 0
 	if(confirm == "Cancel")
 		return
 	if(confirm == "Yes")
-		world << "<span class='danger'>Restarting world!</span> <span class='notice'>Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]!</span>"
+		world << "<span class='danger'>Restarting world!</span>"
+		world << SPAN_NOTE("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]!")
 		log_admin("[key_name(usr)] initiated a reboot.")
 
 		sleep(50)

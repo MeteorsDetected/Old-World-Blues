@@ -73,7 +73,7 @@
 			bcell.update_icon()
 			bcell.loc = get_turf(src.loc)
 			bcell = null
-			user << "<span class='notice'>You remove the cell from the [src].</span>"
+			user << SPAN_NOTE("You remove the cell from the [src].")
 			status = 0
 			update_icon()
 			return

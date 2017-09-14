@@ -65,7 +65,7 @@
 	if(!where) return
 	var/result = shuttle.beacon_move(shuttle_controller.sh_beakons[where])
 	if(!result)
-		result = "<span class='notice'>Success!</span>"
+		result = SPAN_NOTE("Success!")
 	else
 		result = "<span class='warning'>[result]</span>"
 	usr << result

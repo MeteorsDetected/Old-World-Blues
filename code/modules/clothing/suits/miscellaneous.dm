@@ -388,10 +388,10 @@
 
 	if(rolled == 0)
 		rolled = 1
-		usr << "<span class='notice'>You roll up the sleeves of your [src].</span>"
+		usr << SPAN_NOTE("You roll up the sleeves of your [src].")
 	else
 		rolled = 0
-		usr << "<span class='notice'>You roll down the sleeves of your [src].</span>"
+		usr << SPAN_NOTE("You roll down the sleeves of your [src].")
 	update_icon()
 
 /obj/item/clothing/suit/storage/flannel/verb/tuck()
@@ -403,10 +403,10 @@
 
 	if(tucked == 0)
 		tucked = 1
-		usr << "<span class='notice'>You tuck in your your [src].</span>"
+		usr << SPAN_NOTE("You tuck in your your [src].")
 	else
 		tucked = 0
-		usr << "<span class='notice'>You untuck your [src].</span>"
+		usr << SPAN_NOTE("You untuck your [src].")
 	update_icon()
 
 /obj/item/clothing/suit/storage/flannel/verb/button()
@@ -418,10 +418,10 @@
 
 	if(buttoned == 0)
 		buttoned = 1
-		usr << "<span class='notice'>You unbutton your [src].</span>"
+		usr << SPAN_NOTE("You unbutton your [src].")
 	else
 		buttoned = 0
-		usr<<"<span class='notice'>You button your [src].</span>"
+		usr<<SPAN_NOTE("You button your [src].")
 	update_icon()
 
 /obj/item/clothing/suit/storage/flannel/update_icon()

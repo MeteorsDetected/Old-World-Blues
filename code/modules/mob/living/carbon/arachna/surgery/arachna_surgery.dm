@@ -1,7 +1,0 @@
-/*
-изменить
-bones
-generic
-encased
-*/
-

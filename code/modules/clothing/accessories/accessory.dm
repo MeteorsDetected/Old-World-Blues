@@ -26,7 +26,7 @@
 	has_suit.overlays += inv_overlay
 
 	if(user)
-		user << "<span class='notice'>You attach \the [src] to \the [has_suit].</span>"
+		user << SPAN_NOTE("You attach \the [src] to \the [has_suit].")
 		add_fingerprint(user)
 
 /obj/item/clothing/accessory/proc/on_removed(var/mob/user)
@@ -103,7 +103,7 @@
 	name = "stethoscope"
 	desc = "An outdated medical apparatus for listening to the sounds of the human body. It also makes you look like you know what you're doing."
 	icon_state = "stethoscope"
-	w_class = 2
+	w_class = ITEM_SIZE_SMALL
 
 /obj/item/clothing/accessory/stethoscope/do_surgery(mob/living/carbon/human/M, mob/living/user)
 	if(user.a_intent != I_HELP) //in case it is ever used as a surgery tool
@@ -219,7 +219,7 @@
 /obj/item/clothing/accessory/scarf
 	name = "scarf"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
-	w_class = 2
+	w_class = ITEM_SIZE_SMALL
 
 /obj/item/clothing/accessory/scarf/red
 	name = "red scarf"

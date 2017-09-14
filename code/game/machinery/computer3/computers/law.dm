@@ -18,9 +18,9 @@
 
 		opened = !opened
 		if(opened)
-			usr << "\blue The access panel is now open."
+			usr << SPAN_NOTE("The access panel is now open.")
 		else
-			usr << "\blue The access panel is now closed."
+			usr << SPAN_NOTE("The access panel is now closed.")
 		return
 
 

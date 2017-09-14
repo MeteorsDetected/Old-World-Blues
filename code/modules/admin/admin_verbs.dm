@@ -404,7 +404,7 @@ var/list/admin_verbs_mod = list(
 			mob.alpha = max(mob.alpha + 100, 255)
 		else
 			mob.invisibility = INVISIBILITY_OBSERVER
-			mob << "\blue <b>Invisimin on. You are now as invisible as a ghost.</b>"
+			mob << SPAN_NOTE("<b>Invisimin on. You are now as invisible as a ghost.</b>")
 			mob.alpha = max(mob.alpha - 100, 0)
 
 /client/proc/time_to_respawn()
@@ -588,7 +588,7 @@ var/list/admin_verbs_mod = list(
 			var/light_impact_range = input("Light impact range (in tiles):") as num
 			var/flash_range = input("Flash range (in tiles):") as num
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range)
-	message_admins("\blue [ckey] creating an admin explosion at [epicenter.loc].")
+	message_admins(SPAN_NOTE("[ckey] creating an admin explosion at [epicenter.loc]."))
 
 /client/proc/give_disease2(mob/T as mob in mob_list) // -- Giacom
 	set category = "Fun"
@@ -1001,8 +1001,8 @@ var/list/admin_verbs_mod = list(
 	set name = "Man Up"
 	set desc = "Tells mob to man up and deal with it."
 
-	T << "<span class='notice'><b><font size=3>Man up and deal with it.</font></b></span>"
-	T << "<span class='notice'>Move on.</span>"
+	T << SPAN_NOTE("<b><font size=3>Man up and deal with it.</font></b>")
+	T << SPAN_NOTE("Move on.")
 	T << 'sound/voice/ManUp1.ogg'
 
 	log_admin("[usr.key] told [key_name(T)] to man up and deal with it.", T)

@@ -171,7 +171,7 @@
 	if(istype(W, /obj/item/weapon/wrench))
 		if(playing)
 			StopPlaying()
-		user.visible_message("<span class='warning'>[user] has [anchored ? "un" : ""]secured \the [src].</span>", "<span class='notice'>You [anchored ? "un" : ""]secure \the [src].</span>")
+		user.visible_message("<span class='warning'>[user] has [anchored ? "un" : ""]secured \the [src].</span>", SPAN_NOTE("You [anchored ? "un" : ""]secure \the [src]."))
 		anchored = !anchored
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		power_change()

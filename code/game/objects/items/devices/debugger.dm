@@ -25,22 +25,22 @@
 			if(D.operating == -1)
 				user << "<span class='warning'>There is a software error with the device.</span>"
 			else
-				user << "<span class='notice'>The device's software appears to be fine.</span>"
+				user << SPAN_NOTE("The device's software appears to be fine.")
 		else if (mode == 2)
 			if(D.operating == -1)
-				user << "<span class='notice'>You start fixing the door device's software.</span>"
+				user << SPAN_NOTE("You start fixing the door device's software.")
 				sleep(40)
 				D.operating = 0
-				user << "<span class='notice'>You fixed the door device's software.</span>"
+				user << SPAN_NOTE("You fixed the door device's software.")
 			else
-				user << "<span class='notice'>The device's software appears to be fine.</span>"
+				user << SPAN_NOTE("The device's software appears to be fine.")
 	else
 		return ..()
 
 /obj/item/device/debugger/attack_self(mob/user)
 	if (mode == 1)
 		mode = 2
-		user << "<span class='notice'>Changed mode to repair.</span>"
+		user << SPAN_NOTE("Changed mode to repair.")
 	else
 		mode = 1
-		user << "<span class='notice'>Changed mode to analysis.</span>"
+		user << SPAN_NOTE("Changed mode to analysis.")

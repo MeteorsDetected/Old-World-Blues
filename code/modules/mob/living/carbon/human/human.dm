@@ -728,7 +728,11 @@
 
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)
-		visible_message("\red \The [src] begins playing \his ribcage like a xylophone. It's quite spooky.","\blue You begin to play a spooky refrain on your ribcage.","\red You hear a spooky xylophone melody.")
+		visible_message(
+			"\red \The [src] begins playing \his ribcage like a xylophone. It's quite spooky.",
+			SPAN_NOTE("You begin to play a spooky refrain on your ribcage."),
+			"\red You hear a spooky xylophone melody."
+		)
 		var/song = pick('sound/effects/xylophone1.ogg','sound/effects/xylophone2.ogg','sound/effects/xylophone3.ogg')
 		playsound(loc, song, 50, 1, -1)
 		xylophone = 1
@@ -838,8 +842,8 @@
 	check_dna()
 
 	visible_message(
-		"\blue \The [src] morphs and changes [get_visible_gender() == MALE ? "his" : get_visible_gender() == FEMALE ? "her" : "their"] appearance!",
-		"\blue You change your appearance!",
+		SPAN_NOTE("\The [src] morphs and changes [get_visible_gender() == MALE ? "his" : get_visible_gender() == FEMALE ? "her" : "their"] appearance!"),
+		SPAN_NOTE("You change your appearance!"),
 		"\red Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!"
 	)
 
@@ -861,10 +865,10 @@
 
 	var/say = sanitize(input("What do you wish to say"))
 	if(/mob/living/carbon/human/proc/remotesay in target.verbs)
-		target.show_message("\blue You hear [src.real_name]'s voice: [say]")
+		target.show_message(SPAN_NOTE("You hear [src.real_name]'s voice: [say]"))
 	else
-		target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
-	usr.show_message("\blue You project your mind into [target.real_name]: [say]")
+		target.show_message(SPAN_NOTE("You hear a voice that seems to echo around the room: [say]"))
+	usr.show_message(SPAN_NOTE("You project your mind into [target.real_name]: [say]"))
 	log_say("[key_name(usr)] sent a telepathic message to [key_name(target)]: [say]")
 	for(var/mob/observer/dead/G in dead_mob_list)
 		G.show_message("<i>Telepathic message from <b>[src]</b> to <b>[target]</b>: [say]</i>")
@@ -1045,14 +1049,18 @@
 
 	var/self = (usr == src)
 	if(!self)
-		usr.visible_message("<span class='notice'>[usr] kneels down, puts \his hand on [src]'s wrist and begins counting their pulse.</span>",\
-		"You begin counting [src]'s pulse")
+		usr.visible_message(
+			SPAN_NOTE("[usr] kneels down, puts \his hand on [src]'s wrist and begins counting their pulse."),
+			"You begin counting [src]'s pulse"
+		)
 	else
-		usr.visible_message("<span class='notice'>[usr] begins counting their pulse.</span>",\
-		"You begin counting your pulse.")
+		usr.visible_message(
+			SPAN_NOTE("[usr] begins counting their pulse."),
+			"You begin counting your pulse."
+		)
 
 	if(src.pulse)
-		usr << "<span class='notice'>[self ? "You have a" : "[src] has a"] pulse! Counting...</span>"
+		usr << SPAN_NOTE("[self ? "You have a" : "[src] has a"] pulse! Counting...")
 	else
 		usr << "<span class='danger'>[src] has no pulse!</span>"	//it is REALLY UNLIKELY that a dead person would check his own pulse
 		return
@@ -1117,9 +1125,6 @@
 	maxHealth = species.total_health
 
 	fixblood()
-
-	if (species.ability_datum)
-		species_abilities = new species.ability_datum
 
 	// Rebuild the HUD. If they aren't logged in then login() should reinstantiate it for them.
 	if(client && client.screen)
@@ -1450,7 +1455,3 @@
 		get_scooped(H)
 		return
 	return ..()
-
-/mob/living/carbon/human/is_muzzled()
-	return (wear_mask && (istype(wear_mask, /obj/item/clothing/mask/muzzle) || istype(src.wear_mask, /obj/item/weapon/grenade)))
-

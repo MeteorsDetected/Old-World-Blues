@@ -134,7 +134,7 @@
 /obj/item/clothing/mask/keffiehsolar
 	name = "keffieh"
 	desc = "Yet another tactical thing."
-	w_class = 2
+	w_class = ITEM_SIZE_SMALL
 	body_parts_covered = null
 	slot_flags = SLOT_MASK
 	flags_inv = null

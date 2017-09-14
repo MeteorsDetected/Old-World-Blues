@@ -90,7 +90,7 @@
 
 	if(wielded) //Trying to unwield it
 		unwield()
-		H << "<span class='notice'>You are now carrying the [name] with one hand.</span>"
+		H << SPAN_NOTE("You are now carrying the [name] with one hand.")
 		if (src.unwieldsound)
 			playsound(src.loc, unwieldsound, 50, 1)
 
@@ -103,7 +103,7 @@
 			H << "<span class='warning'>You need your other hand to be empty</span>"
 			return
 		wield()
-		H << "<span class='notice'>You grab the [base_name] with both hands.</span>"
+		H << SPAN_NOTE("You grab the [base_name] with both hands.")
 		if (src.wieldsound)
 			playsound(src.loc, wieldsound, 50, 1)
 

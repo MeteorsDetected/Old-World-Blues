@@ -23,7 +23,7 @@
 			if(open)
 				held.examine(user, 0)
 			else
-				user << "<span class='notice'>There's definitely something there!</span>"
+				user << SPAN_NOTE("There's definitely something there!")
 
 /obj/item/clothing/accessory/locket/attack_self(mob/user as mob)
 	if(!base_icon)
@@ -58,7 +58,7 @@
 			user << "<span class='warning'>You need to open [src] first</span>"
 			return
 		if(held)
-			user << "<span class='notice'>You eject [held] out of [src]!</span>"
+			user << SPAN_NOTE("You eject [held] out of [src]!")
 			user.put_in_hands(held)
 			src.held = null
 
