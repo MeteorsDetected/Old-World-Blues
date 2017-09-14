@@ -511,16 +511,6 @@ var/datum/admin_secrets/admin_secrets = new()
 		power_failure()
 
 
-/datum/admin_secret_item/fun_secret/only_one
-	name = "There Can Be Only One"
-
-/datum/admin_secret_item/fun_secret/only_one/execute(var/mob/user)
-	. = ..()
-	if(.)
-		only_one()
-
-
-
 /datum/admin_secret_item/fun_secret/power_all_smes
 	name = "Power All SMES"
 
