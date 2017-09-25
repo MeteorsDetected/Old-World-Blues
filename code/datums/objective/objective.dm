@@ -27,6 +27,8 @@ var/global/list/all_objectives_types = null
 
 /datum/objective/Destroy()
 	all_objectives.Remove(src)
+	if(owner)
+		owner.objectives.Remove(src)
 	return ..()
 
 /datum/objective/proc/check_completion()

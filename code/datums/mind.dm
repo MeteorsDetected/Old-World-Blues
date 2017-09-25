@@ -128,8 +128,9 @@
 				out += "(<font color='green'>complete</font>)"
 			else
 				out += "(<font color='red'>incomplete</font>)"
-			out += " <a href='?src=\ref[src];obj_completed=\ref[O]'>\[toggle\]</a>"
-			out += " <a href='?src=\ref[src];obj_delete=\ref[O]'>\[remove\]</a><br>"
+			out += " <a href='?src=\ref[src];objective=\ref[O];act=completed'>\[toggle\]</a>"
+			out += " <a href='?src=\ref[src];objective=\ref[O];act=test'>\[check\]</a>"
+			out += " <a href='?src=\ref[src];objective=\ref[O];act=delete'>\[remove\]</a><br>"
 			out += "<div>[O.get_panel_entry()]</div>"
 			num++
 		out += "<br><a href='?src=\ref[src];obj_announce=1'>\[announce objectives\]</a>"
@@ -166,39 +167,47 @@
 
 	else if(href_list["unequip_antagonist"])
 		var/datum/antagonist/antag = all_antag_types[href_list["unequip_antagonist"]]
-		if(antag) antag.unequip(src.current)
+		if(antag)
+			antag.unequip(src.current)
 
 	else if(href_list["move_antag_to_spawn"])
 		var/datum/antagonist/antag = all_antag_types[href_list["move_antag_to_spawn"]]
-		if(antag) antag.place_mob(src.current)
+		if(antag)
+			antag.place_mob(src.current)
 
 	else if (href_list["role_edit"])
 		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in joblist
-		if (!new_role) return
+		if (!new_role)
+			return
 		assigned_role = new_role
 
 	else if (href_list["memory_edit"])
 		var/new_memo = sanitize(input("Write new memory", "Memory", memory) as null|message)
-		if (isnull(new_memo)) return
+		if (isnull(new_memo))
+			return
 		memory = new_memo
 
 	else if (href_list["obj_add"])
 		var/new_obj_type = input("Select objective type:", "Objective type") as null|anything in all_objectives_types
-		if (!new_obj_type) return
+		if (!new_obj_type)
+			return
 
 		var/new_type = all_objectives_types[new_obj_type]
 		new new_type (src)
 
 
-	else if (href_list["obj_delete"])
-		var/datum/objective/objective = locate(href_list["obj_delete"])
-		if(!istype(objective))	return
-		objectives -= objective
-
-	else if(href_list["obj_completed"])
-		var/datum/objective/objective = locate(href_list["obj_completed"])
-		if(!istype(objective))	return
-		objective.completed = !objective.completed
+	else if(href_list["objective"] && href_list["act"])
+		var/datum/objective/objective = locate(href_list["objective"])
+		if(!istype(objective))
+			return
+		switch(href_list["act"])
+			if("delete")
+				qdel(objective)
+			if("completed")
+				objective.completed = !objective.completed
+			if("test")
+				var/completed = objective.check_completion()
+				usr << "\"[objective.explanation_text]\" is [completed ? "<font color='green'>Completed</font>" : "<font color='red'>Not completed</font>"]."
 
 	else if(href_list["implant"])
 		var/mob/living/carbon/human/H = current
