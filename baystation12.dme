@@ -168,6 +168,7 @@
 #include "code\datums\objective\borer.dm"
 #include "code\datums\objective\capture.dm"
 #include "code\datums\objective\cult.dm"
+#include "code\datums\objective\custom.dm"
 #include "code\datums\objective\debrain.dm"
 #include "code\datums\objective\download.dm"
 #include "code\datums\objective\escape.dm"
