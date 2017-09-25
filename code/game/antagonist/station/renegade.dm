@@ -38,10 +38,7 @@ var/datum/antagonist/renegade/renegades
 
 	if(!..())
 		return
-
-	var/datum/objective/survive/survive = new
-	survive.owner = player
-	player.objectives |= survive
+	new /datum/objective/survive (player)
 
 /datum/antagonist/renegade/equip(var/mob/living/carbon/human/player)
 

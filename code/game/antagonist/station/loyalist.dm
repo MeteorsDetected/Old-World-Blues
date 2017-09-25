@@ -40,5 +40,5 @@ var/datum/antagonist/loyalists/loyalists
 			continue
 		var/datum/objective/protect/loyal_obj = new
 		loyal_obj.target = player.mind
-		loyal_obj.explanation_text = "Protect [player.real_name], the [player.mind.assigned_role]."
+		loyal_obj.update_explanation()
 		global_objectives += loyal_obj

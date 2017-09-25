@@ -2,7 +2,7 @@
 	var/wear_slot = 0
 	var/slot_name = ""
 	desc = "Totally what you think it is"
-	w_class = 1
+	w_class = ITEM_SIZE_TINY
 
 /obj/item/clothing/hidden/New()
 	..()

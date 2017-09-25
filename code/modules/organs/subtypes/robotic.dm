@@ -76,11 +76,11 @@
 /obj/item/organ/external/robotic/limb
 	max_damage = 50
 	min_broken_damage = 30
-	w_class = 3
+	w_class = ITEM_SIZE_NORMAL
 
 /obj/item/organ/external/robotic/tiny
 	min_broken_damage = 15
-	w_class = 2
+	w_class = ITEM_SIZE_SMALL
 
 //Helper proc used by various tools for repairing robot limbs
 /obj/item/organ/external/robotic/robo_repair(var/repair_amount, var/damage_type, var/damage_desc, obj/item/tool, mob/living/user)

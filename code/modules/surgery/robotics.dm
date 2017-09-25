@@ -15,8 +15,6 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(affected == null)
 			return FALSE
-		if(affected.status & ORGAN_DESTROYED)
-			return FALSE
 		if(!(affected.robotic >= ORGAN_ROBOT))
 			return FALSE
 		return TRUE
@@ -169,8 +167,7 @@
 			SPAN_NOTE("You finish patching damage to [target]'s [affected.name] with \the [tool].")
 		)
 		affected.heal_damage(rand(30,50),0,1,1)
-		affected.disfigured = 0
-
+		affected.disfigured = FALSE
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
@@ -208,6 +205,13 @@
 		..()
 
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+		if(istype(tool,/obj/item/stack/cable_coil/))
+			var/obj/item/stack/cable_coil/C = tool
+			if(!C.can_use(5))
+				//usage amount made more consistent with regular cable repair
+				user << SPAN_DANG("You need ten or more cable pieces to repair this damage.")
+				return SURGERY_FAILURE
+			C.use(5)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
 			SPAN_NOTE("[user] finishes splicing cable into [target]'s [affected.name]."),

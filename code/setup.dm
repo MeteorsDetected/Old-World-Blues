@@ -47,8 +47,7 @@
 #define IS_SKRELL 3
 #define IS_UNATHI 4
 #define IS_XENOS  5
-#define IS_ARACHNA 6
-#define IS_VAMPIRE 7
+#define IS_VAMPIRE 6
 
 #define MAX_GEAR_COST 10 // Used in chargen for accessory loadout limit.
 

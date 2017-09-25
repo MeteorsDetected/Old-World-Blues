@@ -25,7 +25,6 @@
 #define ITEM_SIZE_GARGANTUAN     6
 #define ITEM_SIZE_NO_CONTAINER INFINITY // Use this to forbid item from being placed in a container.
 
-
 /*
 	The values below are not yet in use.
 */

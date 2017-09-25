@@ -1126,9 +1126,6 @@
 
 	fixblood()
 
-	if (species.ability_datum)
-		species_abilities = new species.ability_datum
-
 	// Rebuild the HUD. If they aren't logged in then login() should reinstantiate it for them.
 	if(client && client.screen)
 		client.screen.Cut()
@@ -1458,7 +1455,3 @@
 		get_scooped(H)
 		return
 	return ..()
-
-/mob/living/carbon/human/is_muzzled()
-	return (wear_mask && (istype(wear_mask, /obj/item/clothing/mask/muzzle) || istype(src.wear_mask, /obj/item/weapon/grenade)))
-

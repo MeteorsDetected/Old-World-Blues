@@ -829,7 +829,7 @@ var/list/sacrificed = list()
 					return
 				if(!(cultist.buckled || \
 					cultist.handcuffed || \
-					istype(cultist.wear_mask, /obj/item/clothing/mask/muzzle) || \
+					cultist.is_muzzled() || \
 					(istype(cultist.loc, /obj/structure/closet)&&cultist.loc:welded) || \
 					(istype(cultist.loc, /obj/structure/closet/secure_closet)&&cultist.loc:locked) || \
 					(istype(cultist.loc, /obj/machinery/dna_scannernew)&&cultist.loc:locked) \
@@ -837,11 +837,11 @@ var/list/sacrificed = list()
 					user << "<span class='warning'>The [cultist] is already free.</span>"
 					return
 				cultist.buckled = null
-				if (cultist.handcuffed)
+				if(cultist.handcuffed)
 					cultist.drop_from_inventory(cultist.handcuffed)
-				if (cultist.legcuffed)
+				if(cultist.legcuffed)
 					cultist.drop_from_inventory(cultist.legcuffed)
-				if (istype(cultist.wear_mask, /obj/item/clothing/mask/muzzle))
+				if(cultist.is_muzzled())
 					cultist.drop_from_inventory(cultist.wear_mask)
 				if(istype(cultist.loc, /obj/structure/closet)&&cultist.loc:welded)
 					cultist.loc:welded = 0
