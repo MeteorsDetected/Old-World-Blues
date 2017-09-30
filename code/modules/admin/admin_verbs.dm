@@ -79,7 +79,6 @@ var/list/admin_verbs_admin = list(
 	/client/proc/man_up,
 	/client/proc/stop_sounds,
 	/client/proc/panicbunker,
-	/client/proc/stickybanpanel,
 	/client/proc/global_man_up,
 	/client/proc/response_team, // Response Teams admin verb
 	/client/proc/toggle_antagHUD_use,

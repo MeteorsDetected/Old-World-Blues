@@ -21,11 +21,6 @@
 		log_admin("[key_name(usr)] tried to use the admin panel without authorization.", usr, 1)
 		return
 
-
-	else if(href_list["stickyban"])
-		stickyban(href_list["stickyban"],href_list)
-
-
 	if(ticker.mode && ticker.mode.check_antagonists_topic(href, href_list))
 		check_antagonists()
 		return
