@@ -1,3 +1,4 @@
+ADMIN_VERB_ADD(/client/proc/checkAccount, null)
 /client/proc/checkAccount()
 	set name = "Check multiaccounts"
 	set category = "Admin"

@@ -24,11 +24,20 @@
 
 	var/heat_protection = 0 //flags which determine which body parts are protected from heat. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
 	var/cold_protection = 0 //flags which determine which body parts are protected from cold. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
-	var/max_heat_protection_temperature //Set this variable to determine up to which temperature (IN KELVIN) the item protects against heat damage. Keep at null to disable protection. Only protects areas set by heat_protection flags
-	var/min_cold_protection_temperature //Set this variable to determine down to which temperature (IN KELVIN) the item protects against cold damage. 0 is NOT an acceptable number due to if(varname) tests!! Keep at null to disable protection. Only protects areas set by cold_protection flags
+	//Set this variable to determine up to which temperature (IN KELVIN) the item protects against heat damage.
+	// Keep at null to disable protection. Only protects areas set by heat_protection flags
+	var/max_heat_protection_temperature
+	//Set this variable to determine down to which temperature (IN KELVIN) the item protects against cold damage.
+	// 0 is NOT an acceptable number due to if(varname) tests!!
+	// Keep at null to disable protection. Only protects areas set by cold_protection flags
+	var/min_cold_protection_temperature
 
-	var/icon_action_button //If this is set, The item will make an action button on the player's HUD when picked up. The button will have the icon_action_button sprite from the screen1_action.dmi file.
-	var/action_button_name //This is the text which gets displayed on the action button. If not set it defaults to 'Use [name]'. Note that icon_action_button needs to be set in order for the action button to appear.
+	//If this is set, The item will make an action button on the player's HUD when picked up.
+	// The button will have the icon_action_button sprite from the screen1_action.dmi file.
+	var/icon_action_button
+	//This is the text which gets displayed on the action button. If not set it defaults to 'Use [name]'.
+	// Note that icon_action_button needs to be set in order for the action button to appear.
+	var/action_button_name
 
 	//This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
 	//It should be used purely for appearance. For gameplay effects caused by items covering body parts, use body_parts_covered.
@@ -46,8 +55,6 @@
 	var/list/armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/tmp/list/allowed = null //suit storage stuff.
 	var/tmp/obj/item/device/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
-	var/zoomdevicename = null //name used for message when binoculars/scope is used
-	var/zoom = 0 //1 if item is actively being used to zoom. For scoped guns and binoculars.
 
 	var/icon_override = null  //Used to override hardcoded clothing dmis in human clothing proc.
 
@@ -254,35 +261,24 @@
 			else if(S.can_be_inserted(src))
 				S.handle_item_insertion(src)
 
-	return
-
 /obj/item/proc/talk_into(mob/M as mob, text)
-	return
 
 /obj/item/proc/moved(mob/user as mob, old_loc as turf)
-	return
 
 // apparently called whenever an item is removed from a slot, container, or anything else.
 /obj/item/proc/dropped(mob/user as mob)
-	if(zoom) zoom() //binoculars, scope, etc
-	return
-
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
-	return
 
 // called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
 /obj/item/proc/on_exit_storage(obj/item/weapon/storage/S as obj)
-	return
 
 // called when this item is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
 /obj/item/proc/on_enter_storage(obj/item/weapon/storage/S as obj)
-	return
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
 /obj/item/proc/on_found(mob/finder as mob)
-	return
 
 // called after an item is placed in an equipment slot
 // user is mob that equipped it
@@ -441,7 +437,8 @@ var/list/global/slot_flags_enumeration = list(
 	return
 
 
-//This proc is executed when someone clicks the on-screen UI button. To make the UI button show, set the 'icon_action_button' to the icon_state of the image of the button in screen1_action.dmi
+//This proc is executed when someone clicks the on-screen UI button.
+// To make the UI button show, set the 'icon_action_button' to the icon_state of the image of the button in screen1_action.dmi
 //The default action is attack_self().
 //Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
 /obj/item/proc/ui_action_click()
@@ -596,66 +593,64 @@ For zooming with scope or binoculars. This is called from
 modules/mob/mob_movement.dm if you move you will be zoomed out
 modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 */
-//Looking through a scope or binoculars should /not/ improve your periphereal vision. Still, increase viewsize a tiny bit so that sniping isn't as restricted to NSEW
-/obj/item/proc/zoom(var/tileoffset = 14,var/viewsize = 9) //tileoffset is client view offset in the direction the user is facing. viewsize is how far out this thing zooms. 7 is normal view
+//Looking through a scope or binoculars should /not/ improve your periphereal vision.
+// Still, increase viewsize a tiny bit so that sniping isn't as restricted to NSEW
+//tileoffset is client view offset in the direction the user is facing. viewsize is how far out this thing zooms. 7 is normal view
+proc/zoom(var/mob/living/user, var/obj/item/item, var/zoomdevicename, var/tileoffset = 14, var/viewsize = 9)
 
 	var/devicename
 
 	if(zoomdevicename)
 		devicename = zoomdevicename
 	else
-		devicename = src.name
+		devicename = item.name
 
-	var/cannotzoom
-
-	if(usr.stat || !(ishuman(usr)))
-		usr << "You are unable to focus through the [devicename]"
-		cannotzoom = 1
-	else if(!zoom && global_hud.darkMask[1] in usr.client.screen)
+	if(!user.client || user.stat || !ishuman(user))
+		user << "You are unable to focus through the [devicename]"
+		return
+	else if(global_hud.darkMask[1] in usr.client.screen)
 		usr << "Your visor gets in the way of looking through the [devicename]"
-		cannotzoom = 1
-	else if(!zoom && usr.get_active_hand() != src)
-		usr << "You are too distracted to look through the [devicename], perhaps if it was in your active hand this might work better"
-		cannotzoom = 1
+		return
+	else if(user.get_active_hand() != item)
+		user << "You are too distracted to look through the [devicename], perhaps if it was in your active hand this might work better"
+		return
 
-	if(!zoom && !cannotzoom)
-		if(usr.hud_used.hud_shown)
-			usr.toggle_zoom_hud()	// If the user has already limited their HUD this avoids them having a HUD when they zoom in
-		usr.client.view = viewsize
-		zoom = 1
+	if(user.hud_used.hud_shown)
+		// If the user has already limited their HUD this avoids them having a HUD when they zoom in
+		user.toggle_zoom_hud()
+	user.client.view = viewsize
 
-		var/tilesize = 32
-		var/viewoffset = tilesize * tileoffset
+	var/viewoffset = world.icon_size * tileoffset
+	switch(user.dir)
+		if (NORTH)
+			user.client.pixel_x = 0
+			user.client.pixel_y = viewoffset
+		if (SOUTH)
+			user.client.pixel_x = 0
+			user.client.pixel_y = -viewoffset
+		if (EAST)
+			user.client.pixel_x = viewoffset
+			user.client.pixel_y = 0
+		if (WEST)
+			user.client.pixel_x = -viewoffset
+			user.client.pixel_y = 0
 
-		switch(usr.dir)
-			if (NORTH)
-				usr.client.pixel_x = 0
-				usr.client.pixel_y = viewoffset
-			if (SOUTH)
-				usr.client.pixel_x = 0
-				usr.client.pixel_y = -viewoffset
-			if (EAST)
-				usr.client.pixel_x = viewoffset
-				usr.client.pixel_y = 0
-			if (WEST)
-				usr.client.pixel_x = -viewoffset
-				usr.client.pixel_y = 0
+	user.visible_message(
+		"[user] peers through the [zoomdevicename ? "[zoomdevicename] of the [item]" : item]."
+	)
 
-		usr.visible_message("[usr] peers through the [zoomdevicename ? "[zoomdevicename] of the [src.name]" : "[src.name]"].")
+	do_after(user, INFINITY, item, progress = FALSE)
 
-	else
-		usr.client.view = world.view
-		if(!usr.hud_used.hud_shown)
-			usr.toggle_zoom_hud()
-		zoom = 0
+	usr.client.view = world.view
+	if(!usr.hud_used.hud_shown)
+		usr.toggle_zoom_hud()
 
-		usr.client.pixel_x = 0
-		usr.client.pixel_y = 0
+	user.client.pixel_x = 0
+	user.client.pixel_y = 0
 
-		if(!cannotzoom)
-			usr.visible_message("[zoomdevicename ? "[usr] looks up from the [src.name]" : "[usr] lowers the [src.name]"].")
-
-	return
+	user.visible_message(
+		"[zoomdevicename ? "[user] looks up from the [item]" : "[user] lowers the [item]"]."
+	)
 
 /obj/item/proc/pwr_drain()
 	return 0 // Process Kill

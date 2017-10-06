@@ -1128,13 +1128,6 @@
 			healths.overlays.Cut()
 			healths.overlays += health_images
 
-		if(client)
-			if(client.view != world.view) // If mob dies while zoomed in with device, unzoom them.
-				for(var/obj/item/item in contents)
-					if(item.zoom)
-						item.zoom()
-						break
-
 	else
 		sight = species.vision_flags
 		see_in_dark = species.darksight

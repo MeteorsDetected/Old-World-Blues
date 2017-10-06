@@ -5,6 +5,8 @@ var/runedec = 0
 var/global/list/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", "self", "see", "other", "hide")
 var/global/list/rnwords = list("ire","ego","nahlizet","certum","veri","jatkaa","mgar","balaq", "karazet", "geeri")
 
+ADMIN_VERB_ADD(/client/proc/check_words, R_ADMIN)
+/*displays cult-words*/
 /client/proc/check_words() // -- Urist
 	set category = "Special Verbs"
 	set name = "Check Rune Words"

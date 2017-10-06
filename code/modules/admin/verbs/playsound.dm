@@ -1,5 +1,6 @@
 var/list/sounds_cache = list()
 
+ADMIN_VERB_ADD(/client/proc/play_sound, R_SOUNDS)
 /client/proc/play_sound(S as sound)
 	set category = "Fun"
 	set name = "Play Global Sound"
@@ -19,6 +20,7 @@ var/list/sounds_cache = list()
 			M << uploaded_sound
 
 
+ADMIN_VERB_ADD(/client/proc/DB_ban_panel, R_SOUNDS)
 /client/proc/play_local_sound(S as sound)
 	set category = "Fun"
 	set name = "Play Local Sound"
@@ -28,7 +30,7 @@ var/list/sounds_cache = list()
 	message_admins("[key_name_admin(src)] played a local sound [S]", 1)
 	playsound(get_turf(src.mob), S, 50, 0, 0)
 
-
+ADMIN_VERB_ADD(/client/proc/play_server_sound, null)
 /client/proc/play_server_sound()
 	set category = "Fun"
 	set name = "Play Server Sound"
@@ -44,6 +46,7 @@ var/list/sounds_cache = list()
 
 	play_sound(melody)
 
+ADMIN_VERB_ADD(/client/proc/stop_sounds, R_ADMIN)
 /client/proc/stop_sounds()
 	set category = "Debug"
 	set name = "Stop All Playing Sounds"

@@ -118,6 +118,7 @@ var/global/Holiday = null
 			if(time2text(world.timeofday, "DDD") == "Fri")
 				Holiday = "Friday the 13th"
 
+ADMIN_VERB_ADD(/client/proc/Set_Holiday, R_SERVER)
 //Allows GA and GM to set the Holiday variable
 /client/proc/Set_Holiday(T as text|null)
 	set name = ".Set Holiday"

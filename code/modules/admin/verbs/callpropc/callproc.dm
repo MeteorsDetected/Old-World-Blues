@@ -1,3 +1,4 @@
+ADMIN_VERB_ADD(/client/proc/callproc, R_DEBUG)
 /client/proc/callproc()
 	set category = "Debug"
 	set name = "Advanced ProcCall"
@@ -32,6 +33,8 @@
 
 	callproc_targetpicked(targetselected, target)
 
+
+ADMIN_VERB_ADD(/client/proc/callproc_target, R_DEBUG)
 /client/proc/callproc_target(atom/A in world)
 	set category = "Debug"
 	set name = "Advanced ProcCall Target"

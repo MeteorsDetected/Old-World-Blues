@@ -6,6 +6,8 @@ var/global/send_emergency_team = 0 // Used for automagic response teams
 var/ert_base_chance = 10 // Default base chance. Will be incremented by increment ERT chance.
 var/can_call_ert
 
+ADMIN_VERB_ADD(/client/proc/response_team, R_ADMIN)
+/*Send an emergency response team to the station*/
 /client/proc/response_team()
 	set name = "Dispatch Emergency Response Team"
 	set category = "Special Verbs"

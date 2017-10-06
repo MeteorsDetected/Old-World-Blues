@@ -1,4 +1,6 @@
 //allows right clicking mobs to send an admin PM to their client, forwards the selected mob's client to cmd_admin_pm
+ADMIN_VERB_ADD(/client/proc/cmd_admin_pm_context, R_ADMIN|R_MOD)
+/*right-click adminPM interface*/
 /client/proc/cmd_admin_pm_context(mob/M as mob in mob_list)
 	set category = null
 	set name = "Admin PM Mob"
@@ -9,6 +11,8 @@
 	cmd_admin_pm(M.client,null)
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
+ADMIN_VERB_ADD(/client/proc/cmd_admin_pm_panel, R_ADMIN|R_MOD)
+/*admin-pm list*/
 /client/proc/cmd_admin_pm_panel()
 	set category = "Admin"
 	set name = "Admin PM"

@@ -6,6 +6,8 @@
 // Variables not to expand the lists of. Vars is pointless to expand, and overlays/underlays cannot be expanded.
 /var/list/view_variables_dont_expand = list("overlays", "underlays", "vars")
 
+ADMIN_VERB_ADD(/client/proc/debug_variables, null)
+/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 /client/proc/debug_variables(datum/D in world)
 	set category = "Debug"
 	set name = "View Variables"

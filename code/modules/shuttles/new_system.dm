@@ -52,6 +52,7 @@
 		invisibility = 101
 		src.verbs -= /obj/shuttle_marker/verb/setup
 
+ADMIN_VERB_ADD(/client/proc/beacon_move, R_DEBUG)
 /client/proc/beacon_move()
 	set name = "Beacon move"
 	set category = "Debug"
