@@ -40,6 +40,7 @@
 		log_admin("[key_name(usr)] sent [key_name(M)] to the prison station.", M)
 
 ADMIN_VERB_ADD(/client/proc/cmd_admin_subtle_message, R_ADMIN|R_MOD)
+ADMIN_VERB_HIDEABLE(/client/proc/cmd_admin_subtle_message)
 /*send an message to somebody as a 'voice in their head'*/
 /client/proc/cmd_admin_subtle_message(mob/M as mob in mob_list)
 	set category = "Special Verbs"
@@ -96,6 +97,7 @@ ADMIN_VERB_ADD(/client/proc/check_new_players, null)
 
 
 ADMIN_VERB_ADD(/client/proc/cmd_admin_world_narrate, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/client/proc/cmd_admin_world_narrate)
 /*sends text to all players with no padding*/
 /client/proc/cmd_admin_world_narrate() // Allows administrators to fluff events a little easier -- TLE
 	set category = "Special Verbs"
@@ -113,6 +115,7 @@ ADMIN_VERB_ADD(/client/proc/cmd_admin_world_narrate, R_ADMIN)
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
 
 ADMIN_VERB_ADD(/client/proc/cmd_admin_direct_narrate, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/client/proc/cmd_admin_direct_narrate)
 /*send text directly to a player with no padding. Useful for narratives and fluff-text*/
 /client/proc/cmd_admin_direct_narrate(var/mob/M)	// Targetted narrate -- TLE
 	set category = "Special Verbs"
@@ -196,6 +199,7 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 
 
 ADMIN_VERB_ADD(/client/proc/cmd_admin_add_freeform_ai_law, R_FUN)
+ADMIN_VERB_HIDEABLE(/client/proc/cmd_admin_add_freeform_ai_law)
 /client/proc/cmd_admin_add_freeform_ai_law()
 	set category = "Fun"
 	set name = "Add Custom AI law"
@@ -224,6 +228,7 @@ ADMIN_VERB_ADD(/client/proc/cmd_admin_add_freeform_ai_law, R_FUN)
 
 
 ADMIN_VERB_ADD(/client/proc/cmd_admin_add_random_ai_law, R_FUN)
+ADMIN_VERB_HIDEABLE(/client/proc/cmd_admin_add_random_ai_law)
 /client/proc/cmd_admin_add_random_ai_law()
 	set category = "Fun"
 	set name = "Add Random AI Law"
@@ -494,6 +499,7 @@ ADMIN_VERB_ADD(/client/proc/cmd_admin_rejuvenate, R_REJUVINATE)
 		alert("Admin revive disabled")
 
 ADMIN_VERB_ADD(/client/proc/cmd_admin_create_centcom_report, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/client/proc/cmd_admin_create_centcom_report)
 /client/proc/cmd_admin_create_centcom_report()
 	set category = "Special Verbs"
 	set name = "Create Command Report"
@@ -541,6 +547,7 @@ ADMIN_VERB_ADD(/client/proc/cmd_admin_delete, R_ADMIN|R_SERVER|R_DEBUG)
 		qdel(O)
 
 ADMIN_VERB_ADD(/client/proc/cmd_admin_list_open_jobs, R_DEBUG)
+ADMIN_VERB_HIDEABLE(/client/proc/cmd_admin_list_open_jobs)
 /client/proc/cmd_admin_list_open_jobs()
 	set category = "Admin"
 	set name = "List free slots"
@@ -611,6 +618,7 @@ ADMIN_VERB_ADD(/client/proc/cmd_admin_list_open_jobs, R_DEBUG)
 	M.gib()
 
 ADMIN_VERB_ADD(/client/proc/cmd_admin_gib_self, R_FUN)
+ADMIN_VERB_HIDEABLE(/client/proc/cmd_admin_gib_self)
 /client/proc/cmd_admin_gib_self()
 	set name = "Gibself"
 	set category = "Fun"
@@ -630,6 +638,7 @@ ADMIN_VERB_ADD(/client/proc/cmd_admin_gib_self, R_FUN)
 
 
 ADMIN_VERB_ADD(/client/proc/cmd_admin_check_contents, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/client/proc/cmd_admin_check_contents)
 /*displays the contents of an instance*/
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in mob_list)
 	set category = "Special Verbs"
@@ -641,6 +650,7 @@ ADMIN_VERB_ADD(/client/proc/cmd_admin_check_contents, R_ADMIN)
 
 
 ADMIN_VERB_ADD(/client/proc/toggle_view_range, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/client/proc/toggle_view_range)
 /*changes how far we can see*/
 /client/proc/toggle_view_range()
 	set category = "Special Verbs"
@@ -656,6 +666,7 @@ ADMIN_VERB_ADD(/client/proc/toggle_view_range, R_ADMIN)
 
 
 ADMIN_VERB_ADD(/client/proc/admin_call_shuttle, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/client/proc/admin_call_shuttle)
 /*allows us to call the emergency shuttle*/
 /client/proc/admin_call_shuttle()
 
@@ -688,6 +699,7 @@ ADMIN_VERB_ADD(/client/proc/admin_call_shuttle, R_ADMIN)
 
 
 ADMIN_VERB_ADD(/client/proc/admin_cancel_shuttle, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/client/proc/admin_cancel_shuttle)
 /*allows us to cancel the emergency shuttle, sending it back to centcomm*/
 /client/proc/admin_cancel_shuttle()
 	set category = "Admin"
@@ -728,6 +740,7 @@ ADMIN_VERB_ADD(/client/proc/admin_cancel_shuttle, R_ADMIN)
 		usr << t
 
 ADMIN_VERB_ADD(/client/proc/everyone_random, R_FUN|R_SERVER)
+ADMIN_VERB_HIDEABLE(/client/proc/everyone_random)
 /client/proc/everyone_random()
 	set category = "Fun"
 	set name = "Make Everyone Random"
@@ -762,6 +775,7 @@ ADMIN_VERB_ADD(/client/proc/everyone_random, R_FUN|R_SERVER)
 
 
 ADMIN_VERB_ADD(/client/proc/toggle_random_events, R_FUN|R_SERVER)
+ADMIN_VERB_HIDEABLE(/client/proc/toggle_random_events)
 /client/proc/toggle_random_events()
 	set category = "Server"
 	set name = "Toggle random events on/off"

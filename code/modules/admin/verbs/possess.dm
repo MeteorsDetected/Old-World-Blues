@@ -1,4 +1,5 @@
 ADMIN_VERB_ADD(/proc/possess, R_POSSESS)
+ADMIN_VERB_HIDEABLE(/proc/possess)
 /proc/possess(obj/O as obj in world)
 	set name = "Possess Obj"
 	set category = "Object"
@@ -20,6 +21,7 @@ ADMIN_VERB_ADD(/proc/possess, R_POSSESS)
 	usr.control_object = O
 
 ADMIN_VERB_ADD(/proc/release, R_POSSESS)
+ADMIN_VERB_HIDEABLE(/proc/release)
 /proc/release(obj/O as obj in world)
 	set name = "Release Obj"
 	set category = "Object"

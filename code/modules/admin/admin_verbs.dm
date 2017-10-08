@@ -53,76 +53,7 @@ var/list/admin_verbs_permissions = list()
 var/list/admin_verbs_rejuv = list()
 
 //verbs which can be hidden - needs work
-var/list/admin_verbs_hideable = list(
-	/client/proc/deadmin_self,
-	/client/proc/toggleprayers,
-	/client/proc/toggle_hear_radio,
-	/datum/admins/proc/show_traitor_panel,
-	/datum/admins/proc/toggleenter,
-	/datum/admins/proc/announce,
-	/client/proc/colorooc,
-	/client/proc/admin_ghost,
-	/client/proc/toggle_view_range,
-	/datum/admins/proc/view_txt_log,
-	/datum/admins/proc/view_atk_log,
-	/client/proc/cmd_admin_subtle_message,
-	/client/proc/cmd_admin_check_contents,
-	/datum/admins/proc/access_news_network,
-	/client/proc/admin_call_shuttle,
-	/client/proc/admin_cancel_shuttle,
-	/client/proc/cmd_admin_direct_narrate,
-	/client/proc/cmd_admin_world_narrate,
-	/client/proc/check_words,
-	/client/proc/play_local_sound,
-	/client/proc/play_sound,
-	/client/proc/play_server_sound,
-	/client/proc/object_talk,
-	/client/proc/cmd_admin_dress,
-	/client/proc/cmd_admin_gib_self,
-	/client/proc/drop_bomb,
-	/client/proc/cinematic,
-	/datum/admins/proc/toggle_aliens,
-	/datum/admins/proc/toggle_space_ninja,
-	/client/proc/cmd_admin_add_freeform_ai_law,
-	/client/proc/cmd_admin_add_random_ai_law,
-	/client/proc/cmd_admin_create_centcom_report,
-	/client/proc/make_sound,
-	/client/proc/toggle_random_events,
-	/client/proc/cmd_admin_add_random_ai_law,
-	/client/proc/Set_Holiday,
-	/client/proc/ToRban,
-	/datum/admins/proc/startnow,
-	/datum/admins/proc/restart,
-	/datum/admins/proc/delay,
-	/datum/admins/proc/toggleaban,
-	/client/proc/toggle_log_hrefs,
-	/datum/admins/proc/immreboot,
-	/client/proc/everyone_random,
-	/datum/admins/proc/toggleAI,
-	/datum/admins/proc/adrev,
-	/datum/admins/proc/adspawn,
-	/datum/admins/proc/adjump,
-//	/client/proc/restart_controller,
-	/client/proc/cmd_admin_list_open_jobs,
-	/client/proc/callproc,
-	/client/proc/Debug2,
-	/client/proc/reload_admins,
-	/client/proc/kill_air,
-	/client/proc/cmd_debug_make_powernets,
-//	/client/proc/kill_airgroup,
-	/client/proc/debug_controller,
-	/client/proc/startSinglo,
-	/client/proc/cmd_debug_mob_lists,
-	/client/proc/cmd_debug_del_all,
-	/client/proc/cmd_debug_tog_aliens,
-	/client/proc/air_report,
-	/client/proc/enable_debug_verbs,
-	/client/proc/roll_dices,
-	/client/proc/time_to_respawn,
-	/client/proc/toggle_dead_vote,
-	/proc/possess,
-	/proc/release
-	)
+var/list/admin_verbs_hideable = list()
 var/list/admin_verbs_mod = list()
 
 /client/proc/add_admin_verbs()
@@ -199,6 +130,7 @@ ADMIN_VERB_ADD(/client/proc/hide_verbs, null)
 
 
 ADMIN_VERB_ADD(/client/proc/admin_ghost, R_ADMIN|R_MOD)
+ADMIN_VERB_HIDEABLE(/client/proc/admin_ghost)
 /*allows us to ghost/reenter body at will*/
 /client/proc/admin_ghost()
 	set category = "Admin"
@@ -239,6 +171,7 @@ ADMIN_VERB_ADD(/client/proc/invisimin, R_ADMIN)
 			mob.alpha = max(mob.alpha - 100, 0)
 
 ADMIN_VERB_ADD(/client/proc/time_to_respawn, R_SERVER)
+ADMIN_VERB_HIDEABLE(/client/proc/time_to_respawn)
 /client/proc/time_to_respawn()
 	set category = "Server"
 	set name = "Edit time to respawn"
@@ -262,6 +195,7 @@ ADMIN_VERB_ADD(/client/proc/time_to_respawn, R_SERVER)
 			return
 
 ADMIN_VERB_ADD(/client/proc/toggle_dead_vote, R_SERVER)
+ADMIN_VERB_HIDEABLE(/client/proc/toggle_dead_vote)
 /client/proc/toggle_dead_vote()
 	set category = "Server"
 	set name = "Toggle Dead Vote"
@@ -318,6 +252,7 @@ ADMIN_VERB_ADD(/client/proc/secrets, R_ADMIN)
 		holder.Secrets()
 
 ADMIN_VERB_ADD(/client/proc/colorooc, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/client/proc/colorooc)
 /*allows us to set a custom colour for everythign we say in ooc*/
 /client/proc/colorooc()
 	set category = "Fun"
@@ -392,6 +327,7 @@ ADMIN_VERB_ADD(/client/proc/colorooc, R_ADMIN)
 #undef AUTOBANTIME
 
 ADMIN_VERB_ADD(/client/proc/drop_bomb, R_FUN)
+ADMIN_VERB_HIDEABLE(/client/proc/drop_bomb)
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
 	set category = "Special Verbs"
 	set name = "Drop Bomb"
@@ -447,6 +383,7 @@ ADMIN_VERB_ADD(/client/proc/drop_bomb, R_FUN)
 	log_admin("[usr.key] gave [key_name(T)] a [greater] disease2 with infection chance [D.infectionchance].", T)
 
 ADMIN_VERB_ADD(/client/proc/make_sound, R_FUN)
+ADMIN_VERB_HIDEABLE(/client/proc/make_sound)
 /client/proc/make_sound(var/obj/O in world) // -- TLE
 	set category = "Special Verbs"
 	set name = "Make Sound"
@@ -467,6 +404,7 @@ ADMIN_VERB_ADD(/client/proc/make_sound, R_FUN)
 		togglebuildmode(src.mob)
 
 ADMIN_VERB_ADD(/client/proc/object_talk, R_FUN)
+ADMIN_VERB_HIDEABLE(/client/proc/object_talk)
 /client/proc/object_talk(var/msg as text) // -- TLE
 	set category = "Special Verbs"
 	set name = "oSay"
@@ -478,6 +416,7 @@ ADMIN_VERB_ADD(/client/proc/object_talk, R_FUN)
 			V.show_message("<b>[mob.control_object.name]</b> says: \"" + msg + "\"", 2)
 
 ADMIN_VERB_ADD(/client/proc/kill_air, R_DEBUG)
+ADMIN_VERB_HIDEABLE(/client/proc/kill_air)
 /client/proc/kill_air() // -- TLE
 	set category = "Debug"
 	set name = "Kill Air"
@@ -501,6 +440,7 @@ ADMIN_VERB_ADD(/client/proc/kill_air, R_DEBUG)
 		verbs -= /client/proc/readmin_self
 
 ADMIN_VERB_ADD(/client/proc/deadmin_self, null)
+ADMIN_VERB_HIDEABLE(/client/proc/deadmin_self)
 /*destroys our own admin datum so we can play as a regular player*/
 /client/proc/deadmin_self()
 	set name = "De-admin self"
@@ -514,6 +454,7 @@ ADMIN_VERB_ADD(/client/proc/deadmin_self, null)
 			verbs |= /client/proc/readmin_self
 
 ADMIN_VERB_ADD(/client/proc/toggle_log_hrefs, R_SERVER)
+ADMIN_VERB_HIDEABLE(/client/proc/toggle_log_hrefs)
 /client/proc/toggle_log_hrefs()
 	set name = "Toggle href logging"
 	set category = "Server"

@@ -6,6 +6,7 @@ var/global/list/engwords = list("travel", "blood", "join", "hell", "destroy", "t
 var/global/list/rnwords = list("ire","ego","nahlizet","certum","veri","jatkaa","mgar","balaq", "karazet", "geeri")
 
 ADMIN_VERB_ADD(/client/proc/check_words, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/client/proc/check_words)
 /*displays cult-words*/
 /client/proc/check_words() // -- Urist
 	set category = "Special Verbs"

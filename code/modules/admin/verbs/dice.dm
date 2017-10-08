@@ -1,4 +1,5 @@
 ADMIN_VERB_ADD(/client/proc/roll_dices, R_FUN)
+ADMIN_VERB_HIDEABLE(/client/proc/roll_dices)
 /client/proc/roll_dices()
 	set category = "Fun"
 	set name = "Roll Dice"

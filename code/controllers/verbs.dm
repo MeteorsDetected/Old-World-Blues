@@ -34,6 +34,7 @@ ADMIN_VERB_ADD(/client/proc/print_random_map, R_DEBUG)
 
 /*
 ADMIN_VERB_ADD(/client/proc/restart_controller, R_DEBUG)
+ADMIN_VERB_HIDEABLE(/client/proc/restart_controller)
 /client/proc/restart_controller(controller in list("Jobs","Supply"))
 	set category = "Debug"
 	set name = "Restart Controller"
@@ -61,6 +62,7 @@ ADMIN_VERB_ADD(/client/proc/debug_antagonist_template, R_DEBUG)
 		message_admins("Admin [key_name_admin(usr)] is debugging the [antag.role_text] template.")
 
 ADMIN_VERB_ADD(/client/proc/debug_controller, R_DEBUG)
+ADMIN_VERB_HIDEABLE(/client/proc/debug_controller)
 /client/proc/debug_controller(controller in list(
 		"Master","Ticker","Ticker Process","Air","Jobs","Sun",
 		"Radio","Supply","Shuttles","Emergency Shuttle","Configuration",

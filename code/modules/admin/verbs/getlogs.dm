@@ -85,6 +85,7 @@ ADMIN_VERB_ADD(/client/proc/getserverlog, R_ADMIN)
 
 //Shows today's server log
 ADMIN_VERB_ADD(/datum/admins/proc/view_txt_log, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/view_txt_log)
 /*shows the server log (diary) for today*/
 /datum/admins/proc/view_txt_log()
 	set category = "Admin"
@@ -101,6 +102,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/view_txt_log, R_ADMIN)
 
 //Shows today's attack log
 ADMIN_VERB_ADD(/datum/admins/proc/view_atk_log, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/view_atk_log)
 /*shows the server combat-log, doesn't do anything presently*/
 /datum/admins/proc/view_atk_log()
 	set category = "Admin"

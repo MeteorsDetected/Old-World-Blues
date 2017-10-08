@@ -311,6 +311,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/show_player_info, R_ADMIN|R_MOD)
 
 
 ADMIN_VERB_ADD(/datum/admins/proc/access_news_network, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/access_news_network)
 /*allows access of newscasters*/
 /datum/admins/proc/access_news_network() //MARKER
 	set category = "Fun"
@@ -629,6 +630,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/access_news_network, R_ADMIN)
 
 
 ADMIN_VERB_ADD(/datum/admins/proc/restart, R_SERVER)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/restart)
 /datum/admins/proc/restart()
 	set category = "Server"
 	set name = "Restart"
@@ -648,6 +650,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/restart, R_SERVER)
 
 
 ADMIN_VERB_ADD(/datum/admins/proc/announce, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/announce)
 /*priority announce something to all clients.*/
 /datum/admins/proc/announce()
 	set category = "Special Verbs"
@@ -734,6 +737,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/toggleoocdead, R_ADMIN)
 	log_admin("[key_name(usr)] toggled Traitor Scaling to [config.traitor_scaling].")
 
 ADMIN_VERB_ADD(/datum/admins/proc/startnow, R_SERVER)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/startnow)
 /datum/admins/proc/startnow()
 	set category = "Server"
 	set desc="Start the round RIGHT NOW"
@@ -750,6 +754,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/startnow, R_SERVER)
 		return 0
 
 ADMIN_VERB_ADD(/datum/admins/proc/toggleenter, R_SERVER)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/toggleenter)
 /*toggles whether people can join the current game*/
 /datum/admins/proc/toggleenter()
 	set category = "Server"
@@ -763,7 +768,8 @@ ADMIN_VERB_ADD(/datum/admins/proc/toggleenter, R_SERVER)
 	log_admin("[key_name(usr)] toggled new player game entering [config.enter_allowed ? "ON" : "OFF"].")
 	world.update_status()
 
-ADMIN_VERB_ADD(/datum/admins/proc/immreboot, R_SERVER)
+ADMIN_VERB_ADD(/datum/admins/proc/toggleAI, R_SERVER)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/toggleAI)
 /datum/admins/proc/toggleAI()
 	set category = "Server"
 	set desc="People can't be AI"
@@ -777,6 +783,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/immreboot, R_SERVER)
 	world.update_status()
 
 ADMIN_VERB_ADD(/datum/admins/proc/toggleaban, R_SERVER)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/toggleaban)
 /datum/admins/proc/toggleaban()
 	set category = "Server"
 	set desc="Respawn basically"
@@ -790,6 +797,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/toggleaban, R_SERVER)
 	world.update_status()
 
 ADMIN_VERB_ADD(/datum/admins/proc/toggle_aliens, R_FUN|R_SERVER)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/toggle_aliens)
 /datum/admins/proc/toggle_aliens()
 	set category = "Server"
 	set desc="Toggle alien mobs"
@@ -798,6 +806,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/toggle_aliens, R_FUN|R_SERVER)
 	log_admin("[key_name(usr)] toggled Aliens [config.aliens_allowed ? "ON" : "OFF"].")
 
 ADMIN_VERB_ADD(/datum/admins/proc/toggle_space_ninja, R_FUN|R_SERVER)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/toggle_space_ninja)
 /datum/admins/proc/toggle_space_ninja()
 	set category = "Server"
 	set desc="Toggle space ninjas spawning."
@@ -806,6 +815,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/toggle_space_ninja, R_FUN|R_SERVER)
 	log_admin("[key_name(usr)] toggled Space Ninjas to [config.ninjas_allowed ? "ON" : "OFF"].")
 
 ADMIN_VERB_ADD(/datum/admins/proc/delay, R_SERVER)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/delay)
 /datum/admins/proc/delay()
 	set category = "Server"
 	set desc="Delay the game start/end"
@@ -825,6 +835,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/delay, R_SERVER)
 		log_admin("[key_name(usr)] removed the delay.")
 
 ADMIN_VERB_ADD(/datum/admins/proc/adjump, R_SERVER)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/adjump)
 /datum/admins/proc/adjump()
 	set category = "Server"
 	set desc="Toggle admin jumping"
@@ -833,6 +844,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/adjump, R_SERVER)
 	log_admin("Toggled admin jumping [config.allow_admin_jump ? "ON" : "OFF"].")
 
 ADMIN_VERB_ADD(/datum/admins/proc/adspawn, R_SERVER)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/adspawn)
 /datum/admins/proc/adspawn()
 	set category = "Server"
 	set desc="Toggle admin spawning"
@@ -841,6 +853,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/adspawn, R_SERVER)
 	log_admin("Toggled admin item spawning [config.allow_admin_spawning ? "ON" : "OFF"].")
 
 ADMIN_VERB_ADD(/datum/admins/proc/adrev, R_SERVER)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/adrev)
 /datum/admins/proc/adrev()
 	set category = "Server"
 	set desc="Toggle admin revives"
@@ -849,6 +862,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/adrev, R_SERVER)
 	log_admin("Toggled reviving [config.allow_admin_rev ? "ON" : "OFF"].")
 
 ADMIN_VERB_ADD(/datum/admins/proc/immreboot, R_SERVER)
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/immreboot)
 /datum/admins/proc/immreboot()
 	set category = "Server"
 	set desc="Reboots the server post haste"
@@ -860,18 +874,6 @@ ADMIN_VERB_ADD(/datum/admins/proc/immreboot, R_SERVER)
 	log_admin("[key_name(usr)] initiated an immediate reboot.")
 
 	world.Reboot()
-
-/datum/admins/proc/unprison(var/mob/M in mob_list)
-	set category = "Admin"
-	set name = "Unprison"
-	if(isOnAdminLevel(M))
-		if (config.allow_admin_jump)
-			M.loc = pick(latejoin)
-			log_admin("[key_name(usr)] has unprisoned [key_name(M)]")
-		else
-			alert("Admin jumping disabled")
-	else
-		alert("[M.name] is not prisoned.")
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
@@ -896,7 +898,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/immreboot, R_SERVER)
 
 	return 0
 
-ADMIN_VERB_ADD(/datum/admins/proc/spawn_fruit, R_DEBUG)
+ADMIN_VERB_ADD(/datum/admins/proc/spawn_fruit, R_SPAWN|R_DEBUG)
 /datum/admins/proc/spawn_fruit(seedtype in plant_controller.seeds)
 	set category = "Debug"
 	set desc = "Spawn the product of a seed."
@@ -910,7 +912,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/spawn_fruit, R_DEBUG)
 	S.harvest(usr,0,0,1)
 	log_admin("[key_name(usr)] spawned [seedtype] fruit.", usr, 0)
 
-ADMIN_VERB_ADD(/datum/admins/proc/spawn_custom_item, R_DEBUG)
+ADMIN_VERB_ADD(/datum/admins/proc/spawn_custom_item, R_SPAWN|R_DEBUG)
 /datum/admins/proc/spawn_custom_item()
 	set category = "Debug"
 	set desc = "Spawn a custom item."
@@ -1001,7 +1003,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/spawn_atom, R_SPAWN)
 	log_admin("[key_name(usr)] spawned [chosen].", usr, 0)
 	usr << "<span class=\"log_message message\">Spawned: [chosen].</span>"
 
-
+ADMIN_VERB_HIDEABLE(/datum/admins/proc/show_traitor_panel)
 /datum/admins/proc/show_traitor_panel(var/mob/M in mob_list)
 	set category = "Admin"
 	set desc = "Edit mobs's memory and role"

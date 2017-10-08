@@ -1,4 +1,5 @@
 ADMIN_VERB_ADD(/client/proc/callproc, R_DEBUG)
+ADMIN_VERB_HIDEABLE(/client/proc/callproc)
 /client/proc/callproc()
 	set category = "Debug"
 	set name = "Advanced ProcCall"

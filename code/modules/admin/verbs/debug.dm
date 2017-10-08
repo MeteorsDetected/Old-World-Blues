@@ -1,4 +1,5 @@
 ADMIN_VERB_ADD(/client/proc/Debug2, R_DEBUG)
+ADMIN_VERB_HIDEABLE(/client/proc/Debug2)
 /client/proc/Debug2()
 	set category = "Debug"
 	set name = "Debug-Game"
@@ -128,6 +129,7 @@ ADMIN_VERB_ADD(/client/proc/Debug2, R_DEBUG)
 
 //TODO: merge the vievars version into this or something maybe mayhaps
 ADMIN_VERB_ADD(/client/proc/cmd_debug_del_all, R_SERVER|R_DEBUG)
+ADMIN_VERB_HIDEABLE(/client/proc/cmd_debug_del_all)
 /client/proc/cmd_debug_del_all()
 	set category = "Debug"
 	set name = "Del-All"
@@ -142,13 +144,15 @@ ADMIN_VERB_ADD(/client/proc/cmd_debug_del_all, R_SERVER|R_DEBUG)
 		log_admin("[key_name(src)] has deleted all instances of [hsbitem].")
 
 ADMIN_VERB_ADD(/client/proc/cmd_debug_make_powernets, R_DEBUG)
+ADMIN_VERB_HIDEABLE(/client/proc/cmd_debug_make_powernets)
 /client/proc/cmd_debug_make_powernets()
 	set category = "Debug"
 	set name = "Make Powernets"
 	makepowernets()
 	log_admin("[key_name(src)] has remade the powernet. makepowernets() called.")
 
-ADMIN_VERB_ADD(/client/proc/cmd_debug_mob_lists, R_DEBUG|R_SERVER)
+ADMIN_VERB_ADD(/client/proc/cmd_debug_tog_aliens, R_DEBUG|R_SERVER)
+ADMIN_VERB_HIDEABLE(/client/proc/cmd_debug_tog_aliens)
 /client/proc/cmd_debug_tog_aliens()
 	set category = "Server"
 	set name = "Toggle Aliens"
@@ -297,6 +301,7 @@ ADMIN_VERB_ADD(/client/proc/cmd_debug_mob_lists, R_DEBUG|R_SERVER)
 		world << "* [areatype]"
 
 ADMIN_VERB_ADD(/client/proc/cmd_admin_dress, R_FUN)
+ADMIN_VERB_HIDEABLE(/client/proc/cmd_admin_dress)
 /client/proc/cmd_admin_dress()
 	set category = "Fun"
 	set name = "Select equipment"
@@ -792,8 +797,8 @@ ADMIN_VERB_ADD(/client/proc/cmd_admin_dress, R_FUN)
 	log_admin("[key_name(usr)] changed the equipment of [key_name(M)] to [dresscode].", M, 0)
 	return
 
+ADMIN_VERB_HIDEABLE(/client/proc/startSinglo)
 /client/proc/startSinglo()
-
 	set category = "Debug"
 	set name = "Start Singularity"
 	set desc = "Sets up the singularity and all machines to get power flowing through the station"
@@ -921,11 +926,10 @@ ADMIN_VERB_ADD(/client/proc/cmd_admin_dress, R_FUN)
 
 
 	log_admin("[key_name(usr)] setup the supermatter engine [response == "Setup except coolant" ? "without coolant" : ""]", SM)
-	return
 
 
-
-ADMIN_VERB_ADD(/client/proc/cmd_debug_mob_lists, R_DEBUG)
+ADMIN_VERB_ADD(/client/proc/cmd_debug_mob_lists, R_DEBUG|R_SERVER)
+ADMIN_VERB_HIDEABLE(/client/proc/cmd_debug_mob_lists)
 /client/proc/cmd_debug_mob_lists()
 	set category = "Debug"
 	set name = "Debug Mob Lists"

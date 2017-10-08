@@ -43,6 +43,7 @@
 		return 0
 
 ADMIN_VERB_ADD(/client/proc/ToRban, R_SERVER)
+ADMIN_VERB_HIDEABLE(/client/proc/ToRban)
 /client/proc/ToRban(task in list("update","toggle","show","remove","remove all","find"))
 	set name = "ToRban"
 	set category = "Server"

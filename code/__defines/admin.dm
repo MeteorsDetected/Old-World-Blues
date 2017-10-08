@@ -38,3 +38,4 @@
 #define R_MAXPERMISSION 0x4000 // This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
 #define ADMIN_VERB_ADD(path, rights) world/registrate_verbs() {..(); cmd_registrate_verb(path, rights);}
+#define ADMIN_VERB_HIDEABLE(path) world/registrate_verbs() {..(); admin_verbs_hideable += path;}

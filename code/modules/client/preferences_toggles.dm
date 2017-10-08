@@ -24,6 +24,7 @@
 	prefs.save_preferences()
 
 ADMIN_VERB_ADD(/client/proc/toggle_hear_radio, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/client/proc/toggle_hear_radio)
 /*toggles whether we hear the radio*/
 /client/proc/toggle_hear_radio()
 	set name = "Show/Hide RadioChatter"
@@ -59,6 +60,7 @@ ADMIN_VERB_ADD(/client/proc/toggleadminhelpsound, null)
 
 
 ADMIN_VERB_ADD(/client/proc/toggleprayers, R_ADMIN)
+ADMIN_VERB_HIDEABLE(/client/proc/toggleprayers)
 /*toggles prayers on/off*/
 /client/proc/toggleprayers()
 	set name = "Show/Hide Prayers"
