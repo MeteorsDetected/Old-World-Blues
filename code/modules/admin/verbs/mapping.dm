@@ -138,7 +138,7 @@ var/list/debug_verbs = list (
 	/client/proc/kaboom,
 	/client/proc/cmd_admin_areatest,
 	/client/proc/cmd_admin_rejuvenate,
-	/datum/admins/proc/show_traitor_panel,
+	/datum/admins/proc/show_traitor_panel, /*interface which shows a mob's mind*/
 	/client/proc/print_jobban_old,
 	/client/proc/print_jobban_old_filter,
 	/client/proc/forceEvent,
@@ -161,6 +161,7 @@ var/list/debug_verbs = list (
 	)
 
 
+ADMIN_VERB_ADD(/client/proc/enable_debug_verbs, R_DEBUG)
 /client/proc/enable_debug_verbs()
 	set category = "Debug"
 	set name = "Debug verbs"

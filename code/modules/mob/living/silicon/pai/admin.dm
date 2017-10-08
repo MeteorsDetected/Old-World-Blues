@@ -1,3 +1,4 @@
+ADMIN_VERB_ADD(/client/proc/makePAI)
 // Originally a debug verb, made it a proper adminverb for ~fun~
 /client/proc/makePAI(turf/t in view(), name as text, pai_key as null|text)
 	set name = "Make pAI"

@@ -1314,8 +1314,6 @@
 		src.owner << "/red Unable to locate fax!"
 		*/
 
-
-
 	else if(href_list["jumpto"])
 		if(!check_rights(R_ADMIN))	return
 
@@ -1328,12 +1326,6 @@
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")	return
 		var/mob/M = locate(href_list["getmob"])
 		usr.client.Getmob(M)
-
-	else if(href_list["sendmob"])
-		if(!check_rights(R_ADMIN))	return
-
-		var/mob/M = locate(href_list["sendmob"])
-		usr.client.sendmob(M)
 
 	else if(href_list["narrateto"])
 		if(!check_rights(R_ADMIN))	return

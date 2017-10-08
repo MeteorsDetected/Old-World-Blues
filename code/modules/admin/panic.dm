@@ -1,3 +1,4 @@
+ADMIN_VERB_ADD(/client/proc/panicbunker, R_SERVER)
 /client/proc/panicbunker()
 	set category = "Server"
 	set name = "Toggle Panic Bunker"

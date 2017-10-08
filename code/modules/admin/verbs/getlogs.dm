@@ -14,6 +14,7 @@
 */
 
 
+ADMIN_VERB_ADD(/client/proc/giveruntimelog, R_ADMIN)
 //This proc allows Game Masters to grant a client access to the .getruntimelog verb
 //Permissions expire at the end of each round.
 //Runtimes can be used to meta or spot game-crashing exploits so it's advised to only grant coders that
@@ -37,6 +38,8 @@
 	return
 
 
+ADMIN_VERB_ADD(/client/proc/getruntimelog, R_DEBUG)
+/*allows us to access runtime logs to somebody*/
 //This proc allows download of runtime logs saved within the data/logs/ folder by dreamdeamon.
 //It works similarly to show-server-log.
 /client/proc/getruntimelog()
@@ -57,6 +60,7 @@
 	return
 
 
+ADMIN_VERB_ADD(/client/proc/getserverlog, R_ADMIN)
 //This proc allows download of past server logs saved within the data/logs/ folder.
 //It works similarly to show-server-log.
 /client/proc/getserverlog()
@@ -80,6 +84,8 @@
 //Other log stuff put here for the sake of organisation
 
 //Shows today's server log
+ADMIN_VERB_ADD(/datum/admins/proc/view_txt_log, R_ADMIN)
+/*shows the server log (diary) for today*/
 /datum/admins/proc/view_txt_log()
 	set category = "Admin"
 	set name = "Show Server Log"
@@ -94,6 +100,8 @@
 	return
 
 //Shows today's attack log
+ADMIN_VERB_ADD(/datum/admins/proc/view_atk_log, R_ADMIN)
+/*shows the server combat-log, doesn't do anything presently*/
 /datum/admins/proc/view_atk_log()
 	set category = "Admin"
 	set name = "Show Server Attack Log"
