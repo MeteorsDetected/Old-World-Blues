@@ -1,3 +1,4 @@
+ADMIN_VERB_ADD(/proc/possess, R_POSSESS)
 /proc/possess(obj/O as obj in world)
 	set name = "Possess Obj"
 	set category = "Object"
@@ -18,6 +19,7 @@
 	usr.client.eye = O
 	usr.control_object = O
 
+ADMIN_VERB_ADD(/proc/release, R_POSSESS)
 /proc/release(obj/O as obj in world)
 	set name = "Release Obj"
 	set category = "Object"

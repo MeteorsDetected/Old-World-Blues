@@ -1,3 +1,4 @@
+ADMIN_VERB_ADD(/client/proc/air_report, R_DEBUG)
 /client/proc/air_report()
 	set category = "Debug"
 	set name = "Show Air Report"
@@ -96,6 +97,7 @@
 
 	usr << browse(output,"window=radioreport")
 
+ADMIN_VERB_ADD(/client/proc/reload_admins, R_DEBUG)
 /client/proc/reload_admins()
 	set name = "Reload Admins"
 	set category = "Debug"
@@ -125,12 +127,13 @@
 	usr.loc = pick(dest_group.members)
 	return
 */
-
+/*
+ADMIN_VERB_ADD(/client/proc/kill_airgroup, R_DEBUG)
 /client/proc/kill_airgroup()
 	set name = "Kill Local Airgroup"
 	set desc = "Use this to allow manual manupliation of atmospherics."
 	set category = "Debug"
-	/*
+
 	if(!holder)
 		src << "Only administrators may use this command."
 		return
@@ -146,7 +149,7 @@
 		AG.group_processing = 0
 	else
 		usr << "Local airgroup is unsimulated!"
-	*/
+*/
 
 /client/proc/print_jobban_old()
 	set name = "Print Jobban Log"

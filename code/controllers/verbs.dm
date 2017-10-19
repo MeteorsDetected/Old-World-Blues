@@ -1,6 +1,7 @@
 //TODO: rewrite and standardise all controller datums to the datum/controller type
 //TODO: allow all controllers to be deleted for clean restarts (see WIP master controller stuff) - MC done - lighting done
 
+ADMIN_VERB_ADD(/client/proc/print_random_map, R_DEBUG)
 /client/proc/print_random_map()
 	set category = "Debug"
 	set name = "Display Random Map"
@@ -14,6 +15,7 @@
 	choice.display_map(usr)
 
 
+ADMIN_VERB_ADD(/client/proc/print_random_map, R_DEBUG)
 /client/proc/create_random_map()
 	set category = "Debug"
 	set name = "Create Random Map"
@@ -30,6 +32,8 @@
 	var/tz =    input("Z? (default 1)")       as text|null
 	new map_datum(seed,tx,ty,tz)
 
+/*
+ADMIN_VERB_ADD(/client/proc/restart_controller, R_DEBUG)
 /client/proc/restart_controller(controller in list("Jobs","Supply"))
 	set category = "Debug"
 	set name = "Restart Controller"
@@ -43,7 +47,9 @@
 			supply_controller.process()
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
 	return
+*/
 
+ADMIN_VERB_ADD(/client/proc/debug_antagonist_template, R_DEBUG)
 /client/proc/debug_antagonist_template(antag_type in all_antag_types)
 	set category = "Debug"
 	set name = "Debug Antagonist"
@@ -54,7 +60,12 @@
 		usr.client.debug_variables(antag)
 		message_admins("Admin [key_name_admin(usr)] is debugging the [antag.role_text] template.")
 
-/client/proc/debug_controller(controller in list("Master","Ticker","Ticker Process","Air","Jobs","Sun","Radio","Supply","Shuttles","Emergency Shuttle","Configuration","pAI", "Cameras", "Transfer Controller", "Gas Data","Event","Plants","Alarm","Nano"))
+ADMIN_VERB_ADD(/client/proc/debug_controller, R_DEBUG)
+/client/proc/debug_controller(controller in list(
+		"Master","Ticker","Ticker Process","Air","Jobs","Sun",
+		"Radio","Supply","Shuttles","Emergency Shuttle","Configuration",
+		"pAI", "Cameras", "Transfer Controller", "Gas Data","Event","Plants","Alarm","Nano")
+	)
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"

@@ -46,7 +46,7 @@
 	force = 5
 	origin_tech = list(TECH_COMBAT = 1)
 	attack_verb = list("struck", "hit", "bashed")
-	zoomdevicename = "scope"
+	var/zoomdevicename = "scope"
 
 	var/fire_delay = 6 	//delay after shooting before the gun can be used again
 	var/burst_delay = 2	//delay between shots, if firing in bursts
@@ -369,18 +369,12 @@
 	var/view_size = round(world.view + zoom_amount)
 	var/scoped_accuracy_mod = zoom_offset
 
-	zoom(zoom_offset, view_size)
-	if(zoom)
-		accuracy = scoped_accuracy + scoped_accuracy_mod
-		if(recoil)
-			recoil = round(recoil*zoom_amount+1) //recoil is worse when looking through a scope
-
-//make sure accuracy and recoil are reset regardless of how the item is unzoomed.
-/obj/item/weapon/gun/zoom()
-	..()
-	if(!zoom)
-		accuracy = initial(accuracy)
-		recoil = initial(recoil)
+	accuracy = scoped_accuracy + scoped_accuracy_mod
+	if(recoil)
+		recoil = round(recoil*zoom_amount+1) //recoil is worse when looking through a scope
+	zoom(usr, src, zoomdevicename, zoom_offset, view_size)
+	accuracy = initial(accuracy)
+	recoil = initial(recoil)
 
 /obj/item/weapon/gun/examine(mob/user, return_dist=1)
 	.=..()
