@@ -152,3 +152,43 @@
 /area/outpost/research/disposal
 	name = "Research Outpost Waste Disposal"
 	icon_state = "disposal"
+
+/area/outpost/research/liv1
+	name = "Research Outpost Living Area 1"
+	icon_state = "liv1"
+
+/area/outpost/research/liv2
+	name = "Research Outpost Living Area 2"
+	icon_state = "liv2"
+
+/area/outpost/research/liv3
+	name = "Research Outpost Living Area 3"
+	icon_state = "liv3"
+
+/area/outpost/research/liv4
+	name = "Research Outpost Living Area 4"
+	icon_state = "liv4"
+
+/area/outpost/research/liv5
+	name = "Research Outpost Living Area 5"
+	icon_state = "liv5"
+
+/area/outpost/research/liv6
+	name = "Research Outpost Living Area 6"
+	icon_state = "liv6"
+
+/area/outpost/research/liv7
+	name = "Research Outpost Living Area 7"
+	icon_state = "liv7"
+
+/area/outpost/research/liv8
+	name = "Research Outpost Living Area 8"
+	icon_state = "liv8"
+
+/area/outpost/research/liv9
+	name = "Research Outpost Living Area 9"
+	icon_state = "liv9"
+
+/area/outpost/research/liv10
+	name = "Research Outpost Living Area 10"
+	icon_state = "liv10"
