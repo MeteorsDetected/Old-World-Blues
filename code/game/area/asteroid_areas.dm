@@ -192,3 +192,55 @@
 /area/outpost/research/liv10
 	name = "Research Outpost Living Area 10"
 	icon_state = "liv10"
+
+/area/outpost/research/liv11
+	name = "Research Outpost Living Area 11"
+	icon_state = "liv11"
+
+/area/outpost/research/liv12
+	name = "Research Outpost Living Area 12"
+	icon_state = "liv12"
+
+/area/outpost/research/liv13
+	name = "Research Outpost Living Area 13"
+	icon_state = "liv13"
+
+/area/outpost/research/bridge
+	name = "Research Outpost Bridge"
+	icon_state = "Bridge"
+
+/area/outpost/research/HoP
+	name = "Research Outpost HoP"
+	icon_state = "HoP"
+
+/area/outpost/research/surgey1
+	name = "Research Outpost Surgey 1"
+	icon_state = "surgey1"
+
+/area/outpost/research/surgey2
+	name = "Research Outpost Surgey 2"
+	icon_state = "surgey2"
+
+/area/outpost/research/surgey_storage
+	name = "Research Outpost Surgey storage"
+	icon_state = "surgeystorge"
+
+/area/outpost/research/bar
+	name = "Research Outpost Bar"
+	icon_state = "bar"
+
+/area/outpost/research/hallwaybar
+	name = "Research Outpost hallway"
+	icon_state = "hallwaybar"
+
+/area/outpost/research/clon
+	name = "Research Outpost Clonning area"
+	icon_state = "clon"
+
+/area/outpost/research/captain
+	name = "Research Outpost Captain"
+	icon_state = "captain"
+
+/area/outpost/research/shower
+	name = "Research Outpost Shower"
+	icon_state = "shower"
