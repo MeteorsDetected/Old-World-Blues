@@ -198,7 +198,7 @@
 			qdel(src)
 		return
 
-	affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+	affect_grab(var/mob/user, var/mob/target)
 		if(src.occupant)
 			user << SPAN_NOTE("The sleeper is already occupied!")
 			return

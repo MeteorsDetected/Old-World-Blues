@@ -96,7 +96,7 @@
 		material.place_sheet(get_turf(src))
 		qdel(src)
 
-/obj/structure/bed/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/structure/bed/affect_grab(var/mob/user, var/mob/target)
 	user.visible_message(SPAN_NOTE("[user] attempts to buckle [target] into \the [src]!"))
 	if(do_after(user, 20, src) && Adjacent(target))
 		target.forceMove(loc)

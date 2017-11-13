@@ -380,7 +380,7 @@
 	set_occupant(null)
 
 
-/obj/machinery/cryopod/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/machinery/cryopod/affect_grab(var/mob/user, var/mob/target)
 	put_inside(target, user)
 	return TRUE
 

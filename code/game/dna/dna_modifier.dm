@@ -101,7 +101,7 @@
 	src.add_fingerprint(usr)
 	return
 
-/obj/machinery/dna_scannernew/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/machinery/dna_scannernew/affect_grab(var/mob/user, var/mob/target)
 	if (src.occupant)
 		user << SPAN_WARN("The scanner is already occupied!")
 		return
