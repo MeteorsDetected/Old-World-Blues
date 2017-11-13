@@ -187,6 +187,20 @@ var/global/datum/shuttle_controller/shuttle_controller
 	shuttles["Research"] = shuttle
 	process_shuttles += shuttle
 
+	// Outpost shuttle
+	shuttle = new()
+	shuttle.location = 1
+	shuttle.warmup_time = 10
+	shuttle.area_offsite = locate(/area/shuttle/post/station)
+	shuttle.area_station = locate(/area/shuttle/post/outpost)
+	huttle.docking_controller_tag = "post_shuttle"
+	shuttle.dock_target_station = "post_dock_airlock"
+	shuttle.dock_target_offsite = "post_dock"
+	shuttles["Post"] = shuttle
+	process_shuttles += shuttle
+
+
+
 	// ERT Shuttle
 	var/datum/shuttle/ferry/multidock/specops/ERT = new()
 	ERT.location = 0

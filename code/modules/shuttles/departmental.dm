@@ -15,3 +15,9 @@
 	shuttle_tag = "Research"
 	//req_access = list(access_research)
 	circuit = /obj/item/weapon/circuitboard/research_shuttle
+
+/obj/machinery/computer/shuttle_control/post
+    name = "post shuttle control console"
+    shuttle_tag = "Post"
+    //req_access = list(access_mining)
+    circuit = /obj/item/weapon/circuitboard/mining_shuttle
