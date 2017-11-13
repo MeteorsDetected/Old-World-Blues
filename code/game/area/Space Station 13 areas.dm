@@ -355,6 +355,16 @@ area/space/atmosalert()
 /area/shuttle/research/outpost
 	icon_state = "shuttle"
 
+/area/shuttle/post
+	name = "\improper post Shuttle"
+	music = "music/escape.ogg"
+
+/area/shuttle/post/outpost
+	icon_state = "shuttle2"
+
+/area/shuttle/post/station
+	icon_state = "shuttle"
+
 /area/alien
 	name = "\improper Alien base"
 	icon_state = "yellow"

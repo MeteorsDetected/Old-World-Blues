@@ -244,3 +244,35 @@
 /area/outpost/research/shower
 	name = "Research Outpost Shower"
 	icon_state = "shower"
+
+/area/outpost/research/Robo
+	name = "Research Outpost Robotistic"
+	icon_state = "Robo"
+
+/area/outpost/research/RandD
+	name = "Research Outpost RandD"
+	icon_state = "RandD"
+
+/area/outpost/research/RandDHallway
+	name = "Research Outpost RDHallway"
+	icon_state = "RDhallway"
+
+/area/outpost/research/RD
+	name = "Research Outpost RD"
+	icon_state = "RD"
+
+/area/outpost/research/armory
+	name = "Research Outpost Armory"
+	icon_state = "armory"
+
+/area/outpost/research/HoS
+	name = "Research Outpost Hos"
+	icon_state = "hos"
+
+/area/outpost/research/SShallway
+	name = "Research Outpost SSHalvay"
+	icon_state = "hallway"
+
+/area/outpost/research/detective
+	name = "Research Outpost detective"
+	icon_state = "detective"
