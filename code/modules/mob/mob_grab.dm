@@ -30,7 +30,7 @@
 	item_state = "nothing"
 	w_class = ITEM_SIZE_NO_CONTAINER
 
-/obj/proc/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/proc/affect_grab(var/mob/user, var/mob/target, var/state)
 	return FALSE
 
 /obj/item/weapon/grab/resolve_attackby(obj/O, mob/user, var/click_params)
@@ -38,7 +38,7 @@
 		return ..()
 	if(!istype(O) || get_dist(O, affecting)>1)
 		return TRUE
-	if(O.affect_grab(assailant, affecting, src))
+	if(O.affect_grab(assailant, affecting, state))
 		qdel(src)
 	return TRUE
 

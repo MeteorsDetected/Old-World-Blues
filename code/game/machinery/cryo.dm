@@ -170,8 +170,8 @@
 	add_fingerprint(usr)
 	return 1 // update UIs attached to this object
 
-/obj/machinery/atmospherics/unary/cryo_cell/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
-	for(var/mob/living/carbon/slime/M in range(1,target))
+/obj/machinery/atmospherics/unary/cryo_cell/affect_grab(var/mob/user, var/mob/target)
+	for(var/mob/living/carbon/slime/M in range(1, target))
 		if(M.Victim == target)
 			user << "[target] will not fit into the cryo because they have a slime latched onto their head."
 			return

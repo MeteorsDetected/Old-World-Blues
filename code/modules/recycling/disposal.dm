@@ -48,7 +48,7 @@
 		trunk.linked = null
 	return ..()
 
-/obj/machinery/disposal/affect_grab(var/mob/living/user, var/mob/living/target, var/grab_state)
+/obj/machinery/disposal/affect_grab(var/mob/living/user, var/mob/living/target)
 	user.visible_message("[user] starts putting [target] into the disposal.")
 	if(do_after(user, 20, src) && Adjacent(target))
 		target.forceMove(src)

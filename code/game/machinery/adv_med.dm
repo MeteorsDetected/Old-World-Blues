@@ -68,7 +68,7 @@
 	src.add_fingerprint(usr)
 
 
-/obj/machinery/bodyscanner/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/machinery/bodyscanner/affect_grab(var/mob/user, var/mob/target)
 	if (src.occupant)
 		user << SPAN_NOTE("The scanner is already occupied!")
 		return
