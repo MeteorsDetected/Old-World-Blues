@@ -189,13 +189,13 @@ var/global/datum/shuttle_controller/shuttle_controller
 
 	// Outpost shuttle
 	shuttle = new()
-	shuttle.location = 1
+	shuttle.location = 0
 	shuttle.warmup_time = 10
 	shuttle.area_offsite = locate(/area/shuttle/post/station)
 	shuttle.area_station = locate(/area/shuttle/post/outpost)
 	shuttle.docking_controller_tag = "post_shuttle"
-	shuttle.dock_target_station = "post_dock_airlock"
-	shuttle.dock_target_offsite = "post_dock"
+	shuttle.dock_target_station = "post_dock_station"
+	shuttle.dock_target_offsite = "post_dock_offstate"
 	shuttles["Post"] = shuttle
 	process_shuttles += shuttle
 
