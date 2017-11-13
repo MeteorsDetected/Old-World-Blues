@@ -205,6 +205,10 @@
 	name = "Research Outpost Living Area 13"
 	icon_state = "liv13"
 
+/area/outpost/research/liv14
+	name = "Research Outpost Living Area 14"
+	icon_state = "liv14"
+
 /area/outpost/research/bridge
 	name = "Research Outpost Bridge"
 	icon_state = "Bridge"
