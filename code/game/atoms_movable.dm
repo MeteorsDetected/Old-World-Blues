@@ -59,14 +59,74 @@
 	..()
 	return
 
-/atom/movable/proc/forceMove(atom/destination)
-	if(destination)
-		if(loc)
-			loc.Exited(src)
-		loc = destination
-		loc.Entered(src)
-		return 1
-	return 0
+/atom/movable/proc/forceMove(atom/NewLoc, Dir = 0)
+	var/OldLoc = loc
+	if(!Dir)
+		Dir = dir
+	if(loc == NewLoc)
+		if(dir != Dir)
+			dir = Dir
+			return TRUE
+		else
+			return FALSE
+	else if(isturf(NewLoc) && isturf(loc))
+		if(z == NewLoc.z)
+			var/dx = (x - NewLoc.x)
+			var/dy = (y - NewLoc.y)
+			if(!dx && !dy)
+				if(dir != Dir)
+					dir = Dir
+					return TRUE
+				else
+					return FALSE
+
+	var/list/olocs, list/nlocs
+	var/list/oareas = list(), list/nareas = list()
+	var/list/oobjs, list/nobjs
+
+	olocs = locs
+
+	if(isturf(loc))
+		for(var/turf/t in olocs)
+			oareas |= t.loc
+		oobjs = obounds(src) || list()
+		oobjs -= locs
+	else
+		oobjs = list()
+
+	loc = NewLoc
+	dir = Dir
+
+	nlocs = locs
+	if(isturf(loc))
+		nlocs = locs
+		for(var/turf/t in nlocs)
+			nareas |= t.loc
+		nobjs = obounds(src) || list()
+		nobjs -= locs
+	else
+		nobjs = list()
+
+	var/list/xareas = oareas-nareas, list/eareas = nareas-oareas
+	var/list/xlocs = olocs-nlocs, list/elocs = nlocs-olocs
+	var/list/xobjs = oobjs-nobjs, list/eobjs = nobjs-oobjs
+
+	for(var/area/a in xareas)
+		a.Exited(src,loc)
+	for(var/turf/t in xlocs)
+		t.Exited(src,loc)
+	for(var/atom/movable/o in xobjs)
+		o.Uncrossed(src)
+
+	for(var/area/a in eareas)
+		a.Entered(src, OldLoc)
+	for(var/turf/t in elocs)
+		t.Entered(src, OldLoc)
+	for(var/atom/movable/o in eobjs)
+		o.Crossed(src)
+
+	return TRUE
+
 
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, var/speed)
