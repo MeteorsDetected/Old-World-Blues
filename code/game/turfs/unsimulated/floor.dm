@@ -14,5 +14,6 @@
     icon_state = "lava"
     desc = "lava!!!"
     temperature = 1000
-    light_range = 1
+    light_range = 3
     light_power = 1
+    light_color = "#ffffff"
