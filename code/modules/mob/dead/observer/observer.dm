@@ -143,11 +143,12 @@ var/global/list/image/ghost_sightless_images = list() //this is a list of images
 	if (stat != DEAD || !ticker)
 		usr << SPAN_NOTE("<B>You must be dead to use this!</B>")
 		return
-	if (!check_rights(0, 0) && ticker && ticker.mode.deny_respawn) //BS12 EDIT
-		usr << SPAN_NOTE("Respawn is disabled for this roundtype.")
-		return
-	else if(!MayRespawn(1))
-		return
+	if (!check_rights(0, 0))
+		if (ticker.mode && ticker.mode.deny_respawn) //BS12 EDIT
+			usr << SPAN_NOTE("Respawn is disabled for this roundtype.")
+			return
+		else if(!MayRespawn(1))
+			return
 
 	log_game("[usr.name]/[usr.key] used abandon mob.", src, 0)
 
