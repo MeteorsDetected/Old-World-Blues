@@ -79,6 +79,13 @@ var/datum/antagonist/wizard/wizards
 	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/spellbook(wizard_mob), slot_r_hand)
 	wizard_mob.equip_survival_gear()
 	wizard_mob.update_icons()
+
+	wizard_mob << sound('sound/misc/theworld.ogg', repeat = 0, wait = 0, volume = 85, channel = 777)
+	sleep(15)
+	wizard_mob << sound('sound/misc/theworld2.ogg', repeat = 0, wait = 0, volume = 85, channel = 777)
+	sleep(10)
+	wizard_mob << sound('sound/misc/theworld3.ogg', repeat = 0, wait = 0, volume = 85, channel = 777)
+
 	return 1
 
 /datum/antagonist/wizard/check_victory()

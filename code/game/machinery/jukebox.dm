@@ -39,7 +39,12 @@
 		"Judge"				= list('sound/jukebox/Judge_Bitch.ogg'),
 		"Hishmaliin"		= list('sound/jukebox/dvar_hishmaliin.ogg'),
 		"Mystyrious Song"	= list('sound/jukebox/gay_bar.ogg'),
-		"Keep"				= list('sound/jukebox/aritus-keep.ogg')
+		"Keep"				= list('sound/jukebox/aritus-keep.ogg'),
+		"Old radio"			= list('sound/jukebox/radiopiano1.ogg'),
+		"Rocketman"			= list('sound/music/rocketman.ogg'),
+		"Milky Way"			= list('sound/jukebox/MilkyWay_Battle.ogg'),
+		"Wizard's Assistant"= list('sound/jukebox/Wizards_assistant.ogg'),
+		"Das_malefitz"		= list('sound/music/faunts-das_malefitz.ogg')
 	)
 
 /obj/machinery/media/jukebox/Destroy()

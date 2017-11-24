@@ -56,4 +56,6 @@ var/datum/antagonist/mercenary/mercs
 
 	create_id("Mercenary", player)
 	create_radio(SYND_FREQ, player)
+	//Some music
+	player << sound('sound/misc/syndicate_intro.ogg', repeat = 0, wait = 0, volume = 85, channel = 777)
 	return 1

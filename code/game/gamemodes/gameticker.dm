@@ -57,7 +57,8 @@ var/list/donator_icons
 		'sound/music/CCR_-_Bad_Moon_Rising_196.ogg',
 		'sound/music/Crokett_39_s_theme.ogg',
 		'sound/music/Lorn_-_Anvil.ogg',
-		'sound/music/Quixotic_-_Dust_to_Dust.ogg')
+		'sound/music/Quixotic_-_Dust_to_Dust.ogg',
+		'sound/music/moonbaseoddity.ogg')
 
 	donator_icons = icon_states('icons/donator.dmi')
 
@@ -386,6 +387,7 @@ var/list/donator_icons
 /datum/controller/gameticker/proc/declare_completion()
 	world << "<br><br><br><H1>A round of [mode.name] has ended!</H1>"
 	for(var/mob/Player in player_list)
+		Player << sound('sound/music/space_asshole.ogg', repeat = 0, wait = 0, volume = 85, channel = 777)
 		if(Player.mind && !isnewplayer(Player))
 			if(Player.stat != DEAD)
 				var/turf/playerTurf = get_turf(Player)
