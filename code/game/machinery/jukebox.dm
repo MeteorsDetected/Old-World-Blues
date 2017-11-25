@@ -14,19 +14,11 @@
 
 	var/current_track = ""
 	var/list/tracks = list(
-		"Beyond"			= list('sound/ambience/ambispace.ogg'),
-		"Clouds of Fire"	= list('sound/music/clouds.s3m'),
-		"D`Bert"			= list('sound/music/title2.ogg'),
-		"D`Fort"			= list('sound/ambience/song_game.ogg'),
-		"Floating"			= list('sound/music/main.ogg'),
+		"Old radio"			= list('sound/jukebox/radiopiano1.ogg'),
 		"Endless Space"		= list('sound/music/space.ogg'),
-		"Part A"			= list('sound/misc/TestLoop1.ogg'),
-		"Scratch"			= list('sound/music/title1.ogg'),
-		"Trai`Tor"			= list('sound/music/traitor.ogg'),
 		"Callista-Omega"	= list('sound/jukebox/club_afterlife-callista_omega.ogg'),
 		"Lone Digger"		= list('sound/jukebox/Caravan_Palace_-Lone_Digger.ogg'),
 		"Magic Fly"			= list('sound/jukebox/magic_fly.ogg'),
-		"THUNDERDROME"		= list('sound/music/THUNDERDOME.ogg'),
 		"Staying Alive"		= list('sound/jukebox/staying_alive.ogg'),
 		"Space Oddity"		= list('sound/music/david_bowie-space_oddity_original.ogg'),
 		"Fascination"		= list('sound/jukebox/Keep_Feeling.ogg'),
@@ -40,10 +32,10 @@
 		"Hishmaliin"		= list('sound/jukebox/dvar_hishmaliin.ogg'),
 		"Mystyrious Song"	= list('sound/jukebox/gay_bar.ogg'),
 		"Keep"				= list('sound/jukebox/aritus-keep.ogg'),
-		"Old radio"			= list('sound/jukebox/radiopiano1.ogg'),
 		"Rocketman"			= list('sound/music/rocketman.ogg'),
 		"Milky Way"			= list('sound/jukebox/MilkyWay_Battle.ogg'),
 		"Wizard's Assistant"= list('sound/jukebox/Wizards_assistant.ogg'),
+		"Darkwood"			= list('sound/music/DARKWOOD_Main.ogg'),
 		"Das_malefitz"		= list('sound/music/faunts-das_malefitz.ogg')
 	)
 

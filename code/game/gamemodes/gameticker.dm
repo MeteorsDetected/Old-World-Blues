@@ -42,11 +42,12 @@ var/list/donator_icons
 	login_music = pick(
 		/*'sound/music/halloween/skeletons.ogg',
 		'sound/music/halloween/halloween.ogg',
-		'sound/music/halloween/ghosts.ogg',
+		'sound/music/halloween/ghosts.ogg',*/
 		'sound/music/space.ogg',
 		'sound/music/traitor.ogg',
+		'sound/music/title1.ogg',
 		'sound/music/title2.ogg',
-		'sound/music/clouds.s3m',*/
+		'sound/music/clouds.s3m',
 		'sound/music/david_bowie-space_oddity_original.ogg',
 		'sound/music/faunts-das_malefitz.ogg',
 		'sound/music/First_rendez-vous.ogg',
@@ -56,8 +57,9 @@ var/list/donator_icons
 		'sound/music/Mind_Heist.ogg',
 		'sound/music/CCR_-_Bad_Moon_Rising_196.ogg',
 		'sound/music/Crokett_39_s_theme.ogg',
-		'sound/music/Lorn_-_Anvil.ogg',
-		'sound/music/Quixotic_-_Dust_to_Dust.ogg',
+		'sound/music/music_ambient_scene6.ogg',
+		'sound/music/music_battle_scene2.ogg',
+		'sound/music/DARKWOOD_Main.ogg',
 		'sound/music/moonbaseoddity.ogg')
 
 	donator_icons = icon_states('icons/donator.dmi')
