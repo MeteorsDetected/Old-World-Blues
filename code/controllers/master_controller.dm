@@ -10,11 +10,9 @@ var/global/last_tick_duration = 0
 var/global/air_processing_killed = 0
 var/global/pipe_processing_killed = 0
 
-datum/controller/game_controller
-	var/list/shuttle_list	                    // For debugging and VV
-	var/datum/random_map/ore/asteroid_ore_map   // For debugging and VV.
+/datum/controller/game_controller
 
-datum/controller/game_controller/New()
+/datum/controller/game_controller/New()
 	//There can be only one master_controller. Out with the old and in with the new.
 	if(master_controller != src)
 		log_debug("Rebuilding Master Controller")
@@ -31,7 +29,7 @@ datum/controller/game_controller/New()
 	if(!syndicate_code_phrase)		syndicate_code_phrase	= generate_code_phrase()
 	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
 
-datum/controller/game_controller/proc/setup()
+/datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
 	spawn(20)
@@ -43,7 +41,7 @@ datum/controller/game_controller/proc/setup()
 	transfer_controller = new
 
 
-datum/controller/game_controller/proc/setup_objects()
+/datum/controller/game_controller/proc/setup_objects()
 	admin_notice("<span class='danger'>Initializing objects</span>", R_DEBUG)
 	sleep(-1)
 	for(var/atom/movable/object in world)
@@ -70,9 +68,10 @@ datum/controller/game_controller/proc/setup_objects()
 			T.broadcast_status()
 
 	// Create the mining ore distribution map.
-	// These values determine the specific area that the map is applied to.
-	// If you do not use the official Baycode asteroid map, you will need to change them.
-	asteroid_ore_map = new /datum/random_map/ore(null,13,32,5,217,223)
+	if(config.generate_asteroid)
+		for(var/level in maps_data.asteroid_leves)
+			new /datum/random_map(null,13,32,level,217,223)
+			new /datum/random_map/ore(null,13,32,level,217,223)
 
 	// Set up antagonists.
 	populate_antag_type_list()
