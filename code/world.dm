@@ -70,12 +70,6 @@ var/global/datum/global_init/init = new ()
 	// This is kinda important. Set up details of what the hell things are made of.
 	populate_material_list()
 
-	//Create the asteroid Z-level.
-	if(config.generate_asteroid)
-		spawn(5)
-			for(var/level in maps_data.asteroid_leves)
-				new /datum/random_map(null,13,32,level,217,223)
-
 	// Create autolathe recipes, as above.
 	populate_lathe_recipes()
 
