@@ -292,3 +292,12 @@ var/list/organ_cache = list()
 
 /obj/item/organ/proc/is_usable()
 	return !(status & (ORGAN_CUT_AWAY|ORGAN_MUTATED|ORGAN_DEAD))
+
+/obj/item/organ/proc/robotize() //Being used to make robutt hearts, etc
+	robotic = 2
+	src.status &= ~ORGAN_BROKEN
+	src.status &= ~ORGAN_BLEEDING
+	src.status &= ~ORGAN_SPLINTED
+	src.status &= ~ORGAN_CUT_AWAY
+	src.status |= ORGAN_ROBOT
+	src.status |= ORGAN_ASSISTED

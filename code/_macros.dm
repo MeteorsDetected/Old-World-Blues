@@ -67,3 +67,13 @@
 #define isorgan(A) istype(A, /obj/item/organ/external)
 
 #define RANDOM_BLOOD_TYPE pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
+
+//--------------------------------------------------
+#define to_chat(target, message)                            target << message
+#define MAP_IMAGE_PATH "nano/images/"
+#define map_image_file_name(z_level) "Aurora-[z_level].png"
+#define to_world(message)                                   world << message
+#define sound_to(target, sound)                             target << sound
+#define to_file(file_entry, file_content)                   file_entry << file_content
+#define show_browser(target, browser_content, browser_name) target << browse(browser_content, browser_name)
+#define send_rsc(target, rsc_content, rsc_name)             target << browse_rsc(rsc_content, rsc_name)

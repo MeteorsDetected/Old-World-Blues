@@ -166,6 +166,18 @@ var/list/donator_icons
 
 	return 1
 
+/datum/controller/gameticker/proc/run_callback_list(list/callbacklist)
+	set waitfor = FALSE
+
+	if (!callbacklist)
+		return
+
+	for (var/thing in callbacklist)
+		var/datum/callback/callback = thing
+		callback.Invoke()
+
+		//CHECK_TICK
+
 /datum/controller/gameticker
 	//station_explosion used to be a variable for every mob's hud. Which was a waste!
 	//Now we have a general cinematic centrally held within the gameticker....far more efficient!

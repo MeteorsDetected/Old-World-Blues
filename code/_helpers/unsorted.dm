@@ -1911,3 +1911,4 @@ var/mob/dview/dview_mob = new
 		if(mob in living_mob_list)
 			living_player_count += 1
 	return living_player_count
+
