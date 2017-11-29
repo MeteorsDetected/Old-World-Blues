@@ -34,7 +34,7 @@
 							entry += " - <font color='black'><b>DEAD</b></font>"
 							dead++
 					else if (isnewplayer(C.mob))
-						entry += " - <font color='black'><b>LOBBY</b></font>"
+						entry += " - <font color='black'><b>Lobby</b></font>"
 						lobby++
 					else
 						entry += " - <b>DEAD</b>"
@@ -80,7 +80,7 @@
 		msg += "[line]\n"
 
 	if(holder && (R_ADMIN & holder.rights || R_MOD & holder.rights))
-		msg += "<b><span class='notice'>Total Living: [living]</span> | Total Dead: [dead] | <span style='color:gray'>Observing: [observers]</span> | <span style='color:gray'><i>In Lobby: [lobby]</i></span> | <span class='bad'>Living Antags: [living_antags]</span> | <span class='good'>Dead Antags: [dead_antags]</span></b>\n"
+		msg += "<b><span class='notice'>Total Living: [living]</span> | Total Dead: [dead] | <span style='color:gray'>Observing: [observers]</span> | <span style='color:gray'><i>In Lobby: [lobby]</i></span> | <span class='red'>Living Antags: [living_antags]</span> | <span class='green'>Dead Antags: [dead_antags]</span></b>\n"
 		msg += "<b>Total Players: [length(Lines)]</b>\n"
 		src << msg
 	else
