@@ -275,9 +275,14 @@
 			user << "<span class='warning'>You'll need to turn [src] on to patch the damage on [H]'s [S.name]!</span>"
 			return 1
 
-		if(S.robo_repair(15, BRUTE, "some dents", src, user))
-			remove_fuel(1, user)
+		//if(S.robo_repair(15, BRUTE, "some dents", src, user))
+			//remove_fuel(1, user)
 
+		if(S.robotic >= 2)
+			user << SPAN_NOTE("You start to patch the damage on [H]'s [S.name]!")
+			S.machine_repair(10, BRUTE, "some dents", src, user)
+			remove_fuel(1)
+			user << SPAN_NOTE("You finished patching the damage on [H]'s [S.name]!")
 	else
 		return ..()
 

@@ -33,7 +33,7 @@
 	organ_tag = "optics"
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "camera"
-	robotic = 2
+	robotic = ORGAN_LIFELIKE
 
 /obj/item/organ/eyes/optical_sensor/Initialize()
 	//robotize()
