@@ -1,6 +1,6 @@
 // DM Environment file for baystation12.dme.
 // All manual changes should be made outside the BEGIN_ and END_ blocks.
- // New source code should be placed in .dm files: choose File/New --> Code File.
+// New source code should be placed in .dm files: choose File/New --> Code File.
 // BEGIN_INTERNALS
 // END_INTERNALS
 // BEGIN_FILE_DIR
@@ -606,6 +606,7 @@
 #include "code\game\objects\items\devices\flash.dm"
 #include "code\game\objects\items\devices\flashlight.dm"
 #include "code\game\objects\items\devices\floor_painter.dm"
+#include "code\game\objects\items\devices\glowsticks.dm"
 #include "code\game\objects\items\devices\janiholo.dm"
 #include "code\game\objects\items\devices\lightreplacer.dm"
 #include "code\game\objects\items\devices\megaphone.dm"
@@ -1890,7 +1891,6 @@
 #include "code\ZAS\Zone.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
-#include "maps\CentComm.dmm"
 #include "maps\empty_space.dmm"
 #include "maps\exodus\1.station.dmm"
 #include "maps\exodus\2.asteroid.dmm"

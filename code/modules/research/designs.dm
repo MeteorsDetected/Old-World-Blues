@@ -597,6 +597,14 @@ other types of metals and chemistry for reagents).
 	materials = list(MATERIAL_STEEL = 2000, MATERIAL_GLASS = 500, MATERIAL_URANIUM = 500)
 	build_path = /obj/item/weapon/gun/energy/floragun
 
+datum/design/item/weapon/eglaive
+	id = "eglaive"
+	name = "energy glaive"
+	desc = "A Li'idra designed hardlight glaive reverse-engineered from schematics found amongst raider wreckages."
+	req_tech = list(TECH_COMBAT = 6, TECH_PHORON = 4, TECH_MATERIAL = 7, TECH_ILLEGAL = 4,TECH_POWER = 4)
+	materials = list(DEFAULT_WALL_MATERIAL = 10000, "glass" = 18750, "phoron" = 3000, "silver" = 7500)
+	build_path = /obj/item/weapon/melee/energy/glaive
+
 /datum/design/item/weapon/large_grenade
 	id = "large_Grenade"
 	req_tech = list(TECH_COMBAT = 3, TECH_MATERIAL = 2)
