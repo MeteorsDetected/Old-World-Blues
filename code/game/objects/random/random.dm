@@ -335,9 +335,9 @@
 	icon = 'icons/obj/musician.dmi'
 	icon_state = "minimoog"
 	item_to_spawn()
-		return pick(prob(5);/obj/structure/device/piano,
-					//prob(1);/obj/structure/synthesized_instrument/synthesizer,
-					prob(5);/obj/machinery/media/jukebox
+		return pick(prob(7);/obj/structure/device/piano,
+					prob(1);/obj/structure/synthesized_instrument/synthesizer,
+					prob(3);/obj/machinery/media/jukebox
 		)
 /*
 /obj/random/glowstick

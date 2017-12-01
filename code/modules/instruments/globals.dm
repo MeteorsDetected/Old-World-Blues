@@ -23,28 +23,56 @@
 #define MUSICAL_MAX_LINES 1000
 #define MUSICAL_MAX_LINE_LENGTH 50
 
+// Change if needed
+#define MUSICAL_GET_INSTRUMENT(instrument_name, sub_folder, sample_name) file("code/modules/synthesized_instruments/samples/[#instrument_name]/[#sub_folder]/[#sample_name]")
 
 // Don't change
-#define OCTAVE_START(x) 12*(x)
-var/global/list/n2t_int = list() // Instead of num2text it is used for faster access in n2t
-var/global/list/free_channels = list() // Used to take up some channels and avoid istruments cancelling each other
-var/global/list/nn2no = list(0,2,4,5,7,9,11) // Maps note num onto note offset
+#define MUSICAL_OCTAVE_START(x) 12*(x)
+#define MUSICAL_ENVIRONMENT_TO_ID(environment) (musical_all_environments.Find(environment) ? musical_all_environments.Find(environment) - 2 : -1) // Not efficient, but fuck you
 
-world/New()
-	for (var/i=1, i<=1024, i++) // Currently only 1024 channels are allowed
-		free_channels += i
-	..()
+var/global/list/musical_all_environments = list(
+			"None",
+			"Generic",
+			"Padded cell",
+			"Room",
+			"Bathroom",
+			"Living Room",
+			"Stone Room",
+			"Auditorium",
+			"Concert Hall",
+			"Cave",
+			"Arena",
+			"Hangar",
+			"Carpetted Hallway",
+			"Alley",
+			"Forest",
+			"City",
+			"Mountains",
+			"Quarry",
+			"Plain",
+			"Parking Lot",
+			"Sewer Pipe",
+			"Underwater",
+			"Drugged",
+			"Dizzy",
+			"Psychotic")
+var/global/list/musical_n2t_int = list() // Instead of num2text it is used for faster access in n2t
+
+var/global/list/musical_free_channels = list() // Used to take up some channels and avoid istruments cancelling each other
+var/global/musical_free_channels_populated = 0
+
+var/global/list/musical_nn2no = list(0,2,4,5,7,9,11) // Maps note num onto note offset
 
 proc/n2t(key) // Used in of num2text for faster access in sample_map
-	if (!n2t_int.len)
+	if (!global.musical_n2t_int.len)
 		for (var/i=1, i<=127, i++)
-			n2t_int += num2text(i)
+			global.musical_n2t_int += num2text(i)
 
 	if (key==0)
 		return "0" // Fuck you BYOND
 	if (!isnum(key) || key < 0 || key>127 || round(key) != key)
 		CRASH("n2t argument must be an integer from 0 to 127")
-	return n2t_int[key]
+	return global.musical_n2t_int[key]
 
 /datum/sample_pair
 	var/sample

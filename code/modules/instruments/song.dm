@@ -9,7 +9,7 @@
 	var/obj/sound_player/player // Not a physical thing
 	var/datum/instrument/instrument_data
 
-	var/list/free_channels = list()
+	var/list/musical_free_channels = list()
 
 	var/linear_decay = 1
 	var/sustain_timer = 1
@@ -35,24 +35,29 @@
 	return max(round(new_tempo, world.tick_lag), world.tick_lag)
 
 /datum/synthesized_song/proc/occupy_channels()
+	if (!global.musical_free_channels_populated)
+		for (var/i=1, i<=1024, i++) // Currently only 1024 channels are allowed
+			global.musical_free_channels += i
+		global.musical_free_channels_populated = 1 // Only once
+
 	for (var/i=0, i<MUSICAL_CHANNELS, i++)
-		if (global.free_channels.len)
-			free_channel(pick_n_take(global.free_channels))
+		if (global.musical_free_channels.len)
+			free_channel(pick_n_take(global.musical_free_channels))
 
 /datum/synthesized_song/proc/take_any_channel()
-	return pick_n_take(free_channels)
+	return pick_n_take(musical_free_channels)
 
 /datum/synthesized_song/proc/free_channel(channel)
-	free_channels += channel
+	musical_free_channels += channel
 
 /datum/synthesized_song/proc/play_synthesized_note(note, acc, oct, duration, where, which_one)
 	if (oct < MUSICAL_LOWEST_OCTAVE || oct > MUSICAL_HIGHEST_OCTAVE)	return
 	if (oct < octave_range_min || oct > octave_range_max)	return
 
 	var/delta1 = acc == "b" ? -1 : acc == "#" ? 1 : acc == "s" ? 1 : acc == "n" ? 0 : 0
-	var/delta2 = OCTAVE_START(oct)
+	var/delta2 = MUSICAL_OCTAVE_START(oct)
 
-	var/note_num = delta1+delta2+nn2no[note]
+	var/note_num = delta1+delta2+musical_nn2no[note]
 	ASSERT(note_num >= 0 && note_num <= 127)
 
 	var/datum/sample_pair/pair = instrument_data.sample_map[n2t(note_num)]
@@ -67,6 +72,9 @@
 	#undef Q
 	var/list/mob/to_play_for = player.who_to_play_for()
 
+	if (!to_play_for.len)
+		free_channel(chan) // I'm an idiot, fuck
+
 	for (var/mob/hearer in to_play_for)
 		play_for(hearer, pair.sample, duration, freq, chan, note_num, where, which_one)
 
@@ -80,7 +88,7 @@
 
 	who << sound_copy
 	#if DM_VERSION < 511
-	sound_copy.frequency = 1
+		sound_copy.frequency = 1
 	#endif
 	spawn(duration)
 		var/delta_volume = player.volume / sustain_timer
@@ -111,11 +119,11 @@
 			var/cur_line = 1
 			for (var/line in lines)
 				var/cur_note = 1
-				for (var/notes in text2list(lowertext(line), ","))
-					var/list/components = text2list(notes, "/")
+				for (var/notes in splittext(lowertext(line), ","))
+					var/list/components = splittext(notes, "/")
 					var/delta = components.len==2 && text2num(components[2]) ? text2num(components[2]) : 1
 					var/duration = max(round(sanitize_tempo(tempo / delta)), 1)
-					var/note_str = text2list(components[1], "-")
+					var/note_str = splittext(components[1], "-")
 					if (!playing || player.shouldStopPlaying(user))
 						autorepeat = 0
 						playing = 0

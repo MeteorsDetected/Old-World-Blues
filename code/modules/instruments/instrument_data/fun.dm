@@ -7,11 +7,6 @@
 	id = "honk"
 	samples = list("74"='sound/items/bikehorn.ogg') // Cluwne Heaven
 
-/datum/instrument/fun/duck
-	name = "Ducky"
-	id = "quack"
-	samples = list("48"='sound/items/quack.ogg')
-
 /datum/instrument/fun/signal
 	name = "Ping"
 	id = "ping"

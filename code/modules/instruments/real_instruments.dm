@@ -26,33 +26,38 @@
 		return 0
 
 	proc/common_instruments_Topic(href, href_list)
-		var/send_control = 1
+		..()
+
+		var/send_control = 0
+
+		if(!src.Adjacent(usr) || usr.stat)
+			usr << browse(null, "window=instrument")
+			usr.unset_machine()
+			return
 
 		src.add_fingerprint(usr)
 
 		if(href_list["newsong"])
-			send_control = 0
+			player.song.playing = 0
+			player.song.autorepeat = 0
 			player.song.lines = new()
 			player.song.tempo = player.song.sanitize_tempo(5) // default 120 BPM
 			player.song.name = ""
 
 		else if(href_list["import"])
-			send_control = 0
 			var/t = ""
 			do
 				t = html_encode(input(usr, "Please paste the entire song, formatted:", text("[]", name), t)  as message)
 				if(!in_range(src, usr))
 					return
 
-				if(lentext(t) >= 2*maximum_lines*maximum_line_length)
+				if(length(t) >= 2*maximum_lines*maximum_line_length)
 					var/cont = input(usr, "Your message is too long! Would you like to continue editing it?", "", "yes") in list("yes", "no")
 					if(cont == "no")
 						break
-			while(lentext(t) > 2*maximum_lines*maximum_line_length)
-
-			//split into lines
-			spawn()
-				player.song.lines = text2list(t, "\n")
+			while(length(t) > 2*maximum_lines*maximum_line_length)
+			if (length(t))
+				player.song.lines = splittext(t, "\n")
 				if(copytext(player.song.lines[1],1,6) == "BPM: ")
 					if(text2num(copytext(player.song.lines[1],6)) != 0)
 						player.song.tempo = player.song.sanitize_tempo(600 / text2num(copytext(player.song.lines[1],6)))
@@ -66,36 +71,34 @@
 					player.song.lines.Cut(maximum_lines+1)
 				var/linenum = 1
 				for(var/l in player.song.lines)
-					if(lentext(l) > maximum_line_length)
+					if(length(l) > maximum_line_length)
 						usr << "Line [linenum] too long!"
 						player.song.lines.Remove(l)
 					else
 						linenum++
-				updateDialog(usr)		// make sure updates when complete
+
 
 		else if(href_list["help"])
-			send_control = 0
-			help = text2num(href_list["help"]) - 1
+			if (isnum(href_list["help"]))
+				help = text2num(href_list["help"]) - 1
 
 		else if(href_list["edit"])
-			send_control = 0
 			edit = text2num(href_list["edit"]) - 1
 
 		else if(href_list["tempo"])
-			send_control = 0
-			player.song.tempo = player.song.sanitize_tempo(player.song.tempo + text2num(href_list["tempo"]))
+			if (!isnum(href_list["tempo"]))
+				usr << "<span class='warning'>Tempo is not a number"
+			else
+				player.song.tempo = player.song.sanitize_tempo(player.song.tempo + text2num(href_list["tempo"]))
 
 		else if(href_list["play"])
-			send_control = 0
 			if (!player.song.playing)
 				// Props to penot1971 for finding this potentially server-crashing bug
 				// It was unintentionally and indirectly fixed by a new version, but still
 				player.song.playing = 1
-				spawn()
-					player.song.play_song(usr)
+				player.song.play_song(usr)
 
 		else if(href_list["newline"])
-			send_control = 0
 			var/newline = html_encode(input("Enter your line: ", src.name) as text|null)
 			if(!newline || !in_range(src, usr))
 				return
@@ -106,14 +109,16 @@
 			player.song.lines.Add(newline)
 
 		else if(href_list["deleteline"])
-			send_control = 0
+			// This could kill the server if the synthesizer was playing, props to BeTePb
 			var/num = round(text2num(href_list["deleteline"]))
 			if(num > player.song.lines.len || num < 1)
 				return
 			player.song.lines.Cut(num, num+1)
+			if (!player.song.lines.len)
+				player.song.playing = 0
+				player.song.autorepeat = 0
 
 		else if(href_list["modifyline"])
-			send_control = 0
 			var/num = round(text2num(href_list["modifyline"]),1)
 			var/content = html_encode(input("Enter your line: ", src.name, player.song.lines[num]) as text|null)
 			if(!content || !in_range(src, usr))
@@ -125,8 +130,10 @@
 			player.song.lines[num] = content
 
 		else if(href_list["stop"])
-			send_control = 0
 			player.song.playing = 0
+
+		else
+			send_control = 1
 
 		if (!send_control)
 			updateDialog(usr)
@@ -164,33 +171,38 @@
 		return 0
 
 	proc/common_instruments_Topic(href, href_list)
-		var/send_control = 1
+		..()
+
+		var/send_control = 0
+
+		if(!src.Adjacent(usr) || usr.stat)
+			usr << browse(null, "window=instrument")
+			usr.unset_machine()
+			return
 
 		src.add_fingerprint(usr)
 
 		if(href_list["newsong"])
-			send_control = 0
+			player.song.playing = 0
+			player.song.autorepeat = 0
 			player.song.lines = new()
 			player.song.tempo = player.song.sanitize_tempo(5) // default 120 BPM
 			player.song.name = ""
 
 		else if(href_list["import"])
-			send_control = 0
 			var/t = ""
 			do
 				t = html_encode(input(usr, "Please paste the entire song, formatted:", text("[]", name), t)  as message)
 				if(!in_range(src, usr))
 					return
 
-				if(lentext(t) >= 2*maximum_lines*maximum_line_length)
+				if(length(t) >= 2*maximum_lines*maximum_line_length)
 					var/cont = input(usr, "Your message is too long! Would you like to continue editing it?", "", "yes") in list("yes", "no")
 					if(cont == "no")
 						break
-			while(lentext(t) > 2*maximum_lines*maximum_line_length)
-
-			//split into lines
-			spawn()
-				player.song.lines = text2list(t, "\n")
+			while(length(t) > 2*maximum_lines*maximum_line_length)
+			if (length(t))
+				player.song.lines = splittext(t, "\n")
 				if(copytext(player.song.lines[1],1,6) == "BPM: ")
 					if(text2num(copytext(player.song.lines[1],6)) != 0)
 						player.song.tempo = player.song.sanitize_tempo(600 / text2num(copytext(player.song.lines[1],6)))
@@ -204,36 +216,34 @@
 					player.song.lines.Cut(maximum_lines+1)
 				var/linenum = 1
 				for(var/l in player.song.lines)
-					if(lentext(l) > maximum_line_length)
+					if(length(l) > maximum_line_length)
 						usr << "Line [linenum] too long!"
 						player.song.lines.Remove(l)
 					else
 						linenum++
-				updateDialog(usr)		// make sure updates when complete
+
 
 		else if(href_list["help"])
-			send_control = 0
-			help = text2num(href_list["help"]) - 1
+			if (isnum(href_list["help"]))
+				help = text2num(href_list["help"]) - 1
 
 		else if(href_list["edit"])
-			send_control = 0
 			edit = text2num(href_list["edit"]) - 1
 
 		else if(href_list["tempo"])
-			send_control = 0
-			player.song.tempo = player.song.sanitize_tempo(player.song.tempo + text2num(href_list["tempo"]))
+			if (!isnum(href_list["tempo"]))
+				usr << "<span class='warning'>Tempo is not a number"
+			else
+				player.song.tempo = player.song.sanitize_tempo(player.song.tempo + text2num(href_list["tempo"]))
 
 		else if(href_list["play"])
-			send_control = 0
 			if (!player.song.playing)
 				// Props to penot1971 for finding this potentially server-crashing bug
 				// It was unintentionally and indirectly fixed by a new version, but still
 				player.song.playing = 1
-				spawn()
-					player.song.play_song(usr)
+				player.song.play_song(usr)
 
 		else if(href_list["newline"])
-			send_control = 0
 			var/newline = html_encode(input("Enter your line: ", src.name) as text|null)
 			if(!newline || !in_range(src, usr))
 				return
@@ -244,14 +254,16 @@
 			player.song.lines.Add(newline)
 
 		else if(href_list["deleteline"])
-			send_control = 0
+			// This could kill the server if the synthesizer was playing, props to BeTePb
 			var/num = round(text2num(href_list["deleteline"]))
 			if(num > player.song.lines.len || num < 1)
 				return
 			player.song.lines.Cut(num, num+1)
+			if (!player.song.lines.len)
+				player.song.playing = 0
+				player.song.autorepeat = 0
 
 		else if(href_list["modifyline"])
-			send_control = 0
 			var/num = round(text2num(href_list["modifyline"]),1)
 			var/content = html_encode(input("Enter your line: ", src.name, player.song.lines[num]) as text|null)
 			if(!content || !in_range(src, usr))
@@ -263,8 +275,10 @@
 			player.song.lines[num] = content
 
 		else if(href_list["stop"])
-			send_control = 0
 			player.song.playing = 0
+
+		else
+			send_control = 1
 
 		if (!send_control)
 			updateDialog(usr)
