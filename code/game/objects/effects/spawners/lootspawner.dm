@@ -18,7 +18,7 @@ var/list/Dclothing = list(/obj/item/clothing/head/richard,/obj/item/clothing/hea
 	icon_state = "rup"
 	New()
 		spawn_stuff()
-		del src
+		qdel(src)
 
 /obj/randomloot/proc/spawn_stuff()
 //Рандом выбирает предмет из списка
