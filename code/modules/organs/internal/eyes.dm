@@ -6,7 +6,6 @@
 	parent_organ = BP_HEAD
 	var/eye_color = ""
 	var/robo_color = "#000000"
-	var/icon/mob_icon = null
 	var/datum/species/species = null
 	var/body_build = null
 
@@ -116,9 +115,9 @@
 	else
 		..()
 
-/obj/item/eye_camera/proc/put_in_socket(var/mob/living/carbon/human/user, var/mob/living/carbon/human/target)
+/obj/item/eye_camera/proc/put_in_socket(var/mob/living/user, var/mob/living/carbon/human/target)
 	if(target.eyecheck())
-		user << "<span class='warning'>You can't access[user == target ? "" : " [target]'s"] eye-socket.</span>"
+		user << SPAN_WARN("You can't access[user == target ? "" : " [target]'s"] eye-socket.")
 		return
 	var/obj/item/organ/internal/eyes/mechanic/cam/eyes = target.internal_organs_by_name[O_EYES]
 	if(eyes && istype(eyes))

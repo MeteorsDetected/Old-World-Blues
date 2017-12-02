@@ -1,9 +1,8 @@
-var/list/organ_cache = list()
-
 /obj/item/organ
 	name = "organ"
 	icon = 'icons/obj/surgery.dmi'
 	germ_level = 0
+	var/icon/mob_icon                 // Cached icon for use in mob overlays.
 
 	// Strings.
 	var/organ_tag = "organ"           // Unique identifier.
@@ -89,16 +88,13 @@ var/list/organ_cache = list()
 	owner = null
 
 /obj/item/organ/proc/sync_to_owner()
-	return
 
 /obj/item/organ/proc/get_icon()
-	return null
+	return mob_icon
 
 /obj/item/organ/proc/get_icon_key()
-	return
 
 /obj/item/organ/proc/update_health()
-	return
 
 /obj/item/organ/proc/die()
 	if(robotic >= ORGAN_ROBOT)
