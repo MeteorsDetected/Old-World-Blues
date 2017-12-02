@@ -1,8 +1,9 @@
-/obj/machinery/computer/arcade
+/obj/machinery/arcade
 	name = "arcade machine"
 	desc = "Does not support pinball."
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machinery.dmi'
 	icon_state = "arcade"
+	density = TRUE
 	circuit = /obj/item/weapon/circuitboard/arcade
 	var/enemy_name = "Space Villian"
 	var/temp = "Winners Don't Use Spacedrugs" //Temporary message, for attack messages, etc
@@ -39,10 +40,10 @@
 		/obj/item/toy/cultsword						= 1
 	)
 
-/obj/machinery/computer/arcade
+/obj/machinery/arcade
 	var/turtle = 0
 
-/obj/machinery/computer/arcade/New()
+/obj/machinery/arcade/New()
 	..()
 	var/name_action
 	var/name_part1
@@ -57,10 +58,10 @@
 	src.name = (name_action + name_part1 + name_part2)
 
 
-/obj/machinery/computer/arcade/attack_ai(mob/user as mob)
+/obj/machinery/arcade/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/computer/arcade/attack_hand(mob/user as mob)
+/obj/machinery/arcade/attack_hand(mob/user as mob)
 	if(..())
 		return
 	user.set_machine(src)
@@ -83,7 +84,7 @@
 	onclose(user, "arcade")
 	return
 
-/obj/machinery/computer/arcade/Topic(href, href_list)
+/obj/machinery/arcade/Topic(href, href_list)
 	if(..())
 		return 1
 
@@ -148,7 +149,7 @@
 	src.updateUsrDialog()
 	return
 
-/obj/machinery/computer/arcade/proc/arcade_action()
+/obj/machinery/arcade/proc/arcade_action()
 	if ((src.enemy_mp <= 0) || (src.enemy_hp <= 0))
 		if(!gameover)
 			src.gameover = 1
@@ -212,7 +213,7 @@
 	return
 
 
-/obj/machinery/computer/arcade/battle/emag_act(var/charges, var/mob/user)
+/obj/machinery/arcade/battle/emag_act(var/charges, var/mob/user)
 	if(!emagged)
 		temp = "If you die in the game, you die for real!"
 		player_hp = 30
@@ -231,7 +232,7 @@
 		src.updateUsrDialog()
 
 
-/obj/machinery/computer/arcade/emp_act(severity)
+/obj/machinery/arcade/emp_act(severity)
 	if(stat & (NOPOWER|BROKEN))
 		..(severity)
 		return
@@ -247,3 +248,20 @@
 		new empprize(src.loc)
 
 	..(severity)
+
+/obj/machinery/arcade/attackby(obj/item/I, mob/living/user)
+	if(default_deconstruction_screwdriver(user, I))
+		return
+	if(default_deconstruction_crowbar(user, I))
+		return
+	if(default_part_replacement(user, I))
+		return
+	return ..()
+
+/obj/machinery/arcade/update_icon()
+	if(stat & BROKEN)
+		icon_state = "arcade_broken"
+	else if(stat & NOPOWER)
+		icon_state = "arcade0"
+	else
+		icon_state = initial(icon_state)
