@@ -112,8 +112,3 @@
 		update_icon()
 	else
 		usr << SPAN_NOTE("The [src] is empty.")
-
-
-/obj/machinery/pdapainter/power_change()
-	..()
-	update_icon()
