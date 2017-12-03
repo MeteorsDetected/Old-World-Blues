@@ -18,7 +18,7 @@ var/global/datum/global_init/init = new ()
 
 	makeDatumRefLists()
 	load_configuration()
-
+	initialize_integrated_circuits_list()
 
 	qdel(src) //we're done
 
