@@ -196,8 +196,9 @@ For copy-pasting:
 
 /datum/job/proc/available_in_days(client/C)
 	if(C && config.use_age_restriction_for_jobs && isnum(C.player_age) && isnum(minimal_player_age))
-		var/plyr_age = max(0, C.player_age)
-		return max(0, minimal_player_age - plyr_age)
+		if(title == "Assistant")
+			return 0
+		return max(0, minimal_player_age - C.player_age)
 	return 0
 
 /datum/job/proc/available_to(var/mob/player)
