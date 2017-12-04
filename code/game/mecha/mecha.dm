@@ -775,6 +775,13 @@
 			user << "You were unable to attach [W] to [src]"
 		return
 
+	if(istype(W, /obj/item/organ/internal/brain/blackbox))
+		if(mmi_move_inside(W,user))
+			user << "[src]-Black box interface initialized successfuly"
+		else
+			user << "[src]-Black box interface initialization failed."
+		return
+
 	if(istype(W, /obj/item/device/mmi))
 		if(mmi_move_inside(W,user))
 			user << "[src]-MMI interface initialized successfuly"
