@@ -66,7 +66,6 @@
 /obj/item/storage/proc/make_exact_fit() //TODO: To do so everywhere
 	storage_slots = contents.len
 
-	can_hold.Cut()
 	max_w_class = 0
 	max_storage_space = 0
 	for(var/obj/item/I in src)
