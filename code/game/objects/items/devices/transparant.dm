@@ -1,3 +1,16 @@
+/obj/item/proc/use_multi(mob/user, list/res_list)
+	. = TRUE
+	for(var/x in res_list)
+		var/obj/item/stack/S = x
+		if(S.amount < res_list[x])
+			. = FALSE
+			to_chat(user, "There is not enough [S.name]. You need [res_list[x]].")
+			break
+	if(.)
+		for(var/x in res_list)
+			var/obj/item/stack/S = x
+			S.use(res_list[x])
+
 /obj/item/weapon/transparant
 	icon = 'icons/obj/transparant.dmi'
 //	icon_custom = 'code/game/objects/WalterJ_Items_Pack/TRANSPARANTS/transparant.dmi'
@@ -103,13 +116,14 @@
 
 
 
-/obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user)
+/obj/item/stack/rods/attackby(obj/item/I, mob/user)
 	..()
-	if(istype(I, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = I
+
+	if(istype(I, /obj/item/stack/material/cardboard))
+		var/obj/item/stack/material/cardboard/C = I
 
 		var/list/resources_to_use = list()
-		resources_to_use[R] = 1
+		resources_to_use[C] = 1
 		resources_to_use[src] = 1
 		if(!use_multi(user, resources_to_use))
 			return
