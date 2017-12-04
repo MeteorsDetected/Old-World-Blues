@@ -13,19 +13,14 @@
 
 /obj/item/weapon/transparant
 	icon = 'icons/obj/transparant.dmi'
-//	icon_custom = 'code/game/objects/WalterJ_Items_Pack/TRANSPARANTS/transparant.dmi'
 	icon_state = "blank"
-
+	item_state = "blank"
 	name = "blank sign"
 	desc = "Nothing."
 	var/not_bloody_state
 	force = 8
 	w_class = 4.0
 	throwforce = 5
-//	flags = NOSHIELD
-		//var/protest_text
- 		//	var/protest_text_lenght = 100
- 	//var/image/inhand_blood_overlay
 	attack_verb = list("bashed", "pacified", "smashed", "opressed", "flapped")
 
 /obj/item/weapon/transparant/New()
