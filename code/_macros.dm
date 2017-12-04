@@ -54,8 +54,6 @@
 
 #define isdrone(A) istype(A, /mob/living/silicon/robot/drone)
 
-#define CanInteract(user, state) (CanUseTopic(user, state) == STATUS_INTERACTIVE)
-#define isweakref(A) istype(A, /weakref)
 
 //---------------------------------------------------
 

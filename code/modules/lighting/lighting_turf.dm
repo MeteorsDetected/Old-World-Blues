@@ -30,8 +30,3 @@
 	. = ..()
 	if(obj && obj.opacity)
 		reconsider_lights()
-
-// Used to get a scaled lumcount.
-/turf/proc/get_lumcount(var/minlum = 0, var/maxlum = 1)
-	if(!lighting_overlay)
-		return 0.5
