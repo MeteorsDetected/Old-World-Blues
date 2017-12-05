@@ -70,7 +70,7 @@
 
 
 /obj/machinery/computer/shuttle_control/multi
-	icon_state = "syndishuttle"
+	screen_icon = "syndishuttle"
 
 /obj/machinery/computer/shuttle_control/multi/attack_hand(user as mob)
 
