@@ -157,9 +157,6 @@
 	circuit.deconstruct(Computer)
 	Computer.circuit = null
 	frame_type = Computer.frame
-	..()
-
-/obj/structure/computerframe/deconstruct/with_glass/New(loc, obj/machinery/computer/Computer)
 	if(istype(Computer) && !Computer.stat|BROKEN)
 		glass = new /obj/item/stack/material/glass(src, 2)
 	..()
