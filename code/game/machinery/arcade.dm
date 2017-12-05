@@ -262,6 +262,6 @@
 	if(stat & BROKEN)
 		icon_state = "arcade_broken"
 	else if(stat & NOPOWER)
-		icon_state = "arcade0"
+		icon_state = "arcade_nopower"
 	else
 		icon_state = initial(icon_state)
