@@ -223,7 +223,7 @@
 	name = "DNA Modifier Access Console"
 	desc = "Scand DNA."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "scanner"
+	screen_icon = "scanner"
 	density = 1
 	circuit = /obj/item/weapon/circuitboard/scan_consolenew
 	var/selected_ui_block = 1.0
@@ -277,17 +277,6 @@
 	if(prob(75))
 		qdel(src)
 
-/obj/machinery/computer/scan_consolenew/power_change()
-	..()
-	if(stat & BROKEN)
-		icon_state = "broken"
-	else
-		if (stat & NOPOWER)
-			spawn(rand(0, 15))
-				src.icon_state = "c_unpowered"
-		else
-			icon_state = initial(icon_state)
-
 /obj/machinery/computer/scan_consolenew/New()
 	..()
 	for(var/i=0;i<3;i++)
@@ -316,15 +305,6 @@
 	I.block = id
 	I.buf = buffer
 	return 1
-
-/*
-/obj/machinery/computer/scan_consolenew/process() //not really used right now
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if (!( src.status )) //remove this
-		return
-	return
-*/
 
 /obj/machinery/computer/scan_consolenew/attack_ai(user as mob)
 	src.add_hiddenprint(user)
