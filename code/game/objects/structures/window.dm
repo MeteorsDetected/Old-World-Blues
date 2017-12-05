@@ -223,8 +223,8 @@
 	user.do_attack_animation(src)
 	return 1
 
-/obj/structure/window/affect_grab(var/mob/living/user, var/mob/living/target, var/obj/item/weapon/grab/grab)
-	switch(grab.state)
+/obj/structure/window/affect_grab(var/mob/living/user, var/mob/living/target, var/state)
+	switch(state)
 		if(GRAB_PASSIVE)
 			visible_message(SPAN_WARN("[user] slams [target] against \the [src]!"))
 			target.apply_damage(7)
@@ -539,7 +539,7 @@
 
 /obj/machinery/button/windowtint/power_change()
 	..()
-	if(active && !powered(power_channel))
+	if(active && stat&NOPOWER)
 		toggle_tint()
 
 /obj/machinery/button/windowtint/update_icon()

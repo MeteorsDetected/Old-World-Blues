@@ -6,7 +6,7 @@
 
 /obj/machinery/computer/telecomms/traffic
 	name = "Telecommunications Traffic Control"
-	icon_state = "computer_generic"
+	screen_icon = "computer_generic"
 
 	var/screen = 0				// the screen number:
 	var/list/servers = list()	// the servers located by the computer

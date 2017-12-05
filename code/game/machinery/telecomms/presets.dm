@@ -10,6 +10,10 @@
 	listening_level = 1
 	autolinkers = list("s_relay")
 
+/obj/machinery/telecomms/relay/preset/station/initialize()
+	..()
+	listening_level = maps_data.station_levels[1]
+
 /obj/machinery/telecomms/relay/preset/telecomms
 	id = "Telecomms Relay"
 	autolinkers = list("relay")

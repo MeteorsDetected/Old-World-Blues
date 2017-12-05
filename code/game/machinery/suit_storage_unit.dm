@@ -468,7 +468,7 @@
 		OCCUPANT = null //Testing this as a backup sanity test
 	return
 
-/obj/machinery/suit_storage_unit/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/machinery/suit_storage_unit/affect_grab(var/mob/user, var/mob/target)
 	if(!isopen)
 		user << SPAN_WARN("The unit's doors are shut.")
 		return
@@ -638,7 +638,7 @@
 /obj/machinery/suit_cycler/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/suit_cycler/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/machinery/suit_cycler/affect_grab(var/mob/user, var/mob/target)
 	if(locked)
 		user << SPAN_DANG("The suit cycler is locked.")
 		return

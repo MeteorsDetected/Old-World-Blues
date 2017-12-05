@@ -72,10 +72,6 @@
 		src.build_inventory()
 		power_change()
 
-		return
-
-	return
-
 /**
  *  Build src.produdct_records from the products lists
  *

@@ -66,12 +66,12 @@
 	return
 
 
-/obj/structure/table/affect_grab(var/mob/living/user, var/mob/living/target, var/obj/item/weapon/grab/grab)
+/obj/structure/table/affect_grab(var/mob/living/user, var/mob/living/target, var/state)
 	var/obj/occupied = turf_is_crowded()
 	if(occupied)
 		user << SPAN_DANG("There's \a [occupied] in the way.")
 		return
-	if(grab.state < GRAB_AGGRESSIVE || target.loc==src.loc)
+	if(state < GRAB_AGGRESSIVE || target.loc==src.loc)
 		if(user.a_intent == I_HURT)
 			if(prob(15))
 				target.Weaken(5)
