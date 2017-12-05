@@ -1,28 +1,24 @@
-/**********************Mineral processing unit console**************************/
-
 /obj/machinery/mineral/processing_unit_console
-	name = "ore redemption console"
+	name = "production machine console"
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = 1
 	anchored = 1
-	use_power = 1
-	idle_power_usage = 15
-	active_power_usage = 50
 
-	var/obj/machinery/mineral/processing_unit/machine = null
-	var/machinedir = NORTHEAST
-	var/show_all_ores = 0
 	var/points = 0
+	var/obj/machinery/mineral/processing_unit/machine = null
+	var/machinedir = EAST
+	var/show_all_ores = 0
 	var/obj/item/weapon/card/id/inserted_id
 
-/obj/machinery/mineral/processing_unit_console/Initialize()
-	. = ..()
-	src.machine = locate(/obj/machinery/mineral/processing_unit, get_step(src, machinedir))
-	if (machine)
-		machine.console = src
-	else
-		return INITIALIZE_HINT_QDEL
+/obj/machinery/mineral/processing_unit_console/New()
+	..()
+	spawn(7)
+		src.machine = locate(/obj/machinery/mineral/processing_unit, get_step(src, machinedir))
+		if (machine)
+			machine.console = src
+		else
+			qdel(src)
 
 /obj/machinery/mineral/processing_unit_console/attack_hand(mob/user)
 	add_fingerprint(user)
@@ -105,6 +101,7 @@
 		else if(href_list["choice"] == "insert")
 			var/obj/item/weapon/card/id/I = usr.get_active_hand()
 			if(istype(I))
+				usr.drop_from_inventory(I, src)
 				I.loc = src
 				inserted_id = I
 			else usr << "<span class='warning'>No valid ID.</span>"
@@ -137,6 +134,7 @@
 	src.updateUsrDialog()
 	return
 
+
 /**********************Mineral processing unit**************************/
 
 //This isn't actually a goddamn furnace, we're in space and it's processing platinum and flammable phoron...
@@ -149,7 +147,7 @@
 	light_range = 3
 	var/obj/machinery/mineral/input = null
 	var/obj/machinery/mineral/output = null
-	var/obj/machinery/mineral/console = null
+	var/obj/machinery/mineral/processing_unit_console/console = null
 	var/sheets_per_tick = 10
 	var/list/ores_processing[0]
 	var/list/ores_stored[0]
@@ -230,6 +228,9 @@
 					else
 						var/total
 						for(var/needs_metal in A.requires)
+							if(console)
+								var/ore/Ore = ore_data[needs_metal]
+								console.points += Ore.worth
 							ores_stored[needs_metal] -= A.requires[needs_metal]
 							total += A.requires[needs_metal]
 							total = max(1,round(total*A.product_mod)) //Always get at least one sheet.
@@ -251,6 +252,8 @@
 					continue
 
 				for(var/i=0,i<can_make,i+=2)
+					if(console)
+						console.points += O.worth*2
 					ores_stored[metal]-=2
 					sheets+=2
 					M.place_sheet(output.loc)
@@ -263,10 +266,14 @@
 					continue
 
 				for(var/i=0,i<can_make,i++)
+					if(console)
+						console.points += O.worth
 					ores_stored[metal]--
 					sheets++
 					M.place_sheet(output.loc)
 			else
+				if(console)
+					console.points -= O.worth*3 //reee wasting our materials!
 				ores_stored[metal]--
 				sheets++
 				new /obj/item/weapon/ore/slag(output.loc)
