@@ -1455,9 +1455,9 @@
 	result = /obj/mecha/combat/phazon
 	steps = list(
 		//1
-		list("key"=/obj/item/stack/cable_coil,
+		list("key"=/obj/item/weapon/hand_tele,
 			"backkey"=/obj/item/weapon/crowbar,
-			"desc"="The bluespace crystal is installed."),
+			"desc"="The hand tele is installed."),
 		//2
 		list("key"=/obj/item/weapon/weldingtool,
 			"backkey"=/obj/item/weapon/wrench,
@@ -1891,8 +1891,8 @@
 			if(1)
 				if(diff==FORWARD)
 					user.visible_message(
-						"[user] carefully inserts the anomaly core into \the [holder] and secures it.",
-						"You carefully insert the anomaly core into \the [holder] and secures it."
+						"[user] carefully inserts the hand tele into \the [holder] and secures it.",
+						"You carefully insert the hand tele into \the [holder] and secures it."//anomaly core
 					)
 					qdel(used_atom)
 		return 1
