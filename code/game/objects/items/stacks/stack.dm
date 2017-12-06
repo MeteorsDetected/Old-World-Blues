@@ -53,7 +53,6 @@
 		var/obj/item/stack/S = x
 		if(S.amount < res_list[x])
 			. = FALSE
-			to_chat(user, "There is not enough [S.name]. You need [res_list[x]].")
 			break
 	if(.)
 		for(var/x in res_list)
