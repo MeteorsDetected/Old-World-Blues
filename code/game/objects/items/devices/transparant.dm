@@ -1,16 +1,3 @@
-/obj/item/proc/use_multi(mob/user, list/res_list)
-	. = TRUE
-	for(var/x in res_list)
-		var/obj/item/stack/S = x
-		if(S.amount < res_list[x])
-			. = FALSE
-			to_chat(user, "There is not enough [S.name]. You need [res_list[x]].")
-			break
-	if(.)
-		for(var/x in res_list)
-			var/obj/item/stack/S = x
-			S.use(res_list[x])
-
 /obj/item/weapon/transparant
 	icon = 'icons/obj/transparant.dmi'
 	sprite_group = SPRITE_LARGE
@@ -57,11 +44,11 @@
 
 /obj/item/weapon/transparant/attack_self(mob/user)
 	for(var/mob/O in viewers(user, null))
-		O.show_message("[user] shows you: [icon(src)] [src.blood_DNA ? "bloody " : ""][src.name]: it says: [src.desc]", 1)
+		O.show_message("[user] shows you: [src.blood_DNA ? "bloody " : ""][src.name]: it says: [src.desc]", 1)
 
 /obj/item/weapon/transparant/attack(mob/M, mob/user)
 	..()
-	M.show_message("<span class='attack'>\The <EM>[src.blood_DNA ? "bloody " : ""][icon(src)][src.name]</EM> says: <EM>[src.desc]</EM></span>", 2)
+	M.show_message("<span class='attack'>\The <EM>[src.blood_DNA ? "bloody " : ""][src.name]</EM> says: <EM>[src.desc]</EM></span>", 2)
 
 
 /obj/item/weapon/transparant/update_icon()
