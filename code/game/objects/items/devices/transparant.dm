@@ -44,11 +44,11 @@
 
 /obj/item/weapon/transparant/attack_self(mob/user)
 	for(var/mob/O in viewers(user, null))
-		O.show_message("[user] shows you: [src.blood_DNA ? "bloody " : ""][src.name]: it says: [src.desc]", 1)
+		O.show_message("[user] shows you: \icon[src] [src.blood_DNA ? "bloody " : ""][src.name]: it says: [src.desc]", 1)
 
 /obj/item/weapon/transparant/attack(mob/M, mob/user)
 	..()
-	M.show_message("<span class='attack'>\The <EM>[src.blood_DNA ? "bloody " : ""][src.name]</EM> says: <EM>[src.desc]</EM></span>", 2)
+	M.show_message("<span class='attack'>\The <EM>[src.blood_DNA ? "bloody " : ""]\icon[src][src.name]</EM> says: <EM>[src.desc]</EM></span>", 2)
 
 
 /obj/item/weapon/transparant/update_icon()
