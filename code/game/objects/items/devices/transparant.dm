@@ -13,8 +13,8 @@
 
 /obj/item/weapon/transparant
 	icon = 'icons/obj/transparant.dmi'
+	sprite_group = SPRITE_LARGE
 	icon_state = "blank"
-	item_state = "blank"
 	name = "blank sign"
 	desc = "Nothing."
 	var/not_bloody_state
