@@ -59,19 +59,18 @@
 		movedir = forwards
 	else
 		movedir = backwards
-	update_icon()
+	update()
 
-/obj/machinery/conveyor/update_icon()
+/obj/machinery/conveyor/proc/update()
 	if(stat & BROKEN)
 		icon_state = "conveyor-broken"
-		operating = FALSE
+		operating = 0
 		return
-
-	if(!operable || stat&NOPOWER)
-		operating = FALSE
-
+	if(!operable)
+		operating = 0
+	if(stat & NOPOWER)
+		operating = 0
 	icon_state = "conveyor[operating]"
-
 
 	// machine process
 	// move items to the target location
@@ -105,7 +104,7 @@
 // also propagate inoperability to any connected conveyor with the same ID
 /obj/machinery/conveyor/proc/broken()
 	stat |= BROKEN
-	update_icon()
+	update()
 
 	var/obj/machinery/conveyor/C = locate() in get_step(src, dir)
 	if(C)
@@ -124,10 +123,20 @@
 		return
 	operable = op
 
-	update_icon()
+	update()
 	var/obj/machinery/conveyor/C = locate() in get_step(src, stepdir)
 	if(C)
 		C.set_operable(stepdir, id, op)
+
+/*
+/obj/machinery/conveyor/verb/destroy()
+	set src in view()
+	src.broken()
+*/
+
+/obj/machinery/conveyor/power_change()
+	..()
+	update()
 
 // the conveyor control switch
 //

@@ -40,7 +40,7 @@
 			trunk.linked = src	// link the pipe trunk to self
 
 		air_contents = new/datum/gas_mixture(PRESSURE_TANK_VOLUME)
-		update_icon()
+		update()
 
 /obj/machinery/disposal/Destroy()
 	eject()
@@ -115,7 +115,7 @@
 		for(var/obj/item/O in T.contents)
 			T.remove_from_storage(O,src)
 		T.update_icon()
-		update_icon()
+		update()
 		return
 
 	if(!I || !user.unEquip(I, src))
@@ -127,7 +127,7 @@
 			continue
 		M.show_message("[user.name] places \the [I] into the [src].", 3)
 
-	update_icon()
+	update()
 
 // mouse drop another mob or self
 //
@@ -173,7 +173,7 @@
 			continue
 		C.show_message(msg, 3)
 
-	update_icon()
+	update()
 	return
 
 // can breath normally in the disposal
@@ -195,7 +195,7 @@
 		user.client.eye = user.client.mob
 		user.client.perspective = MOB_PERSPECTIVE
 	user.loc = src.loc
-	update_icon()
+	update()
 	return
 
 // ai as human but can't flush
@@ -217,7 +217,8 @@
 		interact(user, 0)
 	else
 		flush = !flush
-		update_icon()
+		update()
+	return
 
 // user interaction
 /obj/machinery/disposal/interact(mob/user, var/ai=0)
@@ -284,12 +285,12 @@
 				mode = 1
 			else
 				mode = 0
-			update_icon()
+			update()
 
 		if(!isAI(usr))
 			if(href_list["handle"])
 				flush = text2num(href_list["handle"])
-				update_icon()
+				update()
 
 			if(href_list["eject"])
 				eject()
@@ -304,10 +305,10 @@
 	for(var/atom/movable/AM in src)
 		AM.loc = src.loc
 		AM.pipe_eject(0)
-	update_icon()
+	update()
 
 // update the icon & overlays to reflect mode & status
-/obj/machinery/disposal/update_icon()
+/obj/machinery/disposal/proc/update()
 	overlays.Cut()
 	if(stat & BROKEN)
 		icon_state = "disposal-broken"
@@ -357,7 +358,7 @@
 		update_use_power(1)
 	else if(air_contents.return_pressure() >= SEND_PRESSURE)
 		mode = 2 //if full enough, switch to ready mode
-		update_icon()
+		update()
 	else
 		src.pressurize() //otherwise charge
 
@@ -413,7 +414,15 @@
 	flush = 0
 	if(mode == 2)	// if was ready,
 		mode = 1	// switch to charging
-	update_icon()
+	update()
+	return
+
+
+// called when area power changes
+/obj/machinery/disposal/power_change()
+	..()	// do default setting/reset of stat NOPOWER bit
+	update()	// update icon
+	return
 
 
 // called when holder is expelled from a disposal

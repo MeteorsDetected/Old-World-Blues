@@ -515,6 +515,11 @@ var/list/solars_list = list()
 	update_icon()
 
 
+/obj/machinery/power/solar_control/power_change()
+	..()
+	update_icon()
+
+
 /obj/machinery/power/solar_control/proc/broken()
 	stat |= BROKEN
 	update_icon()

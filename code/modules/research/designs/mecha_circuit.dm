@@ -107,13 +107,13 @@ datum/design/circuit/mechacontrol
 /datum/design/circuit/mecha/phazon_peri
 	name = "'Phazon' peripherals control"
 	id = "phazon_peri"
-	req_tech = list(TECH_DATA = 5, TECH_BLUESPACE = 3)
+	req_tech = list(TECH_DATA = 4, TECH_BLUESPACE = 3)
 	build_path = /obj/item/weapon/circuitboard/mecha/phazon/peripherals
 
 /datum/design/circuit/mecha/phazon_targ
 	name = "'Phazon' weapon control and targeting"
 	id = "phazon_targ"
-	req_tech = list(TECH_DATA = 5, TECH_COMBAT = 3, TECH_BLUESPACE = 5)
+	req_tech = list(TECH_DATA = 4, TECH_COMBAT = 2, TECH_BLUESPACE = 6)
 	build_path = /obj/item/weapon/circuitboard/mecha/phazon/targeting
 
 

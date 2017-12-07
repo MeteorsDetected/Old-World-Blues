@@ -1,7 +1,7 @@
 /obj/machinery/computer/aifixer
 	name = "\improper AI system integrity restorer"
 	icon = 'icons/obj/computer.dmi'
-	screen_icon = "ai-fixer"
+	icon_state = "ai-fixer"
 	light_color = "#a97faa"
 	circuit = /obj/item/weapon/circuitboard/aifixer
 	req_one_access = list(access_robotics, access_heads)
@@ -130,13 +130,15 @@
 /obj/machinery/computer/aifixer/update_icon()
 	..()
 
-	if(stat & (BROKEN|NOPOWER))
+	overlays.Cut()
+
+	if((stat & BROKEN) || (stat & NOPOWER))
 		return
 
 	if(occupant)
 		if(occupant.stat)
-			overlays += "ai-fixer-404"
+			overlays += image('icons/obj/computer.dmi', "ai-fixer-404")
 		else
-			overlays += "ai-fixer-full"
+			overlays += image('icons/obj/computer.dmi', "ai-fixer-full")
 	else
-		overlays += "ai-fixer-empty"
+		overlays += image('icons/obj/computer.dmi', "ai-fixer-empty")

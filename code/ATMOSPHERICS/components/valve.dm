@@ -247,11 +247,16 @@
 	open = 1
 	icon_state = "map_valve1"
 
+/obj/machinery/atmospherics/valve/digital/power_change()
+	var/old_stat = stat
+	..()
+	if(old_stat != stat)
+		update_icon()
+
 /obj/machinery/atmospherics/valve/digital/update_icon()
+	..()
 	if(!powered())
 		icon_state = "valve[open]nopower"
-	else
-		..()
 
 /obj/machinery/atmospherics/valve/digital/proc/set_frequency(new_frequency)
 	radio_controller.remove_object(src, frequency)

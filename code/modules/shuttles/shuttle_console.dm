@@ -1,7 +1,7 @@
 /obj/machinery/computer/shuttle_control
 	name = "shuttle control console"
 	icon = 'icons/obj/computer.dmi'
-	screen_icon = "shuttle"
+	icon_state = "shuttle"
 	circuit = null
 
 	var/shuttle_tag  // Used to coordinate data in shuttle controller.

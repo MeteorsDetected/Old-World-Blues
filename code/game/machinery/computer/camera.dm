@@ -8,8 +8,7 @@
 /obj/machinery/computer/security
 	name = "security camera monitor"
 	desc = "Used to access the various cameras on the station."
-	screen_icon = "cameras"
-	screen_broken = "broken_red"
+	icon_state = "cameras"
 	light_color = "#a91515"
 	var/obj/machinery/camera/current = null
 	var/last_pic = 1.0
@@ -209,34 +208,24 @@
 	circuit = null
 
 /obj/machinery/computer/security/telescreen/update_icon()
-	if(stat&BROKEN)
-		icon_state = "[initial(icon_state)]_broken"
-	else
-		icon_state = initial(icon_state)
-
+	icon_state = initial(icon_state)
+	if(stat & BROKEN)
+		icon_state += "b"
+	return
 
 /obj/machinery/computer/security/telescreen/entertainment
 	name = "entertainment monitor"
 	desc = "Damn, why do they never have anything interesting on these things?"
 	icon = 'icons/obj/status_display.dmi'
-	icon_state = "frame"
-	screen_icon = "frame"
+	icon_state = "entertainment"
 	light_color = "#FFEEDB"
 	light_range_on = 2
 	circuit = null
 
-/obj/machinery/computer/security/telescreen/entertainment/update_icon()
-	overlays.Cut()
-	if(stat&NOPOWER)
-		return
-	overlays += "entertainment"
-
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"
 	desc = "An old TV hooked into the stations camera network."
-	icon_state = "old_tv"
-	screen_icon = "detective"
-	screen_broken = "detective_broken"
+	icon_state = "security_det"
 	circuit = null
 	light_color = "#3848B3"
 	light_power_on = 0.5
@@ -244,7 +233,7 @@
 /obj/machinery/computer/security/mining
 	name = "outpost camera monitor"
 	desc = "Used to access the various cameras on the outpost."
-	screen_icon = "miningcameras"
+	icon_state = "miningcameras"
 	network = list("MINE")
 	circuit = /obj/item/weapon/circuitboard/security/mining
 	light_color = "#F9BBFC"
@@ -252,7 +241,7 @@
 /obj/machinery/computer/security/engineering
 	name = "engineering camera monitor"
 	desc = "Used to monitor fires and breaches."
-	screen_icon = "engineeringcameras"
+	icon_state = "engineeringcameras"
 	circuit = /obj/item/weapon/circuitboard/security/engineering
 	light_color = "#FAC54B"
 
@@ -264,13 +253,13 @@
 /obj/machinery/computer/security/nuclear
 	name = "head mounted camera monitor"
 	desc = "Used to access the built-in cameras in helmets."
-	screen_icon = "syndicam"
+	icon_state = "syndicam"
 	network = list("NUKE")
 	circuit = null
 
 /obj/machinery/computer/security/ert
 	name = "head mounted camera monitor(ERT)"
 	desc = "Used to access the built-in cameras in helmets."
-	screen_icon = "cameras"
+	icon_state = "cameras"
 	network = list("ERT")
 	circuit = null

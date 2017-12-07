@@ -43,7 +43,7 @@
 /obj/machinery/computer/teleporter
 	name = "Teleporter Control Console"
 	desc = "Used to control a linked teleportation Hub and Station."
-	screen_icon = "teleport"
+	icon_state = "teleport"
 	circuit = /obj/item/weapon/circuitboard/teleporter
 	dir = 4
 	var/updating = 0
@@ -462,7 +462,8 @@
 	src.add_fingerprint(usr)
 	return
 
-/obj/machinery/teleport/station/update_icon()
+/obj/machinery/teleport/station/power_change()
+	..()
 	if(stat & NOPOWER)
 		icon_state = "controller-p"
 

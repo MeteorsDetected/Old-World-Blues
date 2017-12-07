@@ -3,7 +3,7 @@
 /obj/machinery/computer/message_monitor
 	name = "messaging monitor console"
 	desc = "Used to access and maintain data on messaging servers. Allows you to view PDA and request console messages."
-	screen_icon = "comm_logs"
+	icon_state = "comm_logs"
 	light_color = "#00b000"
 	var/hack_icon = "comm_logsc"
 	var/normal_icon = "comm_logs"
@@ -66,12 +66,13 @@
 			user << SPAN_NOTE("A no server error appears on the screen.")
 
 /obj/machinery/computer/message_monitor/update_icon()
-	if( !(stat & (NOPOWER|BROKEN)) )
-		if(emag || hacking)
-			screen_icon = hack_icon
-		else
-			screen_icon = normal_icon
 	..()
+	if(stat & (NOPOWER|BROKEN))
+		return
+	if(emag || hacking)
+		icon_state = hack_icon
+	else
+		icon_state = normal_icon
 
 /obj/machinery/computer/message_monitor/initialize()
 	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.

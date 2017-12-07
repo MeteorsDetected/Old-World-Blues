@@ -140,6 +140,7 @@
 		update_use_power(0)
 	else if(!stat && construction_state == 3)
 		update_use_power(1)
+	return
 
 
 /obj/machinery/particle_accelerator/control_box/process()

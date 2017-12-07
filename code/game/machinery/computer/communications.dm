@@ -4,7 +4,7 @@
 /obj/machinery/computer/communications
 	name = "command and communications console"
 	desc = "Used to command and control the station. Can relay long-range communications."
-	screen_icon = "comm"
+	icon_state = "comm"
 	light_color = "#0099ff"
 	req_access = list(access_heads)
 	circuit = /obj/item/weapon/circuitboard/communications

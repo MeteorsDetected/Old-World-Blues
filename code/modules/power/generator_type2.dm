@@ -136,3 +136,8 @@
 		return 0
 
 	return 1
+
+
+/obj/machinery/power/generator_type2/power_change()
+	..()
+	updateicon()

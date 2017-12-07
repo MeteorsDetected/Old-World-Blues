@@ -4,7 +4,7 @@
 	name = "Gravity Generator Control"
 	desc = "A computer to control a local gravity generator.  Qualified personnel only."
 	icon = 'icons/obj/computer.dmi'
-	screen_icon = "airtunnel0e"
+	icon_state = "airtunnel0e"
 	anchored = 1
 	density = 1
 	var/obj/machinery/gravity_generator = null

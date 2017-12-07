@@ -1,7 +1,7 @@
 /obj/machinery/computer/curer
 	name = "cure research machine"
 	icon = 'icons/obj/computer.dmi'
-	screen_icon = "dna"
+	icon_state = "dna"
 	circuit = /obj/item/weapon/circuitboard/curefab
 	var/curing
 	var/virusing

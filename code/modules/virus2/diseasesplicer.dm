@@ -1,7 +1,7 @@
 /obj/machinery/computer/diseasesplicer
 	name = "disease splicer"
 	icon = 'icons/obj/computer.dmi'
-	screen_icon = "crew"
+	icon_state = "crew"
 
 	var/datum/disease2/effectholder/memorybank = null
 	var/list/species_buffer = null

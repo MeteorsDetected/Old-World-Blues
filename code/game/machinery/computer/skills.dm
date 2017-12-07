@@ -3,12 +3,10 @@
 /obj/machinery/computer/skills//TODO:SANITY
 	name = "employment records console"
 	desc = "Used to view, edit and maintain employment records."
-	screen_icon = "medlaptop"
+	icon_state = "medlaptop"
 	light_color = "#00b000"
 	req_one_access = list(access_heads)
 	circuit = /obj/item/weapon/circuitboard/skills
-	frame = FRAME_LAPTOP
-	icon = 'icons/obj/computer_laptop.dmi'
 	var/obj/item/weapon/card/id/scan = null
 	var/authenticated = null
 	var/rank = null
@@ -51,7 +49,8 @@
 		if (authenticated)
 			switch(screen)
 				if(1.0)
-					dat += "<p style='text-align:center;'>"
+					dat += {"
+<p style='text-align:center;'>"}
 					dat += text("<A href='?src=\ref[];choice=Search Records'>Search Records</A><BR>", src)
 					dat += text("<A href='?src=\ref[];choice=New Record (General)'>New Record</A><BR>", src)
 					dat += {"

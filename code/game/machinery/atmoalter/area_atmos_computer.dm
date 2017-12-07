@@ -1,7 +1,7 @@
 /obj/machinery/computer/area_atmos
 	name = "Area Air Control"
 	desc = "A computer used to control the stationary scrubbers and pumps in the area."
-	screen_icon = "area_atmos"
+	icon_state = "area_atmos"
 	light_color = "#e6ffff"
 	circuit = /obj/item/weapon/circuitboard/area_atmos
 

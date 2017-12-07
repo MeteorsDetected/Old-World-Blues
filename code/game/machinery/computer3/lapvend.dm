@@ -24,6 +24,9 @@
 	..()
 	spawn(4)
 		power_change()
+		return
+	return
+
 
 /obj/machinery/lapvend/blob_act()
 	if (prob(50))

@@ -87,6 +87,12 @@
 /obj/machinery/atmospherics/trinary/filter/hide(var/i)
 	update_underlays()
 
+/obj/machinery/atmospherics/trinary/filter/power_change()
+	var/old_stat = stat
+	..()
+	if(old_stat != stat)
+		update_icon()
+
 /obj/machinery/atmospherics/trinary/filter/process()
 	..()
 

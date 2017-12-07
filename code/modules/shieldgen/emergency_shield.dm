@@ -190,6 +190,7 @@
 		collapse_shields()
 	else
 		create_shields()
+	update_icon()
 
 /obj/machinery/shieldgen/process()
 	if (!active || (stat & NOPOWER))

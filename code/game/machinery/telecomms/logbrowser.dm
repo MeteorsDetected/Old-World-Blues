@@ -2,7 +2,7 @@
 
 /obj/machinery/computer/telecomms/server
 	name = "Telecommunications Server Monitor"
-	screen_icon = "comm_logs"
+	icon_state = "comm_logs"
 
 	var/screen = 0				// the screen number:
 	var/list/servers = list()	// the servers located by the computer

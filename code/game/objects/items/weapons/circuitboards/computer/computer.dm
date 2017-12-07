@@ -87,6 +87,11 @@
 	build_path = /obj/machinery/computer/cloning
 	origin_tech = list(TECH_DATA = 3, TECH_BIO = 3)
 
+/obj/item/weapon/circuitboard/arcade
+	name = T_BOARD("arcade machine")
+	build_path = /obj/machinery/computer/arcade
+	origin_tech = list(TECH_DATA = 1)
+
 /obj/item/weapon/circuitboard/turbine_control
 	name = T_BOARD("turbine control console")
 	build_path = /obj/machinery/computer/turbine_computer

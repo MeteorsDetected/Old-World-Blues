@@ -1,18 +1,11 @@
-#define COMPUTER_ICON 'icons/obj/computer.dmi'
-#define LAPTOP_ICON   'icons/obj/computer_laptop.dmi'
-
 /obj/machinery/computer
 	name = "computer"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "computer"
-	var/screen_icon = "broken"
-	var/screen_broken = "broken"
 	density = 1
 	anchored = 1.0
 	use_power = 1
 	idle_power_usage = 300
 	active_power_usage = 300
-	var/frame = FRAME_COMPUTER
 	var/processing = 0
 
 	var/light_range_on = 3
@@ -27,15 +20,17 @@
 	return 1
 
 /obj/machinery/computer/meteorhit(var/obj/O as obj)
+	for(var/x in verbs)
+		verbs -= x
 	set_broken()
 	var/datum/effect/effect/system/smoke_spread/smoke = PoolOrNew(/datum/effect/effect/system/smoke_spread)
 	smoke.set_up(5, 0, src)
 	smoke.start()
+	return
 
 
 /obj/machinery/computer/emp_act(severity)
-	if(prob(20/severity))
-		set_broken()
+	if(prob(20/severity)) set_broken()
 	..()
 
 
@@ -49,9 +44,13 @@
 				qdel(src)
 				return
 			if (prob(50))
+				for(var/x in verbs)
+					verbs -= x
 				set_broken()
 		if(3.0)
 			if (prob(25))
+				for(var/x in verbs)
+					verbs -= x
 				set_broken()
 		else
 	return
@@ -67,31 +66,30 @@
 
 /obj/machinery/computer/blob_act()
 	if (prob(75))
+		for(var/x in verbs)
+			verbs -= x
 		set_broken()
 
 /obj/machinery/computer/update_icon()
-	if(frame == FRAME_LAPTOP)
-		icon = LAPTOP_ICON
-		density = FALSE
-	else
-		icon = COMPUTER_ICON
-		density = TRUE
+	..()
 	icon_state = initial(icon_state)
-	overlays.Cut()
-
 	// Broken
 	if(stat & BROKEN)
-		overlays += screen_broken
+		icon_state += "b"
 
-	// Unpowered
+	// Powered
 	else if(stat & NOPOWER)
-		set_light(0)
+		icon_state = initial(icon_state)
+		icon_state += "0"
 
+
+
+/obj/machinery/computer/power_change()
+	..()
+	update_icon()
+	if(stat & NOPOWER)
+		set_light(0)
 	else
-		if(screen_icon in icon_states(icon))
-			overlays += screen_icon
-		else
-			overlays += "computer_generic"
 		set_light(light_range_on, light_power_on)
 
 
@@ -117,17 +115,22 @@
 	if(istype(I, /obj/item/weapon/screwdriver) && circuit)
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20))
-			new /obj/structure/computerframe/deconstruct(src.loc, src)
+			var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
+			circuit.forceMove(A)
+			A.circuit = circuit
+			A.anchored = 1
 			for (var/obj/C in src)
 				C.loc = src.loc
 			if (src.stat & BROKEN)
 				user << SPAN_NOTE("The broken glass falls out.")
 				new /obj/item/weapon/material/shard( src.loc )
+				A.state = 3
+				A.icon_state = "3"
 			else
 				user << SPAN_NOTE("You disconnect the monitor.")
+				A.state = 4
+				A.icon_state = "4"
+			circuit.deconstruct(src)
 			qdel(src)
 	else
 		..()
-
-#undef COMPUTER_ICON
-#undef LAPTOP_ICON

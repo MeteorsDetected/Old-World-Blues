@@ -32,9 +32,10 @@
 
 /obj/machinery/igniter/New()
 	..()
-	update_icon()
+	icon_state = "igniter[on]"
 
-/obj/machinery/igniter/update_icon()
+/obj/machinery/igniter/power_change()
+	..()
 	if(!( stat & NOPOWER) )
 		icon_state = "igniter[src.on]"
 	else
@@ -57,11 +58,18 @@
 	active_power_usage = 4
 
 
-/obj/machinery/sparker/update_icon()
-	if((stat&NOPOWER) || disable)
-		icon_state = "[base_state]-p"
+/obj/machinery/sparker/New()
+	..()
+
+/obj/machinery/sparker/power_change()
+	..()
+	if ( !(stat & NOPOWER) && disable == 0 )
+
+		icon_state = "[base_state]"
+//		src.sd_SetLuminosity(2)
 	else
-		icon_state = base_state
+		icon_state = "[base_state]-p"
+//		src.sd_SetLuminosity(0)
 
 /obj/machinery/sparker/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (istype(W, /obj/item/weapon/screwdriver))
@@ -80,6 +88,8 @@
 /obj/machinery/sparker/attack_ai()
 	if (src.anchored)
 		return src.ignite()
+	else
+		return
 
 /obj/machinery/sparker/proc/ignite()
 	if (!(powered()))

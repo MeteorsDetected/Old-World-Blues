@@ -27,9 +27,11 @@ obj/machinery/scanner/New()
 		return
 	use_power(50)
 
-/obj/machinery/scanner/update_icon()
+/obj/machinery/scanner/power_change()
+	..()
 	if(stat & NOPOWER)
-		icon_state = "scanner_off"
+		spawn(rand(0, 15))
+			icon_state = "scanner_off"
 	else
 		icon_state = "scanner_idle"
 

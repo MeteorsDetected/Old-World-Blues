@@ -1,7 +1,7 @@
 /obj/machinery/computer/mecha
 	name = "Exosuit Control"
 	icon = 'icons/obj/computer.dmi'
-	screen_icon = "mecha"
+	icon_state = "mecha"
 	light_color = "#a97faa"
 	req_access = list(access_robotics)
 	circuit = /obj/item/weapon/circuitboard/mecha_control

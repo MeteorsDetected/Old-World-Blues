@@ -119,9 +119,13 @@
 		return 0
 
 /obj/machinery/mech_bay_recharge_port/power_change()
-	..()
-	if(stat&NOPOWER)
-		pr_recharger.stop()
+	if(powered())
+		stat &= ~NOPOWER
+	else
+		spawn(rand(0, 15))
+			stat |= NOPOWER
+			pr_recharger.stop()
+	return
 
 /obj/machinery/mech_bay_recharge_port/proc/set_voltage(new_voltage)
 	if(new_voltage && isnum(new_voltage))
@@ -159,7 +163,7 @@
 	density = 1
 	anchored = 1
 	icon = 'icons/obj/computer.dmi'
-	screen_icon = "recharge_comp"
+	icon_state = "recharge_comp"
 	light_color = "#a97faa"
 	circuit = /obj/item/weapon/circuitboard/mech_bay_power_console
 	var/autostart = 1
@@ -186,14 +190,23 @@
 
 
 /obj/machinery/computer/mech_bay_power_console/power_change()
-	..()
-	if(stat&NOPOWER)
+	if(stat & BROKEN)
+		icon_state = initial(icon_state)+"_broken"
 		if(recharge_port)
 			recharge_port.stop_charge()
+	else if(powered())
+		icon_state = initial(icon_state)
+		stat &= ~NOPOWER
+	else
+		spawn(rand(0, 15))
+			icon_state = initial(icon_state)+"_nopower"
+			stat |= NOPOWER
+			if(recharge_port)
+				recharge_port.stop_charge()
 
 /obj/machinery/computer/mech_bay_power_console/set_broken()
+	icon_state = initial(icon_state)+"_broken"
 	stat |= BROKEN
-	update_icon()
 	if(recharge_port)
 		recharge_port.stop_charge()
 

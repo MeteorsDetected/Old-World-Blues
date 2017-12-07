@@ -39,7 +39,8 @@ var/list/doppler_arrays = list()
 	audible_message("<span class='game say'><span class='name'>[src]</span> states coldly, \"[message]\"</span>")
 
 
-/obj/machinery/doppler_array/update_icon()
+/obj/machinery/doppler_array/power_change()
+	..()
 	if(stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 	else
