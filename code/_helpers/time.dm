@@ -4,39 +4,11 @@
 #define MINUTE *600
 #define MINUTES *600
 
-#define HOUR *36000
-#define HOURS *36000
-
-#define DAY *864000
-#define DAYS *864000
-
-#define station_adjusted_time(time) time2text(time + station_time_in_ticks, "hh:mm")
-#define worldtime2stationtime(time) time2text(roundstart_hour HOURS + time, "hh:mm")
-#define roundduration2text_in_ticks (round_start_time ? world.time - round_start_time : 0)
-#define station_time_in_ticks (roundstart_hour HOURS + roundduration2text_in_ticks)
-
 var/roundstart_hour = 0
-var/station_date = ""
-var/next_station_date_change = 1 DAY
 //Returns the world time in english
 proc/worldtime2text(time = world.time)
 	if(!roundstart_hour) roundstart_hour = pick(2,7,12,17)
 	return "[(round(time / 36000)+roundstart_hour) % 24]:[(time / 600 % 60) < 10 ? add_zero(time / 600 % 60, 1) : time / 600 % 60]"
-
-/proc/stationtime2text()
-	if(!roundstart_hour) roundstart_hour = pick(2, 7, 12, 17)
-	return time2text(station_time_in_ticks, "hh:mm")
-
-/proc/stationdate2text()
-	var/update_time = FALSE
-	if(station_time_in_ticks > next_station_date_change)
-		next_station_date_change += 1 DAY
-		update_time = TRUE
-	if(!station_date || update_time)
-		var/extra_days = round(station_time_in_ticks / (1 DAY)) DAYS
-		var/timeofday = world.timeofday + extra_days
-		station_date = num2text((text2num(time2text(timeofday, "YYYY"))+544)) + "-" + time2text(timeofday, "MM-DD")
-	return station_date
 
 proc/worlddate2text()
 	return num2text((text2num(time2text(world.timeofday, "YYYY"))+544)) + "-" + time2text(world.timeofday, "MM-DD")
@@ -58,7 +30,6 @@ proc/isDay(var/month, var/day)
 
 var/next_duration_update = 0
 var/last_round_duration = 0
-var/round_start_time = 0
 proc/round_duration()
 	if(last_round_duration && world.time < next_duration_update)
 		return last_round_duration
@@ -74,8 +45,3 @@ proc/round_duration()
 	last_round_duration = "[hours]:[mins]"
 	next_duration_update = world.time + 1 MINUTES
 	return last_round_duration
-
-//Can be useful for things dependent on process timing
-/proc/process_schedule_interval(var/process_name)
-	var/datum/controller/process/process = processScheduler.getProcess(process_name)
-	return process.schedule_interval

@@ -252,3 +252,149 @@
 	newflag.icon_state = "[newflag.base_state]_open"
 	newflag.visible_message("<b>[user]</b> plants [newflag] firmly in the ground.")
 	src.use(1)
+
+/******************************Seismic Charge*******************************/
+
+/obj/item/weapon/plastique/seismic
+	name = "seismic charge"
+	desc = "A complex mining device that utilizes a seismic detonation to eliminate weak asteroid turf in a wide radius."
+	origin_tech = list(TECH_MAGNET = 2, TECH_MATERIAL = 4, TECH_PHORON = 2)
+	timer = 15
+
+/obj/item/weapon/plastique/seismic/explode(var/turf/location)
+	if(!target)
+		target = get_atom_on_turf(src)
+	if(!target)
+		target = src
+	if(location)
+		explosion(location, -1, -1, 2, 3)
+		playsound(location, 'sound/effects/Explosion1.ogg', 100, 1)
+		for(var/atom/A in range(4,location))
+			if(istype(A,/turf/simulated/mineral))
+				var/turf/simulated/mineral/M = A
+				M.GetDrilled(1)
+			else if(istype(A, /turf/simulated/wall) && prob(66))
+				var/turf/simulated/wall/W = A
+				W.ex_act(2)
+			else if(istype(A, /obj/structure/window))
+				var/obj/structure/window/WI = A
+				WI.ex_act(3)
+			else if(istype(A,/mob/living))
+				var/mob/living/LI = A
+				LI << 'sound/effects/Explosion1.ogg'
+				if(iscarbon(LI))
+					var/mob/living/carbon/L = A
+					L.Weaken(3)
+					if(ishuman(L))
+						shake_camera(L, 20, 1)
+
+		spawn(2)
+			for(var/turf/simulated/mineral/M in range(7,location))
+				if(prob(75))
+					M.GetDrilled(1)
+
+	if(target)
+		target.overlays -= image_overlay
+	qdel(src)
+
+/**********************Point Transfer Card**********************/
+
+/obj/item/weapon/card/mining_point_card
+	name = "mining points card"
+	desc = "A small card preloaded with mining points. Swipe your ID card over it to transfer the points, then discard."
+	icon_state = "data"
+	var/points = 500
+
+/obj/item/weapon/card/mining_point_card/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weapon/card/id))
+		if(points)
+			var/obj/item/weapon/card/id/C = I
+			C.mining_points += points
+			user << "<span class='info'>You transfer [points] points to [C].</span>"
+			points = 0
+		else
+			user << "<span class='info'>There's no points left on [src].</span>"
+	..()
+
+/obj/item/weapon/card/mining_point_card/examine(mob/user)
+	..()
+	user << "There's [points] point\s on the card."
+
+/**********************Jaunter**********************/
+
+/obj/item/device/wormhole_jaunter
+	name = "wormhole jaunter"
+	desc = "A single use device harnessing outdated warp technology. The wormholes it creates are unpleasant to travel through, to say the least."
+	icon = 'icons/obj/mining_contained.dmi'
+	icon_state = "jaunter"
+	item_state = "jaunter"
+	throwforce = 0
+	w_class = 2
+	throw_speed = 3
+	throw_range = 5
+	slot_flags = SLOT_BELT
+	origin_tech = list(TECH_BLUESPACE = 2, TECH_PHORON = 4, TECH_ENGINEERING = 4)
+
+/obj/item/device/wormhole_jaunter/attack_self(mob/user)
+	user.visible_message("<span class='notice'>[user.name] activates the [src.name]!</span>")
+	activate(user)
+
+/obj/item/device/wormhole_jaunter/proc/turf_check(mob/user)
+	var/turf/device_turf = get_turf(user)
+	if(!device_turf||device_turf.z==0)
+		user << "<span class='notice'>You're having difficulties getting the [src.name] to work.</span>"
+		return FALSE
+	return TRUE
+
+/obj/item/device/wormhole_jaunter/proc/get_destinations(mob/user)
+	var/list/destinations = list()
+
+	for(var/obj/item/device/radio/beacon/B in world)
+		var/turf/T = get_turf(B)
+		if(T.z == 1 || T.z == 2 || T.z == 3)//Hardcode for z-lvls
+			destinations += B
+
+	return destinations
+
+/obj/item/device/wormhole_jaunter/proc/activate(mob/user)
+	if(!turf_check(user))
+		return
+
+	var/list/L = get_destinations(user)
+	if(!L.len)
+		user << "<span class='notice'>The [src.name] found no beacons in the world to anchor a wormhole to.</span>"
+		return
+	var/chosen_beacon = pick(L)
+	var/obj/effect/portal/wormhole/jaunt_tunnel/J = new /obj/effect/portal/wormhole/jaunt_tunnel(get_turf(src), chosen_beacon, lifespan=100)
+	J.target = chosen_beacon
+	playsound(src,'sound/effects/sparks4.ogg',50,1)
+	qdel(src)
+
+/obj/item/device/wormhole_jaunter/emp_act(power)
+	var/triggered = FALSE
+	if(power == 1)
+		triggered = TRUE
+	else if(power == 2 && prob(50))
+		triggered = TRUE
+
+	if(triggered)
+		usr.visible_message("<span class='warning'>The [src] overloads and activates!</span>")
+		activate(usr)
+
+/obj/effect/portal/wormhole/jaunt_tunnel
+	name = "jaunt tunnel"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "bhole3"
+	desc = "A stable hole in the universe made by a wormhole jaunter. Turbulent doesn't even begin to describe how rough passage through one of these is, but at least it will always get you somewhere near a beacon."
+
+/obj/effect/portal/wormhole/jaunt_tunnel/teleport(atom/movable/M)
+	if(M.anchored || istype(M, /obj/effect))
+		return
+	if(istype(M))
+		if(do_teleport(M, target, 6))
+			playsound(M,'sound/weapons/pulse3.ogg',50,1)
+			if(iscarbon(M))
+				var/mob/living/carbon/L = M
+				L.Weaken(3)
+				if(ishuman(L))
+					shake_camera(L, 20, 1)
