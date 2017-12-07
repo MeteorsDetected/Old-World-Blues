@@ -49,7 +49,7 @@
 	desc = "<i>Choo-choo</i>!"
 	body_parts_covered = 0
 
-/obj/item/clothing/head/santahat
+/obj/item/clothing/head/santa
 	name = "Santa's hat"
 	icon_state = "santahat"
 	desc = "<i>Ho ho ho. Merrry X-mas!</i>!"
