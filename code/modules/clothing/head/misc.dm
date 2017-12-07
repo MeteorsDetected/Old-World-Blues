@@ -49,6 +49,13 @@
 	desc = "<i>Choo-choo</i>!"
 	body_parts_covered = 0
 
+/obj/item/clothing/head/santahat
+	name = "Santa's hat"
+	icon_state = "santahat"
+	desc = "<i>Ho ho ho. Merrry X-mas!</i>!"
+	body_parts_covered = 0
+
+	body_parts_covered = 0
 /obj/item/clothing/head/plaguedoctorhat
 	name = "plague doctor's hat"
 	desc = "These were once used by Plague doctors. They're pretty much useless."
