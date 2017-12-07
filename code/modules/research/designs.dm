@@ -830,6 +830,60 @@ datum/design/item/weapon/eglaive
 	id = "cart_captain"
 	build_path = /obj/item/weapon/cartridge/captain
 
+/datum/design/item/wirer
+	name = "Custom wirer tool"
+	id = "wirer"
+	req_tech = list(TECH_MATERIAL = 2, TECH_ENGINEERING = 2)
+	materials = list(DEFAULT_WALL_MATERIAL = 5000, "glass" = 2500)
+	build_path = /obj/item/device/integrated_electronics/wirer
+
+/datum/design/item/debugger
+	name = "Custom circuit debugger tool"
+	id = "debugger"
+	req_tech = list(TECH_MATERIAL = 2, TECH_ENGINEERING = 2)
+	materials = list(DEFAULT_WALL_MATERIAL = 5000, "glass" = 2500)
+	build_path = /obj/item/device/integrated_electronics/debugger
+
+/datum/design/item/custom_circuit_assembly
+	name = "Small custom assembly"
+	desc = "An customizable assembly for simple, small devices."
+	id = "assembly-small"
+	req_tech = list(TECH_MATERIAL = 3, TECH_ENGINEERING = 2, TECH_POWER = 2)
+	materials = list(DEFAULT_WALL_MATERIAL = 10000)
+	build_path = /obj/item/device/electronic_assembly
+
+/datum/design/item/custom_circuit_assembly/medium
+	name = "Medium custom assembly"
+	desc = "An customizable assembly suited for more ambitious mechanisms."
+	id = "assembly-medium"
+	req_tech = list(TECH_MATERIAL = 4, TECH_ENGINEERING = 3, TECH_POWER = 3)
+	materials = list(DEFAULT_WALL_MATERIAL = 20000)
+	build_path = /obj/item/device/electronic_assembly/medium
+
+/datum/design/item/custom_circuit_assembly/drone
+	name = "Drone custom assembly"
+	desc = "An customizable assembly optimized for autonomous devices."
+	id = "assembly-drone"
+	req_tech = list(TECH_MATERIAL = 4, TECH_ENGINEERING = 4, TECH_POWER = 4)
+	materials = list(DEFAULT_WALL_MATERIAL = 30000)
+	build_path = /obj/item/device/electronic_assembly/drone
+
+/datum/design/item/custom_circuit_assembly/large
+	name = "Large custom assembly"
+	desc = "An customizable assembly for large machines."
+	id = "assembly-large"
+	req_tech = list(TECH_MATERIAL = 5, TECH_ENGINEERING = 4, TECH_POWER = 4)
+	materials = list(DEFAULT_WALL_MATERIAL = 40000)
+	build_path = /obj/item/device/electronic_assembly/large
+
+/datum/design/item/custom_circuit_assembly/implant
+	name = "Implant custom assembly"
+	desc = "An customizable assembly for very small devices, implanted into living entities."
+	id = "assembly-implant"
+	req_tech = list(TECH_MATERIAL = 5, TECH_ENGINEERING = 4, TECH_POWER = 3, TECH_BIO = 5)
+	materials = list(DEFAULT_WALL_MATERIAL = 2000)
+	build_path = /obj/item/weapon/implant/integrated_circuit
+
 /////////////////////////////////////////
 ///////////////Misc Stuff////////////////
 /////////////////////////////////////////

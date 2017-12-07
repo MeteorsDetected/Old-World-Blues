@@ -90,6 +90,12 @@
 						src.attack_hand(usr)
 		in_use = is_in_use
 
+/obj/proc/add_hearing()
+	hearing_objects |= src
+
+/obj/proc/remove_hearing()
+	hearing_objects.Remove(src)
+
 /obj/proc/updateDialog()
 	// Check that people are actually using the machine. If not, don't update anymore.
 	if(in_use)
