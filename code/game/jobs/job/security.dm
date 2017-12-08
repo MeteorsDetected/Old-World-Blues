@@ -4,7 +4,6 @@
 	faction = "Station"
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
-
 	implanted = 1
 
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -35,7 +34,7 @@
 	)
 	minimum_character_age = 27
 	minimal_player_age = 30
-
+	economic_modifier = 8
 	uniform = /obj/item/clothing/under/rank/head_of_security
 	pda = /obj/item/device/pda/heads/hos
 	ear = /obj/item/device/radio/headset/heads/hos
@@ -52,7 +51,7 @@
 	flag = WARDEN
 	total_positions = 1
 	spawn_positions = 1
-	economic_modifier = 5
+	economic_modifier = 4
 	addcional_access = list(access_morgue)
 	minimal_access = list(
 		access_security, access_eva, access_sec_doors, access_brig, access_armory, access_court,
@@ -75,12 +74,13 @@
 	flag = DETECTIVE
 	total_positions = 1
 	spawn_positions = 1
+	economic_modifier = 5
 
 	minimal_access = list(
 		access_security, access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels,
 		access_court
 	)
-	economic_modifier = 5
+	economic_modifier = 4
 	minimal_player_age = 14
 	minimum_character_age = 23
 	uniform = /obj/item/clothing/under/rank/det/black
