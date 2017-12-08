@@ -18,7 +18,7 @@ var/global/datum/global_init/init = new ()
 
 	makeDatumRefLists()
 	load_configuration()
-
+	initialize_integrated_circuits_list()
 
 	qdel(src) //we're done
 
@@ -352,24 +352,9 @@ var/world_topic_spam_protect_time = world.timeofday
 
 
 /world/Reboot(var/reason)
-	spawn(0)
-		for(var/mob/M in player_list)
-			if(M.client)
-				M << sound(null)
-		world << sound(pick('sound/AI/newroundsexy.ogg',
-		'sound/music/RoundEndSounds/apcdestroyed.ogg',
-		'sound/music/RoundEndSounds/bangindonk.ogg',
-		'sound/music/RoundEndSounds/bayojingle.ogg',
-		'sound/music/RoundEndSounds/calamitytrigger.ogg',
-		'sound/music/RoundEndSounds/castlevania.ogg',
-		'sound/music/RoundEndSounds/FTLvictory.ogg',
-		'sound/music/RoundEndSounds/gameoveryeah.ogg',
-		'sound/music/RoundEndSounds/marioworld.ogg',
-		'sound/music/RoundEndSounds/megamanX.ogg',
-		'sound/music/RoundEndSounds/rayman.ogg',
-		'sound/music/RoundEndSounds/slugmissioncomplete.ogg',
-		'sound/music/RoundEndSounds/soniclevelcomplete.ogg',
-		'sound/music/RoundEndSounds/tfvictory.ogg')) // random end sounds!! - LastyBatsy
+	/*spawn(0)
+		world << sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg')) // random end sounds!! - LastyBatsy
+		*/
 
 	processScheduler.stop()
 
