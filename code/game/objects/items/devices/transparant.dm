@@ -17,7 +17,7 @@
 /obj/item/weapon/transparant/attackby(obj/item/I, mob/user)
 	..()
 	if(icon_state!="blank")
-		to_chat(user, "<span class='notice'>Something allready written on this sign.</span>")
+		user << SPAN_NOTE("Something allready written on this sign.")
 		return
 	if(istype(I, /obj/item/weapon/pen))
 
@@ -28,7 +28,7 @@
 		user.remove_from_mob(src)
 		user.put_in_hands(W)
 		qdel(src)
-		to_chat(user, "<span class='notice'>You writed: [targName] on your sign.</span>")
+		user << SPAN_NOTE("You writed: [targName] on your sign.")
 		return
 
 	if(istype(I, /obj/item/weapon/pen/crayon))
@@ -40,7 +40,7 @@
 		user.remove_from_mob(src)
 		user.put_in_hands(W)
 		qdel(src)
-		to_chat(user, "<span class='notice'>You painted your blank sign as [W.name].</span>")
+		user << SPAN_NOTE("You painted your blank sign as [W.name].")
 
 /obj/item/weapon/transparant/attack_self(mob/user)
 	for(var/mob/O in viewers(user, null))
@@ -116,4 +116,4 @@
 
 		user.put_in_hands(W)
 
-		to_chat(user, "<span class='notice'>You attached a big cardboard sign to the metal rod, making a blank transparant.</span>")
+		user << SPAN_NOTE("You attached a big cardboard sign to the metal rod, making a blank transparant.")
