@@ -41,6 +41,7 @@
 
 	var/min_age = 17
 	var/max_age = 70
+	var/economic_modifier = 1
 
 	// Language/culture vars.
 	var/default_language = "Galactic Common" // Default language is used when 'say' is used without modifiers.
