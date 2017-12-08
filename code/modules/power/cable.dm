@@ -520,9 +520,6 @@ obj/structure/cable/proc/cableColor(var/colorC)
 
 		if(S.robotic >= 2)
 			user << SPAN_NOTE("You start to replace the damaged wiring on [H]'s [S.name]!")
-			if(src.amount <= 5)
-				usr << "\red You need at least 5 lengths to make repairs!"
-				return
 			S.machine_repair(10, BURN, "some damaged wiring", src, user)
 			src.use(5)
 			user << SPAN_NOTE("You finished replacing the damaged wiring on [H]'s [S.name]!")

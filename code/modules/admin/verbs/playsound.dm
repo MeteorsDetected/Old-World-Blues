@@ -45,7 +45,7 @@ var/list/sounds_cache = list()
 	play_sound(melody)
 
 /client/proc/stop_sounds()
-	set category = "Fun"
+	set category = "Debug"
 	set name = "Stop All Playing Sounds"
 	if(!src.holder)
 		return

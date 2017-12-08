@@ -190,3 +190,4 @@
 #define SPRITE_HATS     "hats"
 #define SPRITE_MELEE    "melee"
 #define SPRITE_GUNS     "gun"
+#define SPRITE_LARGE	"large"

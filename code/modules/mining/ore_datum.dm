@@ -11,7 +11,6 @@ var/global/list/ore_data = list()
 	var/spread_chance     // Chance of spreading in any direction
 	var/ore	              // Path to the ore produced when tile is mined.
 	var/scan_icon         // Overlay for ore scanners.
-	var/worth = 0		 // Arbitrary point value for the ore redemption console
 	// Xenoarch stuff. No idea what it's for, just refactored it to be less awful.
 	var/list/xarch_ages = list(
 		"thousand" = 999,
@@ -37,7 +36,6 @@ var/global/list/ore_data = list()
 		"million" = 704
 		)
 	xarch_source_mineral = "potassium"
-	worth = 25
 
 /ore/hematite
 	name = "hematite"
@@ -48,7 +46,6 @@ var/global/list/ore_data = list()
 	spread_chance = 25
 	ore = /obj/item/weapon/ore/iron
 	scan_icon = "mineral_common"
-	worth = 4
 
 /ore/coal
 	name = "carbon"
@@ -59,14 +56,12 @@ var/global/list/ore_data = list()
 	spread_chance = 25
 	ore = /obj/item/weapon/ore/coal
 	scan_icon = "mineral_common"
-	worth = 2
 
 /ore/glass
 	name = "sand"
 	display_name = "impure silicates"
 	smelts_to = MATERIAL_GLASS
 	compresses_to = MATERIAL_SANDSTONE
-	worth = 1
 
 /ore/phoron
 	name = MATERIAL_PHORON
@@ -84,7 +79,6 @@ var/global/list/ore_data = list()
 		"billion_lower" = 10
 		)
 	xarch_source_mineral = "phoron"
-	worth = 8
 
 /ore/silver
 	name = MATERIAL_SILVER
@@ -94,7 +88,6 @@ var/global/list/ore_data = list()
 	spread_chance = 10
 	ore = /obj/item/weapon/ore/silver
 	scan_icon = "mineral_uncommon"
-	worth = 20
 
 /ore/gold
 	smelts_to = MATERIAL_GOLD
@@ -110,7 +103,6 @@ var/global/list/ore_data = list()
 		"billion" = 4,
 		"billion_lower" = 3
 		)
-	worth = 30
 
 /ore/diamond
 	name = MATERIAL_DIAMOND
@@ -121,7 +113,6 @@ var/global/list/ore_data = list()
 	ore = /obj/item/weapon/ore/diamond
 	scan_icon = "mineral_rare"
 	xarch_source_mineral = "nitrogen"
-	worth = 50
 
 /ore/platinum
 	name = "platinum"
@@ -133,7 +124,6 @@ var/global/list/ore_data = list()
 	spread_chance = 10
 	ore = /obj/item/weapon/ore/osmium
 	scan_icon = "mineral_rare"
-	worth = 15
 
 /ore/hydrogen
 	name = MATERIAL_MYTHRIL
@@ -141,4 +131,3 @@ var/global/list/ore_data = list()
 	smelts_to = MATERIAL_TRITIUM
 	compresses_to = MATERIAL_MYTHRIL
 	scan_icon = "mineral_rare"
-	worth = 30
