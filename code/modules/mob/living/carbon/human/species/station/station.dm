@@ -17,7 +17,6 @@
 	name_language = null // Use the first-name last-name generator rather than a language scrambler
 	min_age = 17
 	max_age = 110
-	economic_modifier = 13
 
 	body_builds = list(
 		new/datum/body_build,
@@ -43,10 +42,9 @@
 	primitive_form = "Stok"
 	darksight = 3
 	gluttonous = 1
-	slowdown = 0.4
+	slowdown = 0.5
 	brute_mod = 0.8
 	name_language = "Sinta'unathi"
-	economic_modifier = 6
 
 	min_age = 18
 	max_age = 60
@@ -145,12 +143,12 @@
 		new /datum/unarmed_attack/bite/sharp
 	)
 	darksight = 8
-	slowdown = -0.8
+	slowdown = -0.5
 	brute_mod = 1.15
-	burn_mod =  1.4
+	burn_mod =  1.15
 	gluttonous = 1
 	name_language = "Siik'tajr"
-	economic_modifier = 8
+
 	min_age = 17
 	max_age = 80
 
@@ -240,7 +238,7 @@
 	herbivores on the whole and tend to be co-operative with the other species of the galaxy, although they rarely reveal \
 	the secrets of their empire to their allies."
 	name_language = "Skrellian"
-	economic_modifier = 8
+
 	min_age = 19
 	max_age = 80
 
@@ -281,7 +279,7 @@
 	siemens_coefficient = 0.3
 	show_ssd = "completely quiescent"
 	name_language = "Rootspeak"
-	economic_modifier = 3
+
 	min_age = 1
 	max_age = 300
 
@@ -399,8 +397,6 @@
 	virus_immune = 1
 	radiation_mod = 0
 	toxins_mod = 0
-
-	economic_modifier = 5
 
 	warning_low_pressure = 50
 	hazard_low_pressure = 0

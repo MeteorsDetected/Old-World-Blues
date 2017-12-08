@@ -10,8 +10,8 @@
 	allow_slim_fem = 1
 
 	flags = CAN_JOIN | HAS_UNDERWEAR | HAS_EYE_COLOR
-	economic_modifier = 10
-	toxins_mod =   1.5
+
+	toxins_mod =   1.1
 	has_organ = list(
 		O_HEART =    /obj/item/organ/internal/heart,
 		O_LUNGS =    /obj/item/organ/internal/lungs,
@@ -59,12 +59,11 @@
 	language = "Encoded Audio Language"
 	rarity_value = 5
 	virus_immune = 1
-	economic_modifier = 8
 
 	warning_low_pressure = 50
 	hazard_low_pressure = -1
 
-	//taste_sensitivity = TASTE_DULL
+	taste_sensitivity = TASTE_DULL
 
 	flags = CAN_JOIN | NO_PAIN | NO_SCAN | HAS_UNDERWEAR | IS_WHITELISTED | NO_BREATHE | NO_BLOOD | IS_SYNTHETIC | HAS_SKIN_TONE | HAS_LIPS | HAS_EYE_COLOR
 
@@ -98,14 +97,15 @@
 	//vision_organ = "optics"
 
 	has_organ = list(
-		O_BRAIN   = /obj/item/organ/internal/brain/blackbox,
-		/*"cell"    = /obj/item/organ/internal/cell,
+		/*O_BRAIN   = /obj/item/organ/mmi_holder/posibrain,
+		"cell"    = /obj/item/organ/internal/cell,
 		"optics"  = /obj/item/organ/eyes/optical_sensor,
 		"ipc tag" = /obj/item/organ/ipc_tag*/
 		O_HEART =    /obj/item/organ/internal/heart,
 		O_LUNGS =    /obj/item/organ/internal/lungs,
 		O_LIVER =    /obj/item/organ/internal/liver,
 		O_KIDNEYS =  /obj/item/organ/internal/kidneys,
+		//O_BRAIN =    /obj/item/organ/internal/brain,
 		O_APPENDIX = /obj/item/organ/internal/appendix,
 		O_EYES =     /obj/item/organ/internal/eyes
 	)

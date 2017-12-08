@@ -110,21 +110,14 @@
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = SLOT_ID | SLOT_EARS
 
-	var/age = "\[UNSET\]"
 	var/blood_type = "\[UNSET\]"
 	var/dna_hash = "\[UNSET\]"
 	var/fingerprint_hash = "\[UNSET\]"
-	var/citizenship = "\[UNSET\]"
-	var/religion = "\[UNSET\]"
-	var/sex = "\[UNSET\]"
-	var/icon/front
-	var/icon/side
 
 	//alt titles are handled a bit weirdly in order to unobtrusively integrate into existing ID system
 	var/assignment = null	//can be alt title or the actual job
 	var/rank = null			//actual job
 	var/dorm = 0		// determines if this ID has claimed a dorm already
-	var/mining_points //miners gotta eat
 
 /obj/item/weapon/card/id/New()
 	..()
@@ -134,74 +127,10 @@
 		blood_type = H.dna.b_type
 		dna_hash = H.dna.unique_enzymes
 		fingerprint_hash = md5(H.dna.uni_identity)
-		sex = H.gender
-		age = H.age
-		citizenship = H.citizenship
-		religion = H.religion
-		set_id_photo(H)
-
-
-/obj/item/weapon/card/id/proc/show(mob/user as mob)
-	if(front && side)
-		user << browse_rsc(front, "front.png")
-		user << browse_rsc(side, "side.png")
-	var/datum/browser/popup = new(user, "idcard", name, 650, 260)
-	popup.set_content(dat())
-	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
-	popup.open()
-	return
 
 /obj/item/weapon/card/id/attack_self(mob/user as mob)
 	user.visible_message("\The [user] shows you: \icon[src] [src.name]. The assignment on the card: [src.assignment]",\
 		"You flash your ID card: \icon[src] [src.name]. The assignment on the card: [src.assignment]")
-
-	src.add_fingerprint(user)
-	return
-
-/obj/item/weapon/card/id/proc/set_id_photo(var/mob/M)
-	front = getFlatIcon(M, SOUTH, always_use_defdir = 1)
-	front.Scale(128, 128)
-	side = getFlatIcon(M, WEST, always_use_defdir = 1)
-	side.Scale(128, 128)
-
-/obj/item/weapon/card/id/proc/dat()
-	var/dat = ("<table><tr><td>")
-	dat += text("Name: []</A><BR>", registered_name)
-	dat += text("Sex: []</A><BR>\n", sex)
-	dat += text("Age: []</A><BR>\n", age)
-	dat += text("Citizenship: []</A><BR>\n", citizenship)
-	dat += text("Religion: []</A><BR>\n", religion)
-	dat += text("Rank: []</A><BR>\n", assignment)
-	dat += text("Fingerprint: []</A><BR>\n", fingerprint_hash)
-	dat += text("Blood Type: []<BR>\n", blood_type)
-	dat += text("DNA Hash: []<BR><BR>\n", dna_hash)
-	if(mining_points)
-		dat += text("Ore Redemption Points: []<BR><BR>\n", mining_points)
-	if(front && side)
-		dat +="<td align = center valign = top>Photo:<br><img src=front.png height=128 width=128 border=4><img src=side.png height=128 width=128 border=4></td>"
-	dat += "</tr></table>"
-	return dat
-
-/obj/item/weapon/card/id/attack_self(mob/user as mob)
-	if (dna_hash == "\[UNSET\]" && ishuman(user))
-		var/response = alert(user, "This ID card has not been imprinted with biometric data. Would you like to imprint yours now?", "Biometric Imprinting", "Yes", "No")
-		if (response == "Yes")
-			var/mob/living/carbon/human/H = user
-			if(H.gloves)
-				user << "<span class='warning'>You cannot imprint [src] while wearing \the [H.gloves].</span>"
-				return
-			else
-				blood_type = H.dna.b_type
-				dna_hash = H.dna.unique_enzymes
-				fingerprint_hash = md5(H.dna.uni_identity)
-				citizenship = H.citizenship
-				religion = H.religion
-				age = H.age
-				user << "<span class='notice'>Biometric Imprinting Successful!.</span>"
-				return
-
-	for(var/mob/O in viewers(user, null))
-		O.show_message(text("[] shows you: \icon[] []: assignment: []", user, src, src.name, src.assignment), 1)
 
 	src.add_fingerprint(user)
 	return
@@ -218,14 +147,9 @@
 	set src in usr
 
 	usr << text("\icon[] []: The current assignment on the card is [].", src, src.name, src.assignment)
-	usr << "The age on the card is [age]."
-	usr << "The citizenship on the card is [citizenship]."
-	usr << "The religion on the card is [religion]."
 	usr << "The blood type on the card is [blood_type]."
 	usr << "The DNA hash on the card is [dna_hash]."
 	usr << "The fingerprint hash on the card is [fingerprint_hash]."
-	if(mining_points)
-		usr << "A ticker indicates the card has [mining_points] ore redemption points available."
 	return
 
 /obj/item/weapon/card/id/silver
