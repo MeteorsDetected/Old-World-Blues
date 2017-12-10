@@ -40,8 +40,9 @@
 //Guest pass terminal////////////////////////
 /////////////////////////////////////////////
 
-/obj/machinery/computer/guestpass
+/obj/machinery/guestpass
 	name = "guest pass terminal"
+	icon = 'icons/obj/machinery.dmi'
 	icon_state = "guest"
 	density = 0
 
@@ -55,23 +56,34 @@
 	var/list/internal_log = list()
 	var/mode = 0  // 0 - making pass, 1 - viewing logs
 
-/obj/machinery/computer/guestpass/New()
+/obj/machinery/guestpass/New()
 	..()
 	uid = "[rand(100,999)]-G[rand(10,99)]"
 
-/obj/machinery/computer/guestpass/attackby(obj/O, mob/user)
-	if(istype(O, /obj/item/weapon/card/id))
-		if(!giver)
-			user.drop_from_inventory(O, src)
+/obj/machinery/guestpass/update_icon()
+	if(stat&BROKEN)
+		icon_state = "[initial(icon_state)]_broken"
+	else if(stat&NOPOWER)
+		icon_state = "[initial(icon_state)]_nopower"
+	else
+		icon_state = initial(icon_state)
+
+/obj/machinery/guestpass/attackby(obj/O, mob/user)
+	if(istype(O, /obj/item/weapon/card/id/guest))
+		if(user.unEquip(O))
+			user << SPAN_NOTE("[O] slips inside [src]!")
+			qdel(O)
+	else if(istype(O, /obj/item/weapon/card/id))
+		if(!giver && user.unEquip(O, src))
 			giver = O
 			updateUsrDialog()
 		else
-			user << "<span class='warning'>There is already ID card inside.</span>"
+			user << SPAN_WARN("There is already ID card inside.")
 
-/obj/machinery/computer/guestpass/attack_ai(var/mob/user as mob)
+/obj/machinery/guestpass/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/guestpass/attack_hand(var/mob/user as mob)
+/obj/machinery/guestpass/attack_hand(var/mob/user as mob)
 	if(..())
 		return
 
@@ -104,7 +116,7 @@
 	onclose(user, "guestpass")
 
 
-/obj/machinery/computer/guestpass/Topic(href, href_list)
+/obj/machinery/guestpass/Topic(href, href_list)
 	if(..())
 		return 1
 	usr.set_machine(src)

@@ -288,16 +288,11 @@
 	icon_state = "map_tvalve1"
 	state = 1
 
-/obj/machinery/atmospherics/tvalve/digital/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
-
 /obj/machinery/atmospherics/tvalve/digital/update_icon()
-	..()
 	if(!powered())
 		icon_state = "tvalvenopower"
+	else
+		..()
 
 /obj/machinery/atmospherics/tvalve/digital/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
@@ -428,16 +423,11 @@
 	icon_state = "map_tvalvem1"
 	state = 1
 
-/obj/machinery/atmospherics/tvalve/mirrored/digital/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
-
 /obj/machinery/atmospherics/tvalve/mirrored/digital/update_icon()
-	..()
 	if(!powered())
 		icon_state = "tvalvemnopower"
+	else
+		..()
 
 /obj/machinery/atmospherics/tvalve/mirrored/digital/attack_ai(mob/user as mob)
 	return src.attack_hand(user)

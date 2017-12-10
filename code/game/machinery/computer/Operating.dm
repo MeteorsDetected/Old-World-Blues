@@ -4,7 +4,7 @@
 	name = "patient monitoring console"
 	density = 1
 	anchored = 1.0
-	icon_state = "operating"
+	screen_icon = "operating"
 	light_color = "#315ab4"
 	circuit = /obj/item/weapon/circuitboard/operating
 	var/mob/living/carbon/human/victim = null
