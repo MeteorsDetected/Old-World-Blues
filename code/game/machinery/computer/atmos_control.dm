@@ -14,14 +14,11 @@
 	var/list/monitored_alarm_ids = null
 	var/obj/nano_module/atmos_control/atmos_control
 
-/obj/machinery/computer/atmoscontrol/New()
-	..()
-
 /obj/machinery/computer/atmoscontrol/laptop
 	name = "Atmospherics Laptop"
 	desc = "Cheap Nanotrasen Laptop."
-	icon_state = "medlaptop"
-	density = 0
+	density = FALSE
+	icon = 'icons/obj/computer_laptop.dmi'
 
 /obj/machinery/computer/atmoscontrol/attack_ai(var/mob/user as mob)
 	ui_interact(user)
