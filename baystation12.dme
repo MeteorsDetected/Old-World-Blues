@@ -1896,4 +1896,5 @@
 #include "maps\exodus-6.dmm"
 #include "maps\exodus-7.dmm"
 #include "maps\exodus-8.dmm"
+#include "maps\GroundControl.dmm"
 // END_INCLUDE

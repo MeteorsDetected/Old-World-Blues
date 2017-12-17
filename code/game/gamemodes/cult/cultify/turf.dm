@@ -8,6 +8,9 @@
 /turf/simulated/floor/carpet/cultify()
 	return
 
+/turf/simulated/floor/ironsand1/cultify()
+	return
+
 /turf/simulated/shuttle/floor/cultify()
 	cultify_floor()
 

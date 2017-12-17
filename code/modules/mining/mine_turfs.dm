@@ -280,7 +280,7 @@
 
 	//Add some rubble,  you did just clear out a big chunk of rock.
 
-	var/turf/simulated/floor/plating/airless/asteroid/N = ChangeTurf(/turf/simulated/floor/plating/airless/asteroid)
+	var/turf/simulated/floor/plating/airless/asteroid/N = ChangeTurf(/turf/simulated/floor/plating/ironsand)
 	N.overlay_detail = "asteroid[rand(0,9)]"
 
 	// Kill and update the space overlays around us.
