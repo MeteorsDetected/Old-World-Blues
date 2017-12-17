@@ -41,7 +41,7 @@
 	name = "Worm"
 	icon_state = "worm"
 	icon_living = "worm"
-	icon_dead = "worm"
+	icon_dead = "worm_dead"
 	speed = 5
 	health = 20
 	melee_damage_lower = 15
@@ -51,16 +51,16 @@
 	name = "Bersek"
 	icon_state = "shit"
 	icon_living = "shit"
-	icon_dead = "shit"
+	icon_dead = "shit_dead"
 	health = 90
-	melee_damage_lower = 40
-	melee_damage_upper = 30
+	melee_damage_lower = 30
+	melee_damage_upper = 20
 
 /mob/living/simple_animal/hostile/zigota/crawling
 	name = "Crawl"
 	icon_state = "crawling"
 	icon_living = "crawling"
-	icon_dead = "crawling"
+	icon_dead = "crawling_dead"
 	speed = 6
 	health = 40
 	melee_damage_lower = 20
@@ -68,36 +68,36 @@
 
 /mob/living/simple_animal/hostile/zigota/mutant1
 	name = "Lucky Guy"
-	icon_state = "mutant1"
-	icon_living = "mutant1"
+	icon_state = "anomaly"
+	icon_living = "anomaly_dead"
 	icon_dead = "mutant1"
 	health = 50
-	melee_damage_lower = 30
+	melee_damage_lower = 25
 	melee_damage_upper = 20
 
 /mob/living/simple_animal/hostile/zigota/mutant3
-	name = "John"
-	icon_state = "mutant3"
-	icon_living = "mutant3"
-	icon_dead = "mutant3"
+	name = "Lily"
+	icon_state = "nurse"
+	icon_living = "nurse"
+	icon_dead = "nurse_dead"
 	health = 55
-	melee_damage_lower = 30
-	melee_damage_upper = 25
+	melee_damage_lower = 20
+	melee_damage_upper = 18
 
 /mob/living/simple_animal/hostile/zigota/fuck
 	name = "Mike"
-	icon_state = "fuck"
-	icon_living = "fuck"
+	icon_state = "lewd"
+	icon_living = "lewd_dead"
 	icon_dead = "fuck"
 	health = 80
-	melee_damage_lower = 35
-	melee_damage_upper = 20
+	melee_damage_lower = 20
+	melee_damage_upper = 17
 
 /mob/living/simple_animal/hostile/zigota/zigota_four
 	name = "Beagle"
 	icon_state = "zigota_four"
 	icon_living = "zigota_four"
-	icon_dead = "zigota_four"
+	icon_dead = "zigota_four_dead"
 	health = 40
 	melee_damage_lower = 20
 	melee_damage_upper = 25
