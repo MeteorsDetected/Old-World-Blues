@@ -33,6 +33,7 @@
 #define MATERIAL_UNMELTABLE 0x1
 #define MATERIAL_BRITTLE    0x2
 #define MATERIAL_PADDING    0x4
+#define MATERIAL_COLORIZE_STACK 0x8
 
 // Amount table damage is multiplied by if it is made of a brittle material (e.g. glass)
 #define TABLE_BRITTLE_MATERIAL_MULTIPLIER 4

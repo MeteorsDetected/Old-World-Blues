@@ -23,7 +23,6 @@
 
 	var/default_type = MATERIAL_STEEL
 	var/material/material
-	var/apply_colour //temp pending icon rewrite
 
 /obj/item/stack/material/New(loc, var/amount, var/material)
 	..(loc, amount)
@@ -50,8 +49,10 @@
 	stacktype = material.name
 	origin_tech = material.stack_origin_tech
 
-	if(apply_colour)
+	if(material.flags & MATERIAL_COLORIZE_STACK)
 		color = material.icon_colour
+	else
+		color = null
 
 	if(material.conductive)
 		flags |= CONDUCT
@@ -126,7 +127,6 @@
 	name = MATERIAL_IRON
 	default_type = MATERIAL_IRON
 	icon_state = "sheet-silver"
-	apply_colour = 1
 
 /obj/item/stack/material/iron/full
 	amount = 50
@@ -218,7 +218,6 @@
 	name = MATERIAL_TRITIUM
 	default_type = MATERIAL_TRITIUM
 	icon_state = "sheet-silver"
-	apply_colour = 1
 
 /obj/item/stack/material/tritium/full
 	amount = 50
@@ -227,8 +226,6 @@
 	name = MATERIAL_OSMIUM
 	default_type = MATERIAL_OSMIUM
 	icon_state = "sheet-silver"
-	apply_colour = 1
-
 /obj/item/stack/material/osmium/full
 	amount = 50
 
@@ -253,13 +250,6 @@
 	icon_state = "sheet-wood"
 
 /obj/item/stack/material/wood/full
-	amount = 50
-
-/obj/item/stack/material/cloth
-	name = "cloth"
-	default_type = "cloth"
-
-/obj/item/stack/material/cloth/full
 	amount = 50
 
 /obj/item/stack/material/cardboard
@@ -312,4 +302,87 @@
 	icon_state = "sheet-phoronrglass"
 
 /obj/item/stack/material/glass/phoronrglass/full
+	amount = 50
+
+/obj/item/stack/material/cloth
+	icon_state = "sheet-cloth"
+
+/obj/item/stack/material/cloth/cotton
+	name = "cotton"
+	color = "#FFFFFF"
+	default_type = "cotton"
+
+/obj/item/stack/material/cloth/cotton/full
+	amount = 50
+
+/obj/item/stack/material/cloth/teal
+	name = "teal"
+	color = "#00EAFA"
+	default_type = "teal"
+
+/obj/item/stack/material/cloth/teal/full
+	amount = 50
+
+/obj/item/stack/material/cloth/black
+	name = "black"
+	color = "#505050"
+	default_type = "black"
+
+/obj/item/stack/material/cloth/black/full
+	amount = 50
+
+/obj/item/stack/material/cloth/green
+	name = "green"
+	color = "#01C608"
+	default_type = "green"
+
+/obj/item/stack/material/cloth/green/full
+	amount = 50
+
+/obj/item/stack/material/cloth/purple
+	name = "purple"
+	color = "#9C56C4"
+	default_type = "purple"
+
+/obj/item/stack/material/cloth/purple/full
+	amount = 50
+
+/obj/item/stack/material/cloth/blue
+	name = "blue"
+	color = "#6B6FE3"
+	default_type = "blue"
+
+/obj/item/stack/material/cloth/blue/full
+	amount = 50
+
+/obj/item/stack/material/cloth/red
+	name = "red"
+	color = "#DA020A"
+	default_type = "red"
+
+/obj/item/stack/material/cloth/red/full
+	amount = 50
+
+/obj/item/stack/material/cloth/beige
+	name = "beige"
+	color = "#E8E7C8"
+	default_type = "beige"
+
+/obj/item/stack/material/cloth/beige/full
+	amount = 50
+
+/obj/item/stack/material/cloth/lime
+	name = "lime"
+	color = "#62E36C"
+	default_type = "lime"
+
+/obj/item/stack/material/cloth/lime/full
+	amount = 50
+
+/obj/item/stack/material/cloth/leather
+	name = "leather"
+	icon_state = "sheet-leather"
+	default_type = "leather"
+
+/obj/item/stack/material/cloth/leather/full
 	amount = 50

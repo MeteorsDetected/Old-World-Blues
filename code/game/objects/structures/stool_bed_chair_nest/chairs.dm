@@ -92,7 +92,7 @@
 	..(newloc,"steel","leather")
 
 /obj/structure/bed/chair/comfy/red/New(var/newloc,var/newmaterial)
-	..(newloc,"steel","carpet")
+	..(newloc,"steel","red")
 
 /obj/structure/bed/chair/comfy/teal/New(var/newloc,var/newmaterial)
 	..(newloc,"steel","teal")

@@ -36,7 +36,7 @@ var/global/list/stool_cache = list() //haha stool
 	update_icon()
 
 /obj/item/weapon/stool/padded/New(var/newloc, var/new_material)
-	..(newloc, "steel", "carpet")
+	..(newloc, "steel", "red")
 
 /obj/item/weapon/stool/update_icon()
 	// Prep icon.
@@ -132,13 +132,11 @@ var/global/list/stool_cache = list() //haha stool
 			qdel(C)
 			return
 		var/padding_type //This is awful but it needs to be like this until tiles are given a material var.
-		if(istype(W,/obj/item/stack/tile/carpet))
-			padding_type = "carpet"
-		else if(ismaterial(W))
+		if(ismaterial(W))
 			var/obj/item/stack/material/M = W
 			if(M.material && (M.material.flags & MATERIAL_PADDING))
 				padding_type = "[M.material.name]"
-		if(!padding_type)
+		else
 			user << "You cannot pad \the [src] with that."
 			return
 		C.use(1)
