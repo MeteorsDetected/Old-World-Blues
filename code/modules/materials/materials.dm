@@ -53,7 +53,9 @@ var/list/name_to_material
 /proc/get_material_by_name(name)
 	if(!name_to_material)
 		populate_material_list()
-	return name_to_material[name]
+	. = name_to_material[name]
+	ASSERT(.)
+	return .
 
 /proc/material_display_name(name)
 	var/material/material = get_material_by_name(name)
@@ -370,7 +372,7 @@ var/list/name_to_material
 	stack_origin_tech = list(TECH_MATERIAL = 2)
 	resilience = 49
 	reflectance = 10
-	composite_material = list(MATERIAL_STEEL = 3750, "platinum" = 3750) //todo
+	composite_material = list(MATERIAL_STEEL = 3750, MATERIAL_PLATINUM = 3750) //todo
 
 /material/glass
 	name = MATERIAL_GLASS
@@ -560,7 +562,7 @@ var/list/name_to_material
 	reflectance = 0
 
 /material/platinum
-	name = "platinum"
+	name = MATERIAL_PLATINUM
 	icon_state = "sheet-adamantine"
 	icon_colour = "#9999FF"
 	weight = 27

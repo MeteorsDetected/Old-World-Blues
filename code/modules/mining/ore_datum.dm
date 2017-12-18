@@ -115,9 +115,9 @@ var/global/list/ore_data = list()
 	xarch_source_mineral = "nitrogen"
 
 /ore/platinum
-	name = "platinum"
+	name = MATERIAL_PLATINUM
 	display_name = "raw platinum"
-	smelts_to = "platinum"
+	smelts_to = MATERIAL_PLATINUM
 	compresses_to = MATERIAL_OSMIUM
 	alloy = 1
 	result_amount = 5
