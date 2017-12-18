@@ -19,6 +19,8 @@
 #define MATERIAL_TRITIUM "tritium"
 #define MATERIAL_IRON "iron"
 #define MATERIAL_MYTHRIL "mhydrogen"
+#define MATERIAL_PLATINUM "platinum"
+
 
 #define SHARD_SHARD "shard"
 #define SHARD_SHRAPNEL "shrapnel"
