@@ -692,9 +692,6 @@ var/list/name_to_material
 	melting_point = T0C+300
 	flags = MATERIAL_PADDING|MATERIAL_COLORIZE_STACK
 
-/material/cloth/build_windows()
-	return TRUE // Also known as "Do nothing"
-
 /material/cloth/cotton
 	name = "cotton"
 	display_name ="cotton"
