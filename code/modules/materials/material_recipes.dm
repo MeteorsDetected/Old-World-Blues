@@ -117,3 +117,13 @@
 		new/datum/stack_recipe("white folder", /obj/item/weapon/folder/white), \
 		new/datum/stack_recipe("yellow folder", /obj/item/weapon/folder/yellow), \
 		))
+
+/material/cloth/generate_recipes()
+	recipes = list()
+	recipes += new/datum/stack_recipe("[display_name] towel", /obj/item/towel, 1, supplied_material = "[name]")
+
+/material/cloth/leather/generate_recipes()
+	recipes = list()
+	recipes += new/datum/stack_recipe("leather gloves", /obj/item/clothing/gloves/botanic_leather, 1)
+
+
