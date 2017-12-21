@@ -86,12 +86,12 @@
 	new /obj/structure/cult/forge(loc)
 	qdel(src)
 
-/obj/structure/bed/chair/cultify()
-	var/obj/structure/bed/chair/wood/wings/I = new(loc)
+/obj/structure/material/chair/cultify()
+	var/obj/structure/material/chair/wood/wings/I = new(loc)
 	I.dir = dir
 	..()
 
-/obj/structure/bed/chair/wood/cultify()
+/obj/structure/material/chair/wood/cultify()
 	return
 
 /obj/structure/bookcase/cultify()
@@ -127,7 +127,7 @@
 	..()
 
 /obj/structure/stool/cultify()
-	var/obj/structure/bed/chair/wood/wings/I = new(loc)
+	var/obj/structure/material/chair/wood/wings/I = new(loc)
 	I.dir = dir
 	..()
 

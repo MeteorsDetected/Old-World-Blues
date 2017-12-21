@@ -70,9 +70,9 @@ var/list/mechtoys = list(
 	if(istype(A) && A.checkpass(PASSGLASS))
 		return prob(60)
 
-	var/obj/structure/bed/B = A
+	var/obj/structure/material/bed/B = A
 	//if it's a bed/chair and someone is buckled, it will not pass
-	if (istype(A, /obj/structure/bed) && B.buckled_mob)
+	if (istype(A, /obj/structure/material/bed) && B.buckled_mob)
 		return 0
 
 	if(istype(A, /obj/vehicle))	//no vehicles

@@ -15,8 +15,8 @@
 		recipes += new/datum/stack_recipe("[display_name] door", /obj/structure/simple_door, 10, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
 		recipes += new/datum/stack_recipe("[display_name] barricade", /obj/structure/barricade, 5, time = 50, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
 		recipes += new/datum/stack_recipe("[display_name] stool", /obj/item/weapon/stool, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
-		recipes += new/datum/stack_recipe("[display_name] chair", /obj/structure/bed/chair, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
-		recipes += new/datum/stack_recipe("[display_name] bed", /obj/structure/bed, 2, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
+		recipes += new/datum/stack_recipe("[display_name] chair", /obj/structure/material/chair, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
+		recipes += new/datum/stack_recipe("[display_name] bed", /obj/structure/material/bed, 2, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
 		recipes += new/datum/stack_recipe("[display_name] magnetic coil", /obj/machinery/magnetic_coil, 3, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
 
 	if(hardness>50)
@@ -27,11 +27,11 @@
 /material/steel/generate_recipes()
 	..()
 	recipes += new/datum/stack_recipe_list("office chairs",list( \
-		new/datum/stack_recipe("dark office chair", /obj/structure/bed/chair/office/dark, 5, one_per_turf = 1, on_floor = 1), \
-		new/datum/stack_recipe("light office chair", /obj/structure/bed/chair/office/light, 5, one_per_turf = 1, on_floor = 1) \
+		new/datum/stack_recipe("dark office chair", /obj/structure/material/chair/office/dark, 5, one_per_turf = 1, on_floor = 1), \
+		new/datum/stack_recipe("light office chair", /obj/structure/material/chair/office/light, 5, one_per_turf = 1, on_floor = 1) \
 		))
 
-	recipes += new/datum/stack_recipe("comfy chair", /obj/structure/bed/chair/comfy, 2, one_per_turf = 1, on_floor = 1)
+	recipes += new/datum/stack_recipe("comfy chair", /obj/structure/material/chair/comfy, 2, one_per_turf = 1, on_floor = 1)
 	recipes += new/datum/stack_recipe("table frame", /obj/structure/table, 1, time = 10, one_per_turf = 1, on_floor = 1)
 	recipes += new/datum/stack_recipe("rack", /obj/structure/table/rack, 1, time = 5, one_per_turf = 1, on_floor = 1)
 	recipes += new/datum/stack_recipe("closet", /obj/structure/closet, 2, time = 15, one_per_turf = 1, on_floor = 1)
@@ -92,7 +92,7 @@
 	..()
 	recipes += new/datum/stack_recipe("wooden sandals", /obj/item/clothing/shoes/sandal, 1)
 	recipes += new/datum/stack_recipe("wood floor tile", /obj/item/stack/tile/wood, 1, 4, 20)
-	recipes += new/datum/stack_recipe("wooden chair", /obj/structure/bed/chair/wood, 3, time = 10, one_per_turf = 1, on_floor = 1)
+	recipes += new/datum/stack_recipe("wooden chair", /obj/structure/material/chair/wood, 3, time = 10, one_per_turf = 1, on_floor = 1)
 	recipes += new/datum/stack_recipe("crossbow frame", /obj/item/weapon/crossbowframe, 5, time = 25, one_per_turf = 0, on_floor = 0)
 	recipes += new/datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 15, one_per_turf = 1, on_floor = 1)
 	recipes += new/datum/stack_recipe("buckler", /obj/item/weapon/shield/buckler, 15, time = 25, one_per_turf = 0, on_floor = 0)
