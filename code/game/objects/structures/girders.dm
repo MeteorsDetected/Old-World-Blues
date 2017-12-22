@@ -131,7 +131,7 @@
 		user << SPAN_NOTE("There isn't enough material here to construct a wall.")
 		return 0
 
-	var/material/M = name_to_material[S.default_type]
+	var/material/M = S.material
 	if(!istype(M))
 		return 0
 
@@ -172,7 +172,7 @@
 		user << SPAN_NOTE("There isn't enough material here to reinforce the girder.")
 		return 0
 
-	var/material/M = name_to_material[S.default_type]
+	var/material/M = S.material
 	if(!istype(M) || M.integrity < 50)
 		user << "You cannot reinforce \the [src] with that; it is too soft."
 		return 0
