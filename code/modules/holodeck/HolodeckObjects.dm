@@ -244,6 +244,8 @@
 	else
 		return ..(mover, target, height, air_group)
 
+//Placeholder
+/obj/structure/window/reinforced/holowindow/disappearing
 
 /obj/machinery/readybutton
 	name = "Ready Declaration Device"
