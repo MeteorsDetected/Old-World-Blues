@@ -1,4 +1,4 @@
-/obj/structure/bed/chair/wheelchair
+/obj/structure/material/chair/wheelchair
 	name = "wheelchair"
 	desc = "You sit in this. Either by will or force."
 	icon_state = "wheelchair"
@@ -9,22 +9,21 @@
 	var/mob/living/pulling = null
 	var/bloodiness
 
-/obj/structure/bed/chair/wheelchair/update_icon()
+/obj/structure/material/chair/wheelchair/update_icon()
 	overlays.Cut()
 	overlays += image(icon, "w_overlay", FLY_LAYER)
-	return
 
-/obj/structure/bed/chair/wheelchair/set_dir()
+/obj/structure/material/chair/wheelchair/set_dir()
 	..()
 	if(buckled_mob)
 		buckled_mob.set_dir(dir)
 
-/obj/structure/bed/chair/wheelchair/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/material/chair/wheelchair/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/wrench) || istype(W,/obj/item/stack) || istype(W, /obj/item/weapon/wirecutters))
 		return
 	..()
 
-/obj/structure/bed/chair/wheelchair/relaymove(mob/user, direction)
+/obj/structure/material/chair/wheelchair/relaymove(mob/user, direction)
 	// Redundant check?
 	if(user.stat || user.stunned || user.weakened || user.paralysis || user.lying || user.restrained())
 		if(user==pulling)
@@ -85,7 +84,7 @@
 		create_track()
 	driving = 0
 
-/obj/structure/bed/chair/wheelchair/Move()
+/obj/structure/material/chair/wheelchair/Move()
 	..()
 	if(buckled_mob)
 		var/mob/living/occupant = buckled_mob
@@ -108,14 +107,14 @@
 			if (occupant && (src.loc != occupant.loc))
 				src.forceMove(occupant.loc) // Failsafe to make sure the wheelchair stays beneath the occupant after driving
 
-/obj/structure/bed/chair/wheelchair/attack_hand(mob/living/user as mob)
+/obj/structure/material/chair/wheelchair/attack_hand(mob/living/user as mob)
 	if (pulling)
 		MouseDrop(usr)
 	else
 		user_unbuckle_mob(user)
 	return
 
-/obj/structure/bed/chair/wheelchair/MouseDrop(over_object, src_location, over_location)
+/obj/structure/material/chair/wheelchair/MouseDrop(over_object, src_location, over_location)
 	..()
 	if(over_object == usr && in_range(src, usr))
 		if(!ishuman(usr))	return
@@ -139,7 +138,7 @@
 			pulling = null
 		return
 
-/obj/structure/bed/chair/wheelchair/Bump(atom/A)
+/obj/structure/material/chair/wheelchair/Bump(atom/A)
 	..()
 	if(!buckled_mob)	return
 
@@ -178,7 +177,7 @@
 		else
 			occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
 
-/obj/structure/bed/chair/wheelchair/proc/create_track()
+/obj/structure/material/chair/wheelchair/proc/create_track()
 	var/obj/effect/decal/cleanable/blood/tracks/B = new(loc)
 	var/newdir = get_dir(get_step(loc, dir), loc)
 	if(newdir == dir)
@@ -192,7 +191,7 @@
 		B.set_dir(newdir)
 	bloodiness--
 
-/obj/structure/bed/chair/wheelchair/buckle_mob(mob/M as mob, mob/user as mob)
+/obj/structure/material/chair/wheelchair/buckle_mob(mob/M as mob, mob/user as mob)
 	if(M == pulling)
 		pulling = null
 		usr.pulledby = null

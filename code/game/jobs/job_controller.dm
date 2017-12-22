@@ -467,7 +467,7 @@ var/global/datum/controller/occupations/job_master
 
 		if(istype(H) && !H.buckled) //give humans wheelchairs, if they need them.
 			if(!H.get_organ(BP_L_FOOT) && !H.get_organ(BP_R_FOOT))
-				var/obj/structure/bed/chair/wheelchair/W = new (H.loc)
+				var/obj/structure/material/chair/wheelchair/W = new (H.loc)
 				W.set_dir(H.dir)
 				W.buckle_mob(H)
 				W.add_fingerprint(H)
@@ -513,7 +513,7 @@ var/global/datum/controller/occupations/job_master
 		if(istype(S, /obj/effect/landmark/start) && istype(S.loc, /turf))
 			H.loc = S.loc
 		// Moving wheelchair if they have one
-		if(H.buckled && istype(H.buckled, /obj/structure/bed/chair/wheelchair))
+		if(H.buckled && istype(H.buckled, /obj/structure/material/chair/wheelchair))
 			H.buckled.loc = H.loc
 			H.buckled.set_dir(H.dir)
 

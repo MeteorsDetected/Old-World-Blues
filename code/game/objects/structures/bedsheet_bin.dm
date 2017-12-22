@@ -7,9 +7,10 @@ LINEN BINS
 /obj/item/weapon/bedsheet
 	name = "bedsheet"
 	desc = "A surprisingly soft linen bedsheet."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/bed.dmi'
 	icon_state = "sheet"
 	item_state = "bedsheet"
+	slot_flags = SLOT_BACK
 	layer = 4.0
 	throwforce = 1
 	throw_speed = 1
@@ -20,6 +21,8 @@ LINEN BINS
 	user.drop_from_inventory(src)
 	if(layer == initial(layer))
 		layer = 5
+		pixel_x = 0
+		pixel_y = 0
 	else
 		layer = initial(layer)
 	add_fingerprint(user)
