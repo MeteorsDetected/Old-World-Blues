@@ -20,6 +20,18 @@
 	mob_offset_y = 1
 	base_icon = "bed"
 
+/obj/structure/material/bed/flipped
+	transform = matrix(
+		-1, 0, 1,
+		 0, 1, 0
+	)
+	buckle_lying = LEFT
+
+/obj/structure/material/bed/flipped/initialize()
+	..()
+	for(var/obj/item/weapon/bedsheet/B in src.loc)
+		B.transform = src.transform
+
 /obj/structure/material/bed/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
@@ -42,8 +54,9 @@
 /obj/structure/material/bed/attackby(obj/item/weapon/W, mob/living/user)
 	if(istype(W, /obj/item/weapon/bedsheet))
 		user.drop_from_inventory(W, src.loc)
-		pixel_x = 0
-		pixel_y = 0
+		W.pixel_x = 0
+		W.pixel_y = 0
+		W.transform = src.transform
 		if(buckled_mob)
 			W.layer = 5
 			src.visible_message(SPAN_NOTE("[user] covers [buckled_mob] with \the [W]."))
