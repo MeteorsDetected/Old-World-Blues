@@ -3,7 +3,7 @@
 	var/material/padding_material = null
 	var/base_icon = null
 
-/obj/structure/material/New(loc, var/_material = material, var/_padding_material = padding_material)
+/obj/structure/material/New(loc, var/_material, var/_padding_material)
 	if(_material)
 		material = _material
 	if(_padding_material)

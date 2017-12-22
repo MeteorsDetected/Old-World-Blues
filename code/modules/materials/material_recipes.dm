@@ -17,6 +17,7 @@
 		recipes += new/datum/stack_recipe("[display_name] stool", /obj/item/weapon/stool, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
 		recipes += new/datum/stack_recipe("[display_name] chair", /obj/structure/material/chair, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
 		recipes += new/datum/stack_recipe("[display_name] bed", /obj/structure/material/bed, 2, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
+		recipes += new/datum/stack_recipe("[display_name] bed flipped", /obj/structure/material/bed/flipped, 2, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
 		recipes += new/datum/stack_recipe("[display_name] magnetic coil", /obj/machinery/magnetic_coil, 3, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
 
 	if(hardness>50)
