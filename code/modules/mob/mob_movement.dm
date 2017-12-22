@@ -14,22 +14,6 @@
 	if(client)
 		client.move_delay = max(world.time + timeout, client.move_delay)
 
-/client/North()
-	..()
-
-
-/client/South()
-	..()
-
-
-/client/West()
-	..()
-
-
-/client/East()
-	..()
-
-
 /client/Northeast()
 	swap_hand()
 	return

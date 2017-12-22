@@ -58,9 +58,6 @@
 	icon_state = "boxing"
 	item_state = "boxing"
 
-/obj/structure/window/reinforced/holowindow/Destroy()
-	..()
-
 /obj/structure/window/reinforced/holowindow/attackby(obj/item/W as obj, mob/user as mob)
 	if(!istype(W)) return//I really wish I did not need this
 	if(W.flags & NOBLUDGEON) return
@@ -90,14 +87,7 @@
 	qdel(src)
 	return
 
-/obj/structure/window/reinforced/holowindow/disappearing/Destroy()
-	..()
-
-/obj/machinery/door/window/holowindoor/Destroy()
-	..()
-
 /obj/machinery/door/window/holowindoor/attackby(obj/item/weapon/I as obj, mob/user as mob)
-
 	if (src.operating == 1)
 		return
 
@@ -130,9 +120,6 @@
 	if(display_message)
 		visible_message("[src] fades away as it shatters!")
 	qdel(src)
-
-/obj/structure/bed/chair/holochair/Destroy()
-	..()
 
 /obj/structure/bed/chair/holochair/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/wrench))
@@ -184,10 +171,8 @@
 		return 1
 	return 0
 
-/obj/item/weapon/holo/esword/attack(target as mob, mob/user as mob)
-	..()
-
 /obj/item/weapon/holo/esword/New()
+	..()
 	item_color = pick("red","blue","green","purple")
 
 /obj/item/weapon/holo/esword/attack_self(mob/living/user as mob)
