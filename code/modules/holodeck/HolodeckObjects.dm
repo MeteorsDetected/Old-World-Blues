@@ -121,10 +121,9 @@
 		visible_message("[src] fades away as it shatters!")
 	qdel(src)
 
-/obj/structure/bed/chair/holochair/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/material/chair/holochair/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/wrench))
 		user << (SPAN_NOTE("It's a holochair, you can't dismantle it!"))
-	return
 
 /obj/item/weapon/holo
 	damtype = HALLOSS

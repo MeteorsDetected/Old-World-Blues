@@ -267,9 +267,9 @@
 		if(mob.pulledby || mob.buckled) // Wheelchair driving!
 			if(istype(mob.loc, /turf/space))
 				return // No wheelchair driving in space
-			if(istype(mob.pulledby, /obj/structure/bed/chair/wheelchair))
+			if(istype(mob.pulledby, /obj/structure/material/chair/wheelchair))
 				return mob.pulledby.relaymove(mob, direct)
-			else if(istype(mob.buckled, /obj/structure/bed/chair/wheelchair))
+			else if(istype(mob.buckled, /obj/structure/material/chair/wheelchair))
 				if(ishuman(mob))
 					var/mob/living/carbon/human/driver = mob
 					var/obj/item/organ/external/l_hand = driver.get_organ(BP_L_HAND)
