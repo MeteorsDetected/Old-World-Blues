@@ -5,7 +5,6 @@
 	density = 1
 	w_class = ITEM_SIZE_NORMAL
 	layer = 3.2//Just above doors
-	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = 1.0
 	flags = ON_BORDER
 	var/maxhealth = 14.0
