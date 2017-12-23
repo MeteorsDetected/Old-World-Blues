@@ -29,6 +29,8 @@ var/datum/body_build/default_body_build = new
 /datum/body_build/New()
 	hand_groups["[SPRITE_UNIFORMS]_l"] = 'icons/inv_slots/uniforms/hand_l_default.dmi'
 	hand_groups["[SPRITE_UNIFORMS]_r"] = 'icons/inv_slots/uniforms/hand_r_default.dmi'
+	hand_groups["[SPRITE_SUITS]_r"]    = 'icons/inv_slots/suits/hand_r_default.dmi'
+	hand_groups["[SPRITE_SUITS]_l"]    = 'icons/inv_slots/suits/hand_l_default.dmi'
 	hand_groups["[SPRITE_BACKPACK]_l"] = 'icons/inv_slots/back/hand_l_default.dmi'
 	hand_groups["[SPRITE_BACKPACK]_r"] = 'icons/inv_slots/back/hand_r_default.dmi'
 	hand_groups["[SPRITE_GLOVES]_l"]   = 'icons/inv_slots/gloves/hand_l_default.dmi'
