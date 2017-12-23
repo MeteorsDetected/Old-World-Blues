@@ -101,33 +101,68 @@ LINEN BINS
 /obj/item/weapon/bedsheet/rainbow
 	icon_state = "sheetrainbow"
 
-/obj/item/weapon/bedsheet/mime
-	icon_state = "sheetmime"
-
 /obj/item/weapon/bedsheet/clown
 	icon_state = "sheetclown"
 
-/obj/item/weapon/bedsheet/captain
-	icon_state = "sheetcaptain"
-
-/obj/item/weapon/bedsheet/rd
-	icon_state = "sheetrd"
+/obj/item/weapon/bedsheet/mime
+	icon_state = "sheetmime"
 
 /obj/item/weapon/bedsheet/medical
 	icon_state = "sheetmedical"
 
+/obj/item/weapon/bedsheet/rd
+	icon_state = "sheetrd"
+
+/obj/item/weapon/bedsheet/cmo
+	icon_state = "sheetcmo"
+
 /obj/item/weapon/bedsheet/hos
 	icon_state = "sheethos"
-
-/obj/item/weapon/bedsheet/hop
-	icon_state = "sheethop"
 
 /obj/item/weapon/bedsheet/ce
 	icon_state = "sheetce"
 
+/obj/item/weapon/bedsheet/hop
+	icon_state = "sheethop"
+
+/obj/item/weapon/bedsheet/captain
+	icon_state = "sheetcaptain"
+
+/obj/item/weapon/bedsheet/ian
+	icon_state = "sheetian"
+
+
 /obj/item/weapon/bedsheet/doublesheet
 	icon_state = "doublesheet"
 	is_double = TRUE
+
+/obj/item/weapon/bedsheet/doublesheet/rainbow
+	icon_state = "doublesheetrainbow"
+
+/obj/item/weapon/bedsheet/doublesheet/ian
+	icon_state = "doublesheetian"
+
+/obj/item/weapon/bedsheet/doublesheet/captain
+	icon_state = "doublesheetcaptain"
+
+/obj/item/weapon/bedsheet/doublesheet/hop
+	icon_state = "doublesheethop"
+
+/obj/item/weapon/bedsheet/doublesheet/ce
+	icon_state = "doublesheetce"
+
+/obj/item/weapon/bedsheet/doublesheet/hos
+	icon_state = "doublesheethos"
+
+/obj/item/weapon/bedsheet/doublesheet/rd
+	icon_state = "doublesheetrd"
+
+/obj/item/weapon/bedsheet/doublesheet/clown
+	icon_state = "doublesheetclown"
+
+/obj/item/weapon/bedsheet/doublesheet/mime
+	icon_state = "doublesheetmime"
+
 
 /obj/structure/bedsheetbin
 	name = "linen bin"
