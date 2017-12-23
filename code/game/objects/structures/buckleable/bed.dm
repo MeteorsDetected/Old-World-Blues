@@ -31,6 +31,16 @@
 	for(var/obj/item/weapon/bedsheet/B in src.loc)
 		B.transform = src.transform
 
+/obj/structure/material/bed/double
+	icon_state = "doublebed"
+	base_icon  = "doublebed"
+	mob_offset_y = 15
+
+/obj/structure/material/bed/flipped/double
+	icon_state = "doublebed"
+	base_icon  = "doublebed"
+	mob_offset_y = 15
+
 /obj/structure/material/bed/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
