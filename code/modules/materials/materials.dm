@@ -745,6 +745,13 @@ var/list/name_to_material
 	use_name = "lime cloth"
 	icon_colour = "#62E36C"
 
+/material/cloth/orange
+	name = "orange"
+	display_name = "orange"
+	use_name = "orange cloth"
+	icon_colour = "#FFCF72"
+
+
 /material/cloth/leather
 	name = "leather"
 	icon_state = "sheet-leather"

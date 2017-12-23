@@ -3,19 +3,43 @@ CONTAINS:
 BEDSHEETS
 LINEN BINS
 */
-
 /obj/item/weapon/bedsheet
 	name = "bedsheet"
 	desc = "A surprisingly soft linen bedsheet."
 	icon = 'icons/obj/bed.dmi'
-	icon_state = "sheet"
-	item_state = "bedsheet"
+	icon_state = "bedsheet"
 	slot_flags = SLOT_BACK
 	layer = 4.0
 	throwforce = 1
 	throw_speed = 1
 	throw_range = 2
 	w_class = ITEM_SIZE_SMALL
+	var/material = "cotton"
+	var/is_double = FALSE
+	var/global/list/cached_icon
+
+/obj/item/weapon/bedsheet/New(loc, material)
+	if(material)
+		src.material = material
+	..(loc)
+
+/obj/item/weapon/bedsheet/initialize()
+	..()
+	var/material/material = get_material_by_name(src.material)
+	name = "[material.display_name] [initial(name)]"
+	src.color = material.icon_colour
+	update_icon()
+
+/obj/item/weapon/bedsheet/update_icon()
+	overlays.Cut()
+	var/icon_key = is_double ? "double_top" : "bedsheet_top"
+	if(!cached_icon)
+		cached_icon = new
+	if(!cached_icon[icon_key])
+		var/image/image = image(icon, icon_key)
+		image.appearance_flags |= RESET_COLOR
+		cached_icon[icon_key] = image
+	overlays += cached_icon[icon_key]
 
 /obj/item/weapon/bedsheet/attack_self(mob/user as mob)
 	user.drop_from_inventory(src)
@@ -28,27 +52,54 @@ LINEN BINS
 	add_fingerprint(user)
 	return
 
+/obj/item/weapon/bedsheet/attackby(obj/item/I, mob/living/user)
+	if(istype(I) && material)
+		if(I.sharp)
+			if(isturf(src.loc))
+				create_material_stacks(material, 2, src.loc)
+				qdel(src)
+			else if(user.get_inactive_hand() == src && isturf(user.loc))
+				create_material_stacks(material, 2, user.loc)
+				qdel(src)
+			else
+				user << SPAN_WARN("You can't cut [src] there.")
+			return
+	return ..()
 
 /obj/item/weapon/bedsheet/blue
-	icon_state = "sheetblue"
+	material = "blue"
+	color = "#6B6FE3"
 
 /obj/item/weapon/bedsheet/green
-	icon_state = "sheetgreen"
-
-/obj/item/weapon/bedsheet/orange
-	icon_state = "sheetorange"
+	material = "green"
+	color = "#01C608"
 
 /obj/item/weapon/bedsheet/purple
-	icon_state = "sheetpurple"
+	material = "purple"
+	color = "#9C56C4"
+
+/obj/item/weapon/bedsheet/red
+	material = "red"
+	color = "#DA020A"
+
+/obj/item/weapon/bedsheet/lime
+	material = "lime"
+	color = "#62E36C"
+
+/obj/item/weapon/bedsheet/orange
+	material = "orange"
+	color = "#FFCF72"
+
+/obj/item/weapon/bedsheet/teal
+	material ="teal"
+	color = "#00EAFA"
+
+/obj/item/weapon/bedsheet/brown
+	material = "leather"
+	color = "#5C4831"
 
 /obj/item/weapon/bedsheet/rainbow
 	icon_state = "sheetrainbow"
-
-/obj/item/weapon/bedsheet/red
-	icon_state = "sheetred"
-
-/obj/item/weapon/bedsheet/yellow
-	icon_state = "sheetyellow"
 
 /obj/item/weapon/bedsheet/mime
 	icon_state = "sheetmime"
@@ -74,9 +125,9 @@ LINEN BINS
 /obj/item/weapon/bedsheet/ce
 	icon_state = "sheetce"
 
-/obj/item/weapon/bedsheet/brown
-	icon_state = "sheetbrown"
-
+/obj/item/weapon/bedsheet/doublesheet
+	icon_state = "doublesheet"
+	is_double = TRUE
 
 /obj/structure/bedsheetbin
 	name = "linen bin"

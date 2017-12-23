@@ -7,16 +7,23 @@
 	attack_verb = list("whipped")
 	hitsound = 'sound/weapons/towelwhip.ogg'
 	desc = "A soft cotton towel."
-	var/material/material = null
+	var/material = "cotton"
 
 /obj/item/towel/attack_self(mob/living/user)
 	user.visible_message(SPAN_NOTE("[user] uses [src] to towel themselves off."))
 	playsound(user, 'sound/weapons/towelwipe.ogg', 25, 1)
 
-/obj/item/towel/New(loc, material = "cotton")
+
+/obj/item/towel/New(loc, material)
+	if(material)
+		src.material = material
 	..(loc)
-	src.material = get_material_by_name(material)
-	name = "[src.material.display_name] [initial(name)]"
+
+/obj/item/towel/initialize()
+	..()
+	var/material/material = get_material_by_name(src.material)
+	name = "[material.display_name] [initial(name)]"
+	src.color = material.icon_colour
 
 /obj/item/towel/attackby(obj/item/I, mob/living/user)
 	if(istype(I) && material)
