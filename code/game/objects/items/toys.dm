@@ -505,7 +505,7 @@
 /obj/item/toy/prize
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ripleytoy"
-	center_of_mass = list("x"=16, "y"=9)
+	center_of_mass = list("x"=16, "y"=10)
 	var/cooldown = 0
 
 //all credit to skasi for toy mech fun ideas
