@@ -32,7 +32,9 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	dufflebag = /obj/item/storage/backpack/dufflebag/cap
 
 	put_in_backpack = list(
-		/obj/item/storage/box/ids \
+		/obj/item/storage/box/ids,
+		/obj/item/weapon/a_gift,
+		/obj/item/clothing/head/santa
 		)
 
 	equip(var/mob/living/carbon/human/H)
@@ -76,7 +78,9 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 
 
 	put_in_backpack = list(
-		/obj/item/storage/box/ids
+		/obj/item/storage/box/ids,
+		/obj/item/weapon/a_gift,
+		/obj/item/clothing/head/santa
 	)
 
 	minimal_access = list(
