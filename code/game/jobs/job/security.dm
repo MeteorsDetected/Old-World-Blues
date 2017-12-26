@@ -43,8 +43,11 @@
 
 	put_in_backpack = list(
 		/obj/item/weapon/gun/energy/gun,
-		/obj/item/weapon/handcuffs
+		/obj/item/weapon/handcuffs,
+		/obj/item/weapon/a_gift,
+		/obj/item/clothing/head/santa
 	)
+
 
 
 /datum/job/security/warden
@@ -66,8 +69,11 @@
 
 	put_in_backpack = list(
 		/obj/item/device/flash,
-		/obj/item/weapon/handcuffs
+		/obj/item/weapon/handcuffs,
+		/obj/item/weapon/a_gift,
+		/obj/item/clothing/head/santa
 	)
+
 
 
 /datum/job/security/detective
@@ -91,7 +97,10 @@
 	put_in_backpack = list(
 		/obj/item/weapon/flame/lighter/zippo,
 		/obj/item/storage/box/evidence,
+		/obj/item/weapon/a_gift,
+		/obj/item/clothing/head/santa
 	)
+
 
 	backpack  = /obj/item/storage/backpack
 	satchel_j = /obj/item/storage/backpack/satchel/norm
@@ -127,5 +136,8 @@
 	put_in_backpack = list(
 		/obj/item/weapon/handcuffs,
 		/obj/item/weapon/handcuffs,
-		/obj/item/device/flash
+		/obj/item/device/flash,
+		/obj/item/weapon/a_gift,
+		/obj/item/clothing/head/santa
 	)
+
