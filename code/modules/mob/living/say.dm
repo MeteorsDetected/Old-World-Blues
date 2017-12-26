@@ -247,6 +247,10 @@ proc/get_radio_key_from_channel(var/channel)
 			if(M.loc && M.locs[1] in hearturfs)
 				listening |= M
 
+		for(var/obj/O in hearing_objects)
+			if(O.locs.len && O.locs[1] in hear)
+				listening_obj |= O
+
 	var/speech_bubble_test = say_test(message)
 	var/image/speech_bubble = image('icons/mob/talk.dmi', src, "h[speech_bubble_test]")
 	spawn(30)
