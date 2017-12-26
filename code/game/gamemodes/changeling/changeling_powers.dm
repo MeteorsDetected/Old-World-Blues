@@ -145,9 +145,6 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 	var/datum/changeling/changeling = changeling_power(35,1,0)
 	if(!changeling)	return
 
-	var/datum/changeling/changeling = changeling_power(35,1,0)
-	if(!changeling)	return
-
 	if(src.mind.changeling.recursive_enhancement)
 		if(changeling_generic_weapon(/obj/item/weapon/melee/arm_blade/greater))
 			src << "<span class='notice'>We prepare an extra sharp blade.</span>"
