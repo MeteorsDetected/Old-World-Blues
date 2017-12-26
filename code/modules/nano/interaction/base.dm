@@ -1,4 +1,4 @@
-/atom/proc/nano_host()
+/datum/proc/nano_host()
 	return src
 
 /atom/proc/CanUseTopic(var/mob/user, var/datum/topic_state/state)

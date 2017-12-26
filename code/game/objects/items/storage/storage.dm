@@ -63,7 +63,6 @@
 				H.put_in_l_hand(src)
 	src.add_fingerprint(H)
 
-
 /obj/item/storage/proc/return_inv()
 
 	var/list/L = list()
