@@ -1,6 +1,3 @@
-
-
-
 /datum/power/changeling/recursive_enhancement
 	name = "Recursive Enhancement"
 	desc = "We cause our abilities to have increased or additional effects."
@@ -21,7 +18,7 @@
 		to_chat(src, "<span class='warning'>We will no longer empower our abilities.</span>")
 		src.mind.changeling.recursive_enhancement = 0
 		return 0
-		to_chat(src, "<span class='notice'>We empower ourselves. Our abilities will now be extra potent.</span>")
+		src << SPAN_NOTE("We empower ourselves. Our abilities will now be extra potent.")
 	src.mind.changeling.recursive_enhancement = 1
 //	feedback_add_details("changeling_powers","RE")
 	return 1
@@ -62,10 +59,10 @@
 
 /obj/item/weapon/finger_lockpick/New()
 	if(ismob(loc))
-		loc << "<span class='notice'>We shape our finger to fit inside electronics, and are ready to force them open.</span>"
+		loc << SPAN_NOTE("We shape our finger to fit inside electronics, and are ready to force them open.")
 
 /obj/item/weapon/finger_lockpick/dropped(mob/user)
-	to_chat(user, "<span class='notice'>We discreetly shape our finger back to a less suspicious form.</span>")
+	user << SPAN_NOTE("We discreetly shape our finger back to a less suspicious form.")
 	spawn(1)
 		if(src)
 			qdel(src)
@@ -87,7 +84,7 @@
 	//Airlocks require an ugly block of code, but we don't want to just call emag_act(), since we don't want to break airlocks forever.
 	if(istype(target,/obj/machinery/door))
 		var/obj/machinery/door/door = target
-		to_chat(user, "<span class='notice'>We send an electrical pulse up our finger, and into \the [target], attempting to open it.</span>")
+		user << SPAN_NOTE("We send an electrical pulse up our finger, and into \the [target], attempting to open it.")
 
 		if(door.density && door.operable())
 			door.do_animate("spark")
@@ -98,13 +95,13 @@
 
 				if(airlock.locked) //Check if we're bolted.
 					airlock.unlock()
-					to_chat(user, "<span class='notice'>We've unlocked \the [airlock].  Another pulse is requried to open it.</span>")
+					user << SPAN_NOTE("We've unlocked \the [airlock].  Another pulse is requried to open it.")
 				else	//We're not bolted, so open the door already.
 					airlock.open()
-					to_chat(user, "<span class='notice'>We've opened \the [airlock].</span>")
+					user << SPAN_NOTE("We've opened \the [airlock].")
 			else
 				door.open() //If we're a windoor, open the windoor.
-				to_chat(user, "<span class='notice'>We've opened \the [door].</span>")
+				user << SPAN_NOTE("We've opened \the [door].")
 		else //Probably broken or no power.
 			to_chat(user, "<span class='warning'>The door does not respond to the pulse.</span>")
 		door.add_fingerprint(user)
@@ -114,7 +111,7 @@
 
 	else if(istype(target,/obj/)) //This should catch everything else we might miss, without a million typechecks.
 		var/obj/O = target
-		to_chat(user, "<span class='notice'>We send an electrical pulse up our finger, and into \the [O].</span>")
+		user << SPAN_NOTE("We send an electrical pulse up our finger, and into \the [O].")
 		O.add_fingerprint(user)
 		O.emag_act(1,user,src)
 		log_and_message_admins("finger-lockpicked \an [O].")
@@ -157,7 +154,7 @@
 		changeling.chem_charges -= 10
 		var/old_regen_rate = H.mind.changeling.chem_recharge_rate
 
-		H << "<span class='notice'>We vanish from sight, and will remain hidden, so long as we move carefully.</span>"
+		H << SPAN_NOTE("We vanish from sight, and will remain hidden, so long as we move carefully.")
 		H.mind.changeling.cloaked = 1
 		H.mind.changeling.chem_recharge_rate = 0
 		animate(src,alpha = 255, alpha = 10, time = 10)
@@ -165,7 +162,7 @@
 		var/must_walk = TRUE
 		if(src.mind.changeling.recursive_enhancement)
 			must_walk = FALSE
-			src << "<span class='notice'>We may move at our normal speed while hidden.</span>"
+			src << SPAN_NOTE("We may move at our normal speed while hidden.")
 
 		if(must_walk)
 			H.set_m_intent("walk")
@@ -197,3 +194,75 @@
 		H.mind.changeling.chem_recharge_rate = old_regen_rate
 
 		animate(src,alpha = 10, alpha = 255, time = 10)
+
+
+
+/mob/proc/changeling_armblade()
+
+	set category = "Changeling"
+	set name = "Slide out armblade (35)"
+
+	var/mob/living/carbon/human/H = src
+	if(!istype(H))
+		src << "<span class='warning'>We may only use this power while in humanoid form.</span>"
+		return
+
+	var/datum/changeling/changeling = changeling_power(35,1,0)
+	if(!changeling)	return
+
+	if(src.mind.changeling.recursive_enhancement)
+		if(changeling_generic_weapon(/obj/item/weapon/melee/arm_blade/greater))
+			src << SPAN_NOTE("We prepare an extra sharp blade.")
+			return 1
+
+	else
+		if(changeling_generic_weapon(/obj/item/weapon/melee/arm_blade))
+			return 1
+		return 0
+
+	H.visible_message(
+		"A grotesque blade forms around [H]\'s arm!",
+		"Our arm twists and mutates, transforming it into a deadly blade.",
+		"You hear organic matter ripping and tearing!"
+	)
+
+	changeling.chem_charges -= 35
+	return 1
+
+/obj/item/weapon/melee/arm_blade
+	name = "arm blade"
+	desc = "A grotesque blade made out of bone and flesh that cleaves through people as a hot knife through butter."
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "arm_blade"
+	item_state = "arm_blade"
+	w_class = ITEM_SIZE_NO_CONTAINER
+	force = 40
+	sharp = 1
+	edge = 1
+	pry = 1
+	abstract = 1
+	canremove = 0
+	anchored = 1
+	throwforce = 0 //Just to be on the safe side
+	throw_range = 0
+	throw_speed = 0
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+
+/obj/item/weapon/melee/arm_blade/greater
+	name = "arm greatblade"
+	desc = "A grotesque blade made out of bone and flesh that cleaves through people and armor as a hot knife through butter."
+	armor_penetration = 30
+
+
+/obj/item/weapon/melee/arm_blade/attack_self(var/mob/user)
+	user.drop_from_inventory(src)
+
+/obj/item/weapon/melee/arm_blade/dropped(var/mob/user)
+	user.visible_message(
+		"<span class='warning'>With a sickening crunch, [user] reforms their arm blade into an arm!</span>",
+		SPAN_NOTE("We assimilate the weapon back into our body."),
+		"<span class='italics'>You hear organic matter ripping and tearing!</span>"
+	)
+	playsound(src, 'sound/effects/blobattack.ogg', 30, 1)
+	qdel(src)
+

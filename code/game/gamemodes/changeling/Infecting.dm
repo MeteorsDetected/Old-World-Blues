@@ -1,33 +1,3 @@
-// Checks whether or not the target can be affected by a vampire's abilities.
-/mob/proc/vampire_can_affect_target(var/mob/living/carbon/human/T, var/notify = 1, var/account_loyalty_implant = 0)
-	if (!T || !istype(T))
-		return 0
-
-	if (T.isSynthetic())
-		if (notify)
-			to_chat(src, "<span class='warning'>You lack the power interact with mechanical constructs.</span>")
-		return 0
-
-	return 1
-
-
-/mob/living/carbon/human/proc/finish_chang_timeout(chang_flags = 0)
-	if (!usr.mind || !usr.mind.changeling)
-		return FALSE
-
-	if (chang_flags && !(usr.mind.changeling & chang_flags))
-		return FALSE
-
-	return TRUE
-
-
-///proc/infect_mob(var/mob/living/carbon/M, var/datum/disease2/disease/D)
-//	infect_virus2(M,D,1)
-//	M.hud_updateflag |= 1 << STATUS_HUD
-
-
-
-
 // Gives a lethal disease to the target.
 /datum/power/changeling/Infection
 	name = "Infection"
@@ -63,7 +33,7 @@
 	if (!vampire_can_affect_target(T))
 		return
 
-	to_chat(src, "<span class='notice'>You infect [T] with a deadly disease. They will soon fade away.</span>")
+	src << SPAN_NOTE("You infect [T] with a deadly disease. They will soon fade away.")
 
 	T.help_shake_act(src)
 
@@ -78,7 +48,3 @@
 	admin_attack_log(src, T, "used diseased touch on [key_name(T)]", "was given a lethal disease by [key_name(src)]", "used diseased touch (<a href='?src=\ref[lethal];info=1'>virus info</a>) on")
 
 	changeling.chem_charges -= 30
-
-//	verbs -= /mob/proc/Infection
-
-//	ADD_VERB_IN_IF(src, 1800, /mob/proc/Infection, CALLBACK(src, .proc/finish_chang_timeout))
