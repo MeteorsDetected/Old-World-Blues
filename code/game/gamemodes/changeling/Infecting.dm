@@ -25,7 +25,7 @@
 		victims += H
 
 	if (!victims.len)
-		to_chat(src, "<span class='warning'>No suitable targets.</span>")
+		src << SPAN_WARN("No suitable targets.")
 		return
 
 	var/mob/living/carbon/human/T = input(src, "Select Victim") as null|mob in victims
