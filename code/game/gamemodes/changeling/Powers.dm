@@ -266,3 +266,51 @@
 	playsound(src, 'sound/effects/blobattack.ogg', 30, 1)
 	qdel(src)
 
+
+/datum/power/changeling/self_respiration
+	name = "Self Respiration"
+	desc = "We evolve our body to no longer require drawing oxygen from the atmosphere."
+	helptext = "We will no longer require internals, and we cannot inhale any gas, including harmful ones."
+//	ability_icon_state = "ling_toggle_breath"
+	genomecost = 0
+	verbpath = /mob/proc/changeling_self_respiration
+
+//No breathing required
+/mob/proc/changeling_self_respiration()
+	set category = "Changeling"
+	set name = "Toggle Breathing"
+	set desc = "We choose whether or not to breathe."
+
+	var/datum/changeling/changeling = changeling_power(0,0,100,UNCONSCIOUS)
+	if(!changeling)
+		return 0
+
+	if(istype(src,/mob/living/carbon))
+		var/mob/living/carbon/C = src
+		if(C.suiciding)
+			src << "You're committing suicide, this isn't going to work."
+			return 0
+		if(C.does_not_breathe == 0)
+			C.does_not_breathe = 1
+			src << SPAN_NOTE("We stop breathing, as we no longer need to.")
+			return 1
+		else
+			C.does_not_breathe = 0
+			src << SPAN_NOTE("We resume breathing, as we now need to again.")
+	return 0
+
+
+/datum/power/changeling/endoarmor
+	name = "Endoarmor"
+	desc = "We grow hard plating underneath our skin, making us more resilient to harm by increasing our maximum health potential by 50 points."
+	helptext = "Our maximum health is increased by 50 points."
+	genomecost = 1
+	isVerb = 0
+	verbpath = /mob/living/proc/changeling_endoarmor
+
+//Increases macimum chemical storage
+/mob/living/proc/changeling_endoarmor()
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		H.maxHealth += 50
+	return 1
