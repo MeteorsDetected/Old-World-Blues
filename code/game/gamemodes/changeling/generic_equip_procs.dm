@@ -261,7 +261,7 @@
 	var/mob/living/M = src
 
 	if(M.l_hand && M.r_hand)
-		to_chat(M, "<span class='danger'>Your hands are full.</span>")
+		M << "<span class='danger'>Your hands are full.</span>"
 		return
 
 
