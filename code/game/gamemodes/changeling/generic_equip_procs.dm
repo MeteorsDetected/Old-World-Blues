@@ -256,12 +256,6 @@
 	if(!ishuman(src))
 		return 0
 
-/*	var/mob/living/M = holder.wearer
-
-	if(M.l_hand && M.r_hand)
-		to_chat(M, "<span class='danger'>Your hands are full.</span>")
-		return 0
-*/
 	..()
 
 	var/mob/living/M = src
