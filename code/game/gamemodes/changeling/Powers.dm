@@ -15,7 +15,7 @@
 	if(!changeling)
 		return 0
 	if(src.mind.changeling.recursive_enhancement)
-		to_chat(src, "<span class='warning'>We will no longer empower our abilities.</span>")
+		src << SPAN_WARN("We will no longer empower our abilities.")
 		src.mind.changeling.recursive_enhancement = 0
 		return 0
 		src << SPAN_NOTE("We empower ourselves. Our abilities will now be extra potent.")
@@ -103,7 +103,7 @@
 				door.open() //If we're a windoor, open the windoor.
 				user << SPAN_NOTE("We've opened \the [door].")
 		else //Probably broken or no power.
-			to_chat(user, "<span class='warning'>The door does not respond to the pulse.</span>")
+			user << SPAN_WARN("The door does not respond to the pulse.")
 		door.add_fingerprint(user)
 		log_and_message_admins("finger-lockpicked \an [door].")
 		ling_datum.chem_charges -= 10
@@ -204,7 +204,7 @@
 
 	var/mob/living/carbon/human/H = src
 	if(!istype(H))
-		src << "<span class='warning'>We may only use this power while in humanoid form.</span>"
+		src << SPAN_WARN("We may only use this power while in humanoid form.")
 		return
 
 	var/datum/changeling/changeling = changeling_power(35,1,0)
@@ -259,7 +259,7 @@
 
 /obj/item/weapon/melee/arm_blade/dropped(var/mob/user)
 	user.visible_message(
-		"<span class='warning'>With a sickening crunch, [user] reforms their arm blade into an arm!</span>",
+		SPAN_WARN("With a sickening crunch, [user] reforms their arm blade into an arm!"),
 		SPAN_NOTE("We assimilate the weapon back into our body."),
 		"<span class='italics'>You hear organic matter ripping and tearing!</span>"
 	)
