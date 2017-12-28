@@ -14,7 +14,7 @@ var/specops_shuttle_timeleft = 0
 /obj/machinery/computer/specops_shuttle
 	name = "special operations shuttle control console"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "shuttle"
+	screen_icon = "shuttle"
 	light_color = "#00ffff"
 	req_access = list(access_cent_specops)
 //	req_access = list(ACCESS_CENT_SPECOPS)
