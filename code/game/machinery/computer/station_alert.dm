@@ -2,7 +2,7 @@
 /obj/machinery/computer/station_alert
 	name = "Station Alert Console"
 	desc = "Used to access the station's automated alert system."
-	icon_state = "alert:0"
+	screen_icon = "alert:0"
 	light_color = "#e6ffff"
 	circuit = /obj/item/weapon/circuitboard/stationalert_engineering
 	var/obj/nano_module/alarm_monitor/alarm_monitor
@@ -44,13 +44,10 @@
 	alarm_monitor.ui_interact(user)
 
 /obj/machinery/computer/station_alert/update_icon()
+	if( !(stat & (BROKEN|NOPOWER)) )
+		var/list/alarms = alarm_monitor.major_alarms()
+		if(alarms.len)
+			screen_icon = "alert:2"
+		else
+			screen_icon = initial(screen_icon)
 	..()
-	if(stat & (BROKEN|NOPOWER))
-		return
-
-	var/list/alarms = alarm_monitor.major_alarms()
-	if(alarms.len)
-		icon_state = "alert:2"
-	else
-		icon_state = initial(icon_state)
-	return

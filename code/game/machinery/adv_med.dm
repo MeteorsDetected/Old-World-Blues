@@ -144,8 +144,7 @@
 	if(prob(50))
 		qdel(src)
 
-/obj/machinery/body_scanconsole/power_change()
-	..()
+/obj/machinery/body_scanconsole/update_icon()
 	if(stat & BROKEN)
 		icon_state = "body_scannerconsole-p"
 	else

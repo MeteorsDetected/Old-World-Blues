@@ -29,8 +29,7 @@
 	sleep(4)					//<--- What the fuck are you doing? D=
 	src.sd_SetLuminosity(2)
 */
-/obj/machinery/flasher/power_change()
-	..()
+/obj/machinery/flasher/update_icon()
 	if ( !(stat & NOPOWER) )
 		icon_state = "[base_state]1"
 //		src.sd_SetLuminosity(2)

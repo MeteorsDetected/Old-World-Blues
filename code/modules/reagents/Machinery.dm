@@ -767,7 +767,6 @@
 
 /obj/machinery/reagentgrinder/proc/grind()
 
-	power_change()
 	if(stat & (NOPOWER|BROKEN))
 		return
 
