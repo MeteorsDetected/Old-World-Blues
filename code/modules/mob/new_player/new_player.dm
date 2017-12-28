@@ -271,7 +271,7 @@
 
 		character.lastarea = get_area(loc)
 		// Moving wheelchair if they have one
-		if(character.buckled && istype(character.buckled, /obj/structure/bed/chair/wheelchair))
+		if(character.buckled && istype(character.buckled, /obj/structure/material/chair/wheelchair))
 			character.buckled.loc = character.loc
 			character.buckled.set_dir(character.dir)
 

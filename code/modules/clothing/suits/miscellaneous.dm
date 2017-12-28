@@ -38,6 +38,15 @@
 	item_state = "pirate"
 	body_parts_covered = UPPER_TORSO|ARMS
 
+/obj/item/clothing/suit/storage/pharoah
+	name = "pharoah robe"
+	desc = "Robe for a real pharoah."
+	icon_state = "pharoah"
+
+/obj/item/clothing/suit/storage/snowman
+	name = "snowman suit"
+	desc = "Cold snowman suit."
+	icon_state = "snowman"
 
 /obj/item/clothing/suit/storage/hgpirate
 	name = "pirate captain coat"
@@ -122,7 +131,6 @@
 /obj/item/clothing/suit/syndicatefake
 	name = "red space suit replica"
 	icon_state = "syndicate"
-	item_state = "space_suit_syndicate"
 	desc = "A plastic replica of the syndicate space suit, you'll look just like a real murderous syndicate agent in \
 			this! This is a toy, it is not made for use in space!"
 	w_class = ITEM_SIZE_NORMAL
@@ -217,7 +225,42 @@
 	desc = "A t-shirt with a picture of some guy. Good for sleeping in. Smells like obsession."
 	icon_state = "ashshirt"
 
+/obj/item/clothing/suit/white_jacket
+	name = "white jacket"
+	desc = "A white jacket."
+	icon_state = "white_jacket"
+
+/obj/item/clothing/suit/navy_jacket
+	name = "navy jacket"
+	desc = "A navy jacket."
+	icon_state = "navy_jacket"
+
 //coats
+
+/obj/item/clothing/suit/storage/tailcoat
+	name = "tail coat"
+	desc = "A long, thick black coat."
+	icon_state = "tailcoat"
+
+/obj/item/clothing/suit/storage/ladiesvictoriancoat
+	name = "ladies victorian coat"
+	desc = "A long, black ladies coat."
+	icon_state = "ladiesvictoriancoat"
+
+/obj/item/clothing/suit/storage/ladiesredvictoriancoat
+	name = "ladies victorian red coat"
+	desc = "A long, red ladies coat."
+	icon_state = "ladiesredvictoriancoat"
+
+/obj/item/clothing/suit/storage/trench
+	name = "trench coat"
+	desc = "A long, trench coat."
+	icon_state = "trench"
+
+/obj/item/clothing/suit/storage/trench2
+	name = "grey trench coat"
+	desc = "A long, thick grey trench coat."
+	icon_state = "trench2"
 
 /obj/item/clothing/suit/storage/leathercoat
 	name = "leather coat"

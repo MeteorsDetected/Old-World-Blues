@@ -40,10 +40,6 @@
 	else
 		forceMove(get_turf(src))
 
-//default attackby behaviour
-/obj/item/clothing/accessory/attackby(obj/item/I, mob/user)
-	..()
-
 //default attack_hand behaviour
 /obj/item/clothing/accessory/attack_hand(mob/user as mob)
 	if(has_suit)

@@ -100,6 +100,61 @@
 	desc = "Johnny~~"
 	icon_state = "johnny"
 
+/obj/item/clothing/under/popking
+	name = "popking jumpsuit"
+	desc = "A popking jumpsuit. Jumpsuit for a real pop-king!"
+	icon_state = "popking"
+
+/obj/item/clothing/under/popking2
+	name = "black popking jumpsuit"
+	desc = "A popking jumpsuit. Jumpsuit for a real pop-king!"
+	icon_state = "popking2"
+
+/obj/item/clothing/under/bathtowel
+	name = "bathtowel"
+	desc = "A bathtowel."
+	icon_state = "bathtowel"
+
+/obj/item/clothing/under/karate
+	name = "karate robe"
+	desc = "A karate robe!"
+	icon_state = "karate"
+
+/obj/item/clothing/under/patient_gown
+	name = "patient gown"
+	desc = "A patient gown."
+	icon_state = "patient_gown"
+
+/obj/item/clothing/under/victorianblred
+	name = "victorian red jumpsuit"
+	desc = "A red victorian jumpsuit."
+	icon_state = "victorianblred"
+
+/obj/item/clothing/under/victorianredvest
+	name = "victorian red vest"
+	desc = "A red victorian jumpsuit with vest."
+	icon_state = "victorianredvest"
+
+/obj/item/clothing/under/victorianvest
+	name = "victorian black vest"
+	desc = "A black victorian jumpsuit with vest."
+	icon_state = "victorianvest"
+
+/obj/item/clothing/under/kung_suit
+	name = "kung jumpsuit"
+	desc = "A blue kung jumpsuit."
+	icon_state = "kung_suit"
+
+/obj/item/clothing/under/rogue_jacket
+	name = "rogue jacket"
+	desc = "A rogue jacket."
+	icon_state = "rogue_jacket"
+
+/obj/item/clothing/under/pinkpolo
+	name = "pink polo"
+	desc = "A pink polo."
+	icon_state = "pinkpolo"
+
 /obj/item/clothing/under/psysuit
 	name = "dark undersuit"
 	desc = "A thick, layered grey undersuit lined with power cables. Feels a little like wearing an electrical storm."

@@ -77,3 +77,67 @@
 	icon_state = "plaid_black"
 	item_state = "ba_suit"
 
+/obj/item/clothing/under/dress/bar_f
+	name = "black bartender dress"
+	desc = "A black bartender dress with a white blouse."
+	icon_state = "bar_f"
+
+/obj/item/clothing/under/dress/sakuya
+	name = "sakuya blue dress"
+	desc = "A sakuya blue dress."
+	icon_state = "sakuya"
+
+/obj/item/clothing/under/dress/victorianblackdress
+	name = "victorian black dress"
+	desc = "A victorian black dress."
+	icon_state = "victorianblackdress"
+
+/obj/item/clothing/under/dress/victorianreddress
+	name = "victorian red dress"
+	desc = "A victorian red dress."
+	icon_state = "victorianreddress"
+
+/obj/item/clothing/under/dress/pretty_dress
+	name = "pretty dress"
+	desc = "A very pretty dress!"
+	icon_state = "pretty_dress"
+
+/obj/item/clothing/under/dress/whitedress1
+	name = "big white dress"
+	desc = "A big white dress."
+	icon_state = "whitedress1"
+
+/obj/item/clothing/under/dress/whitedress2
+	name = "long white dress"
+	desc = "A very long white dress."
+	icon_state = "whitedress2"
+
+/obj/item/clothing/under/dress/whitedress3
+	name = "small white dress"
+	desc = "A small white dress."
+	icon_state = "whitedress3"
+
+/obj/item/clothing/under/dress/whitedress4
+	name = "cute white dress"
+	desc = "A cute white dress."
+	icon_state = "whitedress4"
+
+/obj/item/clothing/under/dress/sexyclown
+	name = "sexy clown dress"
+	desc = "A very sexy dress."
+	icon_state = "sexyclown"
+
+/obj/item/clothing/under/dress/sexymaid
+	name = "sexy maid dress"
+	desc = "A very sexy maid dress."
+	icon_state = "sexymaid"
+
+/obj/item/clothing/under/dress/flower_dress
+	name = "flower_dress"
+	desc = "A orange flower dress."
+	icon_state = "flower_dress"
+
+/obj/item/clothing/under/dress/bathrobe
+	name = "bathrobe"
+	desc = "A bathrobe."
+	icon_state = "bathrobe"
