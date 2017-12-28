@@ -5,7 +5,7 @@
 
 	if (T.isSynthetic())
 		if (notify)
-			to_chat(src, "<span class='warning'>You lack the power interact with mechanical constructs.</span>")
+			SPAN_WARN("You lack the power interact with mechanical constructs.")
 		return 0
 
 	return 1
