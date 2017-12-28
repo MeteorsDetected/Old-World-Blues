@@ -338,7 +338,6 @@
 	slot_flags = SLOT_ICLOTHING
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	w_class = ITEM_SIZE_NORMAL
-	center_of_mass = null
 	var/has_sensor = 1 //For the crew computer 2 = unable to change mode
 	var/sensor_mode = 0
 		/*

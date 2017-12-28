@@ -53,7 +53,9 @@ var/list/name_to_material
 /proc/get_material_by_name(name)
 	if(!name_to_material)
 		populate_material_list()
-	return name_to_material[name]
+	. = name_to_material[name]
+	ASSERT(.)
+	return .
 
 /proc/material_display_name(name)
 	var/material/material = get_material_by_name(name)
@@ -370,7 +372,7 @@ var/list/name_to_material
 	stack_origin_tech = list(TECH_MATERIAL = 2)
 	resilience = 49
 	reflectance = 10
-	composite_material = list(MATERIAL_STEEL = 3750, "platinum" = 3750) //todo
+	composite_material = list(MATERIAL_STEEL = 3750, MATERIAL_PLATINUM = 3750) //todo
 
 /material/glass
 	name = MATERIAL_GLASS
@@ -540,6 +542,7 @@ var/list/name_to_material
 	stack_origin_tech = list(TECH_MATERIAL = 5)
 	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
+	flags = MATERIAL_COLORIZE_STACK
 
 /material/tritium
 	name = MATERIAL_TRITIUM
@@ -548,6 +551,7 @@ var/list/name_to_material
 	stack_origin_tech = list(TECH_MATERIAL = 5)
 	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
+	flags = MATERIAL_COLORIZE_STACK
 
 /material/mhydrogen
 	name = MATERIAL_MYTHRIL
@@ -558,7 +562,7 @@ var/list/name_to_material
 	reflectance = 0
 
 /material/platinum
-	name = "platinum"
+	name = MATERIAL_PLATINUM
 	icon_state = "sheet-adamantine"
 	icon_colour = "#9999FF"
 	weight = 27
@@ -575,6 +579,7 @@ var/list/name_to_material
 	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
 	grind_to = MATERIAL_IRON
+	flags = MATERIAL_COLORIZE_STACK
 
 // Adminspawn only, do not let anyone get this.
 /material/voxalloy
@@ -638,15 +643,6 @@ var/list/name_to_material
 	door_icon_base = "wood"
 	destruction_desc = "crumples"
 
-/material/cloth //todo
-	name = "cloth"
-	icon_state = "sheet-cloth"
-	stack_origin_tech = list(TECH_MATERIAL = 2)
-	door_icon_base = "wood"
-	ignition_point = T0C+232
-	melting_point = T0C+300
-	flags = MATERIAL_PADDING
-
 /material/cult
 	name = "cult"
 	display_name = "disturbing stone"
@@ -687,94 +683,79 @@ var/list/name_to_material
 		return 1
 	return 0
 
-//TODO PLACEHOLDERS:
-/material/leather
-	name = "leather"
-	icon_state = "sheet-leather"
-	icon_colour = "#5C4831"
+/material/cloth //todo
+	name = "cloth"
+	icon_state = "sheet-cloth"
 	stack_origin_tech = list(TECH_MATERIAL = 2)
-	flags = MATERIAL_PADDING
-	ignition_point = T0C+300
-	melting_point = T0C+300
-
-/material/carpet
-	name = "carpet"
-	display_name = "comfy"
-	use_name = "red upholstery"
-	icon_colour = "#DA020A"
-	flags = MATERIAL_PADDING
+	door_icon_base = "wood"
 	ignition_point = T0C+232
 	melting_point = T0C+300
-	sheet_singular_name = "tile"
-	sheet_plural_name = "tiles"
+	flags = MATERIAL_PADDING|MATERIAL_COLORIZE_STACK
 
-/material/cotton
+/material/cloth/cotton
 	name = "cotton"
 	display_name ="cotton"
 	icon_colour = "#FFFFFF"
-	flags = MATERIAL_PADDING
-	ignition_point = T0C+232
-	melting_point = T0C+300
 
-/material/cloth_teal
+/material/cloth/teal
 	name = "teal"
 	display_name ="teal"
 	use_name = "teal cloth"
 	icon_colour = "#00EAFA"
-	flags = MATERIAL_PADDING
-	ignition_point = T0C+232
-	melting_point = T0C+300
 
-/material/cloth_black
+/material/cloth/black
 	name = "black"
 	display_name = "black"
 	use_name = "black cloth"
 	icon_colour = "#505050"
-	flags = MATERIAL_PADDING
-	ignition_point = T0C+232
-	melting_point = T0C+300
 
-/material/cloth_green
+/material/cloth/green
 	name = "green"
 	display_name = "green"
 	use_name = "green cloth"
 	icon_colour = "#01C608"
-	flags = MATERIAL_PADDING
-	ignition_point = T0C+232
-	melting_point = T0C+300
 
-/material/cloth_puple
+/material/cloth/puple
 	name = "purple"
 	display_name = "purple"
 	use_name = "purple cloth"
 	icon_colour = "#9C56C4"
-	flags = MATERIAL_PADDING
-	ignition_point = T0C+232
-	melting_point = T0C+300
 
-/material/cloth_blue
+/material/cloth/blue
 	name = "blue"
 	display_name = "blue"
 	use_name = "blue cloth"
 	icon_colour = "#6B6FE3"
-	flags = MATERIAL_PADDING
-	ignition_point = T0C+232
-	melting_point = T0C+300
 
-/material/cloth_beige
+/material/cloth/red
+	name = "red"
+	display_name = "red"
+	use_name = "red cloth"
+	icon_colour = "#DA020A"
+
+/material/cloth/beige
 	name = "beige"
 	display_name = "beige"
 	use_name = "beige cloth"
 	icon_colour = "#E8E7C8"
-	flags = MATERIAL_PADDING
-	ignition_point = T0C+232
-	melting_point = T0C+300
 
-/material/cloth_lime
+/material/cloth/lime
 	name = "lime"
 	display_name = "lime"
 	use_name = "lime cloth"
 	icon_colour = "#62E36C"
+
+/material/cloth/orange
+	name = "orange"
+	display_name = "orange"
+	use_name = "orange cloth"
+	icon_colour = "#FFCF72"
+
+
+/material/cloth/leather
+	name = "leather"
+	icon_state = "sheet-leather"
+	icon_colour = "#5C4831"
+	ignition_point = T0C+300
 	flags = MATERIAL_PADDING
-	ignition_point = T0C+232
-	melting_point = T0C+300
+

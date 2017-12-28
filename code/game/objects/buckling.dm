@@ -8,6 +8,10 @@
 
 	var/tmp/mob_offset_y = 0		//pixel_y offset for mob overlay
 
+/obj/attack_robot(mob/user)
+	if(Adjacent(user))
+		attack_hand(user)
+
 /obj/attack_hand(mob/living/user)
 	. = ..()
 	if(can_buckle && buckled_mob)
