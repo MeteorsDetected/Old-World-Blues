@@ -68,3 +68,48 @@
 	name = "camo pants"
 	desc = "A pair of woodland camouflage pants. Probably not the best choice for a space station."
 	icon_state = "camopants"
+
+/obj/item/clothing/under/pants/militarypants
+	name = "military pants"
+	desc = "A pair of military pants."
+	icon_state = "militarypants"
+
+/obj/item/clothing/under/pants/garpants
+	name = "gar pants"
+	desc = "A pair of gar pants."
+	icon_state = "garpants"
+
+/obj/item/clothing/under/pants/garpantsband
+	name = "gar pants band"
+	desc = "A pair of gar pants band."
+	icon_state = "garpantsband"
+
+/obj/item/clothing/under/pants/jeansripped
+	name = "ripped jeans"
+	desc = "A pair of blue ripped jeans."
+	icon_state = "jeansripped"
+
+/obj/item/clothing/under/pants/jeansmustangripped
+	name = "ripped mustang jeans"
+	desc = "A pair of ripped mustang jeans."
+	icon_state = "jeansmustangripped"
+
+/obj/item/clothing/under/pants/jeansblackripped
+	name = "black ripped jeans"
+	desc = "A pair of black ripped jeans."
+	icon_state = "jeansblackripped"
+
+/obj/item/clothing/under/pants/jeansgreyripped
+	name = "ripped grey jeans"
+	desc = "A pair of grey ripped jeans."
+	icon_state = "jeansgreyripped"
+
+/obj/item/clothing/under/pants/jeansclassicripped
+	name = "classic ripped jeans"
+	desc = "A pair of classic ripped jeans."
+	icon_state = "jeansclassicripped"
+
+/obj/item/clothing/under/pants/yogapants
+	name = "yoga pants"
+	desc = "A pair of yoga pants. So peaceful..."
+	icon_state = "yogapants"

@@ -77,3 +77,10 @@
 	display_name = "sandals, pink"
 	path = /obj/item/clothing/shoes/sandal/pink
 
+/datum/gear/shoes/high_shoes
+	display_name = "high shoes, red"
+	path = /obj/item/clothing/shoes/high_shoes
+
+/datum/gear/shoes/high_shoes2
+	display_name = "high shoes, black"
+	path = /obj/item/clothing/shoes/high_shoes2
