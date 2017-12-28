@@ -202,7 +202,7 @@ var/list/donator_icons
 		cinematic.mouse_opacity = 0
 		cinematic.screen_loc = "1,0"
 
-		var/obj/structure/bed/temp_buckle = new(src)
+		var/obj/structure/material/bed/temp_buckle = new(src)
 		//Incredibly hackish. It creates a bed within the gameticker (lol) to stop mobs running around
 		if(station_missed)
 			for(var/mob/living/M in living_mob_list)

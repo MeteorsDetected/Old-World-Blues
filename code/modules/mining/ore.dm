@@ -59,7 +59,7 @@
 /obj/item/weapon/ore/osmium
 	name = "raw platinum"
 	icon_state = "ore_platinum"
-	material = "platinum"
+	material = MATERIAL_PLATINUM
 
 /obj/item/weapon/ore/hydrogen
 	name = "raw hydrogen"

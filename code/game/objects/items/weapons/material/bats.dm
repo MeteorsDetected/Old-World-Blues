@@ -24,7 +24,7 @@
 	..(newloc,MATERIAL_GOLD)
 
 /obj/item/weapon/material/twohanded/baseballbat/platinum/New(var/newloc)
-	..(newloc,"platinum")
+	..(newloc,MATERIAL_PLATINUM)
 
 /obj/item/weapon/material/twohanded/baseballbat/diamond/New(var/newloc)
 	..(newloc,MATERIAL_DIAMOND)

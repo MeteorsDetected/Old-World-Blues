@@ -10,7 +10,7 @@
 		/area/crew_quarters/heads/chief,
 		/area/crew_quarters/heads/hos,
 		/area/crew_quarters/heads/cmo,
-		/area/crew_quarters/captain,
+		/area/crew_quarters/heads/captain,
 		/area/security/armoury,
 		/area/tcommsat/chamber,
 		/area/engineering/engine_room,

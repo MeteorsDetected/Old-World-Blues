@@ -9,18 +9,8 @@
 	display_name = "job, skirt"
 	description = "Totally as your default uniform, but with skirt!"
 	path = /obj/item/clothing/under
-	allowed_roles = list(
-		"Captain", "Head of Personnel", "QM", "Cargo Technician",
-		"Chief Engineer","Station Engineer","Atmospheric Technician","Roboticist",
-		"Research Director","Scientist","Chief Medical Officer","Chemist","Medical Doctor","Geneticist",
-		"Head of Security","Warden","Security Officer"
-	)
 
 /datum/gear/uniform/job_skirt/spawn_for(var/mob/living/carbon/human/H)
-	if(allowed_roles && !(H.job in allowed_roles))
-		H << "<span class='warning'>Your current job does not permit you to spawn with [display_name]!</span>"
-		return null
-
 	var/tmp_path = path
 	switch(H.job)
 		if("Captain")
@@ -59,7 +49,9 @@
 			tmp_path = /obj/item/clothing/under/rank/warden/skirt
 		if("Security Officer")
 			tmp_path = /obj/item/clothing/under/rank/security/skirt
-		else return null
+		else
+			H << SPAN_WARN("Your current job does not permit you to spawn with [display_name]!")
+			return null
 
 	return new tmp_path(H)
 
@@ -68,29 +60,39 @@
 	display_name = "job, jeans"
 	description = "Totally as your default uniform, but with jeans!"
 	path = /obj/item/clothing/under
-	allowed_roles = list("QM", "Cargo Technician","Station Engineer","Atmospheric Technician"  ,\
-	"Research Director","Scientist","Chief Medical Officer","Chemist","Medical Doctor","Geneticist")
 
 /datum/gear/uniform/job_jeans/spawn_for(var/mob/living/carbon/human/H)
-	if(allowed_roles && !(H.job in allowed_roles))
-		H << "<span class='warning'>Your current job does not permit you to spawn with [display_name]!</span>"
-		return null
-
 	var/tmp_path = path
 	switch(H.job)
-		if("QM") tmp_path = /obj/item/clothing/under/rank/qm/jeans
-		if("Cargo Technician") tmp_path = /obj/item/clothing/under/rank/cargo/jeans
-		if("Station Engineer") tmp_path = /obj/item/clothing/under/rank/engineer/jeans
-		if("Atmospheric Technician") tmp_path = /obj/item/clothing/under/rank/atmospheric_technician/jeans
-		if("Scientist") tmp_path = /obj/item/clothing/under/rank/scientist/jeans
-		if("Chief Medical Officer") tmp_path = /obj/item/clothing/under/rank/chief_medical_officer/jeans
-		if("Chemist") tmp_path = /obj/item/clothing/under/rank/chemist/jeans
+		if("QM")
+			tmp_path = /obj/item/clothing/under/rank/qm/jeans
+		if("Cargo Technician")
+			tmp_path = /obj/item/clothing/under/rank/cargo/jeans
+		if("Station Engineer")
+			tmp_path = /obj/item/clothing/under/rank/engineer/jeans
+		if("Atmospheric Technician")
+			tmp_path = /obj/item/clothing/under/rank/atmospheric_technician/jeans
+		if("Scientist")
+			tmp_path = /obj/item/clothing/under/rank/scientist/jeans
+		if("Chief Medical Officer")
+			tmp_path = /obj/item/clothing/under/rank/chief_medical_officer/jeans
+		if("Chemist")
+			tmp_path = /obj/item/clothing/under/rank/chemist/jeans
 		if("Medical Doctor")
 			tmp_path = /obj/item/clothing/under/rank/medical/jeans
 			if(H.mind && H.mind.role_alt_title == "Virologist")
 				tmp_path = /obj/item/clothing/under/rank/virologist/jeans
-		if("Geneticist") tmp_path = /obj/item/clothing/under/rank/geneticist/jeans
-		else return null
+		if("Geneticist")
+			tmp_path = /obj/item/clothing/under/rank/geneticist/jeans
+		if("Head of Security")
+			tmp_path = /obj/item/clothing/under/rank/head_of_security/jeans
+		if("Warden")
+			tmp_path = /obj/item/clothing/under/rank/warden/jeans
+		if("Detective")
+			tmp_path = /obj/item/clothing/under/rank/det/jeans
+		else
+			H << SPAN_WARN("Your current job does not permit you to spawn with [display_name]!")
+			return null
 
 	return new tmp_path(H)
 
@@ -258,6 +260,19 @@
 	display_name = "flame dress"
 	path = /obj/item/clothing/under/dress/fire
 
+/datum/gear/uniform/sec_blue
+	display_name = "uniform, blue (Warden, Sec)"
+	path = /obj/item/clothing/under/rank/security/blue
+
+/datum/gear/uniform/sec_blue/spawn_for(var/mob/living/carbon/human/H)
+	if(allowed_roles && !(H.job in allowed_roles))
+		H << SPAN_WARN("Your current job does not permit you to spawn with [display_name]!")
+		return null
+	var/tmp_path = path
+	if(H.job == "Warden")
+		tmp_path = /obj/item/clothing/under/rank/warden/blue
+	return new tmp_path ()
+
 /datum/gear/uniform/corpsecsuit
 	display_name = "uniform, corporate (Security)"
 	path = /obj/item/clothing/under/rank/security/corp
@@ -265,7 +280,7 @@
 
 /datum/gear/uniform/corpsecsuit/spawn_for(var/mob/living/carbon/human/H)
 	if(allowed_roles && !(H.job in allowed_roles))
-		H << "<span class='warning'>Your current job does not permit you to spawn with [display_name]!</span>"
+		H << SPAN_WARN("Your current job does not permit you to spawn with [display_name]!")
 		return null
 
 	var/tmp_path = path
@@ -283,26 +298,6 @@
 	path = /obj/item/clothing/under/dress/hr
 	allowed_roles = list("Head of Personnel")
 
-/datum/gear/uniform/bluesecsuit
-	display_name = "uniform, navy blue (Security)"
-	path = /obj/item/clothing/under/rank/security/blue
-	allowed_roles = list("Head of Security","Warden", "Security Officer", "Detective")
-
-/datum/gear/uniform/bluesecsuit/spawn_for(var/mob/living/carbon/human/H)
-	if(allowed_roles && !(H.job in allowed_roles))
-		H << "<span class='warning'>Your current job does not permit you to spawn with [display_name]!</span>"
-		return null
-
-	var/tmp_path = path
-	switch(H.job)
-		if("Head of Security")
-			tmp_path = /obj/item/clothing/under/rank/head_of_security/blue
-		if("Warden")
-			tmp_path = /obj/item/clothing/under/rank/warden/blue
-		if("Detective")
-			tmp_path = /obj/item/clothing/under/rank/det/blue
-	return new tmp_path ()
-
 /datum/gear/uniform/dnavysecsuit
 	display_name = "uniform, deep navy (Security)"
 	path = /obj/item/clothing/under/rank/security/dnavy
@@ -310,7 +305,7 @@
 
 /datum/gear/uniform/dnavysecsuit/spawn_for(var/mob/living/carbon/human/H)
 	if(allowed_roles && !(H.job in allowed_roles))
-		H << "<span class='warning'>Your current job does not permit you to spawn with [display_name]!</span>"
+		H << SPAN_WARN("Your current job does not permit you to spawn with [display_name]!")
 		return null
 
 	var/tmp_path = path
@@ -328,7 +323,7 @@
 
 /datum/gear/uniform/tansecsuit/spawn_for(var/mob/living/carbon/human/H)
 	if(allowed_roles && !(H.job in allowed_roles))
-		H << "<span class='warning'>Your current job does not permit you to spawn with [display_name]!</span>"
+		H << SPAN_WARN("Your current job does not permit you to spawn with [display_name]!")
 		return null
 
 	var/tmp_path = path

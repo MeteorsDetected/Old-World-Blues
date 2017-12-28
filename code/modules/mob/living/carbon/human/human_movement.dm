@@ -27,7 +27,7 @@
 	for(var/obj/item/I in list(wear_suit, w_uniform, back, gloves, head, s_store) )
 		tally += I.slowdown
 
-	if(istype(buckled, /obj/structure/bed/chair/wheelchair))
+	if(istype(buckled, /obj/structure/material/chair/wheelchair))
 		for(var/organ_name in list(BP_L_HAND, BP_R_HAND, BP_L_ARM, BP_R_ARM))
 			var/obj/item/organ/external/E = get_organ(organ_name)
 			if(!E)

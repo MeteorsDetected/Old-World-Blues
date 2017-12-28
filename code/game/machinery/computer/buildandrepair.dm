@@ -32,6 +32,8 @@
 		density = TRUE
 		pass_flags &= ~PASSTABLE
 
+	icon_state = frame
+
 	overlays.Cut()
 	if(wire)
 		overlays += "[frame]_wire"
