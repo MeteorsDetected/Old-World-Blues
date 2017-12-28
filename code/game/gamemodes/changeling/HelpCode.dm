@@ -19,25 +19,3 @@
 		return FALSE
 
 	return TRUE
-
-
-/obj/item/weapon/card/id/proc/update_name()
-	name = "[src.registered_name]'s ID Card ([src.assignment])"
-
-
-/mob/proc/set_id_info(var/obj/item/weapon/card/id/id_card)
-//	id_card.age = 0
-	id_card.registered_name		= real_name
-//	id_card.sex 				= capitalize(gender)
-//	id_card.set_id_photo(src)
-
-	if(dna)
-		id_card.blood_type		= dna.b_type
-		id_card.dna_hash		= dna.unique_enzymes
-		id_card.fingerprint_hash= md5(dna.uni_identity)
-	id_card.update_name()
-
-
-/mob
-
-	var/seedarkness = 1
