@@ -5,7 +5,7 @@
 
 	if (T.isSynthetic())
 		if (notify)
-			SPAN_WARN("You lack the power interact with mechanical constructs.")
+			src << SPAN_WARN("You lack the power interact with mechanical constructs.")
 		return 0
 
 	return 1
