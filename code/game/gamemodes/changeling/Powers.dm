@@ -15,7 +15,7 @@
 	if(!changeling)
 		return 0
 	if(src.mind.changeling.recursive_enhancement)
-		src << "<span class='warning'>We will no longer empower our abilities.</span>"
+		src << SPAN_WARN("We will no longer empower our abilities.")
 		src.mind.changeling.recursive_enhancement = 0
 		return 0
 		src << SPAN_NOTE("We empower ourselves. Our abilities will now be extra potent.")
@@ -78,7 +78,7 @@
 	var/datum/changeling/ling_datum = user.mind.changeling
 
 	if(ling_datum.chem_charges < 10)
-		user << "<span class='warning'>We require more chemicals to do that.</span>"
+		user << SPAN_WARN("We require more chemicals to do that.")
 		return
 
 	//Airlocks require an ugly block of code, but we don't want to just call emag_act(), since we don't want to break airlocks forever.
