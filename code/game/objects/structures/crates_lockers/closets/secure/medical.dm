@@ -84,7 +84,9 @@
 		new /obj/item/clothing/suit/storage/toggle/labcoat(src)
 		new /obj/item/clothing/suit/storage/toggle/fr_jacket(src)
 		new /obj/item/clothing/shoes/white(src)
+		new /obj/item/clothing/under/rank/rosa(src)
 		new /obj/item/device/radio/headset/med(src)
+		new /obj/item/clothing/suit/storage/coatmedical(src)
 		return
 
 /obj/structure/closet/secure_closet/paramedic

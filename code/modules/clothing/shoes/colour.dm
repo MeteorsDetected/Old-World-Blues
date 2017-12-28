@@ -58,6 +58,16 @@
 	desc = "Very gay shoes."
 	icon_state = "rain_bow"
 
+/obj/item/clothing/shoes/high_shoes
+	name = "high red shoes"
+	desc = "Very high red shoes."
+	icon_state = "high_shoes"
+
+/obj/item/clothing/shoes/high_shoes2
+	name = "high black shoes"
+	desc = "Very high black shoes."
+	icon_state = "high_shoes2"
+
 /obj/item/clothing/shoes/orange
 	name = "orange shoes"
 	icon_state = "orange"

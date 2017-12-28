@@ -54,6 +54,7 @@
 	new /obj/item/clothing/accessory/holster/gun/waist(src)
 	new /obj/item/clothing/accessory/holster/gun/waist(src)
 	new /obj/item/clothing/accessory/holster/gun/hip(src)
+	new /obj/item/clothing/suit/security/secjacket(src)
 	return
 
 /obj/structure/closet/wardrobe/redalt
@@ -113,6 +114,7 @@
 	new /obj/item/clothing/mask/bandana(src)
 	new /obj/item/clothing/mask/bandana(src)
 	new /obj/item/storage/backpack/messenger/black(src)
+	new /obj/item/clothing/suit/storage/coatwinter
 	return
 
 
@@ -342,6 +344,7 @@
 	new /obj/item/clothing/gloves/black(src)
 	new /obj/item/device/radio/headset/rob(src)
 	new /obj/item/device/radio/headset/rob(src)
+	new /obj/item/clothing/suit/storage/coatscience(src)
 	return
 
 
@@ -446,6 +449,7 @@
 	new /obj/item/clothing/head/soft/grey(src)
 	new /obj/item/clothing/head/soft/grey(src)
 	new /obj/item/clothing/head/soft/grey(src)
+	new /obj/item/clothing/suit/storage/coatwinter(src)
 	return
 
 
@@ -557,6 +561,7 @@
 	new /obj/item/clothing/head/beret/centcom/captain(src)
 	new /obj/item/clothing/under/rank/captain/green(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/clothing/suit/storage/coatcaptain(src)
 	return
 
 /obj/structure/closet/wardrobe/ems

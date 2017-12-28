@@ -255,8 +255,45 @@
 	path = /obj/item/clothing/under/sundress_white
 
 /datum/gear/uniform/dress_fire
-	display_name = "flame dress"
+	display_name = "Dress, flame dress"
 	path = /obj/item/clothing/under/dress/fire
+
+/datum/gear/uniform/victorianblackdress
+	display_name = "Dress, victorian black dress"
+	path = /obj/item/clothing/under/dress/victorianblackdress
+
+/datum/gear/uniform/victorianreddress
+	display_name = "Dress, victorian red dress"
+	path = /obj/item/clothing/under/dress/victorianreddress
+
+/datum/gear/uniform/pretty_dress
+	display_name = "Dress, pretty dress"
+	path = /obj/item/clothing/under/dress/pretty_dress
+
+/datum/gear/uniform/whitedress1
+	display_name = "Dress, big white dress"
+	path = /obj/item/clothing/under/dress/whitedress1
+
+/datum/gear/uniform/whitedress2
+	display_name = "Dress, long white dress"
+	path = /obj/item/clothing/under/dress/whitedress2
+
+/datum/gear/uniform/whitedress3
+	display_name = "Dress, small white dress"
+	path = /obj/item/clothing/under/dress/whitedress3
+
+/datum/gear/uniform/whitedress4
+	display_name = "Dress, cute white dress"
+	path = /obj/item/clothing/under/dress/whitedress4
+
+/datum/gear/uniform/flower_dress
+	display_name = "Dress, flower dress"
+	path = /obj/item/clothing/under/dress/flower_dress
+
+/datum/gear/uniform/sakuya
+	display_name = "Dress, sakuya blue dress"
+	path = /obj/item/clothing/under/dress/sakuya
+
 
 /datum/gear/uniform/corpsecsuit
 	display_name = "uniform, corporate (Security)"
@@ -340,5 +377,37 @@
 	return new tmp_path ()
 
 /datum/gear/uniform/squatter_outfit
-	display_name = "slav squatter tracksuit"
+	display_name = "Suit, slav squatter tracksuit"
 	path = /obj/item/clothing/under/squatter_outfit
+
+/datum/gear/uniform/militarypants
+	display_name = "Pants, military"
+	path = /obj/item/clothing/under/pants/militarypants
+
+/datum/gear/uniform/garpants
+	display_name = "Pants, gar"
+	path = /obj/item/clothing/under/pants/garpants
+
+/datum/gear/uniform/jeansripped
+	display_name = "Pants, ripped jeans"
+	path = /obj/item/clothing/under/pants/jeansripped
+
+/datum/gear/uniform/jeansmustangripped
+	display_name = "Pants, ripped mustang jeans"
+	path = /obj/item/clothing/under/pants/jeansmustangripped
+
+/datum/gear/uniform/jeansblackripped
+	display_name = "Pants, black ripped jeans"
+	path = /obj/item/clothing/under/pants/jeansblackripped
+
+/datum/gear/uniform/jeansgreyripped
+	display_name = "Pants, grey ripped jeans"
+	path = /obj/item/clothing/under/pants/jeansgreyripped
+
+/datum/gear/uniform/jeansclassicripped
+	display_name = "Pants, classic ripped jeans"
+	path = /obj/item/clothing/under/pants/jeansclassicripped
+
+/datum/gear/uniform/jeansclassicripped
+	display_name = "Pants, classic ripped jeans"
+	path = /obj/item/clothing/under/pants/jeansclassicripped

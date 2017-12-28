@@ -27,6 +27,7 @@
 	new /obj/item/clothing/under/dress/saloon(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/under/dress/bar_f(src)
 
 /*
  * Chef
