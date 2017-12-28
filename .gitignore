@@ -16,3 +16,4 @@ config/
 /.gitignore
 /.gitconfig
 maps/exodus/backup/1.station.dmm
+maps/brig.dmm
