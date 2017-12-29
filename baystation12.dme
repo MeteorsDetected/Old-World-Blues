@@ -1942,6 +1942,7 @@
 #include "maps\brig.dmm"
 #include "maps\CentComm.dmm"
 #include "maps\empty_space.dmm"
+#include "maps\exodus\1.station.dmm"
 #include "maps\exodus\1.station_ng.dmm"
 #include "maps\exodus\2.asteroid.dmm"
 #include "maps\exodus\3.satelite.dmm"
