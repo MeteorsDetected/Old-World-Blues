@@ -13,7 +13,7 @@
 		BP_R_ARM = list(BP_R_HAND = /obj/item/organ/external/robotic/enforcer/hand),
 		BP_L_LEG = list(BP_L_FOOT = /obj/item/organ/external/robotic/enforcer),
 		BP_R_LEG = list(BP_R_FOOT = /obj/item/organ/external/robotic/enforcer)
-		)
+	)
 
 /obj/item/organ/external/robotic/enforcer/hand
 	var/datum/unarmed_attack/enforcer/active_atack = new
@@ -73,14 +73,18 @@
 
 
 /obj/item/clothing/shoes/magboots/mounted
+	name = "mounted magboots"
 	var/atom/holder = null
-	New(newloc)
+
+/obj/item/clothing/shoes/magboots/mounted/New(newloc)
+	if(istype(newloc, /obj/item/organ/external/robotic))
 		holder = newloc
-		..()
-	dropped()
-		..()
-		if(holder)
-			forceMove(holder)
+	..()
+
+/obj/item/clothing/shoes/magboots/mounted/dropped()
+	..()
+	if(holder)
+		forceMove(holder)
 
 /obj/item/organ/external/robotic/enforcer/limb/leg
 	var/obj/item/clothing/shoes/magboots/mounted/magboots = null
