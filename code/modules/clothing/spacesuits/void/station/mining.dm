@@ -38,7 +38,7 @@
 		SPECIES_VOX    = 'icons/inv_slots/suits/icon_vox.dmi'
 	)
 
-/obj/item/clothing/suit/space/void/mining/prepared/New()
+/obj/item/clothing/suit/space/void/mining/prepared/initialize()
 	..()
 	helmet = new /obj/item/clothing/head/helmet/space/void/mining
 
@@ -57,6 +57,6 @@
 	desc = "A cheap prospecting voidsuit. What it lacks in comfort it makes up for in armor plating and street cred."
 	armor = list(melee = 50, bullet = 15, laser = 20,energy = 5, bomb = 55, bio = 100, rad = 0)
 
-/obj/item/clothing/suit/space/void/mining/alt/prepared/New()
+/obj/item/clothing/suit/space/void/mining/alt/prepared/initialize()
 	..()
 	helmet = new /obj/item/clothing/head/helmet/space/void/mining/alt

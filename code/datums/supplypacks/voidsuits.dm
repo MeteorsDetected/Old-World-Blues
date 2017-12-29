@@ -13,7 +13,7 @@
 		/obj/item/clothing/suit/space/void/atmos = 2,
 		/obj/item/clothing/head/helmet/space/void/atmos = 2,
 		/obj/item/clothing/mask/breath = 2,
-		/obj/item/clothing/shoes/magboots = 2,
+		/obj/item/clothing/shoes/magboots/toggleable = 2,
 		/obj/item/weapon/tank/oxygen = 2,
 	)
 	cost = 40
@@ -27,7 +27,7 @@
 		/obj/item/clothing/suit/space/void/engineering = 2,
 		/obj/item/clothing/head/helmet/space/void/engineering = 2,
 		/obj/item/clothing/mask/breath = 2,
-		/obj/item/clothing/shoes/magboots = 2,
+		/obj/item/clothing/shoes/magboots/toggleable = 2,
 		/obj/item/weapon/tank/oxygen = 2
 	)
 	cost = 40
@@ -41,7 +41,7 @@
 		/obj/item/clothing/suit/space/void/medical = 2,
 		/obj/item/clothing/head/helmet/space/void/medical = 2,
 		/obj/item/clothing/mask/breath = 2,
-		/obj/item/clothing/shoes/magboots = 2,
+		/obj/item/clothing/shoes/magboots/toggleable = 2,
 		/obj/item/weapon/tank/oxygen = 2
 	)
 	cost = 40
@@ -55,7 +55,7 @@
 		/obj/item/clothing/suit/space/void/security = 2,
 		/obj/item/clothing/head/helmet/space/void/security = 2,
 		/obj/item/clothing/mask/breath = 2,
-		/obj/item/clothing/shoes/magboots = 2,
+		/obj/item/clothing/shoes/magboots/toggleable = 2,
 		/obj/item/weapon/tank/oxygen = 2
 	)
 	cost = 40

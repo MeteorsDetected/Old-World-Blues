@@ -5,8 +5,6 @@
 	species_restricted = null
 	force = 3
 	overshoes = 1
-	var/obj/item/clothing/shoes/shoes = null	//Undershoes
-	var/mob/living/carbon/human/wearer = null	//For shoe procs
 	flags = PHORONGUARD
 	item_flags = NOSLIP
 
@@ -15,40 +13,9 @@
 	slowdown += 2
 
 /obj/item/clothing/shoes/magboots/mob_can_equip(mob/user, slot)
-	if(slot != slot_shoes)
-		return ..()
-
-	var/mob/living/carbon/human/H = user
-
-	if(H.shoes)
-		shoes = H.shoes
-		if(shoes.overshoes)
-			user << "You are unable to wear \the [src] as \the [H.shoes] are in the way."
-			shoes = null
-			return 0
-		H.drop_from_inventory(shoes)	//Remove the old shoes so you can put on the magboots.
-		shoes.forceMove(src)
-
-	if(!..())
-		if(shoes) 	//Put the old shoes back on if the check fails.
-			if(H.equip_to_slot_if_possible(shoes, slot_shoes))
-				src.shoes = null
-		return 0
-
-	if (shoes)
-		user << "You slip \the [src] on over \the [shoes]."
-	set_slowdown()
-	wearer = H
-	return 1
-
-/obj/item/clothing/shoes/magboots/dropped()
-	..()
-	var/mob/living/carbon/human/H = wearer
-	if(shoes)
-		if(!H.equip_to_slot_if_possible(shoes, slot_shoes))
-			shoes.forceMove(get_turf(src))
-		src.shoes = null
-	wearer = null
+	. = ..()
+	if(.)
+		set_slowdown()
 
 /obj/item/clothing/shoes/magboots/toggleable
 	var/magpulse = 0

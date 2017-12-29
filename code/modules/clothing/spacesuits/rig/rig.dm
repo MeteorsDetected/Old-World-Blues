@@ -118,12 +118,14 @@
 		air_supply = new air_type(src)
 	if(glove_type)
 		gloves = new glove_type(src)
+		gloves.overgloves = TRUE
 		verbs |= /obj/item/weapon/rig/proc/toggle_gauntlets
 	if(helm_type)
 		helmet = new helm_type(src)
 		verbs |= /obj/item/weapon/rig/proc/toggle_helmet
 	if(boot_type)
 		boots = new boot_type(src)
+		boots.overshoes = TRUE
 		verbs |= /obj/item/weapon/rig/proc/toggle_boots
 	if(chest_type)
 		chest = new chest_type(src)
@@ -197,15 +199,22 @@
 	sealing = 1
 
 	if(!seal_target && !suit_is_deployed())
-		M.visible_message("<span class='danger'>[M]'s suit flashes an error light.</span>","<span class='danger'>Your suit flashes an error light. It can't function properly without being fully deployed.</span>")
+		M.visible_message(
+			SPAN_DANG("[M]'s suit flashes an error light."),
+			SPAN_DANG("Your suit flashes an error light. It can't function properly without being fully deployed.")
+		)
 		failed_to_seal = 1
 
 	if(!failed_to_seal)
 
 		if(!instant)
-			M.visible_message("<font color='blue'>[M]'s suit emits a quiet hum as it begins to adjust its seals.</font>","<font color='blue'>With a quiet hum, the suit begins running checks and adjusting components.</font>")
+			M.visible_message(
+				SPAN_NOTE("[M]'s suit emits a quiet hum as it begins to adjust its seals."),
+				SPAN_NOTE("With a quiet hum, the suit begins running checks and adjusting components.")
+			)
 			if(seal_delay && !do_after(M,seal_delay))
-				if(M) M << "<span class='warning'>You must remain still while the suit is adjusting the components.</span>"
+				if(M)
+					M << SPAN_WARN("You must remain still while the suit is adjusting the components.")
 				failed_to_seal = 1
 
 		if(!M)
@@ -227,7 +236,8 @@
 					continue
 
 				if(!istype(M) || !istype(piece) || !istype(compare_piece) || !msg_type)
-					if(M) M << "<span class='warning'>You must remain still while the suit is adjusting the components.</span>"
+					if(M)
+						M << SPAN_WARN("You must remain still while the suit is adjusting the components.")
 					failed_to_seal = 1
 					break
 
@@ -569,7 +579,6 @@
 	if(usr == wearer && (usr.stat||usr.paralysis||usr.stunned)) // If the usr isn't wearing the suit it's probably an AI.
 		return
 
-	var/obj/item/check_slot
 	var/equip_to
 	var/obj/item/use_obj
 
@@ -580,48 +589,32 @@
 		if("helmet")
 			equip_to = slot_head
 			use_obj = helmet
-			check_slot = H.head
 		if("gauntlets")
 			equip_to = slot_gloves
 			use_obj = gloves
-			check_slot = H.gloves
 		if("boots")
 			equip_to = slot_shoes
 			use_obj = boots
-			check_slot = H.shoes
 		if("chest")
 			equip_to = slot_wear_suit
 			use_obj = chest
-			check_slot = H.wear_suit
 
 	if(use_obj)
-		if(check_slot == use_obj && deploy_mode != ONLY_DEPLOY)
-
-			var/mob/living/carbon/human/holder
-
-			if(use_obj)
-				holder = use_obj.loc
-				if(istype(holder))
-					if(use_obj && check_slot == use_obj)
-						H << "<font color='blue'><b>Your [use_obj.name] [use_obj.gender == PLURAL ? "retract" : "retracts"] swiftly.</b></font>"
-						use_obj.canremove = 1
-						holder.drop_from_inventory(use_obj)
-						use_obj.forceMove(get_turf(src))
-						use_obj.dropped()
-						use_obj.canremove = 0
-						use_obj.forceMove(src)
+		var/obj/item/current = wearer.get_equipped_item(equip_to)
+		if(current == use_obj && deploy_mode != ONLY_DEPLOY)
+			use_obj.canremove = TRUE
+			if(wearer.unEquip(use_obj, src))
+				H << SPAN_NOTE("<b>Your [use_obj.name] [use_obj.gender == PLURAL ? "retract" : "retracts"] swiftly.</b>")
+			use_obj.canremove = FALSE
 
 		else if (deploy_mode != ONLY_RETRACT)
-			if(check_slot)
-				if(check_slot != use_obj)
-					H << "<span class='danger'>You are unable to deploy \the [piece] as \the [check_slot] [check_slot.gender == PLURAL ? "are" : "is"] in the way.</span>"
-				return
-			else
-				use_obj.forceMove(H)
-				if(!H.equip_to_slot_if_possible(use_obj, equip_to, 0))
+			if(current != use_obj)
+				use_obj.forceMove(wearer)
+				if(!wearer.equip_to_slot_if_possible(use_obj, equip_to, 0))
+					H << "<span class='danger'>You are unable to deploy \the [piece] as \the [current] [current.gender == PLURAL ? "are" : "is"] in the way.</span>"
 					use_obj.forceMove(src)
 				else
-					H << "<font color='blue'><b>Your [use_obj.name] [use_obj.gender == PLURAL ? "deploy" : "deploys"] swiftly.</b></span>"
+					H << SPAN_NOTE("<b>Your [use_obj.name] [use_obj.gender == PLURAL ? "deploy" : "deploys"] swiftly.</b>")
 
 	if(piece == "helmet" && helmet)
 		helmet.update_light(H)
@@ -630,7 +623,8 @@
 
 	var/mob/living/carbon/human/H = M
 
-	if(!H || !istype(H)) return
+	if(!istype(H))
+		return
 
 	if(H.back != src)
 		return
