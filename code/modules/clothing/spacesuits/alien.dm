@@ -16,7 +16,10 @@
 	name = "Skrellian voidsuit"
 	desc = "Seems like a wetsuit with reinforced plating seamlessly attached to it. Very chic."
 	armor = list(melee = 20, bullet = 20, laser = 50,energy = 50, bomb = 50, bio = 100, rad = 100)
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd)
+	allowed = list(
+		/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/storage/bag/ore,/obj/item/device/t_scanner,
+		/obj/item/weapon/pickaxe, /obj/item/weapon/rcd
+	)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 	species_restricted = list(SPECIES_SKRELL,SPECIES_HUMAN)
@@ -43,7 +46,10 @@
 	slowdown = 0.5
 	armor = list(melee = 35, bullet = 5, laser = 15,energy = 5, bomb = 35, bio = 100, rad = 80)
 	species_restricted = list(SPECIES_UNATHI)
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,/obj/item/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd)
+	allowed = list(
+		/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,
+		/obj/item/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd
+	)
 
 /obj/item/clothing/head/helmet/space/void/atmos_special
 	name = "dark brown voidsuit helmet"
@@ -61,13 +67,19 @@
 	icon_state = "rig-atmos_special"
 	armor = list(melee = 45, bullet = 10, laser = 25,energy = 5, bomb = 35, bio = 100, rad = 50)
 	species_restricted = list(SPECIES_TAJARA)
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,/obj/item/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd)
+	allowed = list(
+		/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,
+		/obj/item/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd
+	)
 
 // Vox space gear (vaccuum suit, low pressure armour)
 // Can't be equipped by any other species due to bone structure and vox cybernetics.
 /obj/item/clothing/suit/space/vox
 	w_class = ITEM_SIZE_NORMAL
-	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/handcuffs,/obj/item/weapon/tank)
+	allowed = list(
+		/obj/item/weapon/gun,/obj/item/ammo_magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,
+		/obj/item/weapon/melee/energy/sword,/obj/item/weapon/handcuffs,/obj/item/weapon/tank
+	)
 	slowdown = 2
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
 	siemens_coefficient = 0.6
@@ -164,10 +176,9 @@
 	action_button_name = "Toggle the magclaws"
 
 /obj/item/clothing/shoes/magboots/toggleable/vox/attack_self(mob/user)
-	if(src.magpulse)
+	if(item_flags&NOSLIP)
 		item_flags &= ~NOSLIP
-		magpulse = 0
-		canremove = 1
+		canremove = TRUE
 		user << "You relax your deathgrip on the flooring."
 	else
 		//make sure these can only be used when equipped.
@@ -180,22 +191,23 @@
 
 
 		item_flags |= NOSLIP
-		magpulse = 1
-		canremove = 0	//kinda hard to take off magclaws when you are gripping them tightly.
+		canremove = FALSE	//kinda hard to take off magclaws when you are gripping them tightly.
 		user << "You dig your claws deeply into the flooring, bracing yourself."
 		user << "It would be hard to take off the [src] without relaxing your grip first."
 
 //In case they somehow come off while enabled.
 /obj/item/clothing/shoes/magboots/toggleable/vox/dropped(mob/user as mob)
 	..()
-	if(src.magpulse)
-		user.visible_message("The [src] go limp as they are removed from [usr]'s feet.", "The [src] go limp as they are removed from your feet.")
+	if(item_flags&NOSLIP)
+		user.visible_message(
+			"The [src] go limp as they are removed from [usr]'s feet.",
+			"The [src] go limp as they are removed from your feet."
+		)
 		item_flags &= ~NOSLIP
-		magpulse = 0
-		canremove = 1
+		canremove = TRUE
 
-/obj/item/clothing/shoes/magboots/toggleable/vox/examine(mob/user, return_dist=1)
+/obj/item/clothing/shoes/magboots/toggleable/vox/examine(mob/user, return_dist = TRUE)
 	. = ..()
-	if(magpulse && .<1)
+	if((item_flags&NOSLIP) && .<1)
 		user << "It would be hard to take these off without relaxing your grip first."
 		//theoretically this message should only be seen by the wearer when the claws are equipped.

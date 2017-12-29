@@ -20,10 +20,10 @@
 	)
 	siemens_coefficient = 0.7
 
-/obj/item/clothing/suit/space/void/security/prepared/New()
+/obj/item/clothing/suit/space/void/security/prepared/initialize()
 	..()
 	helmet = new /obj/item/clothing/head/helmet/space/void/security
-	boots = new /obj/item/clothing/shoes/magboots
+	boots = new /obj/item/clothing/shoes/magboots/toggleable
 
 
 //Surplus Voidsuits
@@ -39,10 +39,9 @@
 	name = "riot security voidsuit"
 	desc = "A heavily armored voidsuit, designed to intimidate people who find black intimidating. Surprisingly slimming."
 	armor = list(melee = 70, bullet = 20, laser = 30, energy = 5, bomb = 35, bio = 100, rad = 10)
-	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,/obj/item/weapon/melee/baton)
 
-/obj/item/clothing/suit/space/void/security/alt/prepared/New()
+/obj/item/clothing/suit/space/void/security/alt/prepared/initialize()
 	..()
 	helmet = new /obj/item/clothing/head/helmet/space/void/security/alt
-	boots = new /obj/item/clothing/shoes/magboots
+	boots = new /obj/item/clothing/shoes/magboots/toggleable
 

@@ -11,7 +11,8 @@
 
 	/*
 		Sprites used when the clothing item is refit. This is done by setting icon_override.
-		Ideally, sprite_sheets_refit should be used for "hard" clothing items that can't change shape very well to fit the wearer (e.g. helmets, hardsuits).
+		Ideally, sprite_sheets_refit should be used for "hard" clothing items
+		that can't change shape very well to fit the wearer (e.g. helmets, hardsuits).
 	*/
 	var/list/sprite_sheets_refit = null
 	var/ear_protection = 0
@@ -141,9 +142,10 @@
 	item_state = null
 	icon = 'icons/inv_slots/gloves/icon.dmi'
 	siemens_coefficient = 0.75
-	var/wired = 0
-	var/obj/item/weapon/cell/cell = 0
-	var/clipped = 0
+	var/clipped = FALSE
+	var/overgloves = FALSE
+	var/obj/item/clothing/gloves/gloves = null	//Undergloves
+	var/mob/living/carbon/human/wearer = null	//For glove procs
 	sprite_group = SPRITE_GLOVES
 	body_parts_covered = HANDS
 	slot_flags = SLOT_GLOVES
@@ -155,14 +157,37 @@
 		var/mob/M = src.loc
 		M.update_inv_gloves()
 
-/obj/item/clothing/gloves/emp_act(severity)
-	if(cell)
-		//why is this not part of the powercell code?
-		cell.charge -= 1000 / severity
-		if (cell.charge < 0)
-			cell.charge = 0
-		if(cell.reliability != 100 && prob(50/severity))
-			cell.reliability -= 10 / severity
+/obj/item/clothing/gloves/mob_can_equip(mob/user, slot, disable_warning)
+	if(!overgloves || slot != slot_gloves)
+		return ..()
+
+	var/mob/living/carbon/human/H = user
+	if(H.gloves)
+		gloves = H.gloves
+		if(gloves.overgloves)
+			if(!disable_warning)
+				user << "You are unable to wear \the [src] as \the [H.gloves] are in the way."
+			gloves = null
+			return FALSE
+		H.drop_from_inventory(gloves, src)
+
+	if(!..())
+		if(gloves)
+			if(H.equip_to_slot_if_possible(gloves, slot_gloves))
+				gloves = null
+		return FALSE
+	if(gloves)
+		user << "You slip \the [src] on over \the [gloves]."
+	wearer = H
+	return TRUE
+
+/obj/item/clothing/gloves/dropped()
+	if(gloves)
+		var/mob/living/carbon/human/H = wearer
+		if(!H.equip_to_slot_if_possible(gloves, slot_gloves))
+			gloves.forceMove(get_turf(src))
+		src.gloves = null
+	wearer = null
 	..()
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
@@ -176,7 +201,10 @@
 		return
 
 	playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
-	user.visible_message("\red [user] cuts the fingertips off of the [src].","\red You cut the fingertips off of the [src].")
+	user.visible_message(
+		SPAN_WARN("[user] cuts the fingertips off of the [src]."),
+		SPAN_WARN("You cut the fingertips off of the [src].")
+	)
 
 	clipped = 1
 	name = "fingerless [name]"
@@ -291,8 +319,47 @@
 
 	permeability_coefficient = 0.50
 	force = 2
-	var/overshoes = 0
 	species_restricted = list("exclude",SPECIES_UNATHI,SPECIES_TAJARA)
+
+	var/overshoes = FALSE
+	var/obj/item/clothing/shoes/shoes = null	//Undershoes
+	var/mob/living/carbon/human/wearer = null	//For shoe procs
+
+/obj/item/clothing/shoes/mob_can_equip(mob/user, slot, disable_warning)
+	if(!overshoes || slot != slot_shoes)
+		return ..()
+
+	var/mob/living/carbon/human/H = user
+
+	if(H.shoes)
+		shoes = H.shoes
+		if(shoes.overshoes)
+			if(!disable_warning)
+				user << "You are unable to wear \the [src] as \the [H.shoes] are in the way."
+			shoes = null
+			return FALSE
+		H.drop_from_inventory(shoes)	//Remove the old shoes so you can put on the magboots.
+		shoes.forceMove(src)
+
+	if(!..())
+		if(shoes) 	//Put the old shoes back on if the check fails.
+			if(H.equip_to_slot_if_possible(shoes, slot_shoes))
+				src.shoes = null
+		return FALSE
+
+	if (shoes)
+		user << "You slip \the [src] on over \the [shoes]."
+	wearer = H
+	return TRUE
+
+/obj/item/clothing/shoes/dropped()
+	..()
+	if(shoes)
+		var/mob/living/carbon/human/H = wearer
+		if(!H.equip_to_slot_if_possible(shoes, slot_shoes))
+			shoes.forceMove(get_turf(src))
+		src.shoes = null
+	wearer = null
 
 /obj/item/clothing/shoes/proc/handle_movement(var/turf/walking, var/running)
 	return
@@ -346,7 +413,7 @@
 		3 = Report location
 		*/
 	var/displays_id = 1
-	var/status = 0 //0 = default, 1 = rolled dows, 2 = rolled sleeves
+	var/status = 0 //0 = default, 1 = rolled downs, 2 = rolled sleeves
 	valid_accessory_slots = list("utility","armband","decor","over")
 	restricted_accessory_slots = list("utility", "armband")
 

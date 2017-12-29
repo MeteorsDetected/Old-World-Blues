@@ -20,10 +20,10 @@
 		/obj/item/storage/toolbox,/obj/item/storage/briefcase/inflatable,/obj/item/device/t_scanner
 	)
 
-/obj/item/clothing/suit/space/void/atmos/prepared/New()
+/obj/item/clothing/suit/space/void/atmos/prepared/initialize()
 	..()
 	helmet = new /obj/item/clothing/head/helmet/space/void/atmos
-	boots = new /obj/item/clothing/shoes/magboots
+	boots = new /obj/item/clothing/shoes/magboots/toggleable
 
 
 //Surplus Voidsuits
@@ -43,8 +43,8 @@
 	armor = list(melee = 20, bullet = 5, laser = 20,energy = 15, bomb = 45, bio = 100, rad = 50)
 	max_heat_protection_temperature = FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 
-/obj/item/clothing/suit/space/void/atmos/alt/prepared/New()
+/obj/item/clothing/suit/space/void/atmos/alt/prepared/initialize()
 	..()
 	helmet = new /obj/item/clothing/head/helmet/space/void/atmos/alt
-	boots = new /obj/item/clothing/shoes/magboots
+	boots = new /obj/item/clothing/shoes/magboots/toggleable
 
