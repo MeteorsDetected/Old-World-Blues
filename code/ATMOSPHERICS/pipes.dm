@@ -1,3 +1,8 @@
+
+
+/obj/machinery/atmospheric/pipe/power_change()
+    return
+
 /obj/machinery/atmospherics/pipe
 
 	var/datum/gas_mixture/air_temporary // used when reconstructing a pipeline that broke
