@@ -186,7 +186,8 @@
 
 	return
 
-/obj/machinery/atmospherics/tvalve/initialize()
+/obj/machinery/atmospherics/tvalve/atmos_init()
+	..()
 	var/node1_dir
 	var/node2_dir
 	var/node3_dir
@@ -379,7 +380,8 @@
 		if(WEST)
 			initialize_directions = EAST|WEST|SOUTH
 
-/obj/machinery/atmospherics/tvalve/mirrored/initialize()
+/obj/machinery/atmospherics/tvalve/mirrored/atmos_init()
+	..()
 	var/node1_dir
 	var/node2_dir
 	var/node3_dir
@@ -403,6 +405,7 @@
 
 	update_icon()
 	update_underlays()
+
 
 /obj/machinery/atmospherics/tvalve/mirrored/update_icon(animation)
 	if(animation)
