@@ -143,7 +143,7 @@
 
 	return
 
-/obj/machinery/atmospherics/valve/atmos_init()
+/obj/machinery/atmospherics/valve/initialize()
 	..()
 	normalize_dir()
 

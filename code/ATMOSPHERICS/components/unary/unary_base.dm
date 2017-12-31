@@ -41,7 +41,7 @@
 
 		..()
 
-	atmos_init()
+	initialize()
 		..()
 		if(node) return
 

@@ -186,7 +186,7 @@
 
 	return
 
-/obj/machinery/atmospherics/tvalve/atmos_init()
+/obj/machinery/atmospherics/tvalve/initialize()
 	..()
 	var/node1_dir
 	var/node2_dir
@@ -380,7 +380,7 @@
 		if(WEST)
 			initialize_directions = EAST|WEST|SOUTH
 
-/obj/machinery/atmospherics/tvalve/mirrored/atmos_init()
+/obj/machinery/atmospherics/tvalve/mirrored/initialize()
 	..()
 	var/node1_dir
 	var/node2_dir

@@ -101,7 +101,7 @@ obj/machinery/atmospherics/mains_pipe
 		disconnect()
 		..()
 
-	atmos_init()
+	initialize()
 		..()
 		for(var/i = 1 to nodes.len)
 			var/obj/machinery/atmospherics/mains_pipe/node = nodes[i]
@@ -156,7 +156,7 @@ obj/machinery/atmospherics/mains_pipe/simple
 			var/have_node2 = nodes[2]?1:0
 			icon_state = "exposed[have_node1][have_node2][invisibility ? "-f" : "" ]"
 
-	atmos_init()
+	initialize()
 		normalize_dir()
 		var/node1_dir
 		var/node2_dir
@@ -204,7 +204,7 @@ obj/machinery/atmospherics/mains_pipe/manifold
 		..()
 		initialize_mains_directions = (NORTH|SOUTH|EAST|WEST) & ~dir
 
-	atmos_init()
+	initialize()
 		var/connect_directions = initialize_mains_directions
 
 		for(var/direction in cardinal)
@@ -269,7 +269,7 @@ obj/machinery/atmospherics/mains_pipe/manifold4w
 		..()
 
 
-	atmos_init()
+	initialize()
 		for(var/obj/machinery/atmospherics/mains_pipe/target in get_step(src,NORTH))
 			if(target.initialize_mains_directions & get_dir(target,src))
 				nodes[1] = target
@@ -321,7 +321,7 @@ obj/machinery/atmospherics/mains_pipe/split
 		initialize_mains_directions = turn(dir, 90) | turn(dir, -90)
 		initialize_directions = dir // actually have a normal connection too
 
-	atmos_init()
+	initialize()
 		var/node1_dir
 		var/node2_dir
 		var/node3_dir
@@ -415,7 +415,7 @@ obj/machinery/atmospherics/mains_pipe/split3
 	var/obj/machinery/atmospherics/scrubbers_node
 	var/obj/machinery/atmospherics/aux_node
 
-	atmos_init()
+	initialize()
 		var/node1_dir
 		var/supply_node_dir
 		var/scrubbers_node_dir
@@ -509,7 +509,7 @@ obj/machinery/atmospherics/mains_pipe/cap
 	update_icon()
 		icon_state = "cap[invisibility ? "-f" : ""]"
 
-	atmos_init()
+	initialize()
 		for(var/obj/machinery/atmospherics/mains_pipe/target in get_step(src,dir))
 			if(target.initialize_mains_directions & get_dir(target,src))
 				nodes[1] = target
