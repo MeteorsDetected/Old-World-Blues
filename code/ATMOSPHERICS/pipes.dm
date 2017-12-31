@@ -23,6 +23,7 @@
 	return -1
 
 /obj/machinery/atmospherics/pipe/New()
+	atmosdiary << "<span style='background-color:green'>New pipe</span> created: name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 	if(istype(get_turf(src), /turf/simulated/wall) || istype(get_turf(src), /turf/simulated/shuttle/wall) || istype(get_turf(src), /turf/unsimulated/wall))
 		level = 1
 	..()
@@ -69,6 +70,7 @@
 	return parent.return_network(reference)
 
 /obj/machinery/atmospherics/pipe/Destroy()
+	atmosdiary << "<span style='background-color:red'>Pipe destroyed</span>: parent='[parent]' name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 	qdel(parent)
 	if(air_temporary)
 		loc.assume_air(air_temporary)
@@ -76,6 +78,7 @@
 	..()
 
 /obj/machinery/atmospherics/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+	atmosdiary << "<span style='background-color:fuchsia'>Pipe attacked</span>: name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]' by='[user.name]','[user.type]' with='[W.name]','[W.type]'<br>"
 	if (istype(src, /obj/machinery/atmospherics/pipe/tank))
 		return ..()
 	if (istype(src, /obj/machinery/atmospherics/pipe/vent))
@@ -194,6 +197,7 @@
 /obj/machinery/atmospherics/pipe/simple/hide(var/i)
 	if(istype(loc, /turf/simulated))
 		invisibility = i ? 101 : 0
+		atmosdiary << "<span style='background-color:aqua'>Pipe hide</span>: hidden='[i]' name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/simple/process()
@@ -259,6 +263,7 @@
 	overlays.Cut()
 
 	if(!node1 && !node2)
+		atmosdiary << "<span style='background-color:yellow'>No connections</span> in simple: name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 		var/turf/T = get_turf(src)
 		new /obj/item/pipe(loc, make_from=src)
 		for (var/obj/machinery/meter/meter in T)
@@ -303,6 +308,7 @@
 
 	var/turf/T = loc
 	if(level == 1 && !T.is_plating()) hide(1)
+	atmosdiary << "<span style='background-color:blue'>Pipe init end</span>: name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/simple/disconnect(obj/machinery/atmospherics/reference)
@@ -315,7 +321,7 @@
 		if(istype(node2, /obj/machinery/atmospherics/pipe))
 			qdel(parent)
 		node2 = null
-
+	atmosdiary << "<span style='background-color:teal'>Disconnect</span> simple: name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 	update_icon()
 
 	return null
@@ -454,6 +460,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hide(var/i)
 	if(istype(loc, /turf/simulated))
 		invisibility = i ? 101 : 0
+		atmosdiary << "<span style='background-color:aqua'>Pipe hide</span>: hidden='[i]' name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold/pipeline_expansion()
@@ -490,7 +497,7 @@
 		if(istype(node3, /obj/machinery/atmospherics/pipe))
 			qdel(parent)
 		node3 = null
-
+	atmosdiary << "<span style='background-color:teal'>Disconnect</span> manifold: name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 	update_icon()
 
 	..()
@@ -512,6 +519,7 @@
 	alpha = 255
 
 	if(!node1 && !node2 && !node3)
+		atmosdiary << "<span style='background-color:yellow'>No connections</span> in manifold: name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 		var/turf/T = get_turf(src)
 		new /obj/item/pipe(loc, make_from=src)
 		for (var/obj/machinery/meter/meter in T)
@@ -589,6 +597,7 @@
 
 	var/turf/T = get_turf(src)
 	if(level == 1 && !T.is_plating()) hide(1)
+	atmosdiary << "<span style='background-color:blue'>Pipe init end</span>: name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold/visible
@@ -741,7 +750,7 @@
 		if(istype(node4, /obj/machinery/atmospherics/pipe))
 			qdel(parent)
 		node4 = null
-
+	atmosdiary << "<span style='background-color:teal'>Disconnect</span> manifold4w: name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 	update_icon()
 
 	..()
@@ -765,6 +774,7 @@
 	alpha = 255
 
 	if(!node1 && !node2 && !node3 && !node4)
+		atmosdiary << "<span style='background-color:yellow'>No connections</span> in manifold4w: name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 		var/turf/T = get_turf(src)
 		new /obj/item/pipe(loc, make_from=src)
 		for (var/obj/machinery/meter/meter in T)
@@ -816,6 +826,7 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hide(var/i)
 	if(istype(loc, /turf/simulated))
 		invisibility = i ? 101 : 0
+		atmosdiary << "<span style='background-color:aqua'>Pipe hide</span>: hidden='[i]' name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold4w/initialize()
@@ -850,6 +861,7 @@
 
 	var/turf/T = get_turf(src)
 	if(level == 1 && !T.is_plating()) hide(1)
+	atmosdiary << "<span style='background-color:blue'>Pipe init end</span>: name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible
@@ -961,6 +973,7 @@
 /obj/machinery/atmospherics/pipe/cap/hide(var/i)
 	if(istype(loc, /turf/simulated))
 		invisibility = i ? 101 : 0
+		atmosdiary << "<span style='background-color:aqua'>Pipe hide</span>: hidden='[i]' name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]'<br>"
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/cap/pipeline_expansion()

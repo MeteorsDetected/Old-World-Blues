@@ -69,6 +69,7 @@ Buildable meters
 /obj/item/pipe/New(var/loc, var/pipe_type as num, var/dir as num, var/obj/machinery/atmospherics/make_from = null)
 	..()
 	if (make_from)
+		atmosdiary << "<span style='background-color:lime'>New pipe item</span>: name='[name]' type='[type]' loc='[x],[y],[z]' area='[get_area(src)]' made from='[make_from.name]','[make_from.type]' loc='[make_from.x],[make_from.y],[make_from.z]' area='[get_area(make_from)]'<br>"
 		src.set_dir(make_from.dir)
 		src.pipename = make_from.name
 		color = make_from.pipe_color
