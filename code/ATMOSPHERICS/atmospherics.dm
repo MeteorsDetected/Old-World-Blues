@@ -46,7 +46,7 @@ Pipelines + Other Objects -> Pipe network
 		pipe_color = null
 	..()
 
-/obj/machinery/atmospherics/proc/atmos_init()
+/obj/machinery/atmospherics/initialize()
 	atmos_initalized = TRUE
 
 /obj/machinery/atmospherics/attackby(atom/A, mob/user as mob)

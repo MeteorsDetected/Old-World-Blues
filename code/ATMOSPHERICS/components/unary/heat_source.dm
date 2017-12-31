@@ -25,7 +25,7 @@
 	initialize_directions = dir
 	..()
 
-/obj/machinery/atmospherics/unary/heater/atmos_init()
+/obj/machinery/atmospherics/unary/heater/initialize()
 	..()
 	if(node)
 		return
