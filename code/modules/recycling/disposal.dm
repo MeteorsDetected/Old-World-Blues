@@ -180,6 +180,12 @@
 /obj/machinery/disposal/alter_health()
 	return get_turf(src)
 
+// called when area power changes
+/obj/machinery/disposal/power_change()
+	..()	// do default setting/reset of stat NOPOWER bit
+	update_icon()	// update icon
+	return
+
 // attempt to move while inside
 /obj/machinery/disposal/relaymove(mob/user as mob)
 	if(user.stat || src.flushing)
