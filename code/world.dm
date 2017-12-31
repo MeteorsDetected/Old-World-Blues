@@ -32,7 +32,22 @@ var/global/datum/global_init/init = new ()
 	view = "15x15"
 	cache_lifespan = 0	//stops player uploaded stuff from being kept in the rsc past the current session
 
+var/atmosdiary = null
+/mob/verb/seeatmos()
+	set hidden = 1
+	src << browse(file("data/logs/atmos.log"),"window=seeatmos;display=1;size=1200x600;border=1;can_close=1;can_resize=1;can_minimize=1;titlebar=1")
 
+/*
+ctrl+f help
+New pipe created		<span style='background-color:green'>
+Pipe init end			<span style='background-color:blue'>
+Pipe destroyed			<span style='background-color:red'>
+Pipe attacked			<span style='background-color:fuchsia'>
+Pipe hide				<span style='background-color:aqua'>
+No connections in		<span style='background-color:yellow'>
+Disconnect				<span style='background-color:teal'>
+New pipe item			<span style='background-color:lime'>
+*/
 
 #define RECOMMENDED_VERSION 501
 /world/New()
@@ -41,6 +56,9 @@ var/global/datum/global_init/init = new ()
 	href_logfile = file("data/logs/[date_string] hrefs.htm")
 	diary = file("data/logs/[date_string].log")
 	diary << "[log_end]\n[log_end]\nStarting up. [time2text(world.timeofday, "hh:mm.ss")][log_end]\n---------------------[log_end]"
+	atmosdiary = file("data/logs/atmos.log")
+	fdel(atmosdiary)
+	atmosdiary << "[log_end]\n[log_end]\nStarting up. [time2text(world.timeofday, "hh:mm.ss")][log_end]\n---------------------<br>"
 	changelog_hash = md5('html/changelog.html')					//used for telling if the changelog has changed recently
 
 	if(byond_version < RECOMMENDED_VERSION)
