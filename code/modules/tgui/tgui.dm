@@ -33,6 +33,7 @@
 	var/datum/ui_state/state = null // Topic state used to determine status/interactability.
 	var/datum/tgui/master_ui // The parent UI.
 	var/list/datum/tgui/children = list() // Children of this UI.
+	var/titlebar = TRUE
 
  /**
   * public
@@ -226,7 +227,8 @@
 			"srcObject" = list(
 				"name" = "[src_object]",
 				"ref"  = "\ref[src_object]"
-			)
+			),
+			"titlebar" = titlebar
 		)
 	return config_data
 
@@ -367,3 +369,6 @@
 			src.status = status
 			if(status == UI_DISABLED || push) // Update if the UI just because disabled, or a push is requested.
 				push_data(null, force = 1)
+
+/datum/tgui/proc/set_titlebar(value)
+	titlebar = value
