@@ -331,6 +331,7 @@
 				M << SPAN_NOTE("You switch the [src] on.")
 			else if(T)
 				T.visible_message("<span class='danger'>\The [src] turns on.</span>")
+			playsound(loc, 'sound/items/WelderActivate.ogg', 50, 1)
 			src.force = 15
 			src.damtype = "fire"
 			src.w_class = ITEM_SIZE_LARGE
@@ -348,6 +349,7 @@
 			M << SPAN_NOTE("You switch \the [src] off.")
 		else if(T)
 			T.visible_message("<span class='warning'>\The [src] turns off.</span>")
+		playsound(loc, 'sound/items/WelderDeactivate.ogg', 50, 1)
 		src.force = 3
 		src.damtype = "brute"
 		src.w_class = initial(src.w_class)

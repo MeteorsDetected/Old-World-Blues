@@ -49,6 +49,20 @@ var/list/hiss_sound = list(
 	'sound/voice/hiss4.ogg'
 )
 
+var/list/keyboard_sound = list(
+    'sound/machines/keyboard/keypress1.ogg',
+    'sound/machines/keyboard/keypress2.ogg',
+    'sound/machines/keyboard/keypress3.ogg',
+    'sound/machines/keyboard/keypress4.ogg'
+)
+
+var/list/keystroke_sound = list(
+    'sound/machines/keyboard/keystroke1.ogg',
+    'sound/machines/keyboard/keystroke2.ogg',
+    'sound/machines/keyboard/keystroke3.ogg',
+    'sound/machines/keyboard/keystroke4.ogg'
+
+)
 var/list/page_sound = list(
 	'sound/effects/pageturn1.ogg',
 	'sound/effects/pageturn2.ogg',
@@ -169,6 +183,8 @@ var/const/SURROUND_CAP = 7
 			if ("clownstep") soundin = pick(clown_sound)
 			if ("swing_hit") soundin = pick(swing_hit_sound)
 			if ("hiss") soundin = pick(hiss_sound)
+			if ("keyboard") soundin = pick(keyboard_sound)
+			if ("keystroke") soundin = pick(keystroke_sound)
 			if ("pageturn") soundin = pick(page_sound)
 			//if ("gunshot") soundin = pick(gun_sound)
 	return soundin
