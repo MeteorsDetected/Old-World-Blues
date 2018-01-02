@@ -1413,9 +1413,25 @@ area/crew_quarters/barman
 	name = "\improper Security - Brig"
 	icon_state = "brig"
 
+/area/security/processing
+	name = "\improper Security - Processing"
+	icon_state = "brig"
+
+/area/security/interrogation
+	name = "\improper Security - Interrogation"
+	icon_state = "security"
+
 /area/security/prison
 	name = "\improper Security - Prison Wing"
 	icon_state = "sec_prison"
+
+/area/security/prison/perma
+	name = "\improper Security - Permanent Confinement"
+	icon_state = "red"
+
+/area/security/prison/execution
+	name = "\improper Security - Execution Chamber"
+	icon_state = "exit"
 
 /area/security/warden
 	name = "\improper Security - Warden's Office"

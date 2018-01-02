@@ -70,9 +70,7 @@
 	belt = /obj/item/storage/belt/utility/full
 
 	put_in_backpack = list(
-		/obj/item/device/t_scanner,
-		/obj/item/weapon/a_gift,
-		/obj/item/clothing/head/santa
+		/obj/item/device/t_scanner
 	)
 
 	equip(var/mob/living/carbon/human/H)

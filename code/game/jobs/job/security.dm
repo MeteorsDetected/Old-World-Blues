@@ -43,9 +43,7 @@
 
 	put_in_backpack = list(
 		/obj/item/weapon/gun/energy/gun,
-		/obj/item/weapon/handcuffs,
-		/obj/item/weapon/a_gift,
-		/obj/item/clothing/head/santa
+		/obj/item/weapon/handcuffs
 	)
 
 
@@ -69,9 +67,7 @@
 
 	put_in_backpack = list(
 		/obj/item/device/flash,
-		/obj/item/weapon/handcuffs,
-		/obj/item/weapon/a_gift,
-		/obj/item/clothing/head/santa
+		/obj/item/weapon/handcuffs
 	)
 
 
@@ -96,9 +92,7 @@
 
 	put_in_backpack = list(
 		/obj/item/weapon/flame/lighter/zippo,
-		/obj/item/storage/box/evidence,
-		/obj/item/weapon/a_gift,
-		/obj/item/clothing/head/santa
+		/obj/item/storage/box/evidence
 	)
 
 
@@ -136,8 +130,6 @@
 	put_in_backpack = list(
 		/obj/item/weapon/handcuffs,
 		/obj/item/weapon/handcuffs,
-		/obj/item/device/flash,
-		/obj/item/weapon/a_gift,
-		/obj/item/clothing/head/santa
+		/obj/item/device/flash
 	)
 
