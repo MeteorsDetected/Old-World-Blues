@@ -386,7 +386,7 @@ be able to influence the host through various commands.
 		return
 
 	// Find out whether we can speak
-	if (host.silent || (host.disabilities & 64))
+	if ((host.disabilities & 64))
 		src << "<b>Your host can't speak..</b>"
 		return
 
