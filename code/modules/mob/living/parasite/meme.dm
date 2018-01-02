@@ -131,9 +131,11 @@ be able to influence the host through various commands.
 	// make sure the mob is on the actual map before gibbing
 	if(host) src.loc = host.loc
 	host.parasites -= src
+	src.ghostize()
 	src.stat = DEAD
 	..()
-	del src
+
+	qdel(src)
 
 // When a meme speaks, it speaks through its host
 /mob/living/parasite/meme/say(var/message as text)
@@ -384,7 +386,7 @@ be able to influence the host through various commands.
 		return
 
 	// Find out whether we can speak
-	if (host.silent || (host.disabilities & 64))
+	if ((host.disabilities & 64))
 		src << "<b>Your host can't speak..</b>"
 		return
 
