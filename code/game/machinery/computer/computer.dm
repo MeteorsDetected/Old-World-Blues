@@ -17,6 +17,7 @@
 
 	var/light_range_on = 3
 	var/light_power_on = 1
+	clicksound = "keyboard"
 
 /obj/machinery/computer/initialize()
 	power_change()
