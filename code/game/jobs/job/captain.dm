@@ -32,9 +32,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 1)
 	dufflebag = /obj/item/storage/backpack/dufflebag/cap
 
 	put_in_backpack = list(
-		/obj/item/storage/box/ids,
-		/obj/item/weapon/a_gift,
-		/obj/item/clothing/head/santa
+		/obj/item/storage/box/ids
 		)
 
 	equip(var/mob/living/carbon/human/H)
