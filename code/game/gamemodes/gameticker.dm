@@ -42,7 +42,7 @@ var/list/donator_icons
 	login_music = pick(
 		/*'sound/music/halloween/skeletons.ogg',
 		'sound/music/halloween/halloween.ogg',
-		'sound/music/halloween/ghosts.ogg',*/ /*
+		'sound/music/halloween/ghosts.ogg',*/
 		'sound/music/space.ogg',
 		'sound/music/traitor.ogg',
 		'sound/music/title1.ogg',
@@ -60,14 +60,14 @@ var/list/donator_icons
 		'sound/music/music_ambient_scene6.ogg',
 		'sound/music/music_battle_scene2.ogg',
 		'sound/music/DARKWOOD_Main.ogg',
-		'sound/music/moonbaseoddity.ogg' */
+		'sound/music/moonbaseoddity.ogg' )/*
 		'sound/music/new_year/we_wish_you_a_merry_christmas.ogg',
 		'sound/music/new_year/vypem_za_lyubov.ogg',
 		'sound/music/new_year/novyy_god.ogg',
 		'sound/music/new_year/let_it_snow.ogg',
 		'sound/music/new_year/jingle_bells.ogg',
 		'sound/music/new_year/happy_new_year.ogg',
-		'sound/music/new_year/a_holly_jolly_christmas.ogg' )
+		'sound/music/new_year/a_holly_jolly_christmas.ogg' )*/
 
 	donator_icons = icon_states('icons/donator.dmi')
 
