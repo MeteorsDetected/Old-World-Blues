@@ -51,6 +51,7 @@
 /obj/machinery/autolathe/New()
 	..()
 	wires = new(src)
+	stat = 0
 
 /obj/machinery/autolathe/Destroy()
 	if(wires)

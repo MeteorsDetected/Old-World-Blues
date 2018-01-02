@@ -90,17 +90,12 @@
 // called whenever the power settings of the containing area change
 // by default, check equipment channel & set flag can override if needed
 /obj/machinery/proc/power_change()
+    if(powered(power_channel))
+        stat &= ~NOPOWER
+    else
 
-	var/oldstat = stat
-
-	if(powered(power_channel))
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
-
-	. = (stat != oldstat)
-	if(.)
-		update_icon()
+        stat |= NOPOWER
+    update_icon()
 
 // connect the machine to a powernet if a node cable is present on the turf
 /obj/machinery/power/proc/connect_to_network()
