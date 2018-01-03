@@ -5,6 +5,10 @@ var/global/datum/controller/processScheduler/processScheduler
 	// Processes known by the scheduler
 	var/tmp/datum/controller/process/list/processes = new
 
+	var/tmp/currentTick = 0
+
+	var/tmp/timeAllowance = 0
+
 	// Processes that are currently running
 	var/tmp/datum/controller/process/list/running = new
 
@@ -34,6 +38,10 @@ var/global/datum/controller/processScheduler/processScheduler
 
 	// Controls whether the scheduler is running or not
 	var/tmp/isRunning = 0
+
+	var/tmp/cpuAverage = 0
+
+	var/tmp/timeAllowanceMax = 0
 
 	// Setup for these processes will be deferred until all the other processes are set up.
 	var/tmp/list/deferredSetupList = new
@@ -70,7 +78,13 @@ var/global/datum/controller/processScheduler/processScheduler
 		process()
 
 /datum/controller/processScheduler/proc/process()
+	updateCurrentTickData()
+
+	for(var/i=world.tick_lag,i<world.tick_lag*50,i+=world.tick_lag)
+		spawn(i) updateCurrentTickData()
 	while(isRunning)
+		// Hopefully spawning this for 50 ticks in the future will make it the first thing in the queue.
+		spawn(world.tick_lag*50) updateCurrentTickData()
 		checkRunningProcesses()
 		queueProcesses()
 		runQueuedProcesses()
@@ -78,6 +92,13 @@ var/global/datum/controller/processScheduler/processScheduler
 
 /datum/controller/processScheduler/proc/stop()
 	isRunning = 0
+
+/datum/controller/processScheduler/proc/getCurrentTickElapsedTime()
+	if (world.time > currentTick)
+		updateCurrentTickData()
+		return 0
+	else
+		return TimeOfTick
 
 /datum/controller/processScheduler/proc/checkRunningProcesses()
 	for(var/datum/controller/process/p in running)
@@ -118,6 +139,21 @@ var/global/datum/controller/processScheduler/processScheduler
 /datum/controller/processScheduler/proc/runQueuedProcesses()
 	for(var/datum/controller/process/p in queued)
 		runProcess(p)
+
+/datum/controller/processScheduler/proc/updateCurrentTickData()
+	if (world.time > currentTick)
+		// New tick!
+		currentTick = world.time
+		updateTimeAllowance()
+		cpuAverage = (world.cpu + cpuAverage + cpuAverage) / 3
+
+/datum/controller/processScheduler/proc/updateTimeAllowance()
+	// Time allowance goes down linearly with world.cpu.
+	var/tmp/error = cpuAverage - 100
+	var/tmp/timeAllowanceDelta = SIMPLE_SIGN(error) * -0.5 * world.tick_lag * max(0, 0.001 * abs(error))
+
+	//timeAllowance = world.tick_lag * min(1, 0.5 * ((200/max(1,cpuAverage)) - 1))
+	timeAllowance = min(timeAllowanceMax, max(0, timeAllowance + timeAllowanceDelta))
 
 /datum/controller/processScheduler/proc/addProcess(var/datum/controller/process/process)
 	processes.Add(process)

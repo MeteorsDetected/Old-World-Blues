@@ -1,7 +1,7 @@
 /datum/proc/nano_host()
 	return src
 
-/atom/proc/CanUseTopic(var/mob/user, var/datum/topic_state/state)
+/atom/proc/CanUseTopic(var/mob/user, var/datum/topic_state/state = default_state)
 	var/src_object = nano_host()
 	return state.can_use_topic(src_object, user)
 

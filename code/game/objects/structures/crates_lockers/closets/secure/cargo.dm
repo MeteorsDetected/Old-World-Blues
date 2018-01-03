@@ -20,6 +20,7 @@
 		new /obj/item/device/radio/headset/cargo(src)
 		new /obj/item/clothing/gloves/black(src)
 		new /obj/item/clothing/head/soft(src)
+		new /obj/item/clothing/suit/storage/coatcargo(src)
 		return
 
 /obj/structure/closet/secure_closet/quartermaster
@@ -49,4 +50,5 @@
 		new /obj/item/clothing/mask/gas(src)
 		new /obj/item/clothing/glasses/meson(src)
 		new /obj/item/clothing/head/soft(src)
+		new /obj/item/clothing/suit/storage/coatcargo(src)
 		return

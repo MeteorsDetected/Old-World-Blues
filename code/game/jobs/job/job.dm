@@ -49,10 +49,7 @@
 	var/messenger = /obj/item/storage/backpack/messenger
 
 	//This will be put in backpack. List ordered by priority!
-	var/list/put_in_backpack = list(
-		/obj/item/weapon/a_gift,
-		/obj/item/clothing/head/santa
-	)
+	var/list/put_in_backpack = list()
 
 /*
 For copy-pasting:

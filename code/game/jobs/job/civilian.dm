@@ -89,9 +89,7 @@
 	messenger = /obj/item/storage/backpack/messenger/hyd
 
 	put_in_backpack = list(
-		/obj/item/device/analyzer/plant_analyzer,
-		/obj/item/weapon/a_gift,
-		/obj/item/clothing/head/santa
+		/obj/item/device/analyzer/plant_analyzer
 	)
 
 
@@ -159,9 +157,7 @@
 
 	put_in_backpack = list(
 		/obj/item/weapon/crowbar,
-		/obj/item/storage/bag/ore,
-		/obj/item/weapon/a_gift,
-		/obj/item/clothing/head/santa
+		/obj/item/storage/bag/ore
 	)
 
 /datum/job/janitor

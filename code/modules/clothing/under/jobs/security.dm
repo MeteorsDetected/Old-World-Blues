@@ -59,6 +59,11 @@
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	siemens_coefficient = 0.9
 
+/obj/item/clothing/under/rank/warden_f
+	desc = "A warden's dress."
+	name = "warden's dress"
+	icon_state = "warden_f"
+
 /*
  * Corporate
  */
@@ -169,6 +174,16 @@
 	desc = "You never asked for anything that stylish."
 	name = "head of security's jumpsuit"
 	icon_state = "jensen"
+
+/obj/item/clothing/under/rank/head_of_security/hos_f
+	desc = "A head of security's dress."
+	name = "head of security's dress"
+	icon_state = "hos_f"
+
+/obj/item/clothing/under/rank/head_of_security/hos_turtleneck
+	desc = "A head of security's red turtleneck."
+	name = "head of security's red turtleneck"
+	icon_state = "hos_turtleneck"
 
 /*
  * Detective
