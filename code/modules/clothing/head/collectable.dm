@@ -58,6 +58,18 @@ It's not your time
 	icon_state = "policehelm"
 	body_parts_covered = 0
 
+/obj/item/clothing/head/collectable/snowman_h
+	name = "collectable snowman head"
+	desc = "A Collectable snowman head."
+	icon_state = "snowman_h"
+	body_parts_covered = HEAD|FACE|EYES
+
+/obj/item/clothing/head/collectable/pharoah_hat
+	name = "collectable pharoah hat"
+	desc = "A Collectable pharoah hat."
+	icon_state = "pharoah_hat"
+	body_parts_covered = HEAD
+
 /obj/item/clothing/head/collectable/beret
 	name = "collectable beret"
 	desc = "A Collectable red Beret. It smells faintly of Garlic."

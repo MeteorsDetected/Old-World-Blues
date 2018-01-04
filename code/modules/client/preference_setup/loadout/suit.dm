@@ -14,6 +14,14 @@
 	display_name = "bomber jacket"
 	path = /obj/item/clothing/suit/storage/toggle/bomber
 
+/datum/gear/suit/navy_jacket
+	display_name = "navy jacket"
+	path = /obj/item/clothing/suit/navy_jacket
+
+/datum/gear/suit/white_jacket
+	display_name = "white jacket"
+	path = /obj/item/clothing/suit/white_jacket
+
 /datum/gear/suit/leather_jacket
 	display_name = "leather jacket"
 	path = /obj/item/clothing/suit/storage/toggle/leather_jacket
@@ -40,6 +48,26 @@
 /datum/gear/suit/militaryjacket
 	display_name = "military jacket"
 	path = /obj/item/clothing/suit/storage/militaryjacket
+
+/datum/gear/suit/tailcoat
+	display_name = "tail coat"
+	path = /obj/item/clothing/suit/storage/tailcoat
+
+/datum/gear/suit/trench
+	display_name = "trench coat"
+	path = /obj/item/clothing/suit/storage/trench
+
+/datum/gear/suit/trench2
+	display_name = "grey trench coat"
+	path = /obj/item/clothing/suit/storage/trench2
+
+/datum/gear/suit/ladiesvictoriancoat
+	display_name = "ladies victorian coat"
+	path = /obj/item/clothing/suit/storage/ladiesvictoriancoat
+
+/datum/gear/suit/ladiesredvictoriancoat
+	display_name = "ladies victorian red coat"
+	path = /obj/item/clothing/suit/storage/ladiesredvictoriancoat
 
 /datum/gear/suit/leathercoatsec
 	display_name = "leather coat, (Security)"

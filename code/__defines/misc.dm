@@ -138,3 +138,13 @@
 #define WIZARD_CLOTHINGS 2
 
 #define SURGERY_FAILURE -1
+
+// Stoplag.
+#define TICK_CHECK ( world.tick_usage > CURRENT_TICKLIMIT ? stoplag() : 0 )
+#define CHECK_TICK if (world.tick_usage > CURRENT_TICKLIMIT)  stoplag()
+
+//	Initialize() hints for SSatoms.
+#define INITIALIZE_HINT_NORMAL 0    //Nothing happens
+#define INITIALIZE_HINT_LATELOAD 1  //Call LateInitialize
+#define INITIALIZE_HINT_QDEL 2  //Call qdel on the atom
+#define INITIALIZE_HINT_LATEQDEL 3	//Call qdel on the atom instead of LateInitialize

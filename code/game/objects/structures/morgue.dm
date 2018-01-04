@@ -1,3 +1,5 @@
+#define MAXIMUM_ITEMS 15
+
 /* Morgue stuff
  * Contains:
  *		Morgue
@@ -82,9 +84,15 @@
 
 /obj/structure/morgue/attack_hand(mob/user as mob)
 	if (src.connected)
+		var/i = 1
 		for(var/atom/movable/A as mob|obj in src.connected.loc)
+			if(i >= MAXIMUM_ITEMS)
+				break
+
 			if (!( A.anchored ))
 				A.forceMove(src)
+				i++
+
 		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 		qdel(src.connected)
 		src.connected = null
@@ -164,9 +172,15 @@
 
 /obj/structure/m_tray/attack_hand(mob/user as mob)
 	if (src.connected)
+		var/i = 1
 		for(var/atom/movable/A as mob|obj in src.loc)
-			if (!( A.anchored ))
+			if(i >= MAXIMUM_ITEMS)
+				break
+
+			if (!A.anchored)
 				A.forceMove(src.connected)
+				i++
+
 			//Foreach goto(26)
 		src.connected.connected = null
 		src.connected.update()
@@ -261,9 +275,16 @@
 		usr << "<span class='warning'>It's locked.</span>"
 		return
 	if ((src.connected) && (src.locked == 0))
+		var/i = 1
+
 		for(var/atom/movable/A as mob|obj in src.connected.loc)
+			if(i >= MAXIMUM_ITEMS)
+				break
+
 			if (!( A.anchored ))
 				A.forceMove(src)
+				i++
+
 		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 		//src.connected = null
 		qdel(src.connected)
@@ -391,9 +412,14 @@
 
 /obj/structure/c_tray/attack_hand(mob/user as mob)
 	if (src.connected)
+		var/i = 1
 		for(var/atom/movable/A as mob|obj in src.loc)
+			if(i >= MAXIMUM_ITEMS)
+				break
+
 			if (!( A.anchored ))
 				A.forceMove(src.connected)
+				i++
 			//Foreach goto(26)
 		src.connected.connected = null
 		src.connected.update()

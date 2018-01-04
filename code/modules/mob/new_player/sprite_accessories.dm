@@ -259,6 +259,10 @@
 		name = "Emo"
 		icon_state = "emo"
 
+	emoright
+		name = "Emo Right"
+		icon_state = "emo_r"
+
 	fag
 		name = "Flow Hair"
 		icon_state = "flowhair"

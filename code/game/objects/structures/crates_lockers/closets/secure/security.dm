@@ -28,6 +28,7 @@
 		new /obj/item/clothing/under/rank/captain/dress(src)
 		new /obj/item/clothing/head/captain/formal(src)
 		new /obj/item/clothing/under/captainformal(src)
+		new /obj/item/clothing/suit/storage/coatcaptain(src)
 		return
 
 
@@ -121,7 +122,9 @@
 		new /obj/item/weapon/melee/telebaton(src)
 		new /obj/item/clothing/head/beret/sec/hos(src)
 		new /obj/item/clothing/under/rank/head_of_security/dnavy(src)
-		new/obj/item/clothing/suit/storage/security/dnavyhos(src)
+		new /obj/item/clothing/suit/storage/security/dnavyhos(src)
+		new /obj/item/clothing/under/rank/head_of_security/hos_f(src)
+		new /obj/item/clothing/under/rank/head_of_security/hos_turtleneck(src)
 		return
 
 
@@ -161,7 +164,8 @@
 		new /obj/item/clothing/head/beret/sec/warden(src)
 		new /obj/item/clothing/head/helmet/warden/drill(src)
 		new /obj/item/clothing/accessory/storage/black_vest(src)
-		new/obj/item/clothing/suit/storage/security/dnavywarden(src)
+		new /obj/item/clothing/suit/storage/security/dnavywarden(src)
+		new /obj/item/clothing/under/rank/warden_f(src)
 		return
 
 
@@ -200,6 +204,7 @@
 		new /obj/item/clothing/gloves/black(src)
 		new /obj/item/clothing/under/rank/security/dnavy(src)
 		new /obj/item/clothing/suit/storage/security/dnavyofficer(src)
+		new /obj/item/clothing/suit/security/coatsecurity(src)
 		return
 
 

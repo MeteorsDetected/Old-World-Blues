@@ -47,6 +47,18 @@
 /obj/item/stack/attack_self(mob/user as mob)
 	list_recipes(user)
 
+/obj/item/proc/use_multi(mob/user, list/res_list)
+	. = TRUE
+	for(var/x in res_list)
+		var/obj/item/stack/S = x
+		if(S.amount < res_list[x])
+			. = FALSE
+			break
+	if(.)
+		for(var/x in res_list)
+			var/obj/item/stack/S = x
+			S.use(res_list[x])
+
 /obj/item/stack/proc/list_recipes(mob/user as mob, recipes_sublist)
 	if (!recipes)
 		return

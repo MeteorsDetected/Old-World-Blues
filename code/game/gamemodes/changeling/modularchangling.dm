@@ -7,6 +7,7 @@ var/list/datum/power/changeling/powerinstances = list()
 	var/name = "Power"
 	var/desc = "Placeholder"
 	var/helptext = ""
+	var/enhancedtext = ""
 	var/isVerb = 1 // Is it an active power, or passive?
 	var/verbpath // Path to a verb that contains the effects.
 

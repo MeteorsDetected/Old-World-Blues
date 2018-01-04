@@ -31,6 +31,9 @@
 	// 1 if process is disabled
 	var/tmp/disabled = 0
 
+	// How many SCHECKs have been skipped (to limit btime calls)
+	var/tmp/calls_since_last_scheck = 0
+
 	/**
 	 * Config vars
 	 */
@@ -244,6 +247,29 @@
 	"status" = getStatusText(),
 	"disabled" = disabled
 	)
+
+// Do not call this directly - use SHECK or SCHECK_EVERY
+/datum/controller/process/proc/sleepCheck(var/tickId = 0)
+	calls_since_last_scheck = 0
+	if (killed)
+		// The kill proc is the only place where killed is set.
+		// The kill proc should have deleted this datum, and all sleeping procs that are
+		// owned by it.
+		CRASH("A killed process is still running somehow...")
+	if (hung)
+		// This will only really help if the doWork proc ends up in an infinite loop.
+		handleHung()
+		CRASH("Process [name] hung and was restarted.")
+
+	if (main.getCurrentTickElapsedTime() > main.timeAllowance)
+		sleep(world.tick_lag)
+		cpu_defer_count++
+		last_slept = 0
+	else
+		if (TimeOfTick > last_slept + sleep_interval)
+			// If we haven't slept in sleep_interval deciseconds, sleep to allow other work to proceed.
+			sleep(0)
+			last_slept = TimeOfTick
 
 /datum/controller/process/proc/getStatus()
 	return status

@@ -18,7 +18,7 @@ var/global/datum/global_init/init = new ()
 
 	makeDatumRefLists()
 	load_configuration()
-
+	initialize_integrated_circuits_list()
 
 	qdel(src) //we're done
 
@@ -437,7 +437,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	if (config && config.server_name)
 		s += "<b>[config.server_name]</b> &#8212; "
 
-	s += "<b>[station_name()]</b>";
+	s += "<b>Blue Shift (RU) - Animus Station, NSS Exodus</b>";
 
 	var/list/features = list()
 

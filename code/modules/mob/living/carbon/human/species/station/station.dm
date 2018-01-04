@@ -391,10 +391,12 @@
 		)
 	rarity_value = 2
 
-	brute_mod = 1
-	burn_mod = 1
+	brute_mod = 0.5
+	burn_mod = 0.8
 	show_ssd = "flashing a 'system offline' glyph on their monitor"
 	virus_immune = 1
+	radiation_mod = 0
+	toxins_mod = 0
 
 	warning_low_pressure = 50
 	hazard_low_pressure = 0
@@ -414,6 +416,8 @@
 	blood_color = "#1F181F"
 	flesh_color = "#575757"
 	allow_slim_fem = 1
+
+	//vision_organ = "optics"
 
 	has_organ = list() //TODO: Positronic brain.
 
