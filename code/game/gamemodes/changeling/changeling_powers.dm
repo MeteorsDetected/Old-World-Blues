@@ -49,6 +49,12 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 
 	if(!mind)				return
 	if(!mind.changeling)	mind.changeling = new /datum/changeling(gender)
+	
+	if(ishuman(src))
+		var/obj/item/organ/internal/brain/B = src:internal_organs_by_name["brain"]
+		if(B)
+			B.vital = 0
+			B.decoy_override = 1
 
 	verbs += /datum/changeling/proc/EvolutionMenu
 	add_language("Changeling")
@@ -451,7 +457,11 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 	// sending display messages
 	C << SPAN_NOTE("We have regenerated.")
 	C.verbs -= /mob/proc/changeling_revive
-
+	if(ishuman(src))
+		var/obj/item/organ/internal/brain/B = src:internal_organs_by_name["brain"]
+		if(B)
+			B.vital = 0
+			B.decoy_override = 1
 
 //Boosts the range of your next sting attack by 1
 /mob/proc/changeling_boost_range()
