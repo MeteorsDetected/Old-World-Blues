@@ -266,3 +266,7 @@
 	icon_state = "ironsand1"
 	floor_type = null
 	intact = 0
+
+/turf/simulated/floor/ironsand/New()
+	..()
+	icon_state = "ironsand[rand(1, 15)]"

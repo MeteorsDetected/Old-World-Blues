@@ -281,7 +281,7 @@
 	//Add some rubble,  you did just clear out a big chunk of rock.
 
 	var/turf/simulated/floor/plating/airless/asteroid/N = ChangeTurf(/turf/simulated/floor/plating/ironsand)
-	N.overlay_detail = "asteroid[rand(0,9)]"
+	N.overlay_detail = "asteroid[rand(1,15)]"
 
 	// Kill and update the space overlays around us.
 	for(var/direction in step_overlays)
@@ -393,7 +393,7 @@
 /turf/simulated/floor/plating/airless/asteroid //floor piece
 	name = "asteroid"
 	icon = 'icons/turf/floors.dmi'
-	icon_state = "asteroid"
+	icon_state = "ironsand1"
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
@@ -404,6 +404,8 @@
 
 /turf/simulated/floor/plating/airless/asteroid/New()
 	..()
+	icon_state = "ironsand[rand(1, 15)]"
+
 	if(prob(20))
 		overlay_detail = "asteroid[rand(0,9)]"
 

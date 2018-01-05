@@ -4,7 +4,7 @@
 	anchored = 1
 	var/cult = 0
 	New()
-		ChangeSign(pick("pinkflamingo", "magmasea", "limbo", "rustyaxe", "armokbar", "brokendrum", "meadbay", "thedamnwall", "thecavern", "cindikate", "theorchard", "thesaucyclown", "theclownshead", "whiskeyimplant", "carpecarp", "robustroadhouse", "greytide", "theredshirt","thebark","theharmbaton","theharmedbaton","thesingulo","thedrukcarp","thedrunkcarp", "scotch","officerbeersky","on"))
+		ChangeSign(pick("pinkflamingo", "magmasea", "limbo", "rustyaxe", "armokbar", "brokendrum", "meadbay", "thedamnwall", "thecavern", "cindikate", "theorchard", "thesaucyclown", "theclownshead", "whiskeyimplant", "carpecarp", "robustroadhouse", "greytide", "theredshirt","thebark","theharmbaton","theharmedbaton","thesingulo","thedrukcarp","thedrunkcarp", "scotch","officerbeersky","servinwillys","greytide","dunkeddrunk","theredshirt","lv426","ishimura","tardis","quarks","tenforward","solaris","theouterspess","milliways42","spaceasshole","maltesefalcon","thenest","empbarsign","slipperyshots","syndibarsign","oldcockinn","emergencyrumparty","vladssaladbar","theshaken","thealenath","on"))
 		return
 	proc/ChangeSign(var/Text)
 		src.icon_state = "[Text]"
@@ -19,7 +19,7 @@
 	if(istype(I, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/card = I
 		if(access_bar in card.GetAccess())
-			var/sign_type = input(user, "What would you like to change the barsign to?") as null|anything in list("Off", "Pink Flamingo", "Magma Sea", "Limbo", "Rusty Axe", "Armok Bar", "Broken Drum", "Mead Bay", "The Damn Wall", "The Cavern", "Cindi Kate", "The Orchard", "The Saucy Clown", "The Clowns Head", "Whiskey Implant", "Carpe Carp", "Robust Roadhouse", "Greytide", "The Redshirt", "The Bark", "The Harm Baton", "The Harmed Baton", "The Singulo", "The Druk Carp", "The Drunk Carp", "Scotch", "Officer Beersky", "On")
+			var/sign_type = input(user, "What would you like to change the barsign to?") as null|anything in list("Off", "Pink Flamingo", "Magma Sea", "Limbo", "Rusty Axe", "Armok Bar", "Broken Drum", "Mead Bay", "The Damn Wall", "The Cavern", "Cindi Kate", "The Orchard", "The Saucy Clown", "The Clowns Head", "Whiskey Implant", "Carpe Carp", "Robust Roadhouse", "Greytide", "The Redshirt", "The Bark", "The Harm Baton", "The Harmed Baton", "The Singulo", "The Druk Carp", "The Drunk Carp", "Scotch", "Officer Beersky","Servin @illys","Grey Tide","Dunked Drunk","The Red Shirt","LV-426","Ishimura","Tardis","Quarks","Ten Forward","Solaris","The Outerspess","Milliways 42","Space Asshole","Maltese Falcon","The Nest","Empbarsign","Slippery Shots","Syndi Barsign","Old Cockinn","Emergency Rum Party","Vladssalad Bar","The Shaken","The Alenath" "On")
 			if(sign_type == null)
 				return
 			else
