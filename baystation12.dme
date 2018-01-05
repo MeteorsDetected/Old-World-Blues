@@ -1888,12 +1888,6 @@
 #include "code\ZAS\Zone.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
-#include "maps\exodus-1.dmm"
+#include "maps\asterodstation.dmm"
 #include "maps\exodus-2.dmm"
-#include "maps\exodus-3.dmm"
-#include "maps\exodus-4.dmm"
-#include "maps\exodus-6.dmm"
-#include "maps\exodus-7.dmm"
-#include "maps\exodus-8.dmm"
-#include "maps\GroundControl.dmm"
 // END_INCLUDE
