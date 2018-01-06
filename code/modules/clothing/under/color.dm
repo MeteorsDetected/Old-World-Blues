@@ -130,3 +130,9 @@
 	name = "psychedelic jumpsuit"
 	desc = "Groovy!"
 	icon_state = "psyche"
+
+/obj/item/clothing/under/karate
+	name = "Karate Robe"
+	desc = "Ki-ia!"
+	icon_state = "karate_s"
+	item_state = "karate"

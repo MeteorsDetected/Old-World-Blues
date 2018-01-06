@@ -187,6 +187,7 @@
 	return
 
 /obj/machinery/atmospherics/tvalve/initialize()
+	..()
 	var/node1_dir
 	var/node2_dir
 	var/node3_dir
@@ -288,16 +289,11 @@
 	icon_state = "map_tvalve1"
 	state = 1
 
-/obj/machinery/atmospherics/tvalve/digital/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
-
 /obj/machinery/atmospherics/tvalve/digital/update_icon()
-	..()
 	if(!powered())
 		icon_state = "tvalvenopower"
+	else
+		..()
 
 /obj/machinery/atmospherics/tvalve/digital/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
@@ -385,6 +381,7 @@
 			initialize_directions = EAST|WEST|SOUTH
 
 /obj/machinery/atmospherics/tvalve/mirrored/initialize()
+	..()
 	var/node1_dir
 	var/node2_dir
 	var/node3_dir
@@ -409,6 +406,7 @@
 	update_icon()
 	update_underlays()
 
+
 /obj/machinery/atmospherics/tvalve/mirrored/update_icon(animation)
 	if(animation)
 		flick("tvalvem[src.state][!src.state]",src)
@@ -428,16 +426,11 @@
 	icon_state = "map_tvalvem1"
 	state = 1
 
-/obj/machinery/atmospherics/tvalve/mirrored/digital/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
-
 /obj/machinery/atmospherics/tvalve/mirrored/digital/update_icon()
-	..()
 	if(!powered())
 		icon_state = "tvalvemnopower"
+	else
+		..()
 
 /obj/machinery/atmospherics/tvalve/mirrored/digital/attack_ai(mob/user as mob)
 	return src.attack_hand(user)

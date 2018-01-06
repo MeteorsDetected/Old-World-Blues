@@ -49,7 +49,7 @@
 	name = "Space suit"
 	desc = "A suit that protects against low pressure environments. \"NSS EXODUS\" is written in large block letters on the back."
 	icon_state = "space"
-	item_state = "s_suit"
+	sprite_group = SPRITE_SUITS
 	w_class = ITEM_SIZE_LARGE//large item
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.02

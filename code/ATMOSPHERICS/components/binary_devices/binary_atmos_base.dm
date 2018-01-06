@@ -56,7 +56,9 @@ obj/machinery/atmospherics/binary
 
 		..()
 
+
 	initialize()
+		..()
 		if(node1 && node2) return
 
 		var/node2_connect = dir
@@ -73,7 +75,6 @@ obj/machinery/atmospherics/binary
 				if (check_connect_types(target,src))
 					node2 = target
 					break
-
 		update_icon()
 		update_underlays()
 

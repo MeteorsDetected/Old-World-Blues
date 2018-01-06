@@ -3,7 +3,8 @@
 /obj/machinery/computer/prisoner
 	name = "prisoner management console"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "explosive"
+	screen_icon = "explosive"
+	screen_broken = "broken_red"
 	light_color = "#a91515"
 	req_access = list(access_armory)
 	circuit = /obj/item/weapon/circuitboard/prisoner

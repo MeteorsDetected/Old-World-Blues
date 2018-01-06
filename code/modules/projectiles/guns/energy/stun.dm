@@ -51,7 +51,7 @@
 
 /obj/item/weapon/gun/energy/crossbow/largecrossbow
 	name = "energy crossbow"
-	desc = "A weapon favored by mercenary infiltration teams."
+	desc = "A weapon favored by Syndicate infiltration teams."
 	w_class = ITEM_SIZE_LARGE
 	force = 10
 	matter = list(MATERIAL_STEEL = 200000)

@@ -24,6 +24,7 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging
 		color = "#404040" //we don't make use of the fancy overlay system for colours, use this to set the default.
 
 	initialize()
+		..()
 		normalize_dir()
 		var/node1_dir
 		var/node2_dir
@@ -48,7 +49,6 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging
 			return
 
 		update_icon()
-		return
 
 
 	process()
@@ -131,6 +131,7 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
 	// BubbleWrap END
 
 	initialize()
+		..()
 		for(var/obj/machinery/atmospherics/target in get_step(src,initialize_directions))
 			if(target.initialize_directions & get_dir(target,src))
 				node1 = target
@@ -145,4 +146,3 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
 			return
 
 		update_icon()
-		return

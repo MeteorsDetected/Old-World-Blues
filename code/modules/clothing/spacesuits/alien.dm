@@ -8,11 +8,9 @@
 
 /obj/item/clothing/head/helmet/space/skrell/white
 	icon_state = "skrell_helmet_white"
-	item_state = "skrell_helmet_white"
 
 /obj/item/clothing/head/helmet/space/skrell/black
 	icon_state = "skrell_helmet_black"
-	item_state = "skrell_helmet_black"
 
 /obj/item/clothing/suit/space/skrell
 	name = "Skrellian voidsuit"
@@ -25,11 +23,9 @@
 
 /obj/item/clothing/suit/space/skrell/white
 	icon_state = "skrell_suit_white"
-	item_state = "skrell_suit_white"
 
 /obj/item/clothing/suit/space/skrell/black
 	icon_state = "skrell_suit_black"
-	item_state = "skrell_suit_black"
 
 /obj/item/clothing/head/helmet/space/void/unathi_engineering
 	name = "unathi engineering voidsuit helmet"
@@ -45,7 +41,6 @@
 	desc = "Lighter version of the unathi engineering voidsuit."
 	icon_state = "rig-unathi_engineering"
 	slowdown = 0.5
-	item_state = "rig-unathi_engineering"
 	armor = list(melee = 35, bullet = 5, laser = 15,energy = 5, bomb = 35, bio = 100, rad = 80)
 	species_restricted = list(SPECIES_UNATHI)
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,/obj/item/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd)
@@ -64,7 +59,6 @@
 	name = "dark brown voidsuit"
 	desc = "Military modification of the ordinary atmos voidsiut. This one seems to be refitted for tajaran."
 	icon_state = "rig-atmos_special"
-	item_state = "rig-atmos_special"
 	armor = list(melee = 45, bullet = 10, laser = 25,energy = 5, bomb = 35, bio = 100, rad = 50)
 	species_restricted = list(SPECIES_TAJARA)
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,/obj/item/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd)

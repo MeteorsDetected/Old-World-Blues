@@ -29,13 +29,11 @@
 	fabricator_tag = "Derelict"
 	drone_type = /mob/living/silicon/robot/drone/construction
 
-/obj/machinery/drone_fabricator/New()
-	..()
-
-/obj/machinery/drone_fabricator/power_change()
-	..()
-	if (stat & NOPOWER)
+/obj/machinery/drone_fabricator/update_icon()
+	if(stat & NOPOWER)
 		icon_state = "drone_fab_nopower"
+	else
+		icon_state = initial(icon_state)
 
 /obj/machinery/drone_fabricator/process()
 

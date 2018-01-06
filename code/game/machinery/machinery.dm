@@ -115,6 +115,8 @@ Class Procs:
 	var/panel_open = 0
 	var/global/gl_uid = 1
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
+	var/clicksound			// sound played on succesful interface use by a carbon lifeform
+	var/clickvol = 40		// sound played on succesful interface use
 	var/obj/item/weapon/circuitboard/circuit = null
 
 /obj/machinery/New(l, d=0)
@@ -265,8 +267,8 @@ Class Procs:
 
 	RefreshParts()
 
-/obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
-	return
+//Placeholder proc for machines that are built using frames.
+/obj/machinery/proc/RefreshParts()
 
 /obj/machinery/proc/assign_uid()
 	uid = gl_uid
@@ -361,3 +363,7 @@ Class Procs:
 	circuit.deconstruct(src)
 	qdel(src)
 	return 1
+/obj/machinery/CouldUseTopic(var/mob/user)
+	..()
+	if(clicksound && istype(user, /mob/living/carbon))
+		playsound(src, clicksound, clickvol)

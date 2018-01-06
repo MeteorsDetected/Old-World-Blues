@@ -3,7 +3,8 @@
 /obj/machinery/computer/secure_data//TODO:SANITY
 	name = "security records console"
 	desc = "Used to view, edit and maintain security records"
-	icon_state = "security"
+	screen_icon = "security"
+	screen_broken = "broken_red"
 	light_color = "#a91515"
 	req_one_access = list(access_security, access_forensics_lockers, access_lawyer)
 	circuit = /obj/item/weapon/circuitboard/secure_data
@@ -629,7 +630,7 @@ What a mess.*/
 				if(1)
 					R.fields["name"] = "[pick(pick(first_names_male), pick(first_names_female))] [pick(last_names)]"
 				if(2)
-					R.fields["sex"]	= pick("Male", "Female")
+					R.fields["sex"] = pick("Male", "Female")
 				if(3)
 					R.fields["age"] = rand(5, 85)
 				if(4)

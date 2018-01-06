@@ -49,6 +49,13 @@
 	desc = "<i>Choo-choo</i>!"
 	body_parts_covered = 0
 
+/obj/item/clothing/head/santa
+	name = "Santa's hat"
+	icon_state = "santahat"
+	desc = "<i>Ho ho ho. Merrry X-mas!</i>!"
+	body_parts_covered = 0
+
+	body_parts_covered = 0
 /obj/item/clothing/head/plaguedoctorhat
 	name = "plague doctor's hat"
 	desc = "These were once used by Plague doctors. They're pretty much useless."
@@ -75,7 +82,7 @@
 	name = "red space-helmet replica"
 	icon_state = "syndicate"
 	item_state = "syndicate"
-	desc = "A plastic replica of a bloodthirsty mercenary's space helmet, you'll look just like a real murderous criminal operative in this! This is a toy, it is not made for use in space!"
+	desc = "A plastic replica of a bloodthirsty Syndicate operative's space helmet, you'll look just like a real murderous criminal operative in this! This is a toy, it is not made for use in space!"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|BLOCKHAIR
 	siemens_coefficient = 2.0
 	body_parts_covered = HEAD|FACE|EYES

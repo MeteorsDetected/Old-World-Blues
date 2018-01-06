@@ -433,7 +433,7 @@
 	flush = 0
 	if(mode == 2)	// if was ready,
 		mode = 1	// switch to charging
-	update()
+	update_icon()
 	return
 
 /obj/machinery/disposal/deliveryChute/attackby(var/obj/item/I, var/mob/user)

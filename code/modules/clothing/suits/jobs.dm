@@ -15,6 +15,11 @@
 		/obj/item/weapon/material/minihoe
 	)
 
+/obj/item/clothing/suit/storage/coathydro
+	name = "gardener's coat"
+	desc = "Happy Christmas!"
+	icon_state = "coathydro"
+
 //Captain
 /obj/item/clothing/suit/captunic
 	name = "captain's parade tunic"
@@ -30,6 +35,11 @@
 	icon_state = "capjacket"
 	item_state = "capjacket"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+
+/obj/item/clothing/suit/storage/coatcaptain
+	name = "captain's coat"
+	desc = "Happy Christmas!"
+	icon_state = "coatcaptain"
 
 //Chaplain
 /obj/item/clothing/suit/storage/chaplain_hoodie
@@ -127,6 +137,16 @@
 	)
 	armor = list(melee = 20, bullet = 20, laser = 25, energy = 15, bomb = 0, bio = 0, rad = 0)
 
+/obj/item/clothing/suit/security/secjacket
+	name = "black security officer's jacket"
+	desc = "This black jacket is for those special occasions when a security officer actually feels safe."
+	icon_state = "secjacket"
+
+/obj/item/clothing/suit/security/coatsecurity
+	name = "security officer's coat"
+	desc = "Happy Christmas!"
+	icon_state = "coatsecurity"
+
 //Detective
 /obj/item/clothing/suit/storage/det_suit
 	name = "trenchcoat"
@@ -192,6 +212,17 @@
 		/obj/item/clothing/mask/gas, /obj/item/device/t_scanner
 	)
 	body_parts_covered = UPPER_TORSO
+
+/obj/item/clothing/suit/storage/coatengineer
+	name = "engineer's coat"
+	desc = "Happy Christmas!"
+	icon_state = "coatengineer"
+
+//Atmos
+/obj/item/clothing/suit/storage/coatatmos
+	name = "atmospheric technician's coat"
+	desc = "Happy Christmas!"
+	icon_state = "coatatmos"
 
 //Lawyer
 /obj/item/clothing/suit/storage/toggle/lawyer/bluejacket
@@ -267,6 +298,11 @@
 	desc = "Emerald jacket worn by medical first responders."
 	icon_state = "labcoat_emt"
 
+/obj/item/clothing/suit/storage/coatmedical
+	name = "medical coat"
+	desc = "Happy Christmas!"
+	icon_state = "coatmedical"
+
 //Investigator
 /obj/item/clothing/suit/storage/toggle/investigator
 	name = "investigator jacket"
@@ -288,3 +324,26 @@
 	icon_state = "investigatoralt_open"
 	item_state = "investigatoralt"
 	base_state = "investigatoralt"
+
+//Cargo
+/obj/item/clothing/suit/storage/coatminer
+	name = "miner coat"
+	desc = "Happy Christmas!"
+	icon_state = "coatminer"
+
+/obj/item/clothing/suit/storage/coatcargo
+	name = "cargo coat"
+	desc = "Happy Christmas!"
+	icon_state = "coatcargo"
+
+//RnD
+/obj/item/clothing/suit/storage/coatscience
+	name = "science coat"
+	desc = "Happy Christmas!"
+	icon_state = "coatscience"
+
+//Assistant
+/obj/item/clothing/suit/storage/coatwinter
+	name = "winter coat"
+	desc = "Happy Christmas!"
+	icon_state = "coatwinter"

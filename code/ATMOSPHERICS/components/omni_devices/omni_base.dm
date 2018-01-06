@@ -72,12 +72,6 @@
 		return 0
 	return 1
 
-/obj/machinery/atmospherics/omni/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
-
 /obj/machinery/atmospherics/omni/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
@@ -243,6 +237,7 @@
 	..()
 
 /obj/machinery/atmospherics/omni/initialize()
+	..()
 	for(var/datum/omni_port/P in ports)
 		if(P.node || P.mode == 0)
 			continue

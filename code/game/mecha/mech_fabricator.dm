@@ -27,7 +27,7 @@
 		MATERIAL_PLASTEEL=0
 	)
 
-	var/res_max_amount = 200000
+	var/res_max_amount = 100 * SHEET_MATERIAL_AMOUNT
 	var/datum/research/files
 	var/id
 	var/sync = 0
@@ -51,7 +51,7 @@
 	var/T = 0
 	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
 		T += M.rating
-	res_max_amount = (187500+(T * 37500))
+	res_max_amount = (100+(T * 17)) * SHEET_MATERIAL_AMOUNT
 
 	T = 0
 	for(var/obj/item/weapon/stock_parts/micro_laser/Ma in component_parts)
