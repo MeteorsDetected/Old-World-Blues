@@ -8,6 +8,8 @@
 	idle_power_usage = 10
 	active_power_usage = 2000
 	circuit = /obj/item/weapon/circuitboard/autolathe
+	clicksound = "keyboard"
+	clickvol = 30
 
 	var/tmp/list/machine_recipes
 	var/list/stored_material =  list(MATERIAL_STEEL = 0, MATERIAL_GLASS = 0)
@@ -51,6 +53,7 @@
 /obj/machinery/autolathe/New()
 	..()
 	wires = new(src)
+	stat = 0
 
 /obj/machinery/autolathe/Destroy()
 	if(wires)

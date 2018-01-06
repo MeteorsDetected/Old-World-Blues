@@ -42,11 +42,12 @@ var/list/donator_icons
 	login_music = pick(
 		/*'sound/music/halloween/skeletons.ogg',
 		'sound/music/halloween/halloween.ogg',
-		'sound/music/halloween/ghosts.ogg',
+		'sound/music/halloween/ghosts.ogg',*/
 		'sound/music/space.ogg',
 		'sound/music/traitor.ogg',
+		'sound/music/title1.ogg',
 		'sound/music/title2.ogg',
-		'sound/music/clouds.s3m',*/
+		'sound/music/clouds.s3m',
 		'sound/music/david_bowie-space_oddity_original.ogg',
 		'sound/music/faunts-das_malefitz.ogg',
 		'sound/music/First_rendez-vous.ogg',
@@ -56,8 +57,17 @@ var/list/donator_icons
 		'sound/music/Mind_Heist.ogg',
 		'sound/music/CCR_-_Bad_Moon_Rising_196.ogg',
 		'sound/music/Crokett_39_s_theme.ogg',
-		'sound/music/Lorn_-_Anvil.ogg',
-		'sound/music/Quixotic_-_Dust_to_Dust.ogg')
+		'sound/music/music_ambient_scene6.ogg',
+		'sound/music/music_battle_scene2.ogg',
+		'sound/music/DARKWOOD_Main.ogg',
+		'sound/music/moonbaseoddity.ogg' )/*
+		'sound/music/new_year/we_wish_you_a_merry_christmas.ogg',
+		'sound/music/new_year/vypem_za_lyubov.ogg',
+		'sound/music/new_year/novyy_god.ogg',
+		'sound/music/new_year/let_it_snow.ogg',
+		'sound/music/new_year/jingle_bells.ogg',
+		'sound/music/new_year/happy_new_year.ogg',
+		'sound/music/new_year/a_holly_jolly_christmas.ogg' )*/
 
 	donator_icons = icon_states('icons/donator.dmi')
 
@@ -162,6 +172,18 @@ var/list/donator_icons
 	for(var/obj/multiz/ladder/L in world) L.connect() //Lazy hackfix for ladders. TODO: move this to an actual controller. ~ Z
 
 	return 1
+
+/datum/controller/gameticker/proc/run_callback_list(list/callbacklist)
+	set waitfor = FALSE
+
+	if (!callbacklist)
+		return
+
+	for (var/thing in callbacklist)
+		var/datum/callback/callback = thing
+		callback.Invoke()
+
+		//CHECK_TICK
 
 /datum/controller/gameticker
 	//station_explosion used to be a variable for every mob's hud. Which was a waste!
@@ -386,6 +408,7 @@ var/list/donator_icons
 /datum/controller/gameticker/proc/declare_completion()
 	world << "<br><br><br><H1>A round of [mode.name] has ended!</H1>"
 	for(var/mob/Player in player_list)
+		Player << sound('sound/music/space_asshole.ogg', repeat = 0, wait = 0, volume = 85, channel = 777)
 		if(Player.mind && !isnewplayer(Player))
 			if(Player.stat != DEAD)
 				var/turf/playerTurf = get_turf(Player)

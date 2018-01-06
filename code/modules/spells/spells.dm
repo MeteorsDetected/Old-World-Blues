@@ -37,6 +37,11 @@
 	if(!spell_masters)
 		spell_masters = list()
 
+	if(mind)
+		if(!mind.learned_spells)
+			mind.learned_spells = list()
+		mind.learned_spells += spell_to_add
+
 	if(spell_masters.len)
 		for(var/obj/screen/movable/spell_master/spell_master in spell_masters)
 			if(spell_master.type == master_type)
@@ -53,11 +58,6 @@
 		new_spell_master.icon_state = spell_base
 	spell_masters.Add(new_spell_master)
 	spell_list.Add(spell_to_add)
-	if(mind)
-		if(!mind.learned_spells)
-			mind.learned_spells = list()
-		mind.learned_spells += spell_to_add
-
 	return 1
 
 /mob/proc/remove_spell(var/spell/spell_to_remove)

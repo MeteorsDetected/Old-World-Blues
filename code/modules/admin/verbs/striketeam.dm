@@ -20,14 +20,14 @@ var/const/commandos_possible = 6 //if more Commandos are needed in the future
 
 	var/datum/antagonist/deathsquad/team
 
-	var/choice = input(usr, "Select type of strike team:") as null|anything in list("Heavy Asset Protection", "Mercenaries")
+	var/choice = input(usr, "Select type of strike team:") as null|anything in list("Heavy Asset Protection", "Syndicate operative")
 	if(!choice)
 		return
 
 	switch(choice)
 		if("Heavy Asset Protection")
 			team = deathsquad
-		if("Mercenaries")
+		if("Syndicate operative")
 			team = commandos
 		else
 			return

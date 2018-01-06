@@ -15,7 +15,8 @@
 		"Space Title1" = 'sound/music/title1.ogg',
 		"Space Title2" = 'sound/music/title2.ogg',
 		"Space Traitor" = 'sound/music/traitor.ogg',
-		"Space Undertale" = 'sound/music/undertale.ogg'
+		"Space Undertale" = 'sound/music/undertale.ogg',
+		"Bad Moon Rising" = 'sound/music/CCR_-_Bad_Moon_Rising_196.ogg'
 	)
 
 /obj/item/device/player/New(var/obj/item/holder)
