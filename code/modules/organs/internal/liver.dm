@@ -13,12 +13,12 @@
 
 	if (germ_level > INFECTION_LEVEL_ONE)
 		if(prob(1))
-			owner << "<span class='danger'>Your skin itches.</span>"
+			owner << SPAN_DANG("Your skin itches.")
 	if (germ_level > INFECTION_LEVEL_TWO)
 		if(prob(1))
 			spawn owner.vomit()
 
-	if(owner.life_tick % PROCESS_ACCURACY == 0)
+	if(owner.life_tick % PROCESS_ACCURACY == 10)
 
 		//High toxins levels are dangerous
 		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("anti_toxin"))
@@ -45,10 +45,12 @@
 		if(is_broken())
 			filter_effect -= 2
 
-		// Do some reagent processing.
-		if(owner.chem_effects[CE_ALCOHOL_TOXIC])
-			if(filter_effect < 3)
-				owner.adjustToxLoss(owner.chem_effects[CE_ALCOHOL_TOXIC] * 0.1 * PROCESS_ACCURACY)
-			else
-				// Chance to warn them
-				take_damage(owner.chem_effects[CE_ALCOHOL_TOXIC] * 0.1 * PROCESS_ACCURACY, prob(1))
+		// Damaged liver means some chemicals are very dangerous
+		if(src.damage >= src.min_bruised_damage)
+			for(var/datum/reagent/R in owner.reagents.reagent_list)
+				// Ethanol and all drinks are bad
+				if(istype(R, /datum/reagent/ethanol))
+					owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
+				// Can't cope with toxins at all
+				if(istype(R, /datum/reagent/toxin))
+					owner.adjustToxLoss(0.3 * PROCESS_ACCURACY)
