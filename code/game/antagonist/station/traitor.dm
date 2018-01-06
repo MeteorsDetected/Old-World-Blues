@@ -91,7 +91,7 @@ var/datum/antagonist/traitor/traitors
 		if(!R)
 			traitor_mob << "Unfortunately, neither a radio or a PDA relay could be installed."
 	else if(traitor_mob.client.prefs.uplinklocation == "None")
-		traitor_mob << "You have elected to not have an AntagCorp portable teleportation relay installed!"
+		traitor_mob << "You have elected to not have an Syndicate portable teleportation relay installed!"
 		R = null
 	else
 		traitor_mob << "You have not selected a location for your relay in the antagonist options! Defaulting to PDA!"

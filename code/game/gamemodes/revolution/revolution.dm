@@ -6,7 +6,7 @@
 	required_players = 12
 	required_enemies = 3
 	auto_recall_shuttle = 0
-	uplink_welcome = "AntagCorp Uplink Console:"
+	uplink_welcome = "Syndicate Uplink Console:"
 	uplink_uses = 10
 	end_on_antag_death = 1
 	shuttle_delay = 3

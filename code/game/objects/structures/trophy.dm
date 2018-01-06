@@ -29,7 +29,7 @@
 	caption = "King of beasts."
 
 /obj/structure/trophy/merc
-	name = "Mercenary head trophy"
+	name = "Nuclear operative head trophy!"
 	icon_state = "head_merc"
 	caption = "Nobody breaks the law on my watch!"
 
