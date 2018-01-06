@@ -3,13 +3,13 @@
 */
 
 /datum/game_mode/nuclear
-	name = "Mercenary"
-	round_description = "A mercenary strike force is approaching the station!"
+	name = "Nuclear Emergency"
+	round_description = "Syndicate forces are approaching the station in an attempt to destroy it!"
 	config_tag = "mercenary"
 	required_players = 15
 	required_enemies = 1
 	end_on_antag_death = 1
-	uplink_welcome = "Corporate Backed Uplink Console:"
+	uplink_welcome = "Syndicate Uplink Console:"
 	uplink_uses = 40
 	var/nuke_off_station = 0 //Used for tracking if the syndies actually haul the nuke to the station
 	var/syndies_didnt_escape = 0 //Used for tracking if the syndies got the shuttle off of the z-level
@@ -27,7 +27,7 @@
 	var/crew_evacuated = (emergency_shuttle.returned())
 
 	if(!disk_rescued &&  station_was_nuked && !syndies_didnt_escape)
-		world << "<FONT size = 3><B>Mercenary Major Victory!</B></FONT>"
+		world << "<FONT size = 3><B>Syndicate Major Victory!</B></FONT>"
 		world << "<B>[syndicate_name()] operatives have destroyed [station_name()]!</B>"
 
 	else if (!disk_rescued &&  station_was_nuked && syndies_didnt_escape)
@@ -51,11 +51,11 @@
 		world << "<B>The Research Staff has saved the disc and stopped the [syndicate_name()] Operatives!</B>"
 
 	else if (!disk_rescued && mercs.antags_are_dead())
-		world << "<FONT size = 3><B>Mercenary Minor Victory!</B></FONT>"
+		world << "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>"
 		world << "<B>The Research Staff failed to secure the authentication disk but did manage to kill most of the [syndicate_name()] Operatives!</B>"
 
 	else if (!disk_rescued && crew_evacuated)
-		world << "<FONT size = 3><B>Mercenary Minor Victory!</B></FONT>"
+		world << "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>"
 		world << "<B>[syndicate_name()] operatives recovered the abandoned authentication disk but detonation of [station_name()] was averted.</B> Next time, don't lose the disk!"
 
 	else if (!disk_rescued && !crew_evacuated)
