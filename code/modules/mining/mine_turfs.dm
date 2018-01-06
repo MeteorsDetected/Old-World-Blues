@@ -394,9 +394,6 @@
 	name = "asteroid"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "ironsand1"
-	oxygen = 0
-	nitrogen = 0
-	temperature = TCMB
 	icon_plating = "ironsand17"
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
 	var/overlay_detail
@@ -404,11 +401,16 @@
 
 /turf/simulated/floor/plating/asteroid/New()
 	..()
-	if(icon_state == "asteroid1")
+	if(icon_state != "ironsand17")
 		icon_state = "ironsand[rand(1, 15)]"
+	else
+		icon_state = icon_plating
 
 	if(prob(20))
 		overlay_detail = "asteroid[rand(0,9)]"
+
+/turf/simulated/floor/plating/asteroid/covered
+	icon_state = "ironsand17"
 
 /turf/simulated/floor/plating/asteroid/airless
 	oxygen = 0
@@ -424,7 +426,6 @@
 				gets_dug()
 		if(1.0)
 			gets_dug()
-	return
 
 /turf/simulated/floor/plating/asteroid/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
