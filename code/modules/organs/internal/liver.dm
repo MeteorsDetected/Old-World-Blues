@@ -18,7 +18,7 @@
 		if(prob(1))
 			spawn owner.vomit()
 
-	if(owner.life_tick % PROCESS_ACCURACY == 10)
+	if(owner.life_tick % PROCESS_ACCURACY == 0)
 
 		//High toxins levels are dangerous
 		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("anti_toxin"))
@@ -37,14 +37,14 @@
 
 		if(src.damage < 0)
 			src.damage = 0
-
+/*
 		// Get the effectiveness of the liver.
 		var/filter_effect = 3
 		if(is_bruised())
 			filter_effect -= 1
 		if(is_broken())
 			filter_effect -= 2
-
+*/
 		// Damaged liver means some chemicals are very dangerous
 		if(src.damage >= src.min_bruised_damage)
 			for(var/datum/reagent/R in owner.reagents.reagent_list)
