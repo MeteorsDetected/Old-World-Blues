@@ -19,3 +19,6 @@
 		return FALSE
 
 	return TRUE
+
+/obj/item/organ/internal/brain
+	var/decoy_override = 0
