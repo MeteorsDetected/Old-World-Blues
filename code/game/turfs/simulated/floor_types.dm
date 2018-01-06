@@ -246,11 +246,15 @@
 						FF.update_icon() //so siding get updated properly
 
 
+/turf/simulated/floor/plating/ironsand
+	name = "Iron Sand"
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "ironsand1"
+	floor_type = null
+	intact = 0
 
 /turf/simulated/floor/plating/ironsand/New()
 	..()
-	name = "Iron Sand"
-	icon = "icons/turf/floors/ironsand1.dmi"
 	icon_state = "ironsand[rand(1,15)]"
 
 /turf/simulated/floor/plating/snow
@@ -260,13 +264,3 @@
 
 /turf/simulated/floor/plating/snow/ex_act(severity)
 	return
-
-/turf/simulated/floor/ironsand
-	name = "ironsand"
-	icon_state = "ironsand1"
-	floor_type = null
-	intact = 0
-
-/turf/simulated/floor/ironsand/New()
-	..()
-	icon_state = "ironsand[rand(1, 15)]"

@@ -309,7 +309,7 @@ turf/simulated/floor/proc/update_icon()
 
 /turf/simulated/floor/proc/burn_tile(var/exposed_temperature)
 	if(istype(src,/turf/simulated/floor/engine)) return
-	if(istype(src,/turf/simulated/floor/plating/airless/asteroid)) return//Asteroid tiles don't burn
+	if(istype(src,/turf/simulated/floor/plating/asteroid)) return//Asteroid tiles don't burn
 
 	var/damage_temp = get_damage_temperature()
 

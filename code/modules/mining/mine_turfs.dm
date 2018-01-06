@@ -39,8 +39,8 @@
 		for(var/direction in step_overlays)
 			var/turf/turf_to_check = get_step(src,step_overlays[direction])
 
-			if(istype(turf_to_check,/turf/simulated/floor/plating/airless/asteroid))
-				var/turf/simulated/floor/plating/airless/asteroid/T = turf_to_check
+			if(istype(turf_to_check,/turf/simulated/floor/plating/asteroid))
+				var/turf/simulated/floor/plating/asteroid/T = turf_to_check
 				T.updateMineralOverlays()
 
 			else if(istype(turf_to_check,/turf/space) || istype(turf_to_check,/turf/simulated/floor))
@@ -280,7 +280,7 @@
 
 	//Add some rubble,  you did just clear out a big chunk of rock.
 
-	var/turf/simulated/floor/plating/airless/asteroid/N = ChangeTurf(/turf/simulated/floor/plating/ironsand)
+	var/turf/simulated/floor/plating/asteroid/N = ChangeTurf(/turf/simulated/floor/plating/asteroid)
 	N.overlay_detail = "asteroid[rand(1,15)]"
 
 	// Kill and update the space overlays around us.
@@ -390,26 +390,32 @@
 /**********************Asteroid**************************/
 
 
-/turf/simulated/floor/plating/airless/asteroid //floor piece
+/turf/simulated/floor/plating/asteroid //floor piece
 	name = "asteroid"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "ironsand1"
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
-	icon_plating = "asteroid"
+	icon_plating = "ironsand17"
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
 	var/overlay_detail
 	has_resources = 1
 
-/turf/simulated/floor/plating/airless/asteroid/New()
+/turf/simulated/floor/plating/asteroid/New()
 	..()
-	icon_state = "ironsand[rand(1, 15)]"
+	if(icon_state == "asteroid1")
+		icon_state = "ironsand[rand(1, 15)]"
 
 	if(prob(20))
 		overlay_detail = "asteroid[rand(0,9)]"
 
-/turf/simulated/floor/plating/airless/asteroid/ex_act(severity)
+/turf/simulated/floor/plating/asteroid/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
+/turf/simulated/floor/plating/asteroid/ex_act(severity)
 	switch(severity)
 		if(3.0)
 			return
@@ -420,7 +426,7 @@
 			gets_dug()
 	return
 
-/turf/simulated/floor/plating/airless/asteroid/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/turf/simulated/floor/plating/asteroid/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 	if(!W || !user)
 		return 0
@@ -472,7 +478,7 @@
 		..(W,user)
 	return
 
-/turf/simulated/floor/plating/airless/asteroid/proc/gets_dug()
+/turf/simulated/floor/plating/asteroid/proc/gets_dug()
 
 	if(dug)
 		return
@@ -485,7 +491,7 @@
 	icon_state = "asteroid_dug"
 	return
 
-/turf/simulated/floor/plating/airless/asteroid/proc/updateMineralOverlays(var/update_neighbors)
+/turf/simulated/floor/plating/asteroid/proc/updateMineralOverlays(var/update_neighbors)
 
 	overlays.Cut()
 
@@ -503,12 +509,12 @@
 	if(update_neighbors)
 		var/list/all_step_directions = list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,SOUTHWEST,WEST,NORTHWEST)
 		for(var/direction in all_step_directions)
-			var/turf/simulated/floor/plating/airless/asteroid/A
-			if(istype(get_step(src, direction), /turf/simulated/floor/plating/airless/asteroid))
+			var/turf/simulated/floor/plating/asteroid/A
+			if(istype(get_step(src, direction), /turf/simulated/floor/plating/asteroid))
 				A = get_step(src, direction)
 				A.updateMineralOverlays()
 
-/turf/simulated/floor/plating/airless/asteroid/Entered(atom/movable/M as mob|obj)
+/turf/simulated/floor/plating/asteroid/Entered(atom/movable/M as mob|obj)
 	..()
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
