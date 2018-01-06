@@ -181,10 +181,34 @@
 		..()
 
 /obj/item/storage/fancy/cigarettes/dromedaryco
-	name = "\improper DromedaryCo packet"
+	name = "\improper Cossack packet"
 	desc = "A packet of six imported DromedaryCo cancer sticks. A label on the packaging reads, \"Wouldn't a slow death make a change?\""
 	icon_state = "Dpacket"
 	item_state = "Dpacket"
+
+/obj/item/storage/fancy/cigarettes/dromedaryco
+	name = "\improper DromedaryCo packet"
+	desc = "Pack of NovoUnion cigarettes with bright red package and with blue stripe what contains word \"Cossack\""
+	icon_state = "zigpacket"
+	item_state = "zigpacket"
+
+/obj/item/storage/fancy/cigarettes/nebelherz
+	name = "\improper Nebelherz packet"
+	desc = "Famous Magnitkan cigarettes from cold Fatherland. It's contains truly dutch taste and classic package with picture of Neu-Alps. ."
+	icon_state = "nigpacket"
+	item_state = "nigpacket"
+
+/obj/item/storage/fancy/cigarettes/Private
+	name = "\improper Private Winslow packet"
+	desc = "Pack of truly martian cigarettes. White package with blue stripes, classical tobacco, lovely memories about first cigarette - what do you need more to love that cigarettes? It's contain military grade line with some holographic words on it. ."
+	icon_state = "pigpacket"
+	item_state = "pigpacket"
+
+/obj/item/storage/fancy/cigarettes/Zdravi
+	name = "\improper Zdravi packet"
+	desc = "Pack of truly laborer cigarettes from far NovoUnion colonies."
+	icon_state = "zdigpacket"
+	item_state = "zdigpacket"
 
 /obj/item/storage/fancy/cigar
 	name = "cigar case"

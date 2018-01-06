@@ -16,7 +16,7 @@
 	species_restricted = list(SPECIES_HUMAN)
 	can_breach = FALSE
 	//(live support)
-	var/list/mob_states
+	var/list/mob_stats
 
 /obj/item/clothing/suit/space/void/hev/refit_for_species()
 	return null
@@ -26,24 +26,26 @@
 	processing_objects |= src
 
 /obj/item/clothing/suit/space/void/hev/process()
-	var/list/new_mob_states = list()
+	var/list/new_mob_stats = list()
 
 /obj/item/clothing/suit/space/void/hev/process()
 	if(!ishuman(loc))
 		return
 	var/mob/living/carbon/human/H = loc
-		if(H.get_equipped_item(slot_wear_suit) != src)
-			reutrn
-	var/list/new_mob_states = list()
+	if(H.get_equipped_item(slot_wear_suit) != src)
+		return
+	var/list/new_mob_stats = list()
 	var/list/broken_limbs = list()
 	var/list/bleeding_limbs = list()
+	for(var/obj/item/organ/external/E in H.organs)
 		if(E.is_broken())
 			broken_limbs  += E
-		if(E.stat & ORGAN_BLEEDING)
+		if(E.status & ORGAN_BLEEDING)
 			bleeding_limbs += E
-	new_mob_states["burn"] = H.getFireLoss()
-	new_mob_states["tox"] = H.getToxLoss()
-		if(mob_stats) //no first run
+	new_mob_stats["burn"] = H.getFireLoss()
+	new_mob_stats["tox"] = H.getToxLoss()
+	//	if(mob_stats) //no first run
+	//
 	mob_stats = new_mob_stats
 	mob_stats["broken"] = broken_limbs
 	mob_stats["bleeding"] = bleeding_limbs
