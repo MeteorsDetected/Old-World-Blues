@@ -404,8 +404,6 @@
 		if(I.icon_action_button)
 			var/obj/screen/item_action/A = new(hud_used)
 
-			//A.icon = 'icons/mob/screen1_action.dmi'
-			//A.icon_state = I.icon_action_button
 			A.icon = ui_style2icon(client.prefs.UI_style)
 			A.icon_state = "template"
 			var/image/img = image(I.icon, A, I.icon_state)
