@@ -1,12 +1,7 @@
-
-//moved these here from code/defines/obj/weapon.dm
-//please preference put stuff where it's easy to find - C
-
-/obj/item/weapon/autopsy_scanner
+/obj/item/device/autopsy_scanner
 	name = "biopsy scanner"
 	desc = "Extracts information on wounds."
-	icon = 'icons/obj/autopsy_scanner.dmi'
-	icon_state = ""
+	icon_state = "autopsy_scanner"
 	flags = CONDUCT
 	w_class = ITEM_SIZE_SMALL
 	origin_tech = list(TECH_MATERIAL = 1, TECH_BIO = 1)
@@ -28,17 +23,18 @@
 	var/hits = 0
 	var/time_inflicted = 0
 
-	proc/copy()
-		var/datum/autopsy_data/W = new()
-		W.weapon = weapon
-		W.pretend_weapon = pretend_weapon
-		W.damage = damage
-		W.hits = hits
-		W.time_inflicted = time_inflicted
-		return W
+/datum/autopsy_data/proc/copy()
+	var/datum/autopsy_data/W = new()
+	W.weapon = weapon
+	W.pretend_weapon = pretend_weapon
+	W.damage = damage
+	W.hits = hits
+	W.time_inflicted = time_inflicted
+	return W
 
-/obj/item/weapon/autopsy_scanner/proc/add_data(var/obj/item/organ/external/O)
-	if(!O.autopsy_data.len && !O.trace_chemicals.len) return
+/obj/item/device/autopsy_scanner/proc/add_data(var/obj/item/organ/external/O)
+	if(!O.autopsy_data.len && !O.trace_chemicals.len)
+		return
 
 	for(var/V in O.autopsy_data)
 		var/datum/autopsy_data/W = O.autopsy_data[V]
@@ -53,7 +49,11 @@
 			if(1)
 				W.pretend_weapon = W.weapon
 			else
-				W.pretend_weapon = pick("mechanical toolbox", "wirecutters", "revolver", "crowbar", "fire extinguisher", "tomato soup", "oxygen tank", "emergency oxygen tank", "laser", "bullet")
+				W.pretend_weapon = pick(\
+					"mechanical toolbox", "wirecutters", "revolver", "crowbar",
+					"fire extinguisher", "tomato soup", "oxygen tank", "emergency oxygen tank",\
+					"laser", "bullet",
+				)
 
 
 		var/datum/autopsy_data_scanner/D = wdata[V]
@@ -75,10 +75,10 @@
 		if(O.trace_chemicals[V] > 0 && !chemtraces.Find(V))
 			chemtraces += V
 
-/obj/item/weapon/autopsy_scanner/attack_self(user)
+/obj/item/device/autopsy_scanner/attack_self(user)
 	print_data()
 
-/obj/item/weapon/autopsy_scanner/verb/print_data()
+/obj/item/device/autopsy_scanner/verb/print_data()
 	set category = "Object"
 	set src in view(usr, 1)
 	set name = "Print Data"
@@ -164,7 +164,7 @@
 
 	usr.put_in_hands(P)
 
-/obj/item/weapon/autopsy_scanner/do_surgery(mob/living/carbon/human/M, mob/living/user)
+/obj/item/device/autopsy_scanner/do_surgery(mob/living/carbon/human/M, mob/living/user)
 	if(!istype(M))
 		return 0
 
