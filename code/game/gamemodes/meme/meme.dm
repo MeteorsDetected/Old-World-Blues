@@ -5,5 +5,6 @@
 	config_tag = "meme"
 	required_players = 6
 	required_enemies = 2
-	end_on_antag_death = 1
+	end_on_antag_death = 0
+	votable = 0
 	antag_tags = list(ROLE_MEME)

@@ -75,6 +75,7 @@
 	..()
 
 /obj/machinery/atmospherics/portables_connector/initialize()
+	..()
 	if(node) return
 
 	var/node_connect = dir
@@ -87,7 +88,6 @@
 
 	update_icon()
 	update_underlays()
-
 /obj/machinery/atmospherics/portables_connector/build_network()
 	if(!network && node)
 		network = new /datum/pipe_network()

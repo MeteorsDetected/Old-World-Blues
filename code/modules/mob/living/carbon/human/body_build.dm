@@ -41,6 +41,8 @@ var/datum/body_build/default_body_build = new
 	hand_groups["[SPRITE_STORAGE]_r"]  = 'icons/inv_slots/items/storage_r_default.dmi'
 	hand_groups["[SPRITE_GUNS]_l"]     = 'icons/inv_slots/items/guns_l_default.dmi'
 	hand_groups["[SPRITE_GUNS]_r"]     = 'icons/inv_slots/items/guns_r_default.dmi'
+	hand_groups["[SPRITE_LARGE]_l"]    = 'icons/inv_slots/items/large_l_default.dmi'
+	hand_groups["[SPRITE_LARGE]_r"]    = 'icons/inv_slots/items/large_r_default.dmi'
 
 /datum/body_build/proc/get_inhand_icon(var/group, var/hand)
 	if(hand == LEFT)

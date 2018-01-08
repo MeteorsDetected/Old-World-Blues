@@ -50,6 +50,7 @@ var/datum/antagonist/traitor/traitors
 	if(!..())
 		return 0
 
+	traitor_mob << sound('sound/misc/syndicate_intro.ogg', repeat = 0, wait = 0, volume = 85, channel = 777)
 	spawn_uplink(traitor_mob)
 	// Tell them about people they might want to contact.
 	var/mob/living/carbon/human/M = get_nt_opposed()
@@ -90,7 +91,7 @@ var/datum/antagonist/traitor/traitors
 		if(!R)
 			traitor_mob << "Unfortunately, neither a radio or a PDA relay could be installed."
 	else if(traitor_mob.client.prefs.uplinklocation == "None")
-		traitor_mob << "You have elected to not have an AntagCorp portable teleportation relay installed!"
+		traitor_mob << "You have elected to not have an Syndicate portable teleportation relay installed!"
 		R = null
 	else
 		traitor_mob << "You have not selected a location for your relay in the antagonist options! Defaulting to PDA!"
@@ -140,3 +141,4 @@ var/datum/antagonist/traitor/traitors
 	killer << "<b>Your laws have been changed!</b>"
 	killer.set_zeroth_law(law, law_borg)
 	killer << "New law: 0. [law]"
+	killer << sound('sound/misc/AISyndiHack.ogg', repeat = 0, wait = 0, volume = 85, channel = 777)

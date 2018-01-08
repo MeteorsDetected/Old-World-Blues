@@ -21,6 +21,7 @@ var/global/list/citizenship_choices = list(
 	"Ahdomai",
 	"Qerrbalak",
 	"Magnitka",
+	"Tau Ceti",
 	"Tiamat"
 	)
 

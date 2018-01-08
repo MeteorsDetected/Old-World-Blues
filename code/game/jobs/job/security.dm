@@ -47,6 +47,7 @@
 	)
 
 
+
 /datum/job/security/warden
 	title = "Warden"
 	flag = WARDEN
@@ -70,6 +71,7 @@
 	)
 
 
+
 /datum/job/security/detective
 	title = "Detective"
 	flag = DETECTIVE
@@ -90,8 +92,9 @@
 
 	put_in_backpack = list(
 		/obj/item/weapon/flame/lighter/zippo,
-		/obj/item/storage/box/evidence,
+		/obj/item/storage/box/evidence
 	)
+
 
 	backpack  = /obj/item/storage/backpack
 	satchel_j = /obj/item/storage/backpack/satchel/norm
@@ -129,3 +132,4 @@
 		/obj/item/weapon/handcuffs,
 		/obj/item/device/flash
 	)
+

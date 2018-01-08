@@ -144,6 +144,7 @@
 	return
 
 /obj/machinery/atmospherics/valve/initialize()
+	..()
 	normalize_dir()
 
 	var/node1_dir

@@ -2,13 +2,13 @@ var/datum/antagonist/mercenary/mercs
 
 /datum/antagonist/mercenary
 	id = ROLE_MERCENARY
-	role_text = "Mercenary"
+	role_text = "Nuclear Operative"
 	bantype = "operative"
 	antag_indicator = "synd"
-	role_text_plural = "Mercenaries"
+	role_text_plural = "Nuclear Operatives"
 	landmark_id = "Syndicate-Spawn"
-	leader_welcome_text = "You are the leader of the mercenary strikeforce; hail to the chief. Use :t to speak to your underlings."
-	welcome_text = "To speak on the strike team's private channel use :t."
+	leader_welcome_text = "You are the leader of the Syndicate operatives; hail to the chief. Use :t to speak to your underlings."
+	welcome_text = "You are a Syndicate operative! To speak on the strike team's private channel use :t."
 	flags = ANTAG_OVERRIDE_JOB | ANTAG_CLEAR_EQUIPMENT | ANTAG_CHOOSE_NAME | ANTAG_HAS_NUKE | ANTAG_SET_APPEARANCE | ANTAG_HAS_LEADER
 	id_type = /obj/item/weapon/card/id/syndicate
 	antaghud_indicator = "hudoperative"
@@ -56,4 +56,6 @@ var/datum/antagonist/mercenary/mercs
 
 	create_id("Mercenary", player)
 	create_radio(SYND_FREQ, player)
+	//Some music
+	player << sound('sound/misc/syndicate_intro.ogg', repeat = 0, wait = 0, volume = 85, channel = 777)
 	return 1

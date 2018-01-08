@@ -13,6 +13,7 @@
 	icon_action_button = "action_flashlight"
 	var/on = 0
 	var/brightness_on = 4 //luminosity when on
+	var/activation_sound = 'sound/items/flashlight.ogg'
 
 /obj/item/device/flashlight/initialize()
 	..()
@@ -31,6 +32,8 @@
 		user << "You cannot turn the light on while in this [user.loc]." //To prevent some lighting anomalities.
 		return 0
 	on = !on
+	if(on && activation_sound)
+		playsound(src.loc, activation_sound, 75, 1)
 	update_icon()
 	return 1
 

@@ -114,8 +114,8 @@
 	if(!istype(T))
 		return
 
-	if(!T.is_plating() && node && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
-		vent_icon += "h"
+//	if(!T.is_plating() && node && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
+//		vent_icon += "h"
 
 	if(welded)
 		vent_icon += "weld"

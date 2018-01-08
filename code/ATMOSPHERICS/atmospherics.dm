@@ -32,6 +32,8 @@ Pipelines + Other Objects -> Pipe network
 	var/obj/machinery/atmospherics/node1
 	var/obj/machinery/atmospherics/node2
 
+	var/atmos_initalized = FALSE
+
 /obj/machinery/atmospherics/New()
 	if(!icon_manager)
 		icon_manager = new()
@@ -43,6 +45,9 @@ Pipelines + Other Objects -> Pipe network
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
 	..()
+
+/obj/machinery/atmospherics/initialize()
+	atmos_initalized = TRUE
 
 /obj/machinery/atmospherics/attackby(atom/A, mob/user as mob)
 	if(istype(A, /obj/item/device/pipe_painter))

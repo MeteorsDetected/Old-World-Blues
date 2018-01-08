@@ -102,6 +102,7 @@ obj/machinery/atmospherics/mains_pipe
 		..()
 
 	initialize()
+		..()
 		for(var/i = 1 to nodes.len)
 			var/obj/machinery/atmospherics/mains_pipe/node = nodes[i]
 			if(node)
@@ -267,6 +268,7 @@ obj/machinery/atmospherics/mains_pipe/manifold4w
 		nodes.len = 4
 		..()
 
+
 	initialize()
 		for(var/obj/machinery/atmospherics/mains_pipe/target in get_step(src,NORTH))
 			if(target.initialize_mains_directions & get_dir(target,src))
@@ -354,7 +356,6 @@ obj/machinery/atmospherics/mains_pipe/split
 		var/turf/T = src.loc			// hide if turf is not intact
 		if(level == 1 && !T.is_plating()) hide(1)
 		update_icon()
-
 	update_icon()
 		icon_state = "split-[icon_type][invisibility ? "-f" : "" ]"
 
@@ -413,12 +414,6 @@ obj/machinery/atmospherics/mains_pipe/split3
 	var/obj/machinery/atmospherics/supply_node
 	var/obj/machinery/atmospherics/scrubbers_node
 	var/obj/machinery/atmospherics/aux_node
-
-	New()
-		nodes.len = 1
-		..()
-		initialize_mains_directions = dir
-		initialize_directions = cardinal & ~dir // actually have a normal connection too
 
 	initialize()
 		var/node1_dir
