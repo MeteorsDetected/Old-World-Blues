@@ -3,7 +3,6 @@
 	req_access = list(access_ce)
 	icon_state = "securece"
 	icon_opened = "secureceopen"
-	icon_broken = "securecebroken"
 
 
 	New()
@@ -40,7 +39,6 @@
 	req_access = list(access_engine_equip)
 	icon_state = "secureengelec"
 	icon_opened = "toolclosetopen"
-	icon_broken = "secureengelecbroken"
 
 	New()
 		..()
@@ -64,7 +62,6 @@
 	req_access = list(access_construction)
 	icon_state = "secureengweld"
 	icon_opened = "toolclosetopen"
-	icon_broken = "secureengweldbroken"
 
 	New()
 		..()
@@ -89,7 +86,6 @@
 	req_access = list(access_engine_equip)
 	icon_state = "secureeng"
 	icon_opened = "secureengopen"
-	icon_broken = "secureengbroken"
 
 	New()
 		..()
@@ -116,7 +112,6 @@
 	req_access = list(access_atmospherics)
 	icon_state = "secureatm"
 	icon_opened = "secureatmopen"
-	icon_broken = "secureatmbroken"
 
 	New()
 		..()

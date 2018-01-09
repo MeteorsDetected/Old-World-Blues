@@ -3,7 +3,6 @@
 	req_access = list(access_captain)
 	icon_state = "capsecure"
 	icon_opened = "capsecureopen"
-	icon_broken = "capsecurebroken"
 
 	New()
 		..()
@@ -37,7 +36,6 @@
 	req_access = list(access_hop)
 	icon_state = "hopsecure"
 	icon_opened = "hopsecureopen"
-	icon_broken = "hopsecurebroken"
 
 	New()
 		..()
@@ -59,7 +57,6 @@
 	req_access = list(access_hop)
 	icon_state = "hopsecure"
 	icon_opened = "hopsecureopen"
-	icon_broken = "hopsecurebroken"
 
 	New()
 		..()
@@ -87,7 +84,6 @@
 	req_access = list(access_hos)
 	icon_state = "hossecure"
 	icon_opened = "hossecureopen"
-	icon_broken = "hossecurebroken"
 
 	New()
 		..()
@@ -131,7 +127,6 @@
 	req_access = list(access_armory)
 	icon_state = "wardensecure"
 	icon_opened = "wardensecureopen"
-	icon_broken = "wardensecurebroken"
 
 
 	New()
@@ -171,7 +166,6 @@
 	req_access = list(access_brig)
 	icon_state = "sec"
 	icon_opened = "secopen"
-	icon_broken = "secbroken"
 
 	New()
 		..()
@@ -340,7 +334,6 @@
 	desc = "It's a secure wall-mounted storage unit for justice."
 	icon_state = "batman_wall_closed"
 	icon_opened = "batman_wall_open"
-	icon_broken = "batman_wall_broken"
 	req_access = list(access_hop)
 
 	New()

@@ -3,7 +3,6 @@
 	req_access = list(access_tox_storage)
 	icon_state = "secureres"
 	icon_opened = "secureresopen"
-	icon_broken = "secureresbroken"
 
 	New()
 		..()
@@ -24,7 +23,6 @@
 	req_access = list(access_rd)
 	icon_state = "rdsecure"
 	icon_opened = "rdsecureopen"
-	icon_broken = "rdsecurebroken"
 
 	New()
 		..()

@@ -64,7 +64,6 @@
 	req_access = list(access_tox_storage)
 	icon_state = "secureres"
 	icon_opened = "secureresopen"
-	icon_broken = "secureresbroken"
 
 	New()
 		..()

@@ -3,7 +3,6 @@
 	desc = "Filled with medical junk."
 	icon_state = "medical"
 	icon_opened = "medicalopen"
-	icon_broken = "medicalbroken"
 	req_access = list(access_medical_equip)
 
 	New()
@@ -27,7 +26,6 @@
 	desc = "Used to knock people out."
 	icon_state = "medical"
 	icon_opened = "medicalopen"
-	icon_broken = "medicalbroken"
 	req_access = list(access_surgery)
 
 	New()
@@ -47,7 +45,6 @@
 	req_access = list(access_medical_equip)
 	icon_state = "securemed"
 	icon_opened = "securemedopen"
-	icon_broken = "securemedbroken"
 
 	New()
 		..()
@@ -89,7 +86,6 @@
 	desc = "Supplies for a first responder."
 	icon_state = "secureems"
 	icon_opened = "secureemsopen"
-	icon_broken = "secureemsbroken"
 	req_access = list(access_medical_equip)
 
 
@@ -126,7 +122,6 @@
 	req_access = list(access_cmo)
 	icon_state = "cmosecure"
 	icon_opened = "cmosecureopen"
-	icon_broken = "cmosecurebroken"
 
 	New()
 		..()
@@ -174,7 +169,6 @@
 	desc = "Store dangerous chemicals in here."
 	icon_state = "medical"
 	icon_opened = "medicalopen"
-	icon_broken = "medicalbroken"
 	req_access = list(access_chemistry)
 
 
@@ -189,6 +183,5 @@
 	desc = "It's a secure wall-mounted storage unit for first aid supplies."
 	icon_state = "medical_wall_sec"
 	icon_opened = "medical_wall_open"
-	icon_broken = "medical_wall_broken"
 	req_access = list(access_medical_equip)
 

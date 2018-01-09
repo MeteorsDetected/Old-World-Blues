@@ -3,7 +3,6 @@
 	req_access = list(access_cargo)
 	icon_state = "securecargo"
 	icon_opened = "securecargoopen"
-	icon_broken = "securecargobroken"
 
 	New()
 		..()
@@ -27,7 +26,6 @@
 	req_access = list(access_qm)
 	icon_state = "secureqm"
 	icon_opened = "secureqmopen"
-	icon_broken = "secureqmbroken"
 
 	New()
 		..()
