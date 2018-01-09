@@ -2,7 +2,7 @@
 	for(var/obj/item/clothing/C in list(l_ear, r_ear, head))
 		if(istype(C))
 			. += C.ear_protection
-	return
+	return .
 
 // This is the 'mechanical' check for synthetic-ness, not appearance
 // Returns the company that made the synthetic
@@ -34,16 +34,15 @@
 	return 0
 
 /mob/living/carbon/human/proc/should_have_organ(var/organ_check)
+	var/obj/item/organ/path = species && species.has_organ[organ_check]
+	if(!path)
+		return
 
-	var/obj/item/organ/external/affecting
-	if(organ_check in list(O_HEART, O_LUNGS))
-		affecting = organs_by_name[BP_CHEST]
-	else if(organ_check in list(O_LIVER, O_KIDNEYS))
-		affecting = organs_by_name[BP_GROIN]
+	var/obj/item/organ/external/affecting = organs_by_name[initial(path.parent_organ)]
+	if(affecting && (affecting.robotic >= ORGAN_ROBOT))
+		return
 
-	if(affecting && (affecting.robotic >= ORGAN_ROBOT)) //LETHALGHOST: check that
-		return 0
-	return (species && species.has_organ[organ_check])
+	return TRUE
 
 /mob/living/carbon/human/proc/can_feel_pain(var/check_organ)
 	if(isSynthetic())
