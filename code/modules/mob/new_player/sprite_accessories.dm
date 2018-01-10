@@ -95,6 +95,11 @@
 		name = "Afro 2"
 		icon_state = "afro2"
 
+	antenna
+		name = "Antenna Hair"
+		icon_state = "antenna"
+		gender = FEMALE
+
 	test
 		name = "Asymmetrical Bob"
 		icon_state = "asymmbob"
@@ -212,6 +217,26 @@
 		name = "CIA"
 		icon_state = "cia"
 
+	cossack
+		name = "Cossack"
+		icon_state = "cossack_swtgr"
+		gender = MALE
+
+	cossack2
+		name = "Cossack2"
+		icon_state = "cossack_swtgr2"
+		gender = MALE
+
+	coffeehouse
+		name = "Coffee House"
+		icon_state = "coffeehouse"
+		gender = MALE
+
+	country
+		name = "Country"
+		icon_state = "country"
+		gender = FEMALE
+
 	combover
 		name = "Combover"
 		icon_state = "combover"
@@ -305,6 +330,11 @@
 		name = "Gentle"
 		icon_state = "gentle"
 
+	gipsy
+		name = "Gipsy"
+		icon_state = "gipsy"
+		gender = FEMALE
+
 	halfbang
 		name = "Half-banged Hair"
 		icon_state = "halfbang"
@@ -336,6 +366,11 @@
 	highpony
 		name = "High Ponytail"
 		icon_state = "highponytail"
+		gender = FEMALE
+
+	highpony2
+		name = "High Ponytail2"
+		icon_state = "longstraightponytail"
 		gender = FEMALE
 
 	himecut
@@ -385,6 +420,16 @@
 		icon_state = "ladylike2"
 		gender = FEMALE
 
+	ladylike3
+		name = "Ladylike 3"
+		icon_state = "long_d_tails"
+		gender = FEMALE
+
+	ladylike4
+		name = "Ladylike 4"
+		icon_state = "long_d_tails2"
+		gender = FEMALE
+
 	longemo
 		name = "Long Emo"
 		icon_state = "emolong"
@@ -418,6 +463,10 @@
 		name = "Drillruru"
 		icon_state = "drillruru"
 
+	ming_dynasty_swtgr
+		name = "Ming Dynasty"
+		icon_state = "ming_dynasty_swtgr"
+
 	mbraid
 		name = "Medium Braid"
 		icon_state = "shortbraid"
@@ -444,6 +493,10 @@
 	mulder
 		name = "Mulder"
 		icon_state = "mulder"
+
+	monk_tonsure_by_swtgr
+		name = "Monk Tonsure"
+		icon_state = "monk_tonsure_by_swtgr"
 
 	nia
 		name = "Nia"
@@ -511,6 +564,11 @@
 		name = "Ponytail 7"
 		icon_state = "ponytail7"
 
+	ponytail8
+		name = "Ponytail 8"
+		icon_state = "ponytail8"
+		gender = FEMALE
+
 	poofy
 		name = "Poofy"
 		icon_state = "poofy"
@@ -522,6 +580,11 @@
 	quiff
 		name = "Quiff"
 		icon_state = "quiff"
+		gender = MALE
+
+	qing_dynasty_swtgr
+		name = "Qing Dynasty"
+		icon_state = "qing_dynasty_swtgr"
 		gender = MALE
 
 	ramona
@@ -625,6 +688,10 @@
 		name = "Spiky Ponytail"
 		icon_state = "spikyponytail"
 
+	samurai_swtgr
+		name = "Samurai"
+		icon_state = "samurai_swtgr"
+
 	unkept
 		name = "Unkept"
 		icon_state = "unkept"
@@ -633,6 +700,16 @@
 		name = "Updo"
 		icon_state = "updo"
 		gender = FEMALE
+
+	viking
+		name = "Viking"
+		icon_state = "viking_swtgr"
+		gender = MALE
+
+	viking2
+		name = "Viking 2"
+		icon_state = "viking_swtgr2"
+		gender = MALE
 
 	vegeta
 		name = "Vegeta"

@@ -16,7 +16,7 @@
 #define ROLE_COMMANDO "commando"
 #define ROLE_DEATHSQUAD "deathsquad"
 #define ROLE_ERT "ert"
-#define ROLE_MERCENARY "mercenary"
+#define ROLE_MERCENARY "nuclear emergency"
 #define ROLE_NINJA "ninja"
 #define ROLE_RAIDER "raider"
 #define ROLE_WIZARD "wizard"

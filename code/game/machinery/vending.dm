@@ -673,7 +673,7 @@
 	)
 
 /obj/machinery/vending/assist/antag
-	name = "AntagCorpVend"
+	name = "SyndieVend"
 	contraband = list()
 	products = list(
 		/obj/item/device/assembly/prox_sensor = 4,
