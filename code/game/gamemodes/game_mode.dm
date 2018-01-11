@@ -54,7 +54,7 @@ var/global/list/additional_antag_types = list()
 			 new/datum/uplink_item(/obj/item/storage/box/syndie_kit/g9mm, 5, "Silenced 9mm", "S9"),
 			 new/datum/uplink_item(/obj/item/mecha_parts/mecha_equipment/weapon/energy/riggedlaser, 6, "Exosuit Rigged Laser", "RL"),
 			 new/datum/uplink_item(/obj/item/weapon/gun/projectile/revolver, 6, "Revolver", "RE"),
-			 new/datum/uplink_item(/obj/item/storage/box/syndicate, 10, "Mercenary Bundle", "BU"),
+			 new/datum/uplink_item(/obj/item/storage/box/syndicate, 10, "Syndicate Bundle", "BU"),
 			 new/datum/uplink_item(/obj/item/weapon/gun/projectile/heavysniper, 12, "Anti-materiel Rifle", "AMR"),
 			 new/datum/uplink_item(/obj/item/weapon/syndie/c4explosive, 3, "Small explosives package", "SE"),
 			 new/datum/uplink_item(/obj/item/weapon/syndie/c4explosive/heavy, 5, "Big explosives package", "BE")
