@@ -400,7 +400,7 @@
 	if (O.is_open_container())
 		return 0
 
-	if(istype(O, /obj/item/weapon/wirecutters) || istype(O, /obj/item/weapon/scalpel))
+	if(istype(O, /obj/item/weapon/wirecutters) || istype(O, /obj/item/weapon/surgical/scalpel))
 
 		if(!seed)
 			user << "There is nothing to take a sample from in \the [src]."
