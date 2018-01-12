@@ -1816,7 +1816,7 @@ var/list/WALLITEMS = list(
 	/obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers, /obj/machinery/light_switch,
 	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/machinery/embedded_controller,
 	/obj/machinery/newscaster, /obj/machinery/firealarm, /obj/structure/noticeboard, /obj/machinery/button,
-	/obj/machinery/computer/security/telescreen, /obj/machinery/keycard_auth, /obj/structure/closet/fireaxecabinet,
+	/obj/machinery/computer/security/telescreen, /obj/machinery/keycard_auth, /obj/structure/fireaxecabinet,
 	/obj/item/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/structure/mirror,
 	/obj/machinery/computer/security/telescreen/entertainment
 )
