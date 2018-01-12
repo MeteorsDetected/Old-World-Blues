@@ -142,6 +142,10 @@
 			return M
 	return 0
 
+/mob/proc/Confuse(amount)
+	confused = max(max(confused,amount),0)
+	return
+
 /mob/proc/movement_delay()
 	return 0
 
