@@ -1895,4 +1895,5 @@
 #include "maps\exodus-4.dmm"
 #include "maps\exodus-6.dmm"
 #include "maps\exodus-7.dmm"
+#include "maps\snowland.dmm"
 // END_INCLUDE
