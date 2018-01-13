@@ -1291,11 +1291,11 @@
 		/obj/item/device/assembly/signaler = 3,
 		/obj/item/weapon/tank/anesthetic = 2,
 		/obj/item/device/healthanalyzer = 3,
-		/obj/item/weapon/circular_saw = 2,
+		/obj/item/weapon/surgical/circular_saw = 2,
 		/obj/item/weapon/screwdriver = 5,
 		/obj/item/weapon/cell/high = 12,
 		/obj/item/stack/cable_coil = 4,
-		/obj/item/weapon/scalpel = 2,
+		/obj/item/weapon/surgical/scalpel = 2,
 		/obj/item/weapon/crowbar = 5,
 		/obj/item/device/flash = 4,
 	)

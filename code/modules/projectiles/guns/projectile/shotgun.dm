@@ -70,8 +70,8 @@
 
 	burst_delay = 0
 	firemodes = list(
-		list(name="fire one barrel at a time", burst=1),
-		list(name="fire both barrels at once", burst=2),
+		list(mode_name="fire one barrel at a time", burst=1),
+		list(mode_name="fire both barrels at once", burst=2),
 		)
 
 /obj/item/weapon/gun/projectile/shotgun/doublebarrel/pellet
@@ -87,7 +87,7 @@
 
 //this is largely hacky and bad :(	-Pete
 /obj/item/weapon/gun/projectile/shotgun/doublebarrel/attackby(var/obj/item/A as obj, mob/user as mob)
-	if(istype(A, /obj/item/weapon/circular_saw) || istype(A, /obj/item/weapon/melee/energy) || istype(A, /obj/item/weapon/pickaxe/plasmacutter))
+	if(istype(A, /obj/item/weapon/surgical/circular_saw) || istype(A, /obj/item/weapon/melee/energy) || istype(A, /obj/item/weapon/pickaxe/plasmacutter))
 		user << SPAN_NOTE("You begin to shorten the barrel of \the [src].")
 		if(loaded.len)
 			for(var/i in 1 to max_shells)

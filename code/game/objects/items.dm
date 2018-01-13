@@ -57,6 +57,7 @@
 	// If not set the default icon for that slot will be used.
 	// If icon_override or sprite_sheets are set they will take precendence over this.
 	var/tmp/sprite_group = null
+	var/toolspeed = 1.0 // This is a multipler on how 'fast' a tool works.  e.g. setting this to 0.5 will make the tool work twice as fast.
 
 
 	/* Species-specific sprite sheets for inventory sprites

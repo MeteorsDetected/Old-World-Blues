@@ -61,7 +61,7 @@
 	priority = 3 // Before internal organs
 
 	allowed_tools = list(
-		/obj/item/weapon/hemostat = 100,
+		/obj/item/weapon/surgical/hemostat = 100,
 		/obj/item/weapon/wirecutters = 75,
 		/obj/item/weapon/material/kitchen/utensil/fork = 20
 	)
