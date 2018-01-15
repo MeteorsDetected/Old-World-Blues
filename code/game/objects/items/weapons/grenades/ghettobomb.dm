@@ -87,7 +87,7 @@
 		if(location)
 			spawn (0)
 				new/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel(location,15,T)
-location.hotspot_expose((T20C*2) + 380,500)
+				location.hotspot_expose((T20C*2) + 380,500)
 	qdel(src)
 
 /obj/item/weapon/grenade/iedcasing/examine()
