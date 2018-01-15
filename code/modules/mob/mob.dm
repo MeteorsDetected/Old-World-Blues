@@ -142,6 +142,10 @@
 			return M
 	return 0
 
+/mob/proc/Confuse(amount)
+	confused = max(max(confused,amount),0)
+	return
+
 /mob/proc/movement_delay()
 	return 0
 
@@ -716,6 +720,10 @@
 	if(status_flags & CANWEAKEN)
 		weakened = max(amount,0)
 		update_canmove()	//updates lying, canmove and icons
+	return
+
+/mob/proc/AdjustLosebreath(amount)
+	losebreath = Clamp(0, losebreath + amount, 25)
 	return
 
 /mob/proc/AdjustWeakened(amount)

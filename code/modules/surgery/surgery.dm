@@ -1,5 +1,8 @@
 /* SURGERY STEPS */
 
+/obj/
+	var/surgery_odds = 0 // Used for tables/etc which can have surgery done of them.
+
 /datum/surgery_step
 	var/priority = 0	//steps with higher priority would be attempted first
 
@@ -84,7 +87,7 @@
 		return 0
 	var/zone = user.zone_sel.selecting
 	if(zone in M.op_stage.in_progress) //Can't operate on someone repeatedly.
-		user << "<span class='warning'>You can't operate on this area while surgery is already in progress.</span>"
+		user << SPAN_WARN("You can't operate on this area while surgery is already in progress.")
 		return 1
 	for(var/datum/surgery_step/S in surgery_steps)
 		//check if tool is right or close enough and if this step is possible
@@ -95,22 +98,34 @@
 					return 1
 				M.op_stage.in_progress += zone
 				S.begin_step(user, M, zone, src)		//start on it
-				//We had proper tools! (or RNG smiled.) and user did not move or change hands.
-				if(prob(S.tool_quality(src)) &&  do_mob(user, M, rand(S.min_duration, S.max_duration)))
-					S.end_step(user, M, zone, src)		//finish successfully
-				else if ((src in user.contents) && user.Adjacent(M))			//or
-					S.fail_step(user, M, zone, src)		//malpractice~
-				else // This failing silently was a pain.
-					user << "<span class='warning'>You must remain close to your patient to conduct surgery.</span>"
+				var/success = TRUE
+
+				// Bad tools make it less likely to succeed.
+				if(!prob(S.tool_quality(src)))
+					success = FALSE
+
+				// Bad or no surface may mean failure as well.
+				var/obj/surface = M.get_surgery_surface()
+				if(!surface || !prob(surface.surgery_odds))
+					success = FALSE
+
+				// Not staying still fails you too.
+				if(success)
+					var/calc_duration = rand(S.min_duration, S.max_duration)
+					if(!do_mob(user, M, calc_duration * toolspeed))
+						success = FALSE
+						to_chat(user, SPAN_WARN("You must remain close to your patient to conduct surgery."))
+
+				if(success)
+					S.end_step(user, M, zone, src)
+				else
+					S.fail_step(user, M, zone, src)
+
 				M.op_stage.in_progress -= zone 									// Clear the in-progress flag.
 				if (ishuman(M))
 					var/mob/living/carbon/human/H = M
 					H.update_surgery()
 				return	1	  												//don't want to do weapony things after surgery
-
-	if (user.a_intent == I_HELP)
-		user << "<span class='warning'>You can't see any useful way to use [src] on [M].</span>"
-		return 1
 	return 0
 
 /proc/sort_surgeries()

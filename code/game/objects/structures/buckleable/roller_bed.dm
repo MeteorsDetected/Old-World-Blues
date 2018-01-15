@@ -6,6 +6,7 @@
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
 	anchored = FALSE
+	surgery_odds = 75
 	can_buckle = TRUE
 	buckle_dir = SOUTH
 	buckle_lying = RIGHT

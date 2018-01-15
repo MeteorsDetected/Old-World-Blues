@@ -428,7 +428,7 @@ other types of metals and chemistry for reagents).
 	req_tech = list(TECH_BIO = 2, TECH_MATERIAL = 2, TECH_MAGNET = 2)
 	category = "Biotech"
 	materials = list(MATERIAL_STEEL = 12500, MATERIAL_GLASS = 7500)
-	build_path = /obj/item/weapon/scalpel/laser1
+	build_path = /obj/item/weapon/surgical/scalpel/laser1
 
 /datum/design/item/scalpel_laser2
 	name = "Improved Laser Scalpel"
@@ -437,7 +437,7 @@ other types of metals and chemistry for reagents).
 	req_tech = list(TECH_BIO = 3, TECH_MATERIAL = 4, TECH_MAGNET = 4)
 	category = "Biotech"
 	materials = list(MATERIAL_STEEL = 12500, MATERIAL_GLASS = 7500, MATERIAL_SILVER = 2500)
-	build_path = /obj/item/weapon/scalpel/laser2
+	build_path = /obj/item/weapon/surgical/scalpel/laser2
 
 /datum/design/item/scalpel_laser3
 	name = "Advanced Laser Scalpel"
@@ -446,7 +446,7 @@ other types of metals and chemistry for reagents).
 	req_tech = list(TECH_BIO = 4, TECH_MATERIAL = 6, TECH_MAGNET = 5)
 	category = "Biotech"
 	materials = list(MATERIAL_STEEL = 12500, MATERIAL_GLASS = 7500, MATERIAL_SILVER = 2000, MATERIAL_GOLD = 1500)
-	build_path = /obj/item/weapon/scalpel/laser3
+	build_path = /obj/item/weapon/surgical/scalpel/laser3
 
 /datum/design/item/scalpel_manager
 	name = "Incision Management System"
@@ -455,7 +455,7 @@ other types of metals and chemistry for reagents).
 	req_tech = list(TECH_BIO = 4, TECH_MATERIAL = 7, TECH_MAGNET = 5, TECH_DATA = 4)
 	category = "Biotech"
 	materials = list (MATERIAL_STEEL = 12500, MATERIAL_GLASS = 7500, MATERIAL_SILVER = 1500, MATERIAL_GOLD = 1500, MATERIAL_DIAMOND = 750)
-	build_path = /obj/item/weapon/scalpel/manager
+	build_path = /obj/item/weapon/surgical/scalpel/manager
 
 // *** Beakers (not really a subtype of design/item/medical)
 /datum/design/item/beaker/AssembleDesignName()

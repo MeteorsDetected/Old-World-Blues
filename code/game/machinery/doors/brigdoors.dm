@@ -34,17 +34,25 @@
 /obj/machinery/door_timer/New()
 	..()
 
-	for(var/obj/machinery/flasher/F in machines)
-		if(F.id == src.id)
-			targets += F
+	spawn(20)
+		for(var/obj/machinery/door/window/brigdoor/M in machines)
+			if (M.id == src.id)
+				targets += M
 
-	for(var/obj/structure/closet/secure_closet/brig/C in world)
-		if(C.id == src.id)
-			targets += C
+		for(var/obj/machinery/flasher/F in machines)
+			if(F.id == src.id)
+				targets += F
 
-	if(targets.len==0)
-		stat |= BROKEN
-	update_icon()
+		for(var/obj/structure/closet/secure_closet/brig/C in world)
+			if(C.id == src.id)
+				C.locked = 0
+				C.update_icon()
+				targets += C
+
+		if(targets.len==0)
+			stat |= BROKEN
+		update_icon()
+	return
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
 // if it's less than 0, open door, reset timer
@@ -119,7 +127,7 @@
 		if(C.broken)	continue
 		if(C.opened)	continue
 		C.locked = 0
-		C.icon_state = C.icon_closed
+		C.update_icon()
 
 	return 1
 
