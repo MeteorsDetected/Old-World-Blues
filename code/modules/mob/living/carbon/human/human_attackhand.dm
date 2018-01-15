@@ -129,7 +129,23 @@
 			return 1
 
 		if(I_HURT)
+/*
+			if(ELECTRICHANDS in M.augmentations)
 
+				visible_message("\red <B>%knownface:1% has shocked %knownface:2% with [gendertxt] bare hands!</B>", actors=list(M,src))
+				M.attack_log += text("\[[time_stamp()]\] <font color='red'>Used Electric Hands nanoaug power on [src.name] ([src.ckey])</font>")
+				src.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been shocked by [M.name] with the Electric Hands nanoaug ([M.ckey])</font>")
+
+				log_admin("ATTACK: [M.name] ([M.ckey]) used Electric Hands nanoaug on [src.name] ([src.ckey]), shocking them")
+				msg_admin_attack("ATTACK: [M.name] ([M.ckey]) used Electric Hands nanoaug on [src.name] ([src.ckey]), shocking them") //BS12 EDIT ALG
+
+				log_attack("<font color='red'>[M.name] ([M.ckey]) used Electric Hands nanoaug on [src.name]([src.ckey]), shocking them </font>")
+
+				var/armorblock = run_armor_check(M.zone_sel.selecting, "energy")
+				apply_effects(5,5,0,0,5,0,0,armorblock)
+
+				return
+*/
 			if(!istype(H))
 				attack_generic(H,rand(1,3),"punched")
 				return
