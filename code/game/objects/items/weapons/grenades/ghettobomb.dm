@@ -31,7 +31,7 @@
 
 
 
-/obj/item/weapon/grenade/iedcasing/afterattack(atom/target, mob/user , flag) //Filling up the can
+/obj/item/weapon/grenade/iedcasing/afterattack(atom/target, mob/user , flag) //Filling it with fuel!!!
 	if(assembled == 0)
 		if(istype(target, /obj/structure/reagent_dispensers/fueltank) && in_range(src, target))
 			if(target.reagents.total_volume < 50)
@@ -47,7 +47,7 @@
 			return
 
 
-/obj/item/weapon/grenade/iedcasing/attackby(var/obj/item/I, mob/user as mob) //Wiring the can for ignition
+/obj/item/weapon/grenade/iedcasing/attackby(var/obj/item/I, mob/user as mob) //Wiring in progress...
 	if(istype(I, /obj/item/stack/cable_coil))
 		if(assembled == 1)
 			var/obj/item/stack/cable_coil/C = I
@@ -60,7 +60,7 @@
 			active = 0
 			det_time = rand(30,80)
 
-/obj/item/weapon/grenade/iedcasing/attack_self(mob/user as mob) //
+/obj/item/weapon/grenade/iedcasing/attack_self(mob/user as mob) //Bombing
 	if(!active)
 		if(clown_check(user))
 			user << "<span class='warning'>You light the [name]!</span>"
@@ -80,17 +80,9 @@
 			spawn(det_time)
 				prime()
 
-/obj/item/weapon/grenade/iedcasing/prime() //Blowing that can up
+/obj/item/weapon/grenade/iedcasing/prime() //Blowing IED
 	update_mob()
 	explosion(src.loc,-1,0,2)
-<<<<<<< HEAD
-	var/turf/simulated/floor/location = get_turf(src)
-		if(location)
-			spawn (0)
-				new/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel(location,15,T)
-				location.hotspot_expose((T20C*2) + 380,500)
-=======
->>>>>>> parent of 4951af9d... Update ghettobomb.dm
 	qdel(src)
 
 /obj/item/weapon/grenade/iedcasing/examine()
