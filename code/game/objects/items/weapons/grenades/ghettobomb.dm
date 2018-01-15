@@ -83,11 +83,14 @@
 /obj/item/weapon/grenade/iedcasing/prime() //Blowing that can up
 	update_mob()
 	explosion(src.loc,-1,0,2)
+<<<<<<< HEAD
 	var/turf/simulated/floor/location = get_turf(src)
 		if(location)
 			spawn (0)
 				new/obj/effect/decal/cleanable/liquid_fuel/flamethrower_fuel(location,15,T)
 				location.hotspot_expose((T20C*2) + 380,500)
+=======
+>>>>>>> parent of 4951af9d... Update ghettobomb.dm
 	qdel(src)
 
 /obj/item/weapon/grenade/iedcasing/examine()
