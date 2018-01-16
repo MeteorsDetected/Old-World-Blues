@@ -1,3 +1,5 @@
+#define PROCESS_ACCURACY 10
+
 /obj/item/organ/internal/appendix
 	name = "appendix"
 	icon_state = "appendix"
@@ -16,6 +18,8 @@
 	return 0
 
 /obj/item/organ/internal/appendix/process()
+	..()
+
 	if(!inflamed || !owner)
 		return
 

@@ -19,7 +19,7 @@
 
 /datum/surgery_step/eye/cut_open
 	allowed_tools = list(
-		/obj/item/weapon/scalpel = 100,
+		/obj/item/weapon/surgical/scalpel = 100,
 		/obj/item/weapon/material/knife = 75,
 		/obj/item/weapon/material/shard = 50
 	)
@@ -57,7 +57,7 @@
 
 /datum/surgery_step/eye/lift_eyes
 	allowed_tools = list(
-		/obj/item/weapon/retractor = 100,
+		/obj/item/weapon/surgical/retractor = 100,
 		/obj/item/weapon/material/kitchen/utensil/fork = 50
 	)
 
@@ -93,7 +93,7 @@
 
 /datum/surgery_step/eye/mend_eyes
 	allowed_tools = list(
-		/obj/item/weapon/hemostat = 100,
+		/obj/item/weapon/surgical/hemostat = 100,
 		/obj/item/stack/cable_coil = 75,
 		/obj/item/device/assembly/mousetrap = 10	//I don't know. Don't ask me. But I'm leaving it because hilarity.
 	)
@@ -130,7 +130,7 @@
 
 /datum/surgery_step/eye/cauterize
 	allowed_tools = list(
-		/obj/item/weapon/cautery = 100,
+		/obj/item/weapon/surgical/cautery = 100,
 		/obj/item/clothing/mask/smokable/cigarette = 75,
 		/obj/item/weapon/flame/lighter = 50,
 		/obj/item/weapon/weldingtool = 25
