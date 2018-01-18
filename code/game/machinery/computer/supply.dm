@@ -148,6 +148,9 @@
 		var/reason = cp1251_to_utf8( sanitize(input(usr,"Reason:","Why do you require this item?","") as null|text,MAX_MESSAGE_LEN,1) )
 		if(world.time > timeout)	return
 		if(!reason)	return
+		if(shuttle.has_arrive_time())
+			to_chat(usr,"You can not make orders during the shuttle flight!")
+			return
 
 		var/idname = "*None Provided*"
 		var/idrank = "*None Provided*"

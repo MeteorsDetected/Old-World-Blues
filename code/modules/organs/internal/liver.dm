@@ -1,27 +1,19 @@
+#define PROCESS_ACCURACY 10
+
 /obj/item/organ/internal/liver
 	name = "liver"
 	icon_state = "liver"
-	organ_tag = O_LIVER
+	organ_tag = "liver"
 	parent_organ = BP_GROIN
 
 /obj/item/organ/internal/liver/process()
-
 	..()
-
-	if(!owner)
-		return
-
-	if (germ_level > INFECTION_LEVEL_ONE)
-		if(prob(1))
-			owner << SPAN_DANG("Your skin itches.")
-	if (germ_level > INFECTION_LEVEL_TWO)
-		if(prob(1))
-			spawn owner.vomit()
+	if(!owner) return
 
 	if(owner.life_tick % PROCESS_ACCURACY == 0)
 
 		//High toxins levels are dangerous
-		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("anti_toxin"))
+		if(owner.getToxLoss() >= 50 && !owner.reagents.has_reagent("anti_toxin"))
 			//Healthy liver suffers on its own
 			if (src.damage < min_broken_damage)
 				src.damage += 0.2 * PROCESS_ACCURACY
@@ -37,20 +29,31 @@
 
 		if(src.damage < 0)
 			src.damage = 0
-/*
+
 		// Get the effectiveness of the liver.
 		var/filter_effect = 3
 		if(is_bruised())
 			filter_effect -= 1
 		if(is_broken())
 			filter_effect -= 2
-*/
-		// Damaged liver means some chemicals are very dangerous
-		if(src.damage >= src.min_bruised_damage)
-			for(var/datum/reagent/R in owner.reagents.reagent_list)
-				// Ethanol and all drinks are bad
-				if(istype(R, /datum/reagent/ethanol))
-					owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
-				// Can't cope with toxins at all
-				if(istype(R, /datum/reagent/toxin))
-					owner.adjustToxLoss(0.3 * PROCESS_ACCURACY)
+
+		// Do some reagent processing.
+		if(owner.chem_effects[CE_ALCOHOL_TOXIC])
+			take_damage(owner.chem_effects[CE_ALCOHOL_TOXIC] * 0.1 * PROCESS_ACCURACY, prob(1)) // Chance to warn them
+			if(filter_effect < 2)	//Liver is badly damaged, you're drinking yourself to death
+				owner.adjustToxLoss(owner.chem_effects[CE_ALCOHOL_TOXIC] * 0.2 * PROCESS_ACCURACY)
+			if(filter_effect < 3)
+				owner.adjustToxLoss(owner.chem_effects[CE_ALCOHOL_TOXIC] * 0.1 * PROCESS_ACCURACY)
+
+/obj/item/organ/internal/liver/handle_germ_effects()
+	. = ..() //Up should return an infection level as an integer
+	if(!.) return
+
+	//Pyogenic Abscess
+	if (. >= 1)
+		if(prob(1))
+			owner.custom_pain("There's a sharp pain in your upper-right abdomen!",1)
+	if (. >= 2)
+		if(prob(1) && owner.getToxLoss() < owner.getMaxHealth()*0.3)
+			//owner << "" //Toxins provide their own messages for pain
+			owner.adjustToxLoss(5) //Not realistic to PA but there are basically no 'real' liver infections

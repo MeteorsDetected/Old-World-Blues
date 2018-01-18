@@ -19,8 +19,8 @@
 		var/datum/disease2/effect/f = e
 		if(e in exclude_types)
 			continue
-		if(initial(f.badness) > badness)	//we don't want such strong effects
-			continue
+//		if(initial(f.badness) > badness)	//we don't want such strong effects
+//			continue
 		if(initial(f.stage) <= src.stage)
 			list += f
 	var/type = pick(list)

@@ -722,6 +722,10 @@
 		update_canmove()	//updates lying, canmove and icons
 	return
 
+/mob/proc/AdjustLosebreath(amount)
+	losebreath = Clamp(0, losebreath + amount, 25)
+	return
+
 /mob/proc/AdjustWeakened(amount)
 	if(status_flags & CANWEAKEN)
 		weakened = max(weakened + amount,0)
