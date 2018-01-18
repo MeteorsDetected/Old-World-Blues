@@ -8,4 +8,4 @@
 
 ## Помощь в разработке
 
-[CONTRIBUTING.md](CONTRIBUTING.md)
+[CONTRIBUTING.md](.github/CONTRIBUTING.md)
