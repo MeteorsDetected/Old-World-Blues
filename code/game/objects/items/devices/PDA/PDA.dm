@@ -608,7 +608,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				else if(mode >= 40 && mode <= 49)//Fix for cartridges. Redirects to refresh the menu.
 					cartridge.mode = mode
 		if ("Authenticate")//Checks for ID
-			id_check(U, 1)
+			if (id)
+				remove_id()
+			else
+				var/obj/item/I = user.get_active_hand()
+				if (istype(I, /obj/item/weapon/card/id))
+					src.attackby(I, src)
 		if("UpdateInfo")
 			ownjob = id.assignment
 			ownrank = id.rank
@@ -639,12 +644,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 //MAIN FUNCTIONS===================================
 
 		if("Light")
-			if(fon)
-				fon = 0
+			fon = !fon
+			if(!fon)
 				set_light(0)
 			else
-				fon = 1
 				set_light(f_lum)
+			update_icon()
 		if("Medical Scan")
 			if(scanmode == 1)
 				scanmode = 0
@@ -873,8 +878,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	..()
 
 	overlays.Cut()
+	if(fon)
+		overlays += "light_on"
 	if(new_message || new_news)
-		overlays += image('icons/obj/pda.dmi', "pda-r")
+		overlays += "pda-r"
+	if(id)
+		overlays += id.icon_state
 
 /obj/item/device/pda/proc/detonate_act(var/obj/item/device/pda/P)
 	//TODO: sometimes these attacks show up on the message server
@@ -948,13 +957,14 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda/proc/remove_id()
 	if(id)
-		if (ismob(loc))
+		if(ismob(loc))
 			var/mob/M = loc
 			M.put_in_hands(id)
 			usr << SPAN_NOTE("You remove the ID from the [name].")
 		else
-			id.loc = get_turf(src)
+			id.forceMove(get_turf(src))
 		id = null
+		update_icon()
 
 /obj/item/device/pda/proc/create_message(var/mob/living/U = usr, var/obj/item/device/pda/P, var/tap = 1)
 	if(tap)
@@ -1134,7 +1144,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			var/mob/M = loc
 			M.put_in_hands(cartridge)
 		else
-			cartridge.loc = get_turf(src)
+			cartridge.forceMove(get_turf(src))
 		mode = 0
 		scanmode = 0
 		if (cartridge.radio)
@@ -1144,26 +1154,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	else
 		usr << SPAN_NOTE("You cannot do this while restrained.")
 
-/obj/item/device/pda/proc/id_check(mob/user as mob, choice as num)//To check for IDs; 1 for in-pda use, 2 for out of pda use.
-	if(choice == 1)
-		if (id)
-			remove_id()
-		else
-			var/obj/item/I = user.get_active_hand()
-			if (istype(I, /obj/item/weapon/card/id))
-				user.drop_from_inventory(I, src)
-				id = I
-	else
-		var/obj/item/weapon/card/id/I = user.get_active_hand()
-		if (istype(I, /obj/item/weapon/card/id) && I.registered_name)
-			var/obj/old_id = id
-			user.drop_from_inventory(I, src)
-			id = I
-			user.put_in_hands(old_id)
-	return
-
 // access to status display signals
-/obj/item/device/pda/attackby(obj/item/C as obj, mob/user as mob)
+/obj/item/device/pda/attackby(obj/item/C, mob/living/user)
 	..()
 	if(istype(C, /obj/item/weapon/cartridge) && !cartridge)
 		cartridge = C
@@ -1185,12 +1177,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			name = "PDA-[owner] ([ownjob])"
 			user << SPAN_NOTE("Card scanned.")
 		else
-			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
-			if(((src in user.contents) && (C in user.contents)) || (istype(loc, /turf) && in_range(src, user) && (C in user.contents)) )
-				id_check(user, 2)
+			var/obj/old_id = id
+			if(user.unEquip(idcard, src))
+				id = idcard
+				update_icon()
+				user.put_in_hands(old_id)
 				user << SPAN_NOTE("You put the ID into \the [src]'s slot.")
-				updateSelfDialog()//Update self dialog on success.
-			return	//Return in case of failed check or when successful.
 		updateSelfDialog()//For the non-input related code.
 	else if(istype(C, /obj/item/device/paicard) && !src.pai)
 		user.drop_from_inventory(C, src)
@@ -1203,9 +1195,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			user << SPAN_NOTE("There is already a pen in \the [src].")
 		else if(user.unEquip(C, src))
 			user << SPAN_NOTE("You slide \the [C] into \the [src].")
-	return
 
-/obj/item/device/pda/attack(mob/living/C as mob, mob/living/user as mob)
+/obj/item/device/pda/attack(mob/living/C, mob/living/user)
 	if (iscarbon(C))
 		switch(scanmode)
 			if(1)
