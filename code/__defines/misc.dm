@@ -128,7 +128,10 @@
     locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
 )
 
-#define LIST_OF_CONSONANT list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z","á","â","ã","ä","æ","ç","é","ê","ë","ì","í","ï","ð","ñ","ò","ô","õ","ö","÷","ø","ù")
+#define LIST_OF_CONSONANT list(\
+	"b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z",\
+	"á","â","ã","ä","æ","ç","é","ê","ë","ì","í","ï","ð","ñ","ò","ô","õ","ö","÷","ø","ù"\
+)
 
 //Grid for Item Placement
 #define CELLS 8								//Amount of cells per row/column in grid

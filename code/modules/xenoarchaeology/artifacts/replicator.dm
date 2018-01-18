@@ -40,7 +40,7 @@
 		/obj/item/device/radio,\
 		/obj/item/device/radio/headset,\
 		/obj/item/device/radio/beacon,\
-		/obj/item/weapon/autopsy_scanner,\
+		/obj/item/device/autopsy_scanner,\
 		/obj/item/weapon/bikehorn,\
 		/obj/item/weapon/bonesetter,\
 		/obj/item/weapon/material/knife/butch,\

@@ -38,6 +38,23 @@
 	containertype = /obj/structure/closet/crate
 	containername = "Mechanical maintenance crate"
 
+/datum/supply_packs/eng/cloths
+	name = "Cloths pack"
+	contains = list(
+		/obj/item/stack/material/cloth/cotton/full,
+		/obj/item/stack/material/cloth/teal/full,
+		/obj/item/stack/material/cloth/black/full,
+		/obj/item/stack/material/cloth/green/full,
+		/obj/item/stack/material/cloth/purple/full,
+		/obj/item/stack/material/cloth/blue/full,
+		/obj/item/stack/material/cloth/red/full,
+		/obj/item/stack/material/cloth/beige/full,
+		/obj/item/stack/material/cloth/lime/full
+	)
+	cost = 20
+	containertype = /obj/structure/closet/crate
+	containername = "Cloth pack crate"
+
 /datum/supply_packs/eng/fueltank
 	name = "Fuel tank crate"
 	contains = list(/obj/structure/reagent_dispensers/fueltank)

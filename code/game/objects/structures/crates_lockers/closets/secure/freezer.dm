@@ -1,7 +1,6 @@
 /obj/structure/closet/secure_closet/freezer
 	icon_state = "fridge"
 	icon_opened = "fridgeopen"
-	icon_broken = "fridgebroken"
 
 /obj/structure/closet/secure_closet/freezer/kitchen
 	name = "kitchen cabinet"

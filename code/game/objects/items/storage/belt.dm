@@ -160,7 +160,7 @@
 		/obj/item/weapon/photo,
 		/obj/item/device/camera_film,
 		/obj/item/device/camera,
-		/obj/item/weapon/autopsy_scanner,
+		/obj/item/device/autopsy_scanner,
 		/obj/item/device/mass_spectrometer,
 		/obj/item/clothing/accessory/badge,
 		/obj/item/device/reagent_scanner,

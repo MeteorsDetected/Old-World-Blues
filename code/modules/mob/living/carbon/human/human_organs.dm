@@ -65,7 +65,7 @@
 	stance_damage = 0
 
 	// Buckled to a bed/chair. Stance damage is forced to 0 since they're sitting on something solid
-	if (istype(buckled, /obj/structure/bed))
+	if (istype(buckled, /obj/structure/material/bed))
 		return
 
 	for(var/limb_tag in list(BP_L_LEG,BP_R_LEG,BP_L_FOOT,BP_R_FOOT))

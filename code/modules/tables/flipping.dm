@@ -25,7 +25,7 @@
 		usr << SPAN_NOTE("It won't budge.")
 		return
 
-	usr.visible_message("<span class='warning'>[usr] flips \the [src]!</span>")
+	usr.visible_message(SPAN_WARN("[usr] flips \the [src]!"))
 
 	if(climbable)
 		structure_shaken()

@@ -12,6 +12,10 @@
 	verbs -= /obj/structure/table/verb/do_flip
 	verbs -= /obj/structure/table/proc/do_put
 
+/obj/structure/table/rack/initialize()
+	..()
+	auto_align()
+
 /obj/structure/table/rack/update_connections()
 	return
 
@@ -22,5 +26,5 @@
 	return
 
 /obj/structure/table/rack/holorack/dismantle(obj/item/weapon/wrench/W, mob/user)
-	user << "<span class='warning'>You cannot dismantle \the [src].</span>"
+	user << SPAN_WARN("You cannot dismantle \the [src].")
 	return

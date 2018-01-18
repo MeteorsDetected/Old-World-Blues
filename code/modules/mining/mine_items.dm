@@ -4,7 +4,6 @@
 	name = "miner's equipment"
 	icon_state = "miningsec"
 	icon_opened = "miningsecopen"
-	icon_broken = "miningsecbroken"
 	req_access = list(access_mining)
 
 /obj/structure/closet/secure_closet/miner/New()

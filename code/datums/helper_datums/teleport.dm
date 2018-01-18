@@ -108,7 +108,7 @@
 
 	playSpecials(curturf,effectin,soundin)
 
-	var/obj/structure/bed/chair/C = null
+	var/obj/structure/material/chair/C = null
 	if(isliving(teleatom))
 		var/mob/living/L = teleatom
 		if(L.buckled)
