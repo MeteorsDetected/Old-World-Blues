@@ -45,41 +45,6 @@
 			return 1
 		return 0
 
-/obj/item/weapon/implant/nanoaug/electrichands
-	name = "Electric Hands"
-	augmentation = ELECTRICHANDS
-	augment_text = "You feel a sudden jolt of electricity pulse through your veins. Arcs of electricity travel through your hands."
-
-/obj/item/weapon/implant/nanoaug/eswordsynth
-	name = "Energy Blade Synthesizer"
-	augmentation = ESWORDSYNTH
-	augment_text = "Your hands throb and pulsate. They feel sharper, and strangely hot."
-
-	implanted(mob/M)
-		if(..())
-			activation_emote = pick("blink", "blink_r", "eyebrow", "chuckle", "twitch_s", "frown", "nod", "blush", "giggle", "grin", "groan", "shrug", "smile", "pale", "sniff", "whimper", "wink")
-			M.mind.store_memory("Freedom nanoaugmentation can be activated by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate.", 0, 0)
-			M << "The nanoaugmentation implant can be activated by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate."
-			return 1
-		return 0
-
-	trigger(emote, source as mob)
-		if(emote == activation_emote)
-			src.activate(source)
-		return
-
-	activate(var/mob/source)
-
-		var/obj/item/weapon/melee/energy/sword/swordspawn = new /obj/item/weapon/melee/energy/sword
-		if(!source.get_active_hand())
-			source.put_in_hands(swordspawn)
-
-		var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
-		spark_system.set_up(5, 0, source.loc)
-		spark_system.start()
-		playsound(source.loc, "sparks", 50, 1)
-		..()
-
 /obj/item/weapon/implant/nanoaug/rebreather
 	name = "Bioelectric Rebreather"
 	augmentation = REBREATHER
@@ -105,35 +70,12 @@
 	name = "Nanoaugmentation Implanter (Empty)"
 	icon_state = "nanoimplant"
 
-/obj/item/weapon/implanter/nanoaug/update_icon()
-	if (src.imp)
-		src.icon_state = "nanoimplant"
-	else
-		src.icon_state = "nanoimplant0"
-	return
-
 
 /obj/item/weapon/implanter/nanoaug/radar
 	name = "Nanoaugmentation Implaner (Short-range Psionic Radar)"
 
 /obj/item/weapon/implanter/nanoaug/radar/New()
 	src.imp = new /obj/item/weapon/implant/nanoaug/radar( src )
-	..()
-	update_icon()
-
-/obj/item/weapon/implanter/nanoaug/electrichands
-	name = "Nanoaugmentation Implaner (Electric Hands)"
-
-/obj/item/weapon/implanter/nanoaug/electrichands/New()
-	src.imp = new /obj/item/weapon/implant/nanoaug/electrichands( src )
-	..()
-	update_icon()
-
-/obj/item/weapon/implanter/nanoaug/eswordsynth
-	name = "Nanoaugmentation Implaner (Energy Blade Synthesizer)"
-
-/obj/item/weapon/implanter/nanoaug/eswordsynth/New()
-	src.imp = new /obj/item/weapon/implant/nanoaug/eswordsynth( src )
 	..()
 	update_icon()
 

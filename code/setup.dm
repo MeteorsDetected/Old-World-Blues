@@ -72,8 +72,6 @@
 
 	// Nanoaugmentations:
 #define RADAR			"Radar" 	// on-screen mob radar
-#define ELECTRICHANDS		"EHands" 	// electric hands
-#define ESWORDSYNTH		"Sword" 	// esword synthesizer
 #define REBREATHER		"Rebreather" 	// removes the need to breathe
 #define DERMALARMOR		"Armor" 	// 35% damage decrease
 #define REFLEXES		"Reflexes" 	// dodge 50% of projectiles
