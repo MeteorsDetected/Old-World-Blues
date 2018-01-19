@@ -4,7 +4,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/fish
 	name = "fish"
 	desc = "dat fish"
-	icon = 'icons/obj/fishing.dmi'
+	icon = 'icons/obj/snowy_event/fishing.dmi'
 	icon_state = "dat_fish"
 	w_class = ITEM_SIZE_TINY
 	var/size
@@ -57,7 +57,6 @@
 /obj/item/weapon/reagent_containers/food/snacks/fish/space_dolphin
 	name = "space dolphin"
 	desc = "Small fish with blue soft glistening scales. You can see how she smiles."
-	icon = 'icons/obj/fishing.dmi'
 	icon_state = "space_dolphin"
 	minSize = 40
 	maxSize = 150
@@ -74,7 +73,6 @@
 /obj/item/weapon/reagent_containers/food/snacks/fish/space_shellfish
 	name = "space shellfish"
 	desc = "Small fish with big head and some shells on her neck. She look little chubby."
-	icon = 'icons/obj/fishing.dmi'
 	icon_state = "space_shellfish"
 	minSize = 70
 	maxSize = 220
@@ -91,7 +89,6 @@
 /obj/item/weapon/reagent_containers/food/snacks/fish/space_torped_shark
 	name = "space torped shark"
 	desc = "Small fish with grumpy head and gray colors."
-	icon = 'icons/obj/fishing.dmi'
 	icon_state = "space_torped_shark"
 	minSize = 120
 	maxSize = 340
@@ -108,7 +105,6 @@
 /obj/item/weapon/reagent_containers/food/snacks/fish/space_catfish
 	name = "space catfish"
 	desc = "Small chubby fish with whiskers on head and silk like fur at belly."
-	icon = 'icons/obj/fishing.dmi'
 	icon_state = "space_catfish"
 	minSize = 80
 	maxSize = 210

@@ -29,13 +29,14 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 /obj/item/weapon/hook
 	desc = "Small fishing hook for a small fish. 11."
 	name = "fishing hook 11"
-	icon = 'icons/obj/fishing.dmi'
+	icon = 'icons/obj/snowy_event/fishing.dmi'
 	icon_state = "hook"
 	force = 3.0
 	throwforce = 6.0
 	throw_speed = 8
 	throw_range = 10
 	w_class = 1.0
+	w_class = ITEM_SIZE_TINY
 	var/addChance = 5
 	attack_verb = list("hooked", "cutted")
 
@@ -43,14 +44,14 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 /obj/item/weapon/fishing_line
 	desc = "Thin fishing line for a small fish."
 	name = "fishing line(0.3mm)"
-	icon = 'icons/obj/fishing.dmi'
+	icon = 'icons/obj/snowy_event/fishing.dmi'
 	icon_state = "fishing_line"
 	var/length = 50
 	force = 3.0
 	throwforce = 2.0
 	throw_speed = 5
 	throw_range = 6
-	w_class = 1.0
+	w_class = ITEM_SIZE_TINY
 	var/addChance = 5
 	attack_verb = list("whiped", "slapped")
 
@@ -77,7 +78,7 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 /obj/item/weapon/fishing_tackle
 	desc = "Fishing tackle."
 	name = "fishing tackle"
-	icon = 'icons/obj/fishing.dmi'
+	icon = 'icons/obj/snowy_event/fishing.dmi'
 	icon_state = "tackle"
 	var/obj/item/weapon/hook/hook = null
 	var/obj/item/weapon/fishing_line/fishing_line = null
@@ -93,7 +94,7 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 	throwforce = 6.0
 	throw_speed = 8
 	throw_range = 10
-	w_class = 2.0
+	w_class = ITEM_SIZE_SMALL
 	attack_verb = list("hooked up", "cutted down")
 
 	New()
@@ -271,3 +272,20 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 			return
 		M << SPAN_NOTE("Still vibrates!")
 
+
+/obj/structure/ice_hole
+	name = "hole"
+	desc = "You can see dark water. Sometimes something moving."
+	icon = 'icons/obj/snowy_event/fishing.dmi'
+	icon_state = "hole"
+	anchored = 1
+	var/list/tackles = list() //For overlay updating
+
+/obj/structure/ice_hole/update_icon()
+	overlays.Cut()
+	for(var/obj/O in tackles)
+		var/d = get_dir(src.loc, O.loc) //need nums
+		overlays += "fishing_line-[d]"
+
+/obj/structure/ice_hole/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	//blank space. Just to prevent hit message
