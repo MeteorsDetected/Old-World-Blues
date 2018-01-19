@@ -11,6 +11,7 @@
 	slot_flags = SLOT_BELT
 	var/active = 0
 	var/det_time = 50
+	var/display_timer = 1
 /obj/item/weapon/grenade/proc/clown_check(var/mob/living/user)
 	return 1 // Allows to use grenades at all
 	//TODO: DNA3 clown_block
