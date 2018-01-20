@@ -15,7 +15,9 @@
 		"Space Title1" = 'sound/music/title1.ogg',
 		"Space Title2" = 'sound/music/title2.ogg',
 		"Space Traitor" = 'sound/music/traitor.ogg',
-		"Space Undertale" = 'sound/music/undertale.ogg'
+		"Space Undertale" = 'sound/music/undertale.ogg',
+		"Nightcall" = 'sound/music/Nightcall.ogg'
+
 	)
 
 /obj/item/device/player/New(var/obj/item/holder)
