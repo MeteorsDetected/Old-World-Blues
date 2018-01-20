@@ -16,7 +16,19 @@
 		"Space Title2" = 'sound/music/title2.ogg',
 		"Space Traitor" = 'sound/music/traitor.ogg',
 		"Space Undertale" = 'sound/music/undertale.ogg',
-		"Nightcall" = 'sound/music/Nightcall.ogg'
+		"Caravan Palace-Lone_Digger" = 'sound/jukebox/Caravan_Palace_-Lone_Digger.ogg',
+		"club afterlife-callista_omega" = 'sound/jukebox/club_afterlife-callista_omega.ogg',
+		"dvar hishmaliin" = 'sound/jukebox/dvar_hishmaliin.ogg',
+		"gay bar" = 'sound/jukebox/gay_bar.ogg',
+		"Judge Bitch" = 'sound/jukebox/Judge_Bitch.ogg',
+		"Keep Feeling" = 'sound/jukebox/Keep_Feeling.ogg',
+		"lovesong" = 'sound/jukebox/lovesong.ogg',
+		"magic_fly" = 'sound/jukebox/magic_fly.ogg',
+		"Old_Friends" = 'sound/jukebox/Old_Friends.ogg',
+		"See You Tomorrow" = 'sound/jukebox/See_You_Tomorrow.ogg',
+		"Somebody to Love" = 'sound/jukebox/Somebody_to_Love.ogg',
+		"TheManWhoSoldTheWorld" = 'sound/jukebox/TheManWhoSoldTheWorld.ogg',
+		"Turf" = 'sound/jukebox/Turf.ogg',
 
 	)
 

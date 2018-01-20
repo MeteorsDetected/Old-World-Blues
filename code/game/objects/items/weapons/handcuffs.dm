@@ -211,7 +211,7 @@
 /*
 /obj/item/weapon/handcuffs/tape_dispenser
 	name = "tape restraints"
-	cuff_sound = 'sound/weapons/tapecuff.wav'
+	cuff_sound = 'sound/weapons/tapecuff.ogg'
 	desc = "A few pieces of tape glued together. It looks unreliable."
 	icon_state = "tapecuffs"
 	dispensed_type = /obj/item/weapon/handcuffs/tape
