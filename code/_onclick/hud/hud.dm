@@ -1,3 +1,5 @@
+#define ui_action_slots "1,NORTH-[pos]"
+
 /*
 	The global hud:
 	Uses the same visual objects for all players.
@@ -268,6 +270,13 @@ datum/hud/New(mob/owner)
 
 	if(ishuman(mymob))
 		human_hud(ui_style, ui_color, ui_alpha, mymob) // Pass the player the UI style chosen in preferences
+		if(RADAR in mymob.augmentations)
+			spawn()
+				if(mymob.radar_open)
+					mymob:start_radar()
+				else
+					mymob:place_radar_closed()
+
 	else if(issmall(mymob))
 		monkey_hud(ui_style)
 	else if(isbrain(mymob))
