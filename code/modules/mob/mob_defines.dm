@@ -147,6 +147,9 @@
 	var/datum/dna/dna = null//Carbon
 	var/radiation = 0.0//Carbon
 
+	var/list/augmentations = list() //Carbon -- Doohl
+	//see: setup.dm for list of augmentations
+
 	var/voice_name = "unidentifiable voice"
 
 	var/faction = "neutral" //Used for checking whether hostile simple animals will attack you, possibly more stuff later
@@ -154,6 +157,9 @@
 
 //The last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)
 	var/mob/living/carbon/LAssailant = null
+
+	var/tmp/list/radar_blips = list() // list of screen objects, radar blips
+	var/radar_open = 0 	// nonzero is radar is open
 
 //Wizard mode, but can be used in other modes thanks to the brand new "Give Spell" badmin button
 	var/spell/list/spell_list = list()

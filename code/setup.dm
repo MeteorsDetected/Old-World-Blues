@@ -68,6 +68,15 @@
 #define STAGE_FIVE	9
 #define STAGE_SUPER	11
 
+// mob/var/list/augmentations
+
+	// Nanoaugmentations:
+#define RADAR			"Radar" 	// on-screen mob radar
+#define REBREATHER		"Rebreather" 	// removes the need to breathe
+#define DERMALARMOR		"Armor" 	// 35% damage decrease
+#define REFLEXES		"Reflexes" 	// dodge 50% of projectiles
+#define NANOREGEN		"Regen" 	// regenerative nanobots, -3 all damage types per second
+
 
 #define WALL_CAN_OPEN 1
 #define WALL_OPENING 2
