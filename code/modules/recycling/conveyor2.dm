@@ -190,7 +190,7 @@
 		user << "<span class='warning'>Access denied.</span>"
 		return
 
-	playsound(user,'sound/machines/Conveyor_switch.wav',100,1)
+	playsound(user,'sound/machines/Conveyor_switch.ogg',100,1)
 
 	if(position == 0)
 		if(last_pos < 0)
@@ -218,7 +218,7 @@
 
 // attack with hand, switch position
 /obj/machinery/conveyor_switch/oneway/attack_hand(mob/user)
-	playsound(user,'sound/machines/Conveyor_switch.wav',100,1)
+	playsound(user,'sound/machines/Conveyor_switch.ogg',100,1)
 	if(position == 0)
 		position = convdir
 	else

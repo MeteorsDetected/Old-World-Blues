@@ -38,7 +38,7 @@
 
 			var/turf/p_loc = user.loc
 			var/turf/p_loc_m = C.loc
-			playsound(src.loc, 'sound/weapons/tapecuff.wav', 30, 1, -2)
+			playsound(src.loc, 'sound/weapons/tapecuff.ogg', 30, 1, -2)
 			user.visible_message("\red <B>[user] is trying to close up [C]'s mouth with [src]!</B>")
 
 			if (ishuman(C))
