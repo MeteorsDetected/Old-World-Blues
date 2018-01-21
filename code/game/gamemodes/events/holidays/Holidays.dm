@@ -42,25 +42,14 @@ var/global/Holiday = null
 			switch(DD)
 				if(14)							Holiday = "Pi Day"
 				if(17)							Holiday = "St. Patrick's Day"
-				if(27)
-					if(YY == 16)
-						Holiday = "Easter"
-				if(31)
-					if(YY == 13)
-						Holiday = "Easter"
 
 		if(4)	//Apr
 			switch(DD)
 				if(1)
 					Holiday = "April Fool's Day"
 					if(YY == 18 && prob(50)) 	Holiday = "Easter"
-				if(5)
-					if(YY == 15)				Holiday = "Easter"
-				if(16)
-					if(YY == 17)				Holiday = "Easter"
 				if(20)
 					Holiday = "Four-Twenty"
-					if(YY == 14 && prob(50))	Holiday = "Easter"
 				if(22)							Holiday = "Earth Day"
 
 		if(5)	//May
@@ -105,8 +94,7 @@ var/global/Holiday = null
 			switch(DD)
 				if(10)							Holiday = "Human-Rights Day"
 				if(14)							Holiday = "Monkey Day"
-				if(21)							if(YY==12)	Holiday = "End of the World"
-				if(22)							Holiday = "Orgasming Day"		//lol. These all actually exist
+				if(22)							Holiday = "Orgasming Day"	//lol. These all actually exist
 				if(24)							Holiday = "Christmas Eve"
 				if(25)							Holiday = "Christmas"
 				if(26)							Holiday = "Boxing Day"
@@ -118,12 +106,14 @@ var/global/Holiday = null
 			if(time2text(world.timeofday, "DDD") == "Fri")
 				Holiday = "Friday the 13th"
 
+ADMIN_VERB_ADD(/client/proc/Set_Holiday, R_SERVER)
 //Allows GA and GM to set the Holiday variable
 /client/proc/Set_Holiday(T as text|null)
 	set name = ".Set Holiday"
 	set category = "Fun"
 	set desc = "Force-set the Holiday variable to make the game think it's a certain day."
-	if(!check_rights(R_SERVER))	return
+	if(!check_rights(R_SERVER))
+		return
 
 	Holiday = T
 	//get a new station name
@@ -146,8 +136,6 @@ var/global/Holiday = null
 				//do easter stuff
 			if("Christmas Eve","Christmas")
 				Christmas_Game_Start()
-
-	return
 
 //Nested in the random events loop. Will be triggered every 2 minutes
 /proc/Holiday_Random_Event()
@@ -174,8 +162,7 @@ var/global/Holiday = null
 				containers += S
 
 			message_admins(SPAN_NOTE("DEBUG: Event: Egg spawned at [Egg.loc] ([Egg.x],[Egg.y],[Egg.z])"))*/
-		if("End of the World")
-			if(prob(eventchance))	GameOver()
+
 
 		if("Christmas","Christmas Eve")
 			if(prob(eventchance))	ChristmasEvent()

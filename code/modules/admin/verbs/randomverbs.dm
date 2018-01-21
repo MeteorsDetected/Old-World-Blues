@@ -39,6 +39,8 @@
 			M << "\red You have been sent to the prison station!"
 		log_admin("[key_name(usr)] sent [key_name(M)] to the prison station.", M)
 
+ADMIN_VERB_ADD(/client/proc/cmd_admin_subtle_message, R_ADMIN|R_MOD)
+/*send an message to somebody as a 'voice in their head'*/
 /client/proc/cmd_admin_subtle_message(mob/M as mob in mob_list)
 	set category = "Special Verbs"
 	set name = "Subtle Message"
@@ -59,7 +61,9 @@
 
 	log_admin("SubtlePM: [key_name(usr)] -> [key_name(M)] : [msg]", M)
 
-/client/proc/check_new_players()	//Allows admins to determine who the newer players are.
+ADMIN_VERB_ADD(/client/proc/check_new_players, null)
+/*Allows admins to determine who the newer players are.*/
+/client/proc/check_new_players()
 	set category = "Admin"
 	set name = "Check new Players"
 	if(!holder)
@@ -91,7 +95,10 @@
 		src << "No matches for that age range found."
 
 
-/client/proc/cmd_admin_world_narrate() // Allows administrators to fluff events a little easier -- TLE
+// Allows administrators to fluff events a little easier -- TLE
+ADMIN_VERB_ADD(/client/proc/cmd_admin_world_narrate, R_ADMIN)
+/*sends text to all players with no padding*/
+/client/proc/cmd_admin_world_narrate()
 	set category = "Special Verbs"
 	set name = "Global Narrate"
 
@@ -106,6 +113,8 @@
 	world << "[msg]"
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
 
+ADMIN_VERB_ADD(/client/proc/cmd_admin_direct_narrate, R_ADMIN)
+/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
 /client/proc/cmd_admin_direct_narrate(var/mob/M)	// Targetted narrate -- TLE
 	set category = "Special Verbs"
 	set name = "Direct Narrate"
@@ -185,7 +194,7 @@ proc/cmd_admin_mute(mob/M as mob, mute_type, automute = 0)
 
 	log_admin("[key_name(usr)] has [muteunmute] [key_name(M)] from [mute_string]", M)
 	M << "<span class = 'alert'>You have been [muteunmute] from [mute_string].</span>"
-
+ADMIN_VERB_ADD(/client/proc/cmd_admin_add_random_ai_law, R_FUN)
 /client/proc/cmd_admin_add_random_ai_law()
 	set category = "Fun"
 	set name = "Add Random AI Law"
@@ -232,6 +241,8 @@ Ccomp's first proc.
 		return mobs
 
 
+ADMIN_VERB_ADD(/client/proc/allow_character_respawn, R_ADMIN)
+/* Allows a ghost to respawn */
 /client/proc/allow_character_respawn()
 	set category = "Special Verbs"
 	set name = "Allow player to respawn"
@@ -260,6 +271,7 @@ Ccomp's first proc.
 	log_admin("[key_name(usr)] allowed [key_name(G)] to bypass the [config.respawn_time] minute respawn limit")
 
 
+ADMIN_VERB_ADD(/client/proc/toggle_antagHUD_use, R_SERVER)
 /client/proc/toggle_antagHUD_use()
 	set category = "Server"
 	set name = "Toggle antagHUD usage"
@@ -293,13 +305,14 @@ Ccomp's first proc.
 
 
 
+ADMIN_VERB_ADD(/client/proc/toggle_antagHUD_restrictions, R_SERVER)
 /client/proc/toggle_antagHUD_restrictions()
 	set category = "Server"
 	set name = "Toggle antagHUD Restrictions"
 	set desc = "Restricts players that have used antagHUD from being able to join this round."
 	if(!holder)
 		src << "Only administrators may use this command."
-	var/action=""
+	var/action = ""
 	if(config.antag_hud_restricted)
 		for(var/mob/observer/dead/g in get_ghosts())
 			g << SPAN_NOTE("<B>The administrator has lifted restrictions on joining the round if you use AntagHUD</B>")
@@ -323,6 +336,7 @@ If a guy was gibbed and you want to revive him, this is a good way to do so.
 Works kind of like entering the game with a new character. Character receives a new mind if they didn't have one.
 Traitors and the like can also be revived with the previous role mostly intact.
 /N */
+ADMIN_VERB_ADD(/client/proc/respawn_character, R_DEBUG|R_REJUVINATE)
 /client/proc/respawn_character()
 	set category = "Special Verbs"
 	set name = "Spawn Character"
@@ -432,6 +446,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	return new_character
 
+ADMIN_VERB_ADD(/client/proc/cmd_admin_add_freeform_ai_law, R_FUN)
 /client/proc/cmd_admin_add_freeform_ai_law()
 	set category = "Fun"
 	set name = "Add Custom AI law"
@@ -449,7 +464,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		else
 			M.add_ion_law(input)
 			for(var/mob/living/silicon/ai/O in mob_list)
-				O << "\red " + input + "\red...LAWS UPDATED"
+				O << SPAN_WARN(input + "...LAWS UPDATED")
 				O.show_laws()
 
 	log_admin("Admin [key_name(usr)] has added a new AI law - [input]")
@@ -458,6 +473,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(show_log == "Yes")
 		command_announcement.Announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", new_sound = 'sound/AI/ionstorm.ogg')
 
+ADMIN_VERB_ADD(/client/proc/cmd_admin_rejuvenate, R_REJUVINATE)
 /client/proc/cmd_admin_rejuvenate(mob/living/M as mob in mob_list)
 	set category = "Special Verbs"
 	set name = "Rejuvenate"
@@ -476,6 +492,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		alert("Admin revive disabled")
 
+ADMIN_VERB_ADD(/client/proc/cmd_admin_world_narrate, R_ADMIN)
 /client/proc/cmd_admin_create_centcom_report()
 	set category = "Special Verbs"
 	set name = "Create Command Report"
@@ -508,6 +525,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	log_admin("[key_name(src)] has created a command report: [input]")
 
+ADMIN_VERB_ADD(/client/proc/cmd_admin_delete, R_ADMIN|R_SERVER|R_DEBUG)
+/*delete an instance/object/mob/etc*/
 /client/proc/cmd_admin_delete(atom/O as obj|mob|turf in view())
 	set category = null
 	set name = "Delete"
@@ -520,6 +539,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		log_admin("[key_name(usr)] deleted [O].", O)
 		qdel(O)
 
+ADMIN_VERB_ADD(/client/proc/cmd_admin_list_open_jobs, R_DEBUG)
 /client/proc/cmd_admin_list_open_jobs()
 	set category = "Admin"
 	set name = "List free slots"
@@ -535,16 +555,21 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Special Verbs"
 	set name = "Explosion"
 
-	if(!check_rights(R_DEBUG|R_FUN))	return
+	if(!check_rights(R_DEBUG|R_FUN))
+		return
 
 	var/devastation = input("Range of total devastation. -1 to none", text("Input"))  as num|null
-	if(devastation == null) return
+	if(devastation == null)
+		return
 	var/heavy = input("Range of heavy impact. -1 to none", text("Input"))  as num|null
-	if(heavy == null) return
+	if(heavy == null)
+		return
 	var/light = input("Range of light impact. -1 to none", text("Input"))  as num|null
-	if(light == null) return
+	if(light == null)
+		return
 	var/flash = input("Range of flash. -1 to none", text("Input"))  as num|null
-	if(flash == null) return
+	if(flash == null)
+		return
 
 	if ((devastation != -1) || (heavy != -1) || (light != -1) || (flash != -1))
 		if ((devastation > 20) || (heavy > 20) || (light > 20))
@@ -589,6 +614,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	M.gib()
 
+ADMIN_VERB_ADD(/client/proc/cmd_admin_gib_self, R_FUN)
 /client/proc/cmd_admin_gib_self()
 	set name = "Gibself"
 	set category = "Fun"
@@ -607,7 +633,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	// I will both remove their SVN access and permanently ban them from my servers.
 
 
-/client/proc/cmd_admin_check_contents(mob/living/M as mob in mob_list)
+ADMIN_VERB_ADD(/client/proc/cmd_admin_check_contents, R_ADMIN)
+/*displays the contents of an instance*/
+/client/proc/cmd_admin_check_contents(mob/living/M in mob_list)
 	set category = "Special Verbs"
 	set name = "Check Contents"
 
@@ -616,6 +644,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		usr << "[t]"
 
 
+ADMIN_VERB_ADD(/client/proc/toggle_view_range, R_ADMIN)
+/*changes how far we can see*/
 /client/proc/toggle_view_range()
 	set category = "Special Verbs"
 	set name = "Change View Range"
@@ -629,6 +659,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("[key_name(usr)] changed their view range to [view].", usr, 0)
 
 
+ADMIN_VERB_ADD(/client/proc/admin_call_shuttle, R_ADMIN)
+/*allows us to call the emergency shuttle*/
 /client/proc/admin_call_shuttle()
 
 	set category = "Admin"
@@ -659,6 +691,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("[key_name(usr)] admin-called the emergency shuttle.")
 
 
+ADMIN_VERB_ADD(/client/proc/admin_cancel_shuttle, R_ADMIN)
+/*allows us to cancel the emergency shuttle, sending it back to centcomm*/
 /client/proc/admin_cancel_shuttle()
 	set category = "Admin"
 	set name = "Cancel Shuttle"
@@ -698,12 +732,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		usr << t
 
 
+ADMIN_VERB_ADD(/client/proc/everyone_random, R_FUN)
 /client/proc/everyone_random()
 	set category = "Fun"
 	set name = "Make Everyone Random"
 	set desc = "Make everyone have a random appearance. You can only use this before rounds!"
 
-	if(!check_rights(R_FUN))	return
+	if(!check_rights(R_FUN))
+		return
 
 	if (ticker && ticker.mode)
 		usr << "Nope you can't do this, the game's already started. This only works before rounds!"
@@ -731,6 +767,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 
 
+ADMIN_VERB_ADD(/client/proc/toggle_random_events, R_FUN|R_SERVER)
 /client/proc/toggle_random_events()
 	set category = "Server"
 	set name = "Toggle random events on/off"
@@ -748,18 +785,22 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		log_admin("Admin [key_name_admin(usr)] has disabled random events.")
 
 
+ADMIN_VERB_ADD(/client/proc/spawn_special, R_SPAWN)
 /client/proc/spawn_special()
 	set category = "Debug"
 	set name = "Spawn Special"
 	set desc = "Spawn special items"
 
-	if(!check_rights(R_SPAWN))	return
+	if(!check_rights(R_SPAWN))
+		return
 	var/list/specials = list("Fax", "None")
 	var/select = input("Select item for spawning", "Select item", "None") in specials
-	if(!select || select == "None") return
+	if(!select || select == "None")
+		return
 
 	switch(select)
 		if("Fax")
 			var/new_department = input("Type in new department", "New department", "Unknown")
-			if(!new_department) return
-			new/obj/machinery/photocopier/faxmachine(get_turf(src.mob), new_department)
+			if(!new_department)
+				return
+			new /obj/machinery/photocopier/faxmachine (get_turf(src.mob), new_department)

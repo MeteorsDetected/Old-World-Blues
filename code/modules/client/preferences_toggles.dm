@@ -23,6 +23,8 @@
 	src << "As a ghost, you will now [(prefs.chat_toggles & CHAT_GHOSTRADIO) ? "hear all radio chat in the world" : "only hear from nearby speakers"]."
 	prefs.save_preferences()
 
+ADMIN_VERB_ADD(/client/proc/toggle_hear_radio, null, TRUE)
+/*toggles whether we hear the radio*/
 /client/proc/toggle_hear_radio()
 	set name = "Show/Hide RadioChatter"
 	set category = "Preferences"
@@ -32,6 +34,8 @@
 	prefs.save_preferences()
 	usr << "You will [(prefs.chat_toggles & CHAT_RADIO) ? "now" : "no longer"] see radio chatter from radios or speakers"
 
+ADMIN_VERB_ADD(/client/proc/toggleadminhelpsound, null, TRUE)
+/*toggles whether we hear a sound when adminhelps/PMs are used*/
 /client/proc/toggleadminhelpsound()
 	set name = "Hear/Silence Adminhelps"
 	set category = "Preferences"
@@ -54,6 +58,8 @@
 		src << "As a ghost, you will [(prefs.chat_toggles & CHAT_DEAD) ? "now" : "no longer"] see deadchat."
 
 
+ADMIN_VERB_ADD(/client/proc/toggleprayers, null, TRUE)
+/*toggles prayers on/off*/
 /client/proc/toggleprayers()
 	set name = "Show/Hide Prayers"
 	set category = "Preferences"
