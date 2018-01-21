@@ -72,8 +72,6 @@
 	new /obj/item/clothing/head/beret/sec/alt(src)
 	new /obj/item/clothing/head/beret/sec/alt(src)
 	new /obj/item/clothing/head/beret/sec/alt(src)
-	new /obj/item/clothing/under/rank/security/jeans(src)
-	new /obj/item/clothing/under/rank/security/jeans(src)
 	new /obj/item/clothing/under/rank/security/dnavy(src)
 	new /obj/item/clothing/under/rank/security/dnavy(src)
 	return
