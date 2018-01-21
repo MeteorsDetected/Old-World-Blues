@@ -1138,7 +1138,7 @@ I said no!
 
 /datum/recipe/clownchips
 	fruit = list("potato" = 1)
-	reagents = list ("banana" = 20)
+	reagents = list ("banana" = 5)
 	result = /obj/item/weapon/reagent_containers/food/snacks/chips/cookable/clown
 
 /datum/recipe/nuclearchips
