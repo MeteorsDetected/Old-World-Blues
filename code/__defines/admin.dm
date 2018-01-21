@@ -29,8 +29,7 @@
 #define R_PERMISSIONS   0x80
 #define R_REJUVINATE    0x100
 #define R_VAREDIT       0x200
-#define R_SOUNDS        0x400
-#define R_SPAWN         0x800
-#define R_MOD           0x1000
+#define R_SPAWN         0x400
+#define R_MOD           0x800
 
-#define R_MAXPERMISSION 0x1000 // This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION 0x800 // This holds the maximum value for a permission. It is used in iteration, so keep it updated.
