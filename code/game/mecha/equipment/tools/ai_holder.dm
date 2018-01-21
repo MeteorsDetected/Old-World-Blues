@@ -55,14 +55,14 @@
 			occupied(user)
 			//"Exit"
 
-
-/obj/item/mecha_parts/mecha_equipment/tool/ai_holder/attach()
+/obj/item/mecha_parts/mecha_equipment/tool/ai_holder/attached()
 	..()
 	Cam = PoolOrNew(/obj/machinery/camera)
 	Cam.c_tag = chassis.name
 
 
-/obj/item/mecha_parts/mecha_equipment/tool/ai_holder/detach()
+/obj/item/mecha_parts/mecha_equipment/tool/ai_holder/detached()
+	..()
 	if(occupant)
 		go_out()
 	qdel(Cam)
