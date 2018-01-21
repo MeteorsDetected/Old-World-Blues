@@ -358,6 +358,9 @@ This function restores all organs.
 		..(damage, damagetype, def_zone, blocked)
 		return 1
 
+	if(DERMALARMOR in augmentations)
+		damage = damage - (round(damage*0.35)) // reduce damage by 35%
+
 	//Handle BRUTE and BURN damage
 	handle_suit_punctures(damagetype, damage, def_zone)
 
