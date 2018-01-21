@@ -47,6 +47,10 @@
 	display_name = "holster (knifeholder), hip"
 	path = /obj/item/clothing/accessory/holster/knife/hip
 
+/datum/gear/accessory/hawaii
+	display_name = "hawaiian shirt"
+	path = /obj/item/clothing/accessory/hawaii
+
 /datum/gear/accessory/tie
 	display_name = "tie"
 	path = /obj/item/clothing/accessory/blue
