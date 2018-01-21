@@ -24,6 +24,8 @@ var/global/floorIsLava = 0
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
+/*shows an interface for individual players, with various links (links require additional flags*/
+ADMIN_VERB_ADD(/datum/admins/proc/show_player_panel, null, TRUE)
 /datum/admins/proc/show_player_panel(var/mob/M in mob_list)
 	set category = null
 	set name = "Show Player Panel"
@@ -32,9 +34,7 @@ var/global/floorIsLava = 0
 	if(!M)
 		usr << "You seem to be selecting a mob that doesn't exist anymore."
 		return
-	if (!istype(src,/datum/admins))
-		src = usr.client.holder
-	if (!istype(src,/datum/admins))
+	if (!check_rights())
 		usr << "Error: you are not an admin!"
 		return
 
@@ -90,8 +90,7 @@ var/global/floorIsLava = 0
 
 	body += {"<br><br>
 		<A href='?src=\ref[src];jumpto=\ref[M]'><b>Jump to</b></A> |
-		<A href='?src=\ref[src];getmob=\ref[M]'>Get</A> |
-		<A href='?src=\ref[src];sendmob=\ref[M]'>Send To</A>
+		<A href='?src=\ref[src];getmob=\ref[M]'>Get</A>
 		<br><br>
 		[check_rights(R_ADMIN|R_MOD,0) ? "<A href='?src=\ref[src];traitor=\ref[M]'>Traitor panel</A> | " : "" ]
 		<A href='?src=\ref[src];narrateto=\ref[M]'>Narrate to</A> |
@@ -196,18 +195,18 @@ var/global/floorIsLava = 0
 	usr << browse(body, "window=adminplayeropts;size=550x515")
 
 
-/datum/player_info/var/author // admin who authored the information
-/datum/player_info/var/rank //rank of admin who made the notes
-/datum/player_info/var/content // text content of the information
-/datum/player_info/var/timestamp // Because this is bloody annoying
+/datum/player_info
+	var/author    // admin who authored the information
+	var/rank      //rank of admin who made the notes
+	var/content   // text content of the information
+	var/timestamp // Because this is bloody annoying
 
 #define PLAYER_NOTES_ENTRIES_PER_PAGE 50
+ADMIN_VERB_ADD(/datum/admins/proc/PlayerNotes, null)
 /datum/admins/proc/PlayerNotes()
 	set category = "Admin"
 	set name = "Player Notes"
-	if (!istype(src,/datum/admins))
-		src = usr.client.holder
-	if (!istype(src,/datum/admins))
+	if (!check_rights())
 		usr << "Error: you are not an admin!"
 		return
 	PlayerNotesPage(1)
@@ -260,12 +259,11 @@ var/global/floorIsLava = 0
 	else return 1
 
 
+ADMIN_VERB_ADD(/datum/admins/proc/show_player_info, R_ADMIN)
 /datum/admins/proc/show_player_info(var/key as text)
 	set category = "Admin"
 	set name = "Show Player Info"
-	if (!istype(src,/datum/admins))
-		src = usr.client.holder
-	if (!istype(src,/datum/admins))
+	if (!check_rights())
 		usr << "Error: you are not an admin!"
 		return
 	var/dat = "<html><head><title>Info on [key]</title></head>"
@@ -295,7 +293,7 @@ var/global/floorIsLava = 0
 				I.rank = "N/A"
 				update_file = 1
 			dat += "<font color=#008800>[I.content]</font> <i>by [I.author] ([I.rank])</i> on <i><font color=blue>[I.timestamp]</i></font> "
-			if(I.author == usr.key || I.author == "Adminbot" || ishost(usr))
+			if(I.author == usr.key || I.author == "Adminbot" || check_rights(R_SERVER))
 				dat += "<A href='?src=\ref[src];remove_player_info=[key];remove_index=[i]'>Remove</A>"
 			dat += "<br><br>"
 		if(update_file) info << infos
@@ -307,7 +305,8 @@ var/global/floorIsLava = 0
 	usr << browse(dat, "window=adminplayerinfo;size=480x480")
 
 
-
+ADMIN_VERB_ADD(/datum/admins/proc/access_news_network, R_FUN)
+/*allows access of newscasters*/
 /datum/admins/proc/access_news_network() //MARKER
 	set category = "Fun"
 	set name = "Access Newscaster Network"
@@ -624,6 +623,7 @@ var/global/floorIsLava = 0
 //i.e. buttons/verbs
 
 
+ADMIN_VERB_ADD(/datum/admins/proc/restart, R_SPAWN)
 /datum/admins/proc/restart()
 	set category = "Server"
 	set name = "Restart"
@@ -631,8 +631,6 @@ var/global/floorIsLava = 0
 	if (!usr.client.holder)
 		return
 	var/confirm = alert("Restart the game world?", "Restart", "Yes", "Cancel")
-	if(confirm == "Cancel")
-		return
 	if(confirm == "Yes")
 		world << "<span class='danger'>Restarting world!</span>"
 		world << SPAN_NOTE("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]!")
@@ -641,7 +639,8 @@ var/global/floorIsLava = 0
 		sleep(50)
 		world.Reboot()
 
-
+ADMIN_VERB_ADD(/datum/admins/proc/announce, R_ADMIN)
+/*priority announce something to all clients.*/
 /datum/admins/proc/announce()
 	set category = "Special Verbs"
 	set name = "Announce"
@@ -656,6 +655,8 @@ var/global/floorIsLava = 0
 		world << "<span class=notice><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p></span>"
 		log_admin("Announce: [key_name(usr)] : [message]")
 
+ADMIN_VERB_ADD(/datum/admins/proc/toggleooc, R_ADMIN)
+/*toggles ooc on/off for everyone*/
 /datum/admins/proc/toggleooc()
 	set category = "Server"
 	set desc="Globally Toggles OOC"
@@ -671,12 +672,14 @@ var/global/floorIsLava = 0
 		world << "<B>The OOC channel has been globally disabled!</B>"
 	log_and_message_admins("toggled OOC.")
 
+ADMIN_VERB_ADD(/datum/admins/proc/togglelooc, R_SERVER)
+/*toggles looc on/off for everyone*/
 /datum/admins/proc/togglelooc()
 	set category = "Server"
 	set desc="Globally Toggles LOOC"
 	set name="Toggle LOOC"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_SERVER))
 		return
 
 	config.looc_allowed = !(config.looc_allowed)
@@ -687,12 +690,14 @@ var/global/floorIsLava = 0
 	log_and_message_admins("toggled LOOC.")
 
 
+ADMIN_VERB_ADD(/datum/admins/proc/toggledsay, R_SERVER)
+/*toggles dsay on/off for everyone*/
 /datum/admins/proc/toggledsay()
 	set category = "Server"
 	set desc="Globally Toggles DSAY"
 	set name="Toggle DSAY"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_SERVER))
 		return
 
 	config.dsay_allowed = !(config.dsay_allowed)
@@ -702,12 +707,14 @@ var/global/floorIsLava = 0
 		world << "<B>Deadchat has been globally disabled!</B>"
 	log_admin("[key_name(usr)] toggled deadchat [config.dsay_allowed ? "ON" : "OFF"].")
 
+ADMIN_VERB_ADD(/datum/admins/proc/toggleoocdead, R_SERVER)
+/*toggles ooc on/off for everyone who is dead*/
 /datum/admins/proc/toggleoocdead()
 	set category = "Server"
 	set desc="Toggle Dead OOC."
 	set name="Toggle Dead OOC"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_SERVER))
 		return
 
 	config.dooc_allowed = !( config.dooc_allowed )
@@ -720,6 +727,7 @@ var/global/floorIsLava = 0
 	config.traitor_scaling = !config.traitor_scaling
 	log_admin("[key_name(usr)] toggled Traitor Scaling to [config.traitor_scaling].")
 
+ADMIN_VERB_ADD(/datum/admins/proc/startnow, R_SPAWN)
 /datum/admins/proc/startnow()
 	set category = "Server"
 	set desc="Start the round RIGHT NOW"
@@ -730,11 +738,13 @@ var/global/floorIsLava = 0
 	if(ticker.current_state == GAME_STATE_PREGAME)
 		ticker.current_state = GAME_STATE_SETTING_UP
 		log_admin("[key_name(usr)] has started the game.")
-		return 1
+		return TRUE
 	else
 		usr << "<font color='red'>Error: Start Now: Game has already started.</font>"
-		return 0
+		return FALSE
 
+ADMIN_VERB_ADD(/datum/admins/proc/toggleenter, R_SERVER)
+/*toggles whether people can join the current game*/
 /datum/admins/proc/toggleenter()
 	set category = "Server"
 	set desc="People can't enter"
@@ -747,18 +757,20 @@ var/global/floorIsLava = 0
 	log_admin("[key_name(usr)] toggled new player game entering [config.enter_allowed ? "ON" : "OFF"].")
 	world.update_status()
 
+ADMIN_VERB_ADD(/datum/admins/proc/toggleAI, R_SERVER)
 /datum/admins/proc/toggleAI()
 	set category = "Server"
-	set desc="People can't be AI"
-	set name="Toggle AI"
+	set desc = "People can't be AI"
+	set name = "Toggle AI"
 	config.allow_ai = !( config.allow_ai )
-	if (!( config.allow_ai ))
+	if (!config.allow_ai)
 		world << "<B>The AI job is no longer chooseable.</B>"
 	else
 		world << "<B>The AI job is chooseable now.</B>"
 	log_admin("[key_name(usr)] toggled AI allowed [config.allow_ai ? "ON" : "OFF"].")
 	world.update_status()
 
+ADMIN_VERB_ADD(/datum/admins/proc/toggleaban, R_SERVER)
 /datum/admins/proc/toggleaban()
 	set category = "Server"
 	set desc="Respawn basically"
@@ -771,13 +783,15 @@ var/global/floorIsLava = 0
 	log_admin("[key_name(usr)] toggled respawn to [config.abandon_allowed ? "ON" : "OFF"].")
 	world.update_status()
 
+ADMIN_VERB_ADD(/datum/admins/proc/toggle_aliens, R_FUN|R_SERVER)
 /datum/admins/proc/toggle_aliens()
 	set category = "Server"
-	set desc="Toggle alien mobs"
-	set name="Toggle Aliens"
+	set desc = "Toggle alien mobs"
+	set name = "Toggle Aliens"
 	config.aliens_allowed = !config.aliens_allowed
 	log_admin("[key_name(usr)] toggled Aliens [config.aliens_allowed ? "ON" : "OFF"].")
 
+ADMIN_VERB_ADD(/datum/admins/proc/toggle_space_ninja, R_FUN|R_SERVER)
 /datum/admins/proc/toggle_space_ninja()
 	set category = "Server"
 	set desc="Toggle space ninjas spawning."
@@ -785,50 +799,60 @@ var/global/floorIsLava = 0
 	config.ninjas_allowed = !config.ninjas_allowed
 	log_admin("[key_name(usr)] toggled Space Ninjas to [config.ninjas_allowed ? "ON" : "OFF"].")
 
+ADMIN_VERB_ADD(/datum/admins/proc/delay, R_SERVER)
 /datum/admins/proc/delay()
 	set category = "Server"
 	set desc="Delay the game start/end"
 	set name="Delay"
 
-	if(!check_rights(R_SERVER))	return
-	if (!ticker || ticker.current_state != GAME_STATE_PREGAME)
+	if(!check_rights(R_SERVER))
+		return
+	if(!ticker || ticker.current_state != GAME_STATE_PREGAME)
 		ticker.delay_end = !ticker.delay_end
 		log_admin("[key_name(usr)] [ticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		return //alert("Round end delayed", null, null, null, null, null)
 	going = !( going )
-	if (!( going ))
+	if(!going)
 		world << "<b>The game start has been delayed.</b>"
 		log_admin("[key_name(usr)] delayed the game.")
 	else
 		world << "<b>The game will start soon.</b>"
 		log_admin("[key_name(usr)] removed the delay.")
 
+ADMIN_VERB_ADD(/datum/admins/proc/adjump, R_SERVER)
 /datum/admins/proc/adjump()
 	set category = "Server"
 	set desc="Toggle admin jumping"
 	set name="Toggle Jump"
-	config.allow_admin_jump = !(config.allow_admin_jump)
+
+	config.allow_admin_jump = !config.allow_admin_jump
 	log_admin("Toggled admin jumping [config.allow_admin_jump ? "ON" : "OFF"].")
 
+ADMIN_VERB_ADD(/datum/admins/proc/adspawn, R_SPAWN)
 /datum/admins/proc/adspawn()
 	set category = "Server"
 	set desc="Toggle admin spawning"
 	set name="Toggle Spawn"
-	config.allow_admin_spawning = !(config.allow_admin_spawning)
+
+	config.allow_admin_spawning = !config.allow_admin_spawning
 	log_admin("Toggled admin item spawning [config.allow_admin_spawning ? "ON" : "OFF"].")
 
+ADMIN_VERB_ADD(/datum/admins/proc/adrev, R_SERVER)
 /datum/admins/proc/adrev()
 	set category = "Server"
 	set desc="Toggle admin revives"
 	set name="Toggle Revive"
-	config.allow_admin_rev = !(config.allow_admin_rev)
+
+	config.allow_admin_rev = !config.allow_admin_rev
 	log_admin("Toggled reviving [config.allow_admin_rev ? "ON" : "OFF"].")
 
+ADMIN_VERB_ADD(/datum/admins/proc/immreboot, R_SERVER)
 /datum/admins/proc/immreboot()
 	set category = "Server"
 	set desc="Reboots the server post haste"
 	set name="Immediate Reboot"
-	if(!usr.client.holder)	return
+	if(!check_rights())
+		return
 	if( alert("Reboot server?",,"Yes","No") == "No")
 		return
 	world << "\red <b>Rebooting world!</b> \blue Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]!"
@@ -871,6 +895,7 @@ var/global/floorIsLava = 0
 
 	return 0
 
+ADMIN_VERB_ADD(/datum/admins/proc/spawn_fruit, R_SPAWN)
 /datum/admins/proc/spawn_fruit(seedtype in plant_controller.seeds)
 	set category = "Debug"
 	set desc = "Spawn the product of a seed."
@@ -884,6 +909,7 @@ var/global/floorIsLava = 0
 	S.harvest(usr,0,0,1)
 	log_admin("[key_name(usr)] spawned [seedtype] fruit.", usr, 0)
 
+ADMIN_VERB_ADD(/datum/admins/proc/spawn_custom_item, R_SPAWN)
 /datum/admins/proc/spawn_custom_item()
 	set category = "Debug"
 	set desc = "Spawn a custom item."
@@ -902,13 +928,15 @@ var/global/floorIsLava = 0
 
 	item_to_spawn.spawn_item(get_turf(usr))
 
+ADMIN_VERB_ADD(/datum/admins/proc/check_custom_items, R_SPAWN)
 /datum/admins/proc/check_custom_items()
 
 	set category = "Debug"
 	set desc = "Check the custom item list."
 	set name = "Check Custom Items"
 
-	if(!check_rights(R_SPAWN))	return
+	if(!check_rights(R_SPAWN))
+		return
 
 	if(!custom_items)
 		usr << "Custom item list is null."
@@ -924,18 +952,22 @@ var/global/floorIsLava = 0
 		for(var/datum/custom_item/item in current_items)
 			usr << "- name: [item.name] icon: [item.item_icon] path: [item.item_path] desc: [item.item_desc]"
 
+ADMIN_VERB_ADD(/datum/admins/proc/spawn_plant, R_SPAWN)
 /datum/admins/proc/spawn_plant(seedtype in plant_controller.seeds)
 	set category = "Debug"
 	set desc = "Spawn a spreading plant effect."
 	set name = "Spawn Plant"
 
-	if(!check_rights(R_SPAWN))	return
+	if(!check_rights(R_SPAWN))
+		return
 
 	if(!seedtype || !plant_controller.seeds[seedtype])
 		return
 	new /obj/effect/plant(get_turf(usr), plant_controller.seeds[seedtype])
 	log_admin("[key_name(usr)] spawned [seedtype] vines", usr, 0)
 
+ADMIN_VERB_ADD(/datum/admins/proc/spawn_atom, R_SPAWN)
+/*allows us to spawn instances*/
 /datum/admins/proc/spawn_atom(var/object as text)
 	set category = "Debug"
 	set desc = "(atom path) Spawn an atom"
@@ -970,7 +1002,9 @@ var/global/floorIsLava = 0
 	log_admin("[key_name(usr)] spawned [chosen].", usr, 0)
 	usr << "<span class=\"log_message message\">Spawned: [chosen].</span>"
 
-
+//Removed due to rare practical use. Moved to debug verbs ~Errorage
+//ADMIN_VERB_ADD(datum/admins/proc/show_traitor_panel, R_ADMIN)
+/*interface which shows a mob's mind*/
 /datum/admins/proc/show_traitor_panel(var/mob/M in mob_list)
 	set category = "Admin"
 	set desc = "Edit mobs's memory and role"
@@ -985,6 +1019,8 @@ var/global/floorIsLava = 0
 
 	M.mind.edit_memory()
 
+ADMIN_VERB_ADD(/datum/admins/proc/show_game_mode, R_ADMIN)
+/*Configuration window for the current game mode.*/
 /datum/admins/proc/show_game_mode()
 	set category = "Admin"
 	set desc = "Show the current round configuration."
@@ -1131,21 +1167,6 @@ var/global/floorIsLava = 0
 			var/ref_mob = "\ref[M]"
 			return "<b>[key_name(C, link, name, highlight_special)](<A HREF='?_src_=vars;Vars=[ref_mob]'>VV</A>)(<A HREF='?_src_=holder;adminplayerobservejump=[ref_mob]'>JMP</A>)</b>"
 
-
-/proc/ishost(whom)
-	if(!whom)
-		return 0
-	var/client/C
-	var/mob/M
-	if(istype(whom, /client))
-		C = whom
-	if(ismob(whom))
-		M = whom
-		C = M.client
-	if(R_HOST & C.holder.rights)
-		return 1
-	else
-		return 0
 //
 //
 //ALL DONE
@@ -1179,6 +1200,8 @@ var/global/floorIsLava = 0
 	qdel(frommob)
 	return 1
 
+ADMIN_VERB_ADD(/datum/admins/proc/force_antag_latespawn, R_ADMIN)
+/*Force a specific template to try a latespawn proc*/
 /datum/admins/proc/force_antag_latespawn()
 	set category = "Admin"
 	set name = "Force Template Spawn"
@@ -1203,6 +1226,8 @@ var/global/floorIsLava = 0
 	message_admins("[key_name(usr)] attempting to force latespawn with template [antag.id].")
 	antag.attempt_auto_spawn()
 
+ADMIN_VERB_ADD(/datum/admins/proc/force_mode_latespawn, R_ADMIN)
+/*Force the mode to try a latespawn proc*/
 /datum/admins/proc/force_mode_latespawn()
 	set category = "Admin"
 	set name = "Force Mode Spawn"

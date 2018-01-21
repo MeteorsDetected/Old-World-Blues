@@ -1,3 +1,4 @@
+ADMIN_VERB_ADD(/proc/possess, R_POSSESS)
 /proc/possess(obj/O as obj in world)
 	set name = "Possess Obj"
 	set category = "Object"
@@ -18,6 +19,7 @@
 	usr.client.eye = O
 	usr.control_object = O
 
+ADMIN_VERB_ADD(/proc/release, R_POSSESS)
 /proc/release(obj/O as obj in world)
 	set name = "Release Obj"
 	set category = "Object"
@@ -31,7 +33,7 @@
 			H.name = H.get_visible_name()
 //		usr.regenerate_icons() //So the name is updated properly
 
-	usr.loc = O.loc // Appear where the object you were controlling is -- TLE
+	usr.forceMove(O.loc) // Appear where the object you were controlling is -- TLE
 	usr.client.eye = usr
 	usr.control_object = null
 

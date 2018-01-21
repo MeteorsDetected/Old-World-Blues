@@ -4,6 +4,10 @@
 #define SPAN_WARN(text) "<span class='warning'>[text]</span>"
 #define SPAN_DANG(text) "<span class='danger'>[text]</span>"
 
+#define ADMIN_VERB_ADD(path, params...)\
+	world/registrate_verbs() {..(); cmd_registrate_verb(path, params);}
+
+
 #define Clamp(value, low, high) 	(value <= low ? low : (value >= high ? high : value))
 #define CLAMP01(x) 		(Clamp(x, 0, 1))
 

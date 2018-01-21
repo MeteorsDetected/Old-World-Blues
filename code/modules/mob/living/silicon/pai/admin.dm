@@ -1,9 +1,10 @@
 // Originally a debug verb, made it a proper adminverb for ~fun~
+ADMIN_VERB_ADD(/client/proc/makePAI, R_DEBUG)
 /client/proc/makePAI(turf/t in view(), name as text, pai_key as null|text)
 	set name = "Make pAI"
-	set category = "Admin"
+	set category = "Debug"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_DEBUG))
 		return
 
 	if(!pai_key)

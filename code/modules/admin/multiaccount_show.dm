@@ -1,3 +1,4 @@
+ADMIN_VERB_ADD(/client/proc/checkAccount, null)
 /client/proc/checkAccount()
 	set name = "Check multiaccounts"
 	set category = "Admin"
@@ -14,7 +15,7 @@
 			holder.showAccounts(input("Select ckey", "Ckey") in targets)
 		if("Type ckey")
 			var/target = ckey(input(usr, "Type in ckey for check.", "Ckey") as text|null)
-			if(!target) //Cancel теперь работает
+			if(!target) //Cancel
 				return
 			holder.showAccounts(target)
 

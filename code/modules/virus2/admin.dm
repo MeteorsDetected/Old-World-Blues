@@ -30,10 +30,14 @@
 	"}
 
 /datum/admins/var/datum/virus2_editor/virus2_editor_datum = new
+ADMIN_VERB_ADD(/client/proc/virus2_editor, R_SPAWN)
 /client/proc/virus2_editor()
 	set name = "Virus Editor"
 	set category = "Admin"
-	if(!holder || !check_rights(R_SPAWN)) return // spawn privileges to create viruses
+
+	// spawn privileges to create viruses
+	if(!check_rights(R_SPAWN))
+		return
 
 	holder.virus2_editor_datum.show_ui(src)
 

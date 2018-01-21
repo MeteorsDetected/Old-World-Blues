@@ -41,7 +41,7 @@ var/datum/admin_secrets/admin_secrets = new()
 	var/name = ""
 	var/category = null
 	var/log = 1
-	var/permissions = R_HOST
+	var/permissions = R_ADMIN
 
 /datum/admin_secret_item/proc/name()
 	return name
