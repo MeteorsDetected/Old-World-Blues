@@ -208,7 +208,7 @@ ADMIN_VERB_ADD(/client/proc/colorooc, R_FUN)
 
 	return
 
-ADMIN_VERB_ADD(/client/proc/stealth, R_STEALTH)
+ADMIN_VERB_ADD(/client/proc/stealth, null, TRUE)
 /client/proc/stealth()
 	set category = "Admin"
 	set name = "Stealth Mode"

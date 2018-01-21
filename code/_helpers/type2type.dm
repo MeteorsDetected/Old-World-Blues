@@ -142,7 +142,6 @@
 	if (rights & R_DEBUG)       . += "[seperator]+DEBUG"
 	if (rights & R_POSSESS)     . += "[seperator]+POSSESS"
 	if (rights & R_PERMISSIONS) . += "[seperator]+PERMISSIONS"
-	if (rights & R_STEALTH)     . += "[seperator]+STEALTH"
 	if (rights & R_REJUVINATE)  . += "[seperator]+REJUVINATE"
 	if (rights & R_VAREDIT)     . += "[seperator]+VAREDIT"
 	if (rights & R_SOUNDS)      . += "[seperator]+SOUND"
