@@ -1,12 +1,15 @@
 //TODO: rewrite and standardise all controller datums to the datum/controller type
-//TODO: allow all controllers to be deleted for clean restarts (see WIP master controller stuff) - MC done - lighting done
+//TODO: allow all controllers to be deleted for clean restarts (see WIP master controller stuff)
+//      - MC done - lighting done
 
+ADMIN_VERB_ADD(/client/proc/print_random_map, R_DEBUG)
 /client/proc/print_random_map()
 	set category = "Debug"
 	set name = "Display Random Map"
 	set desc = "Show the contents of a random map."
 
-	if(!holder)	return
+	if(!holder)
+		return
 
 	var/datum/random_map/choice = input("Choose a map to debug.") as null|anything in random_maps
 	if(!choice)
@@ -14,12 +17,14 @@
 	choice.display_map(usr)
 
 
+ADMIN_VERB_ADD(/client/proc/create_random_map, R_DEBUG)
 /client/proc/create_random_map()
 	set category = "Debug"
 	set name = "Create Random Map"
 	set desc = "Create a random map."
 
-	if(!holder)	return
+	if(!holder)
+		return
 
 	var/map_datum = input("Choose a map to create.") as null|anything in typesof(/datum/random_map)-/datum/random_map
 	if(!map_datum)
@@ -30,6 +35,9 @@
 	var/tz =    input("Z? (default 1)")       as text|null
 	new map_datum(seed,tx,ty,tz)
 
+/*
+ADMIN_VERB_ADD(/client/proc/restart_controller, R_DEBUG)
+//TODO: implement for all controllers
 /client/proc/restart_controller(controller in list("Jobs","Supply"))
 	set category = "Debug"
 	set name = "Restart Controller"
@@ -42,8 +50,9 @@
 		if("Supply")
 			supply_controller.process()
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
-	return
+*/
 
+ADMIN_VERB_ADD(/client/proc/debug_antagonist_template, R_DEBUG)
 /client/proc/debug_antagonist_template(antag_type in all_antag_types)
 	set category = "Debug"
 	set name = "Debug Antagonist"
@@ -54,7 +63,12 @@
 		usr.client.debug_variables(antag)
 		message_admins("Admin [key_name_admin(usr)] is debugging the [antag.role_text] template.")
 
-/client/proc/debug_controller(controller in list("Master","Ticker","Ticker Process","Air","Jobs","Sun","Radio","Supply","Shuttles","Emergency Shuttle","Configuration","pAI", "Cameras", "Transfer Controller", "Gas Data","Event","Plants","Alarm","Nano"))
+ADMIN_VERB_ADD(/client/proc/debug_controller, R_DEBUG)
+/client/proc/debug_controller(controller in list(\
+		"Master", "Ticker", "Ticker Process", "Air", "Jobs", "Sun", "Radio", "Supply", "Shuttles",
+		"Emergency Shuttle", "Configuration", "pAI", "Cameras", "Transfer Controller", "Gas Data",
+		"Event","Plants","Alarm","Nano"\
+	))
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
@@ -102,4 +116,3 @@
 		if("Jobs")
 			debug_variables(job_master)
 	message_admins("Admin [key_name_admin(usr)] is debugging the [controller] controller.")
-	return

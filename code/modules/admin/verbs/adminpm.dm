@@ -1,4 +1,6 @@
 //allows right clicking mobs to send an admin PM to their client, forwards the selected mob's client to cmd_admin_pm
+ADMIN_VERB_ADD(/client/proc/cmd_admin_pm_context, R_ADMIN|R_MOD, TRUE)
+/*right-click adminPM interface*/
 /client/proc/cmd_admin_pm_context(mob/M as mob in mob_list)
 	set category = null
 	set name = "Admin PM Mob"
@@ -9,6 +11,8 @@
 	cmd_admin_pm(M.client,null)
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
+ADMIN_VERB_ADD(/client/proc/cmd_admin_pm_panel, R_ADMIN|R_MOD, TRUE)
+/*admin-pm list*/
 /client/proc/cmd_admin_pm_panel()
 	set category = "Admin"
 	set name = "Admin PM"
@@ -50,8 +54,10 @@
 
 		if(!msg)	return
 		if(!C)
-			if(holder)	src << "<font color='red'>Error: Admin-PM: Client not found.</font>"
-			else		src << "<font color='red'>Error: Private-Message: Client not found. They may have lost connection, so try using an adminhelp!</font>"
+			if(holder)
+				src << SPAN_WARN("Error: Admin-PM: Client not found.")
+			else
+				src << SPAN_WARN("Error: Private-Message: Client not found. They may have lost connection, so try using an adminhelp!")
 			return
 
 	if (src.handle_spam_prevention(msg,MUTE_ADMINHELP))

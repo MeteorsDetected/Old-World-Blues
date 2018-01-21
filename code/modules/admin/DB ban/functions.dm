@@ -251,7 +251,7 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 	var/DBQuery/query_update = dbcon.NewQuery(sql_update)
 	query_update.Execute()
 
-
+ADMIN_VERB_ADD(/client/proc/DB_ban_panel, R_BAN)
 /client/proc/DB_ban_panel()
 	set category = "Admin"
 	set name = "Banning Panel"

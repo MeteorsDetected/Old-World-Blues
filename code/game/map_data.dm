@@ -30,6 +30,7 @@ var/datum/maps_data/maps_data = new
 /proc/max_default_z_level()
 	return maps_data.all_levels.len
 
+ADMIN_VERB_ADD(/client/proc/test_MD, R_DEBUG)
 /client/proc/test_MD()
 	set name = "Test Map Markers"
 	set category = "Debug"

@@ -1,6 +1,7 @@
 var/checked_for_inactives = 0
 var/inactive_keys = "None<br>"
 
+ADMIN_VERB_ADD(/client/proc/check_customitem_activity, R_ADMIN|R_SERVER)
 /client/proc/check_customitem_activity()
 	set category = "Special Verbs"
 	set name = "Custom item activity"

@@ -52,11 +52,13 @@
 		invisibility = 101
 		src.verbs -= /obj/shuttle_marker/verb/setup
 
+ADMIN_VERB_ADD(/client/proc/beacon_move, R_DEBUG)
 /client/proc/beacon_move()
 	set name = "Beacon move"
 	set category = "Debug"
 
-	if(!check_rights(R_DEBUG))	return
+	if(!check_rights(R_DEBUG))
+		return
 
 	var/shuttle_tag = input("Shuttle","pick!") as null|anything in shuttle_controller.new_shuttles
 	if(!shuttle_tag) return
