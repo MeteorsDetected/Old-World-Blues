@@ -762,4 +762,29 @@ default behaviour is:
 		return
 	..()
 
+/mob/living/buckled()
+	// Preliminary work for a future buckle rewrite,
+	// where one might be fully restrained (like an elecrical chair), or merely secured (shuttle chair, keeping you safe but not otherwise restrained from acting)
+	if(!buckled)
+		return UNBUCKLED
+	return restrained() ? FULLY_BUCKLED : PARTIALLY_BUCKLED
+
+/mob/living/incapacitated(var/incapacitation_flags = INCAPACITATION_DEFAULT)
+	if((incapacitation_flags & INCAPACITATION_DISABLED) && (stat || paralysis || stunned || weakened || sleeping || (status_flags & FAKEDEATH)))
+		return TRUE
+
+	if((incapacitation_flags & INCAPACITATION_RESTING) && resting)
+		return TRUE
+
+	if((incapacitation_flags & INCAPACITATION_RESTRAINED) && restrained())
+		return TRUE
+
+	if((incapacitation_flags & (INCAPACITATION_BUCKLED_PARTIALLY|INCAPACITATION_BUCKLED_FULLY)))
+		var/buckling = buckled()
+		if(buckling >= PARTIALLY_BUCKLED && (incapacitation_flags & INCAPACITATION_BUCKLED_PARTIALLY))
+			return TRUE
+		if(buckling == FULLY_BUCKLED && (incapacitation_flags & INCAPACITATION_BUCKLED_FULLY))
+			return TRUE
+
+	return FALSE
 

@@ -360,12 +360,11 @@
 	return 1
 
 /mob/living/carbon/restrained()
-	if (handcuffed)
-		return 1
-	return
+	return handcuffed
 
 /mob/living/carbon/u_equip(obj/item/W as obj)
-	if(!W)	return 0
+	if(!W)
+		return 0
 
 	else if (W == handcuffed)
 		handcuffed = null
