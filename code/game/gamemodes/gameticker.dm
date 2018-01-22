@@ -60,7 +60,9 @@ var/list/donator_icons
 		'sound/music/music_ambient_scene6.ogg',
 		'sound/music/music_battle_scene2.ogg',
 		'sound/music/DARKWOOD_Main.ogg',
-		'sound/music/moonbaseoddity.ogg' )/*
+		'sound/music/moonbaseoddity.ogg',
+		'sound/music/deus_ex_unatco.ogg',
+		'sound/music/robotniks_theme.ogg')/*
 		'sound/music/new_year/we_wish_you_a_merry_christmas.ogg',
 		'sound/music/new_year/vypem_za_lyubov.ogg',
 		'sound/music/new_year/novyy_god.ogg',
