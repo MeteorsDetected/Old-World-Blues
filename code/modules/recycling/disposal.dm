@@ -40,7 +40,7 @@
 			trunk.linked = src	// link the pipe trunk to self
 
 		air_contents = new/datum/gas_mixture(PRESSURE_TANK_VOLUME)
-		update()
+		update_icon()
 
 /obj/machinery/disposal/Destroy()
 	eject()
@@ -115,7 +115,7 @@
 		for(var/obj/item/O in T.contents)
 			T.remove_from_storage(O,src)
 		T.update_icon()
-		update()
+		update_icon()
 		return
 
 	if(!I || !user.unEquip(I, src))
@@ -127,7 +127,7 @@
 			continue
 		M.show_message("[user.name] places \the [I] into the [src].", 3)
 
-	update()
+	update_icon()
 
 // mouse drop another mob or self
 //
@@ -173,12 +173,18 @@
 			continue
 		C.show_message(msg, 3)
 
-	update()
+	update_icon()
 	return
 
 // can breath normally in the disposal
 /obj/machinery/disposal/alter_health()
 	return get_turf(src)
+
+// called when area power changes
+/obj/machinery/disposal/power_change()
+	..()	// do default setting/reset of stat NOPOWER bit
+	update_icon()	// update icon
+	return
 
 // attempt to move while inside
 /obj/machinery/disposal/relaymove(mob/user as mob)
@@ -195,7 +201,7 @@
 		user.client.eye = user.client.mob
 		user.client.perspective = MOB_PERSPECTIVE
 	user.loc = src.loc
-	update()
+	update_icon()
 	return
 
 // ai as human but can't flush
@@ -217,8 +223,7 @@
 		interact(user, 0)
 	else
 		flush = !flush
-		update()
-	return
+		update_icon()
 
 // user interaction
 /obj/machinery/disposal/interact(mob/user, var/ai=0)
@@ -285,12 +290,12 @@
 				mode = 1
 			else
 				mode = 0
-			update()
+			update_icon()
 
 		if(!isAI(usr))
 			if(href_list["handle"])
 				flush = text2num(href_list["handle"])
-				update()
+				update_icon()
 
 			if(href_list["eject"])
 				eject()
@@ -305,10 +310,10 @@
 	for(var/atom/movable/AM in src)
 		AM.loc = src.loc
 		AM.pipe_eject(0)
-	update()
+	update_icon()
 
 // update the icon & overlays to reflect mode & status
-/obj/machinery/disposal/proc/update()
+/obj/machinery/disposal/update_icon()
 	overlays.Cut()
 	if(stat & BROKEN)
 		icon_state = "disposal-broken"
@@ -358,7 +363,7 @@
 		update_use_power(1)
 	else if(air_contents.return_pressure() >= SEND_PRESSURE)
 		mode = 2 //if full enough, switch to ready mode
-		update()
+		update_icon()
 	else
 		src.pressurize() //otherwise charge
 
@@ -414,15 +419,7 @@
 	flush = 0
 	if(mode == 2)	// if was ready,
 		mode = 1	// switch to charging
-	update()
-	return
-
-
-// called when area power changes
-/obj/machinery/disposal/power_change()
-	..()	// do default setting/reset of stat NOPOWER bit
-	update()	// update icon
-	return
+	update_icon()
 
 
 // called when holder is expelled from a disposal

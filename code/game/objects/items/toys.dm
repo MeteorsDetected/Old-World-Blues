@@ -505,6 +505,7 @@
 /obj/item/toy/prize
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ripleytoy"
+	center_of_mass = list("x"=16, "y"=10)
 	var/cooldown = 0
 
 //all credit to skasi for toy mech fun ideas
@@ -586,6 +587,7 @@
 	desc = "A \"Space Life\" brand... wait, what the hell is this thing? It seems to be requesting the sweet release of death."
 	icon_state = "assistant"
 	icon = 'icons/obj/toy.dmi'
+	center_of_mass = list("x"=17,"y"=9)
 
 /obj/item/toy/figure/cmo
 	name = "Chief Medical Officer action figure"
@@ -879,7 +881,7 @@
 
 /obj/structure/plushie/carp
 	name = "plush carp"
-	desc = "A plushie of an elated carp! Straight from the wilds of the Nyx frontier, now right here in your hands."
+	desc = "A plushie of an elated carp! Straight from the wilds of the Tau Ceti frontier, now right here in your hands."
 	icon_state = "carpplushie"
 	phrase = "Glorf!"
 

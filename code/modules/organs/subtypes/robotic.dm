@@ -83,7 +83,7 @@
 	w_class = ITEM_SIZE_SMALL
 
 //Helper proc used by various tools for repairing robot limbs
-/obj/item/organ/external/robotic/robo_repair(var/repair_amount, var/damage_type, var/damage_desc, obj/item/tool, mob/living/user)
+/obj/item/organ/external/robotic/proc/robo_repair(var/repair_amount, var/damage_type, var/damage_desc, obj/item/tool, mob/living/user)
 	if((src.robotic < ORGAN_ROBOT))
 		return 0
 
@@ -119,8 +119,12 @@
 		return 0
 
 	switch(damage_type)
-		if(BRUTE) src.heal_damage(repair_amount, 0, 0, 1)
-		if(BURN)  src.heal_damage(0, repair_amount, 0, 1)
+		if(BRUTE)
+			sleep(35)
+			src.heal_damage(repair_amount, 0, 0, 1)
+		if(BURN)
+			sleep(35)
+			src.heal_damage(0, repair_amount, 0, 1)
 		if("omni")src.heal_damage(repair_amount, repair_amount, 0, 1)
 
 	if(damage_desc)

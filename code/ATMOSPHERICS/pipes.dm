@@ -246,6 +246,8 @@
 		node2.update_underlays()
 
 /obj/machinery/atmospherics/pipe/simple/update_icon(var/safety = 0)
+	if(!atmos_initalized)
+		return
 	if(!check_icon_cache())
 		return
 
@@ -270,6 +272,7 @@
 	return
 
 /obj/machinery/atmospherics/pipe/simple/initialize()
+	..()
 	normalize_dir()
 	var/node1_dir
 	var/node2_dir
@@ -501,6 +504,8 @@
 		node3.update_underlays()
 
 /obj/machinery/atmospherics/pipe/manifold/update_icon(var/safety = 0)
+	if(!atmos_initalized)
+		return
 	if(!check_icon_cache())
 		return
 
@@ -541,6 +546,7 @@
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold/initialize()
+	..()
 	var/connect_directions = (NORTH|SOUTH|EAST|WEST)&(~dir)
 
 	for(var/direction in cardinal)
@@ -754,6 +760,8 @@
 		node4.update_underlays()
 
 /obj/machinery/atmospherics/pipe/manifold4w/update_icon(var/safety = 0)
+	if(!atmos_initalized)
+		return
 	if(!check_icon_cache())
 		return
 
@@ -814,7 +822,7 @@
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold4w/initialize()
-
+	..()
 	for(var/obj/machinery/atmospherics/target in get_step(src,1))
 		if(target.initialize_directions & 2)
 			if (check_connect_types(target,src))
@@ -989,6 +997,8 @@
 		node.update_underlays()
 
 /obj/machinery/atmospherics/pipe/cap/update_icon(var/safety = 0)
+	if(!atmos_initalized)
+		return
 	if(!check_icon_cache())
 		return
 
@@ -998,6 +1008,7 @@
 	overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, "cap")
 
 /obj/machinery/atmospherics/pipe/cap/initialize()
+	..()
 	for(var/obj/machinery/atmospherics/target in get_step(src, dir))
 		if(target.initialize_directions & get_dir(target,src))
 			if (check_connect_types(target,src))
@@ -1101,6 +1112,7 @@
 	update_underlays()
 
 /obj/machinery/atmospherics/pipe/tank/initialize()
+	..()
 	var/connect_direction = dir
 
 	for(var/obj/machinery/atmospherics/target in get_step(src,connect_direction))
@@ -1269,6 +1281,7 @@
 		icon_state = "exposed"
 
 /obj/machinery/atmospherics/pipe/vent/initialize()
+	..()
 	var/connect_direction = dir
 
 	for(var/obj/machinery/atmospherics/target in get_step(src,connect_direction))

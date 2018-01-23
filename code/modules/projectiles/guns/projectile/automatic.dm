@@ -12,9 +12,9 @@
 	multi_aim = 1
 
 	firemodes = list(
-		list(name="semiauto", burst=1, fire_delay=0),
-		list(name="3-round bursts", burst=3, move_delay=4, accuracy = list(0,-1,-1,-2,-2), dispersion = list(0.0, 0.6, 1.0)),
-		list(name="short bursts", 	burst=5, move_delay=4, accuracy = list(0,-1,-1,-2,-2), dispersion = list(0.6, 1.0, 1.0, 1.0, 1.2)),
+		list(mode_name="semiauto", burst=1, fire_delay=0),
+		list(mode_name="3-round bursts", burst=3, move_delay=4, accuracy = list(0,-1,-1,-2,-2), dispersion = list(0.0, 0.6, 1.0)),
+		list(mode_name="short bursts", 	burst=5, move_delay=4, accuracy = list(0,-1,-1,-2,-2), dispersion = list(0.6, 1.0, 1.0, 1.0, 1.2)),
 		)
 
 /obj/item/weapon/gun/projectile/automatic/mini_uzi
@@ -63,8 +63,8 @@
 	fire_sound = 'sound/weapons/gunshotcarbine.ogg'
 
 	firemodes = list(
-		list(name="semiauto", burst=1, fire_delay=0),
-		list(name="3-round bursts", burst=3, move_delay=4, accuracy = list(0,-1,-1,-2,-2), dispersion = list(0.0, 0.6, 1.0)),
+		list(mode_name="semiauto", burst=1, fire_delay=0),
+		list(mode_name="3-round bursts", burst=3, move_delay=4, accuracy = list(0,-1,-1,-2,-2), dispersion = list(0.0, 0.6, 1.0)),
 		)
 /obj/item/weapon/gun/projectile/automatic/nx6/update_icon()
 	..()
@@ -109,9 +109,9 @@
 	magazine_type = /obj/item/ammo_magazine/c762
 
 	firemodes = list(
-		list(name="semiauto", burst=1, fire_delay=0),
-		list(name="3-round bursts", burst=3, move_delay=6, accuracy = list(0,-1,-1,-2,-2), dispersion = list(0.0, 0.6, 0.6)),
-		list(name="short bursts", 	burst=5, move_delay=6, accuracy = list(0,-1,-1,-2,-2), dispersion = list(0.6, 1.0, 1.0, 1.0, 1.2)),
+		list(mode_name="semiauto", burst=1, fire_delay=0),
+		list(mode_name="3-round bursts", burst=3, move_delay=6, accuracy = list(0,-1,-1,-2,-2), dispersion = list(0.0, 0.6, 0.6)),
+		list(mode_name="short bursts", 	burst=5, move_delay=6, accuracy = list(0,-1,-1,-2,-2), dispersion = list(0.6, 1.0, 1.0, 1.0, 1.2)),
 		)
 
 /obj/item/weapon/gun/projectile/automatic/sts35/update_icon()
@@ -164,9 +164,9 @@
 	burst_delay = 4
 	firemode_type = /datum/firemode/z8
 	firemodes = list(
-		list(name="semiauto", burst=1, fire_delay=0),
-		list(name="3-round bursts", burst=3, move_delay=6, accuracy = list(0,-1,-1), dispersion = list(0.0, 0.6, 0.6)),
-		list(name="fire grenades", use_launcher=1)
+		list(mode_name="semiauto", burst=1, fire_delay=0),
+		list(mode_name="3-round bursts", burst=3, move_delay=6, accuracy = list(0,-1,-1), dispersion = list(0.0, 0.6, 0.6)),
+		list(mode_name="fire grenades", use_launcher=1)
 		)
 
 	var/obj/item/weapon/gun/launcher/grenade/underslung/launcher
@@ -230,8 +230,8 @@
 	magazine_type = /obj/item/ammo_magazine/a762
 
 	firemodes = list(
-		list(name="short bursts",	burst=5, move_delay=6, accuracy = list(0,-1,-1,-2,-2,-2,-3,-3), dispersion = list(0.6, 1.0, 1.0, 1.0, 1.2)),
-		list(name="long bursts",	burst=8, move_delay=8, accuracy = list(0,-1,-1,-2,-2,-2,-3,-3), dispersion = list(1.0, 1.0, 1.0, 1.0, 1.2)),
+		list(mode_name="short bursts",	burst=5, move_delay=6, accuracy = list(0,-1,-1,-2,-2,-2,-3,-3), dispersion = list(0.6, 1.0, 1.0, 1.0, 1.2)),
+		list(mode_name="long bursts",	burst=8, move_delay=8, accuracy = list(0,-1,-1,-2,-2,-2,-3,-3), dispersion = list(1.0, 1.0, 1.0, 1.0, 1.2)),
 		)
 
 	var/cover_open = 0
@@ -289,9 +289,9 @@
 	ammo_type = /obj/item/ammo_casing/c119
 
 	firemodes = list(
-		list(name="semiauto", burst=1, fire_delay=0),
-		list(name="3-round bursts", burst=3, move_delay=4, accuracy = list(0,-1,-1,-2,-2), dispersion = list(0.0, 0.6, 1.0)),
-		list(name="short bursts", 	burst=5, move_delay=4, accuracy = list(0,-1,-1,-2,-2), dispersion = list(0.6, 1.0, 1.0, 1.0, 1.2)),
+		list(mode_name="semiauto", burst=1, fire_delay=0),
+		list(mode_name="3-round bursts", burst=3, move_delay=4, accuracy = list(0,-1,-1,-2,-2), dispersion = list(0.0, 0.6, 1.0)),
+		list(mode_name="short bursts", 	burst=5, move_delay=4, accuracy = list(0,-1,-1,-2,-2), dispersion = list(0.6, 1.0, 1.0, 1.0, 1.2)),
 		)
 
 /obj/item/weapon/gun/projectile/automatic/hornet/update_icon()
@@ -317,9 +317,9 @@
 	slot_flags = SLOT_BACK
 
 	firemodes = list(
-		list(name="semiauto", burst=1, fire_delay=0),
-		list(name="3-round bursts", burst=3, move_delay=4, accuracy = list(2,1,0,-1,-1), dispersion = list(0.0, 0.3, 0.6)),
-		list(name="short bursts", 	burst=5, move_delay=4, accuracy = list(1,0,-1,-1,-2), dispersion = list(0.3, 0.3, 0.6, 1.0, 1.2)),
+		list(mode_name="semiauto", burst=1, fire_delay=0),
+		list(mode_name="3-round bursts", burst=3, move_delay=4, accuracy = list(2,1,0,-1,-1), dispersion = list(0.0, 0.3, 0.6)),
+		list(mode_name="short bursts", 	burst=5, move_delay=4, accuracy = list(1,0,-1,-1,-2), dispersion = list(0.3, 0.3, 0.6, 1.0, 1.2)),
 		)
 
 /obj/item/weapon/gun/projectile/automatic/m94a2/update_icon()
@@ -346,9 +346,9 @@
 	slot_flags = SLOT_BACK
 
 	firemodes = list(
-		list(name="semiauto", burst=1, fire_delay=0),
-		list(name="3-round bursts", burst=3, move_delay=2, accuracy = list(0,0,0,-1,-1), dispersion = list(0.0, 0.6, 1.0)),
-		list(name="short bursts", 	burst=5, move_delay=2, accuracy = list(0,0,-1,-1,-2), dispersion = list(0.6, 1.0, 1.0, 1.0, 1.2)),
+		list(mode_name="semiauto", burst=1, fire_delay=0),
+		list(mode_name="3-round bursts", burst=3, move_delay=2, accuracy = list(0,0,0,-1,-1), dispersion = list(0.0, 0.6, 1.0)),
+		list(mode_name="short bursts", 	burst=5, move_delay=2, accuracy = list(0,0,-1,-1,-2), dispersion = list(0.6, 1.0, 1.0, 1.0, 1.2)),
 		)
 
 /obj/item/weapon/gun/projectile/automatic/har17/update_icon()

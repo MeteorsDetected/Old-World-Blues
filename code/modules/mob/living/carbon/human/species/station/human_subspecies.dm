@@ -25,14 +25,18 @@
 	return SPECIES_HUMAN
 
 
-/datum/species/machine/android
+/*datum/species/machine/android
 	name = "Android"
 	name_plural = "Androids"
-	blurb = "Androids are an artificial lifeforms designed to look and act like a human.\
+	blurb = "Androids are an artificial lifeforms designed to look and act like a human.<br>\
 	Most of them have a lab-grown bodies with artifical flesh in a way to copy Human physiology and mentality.\
-	Androids have red biogel instead of blood and strong steel skeleton, what allows them to work in very hard conditions.\
+	Androids have red biogel instead of blood and strong steel skeleton, what allows them to work in very hard conditions.<br><br>\
 	Because Humans are their Creators, Androids almost worship them. However, they can still divide Humans on 'good' and 'bad',\
-	and that speciality was used by their Masters in wars."
+	and that speciality was used by their Masters in wars.<br><br>\
+	Warning:<br>\
+	Androids are being assembled only in a few factories in our galaxy, named Fortresses, their location is held secret and after Creation and Tests they have their memories deleted.\
+	If Android dies - his last saved memory copy is transfered to a Fortress and then downloaded into a newly produced body. Howewer, there's no way to ressurect Android on station.\
+	When Android dies - his personal data is lost and his place in a galaxy is taken by his copy from past."
 	//Icons aren't ready, work needed.
 	//icobase = 'icons/mob/human_races/android.dmi'
 	//deform = 'icons/mob/human_races/android_def.dmi'
@@ -97,6 +101,13 @@
 		"cell"    = /obj/item/organ/internal/cell,
 		"optics"  = /obj/item/organ/eyes/optical_sensor,
 		"ipc tag" = /obj/item/organ/ipc_tag*/
+		O_HEART =    /obj/item/organ/internal/heart,
+		O_LUNGS =    /obj/item/organ/internal/lungs,
+		O_LIVER =    /obj/item/organ/internal/liver,
+		O_KIDNEYS =  /obj/item/organ/internal/kidneys,
+		//O_BRAIN =    /obj/item/organ/internal/brain,
+		O_APPENDIX = /obj/item/organ/internal/appendix,
+		O_EYES =     /obj/item/organ/internal/eyes
 	)
 
 	restricted_jobs = list(
@@ -109,10 +120,13 @@
 /datum/species/machine/android/get_bodytype()
 	return SPECIES_HUMAN
 
-/*datum/species/machine/android/organs_spawned(var/mob/living/carbon/human/H)
+/datum/species/machine/android/organs_spawned(var/mob/living/carbon/human/H)
 	..()
 	for(var/obj/item/organ/O in H.organs)
-		O.robotic = 2*/
+		O.robotic = 2 //Which is equal to ORGAN_ROBOT define
+	for(var/obj/item/organ/O in H.internal_organs)
+		O.robotic = 2
 
 /datum/species/machine/android/handle_death(var/mob/living/carbon/human/H)
 	return
+*/

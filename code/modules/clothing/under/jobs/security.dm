@@ -59,6 +59,11 @@
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	siemens_coefficient = 0.9
 
+/obj/item/clothing/under/rank/warden_f
+	desc = "A warden's dress."
+	name = "warden's dress"
+	icon_state = "warden_f"
+
 /*
  * Corporate
  */
@@ -100,29 +105,29 @@
 	item_state = "ba_suit"
 
 /*
- * Blue uniforms
+ * Jeans uniforms
  */
-/obj/item/clothing/under/rank/head_of_security/blue
+/obj/item/clothing/under/rank/head_of_security/jeans
 	desc = "The insignia on this uniform tells you that this uniform belongs to the Head of Security."
 	name = "head of security's uniform"
-	icon_state = "hos_blue"
+	icon_state = "hosj"
 	item_state = "ba_suit"
 
-/obj/item/clothing/under/rank/warden/blue
+/obj/item/clothing/under/rank/warden/jeans
 	desc = "The insignia on this uniform tells you that this uniform belongs to the Warden."
 	name = "warden's uniform"
-	icon_state = "warden_blue"
+	icon_state = "wardenj"
 	item_state = "ba_suit"
 
-/obj/item/clothing/under/rank/security/blue
+/obj/item/clothing/under/rank/security/jeans
 	name = "security officer's uniform"
 	desc = "The latest in fashionable security outfits."
-	icon_state = "officer_blue"
+	icon_state = "officerj"
 	item_state = "ba_suit"
 
-/obj/item/clothing/under/rank/det/blue
+/obj/item/clothing/under/rank/det/jeans
 	desc = "That's a simple blue dress shirt with the jeans."
-	icon_state = "det_blue"
+	icon_state = "detj"
 	item_state = "ba_suit"
 
 /*
@@ -146,6 +151,20 @@
 	icon_state = "officer_tan"
 	item_state = "ba_suit"
 
+/*
+ * Blue uniforms
+ */
+/obj/item/clothing/under/rank/warden/blue
+	desc = "The insignia on this uniform tells you that this uniform belongs to the Warden."
+	name = "warden's uniform"
+	icon_state = "warden_blue"
+	item_state = "ba_suit"
+
+/obj/item/clothing/under/rank/security/blue
+	name = "security officer's uniform"
+	desc = "The latest in fashionable security outfits."
+	icon_state = "sec_blue"
+	item_state = "ba_suit"
 
 /*
  * Head of Security
@@ -155,6 +174,16 @@
 	desc = "You never asked for anything that stylish."
 	name = "head of security's jumpsuit"
 	icon_state = "jensen"
+
+/obj/item/clothing/under/rank/head_of_security/hos_f
+	desc = "A head of security's dress."
+	name = "head of security's dress"
+	icon_state = "hos_f"
+
+/obj/item/clothing/under/rank/head_of_security/hos_turtleneck
+	desc = "A head of security's red turtleneck."
+	name = "head of security's red turtleneck"
+	icon_state = "hos_turtleneck"
 
 /*
  * Detective

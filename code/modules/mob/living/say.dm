@@ -10,7 +10,7 @@ var/list/department_radio_keys = list(
 	"e" = "Engineering",
 	"s" = "Security",
 	"w" = "whisper",
-	"t" = "Mercenary",
+	"t" = "Syndicate",
 	"u" = "Supply",
 	"v" = "Service",
 	"p" = "AI Private"
@@ -246,6 +246,10 @@ proc/get_radio_key_from_channel(var/channel)
 				continue
 			if(M.loc && M.locs[1] in hearturfs)
 				listening |= M
+
+		for(var/obj/O in hearing_objects)
+			if(O.locs.len && O.locs[1] in hear)
+				listening_obj |= O
 
 	var/speech_bubble_test = say_test(message)
 	var/image/speech_bubble = image('icons/mob/talk.dmi', src, "h[speech_bubble_test]")

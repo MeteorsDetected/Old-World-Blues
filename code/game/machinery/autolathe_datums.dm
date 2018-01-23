@@ -156,32 +156,32 @@
 
 /datum/autolathe/recipe/scalpel
 	name = "scalpel"
-	path = /obj/item/weapon/scalpel
+	path = /obj/item/weapon/surgical/scalpel
 	category = "Medical"
 
 /datum/autolathe/recipe/circularsaw
 	name = "circular saw"
-	path = /obj/item/weapon/circular_saw
+	path = /obj/item/weapon/surgical/circular_saw
 	category = "Medical"
 
 /datum/autolathe/recipe/surgicaldrill
 	name = "surgical drill"
-	path = /obj/item/weapon/surgicaldrill
+	path = /obj/item/weapon/surgical/surgicaldrill
 	category = "Medical"
 
 /datum/autolathe/recipe/retractor
 	name = "retractor"
-	path = /obj/item/weapon/retractor
+	path = /obj/item/weapon/surgical/retractor
 	category = "Medical"
 
 /datum/autolathe/recipe/cautery
 	name = "cautery"
-	path = /obj/item/weapon/cautery
+	path = /obj/item/weapon/surgical/cautery
 	category = "Medical"
 
 /datum/autolathe/recipe/hemostat
 	name = "hemostat"
-	path = /obj/item/weapon/hemostat
+	path = /obj/item/weapon/surgical/hemostat
 	category = "Medical"
 
 /datum/autolathe/recipe/beaker

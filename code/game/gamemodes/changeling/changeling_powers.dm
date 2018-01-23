@@ -15,6 +15,12 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 	var/geneticpoints = 25
 	var/purchasedpowers = list()
 	var/mimicing = ""
+	var/cloaked = 0
+	var/armor_deployed = 0 //This is only used for changeling_generic_equip_all_slots() at the moment.
+	var/recursive_enhancement = 0 //Used to power up other abilities from the ling power with the same name.
+	var/list/purchased_powers_history = list() //Used for round-end report, includes respec uses too.
+	var/last_shriek = null // world.time when the ling last used a shriek.
+	var/next_escape = 0	// world.time when the ling can next use Escape Restraints
 
 /datum/changeling/New(var/gender=FEMALE)
 	..()
@@ -43,6 +49,12 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 
 	if(!mind)				return
 	if(!mind.changeling)	mind.changeling = new /datum/changeling(gender)
+	
+	if(ishuman(src))
+		var/obj/item/organ/internal/brain/B = src:internal_organs_by_name["brain"]
+		if(B)
+			B.vital = 0
+			B.decoy_override = 1
 
 	verbs += /datum/changeling/proc/EvolutionMenu
 	add_language("Changeling")
@@ -125,72 +137,6 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 	add_language("Changeling")
 
 	return
-
-/mob/proc/changeling_armblade()
-
-	set category = "Changeling"
-	set name = "Slide out armblade (35)"
-
-	var/mob/living/carbon/human/H = src
-	if(!istype(H))
-		src << "<span class='warning'>We may only use this power while in humanoid form.</span>"
-		return
-
-	var/datum/changeling/changeling = changeling_power(35,1,0)
-	if(!changeling)	return
-
-	var/obj/item/weapon/melee/arm_blade/AB = new(H)
-
-	if(!H.put_in_hands(AB))
-		qdel(AB)
-		return 0
-
-	H.visible_message(
-		"A grotesque blade forms around [H]\'s arm!",
-		"Our arm twists and mutates, transforming it into a deadly blade.",
-		"You hear organic matter ripping and tearing!"
-	)
-
-	changeling.chem_charges -= 35
-	return 1
-
-/obj/item/weapon/melee/arm_blade
-	name = "arm blade"
-	desc = "A grotesque blade made out of bone and flesh that cleaves through people as a hot knife through butter."
-	icon = 'icons/obj/weapons.dmi'
-	icon_state = "arm_blade"
-	item_state = "arm_blade"
-	w_class = ITEM_SIZE_NO_CONTAINER
-	force = 40
-	sharp = 1
-	edge = 1
-	pry = 1
-	abstract = 1
-	canremove = 0
-	anchored = 1
-	throwforce = 0 //Just to be on the safe side
-	throw_range = 0
-	throw_speed = 0
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-/*
-/obj/item/weapon/melee/arm_blade/greater
-	name = "arm greatblade"
-	desc = "A grotesque blade made out of bone and flesh that cleaves through people and armor as a hot knife through butter."
-	armor_penetration = 30
-*/
-
-/obj/item/weapon/melee/arm_blade/attack_self(var/mob/user)
-	user.drop_from_inventory(src)
-
-/obj/item/weapon/melee/arm_blade/dropped(var/mob/user)
-	user.visible_message(
-		"<span class='warning'>With a sickening crunch, [user] reforms their arm blade into an arm!</span>",
-		SPAN_NOTE("We assimilate the weapon back into our body."),
-		"<span class='italics'>You hear organic matter ripping and tearing!</span>"
-	)
-	playsound(src, 'sound/effects/blobattack.ogg', 30, 1)
-	qdel(src)
-
 
 //Absorbs the victim's DNA making them uncloneable. Requires a strong grip on the victim.
 //Doesn't cost anything as it's the most basic ability.
@@ -511,7 +457,11 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 	// sending display messages
 	C << SPAN_NOTE("We have regenerated.")
 	C.verbs -= /mob/proc/changeling_revive
-
+	if(ishuman(src))
+		var/obj/item/organ/internal/brain/B = src:internal_organs_by_name["brain"]
+		if(B)
+			B.vital = 0
+			B.decoy_override = 1
 
 //Boosts the range of your next sting attack by 1
 /mob/proc/changeling_boost_range()

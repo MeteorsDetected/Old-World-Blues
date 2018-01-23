@@ -25,6 +25,7 @@
 	..()
 
 /obj/machinery/atmospherics/unary/freezer/initialize()
+	..()
 	if(node)
 		return
 

@@ -31,6 +31,7 @@
 		new /obj/item/device/flash(src)
 		new /obj/item/taperoll/engineering(src)
 		new /obj/item/weapon/tank/emergency_oxygen/engi(src)
+		new /obj/item/clothing/suit/storage/coatengineer(src)
 		return
 
 
@@ -108,6 +109,7 @@
 		new /obj/item/weapon/cartridge/engineering(src)
 		new /obj/item/taperoll/engineering(src)
 		new /obj/item/weapon/tank/emergency_oxygen/engi(src)
+		new /obj/item/clothing/suit/storage/coatengineer(src)
 		return
 
 
@@ -136,4 +138,5 @@
 		new /obj/item/weapon/cartridge/atmos(src)
 		new /obj/item/taperoll/engineering(src)
 		new /obj/item/weapon/tank/emergency_oxygen/engi(src)
+		new /obj/item/clothing/suit/storage/coatatmos(src)
 		return

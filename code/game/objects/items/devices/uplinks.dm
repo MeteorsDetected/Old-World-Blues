@@ -225,6 +225,7 @@ datum/nano_item_lists
 		ui = new(user, src, ui_key, "uplink.tmpl", title, 450, 600, state = inventory_state)
 		// when the ui is first opened this is the data it will use
 		ui.set_initial_data(data)
+		user.playsound_local(src.loc, 'sound/voice/syndicateintro.ogg', 40, 0, 1)
 		// open the new ui window
 		ui.open()
 

@@ -1,7 +1,7 @@
 /obj/machinery/computer/order
 	name = "supply ordering console"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "request"
+	screen_icon = "request"
 	circuit = /obj/item/weapon/circuitboard/order
 	var/datum/shuttle/ferry/supply/shuttle
 	var/temp = null
@@ -12,7 +12,7 @@
 /obj/machinery/computer/order/supply
 	name = "supply control console"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "supply"
+	screen_icon = "supply"
 	light_color = "#b88b2e"
 	req_access = list(access_cargo)
 	circuit = /obj/item/weapon/circuitboard/order/supply
@@ -148,6 +148,9 @@
 		var/reason = cp1251_to_utf8( sanitize(input(usr,"Reason:","Why do you require this item?","") as null|text,MAX_MESSAGE_LEN,1) )
 		if(world.time > timeout)	return
 		if(!reason)	return
+		if(shuttle.has_arrive_time())
+			to_chat(usr,"You can not make orders during the shuttle flight!")
+			return
 
 		var/idname = "*None Provided*"
 		var/idrank = "*None Provided*"

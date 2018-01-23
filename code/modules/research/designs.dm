@@ -428,7 +428,7 @@ other types of metals and chemistry for reagents).
 	req_tech = list(TECH_BIO = 2, TECH_MATERIAL = 2, TECH_MAGNET = 2)
 	category = "Biotech"
 	materials = list(MATERIAL_STEEL = 12500, MATERIAL_GLASS = 7500)
-	build_path = /obj/item/weapon/scalpel/laser1
+	build_path = /obj/item/weapon/surgical/scalpel/laser1
 
 /datum/design/item/scalpel_laser2
 	name = "Improved Laser Scalpel"
@@ -437,7 +437,7 @@ other types of metals and chemistry for reagents).
 	req_tech = list(TECH_BIO = 3, TECH_MATERIAL = 4, TECH_MAGNET = 4)
 	category = "Biotech"
 	materials = list(MATERIAL_STEEL = 12500, MATERIAL_GLASS = 7500, MATERIAL_SILVER = 2500)
-	build_path = /obj/item/weapon/scalpel/laser2
+	build_path = /obj/item/weapon/surgical/scalpel/laser2
 
 /datum/design/item/scalpel_laser3
 	name = "Advanced Laser Scalpel"
@@ -446,7 +446,7 @@ other types of metals and chemistry for reagents).
 	req_tech = list(TECH_BIO = 4, TECH_MATERIAL = 6, TECH_MAGNET = 5)
 	category = "Biotech"
 	materials = list(MATERIAL_STEEL = 12500, MATERIAL_GLASS = 7500, MATERIAL_SILVER = 2000, MATERIAL_GOLD = 1500)
-	build_path = /obj/item/weapon/scalpel/laser3
+	build_path = /obj/item/weapon/surgical/scalpel/laser3
 
 /datum/design/item/scalpel_manager
 	name = "Incision Management System"
@@ -455,7 +455,7 @@ other types of metals and chemistry for reagents).
 	req_tech = list(TECH_BIO = 4, TECH_MATERIAL = 7, TECH_MAGNET = 5, TECH_DATA = 4)
 	category = "Biotech"
 	materials = list (MATERIAL_STEEL = 12500, MATERIAL_GLASS = 7500, MATERIAL_SILVER = 1500, MATERIAL_GOLD = 1500, MATERIAL_DIAMOND = 750)
-	build_path = /obj/item/weapon/scalpel/manager
+	build_path = /obj/item/weapon/surgical/scalpel/manager
 
 // *** Beakers (not really a subtype of design/item/medical)
 /datum/design/item/beaker/AssembleDesignName()
@@ -508,6 +508,41 @@ other types of metals and chemistry for reagents).
 	id = "implant_free"
 	req_tech = list(TECH_ILLEGAL = 2, TECH_BIO = 3)
 	build_path = /obj/item/weapon/implantcase/freedom
+
+/datum/design/item/impant/radar
+	name = "Radar implant"
+	id = "implant_radar"
+	req_tech = list(TECH_BIO = 3)
+	materials = list(MATERIAL_STEEL = 500, MATERIAL_GLASS = 500)
+	build_path = /obj/item/weapon/implant/nanoaug/radar
+
+/datum/design/item/impant/rebreather
+	name = "Rebreather implant"
+	id = "implant_rebreather"
+	materials = list(MATERIAL_STEEL = 500, MATERIAL_GLASS = 500)
+	req_tech = list(TECH_BIO = 3)
+	build_path = /obj/item/weapon/implant/nanoaug/rebreather
+
+/datum/design/item/impant/dermalarmor
+	name = "Dermalarmor implant"
+	id = "implant_dermalarmor"
+	materials = list(MATERIAL_STEEL = 500, MATERIAL_GLASS = 500)
+	req_tech = list(TECH_BIO = 3)
+	build_path = /obj/item/weapon/implant/nanoaug/dermalarmor
+
+/datum/design/item/impant/reflexes
+	name = "Reflexes implant"
+	id = "implant_reflexes"
+	req_tech = list(TECH_BIO = 3)
+	materials = list(MATERIAL_STEEL = 500, MATERIAL_GLASS = 500)
+	build_path = /obj/item/weapon/implant/nanoaug/reflexes
+
+/datum/design/item/impant/nanoregen
+	name = "Nanoregen implant"
+	id = "implant_nanoregen"
+	req_tech = list(TECH_BIO = 3)
+	materials = list(MATERIAL_STEEL = 500, MATERIAL_GOLD = 200, MATERIAL_GLASS = 500)
+	build_path = /obj/item/weapon/implant/nanoaug/nanoregen
 
 /////////////////////////////////////////
 /////////////////Weapons/////////////////
@@ -596,6 +631,14 @@ other types of metals and chemistry for reagents).
 	req_tech = list(TECH_MATERIAL = 2, TECH_BIO = 3, TECH_POWER = 3)
 	materials = list(MATERIAL_STEEL = 2000, MATERIAL_GLASS = 500, MATERIAL_URANIUM = 500)
 	build_path = /obj/item/weapon/gun/energy/floragun
+
+datum/design/item/weapon/eglaive
+	id = "eglaive"
+	name = "energy glaive"
+	desc = "A Li'idra designed hardlight glaive reverse-engineered from schematics found amongst raider wreckages."
+	req_tech = list(TECH_COMBAT = 6, TECH_PHORON = 4, TECH_MATERIAL = 7, TECH_ILLEGAL = 4,TECH_POWER = 4)
+	materials = list(DEFAULT_WALL_MATERIAL = 10000, "glass" = 18750, "phoron" = 3000, "silver" = 7500)
+	build_path = /obj/item/weapon/melee/energy/glaive
 
 /datum/design/item/weapon/large_grenade
 	id = "large_Grenade"
@@ -782,14 +825,7 @@ other types of metals and chemistry for reagents).
 /datum/design/item/pda_cartridge/janitor
 	id = "cart_janitor"
 	build_path = /obj/item/weapon/cartridge/janitor
-/*
-/datum/design/item/pda_cartridge/clown
-	id = "cart_clown"
-	build_path = /obj/item/weapon/cartridge/clown"
-/datum/design/item/pda_cartridge/mime
-	id = "cart_mime"
-	build_path = /obj/item/weapon/cartridge/mime"
-*/
+
 /datum/design/item/pda_cartridge/science
 	id = "cart_science"
 	build_path = /obj/item/weapon/cartridge/signal/science
@@ -821,6 +857,60 @@ other types of metals and chemistry for reagents).
 /datum/design/item/pda_cartridge/captain
 	id = "cart_captain"
 	build_path = /obj/item/weapon/cartridge/captain
+
+/datum/design/item/wirer
+	name = "Custom wirer tool"
+	id = "wirer"
+	req_tech = list(TECH_MATERIAL = 2, TECH_ENGINEERING = 2)
+	materials = list(DEFAULT_WALL_MATERIAL = 5000, "glass" = 2500)
+	build_path = /obj/item/device/integrated_electronics/wirer
+
+/datum/design/item/debugger
+	name = "Custom circuit debugger tool"
+	id = "debugger"
+	req_tech = list(TECH_MATERIAL = 2, TECH_ENGINEERING = 2)
+	materials = list(DEFAULT_WALL_MATERIAL = 5000, "glass" = 2500)
+	build_path = /obj/item/device/integrated_electronics/debugger
+
+/datum/design/item/custom_circuit_assembly
+	name = "Small custom assembly"
+	desc = "An customizable assembly for simple, small devices."
+	id = "assembly-small"
+	req_tech = list(TECH_MATERIAL = 3, TECH_ENGINEERING = 2, TECH_POWER = 2)
+	materials = list(DEFAULT_WALL_MATERIAL = 10000)
+	build_path = /obj/item/device/electronic_assembly
+
+/datum/design/item/custom_circuit_assembly/medium
+	name = "Medium custom assembly"
+	desc = "An customizable assembly suited for more ambitious mechanisms."
+	id = "assembly-medium"
+	req_tech = list(TECH_MATERIAL = 4, TECH_ENGINEERING = 3, TECH_POWER = 3)
+	materials = list(DEFAULT_WALL_MATERIAL = 20000)
+	build_path = /obj/item/device/electronic_assembly/medium
+
+/datum/design/item/custom_circuit_assembly/drone
+	name = "Drone custom assembly"
+	desc = "An customizable assembly optimized for autonomous devices."
+	id = "assembly-drone"
+	req_tech = list(TECH_MATERIAL = 4, TECH_ENGINEERING = 4, TECH_POWER = 4)
+	materials = list(DEFAULT_WALL_MATERIAL = 30000)
+	build_path = /obj/item/device/electronic_assembly/drone
+
+/datum/design/item/custom_circuit_assembly/large
+	name = "Large custom assembly"
+	desc = "An customizable assembly for large machines."
+	id = "assembly-large"
+	req_tech = list(TECH_MATERIAL = 5, TECH_ENGINEERING = 4, TECH_POWER = 4)
+	materials = list(DEFAULT_WALL_MATERIAL = 40000)
+	build_path = /obj/item/device/electronic_assembly/large
+
+/datum/design/item/custom_circuit_assembly/implant
+	name = "Implant custom assembly"
+	desc = "An customizable assembly for very small devices, implanted into living entities."
+	id = "assembly-implant"
+	req_tech = list(TECH_MATERIAL = 5, TECH_ENGINEERING = 4, TECH_POWER = 3, TECH_BIO = 5)
+	materials = list(DEFAULT_WALL_MATERIAL = 2000)
+	build_path = /obj/item/weapon/implant/integrated_circuit
 
 /////////////////////////////////////////
 ///////////////Misc Stuff////////////////

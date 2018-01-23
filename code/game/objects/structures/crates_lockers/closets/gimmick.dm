@@ -75,9 +75,6 @@
 	icon_opened = "syndicateopen"
 	anchored = 1
 
-/obj/structure/closet/thunderdome/New()
-	..()
-
 /obj/structure/closet/thunderdome/tdred
 	name = "red-team Thunderdome closet"
 

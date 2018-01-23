@@ -317,7 +317,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nymphplushie"
 	item_to_spawn()
-		return pick(\
+		return pick(
 			/obj/structure/plushie/ian,
 			/obj/structure/plushie/drone,
 			/obj/structure/plushie/carp,
@@ -326,5 +326,30 @@
 			/obj/item/toy/plushie/mouse,
 			/obj/item/toy/plushie/kitten,
 			/obj/item/toy/plushie/animal,
-			/obj/item/toy/plushie/lizard\
+			/obj/item/toy/plushie/lizard,
 		)
+
+/obj/random/musical_device
+	name = "random musical device"
+	desc = "This is a random stuff that plays music"
+	icon = 'icons/obj/musician.dmi'
+	icon_state = "minimoog"
+	item_to_spawn()
+		return pick(prob(7);/obj/structure/device/piano,
+					prob(1);/obj/structure/synthesized_instrument/synthesizer,
+					prob(3);/obj/machinery/media/jukebox
+		)
+/*
+/obj/random/glowstick
+	name = "random glowstick."
+	desc = "A glowstick of random color"
+	icon = 'icons/obj/glowsticks.dmi'
+	icon_state = "glowstick"
+	item_to_spawn()
+		return pick(/obj/item/device/flashlight/glowstick,
+					/obj/item/device/flashlight/glowstick/red,
+					/obj/item/device/flashlight/glowstick/orange,
+					/obj/item/device/flashlight/glowstick/yellow,
+					/obj/item/device/flashlight/glowstick/blue
+		)
+		*/

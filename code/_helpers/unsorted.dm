@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 /*
  * A large number of misc global procs.
  */
@@ -1332,6 +1330,18 @@ proc/GaussRandRound(var/sigma,var/roundto)
 		if(istype(N, areatype)) areas += N
 	return areas
 
+// Returns an instance of a valid surgery surface.
+/mob/living/proc/get_surgery_surface()
+	if(!lying)
+		return null // Not lying down means no surface.
+	var/obj/surface = null
+	for(var/obj/O in loc) // Looks for the best surface.
+		if(O.surgery_odds)
+			if(!surface || surface.surgery_odds < O)
+				surface = O
+	if(surface)
+		return surface
+
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all turfs in areas of that type of that type in the world.
 /proc/get_area_turfs(var/areatype)
@@ -1785,8 +1795,8 @@ proc/is_hot(obj/item/W as obj)
 /proc/can_operate(mob/living/carbon/M)
 	return M.lying && (\
 		locate(/obj/machinery/optable, M.loc) || \
-		(locate(/obj/structure/bed/roller, M.loc) && prob(75)) || \
-		(locate(/obj/structure/table/, M.loc) && prob(66))\
+		(locate(/obj/structure/roller_bed, M.loc) && prob(75)) || \
+		(locate(/obj/structure/table, M.loc) && prob(66))\
 	)
 
 /proc/reverse_direction(var/dir)

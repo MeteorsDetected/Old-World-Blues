@@ -60,7 +60,16 @@ var/list/donator_icons
 		'sound/music/music_ambient_scene6.ogg',
 		'sound/music/music_battle_scene2.ogg',
 		'sound/music/DARKWOOD_Main.ogg',
-		'sound/music/moonbaseoddity.ogg')
+		'sound/music/moonbaseoddity.ogg',
+		'sound/music/deus_ex_unatco.ogg',
+		'sound/music/robotniks_theme.ogg')/*
+		'sound/music/new_year/we_wish_you_a_merry_christmas.ogg',
+		'sound/music/new_year/vypem_za_lyubov.ogg',
+		'sound/music/new_year/novyy_god.ogg',
+		'sound/music/new_year/let_it_snow.ogg',
+		'sound/music/new_year/jingle_bells.ogg',
+		'sound/music/new_year/happy_new_year.ogg',
+		'sound/music/new_year/a_holly_jolly_christmas.ogg' )*/
 
 	donator_icons = icon_states('icons/donator.dmi')
 
@@ -195,7 +204,7 @@ var/list/donator_icons
 		cinematic.mouse_opacity = 0
 		cinematic.screen_loc = "1,0"
 
-		var/obj/structure/bed/temp_buckle = new(src)
+		var/obj/structure/material/bed/temp_buckle = new(src)
 		//Incredibly hackish. It creates a bed within the gameticker (lol) to stop mobs running around
 		if(station_missed)
 			for(var/mob/living/M in living_mob_list)

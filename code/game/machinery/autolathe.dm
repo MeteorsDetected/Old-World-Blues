@@ -8,6 +8,8 @@
 	idle_power_usage = 10
 	active_power_usage = 2000
 	circuit = /obj/item/weapon/circuitboard/autolathe
+	clicksound = "keyboard"
+	clickvol = 30
 
 	var/tmp/list/machine_recipes
 	var/list/stored_material =  list(MATERIAL_STEEL = 0, MATERIAL_GLASS = 0)
@@ -51,7 +53,8 @@
 /obj/machinery/autolathe/New()
 	..()
 	wires = new(src)
-	
+	stat = 0
+
 /obj/machinery/autolathe/Destroy()
 	if(wires)
 		qdel(wires)
@@ -344,10 +347,11 @@
 	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
 		man_rating += M.rating
 
-	storage_capacity[MATERIAL_STEEL] = mb_rating  * 25000
-	storage_capacity[MATERIAL_GLASS] = mb_rating  * 12500
+	storage_capacity[MATERIAL_STEEL] = mb_rating  * 12.5 * SHEET_MATERIAL_AMOUNT
+	storage_capacity[MATERIAL_GLASS] = mb_rating  * 6.25 * SHEET_MATERIAL_AMOUNT
 	build_time = 50 / man_rating
-	mat_efficiency = 1.2 - man_rating * 0.3// Normally, price is 1.25 the amount of material, so this shouldn't go higher than 0.8. Maximum rating of parts is 3
+	// Normally, price is 1.25 the amount of material, so this shouldn't go higher than 0.8. Maximum rating of parts is 3
+	mat_efficiency = 1.2 - man_rating * 0.3
 
 /obj/machinery/autolathe/industrial/RefreshParts()
 	..()
@@ -365,7 +369,7 @@
 		mb_rating += MB.rating
 
 	for(var/material in storage_capacity)
-		storage_capacity[material] = mb_rating  * 9000
+		storage_capacity[material] = mb_rating  * 4.5 * SHEET_MATERIAL_AMOUNT
 
 /obj/machinery/autolathe/dismantle()
 

@@ -15,8 +15,6 @@
 	var/tmp/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	var/no_attack_log = 0			//If it's an item we don't want to log attack_logs with, set this to 1
 	pass_flags = PASSTABLE
-	pressure_resistance = 5
-//	causeerrorheresoifixthis
 	var/obj/item/master = null
 	var/list/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/list/attack_verb = null //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
@@ -59,6 +57,7 @@
 	// If not set the default icon for that slot will be used.
 	// If icon_override or sprite_sheets are set they will take precendence over this.
 	var/tmp/sprite_group = null
+	var/toolspeed = 1.0 // This is a multipler on how 'fast' a tool works.  e.g. setting this to 0.5 will make the tool work twice as fast.
 
 
 	/* Species-specific sprite sheets for inventory sprites

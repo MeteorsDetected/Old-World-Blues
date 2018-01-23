@@ -11,22 +11,27 @@
 */
 /datum/firemode
 	var/name = "default"
-	var/burst = 1
-	var/burst_delay = null
-	var/fire_delay = null
-	var/move_delay = 1
-	var/list/accuracy = list(0)
-	var/list/dispersion = list(0)
+	var/list/settings = list()
 
 //using a list makes defining fire modes for new guns much nicer,
 //however we convert the lists to datums in part so that firemodes can be VVed if necessary.
-/datum/firemode/New(list/properties = null)
+/datum/firemode/New(obj/item/weapon/gun/gun, list/properties = null)
 	..()
 	if(!properties) return
 
-	for(var/propname in vars)
-		if(!isnull(properties[propname]))
-			src.vars[propname] = properties[propname]
+	for(var/propname in properties)
+		var/propvalue = properties[propname]
+
+		if(propname == "mode_name")
+			name = propvalue
+		if(isnull(propvalue))
+			settings[propname] = gun.vars[propname] //better than initial() as it handles list vars like burst_accuracy
+		else
+			settings[propname] = propvalue
+
+/datum/firemode/proc/apply_to(obj/item/weapon/gun/gun)
+	for(var/propname in settings)
+		gun.vars[propname] = settings[propname]
 
 //Parent gun type. Guns are weapons that can be aimed at mobs and act over a distance
 /obj/item/weapon/gun
@@ -48,8 +53,10 @@
 	attack_verb = list("struck", "hit", "bashed")
 	zoomdevicename = "scope"
 
+	var/burst = 1
 	var/fire_delay = 6 	//delay after shooting before the gun can be used again
 	var/burst_delay = 2	//delay between shots, if firing in bursts
+	var/move_delay = 1
 	var/fire_sound = 'sound/weapons/Gunshot.ogg'
 	var/fire_sound_text = "gunshot"
 	var/recoil = 0		//screen shake
@@ -62,11 +69,14 @@
 	var/scoped_accuracy = null
 
 	var/next_fire_time = 0
-
+	var/mode_name = null
 	var/sel_mode = 1 //index of the currently selected mode
 	var/list/firemodes = list()
 	var/firemode_type = /datum/firemode //for subtypes that need custom firemode data
+	var/last_shot = 0			//records the last shot fired
 
+	var/list/burst_accuracy = list(0) //allows for different accuracies for each shot in a burst. Applied on top of accuracy
+	var/list/dispersion = list(0)
 	//aiming system stuff
 	var/keep_aim = 1 	//1 for keep shooting until aim is lowered
 						//0 for one bullet after tarrget moves and aim is lowered
@@ -78,11 +88,8 @@
 
 /obj/item/weapon/gun/New()
 	..()
-	if(!firemodes.len)
-		firemodes += new firemode_type
-	else
-		for(var/i in 1 to firemodes.len)
-			firemodes[i] = new firemode_type(firemodes[i])
+	for(var/i in 1 to firemodes.len)
+		firemodes[i] = new /datum/firemode(src, firemodes[i])
 
 	if(isnull(scoped_accuracy))
 		scoped_accuracy = accuracy
@@ -151,7 +158,8 @@
 		return ..() //Pistolwhippin'
 
 /obj/item/weapon/gun/proc/Fire(atom/target, mob/living/user, clickparams, pointblank=0, reflex=0)
-	if(!user || !target) return
+	if(!user || !target)
+		return
 
 	add_fingerprint(user)
 
@@ -165,29 +173,34 @@
 
 	self_attack_log(user, "shot [target] ([target.x],[target.y],[target.z]) with [src]", 1)
 
-	//unpack firemode data
-	var/datum/firemode/firemode = firemodes[sel_mode]
-	var/_burst = firemode.burst
-	var/_burst_delay = isnull(firemode.burst_delay)? src.burst_delay : firemode.burst_delay
-	var/_fire_delay = isnull(firemode.fire_delay)? src.fire_delay : firemode.fire_delay
-	var/_move_delay = firemode.move_delay
-
-	var/shoot_time = (_burst - 1)*_burst_delay
+	var/shoot_time = (burst - 1)*burst_delay
 	user.setClickCooldown(shoot_time) //no clicking on things while shooting
 	if(user.client) user.client.move_delay = world.time + shoot_time //no moving while shooting either
 	next_fire_time = world.time + shoot_time
 
 	//actually attempt to shoot
 	var/turf/targloc = get_turf(target) //cache this in case target gets deleted during shooting, e.g. if it was a securitron that got destroyed.
-	for(var/i in 1 to _burst)
+	for(var/i in 1 to burst)
 		var/obj/projectile = consume_next_projectile(user)
 		if(!projectile)
 			handle_click_empty(user)
 			break
 
-		var/acc = firemode.accuracy[min(i, firemode.accuracy.len)]
-		var/disp = firemode.dispersion[min(i, firemode.dispersion.len)]
-		process_accuracy(projectile, user, target, acc, disp)
+
+		if(istype(projectile, /obj/item/projectile))
+			var/obj/item/projectile/P = projectile
+
+			var/acc = burst_accuracy[min(i, burst_accuracy.len)]
+			var/disp = dispersion[min(i, dispersion.len)]
+
+			P.accuracy = accuracy + acc
+			P.dispersion = disp
+
+			P.shot_from = src.name
+			P.silenced = silenced
+
+			P.launch(target)
+
 
 		if(pointblank)
 			process_point_blank(projectile, user, target)
@@ -196,19 +209,21 @@
 			handle_post_fire(user, target, pointblank, reflex)
 			update_icon()
 
-		if(i < _burst)
-			sleep(_burst_delay)
+		if(i < burst)
+			sleep(burst_delay)
 
 		if(!(target && target.loc))
 			target = targloc
 			pointblank = 0
 
+		last_shot = world.time
+
 	update_held_icon()
 
 	//update timing
 	user.setClickCooldown(DEFAULT_QUICK_COOLDOWN)
-	if(user.client) user.client.move_delay = world.time + _move_delay
-	next_fire_time = world.time + _fire_delay
+	if(user.client) user.client.move_delay = world.time + move_delay
+	next_fire_time = world.time + fire_delay
 
 	if(muzzle_flash)
 		set_light(0)
@@ -240,18 +255,10 @@
 	else
 		playsound(user, fire_sound, 50, 1)
 
-		if(reflex)
-			user.visible_message(
-				"<span class='reflex_shoot'><b>\The [user] fires \the [src][pointblank ? " point blank at \the [target]":""] by reflex!<b></span>",
-				"<span class='reflex_shoot'>You fire \the [src] by reflex!</span>",
-				"You hear a [fire_sound_text]!"
-			)
-		else
-			user.visible_message(
-				"<span class='danger'>\The [user] fires \the [src][pointblank ? " point blank at \the [target]":""]!</span>",
-				"<span class='warning'>You fire \the [src]!</span>",
-				"You hear a [fire_sound_text]!"
-				)
+	if(reflex)
+		admin_attack_log(user, target, attacker_message = "fired [src] by reflex.", victim_message = "triggered a reflex shot from [src].", admin_message = "shot [target], who triggered gunfire ([src]) by reflex)")
+	else
+		admin_attack_log(usr, attacker_message="Fired [src]", admin_message="fired a gun ([src]) (MODE: [src.mode_name]) [reflex ? "by reflex" : "manually"].")
 
 		if(muzzle_flash)
 			set_light(muzzle_flash)
@@ -388,14 +395,18 @@
 		var/datum/firemode/current_mode = firemodes[sel_mode]
 		user << "The fire selector is set to [current_mode.name]."
 
-/obj/item/weapon/gun/proc/switch_firemodes(mob/user=null)
+/obj/item/weapon/gun/proc/switch_firemodes(mob/user)
+	if(firemodes.len <= 1)
+		return null
+
 	sel_mode++
 	if(sel_mode > firemodes.len)
 		sel_mode = 1
 	var/datum/firemode/new_mode = firemodes[sel_mode]
-	user << SPAN_NOTE("\The [src] is now set to [new_mode.name].")
+	new_mode.apply_to(src)
+	user << "<span class='notice'>\The [src] is now set to [mode_name].</span>"
+
+	return new_mode
 
 /obj/item/weapon/gun/attack_self(mob/user)
-	if(firemodes.len > 1)
-		switch_firemodes(user)
-
+	switch_firemodes(user)

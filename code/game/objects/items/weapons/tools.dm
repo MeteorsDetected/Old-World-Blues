@@ -275,9 +275,14 @@
 			user << "<span class='warning'>You'll need to turn [src] on to patch the damage on [H]'s [S.name]!</span>"
 			return 1
 
-		if(S.robo_repair(15, BRUTE, "some dents", src, user))
-			remove_fuel(1, user)
+		//if(S.robo_repair(15, BRUTE, "some dents", src, user))
+			//remove_fuel(1, user)
 
+		if(S.robotic >= 2)
+			user << SPAN_NOTE("You start to patch the damage on [H]'s [S.name]!")
+			S.machine_repair(10, BRUTE, "some dents", src, user)
+			remove_fuel(1)
+			user << SPAN_NOTE("You finished patching the damage on [H]'s [S.name]!")
 	else
 		return ..()
 
@@ -326,6 +331,7 @@
 				M << SPAN_NOTE("You switch the [src] on.")
 			else if(T)
 				T.visible_message("<span class='danger'>\The [src] turns on.</span>")
+			playsound(loc, 'sound/items/WelderActivate.ogg', 50, 1)
 			src.force = 15
 			src.damtype = "fire"
 			src.w_class = ITEM_SIZE_LARGE
@@ -343,6 +349,7 @@
 			M << SPAN_NOTE("You switch \the [src] off.")
 		else if(T)
 			T.visible_message("<span class='warning'>\The [src] turns off.</span>")
+		playsound(loc, 'sound/items/WelderDeactivate.ogg', 50, 1)
 		src.force = 3
 		src.damtype = "brute"
 		src.w_class = initial(src.w_class)

@@ -5,6 +5,12 @@
 		return istype(H.species, /datum/species/xenos)
 	return 0
 
+/proc/get_both_hands(mob/living/carbon/M)
+	if(!istype(M))
+		return
+	var/list/hands = list(M.l_hand, M.r_hand)
+	return hands
+
 /proc/issmall(A)
 	if(A && ishuman(A))
 		var/mob/living/carbon/human/H = A

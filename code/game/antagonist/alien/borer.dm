@@ -43,13 +43,24 @@ var/datum/antagonist/xenos/borer/borers
 					break
 		if(istype(host))
 			var/obj/item/organ/external/head = host.get_organ(BP_HEAD)
-			if(head)
-				borer.host = host
-				head.implants += borer
-				borer.forceMove(head)
-				if(!borer.host_brain)
-					borer.host_brain = new(borer)
-				borer.host_brain.name = host.name
-				borer.host_brain.real_name = host.real_name
-				return
-	..() // Place them at a vent if they can't get a host.
+			borer.host = host
+			head.implants += borer
+			borer.forceMove(head)
+			if(!borer.host_brain)
+				borer.host_brain = new(borer)
+			borer.host_brain.name = host.name
+			borer.host_brain.real_name = host.real_name
+			return
+		 // Place them at a vent if they can't get a host.
+		borer.forceMove(get_turf(pick(get_vents())))
+
+/datum/antagonist/borer/attempt_random_spawn()
+	if(config.aliens_allowed) ..()
+
+/datum/antagonist/borer/proc/get_vents()
+	var/list/vents = list()
+	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in machines)
+		if(isStationLevel(!temp_vent.welded && temp_vent.network && temp_vent.loc.z))
+			if(temp_vent.network.normal_members.len > 50)
+				vents += temp_vent
+	return vents

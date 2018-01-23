@@ -9,7 +9,7 @@
 	idle_power_usage = 40
 	circuit = /obj/item/weapon/circuitboard/biogenerator
 	var/processing = 0
-	var/obj/item/weapon/reagent_containers/glass/beaker = null
+	var/obj/item/weapon/reagent_containers/glass/beaker/beaker = null
 	var/points = 0
 	var/menustat = "menu"
 	var/build_eff = 1

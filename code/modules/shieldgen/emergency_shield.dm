@@ -130,7 +130,6 @@
 	density = 1
 	opacity = 0
 	anchored = 0
-	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(access_engine)
 	var/const/max_health = 100
 	var/health = max_health
@@ -190,7 +189,6 @@
 		collapse_shields()
 	else
 		create_shields()
-	update_icon()
 
 /obj/machinery/shieldgen/process()
 	if (!active || (stat & NOPOWER))

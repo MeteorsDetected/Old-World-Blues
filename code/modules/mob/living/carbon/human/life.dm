@@ -218,6 +218,61 @@
 	if(in_stasis)
 		return
 
+	// Make nanoregen heal youu, -3 all damage types
+	if((NANOREGEN in augmentations))
+		var/healed = 0
+		var/hptoreg = 0
+		if(NANOREGEN in augmentations)
+			hptoreg += 3
+		if(stat==UNCONSCIOUS)
+			if(hptoreg>=2 || prob(50)) hptoreg/=2
+		if(stat==DEAD) hptoreg=0
+
+		for(var/i=1, i<=hptoreg, i++)
+			var/list/damages = new/list()
+			if(getToxLoss())
+				damages+="tox"
+			if(getOxyLoss())
+				damages+="oxy"
+			if(getCloneLoss())
+				damages+="clone"
+			if(getBruteLoss())
+				damages+="brute"
+			if(getFireLoss())
+				damages+="burn"
+			if(halloss != 0)
+				damages+="hal"
+
+			if(damages.len)
+				switch(pick(damages))
+					if("tox")
+						adjustToxLoss(-1)
+						healed = 1
+					if("oxy")
+						adjustOxyLoss(-1)
+						healed = 1
+					if("clone")
+						adjustCloneLoss(-1)
+						healed = 1
+					if("brute")
+						heal_organ_damage(1,0)
+						healed = 1
+					if("burn")
+						heal_organ_damage(0,1)
+						healed = 1
+					if("hal")
+						if(halloss > 0)
+							halloss -= 1
+						if(halloss < 0)
+							halloss = 0
+						healed = 1
+			else
+				break
+
+		if(healed)
+			if(prob(5))
+				src << "\blue You feel your wounds mending..."
+
 	if(getFireLoss())
 		if(prob(1))
 			heal_organ_damage(0,1)
@@ -330,7 +385,7 @@
 	return breath
 
 /mob/living/carbon/human/handle_breath(datum/gas_mixture/breath)
-	if(status_flags & GODMODE)
+	if(status_flags & GODMODE || (REBREATHER in augmentations) )
 		return
 
 	if(!breath || (breath.total_moles == 0) || suiciding)

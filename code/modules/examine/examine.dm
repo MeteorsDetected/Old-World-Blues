@@ -33,6 +33,10 @@
 	else //No flavor text?  Try for hardcoded fluff instead.
 		return ..()
 
+// This one is slightly different, in that it must return a list.
+/atom/proc/get_description_interaction()
+	return list()
+
 /mob/living/carbon/human/get_description_fluff()
 	return print_flavor_text(0)
 
