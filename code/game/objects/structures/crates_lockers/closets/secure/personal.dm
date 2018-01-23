@@ -31,7 +31,6 @@
 /obj/structure/closet/secure_closet/personal/cabinet
 	icon_state = "cabinetdetective"
 	icon_opened = "cabinetdetective_open"
-	icon_broken = "cabinetdetective_broken"
 
 /obj/structure/closet/secure_closet/personal/cabinet/New()
 	..()

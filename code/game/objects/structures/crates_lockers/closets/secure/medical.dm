@@ -3,7 +3,6 @@
 	desc = "Filled with medical junk."
 	icon_state = "medical"
 	icon_opened = "medicalopen"
-	icon_broken = "medicalbroken"
 	req_access = list(access_medical_equip)
 
 	New()
@@ -27,7 +26,6 @@
 	desc = "Used to knock people out."
 	icon_state = "medical"
 	icon_opened = "medicalopen"
-	icon_broken = "medicalbroken"
 	req_access = list(access_surgery)
 
 	New()
@@ -47,7 +45,6 @@
 	req_access = list(access_medical_equip)
 	icon_state = "securemed"
 	icon_opened = "securemedopen"
-	icon_broken = "securemedbroken"
 
 	New()
 		..()
@@ -58,26 +55,23 @@
 			if(4) new /obj/item/storage/backpack/messenger/med(src)
 		new /obj/item/clothing/under/rank/nursesuit (src)
 		new /obj/item/clothing/head/nursehat (src)
-		switch(pick("blue", "green", "purple"))
-			if ("blue")
-				new /obj/item/clothing/under/rank/medical/sleeveless/blue(src)
-				new /obj/item/clothing/head/surgery/blue(src)
-			if ("green")
-				new /obj/item/clothing/under/rank/medical/sleeveless/green(src)
-				new /obj/item/clothing/head/surgery/green(src)
-			if ("purple")
-				new /obj/item/clothing/under/rank/medical/sleeveless/purple(src)
-				new /obj/item/clothing/head/surgery/purple(src)
-		switch(pick("blue", "green", "purple"))
-			if ("blue")
-				new /obj/item/clothing/under/rank/medical/sleeveless/blue(src)
-				new /obj/item/clothing/head/surgery/blue(src)
-			if ("green")
-				new /obj/item/clothing/under/rank/medical/sleeveless/green(src)
-				new /obj/item/clothing/head/surgery/green(src)
-			if ("purple")
-				new /obj/item/clothing/under/rank/medical/sleeveless/purple(src)
-				new /obj/item/clothing/head/surgery/purple(src)
+		for(var/i in 1 to 2)
+			switch(pick("blue", "green", "purple", "black", "navyblue"))
+				if ("blue")
+					new /obj/item/clothing/under/rank/medical/sleeveless/blue(src)
+					new /obj/item/clothing/head/surgery/blue(src)
+				if ("green")
+					new /obj/item/clothing/under/rank/medical/sleeveless/green(src)
+					new /obj/item/clothing/head/surgery/green(src)
+				if ("purple")
+					new /obj/item/clothing/under/rank/medical/sleeveless/purple(src)
+					new /obj/item/clothing/head/surgery/purple(src)
+				if ("black")
+					new /obj/item/clothing/under/rank/medical/sleeveless/black(src)
+					new /obj/item/clothing/head/surgery/black(src)
+				if ("navyblue")
+					new /obj/item/clothing/under/rank/medical/sleeveless/navyblue(src)
+					new /obj/item/clothing/head/surgery/navyblue(src)
 		new /obj/item/clothing/under/rank/medical(src)
 		new /obj/item/clothing/under/rank/nurse(src)
 		new /obj/item/clothing/under/rank/orderly(src)
@@ -92,7 +86,6 @@
 	desc = "Supplies for a first responder."
 	icon_state = "secureems"
 	icon_opened = "secureemsopen"
-	icon_broken = "secureemsbroken"
 	req_access = list(access_medical_equip)
 
 
@@ -129,7 +122,6 @@
 	req_access = list(access_cmo)
 	icon_state = "cmosecure"
 	icon_opened = "cmosecureopen"
-	icon_broken = "cmosecurebroken"
 
 	New()
 		..()
@@ -141,7 +133,7 @@
 		new /obj/item/clothing/suit/bio_suit/cmo(src)
 		new /obj/item/clothing/head/bio_hood/cmo(src)
 		new /obj/item/clothing/shoes/white(src)
-		switch(pick("blue", "green", "purple"))
+		switch(pick("blue", "green", "purple", "black", "navyblue"))
 			if ("blue")
 				new /obj/item/clothing/under/rank/medical/sleeveless/blue(src)
 				new /obj/item/clothing/head/surgery/blue(src)
@@ -151,6 +143,12 @@
 			if ("purple")
 				new /obj/item/clothing/under/rank/medical/sleeveless/purple(src)
 				new /obj/item/clothing/head/surgery/purple(src)
+			if ("black")
+				new /obj/item/clothing/under/rank/medical/sleeveless/black(src)
+				new /obj/item/clothing/head/surgery/black(src)
+			if ("navyblue")
+				new /obj/item/clothing/under/rank/medical/sleeveless/navyblue(src)
+				new /obj/item/clothing/head/surgery/navyblue(src)
 		new /obj/item/clothing/under/rank/chief_medical_officer(src)
 		new /obj/item/clothing/suit/storage/toggle/labcoat/cmo(src)
 		new /obj/item/clothing/suit/storage/toggle/labcoat/cmoalt(src)
@@ -171,7 +169,6 @@
 	desc = "Store dangerous chemicals in here."
 	icon_state = "medical"
 	icon_opened = "medicalopen"
-	icon_broken = "medicalbroken"
 	req_access = list(access_chemistry)
 
 
@@ -186,6 +183,5 @@
 	desc = "It's a secure wall-mounted storage unit for first aid supplies."
 	icon_state = "medical_wall_sec"
 	icon_opened = "medical_wall_open"
-	icon_broken = "medical_wall_broken"
 	req_access = list(access_medical_equip)
 

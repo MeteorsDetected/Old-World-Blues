@@ -12,7 +12,7 @@
 	var/meat_type
 	var/victim_name = "corpse"
 
-/obj/structure/kitchenspike/affect_grab(var/mob/user, var/mob/living/target, var/obj/item/weapon/grab/grab)
+/obj/structure/kitchenspike/affect_grab(var/mob/user, var/mob/living/target)
 	if(occupied)
 		user << SPAN_DANG("The spike already has something on it, finish collecting its meat first!")
 	else

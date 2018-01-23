@@ -560,7 +560,7 @@
 			dat += "<div><b><span style='background-color:pink'>[get_organ_name(organ)]</span></b> "
 		else
 			dat += "<div><b>[get_organ_name(organ)]</b> "
-		dat += "<a href='?src=\ref[src];color=[organ]'><span class='box' style='background-color:[modifications_colors[organ]]'></span></a>"
+		dat += "<a href='?src=\ref[src];color=[organ]'><span class='box' style='background-color:[get_modification_color(organ)]'></span></a>"
 		dat += "<br><a href='?src=\ref[src];organ=[organ]'>[disp_name]</a></div>"
 
 	dat += "</td><td style='width:80px;text-align:center'><img src=new_previewicon[preview_dir].png height=64 width=64>"
@@ -570,7 +570,7 @@
 	for(var/organ in l_organs)
 		var/datum/body_modification/mod = get_modification(organ)
 		var/disp_name = mod ? mod.short_name : "Nothing"
-		dat += "<div><a href='?src=\ref[src];color=[organ]'><span class='box' style='background-color:[modifications_colors[organ]]'></span></a>"
+		dat += "<div><a href='?src=\ref[src];color=[organ]'><span class='box' style='background-color:[get_modification_color(organ)]'></span></a>"
 		if(organ == current_organ)
 			dat += " <b><span style='background-color:pink'>[get_organ_name(organ)]</span></b>"
 		else
@@ -606,6 +606,11 @@
 	if(!organ || !modifications_data[organ])
 		return body_modifications["nothing"]
 	return modifications_data[organ]
+
+/datum/preferences/proc/get_modification_color(var/organ)
+	if(!organ || !modifications_colors[organ])
+		return "#000000"
+	return modifications_colors[organ]
 
 /datum/preferences/proc/get_organ_name(var/organ)
 	switch(organ)

@@ -156,7 +156,7 @@
 
 
 //old style retardo-cart
-/obj/structure/bed/chair/janicart
+/obj/structure/material/chair/janicart
 	name = "janicart"
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "pussywagon"
@@ -169,12 +169,12 @@
 	var/callme = "pimpin' ride"	//how do people refer to it?
 
 
-/obj/structure/bed/chair/janicart/New()
+/obj/structure/material/chair/janicart/initialize()
+	..()
 	create_reagents(100)
-	update_layer()
 
 
-/obj/structure/bed/chair/janicart/examine(mob/user, return_dist=1)
+/obj/structure/material/chair/janicart/examine(mob/user, return_dist=1)
 	.=..()
 	if(.>1)
 		return
@@ -184,7 +184,7 @@
 		user << "\A [mybag] is hanging on the [callme]."
 
 
-/obj/structure/bed/chair/janicart/attackby(obj/item/I, mob/user)
+/obj/structure/material/chair/janicart/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/weapon/mop))
 		if(reagents.total_volume > 1)
 			reagents.trans_to_obj(I, 2)
@@ -200,7 +200,7 @@
 		mybag = I
 
 
-/obj/structure/bed/chair/janicart/attack_hand(mob/user)
+/obj/structure/material/chair/janicart/attack_hand(mob/user)
 	if(mybag)
 		user.put_in_hands(mybag)
 		mybag = null
@@ -208,7 +208,7 @@
 		..()
 
 
-/obj/structure/bed/chair/janicart/relaymove(mob/user, direction)
+/obj/structure/material/chair/janicart/relaymove(mob/user, direction)
 	if(user.stat || user.stunned || user.weakened || user.paralysis)
 		unbuckle_mob()
 	if(istype(user.l_hand, /obj/item/key) || istype(user.r_hand, /obj/item/key))
@@ -218,26 +218,26 @@
 		user << SPAN_NOTE("You'll need the keys in one of your hands to drive this [callme].")
 
 
-/obj/structure/bed/chair/janicart/Move()
+/obj/structure/material/chair/janicart/Move()
 	..()
 	if(buckled_mob)
 		if(buckled_mob.buckled == src)
 			buckled_mob.loc = loc
 
 
-/obj/structure/bed/chair/janicart/post_buckle_mob(mob/living/M)
+/obj/structure/material/chair/janicart/post_buckle_mob(mob/living/M)
 	update_mob()
 	return ..()
 
 
-/obj/structure/bed/chair/janicart/update_layer()
+/obj/structure/material/chair/janicart/update_layer()
 	if(dir == SOUTH)
 		layer = FLY_LAYER
 	else
 		layer = OBJ_LAYER
 
 
-/obj/structure/bed/chair/janicart/unbuckle_mob()
+/obj/structure/material/chair/janicart/unbuckle_mob()
 	var/mob/living/M = ..()
 	if(M)
 		M.pixel_x = 0
@@ -245,18 +245,7 @@
 	return M
 
 
-/obj/structure/bed/chair/janicart/set_dir()
-	..()
-	update_layer()
-	if(buckled_mob)
-		if(buckled_mob.loc != loc)
-			buckled_mob.buckled = null //Temporary, so Move() succeeds.
-			buckled_mob.buckled = src //Restoring
-
-	update_mob()
-
-
-/obj/structure/bed/chair/janicart/proc/update_mob()
+/obj/structure/material/chair/janicart/proc/update_mob()
 	if(buckled_mob)
 		buckled_mob.set_dir(dir)
 		switch(dir)
@@ -274,7 +263,7 @@
 				buckled_mob.pixel_y = 7
 
 
-/obj/structure/bed/chair/janicart/bullet_act(var/obj/item/projectile/Proj)
+/obj/structure/material/chair/janicart/bullet_act(var/obj/item/projectile/Proj)
 	if(buckled_mob)
 		if(prob(85))
 			return buckled_mob.bullet_act(Proj)

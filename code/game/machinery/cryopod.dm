@@ -28,6 +28,12 @@
 	var/storage_name = "Cryogenic Oversight Control"
 	var/allow_items = 1
 
+/obj/machinery/computer/cryopod/update_icon()
+	if(stat&(BROKEN|NOPOWER))
+		icon_state = "cellconsole-p"
+	else
+		icon_state = "cellconsole"
+
 /obj/machinery/computer/cryopod/robot
 	name = "robotic storage console"
 	desc = "An interface between crew and the robotic storage systems"
@@ -38,6 +44,9 @@
 	storage_type = "cyborgs"
 	storage_name = "Robotic Storage Control"
 	allow_items = 0
+
+/obj/machinery/computer/cryopod/robot/update_icon()
+	icon_state = "console"
 
 /obj/machinery/computer/cryopod/attack_ai()
 	src.attack_hand()
@@ -380,7 +389,7 @@
 	set_occupant(null)
 
 
-/obj/machinery/cryopod/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/machinery/cryopod/affect_grab(var/mob/user, var/mob/target)
 	put_inside(target, user)
 	return TRUE
 

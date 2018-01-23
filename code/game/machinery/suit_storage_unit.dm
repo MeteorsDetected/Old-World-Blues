@@ -468,7 +468,7 @@
 		OCCUPANT = null //Testing this as a backup sanity test
 	return
 
-/obj/machinery/suit_storage_unit/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/machinery/suit_storage_unit/affect_grab(var/mob/user, var/mob/target)
 	if(!isopen)
 		user << SPAN_WARN("The unit's doors are shut.")
 		return
@@ -574,6 +574,36 @@
 
 	//Departments that the cycler can paint suits to look like.
 	var/list/departments = list("Engineering","Mining","Medical","Security","Atmos")
+	var/list/departments_datas = list(
+		"Engineering" = list(
+			/obj/item/clothing/head/helmet/space/void/engineering,
+			/obj/item/clothing/suit/space/void/engineering
+		),
+		"Mining" = list(
+			/obj/item/clothing/head/helmet/space/void/mining,
+			/obj/item/clothing/suit/space/void/mining
+		),
+		"Medical" = list(
+			/obj/item/clothing/head/helmet/space/void/medical,
+			/obj/item/clothing/suit/space/void/medical
+		),
+		"Security" = list(
+			/obj/item/clothing/head/helmet/space/void/security,
+			/obj/item/clothing/suit/space/void/security
+		),
+		"Atmos" = list(
+			/obj/item/clothing/head/helmet/space/void/atmos,
+			/obj/item/clothing/suit/space/void/atmos
+		),
+		"Mercenary" = list(
+			/obj/item/clothing/head/helmet/space/void/merc,
+			/obj/item/clothing/suit/space/void/merc
+		),
+		"^%###^%$" = list(
+			/obj/item/clothing/head/helmet/space/void/merc,
+			/obj/item/clothing/suit/space/void/merc
+		)
+	)
 	//Species that the suits can be configured to fit.
 	var/list/species = list(SPECIES_HUMAN,SPECIES_SKRELL,SPECIES_UNATHI,SPECIES_TAJARA)
 
@@ -638,7 +668,7 @@
 /obj/machinery/suit_cycler/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/suit_cycler/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/machinery/suit_cycler/affect_grab(var/mob/user, var/mob/target)
 	if(locked)
 		user << SPAN_DANG("The suit cycler is locked.")
 		return
@@ -945,62 +975,14 @@
 	if(target_species)
 		if(helmet) helmet.refit_for_species(target_species)
 		if(suit) suit.refit_for_species(target_species)
-
-	switch(target_department)
-		if("Engineering")
-			if(helmet)
-				helmet.name = "engineering voidsuit helmet"
-				helmet.icon_state = "rig0-engineering"
-				helmet.item_state = "eng_helm"
-			if(suit)
-				suit.name = "engineering voidsuit"
-				suit.icon_state = "rig-engineering"
-				suit.item_state = "eng_voidsuit"
-		if("Mining")
-			if(helmet)
-				helmet.name = "mining voidsuit helmet"
-				helmet.icon_state = "rig0-mining"
-				helmet.item_state = "mining_helm"
-			if(suit)
-				suit.name = "mining voidsuit"
-				suit.icon_state = "rig-mining"
-				suit.item_state = "mining_voidsuit"
-		if("Medical")
-			if(helmet)
-				helmet.name = "medical voidsuit helmet"
-				helmet.icon_state = "rig0-medical"
-				helmet.item_state = "medical_helm"
-			if(suit)
-				suit.name = "medical voidsuit"
-				suit.icon_state = "rig-medical"
-				suit.item_state = "medical_voidsuit"
-		if("Security")
-			if(helmet)
-				helmet.name = "security voidsuit helmet"
-				helmet.icon_state = "rig0-sec"
-				helmet.item_state = "sec_helm"
-			if(suit)
-				suit.name = "security voidsuit"
-				suit.icon_state = "rig-sec"
-				suit.item_state = "sec_voidsuit"
-		if("Atmos")
-			if(helmet)
-				helmet.name = "atmospherics voidsuit helmet"
-				helmet.icon_state = "rig0-atmos"
-				helmet.item_state = "atmos_helm"
-			if(suit)
-				suit.name = "atmospherics voidsuit"
-				suit.icon_state = "rig-atmos"
-				suit.item_state = "atmos_voidsuit"
-		if("^%###^%$" || "Mercenary")
-			if(helmet)
-				helmet.name = "blood-red voidsuit helmet"
-				helmet.icon_state = "rig0-syndie"
-				helmet.item_state = "syndie_helm"
-			if(suit)
-				suit.name = "blood-red voidsuit"
-				suit.item_state = "syndie_voidsuit"
-				suit.icon_state = "rig-syndie"
-
-	if(helmet) helmet.name = "refitted [helmet.name]"
-	if(suit) suit.name = "refitted [suit.name]"
+	var/list/data = departments_datas[target_department]
+	var/obj/item/clothing/head/helmet/space/void/helmet_type = data[1]
+	var/obj/item/clothing/suit/space/void/suit_type = data[2]
+	if(helmet)
+		helmet.name = "refitted [initial(helmet_type.name)]"
+		helmet.icon_state = initial(helmet_type.icon_state)
+		helmet.item_state = initial(helmet_type.item_state)
+	if(suit)
+		suit.name = "refitted [initial(suit_type.name)]"
+		suit.icon_state = initial(suit_type.icon_state)
+		suit.item_state = initial(suit_type.item_state)

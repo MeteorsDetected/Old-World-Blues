@@ -919,7 +919,7 @@ area/space/atmosalert()
 	icon_state = "bridge"
 	music = null
 
-/area/crew_quarters/captain
+/area/crew_quarters/heads/captain
 	name = "\improper Command - Captain's Office"
 	icon_state = "captain"
 

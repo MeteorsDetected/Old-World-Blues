@@ -49,7 +49,6 @@
 	icon = 'icons/obj/furniture.dmi'
 	icon_state = "stool_padded_preview"
 	anchored = 1.0
-	pressure_resistance = 15
 
 
 /obj/item/clothing/gloves/boxing/hologlove
@@ -57,9 +56,6 @@
 	desc = "Because you really needed another excuse to punch your crewmates."
 	icon_state = "boxing"
 	item_state = "boxing"
-
-/obj/structure/window/reinforced/holowindow/Destroy()
-	..()
 
 /obj/structure/window/reinforced/holowindow/attackby(obj/item/W as obj, mob/user as mob)
 	if(!istype(W)) return//I really wish I did not need this
@@ -90,14 +86,7 @@
 	qdel(src)
 	return
 
-/obj/structure/window/reinforced/holowindow/disappearing/Destroy()
-	..()
-
-/obj/machinery/door/window/holowindoor/Destroy()
-	..()
-
 /obj/machinery/door/window/holowindoor/attackby(obj/item/weapon/I as obj, mob/user as mob)
-
 	if (src.operating == 1)
 		return
 
@@ -131,13 +120,9 @@
 		visible_message("[src] fades away as it shatters!")
 	qdel(src)
 
-/obj/structure/bed/chair/holochair/Destroy()
-	..()
-
-/obj/structure/bed/chair/holochair/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/material/chair/holochair/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/wrench))
 		user << (SPAN_NOTE("It's a holochair, you can't dismantle it!"))
-	return
 
 /obj/item/weapon/holo
 	damtype = HALLOSS
@@ -184,10 +169,8 @@
 		return 1
 	return 0
 
-/obj/item/weapon/holo/esword/attack(target as mob, mob/user as mob)
-	..()
-
 /obj/item/weapon/holo/esword/New()
+	..()
 	item_color = pick("red","blue","green","purple")
 
 /obj/item/weapon/holo/esword/attack_self(mob/living/user as mob)
@@ -232,8 +215,8 @@
 	density = 1
 	throwpass = 1
 
-/obj/structure/holohoop/affect_grab(var/mob/living/user, var/mob/living/target, var/obj/item/weapon/grab/grab)
-	if(grab.state == GRAB_PASSIVE)
+/obj/structure/holohoop/affect_grab(var/mob/living/user, var/mob/living/target, var/state)
+	if(state == GRAB_PASSIVE)
 		user << SPAN_WARN("You need a better grip to do that!")
 		return FALSE
 	target.forceMove(src.loc)
@@ -260,6 +243,8 @@
 	else
 		return ..(mover, target, height, air_group)
 
+//Placeholder
+/obj/structure/window/reinforced/holowindow/disappearing
 
 /obj/machinery/readybutton
 	name = "Ready Declaration Device"

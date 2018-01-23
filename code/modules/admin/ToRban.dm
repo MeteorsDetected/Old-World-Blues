@@ -42,10 +42,12 @@
 		log_misc("ToR data update aborted: no data.")
 		return 0
 
+ADMIN_VERB_ADD(/client/proc/ToRban, R_SERVER)
 /client/proc/ToRban(task in list("update","toggle","show","remove","remove all","find"))
 	set name = "ToRban"
 	set category = "Server"
-	if(!holder)	return
+	if(!check_rights(R_SERVER))
+		return
 	switch(task)
 		if("update")
 			ToRban_update()
@@ -82,7 +84,6 @@
 					src << "<font color='green'><b>Address is a known ToR address</b></font>"
 				else
 					src << "<font color='red'><b>Address is not a known ToR address</b></font>"
-	return
 
 #undef TORFILE
 #undef TOR_UPDATE_INTERVAL

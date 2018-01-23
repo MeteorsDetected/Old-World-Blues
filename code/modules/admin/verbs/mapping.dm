@@ -137,8 +137,6 @@ var/list/debug_verbs = list (
 	/client/proc/cmd_admin_grantfullaccess,
 	/client/proc/kaboom,
 	/client/proc/cmd_admin_areatest,
-	/client/proc/cmd_admin_rejuvenate,
-	/datum/admins/proc/show_traitor_panel,
 	/client/proc/print_jobban_old,
 	/client/proc/print_jobban_old_filter,
 	/client/proc/forceEvent,
@@ -161,11 +159,13 @@ var/list/debug_verbs = list (
 	)
 
 
+ADMIN_VERB_ADD(/client/proc/enable_debug_verbs, R_DEBUG)
 /client/proc/enable_debug_verbs()
 	set category = "Debug"
 	set name = "Debug verbs"
 
-	if(!check_rights(R_DEBUG)) return
+	if(!check_rights(R_DEBUG))
+		return
 
 	verbs += debug_verbs
 
@@ -173,16 +173,18 @@ var/list/debug_verbs = list (
 	set category = "Debug"
 	set name = "Hide Debug verbs"
 
-	if(!check_rights(R_DEBUG)) return
+	if(!check_rights(R_DEBUG))
+		return
 
 	verbs -= debug_verbs
 
 
 
-/client/var/list/testZAScolors_turfs = list()
-/client/var/list/testZAScolors_zones = list()
-/client/var/usedZAScolors = 0
-/client/var/list/image/ZAScolors = list()
+/client
+	var/list/testZAScolors_turfs = list()
+	var/list/testZAScolors_zones = list()
+	var/usedZAScolors = 0
+	var/list/image/ZAScolors = list()
 
 /client/proc/recurse_zone(var/zone/Z, var/recurse_level =1)
 	testZAScolors_zones += Z

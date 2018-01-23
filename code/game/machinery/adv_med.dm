@@ -68,7 +68,7 @@
 	src.add_fingerprint(usr)
 
 
-/obj/machinery/bodyscanner/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/machinery/bodyscanner/affect_grab(var/mob/user, var/mob/target)
 	if (src.occupant)
 		user << SPAN_NOTE("The scanner is already occupied!")
 		return
@@ -144,8 +144,7 @@
 	if(prob(50))
 		qdel(src)
 
-/obj/machinery/body_scanconsole/power_change()
-	..()
+/obj/machinery/body_scanconsole/update_icon()
 	if(stat & BROKEN)
 		icon_state = "body_scannerconsole-p"
 	else

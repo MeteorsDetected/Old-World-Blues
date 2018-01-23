@@ -155,19 +155,49 @@
 
 /turf/simulated/shuttle/wall
 	name = "wall"
-	icon_state = "wall1"
+	icon_state = "wall"
 	opacity = 1
 	density = 1
 	blocks_air = 1
 
-/turf/simulated/shuttle/wall/edge
-	icon_state = "s_edge"
+/turf/simulated/shuttle/wall/New()
+	..()
+	update_icon()
 
-/turf/simulated/shuttle/wall/line
-	icon_state = "s_line"
+/turf/simulated/shuttle/wall/orange
+	color = "#FF6633"
 
-/turf/simulated/shuttle/wall/trine
-	icon_state = "s_trine"
+/turf/simulated/shuttle/wall/proc/update_icon()
+	var/neighbors = 0
+	for(var/dir in cardinal)
+		var/turf/T = get_step(src, dir)
+		if(istype(T, /turf/simulated/shuttle/wall))
+			neighbors |= dir
+
+	//No neighbors
+	if(!neighbors)
+		icon_state = initial(icon_state)
+	//Neighbors allside
+	else if(neighbors == (NORTH|SOUTH|EAST|WEST))
+		icon_state = "[initial(icon_state)]_full"
+	//One or two adjacent neighbors
+	else if(neighbors in alldirs)
+		icon_state = "[initial(icon_state)]_edge"
+		dir = neighbors
+	//Two opposite neighbors
+	else if(neighbors in list(NORTH|SOUTH, EAST|WEST))
+		dir = neighbors & (NORTH|EAST)
+		icon_state = "[initial(icon_state)]_line"
+	//Three neighbors
+	else
+		icon_state = "[initial(icon_state)]_trine"
+		dir = (NORTH|SOUTH|EAST|WEST) - neighbors
+
+/turf/simulated/shuttle/wall/gray
+	icon_state = "wall_gray"
+
+/turf/simulated/shuttle/wall/gray/update_icon()
+	return
 
 /turf/simulated/shuttle/floor
 	name = "floor"

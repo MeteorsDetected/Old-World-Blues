@@ -1,6 +1,8 @@
+ADMIN_VERB_ADD(/client/proc/cmd_admin_say, null, TRUE)
+
 /client/proc/cmd_admin_say(msg as text)
 	set category = "Special Verbs"
-	set name = "Asay" //Gave this shit a shorter name so you only have to time out "asay" rather than "admin say" to use it --NeoFite
+	set name = "Asay"
 	set hidden = 1
 	if(!check_rights(R_ADMIN))	return
 

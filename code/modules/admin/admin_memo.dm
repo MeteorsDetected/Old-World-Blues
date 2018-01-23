@@ -2,15 +2,20 @@
 #define ENABLE_MEMOS 1				//using a define because screw making a config variable for it. This is more efficient and purty.
 
 //switch verb so we don't spam up the verb lists with like, 3 verbs for this feature.
+ADMIN_VERB_ADD(/client/proc/admin_memo, R_ADMIN)
+/*admin memo system. show/delete/write. +SERVER needed to delete admin memos of others*/
 /client/proc/admin_memo(task in list("write","show","delete"))
 	set name = "Memo"
 	set category = "Server"
 	if(!ENABLE_MEMOS)		return
 	if(!check_rights(0))	return
 	switch(task)
-		if("write")		admin_memo_write()
-		if("show")		admin_memo_show()
-		if("delete")	admin_memo_delete()
+		if("write")
+			admin_memo_write()
+		if("show")
+			admin_memo_show()
+		if("delete")
+			admin_memo_delete()
 
 //write a message
 /client/proc/admin_memo_write()

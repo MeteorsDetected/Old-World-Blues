@@ -80,8 +80,8 @@
 		user << "You carefully place \the [I] into the cistern."
 		return
 
-/obj/structure/toilet/affect_grab(var/mob/user, var/mob/living/target, var/obj/item/weapon/grab/grab)
-	if(grab.state == GRAB_PASSIVE)
+/obj/structure/toilet/affect_grab(var/mob/user, var/mob/living/target, var/state)
+	if(state == GRAB_PASSIVE)
 		user << SPAN_NOTE("You need a tighter grip.")
 		return FALSE
 	if(!target.loc == src.loc)
@@ -124,8 +124,8 @@
 	density = 0
 	anchored = 1
 
-/obj/structure/urinal/affect_grab(var/mob/living/user, var/mob/living/target, var/obj/item/weapon/grab/grab)
-	if(grab.state > GRAB_PASSIVE)
+/obj/structure/urinal/affect_grab(var/mob/living/user, var/mob/living/target, var/state)
+	if(state > GRAB_PASSIVE)
 		user << SPAN_NOTE("You need a tighter grip.")
 		return FALSE
 	else
