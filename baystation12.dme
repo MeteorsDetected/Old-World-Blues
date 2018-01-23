@@ -1905,21 +1905,13 @@
 #include "code\ZAS\Zone.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
-<<<<<<< HEAD
 #include "maps\asterodstation.dmm"
-#include "maps\exodus-2.dmm"
-#include "maps\exodus-3.dmm"
-#include "maps\exodus-4.dmm"
-#include "maps\exodus-6.dmm"
-#include "maps\exodus-7.dmm"
-#include "maps\snowland.dmm"
-=======
 #include "maps\CentComm.dmm"
 #include "maps\empty_space.dmm"
+#include "maps\snowland.dmm"
 #include "maps\exodus\1.station.dmm"
 #include "maps\exodus\2.asteroid.dmm"
 #include "maps\exodus\3.satelite.dmm"
 #include "maps\exodus\derelict.dmm"
 #include "maps\exodus\finds.dmm"
->>>>>>> master
 // END_INCLUDE
