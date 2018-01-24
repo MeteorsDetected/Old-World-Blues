@@ -140,10 +140,10 @@
 	var/active = 0
 	var/item_color
 
-/obj/item/weapon/holo/esword/green
+/obj/item/weapon/holo/esword/green/New()
 	item_color = "green"
 
-/obj/item/weapon/holo/esword/red
+/obj/item/weapon/holo/esword/red/New()
 	item_color = "red"
 
 /obj/item/weapon/holo/esword/handle_shield(mob/user, var/damage, atom/damage_source = null, mob/attacker = null, var/attack_text = "the attack")
@@ -270,9 +270,9 @@
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
 
-	if(user.stat || stat & (NOPOWER|BROKEN))
-		user << "This device is not powered."
-		return
+//	if(user.stat || stat & (NOPOWER|BROKEN))   ================> Holodeck areas don't have power
+//		user << "This device is not powered."
+//		return
 
 	if(!user.IsAdvancedToolUser())
 		return 0
