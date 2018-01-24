@@ -25,7 +25,7 @@
 	return SPECIES_HUMAN
 
 
-/datum/species/machine/android
+/*datum/species/machine/android
 	name = "Android"
 	name_plural = "Androids"
 	blurb = "Androids are an artificial lifeforms designed to look and act like a human.<br>\
@@ -129,3 +129,4 @@
 
 /datum/species/machine/android/handle_death(var/mob/living/carbon/human/H)
 	return
+*/

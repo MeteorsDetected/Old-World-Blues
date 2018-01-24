@@ -130,20 +130,22 @@
 
 /obj/item/weapon/holo/esword
 	desc = "May the force be within you. Sorta."
+	icon = 'icons/obj/weapons.dmi'
 	icon_state = "sword0"
 	force = 3.0
 	throw_speed = 1
 	throw_range = 5
 	throwforce = 0
 	w_class = ITEM_SIZE_SMALL
+	sprite_group = SPRITE_MELEE
 	flags = NOBLOODY
 	var/active = 0
 	var/item_color
 
-/obj/item/weapon/holo/esword/green
+/obj/item/weapon/holo/esword/green/New()
 	item_color = "green"
 
-/obj/item/weapon/holo/esword/red
+/obj/item/weapon/holo/esword/red/New()
 	item_color = "red"
 
 /obj/item/weapon/holo/esword/handle_shield(mob/user, var/damage, atom/damage_source = null, mob/attacker = null, var/attack_text = "the attack")
@@ -177,14 +179,18 @@
 	active = !active
 	if (active)
 		force = 30
+		icon = 'icons/obj/weapons.dmi'
 		icon_state = "sword[item_color]"
+		sprite_group = SPRITE_MELEE
 		w_class = ITEM_SIZE_HUGE
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
 		user << SPAN_NOTE("[src] is now active.")
 	else
 		force = 3
+		icon = 'icons/obj/weapons.dmi'
 		icon_state = "sword0"
 		w_class = ITEM_SIZE_SMALL
+		sprite_group = SPRITE_MELEE
 		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
 		user << SPAN_NOTE("[src] can now be concealed.")
 
@@ -270,9 +276,9 @@
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
 
-	if(user.stat || stat & (NOPOWER|BROKEN))
-		user << "This device is not powered."
-		return
+//	if(user.stat || stat & (NOPOWER|BROKEN))   ================> Holodeck areas don't have power
+//		user << "This device is not powered."
+//		return
 
 	if(!user.IsAdvancedToolUser())
 		return 0

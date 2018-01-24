@@ -509,6 +509,41 @@ other types of metals and chemistry for reagents).
 	req_tech = list(TECH_ILLEGAL = 2, TECH_BIO = 3)
 	build_path = /obj/item/weapon/implantcase/freedom
 
+/datum/design/item/impant/radar
+	name = "Radar implant"
+	id = "implant_radar"
+	req_tech = list(TECH_BIO = 3)
+	materials = list(MATERIAL_STEEL = 500, MATERIAL_GLASS = 500)
+	build_path = /obj/item/weapon/implant/nanoaug/radar
+
+/datum/design/item/impant/rebreather
+	name = "Rebreather implant"
+	id = "implant_rebreather"
+	materials = list(MATERIAL_STEEL = 500, MATERIAL_GLASS = 500)
+	req_tech = list(TECH_BIO = 3)
+	build_path = /obj/item/weapon/implant/nanoaug/rebreather
+
+/datum/design/item/impant/dermalarmor
+	name = "Dermalarmor implant"
+	id = "implant_dermalarmor"
+	materials = list(MATERIAL_STEEL = 500, MATERIAL_GLASS = 500)
+	req_tech = list(TECH_BIO = 3)
+	build_path = /obj/item/weapon/implant/nanoaug/dermalarmor
+
+/datum/design/item/impant/reflexes
+	name = "Reflexes implant"
+	id = "implant_reflexes"
+	req_tech = list(TECH_BIO = 3)
+	materials = list(MATERIAL_STEEL = 500, MATERIAL_GLASS = 500)
+	build_path = /obj/item/weapon/implant/nanoaug/reflexes
+
+/datum/design/item/impant/nanoregen
+	name = "Nanoregen implant"
+	id = "implant_nanoregen"
+	req_tech = list(TECH_BIO = 3)
+	materials = list(MATERIAL_STEEL = 500, MATERIAL_GOLD = 200, MATERIAL_GLASS = 500)
+	build_path = /obj/item/weapon/implant/nanoaug/nanoregen
+
 /////////////////////////////////////////
 /////////////////Weapons/////////////////
 /////////////////////////////////////////
@@ -790,14 +825,7 @@ datum/design/item/weapon/eglaive
 /datum/design/item/pda_cartridge/janitor
 	id = "cart_janitor"
 	build_path = /obj/item/weapon/cartridge/janitor
-/*
-/datum/design/item/pda_cartridge/clown
-	id = "cart_clown"
-	build_path = /obj/item/weapon/cartridge/clown"
-/datum/design/item/pda_cartridge/mime
-	id = "cart_mime"
-	build_path = /obj/item/weapon/cartridge/mime"
-*/
+
 /datum/design/item/pda_cartridge/science
 	id = "cart_science"
 	build_path = /obj/item/weapon/cartridge/signal/science

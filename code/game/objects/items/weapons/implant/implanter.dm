@@ -126,3 +126,14 @@
 		A.forceMove(c)
 		c.scanned = A
 		update_icon()
+
+
+/obj/item/weapon/implanter/defibrillators
+	name = "implanter-defibrillator"
+
+/obj/item/weapon/implanter/defibrillators/New()
+	src.imp = new /obj/item/weapon/implant/defibrillators(src)
+	..()
+	update_icon()
+	return
+

@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
 /obj/machinery/implantchair
 	name = "loyalty implanter"
 	desc = "Used to implant occupants with loyalty implants."
@@ -12,7 +10,7 @@
 	var/ready = 1
 	var/malfunction = 0
 	var/list/obj/item/weapon/implant/loyalty/implant_list = list()
-	var/max_implants = 5
+	var/max_implants = 1
 	var/injection_cooldown = 600
 	var/replenish_cooldown = 6000
 	var/replenishing = 0
