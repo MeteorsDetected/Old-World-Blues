@@ -5,6 +5,11 @@
 	slot = slot_wear_mask
 	sort_category = "Masks and Facewear"
 
+/datum/gear/mask/whitebalaclava
+	display_name = "balaclava, white"
+	path = /obj/item/clothing/mask/whitebalaclava
+	cost = 3
+
 /datum/gear/mask/gold
 	display_name = "bandana, gold"
 	path = /obj/item/clothing/mask/bandana/gold
