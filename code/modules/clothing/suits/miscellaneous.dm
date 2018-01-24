@@ -485,3 +485,13 @@
 	desc = "A comfy, aqua flannel shirt.  Unleash your inner hipster."
 	icon_state = "flannel_aqua"
 	item_state = "b_suit"
+
+/obj/item/clothing/suit/storage/flannel/yellow
+	desc = "A comfy, yellow flannel shirt.  Unleash your inner hipster."
+	icon_state = "flannel_yel"
+	item_state = "b_suit"
+
+/obj/item/clothing/suit/storage/flannel/armagan
+	desc = "A comfy, Armagan flannel shirt. It's almost harvesting season."
+	icon_state = "flannel_trk"
+	item_state = "b_suit"

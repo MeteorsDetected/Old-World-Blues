@@ -303,6 +303,60 @@
 	icon_state = "beret_white"
 	item_state = "beret_white"
 
+/obj/item/clothing/head/greyfitnessheadband
+    name = "grey fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_gry"
+    icon_state = "headband_gry"
+
+/obj/item/clothing/head/whitefitnessheadband
+    name = "white fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_whi"
+    item_state = "headband_whi"
+
+/obj/item/clothing/head/orangefitnessheadband
+    name = "orange fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_org"
+    item_state = "headband_org"
+
+/obj/item/clothing/head/yellowfitnessheadband
+    name = "yellow fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_yel"
+    item_state = "headband_yel"
+
+/obj/item/clothing/head/greenfitnessheadband
+    name = "green fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_grn"
+    item_state = "headband_grn"
+
+/obj/item/clothing/head/darkgreenfitnessheadband
+    name = "dark green fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_dgn"
+    item_state = "headband_dgn"
+
+/obj/item/clothing/head/bluefitnessheadband
+    name = "blue fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_blu"
+    item_state = "headband_blu"
+
+/obj/item/clothing/head/purplefitnessheadband
+    name = "purple fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_prl"
+    item_state = "headband_prl"
+
+/obj/item/clothing/head/rainbowfitnessheadband
+    name = "rainbow fitness headband"
+    desc = "You are the stoned one."
+    icon_state = "headband_rnb"
+    item_state = "headband_rnb"
+
 /obj/item/clothing/head/beret/army/solar
 	name = "Armored army beret"
 	desc = "That's the khaki-colored beret. Has a NTCI insignia on it"
