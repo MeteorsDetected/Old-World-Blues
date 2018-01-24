@@ -46,18 +46,22 @@ var/list/donator_icons
 		'sound/music/space.ogg',
 		'sound/music/traitor.ogg',
 		'sound/music/title2.ogg',
-		'sound/music/clouds.s3m',*/
+		'sound/music/clouds.s3m',
 		'sound/music/david_bowie-space_oddity_original.ogg',
 		'sound/music/faunts-das_malefitz.ogg',
 		'sound/music/First_rendez-vous.ogg',
 		'sound/music/undertale.ogg',
 		'sound/music/space_oddity.ogg',
 		'sound/music/Welcome_to_Lunar_Industries.ogg',
-		'sound/music/Mind_Heist.ogg',
+		'sound/music/Mind_Heist.ogg',*/
 		'sound/music/CCR_-_Bad_Moon_Rising_196.ogg',
+		'sound/music/Death_Stranding_-_Death_Stranding_-_Main_Theme',
+		'sound/music/Beach_House_-_Space_Song',
 		'sound/music/Crokett_39_s_theme.ogg',
-		'sound/music/Lorn_-_Anvil.ogg',
-		'sound/music/Quixotic_-_Dust_to_Dust.ogg')
+		'sound/music/1',
+		'sound/music/Low_Roar_-_I_ll_Keep_Coming',
+		'sound/music/OST_Firefly_-_Serenity_theme',
+		'sound/music/Tommy_86_-_High_Fidelity')
 
 	donator_icons = icon_states('icons/donator.dmi')
 
