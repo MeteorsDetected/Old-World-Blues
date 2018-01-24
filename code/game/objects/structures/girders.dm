@@ -1,4 +1,4 @@
-/obj/structure/girder
+/obj/structure/girder //kostyl//
 	icon_state = "girder"
 	anchored = 1
 	density = 1
@@ -9,6 +9,16 @@
 	var/cover = 50 //how much cover the girder provides against projectiles.
 	var/material/reinf_material
 	var/reinforcing = 0
+
+/obj/structure/girder/ugolok
+	icon_state = "wall_space"
+	name = "wall"
+
+/obj/structure/girder/ugolok/displaced
+	icon_state = "wall_space"
+	anchored = 0
+	health = 50
+	cover = 25
 
 /obj/structure/girder/displaced
 	icon_state = "displaced"
