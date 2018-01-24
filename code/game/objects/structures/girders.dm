@@ -1,4 +1,4 @@
-/obj/structure/girder //костыль//
+/obj/structure/girder //kostyl//
 	icon_state = "girder"
 	anchored = 1
 	density = 1
