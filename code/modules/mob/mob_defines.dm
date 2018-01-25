@@ -79,8 +79,6 @@
 	var/confused = 0		//Carbon
 	var/antitoxs = null
 	var/phoron = null
-	var/sleeping = 0		//Carbon
-	var/resting = 0			//Carbon
 	var/lying = 0
 	var/lying_prev = 0
 	var/canmove = 1
@@ -109,9 +107,6 @@
 	var/nutrition = 400.0//Carbon
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
-	var/paralysis = 0.0
-	var/stunned = 0.0
-	var/weakened = 0.0
 	var/losebreath = 0.0//Carbon
 	var/intent = null//Living
 	var/shakecamera = 0

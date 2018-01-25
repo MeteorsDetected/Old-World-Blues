@@ -13,7 +13,7 @@
 	var/timer = 240 //eventually the person will be freed
 
 /obj/structure/closet/statue/New(loc, var/mob/living/L)
-	if(L && (ishuman(L) || L.isMonkey() || iscorgi(L)))
+	if((ishuman(L) || iscorgi(L)))
 		if(L.buckled)
 			L.buckled = 0
 			L.anchored = 0
@@ -28,12 +28,14 @@
 		intialBrute = L.getBruteLoss()
 		intialOxy = L.getOxyLoss()
 		if(ishuman(L))
-			name = "statue of [L.name]"
-			if(L.gender == "female")
-				icon_state = "human_female"
-		else if(L.isMonkey())
-			name = "statue of a monkey"
-			icon_state = "monkey"
+			var/mob/living/carbon/human/H = L
+			if(istype(H.species, /datum/species/monkey))
+				name = "statue of a monkey"
+				icon_state = "monkey"
+			else
+				name = "statue of [L.name]"
+				if(L.gender == "female")
+					icon_state = "human_female"
 		else if(iscorgi(L))
 			name = "statue of a corgi"
 			icon_state = "corgi"
