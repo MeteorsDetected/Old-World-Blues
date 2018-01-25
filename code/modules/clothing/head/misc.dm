@@ -8,6 +8,22 @@
 	siemens_coefficient = 0.9
 	body_parts_covered = 0
 
+/obj/item/clothing/head/cowboy_hat
+	name = "cowboy hat"
+	desc = "For those that have spurs that go jingle jangle jingle."
+	icon_state = "cowboyhat"
+	body_parts_covered = 0
+
+/obj/item/clothing/head/cowboy_hat/black
+	name = "black cowboy hat"
+	desc = "You can almost hear the old western music."
+	icon_state = "cowboy_black"
+
+/obj/item/clothing/head/cowboy_hat/wide
+	name = "wide-brimmed cowboy hat"
+	desc = "Because justice isn't going to dispense itself."
+	icon_state = "cowboy_wide"
+
 /obj/item/clothing/head/floral_crown
 	name = "flower crown"
 	icon_state = "floral_crown"
