@@ -36,6 +36,27 @@
 
 	return 1
 
+/turf/proc/Cross(atom/movable/mover, turf/target, height=1.5, air_group = 0)
+	if(!target)
+		return 0
+
+	if(istype(mover)) // turf/Enter(...) will perform more advanced checks
+		return !density
+
+	else // Now, doing more detailed checks for air movement and air group formation
+		if(target.blocks_air||blocks_air)
+			return 0
+
+		for(var/obj/obstacle in src)
+			if(!obstacle.Cross(mover, target, height, air_group))
+				return 0
+		if(target != src)
+			for(var/obj/obstacle in target)
+				if(!obstacle.Cross(mover, src, height, air_group))
+					return 0
+
+		return 1
+
 //Basically another way of calling CanPass(null, other, 0, 0) and CanPass(null, other, 1.5, 1).
 //Returns:
 // 0 - Not blocked
