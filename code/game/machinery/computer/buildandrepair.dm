@@ -7,7 +7,7 @@
 	anchored = 0
 	name = "computer frame"
 	icon = 'icons/obj/stock_parts.dmi'
-	icon_state = "0"
+	icon_state = "computer"
 	var/state = 0
 	var/frame_type = FRAME_COMPUTER
 	var/obj/item/weapon/circuitboard/circuit = null
