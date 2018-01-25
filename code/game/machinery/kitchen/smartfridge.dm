@@ -105,6 +105,37 @@
 		return 1
 	return 0
 
+/obj/machinery/smartfridge/secure/blood
+	name = "\improper Smart Blood Bank"
+	desc = "A refrigerated storage unit for blood and spare blood packs."
+	req_access = list(access_medical)
+	icon_state = "smartfridge_blood"
+	icon_on = "smartfridge_blood"
+	icon_off = "smartfridge_blood-off"
+
+/obj/machinery/smartfridge/secure/blood/New()
+	..()
+	contents.Add(	new/obj/item/weapon/reagent_containers/blood/AMinus,
+					new/obj/item/weapon/reagent_containers/blood/AMinus,
+					new/obj/item/weapon/reagent_containers/blood/APlus,
+					new/obj/item/weapon/reagent_containers/blood/APlus,
+					new/obj/item/weapon/reagent_containers/blood/BMinus,
+					new/obj/item/weapon/reagent_containers/blood/BMinus,
+					new/obj/item/weapon/reagent_containers/blood/BPlus,
+					new/obj/item/weapon/reagent_containers/blood/BPlus,
+					new/obj/item/weapon/reagent_containers/blood/OMinus,
+					new/obj/item/weapon/reagent_containers/blood/OMinus,
+					new/obj/item/weapon/reagent_containers/blood/OPlus,
+					new/obj/item/weapon/reagent_containers/blood/OPlus,
+					new/obj/item/weapon/reagent_containers/blood/empty,
+					new/obj/item/weapon/reagent_containers/blood/empty,
+					new/obj/item/weapon/reagent_containers/blood/empty	)
+
+/obj/machinery/smartfridge/chemistry/accept_check(var/obj/item/O as obj)
+	if(istype(O,/obj/item/weapon/reagent_containers/blood/))
+		return 1
+	return 0
+
 /obj/machinery/smartfridge/chemistry/virology
 	name = "\improper Smart Virus Storage"
 	desc = "A refrigerated storage unit for volatile sample storage."
