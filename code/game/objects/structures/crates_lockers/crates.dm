@@ -7,6 +7,7 @@
 	icon_state = "crate"
 	icon_opened = "crateopen"
 	climbable = 1
+	var/points_per_crate = 5
 	var/rigged = 0
 
 /obj/structure/closet/crate/can_open()
