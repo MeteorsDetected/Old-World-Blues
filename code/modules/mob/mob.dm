@@ -967,7 +967,7 @@ mob/proc/yank_out_object()
 		qdel(src.client.CH)
 		src << SPAN_NOTE("You unprepare [CH_name].")
 
-/mob/proc/incapacitated(var/incapacitation_flags = INCAPACITATION_DEFAULT)
+/mob/living/incapacitated(var/incapacitation_flags = INCAPACITATION_DEFAULT)
 	if ((incapacitation_flags & INCAPACITATION_DISABLED) && (stat || paralysis || stunned || weakened || resting || sleeping || (status_flags & FAKEDEATH)))
 		return 1
 

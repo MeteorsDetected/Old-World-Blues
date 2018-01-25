@@ -54,7 +54,7 @@
 	var/opened = 0
 
 /obj/machinery/dna_scannernew/relaymove(mob/user as mob)
-	if (user..incapacitated(INCAPACITATION_DISABLED))
+	if (user.incapacitated(INCAPACITATION_DISABLED))
 		user << SPAN_WARN("You can't get up for doing that")
 		return
 	src.go_out()
