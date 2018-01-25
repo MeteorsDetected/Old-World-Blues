@@ -358,6 +358,13 @@
 	icon_state = "beret_black"
 	item_state = "beret_black"
 
+obj/item/clothing/head/witchhat
+	name = "witch hat"
+	desc = "Blood vessel contraction agent Dexmedetomidine hydrochloride added"
+	icon_state = "witchhat"
+	item_state = "witchhat"
+	body_parts_covered = 0
+
 /obj/item/clothing/head/beret/army
 	name = "army beret"
 	desc = "That's the khaki-colored beret. Has a NTCI insignia on it"
