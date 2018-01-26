@@ -15,6 +15,7 @@
 	meat_type = null
 	see_in_dark = 8 //Needs to see in darkness to snap in darkness
 	mob_property_flags = MOB_SUPERNATURAL|MOB_CONSTRUCT
+	mob_push_flags = 64
 
 	var/response_snap = "snapped the neck of" //Past tense because it "happened before you could see it"
 	var/response_snap_target = "In the blink of an eye, something grabs you and snaps your neck!"
@@ -35,6 +36,9 @@
 
 	if(!check_los())
 		return
+
+//173 will sleep for 2.5 seconds, to give chance to react for those slow humans. They won't.
+	sleep(25)
 
 	//See if we're able to strangle anyone
 	for(var/mob/living/carbon/human/M in get_turf(src))
@@ -195,6 +199,8 @@
 					A.open()
 					sleep(5)
 				for(var/obj/machinery/door/D in next_turf)
+					if(D == /obj/machinery/door/blast)
+						break
 					D.open()
 					sleep(5)
 				if(!next_turf.Cross(src, next_turf)) //Once we cleared everything we could, check one last time if we can pass
@@ -262,7 +268,10 @@
 	if(target && ishuman(target))
 		//To prevent movement cheese, SCP snaps necks the second it ends up on the same turf as someone
 		//Or in other terms, if SCP decides it had a clean shot for a neck snap at the moment this proc fired, you're good as dead
-		target.apply_damage(rand(120, 150), BRUTE, BP_HEAD)
+		//Made 3 damage applies, to prevent head gibbing. Target has a chance to survive, if all rand's will get 65 or lesser.
+		target.apply_damage(rand(60, 74), BRUTE, BP_HEAD)
+		target.apply_damage(rand(60, 74), BRUTE, BP_HEAD)
+		target.apply_damage(rand(60, 74), BRUTE, BP_HEAD)
 		playsound(target.loc, pick(snap_sound), 100, 1, -1)
 
 		//Warn everyone
