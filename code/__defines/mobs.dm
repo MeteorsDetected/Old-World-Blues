@@ -6,6 +6,35 @@
 #define MESSAGE_VISIBLE  1
 #define MESSAGE_HEARABLE 2
 
+
+//FLAGS BITMASK
+
+//Item flags!
+#define PROXMOVE	1	// Will the code check us when we move or when something moves near us? Note that if the item doesn't have this flag, HasProximity() will never execute for it.
+#define FPRINT		2	// takes a fingerprint
+#define ON_BORDER	4	// item has priority to check when entering or leaving
+#define INVULNERABLE 8
+#define HEAR		16 // This flag is necessary to give an item (or mob) the ability to hear spoken messages! Mobs without a client still won't hear anything unless given HEAR_ALWAYS
+#define HEAR_ALWAYS 32 // Assign a virtualhearer to the mob even when no client is controlling it. (technically not an item flag, but related to the above)
+
+#define TWOHANDABLE	64
+#define MUSTTWOHAND	128
+#define SLOWDOWN_WHEN_CARRIED 256 //Apply slowdown when carried in hands, instead of only when worn
+
+#define NOBLOODY	512	// used to items if they don't want to get a blood overlay
+
+#define NO_ATTACK_MSG 	1024 // when an item has this it produces no "X has been hit by Y with Z" message with the default handler
+#define NO_THROW_MSG 	2048 // produce no "X has thrown Y" message when somebody throws this item
+#define NO_STORAGE_MSG 	4096 // produce no "X puts the Y into the backpack" message when somebody moves this item in their inventory
+
+#define OPENCONTAINER	8192  // is an open container for chemistry purposes
+#define	NOREACT 		16384 // Reagents don't react inside this container.
+
+#define TIMELESS		32768 // Immune to time manipulation.
+
+#define ALL ~0
+#define NONE 0
+
 // Bitflags defining which status effects could be or are inflicted on a mob.
 #define CANSTUN     0x1
 #define CANWEAKEN   0x2
@@ -112,3 +141,12 @@
 #define TASTE_NORMAL 1 //anything below 15%
 #define TASTE_DULL 0.5 //anything below 30%
 #define TASTE_NUMB 0.1 //anything below 150%
+
+//Mob species flags (simple stuff mostly for simple_animals)
+#define MOB_UNDEAD  1 //zombies, ghosts, skeletons
+#define MOB_ROBOTIC 2 //robots
+#define MOB_CONSTRUCT 4 //golems, animated armor, animated whatever (not mimics though)
+#define MOB_SWARM 8 //swarm of mobs!
+#define MOB_HOLOGRAPHIC 16 //holocarps
+#define MOB_SUPERNATURAL 32
+#define MOB_NO_PETRIFY 64 //can't get petrified

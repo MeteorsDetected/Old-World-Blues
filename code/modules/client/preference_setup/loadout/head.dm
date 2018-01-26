@@ -53,6 +53,15 @@
 	path = /obj/item/clothing/head/beret/sec/warden/corp
 	allowed_roles = list("Warden")
 
+/datum/gear/head/cowboyhat
+	display_name = "cowbow hat"
+	path = /obj/item/clothing/head/cowboy_hat
+	options = list(
+		"classic"    = /obj/item/clothing/head/cowboy_hat,
+		"black"    = /obj/item/clothing/head/cowboy_hat/black,
+		"wide"   = /obj/item/clothing/head/cowboy_hat/wide
+	)
+
 /datum/gear/head/cap/corp
 	display_name = "cap, corporate (Security)"
 	path = /obj/item/clothing/head/soft/sec/corp
@@ -94,6 +103,13 @@
 		"rainbow" = /obj/item/clothing/head/rainbowfitnessheadband,
 		"yellow"  = /obj/item/clothing/head/yellowfitnessheadband
 	)
+
+
+
+
+/datum/gear/head/witchhat
+	display_name = "witch hat"
+	path = /obj/item/clothing/head/witchhat
 
 /datum/gear/head/pin
 	display_name = "pin"
