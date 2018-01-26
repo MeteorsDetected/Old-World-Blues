@@ -172,7 +172,7 @@ var/global/list/severity_to_string = list(EVENT_LEVEL_MUNDANE = "Mundane", EVENT
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Meteor Wave",			/datum/event/meteor_wave,		0,		list(ASSIGNMENT_ENGINEER =  3),	1),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Space Vines",			/datum/event/spacevine, 		0,		list(ASSIGNMENT_ENGINEER = 15), 1),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Viral Infection",		/datum/event/viral_infection,	0,		list(ASSIGNMENT_MEDICAL =  30), 1),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Ñontainment Project",	/datum/event/containment_project,	0,	list(ASSIGNMENT_SCIENTIST =  3), 1),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Project",	/datum/event/containment_project,	0,	list(ASSIGNMENT_SCIENTIST =  3), 1),
 	)
 
 
