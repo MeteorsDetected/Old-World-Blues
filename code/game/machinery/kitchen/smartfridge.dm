@@ -115,26 +115,21 @@
 
 /obj/machinery/smartfridge/secure/blood/New()
 	..()
-	contents.Add(	new/obj/item/weapon/reagent_containers/blood/AMinus,
-					new/obj/item/weapon/reagent_containers/blood/AMinus,
-					new/obj/item/weapon/reagent_containers/blood/APlus,
-					new/obj/item/weapon/reagent_containers/blood/APlus,
-					new/obj/item/weapon/reagent_containers/blood/BMinus,
-					new/obj/item/weapon/reagent_containers/blood/BMinus,
-					new/obj/item/weapon/reagent_containers/blood/BPlus,
-					new/obj/item/weapon/reagent_containers/blood/BPlus,
-					new/obj/item/weapon/reagent_containers/blood/OMinus,
-					new/obj/item/weapon/reagent_containers/blood/OMinus,
-					new/obj/item/weapon/reagent_containers/blood/OPlus,
-					new/obj/item/weapon/reagent_containers/blood/OPlus,
-					new/obj/item/weapon/reagent_containers/blood/empty,
-					new/obj/item/weapon/reagent_containers/blood/empty,
-					new/obj/item/weapon/reagent_containers/blood/empty	)
+	for(var/i = 0, i<3, i++)
+		add_item(new/obj/item/weapon/reagent_containers/blood/AMinus)
+		add_item(new/obj/item/weapon/reagent_containers/blood/APlus)
+		add_item(new/obj/item/weapon/reagent_containers/blood/BMinus)
+		add_item(new/obj/item/weapon/reagent_containers/blood/BPlus)
+		add_item(new/obj/item/weapon/reagent_containers/blood/OMinus)
+		add_item(new/obj/item/weapon/reagent_containers/blood/OPlus)
+	for(var/i = 0, i<5, i++)
+		add_item(new/obj/item/weapon/reagent_containers/blood/empty)
 
-/obj/machinery/smartfridge/chemistry/accept_check(var/obj/item/O as obj)
+
+
+/obj/machinery/smartfridge/secure/blood/accept_check(var/obj/item/O as obj)
 	if(istype(O,/obj/item/weapon/reagent_containers/blood/))
 		return 1
-	return 0
 
 /obj/machinery/smartfridge/chemistry/virology
 	name = "\improper Smart Virus Storage"
@@ -228,11 +223,7 @@
 			return 1
 		else
 			user.remove_from_mob(O)
-			O.loc = src
-			if(item_quants[O.name])
-				item_quants[O.name]++
-			else
-				item_quants[O.name] = 1
+			add_item(O)
 			user.visible_message(SPAN_NOTE("[user] has added \the [O] to \the [src]."), SPAN_NOTE("You add \the [O] to \the [src]."))
 
 			nanomanager.update_uis(src)
@@ -280,6 +271,13 @@
 		return
 	wires.Interact(user)
 	ui_interact(user)
+
+/obj/machinery/smartfridge/proc/add_item(obj/item/I)
+	I.loc = src
+	if(item_quants[I.name])
+		item_quants[I.name]++
+	else
+		item_quants[I.name] = 1
 
 /*******************
 *   SmartFridge Menu
