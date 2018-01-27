@@ -40,8 +40,9 @@
 	desc = "A backpack that opens into a localized pocket of Blue Space."
 	origin_tech = list(TECH_BLUESPACE = 4)
 	icon_state = "holdingpack"
-	max_w_class = ITEM_SIZE_NORMAL
-	max_storage_space = 56
+	max_w_class = ITEM_SIZE_HUGE
+	w_class = ITEM_SIZE_HUGE
+	max_storage_space = 60
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
 		if(istype(W, /obj/item/storage/backpack/holding))
@@ -142,7 +143,7 @@
 	desc = "A large dufflebag for holding extra things."
 	icon_state = "duffle"
 	w_class = ITEM_SIZE_HUGE
-	max_storage_space = DEFAULT_BACKPACK_STORAGE + 6
+	max_storage_space = DEFAULT_BACKPACK_STORAGE + 14
 	slowdown = 1
 
 /obj/item/storage/backpack/dufflebag/syndie
@@ -150,6 +151,7 @@
 	desc = "A large dufflebag for holding extra tactical supplies."
 	icon_state = "duffle_syndie"
 	slowdown = 0
+	use_sound = 0
 
 /obj/item/storage/backpack/dufflebag/syndie/med
 	name = "medical dufflebag"
@@ -165,6 +167,7 @@
 	name = "colony director's dufflebag"
 	desc = "A large dufflebag for holding extra captainly goods."
 	icon_state = "duffle_captain"
+	slowdown = 0
 
 /obj/item/storage/backpack/dufflebag/med
 	name = "medical dufflebag"

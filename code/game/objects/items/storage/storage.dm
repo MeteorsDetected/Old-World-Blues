@@ -267,7 +267,7 @@
 			usr << SPAN_NOTE("[src] is full, make some space.")
 		return 0
 
-	if(W.w_class >= src.w_class && (istype(W, /obj/item/storage)))
+	if(W.w_class >= src.w_class && (istype(W, /obj/item/storage)) && (!istype(src, /obj/item/storage/backpack/holding))) //Will allow the holding to hold backpacks!
 		if(!stop_messages)
 			usr << SPAN_NOTE("[src] cannot hold [W] as it's a storage item of the same size.")
 		return 0 //To prevent the stacking of same sized storage items.
