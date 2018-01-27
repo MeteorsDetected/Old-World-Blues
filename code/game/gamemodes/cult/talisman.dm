@@ -76,8 +76,8 @@
 
 
 	Topic(href, href_list)
-		if(!src)	return
-		if (usr.stat || usr.restrained() || !in_range(src, usr))	return
+		if (usr.incapacitated() || !in_range(src, usr))
+			return
 
 		if (href_list["rune"])
 			switch(href_list["rune"])

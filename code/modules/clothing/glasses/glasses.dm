@@ -111,8 +111,11 @@ BLIND     // can't see anything
 		set name = "Switch Eyepatch"
 		set category = "Object"
 		set src in usr
-		if(!isliving(usr)) return
-		if(usr.stat) return
+
+		if(!isliving(usr))
+			return
+		if(usr.incapacitated())
+			return
 
 		if(icon_state == initial(icon_state))
 			icon_state = "[initial(icon_state)]_l"
@@ -219,7 +222,7 @@ BLIND     // can't see anything
 	set name = "Adjust welding goggles"
 	set src in usr
 
-	if(usr.canmove && !usr.stat && !usr.restrained())
+	if(usr.incapacitated())
 		if(src.up)
 			src.up = !src.up
 			flags_inv |= HIDEEYES

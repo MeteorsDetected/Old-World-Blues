@@ -169,7 +169,8 @@
 	set category = "Object"
 	set name = "Toggle Lock"
 
-	if(!usr.canmove || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
+	// Don't use it if you're not able to! Checks for stuns, ghost and restrain
+	if(usr.incapacitated())
 		return
 
 	if(ishuman(usr) || isrobot(usr))

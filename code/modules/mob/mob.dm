@@ -184,7 +184,7 @@
 	set name = "Examine"
 	set category = "IC"
 
-	if((is_blind(src) || usr.stat) && !isobserver(src))
+	if((is_blind(src) || usr.incapacitated()) && !isobserver(src))
 		src << SPAN_NOTE("Something is there but you can't see it.")
 		return 1
 
@@ -797,7 +797,7 @@ mob/proc/yank_out_object()
 		return
 	usr.setClickCooldown(20)
 
-	if(usr.stat)
+	if(usr.incapacitated(INCAPACITATION_DISABLED))
 		usr << "You are unconcious and cannot do that!"
 		return
 

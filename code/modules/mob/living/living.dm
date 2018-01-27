@@ -10,7 +10,7 @@
 
 //mob verbs are faster than object verbs. See above.
 /mob/living/pointed(atom/A as mob|obj|turf in view())
-	if(src.stat || !src.canmove || src.restrained())
+	if(src.incapacitated())
 		return FALSE
 	if(src.status_flags & FAKEDEATH)
 		return FALSE
@@ -55,12 +55,12 @@ default behaviour is:
 			var/mob/living/tmob = AM
 
 			for(var/mob/living/M in range(1,tmob))
-				if(tmob.pinned.len || (M.pulling == tmob && (tmob.restrained() && !M.restrained() && !M.stat)) || tmob.grabbed_by.len)
+				if(tmob.pinned.len || (M.pulling == tmob && (tmob.restrained() && !M.incapacitated())) || tmob.grabbed_by.len)
 					if ( !(world.time % 5) )
 						src << "<span class='warning'>[tmob] is restrained, you cannot push past</span>"
 					now_pushing = FALSE
 					return
-				if(tmob.pulling == M && (M.restrained() && !tmob.restrained() && !tmob.stat))
+				if(tmob.pulling == M && (M.restrained() && !tmob.incapacitated()))
 					if( !(world.time % 5) )
 						src << "<span class='warning'>[tmob] is restraining [M], you cannot push past</span>"
 					now_pushing = FALSE
@@ -465,7 +465,7 @@ default behaviour is:
 	var/t7 = 1
 	if (restrained())
 		for(var/mob/living/M in range(1,src))
-			if (M.pulling == src && !M.stat && !M.restrained())
+			if (M.pulling == src && !M.incapacitated())
 				t7 = null
 	if (t7 && pulling && (get_dist(src, pulling) <= 1) && client && client.moving)
 		var/turf/T = loc

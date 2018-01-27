@@ -573,7 +573,7 @@
 	return
 
 /obj/item/device/radio/borg/Topic(href, href_list)
-	if(usr.stat || !on)
+	if(usr.incapacitated() || !on)
 		return
 	if (href_list["mode"])
 		if(subspace_transmission != 1)
@@ -702,7 +702,7 @@
 	return
 
 /obj/item/device/radio/drone/Topic(href, href_list)
-	if(usr.stat || !on)
+	if(usr.incapacitated() || !on)
 		return
 	if (href_list["mode"])
 		if(subspace_transmission != 1)

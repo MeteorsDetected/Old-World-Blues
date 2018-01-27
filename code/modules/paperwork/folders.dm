@@ -34,7 +34,7 @@
 		update_icon()
 	else if(istype(W, /obj/item/weapon/pen))
 		var/n_name = sanitizeSafe(input(usr, "What would you like to label the folder?", "Folder Labelling", null)  as text, MAX_NAME_LEN)
-		if(loc == usr && !usr.stat)
+		if(loc == usr && usr.incapacitated())
 			name = "folder[(n_name ? text("- '[n_name]'") : null)]"
 	return
 

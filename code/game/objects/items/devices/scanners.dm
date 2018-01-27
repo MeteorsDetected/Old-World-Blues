@@ -226,7 +226,7 @@ REAGENT SCANNER
 
 /obj/item/device/analyzer/attack_self(mob/user as mob)
 
-	if (user.stat)
+	if (user.incapacitated())
 		return
 	if (!user.IsAdvancedToolUser())
 		return
@@ -265,7 +265,7 @@ REAGENT SCANNER
 		icon_state = initial(icon_state)
 
 /obj/item/device/mass_spectrometer/attack_self(mob/user as mob)
-	if (user.stat)
+	if (user.incapacitated())
 		return
 	if (!user.IsAdvancedToolUser())
 		return
@@ -315,7 +315,7 @@ REAGENT SCANNER
 /obj/item/device/reagent_scanner/afterattack(obj/O, mob/user as mob, proximity)
 	if(!proximity)
 		return
-	if (user.stat)
+	if (user.incapacitated())
 		return
 	if(!istype(O))
 		return

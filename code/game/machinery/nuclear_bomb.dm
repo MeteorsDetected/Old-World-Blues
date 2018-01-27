@@ -223,7 +223,7 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 	set name = "Make Deployable"
 	set src in oview(1)
 
-	if (!usr.canmove || usr.stat || usr.restrained())
+	if (usr.incapacitated())
 		return
 	if (!ishuman(usr))
 		usr << "\red You don't have the dexterity to do this!"
@@ -240,7 +240,7 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 
 /obj/machinery/nuclearbomb/Topic(href, href_list)
 	..()
-	if (!usr.canmove || usr.stat || usr.restrained())
+	if (usr.incapacitated())
 		return
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
 		usr.set_machine(src)

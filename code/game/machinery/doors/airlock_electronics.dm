@@ -59,7 +59,7 @@
 
 	Topic(href, href_list)
 		..()
-		if (usr.stat || usr.restrained() || (!ishuman(usr) && !issilicon(usr)))
+		if (usr.incapacitated() || (!ishuman(usr) && !issilicon(usr)))
 			return
 		if (href_list["close"])
 			usr << browse(null, "window=airlock")

@@ -23,7 +23,7 @@
 
 /*
 /obj/item/stack/tile/steel/attack_self(mob/user as mob)
-	if (usr.stat)
+	if (usr.incapacitated())
 		return
 	var/T = user.loc
 	if (!( istype(T, /turf) ))

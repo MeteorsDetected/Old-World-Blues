@@ -78,7 +78,7 @@
 			return
 		if(!usr || !isturf(usr.loc))
 			return
-		if(usr.stat || usr.restrained())
+		if(usr.incapacitated(INCAPACITATION_DISABLED))
 			return
 
 		src.set_dir(turn(src.dir, 90))

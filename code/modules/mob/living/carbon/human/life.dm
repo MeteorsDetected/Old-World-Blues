@@ -1265,8 +1265,10 @@
 					else
 						bodytemp.icon_state = "temp0"
 		if(blind)
-			if(blinded)		blind.alpha = 255
-			else			blind.alpha = 0
+			if(blinded)
+				blind.alpha = 255
+			else
+				blind.alpha = 0
 
 		if(disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
 			if(glasses)					//to every /obj/item
@@ -1276,9 +1278,12 @@
 			else
 				client.screen += global_hud.vimpaired
 
-		if(eye_blurry)			client.screen += global_hud.blurry
-		if(druggy)				client.screen += global_hud.druggy
-		if(horny)				client.screen += global_hud.horny //for aphrodisiac
+		if(eye_blurry)
+			client.screen += global_hud.blurry
+		if(druggy)
+			client.screen += global_hud.druggy
+		if(horny)
+			client.screen += global_hud.horny
 
 		if(config.welder_vision)
 			var/found_welder
@@ -1306,7 +1311,6 @@
 				sight = viewflags //when viewing from a machine, use only the sight flags that the machine provides
 		else if(eyeobj)
 			if(eyeobj.owner != src)
-
 				reset_view(null)
 			else
 				src.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
@@ -1314,7 +1318,7 @@
 			var/isRemoteObserve = 0
 			//TODO: DNA3 remote_view
 			if(remoteview_target)
-				if(remoteview_target.stat==CONSCIOUS)
+				if(remoteview_target.stat == CONSCIOUS)
 					isRemoteObserve = 1
 			if(!isRemoteObserve && client && !client.adminobs)
 				remoteview_target = null

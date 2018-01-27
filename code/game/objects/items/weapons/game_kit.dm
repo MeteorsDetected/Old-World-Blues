@@ -11,7 +11,7 @@ THAT STUPID GAME KIT
 	return src.attack_hand(user)
 
 /obj/item/weapon/game_kit/MouseDrop(mob/user as mob)
-	if (user == usr && !usr.restrained() && !usr.stat && (usr.contents.Find(src) || in_range(src, usr)))
+	if (user == usr && !usr.incapacitated() && (usr.contents.Find(src) || in_range(src, usr)))
 		if (usr.hand)
 			if (!usr.l_hand)
 				spawn (0)
@@ -70,10 +70,10 @@ THAT STUPID GAME KIT
 
 /obj/item/weapon/game_kit/Topic(href, href_list)
 	..()
-	if ((usr.stat || usr.restrained()))
+	if(usr.incapacitated())
 		return
 
-	if (usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf)))
+	if(usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf)))
 		if (href_list["s_piece"])
 			src.selected = href_list["s_piece"]
 		else if (href_list["mode"])

@@ -36,8 +36,10 @@
 		return
 
 /obj/machinery/dnaforensics/ui_interact(mob/user, ui_key = "main",var/datum/nanoui/ui = null)
-	if(stat & (NOPOWER)) return
-	if(user.stat || user.restrained()) return
+	if(stat & (NOPOWER))
+		return
+	if(user.incapacitated())
+		return
 	var/list/data = list()
 	data["scan_progress"] = round(scanner_progress)
 	data["scanning"] = scanning
@@ -133,7 +135,7 @@
 	set name = "Toggle Lid"
 	set src in oview(1)
 
-	if(usr.stat || !isliving(usr))
+	if(usr.incapacitated() || !isliving(usr))
 		return
 
 	if(scanning)

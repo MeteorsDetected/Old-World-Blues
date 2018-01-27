@@ -513,7 +513,7 @@
 		return 0
 
 	if(href_list["toggle_piece"])
-		if(ishuman(usr) && (usr.stat || usr.stunned || usr.lying))
+		if(ishuman(usr) && (usr.incapacitated()))
 			return 0
 		toggle_piece(href_list["toggle_piece"], usr)
 	else if(href_list["toggle_seals"])
@@ -584,7 +584,8 @@
 	if(!istype(wearer) || !wearer.back == src)
 		return
 
-	if(usr == wearer && (usr.stat||usr.paralysis||usr.stunned)) // If the usr isn't wearing the suit it's probably an AI.
+	// If the usr isn't wearing the suit it's probably an AI.
+	if(usr == wearer && usr.incapacitated())
 		return
 
 	var/equip_to

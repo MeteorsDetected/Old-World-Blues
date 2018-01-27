@@ -48,7 +48,8 @@
 		set name ="Adjust Badge"
 		set category = "Object"
 		set src in usr
-		if(!usr.canmove || usr.stat || usr.restrained())
+
+		if(usr.incapacitated())
 			return 0
 
 		if(icon_state == icon_badge)

@@ -253,7 +253,7 @@
 		if(!material in stored_material)
 			return
 		var/amount = input(usr, "How many sheets do you want to eject?") as null|num
-		if(amount < 1 || !in_range(usr,src) || usr.stat || usr.restrained())
+		if(amount < 1 || !in_range(usr,src) || usr.incapacitated())
 			return
 		//convert list to units
 		amount *= SHEET_MATERIAL_AMOUNT

@@ -397,7 +397,7 @@
 /obj/machinery/vending/Topic(href, href_list)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	if(usr.stat || usr.restrained())
+	if(usr.incapacitated())
 		return
 
 	if(href_list["remove_coin"] && !issilicon(usr))

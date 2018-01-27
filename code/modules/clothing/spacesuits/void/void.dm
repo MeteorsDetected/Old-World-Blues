@@ -140,9 +140,12 @@
 
 	var/mob/living/carbon/human/H = usr
 
-	if(!istype(H)) return
-	if(H.stat) return
-	if(H.wear_suit != src) return
+	if(!istype(H))
+		return
+	if(H.incapacitated())
+		return
+	if(H.wear_suit != src)
+		return
 
 	if(H.head == helmet)
 		H << SPAN_NOTE("You retract your suit helmet.")
@@ -176,9 +179,12 @@
 
 	var/mob/living/carbon/human/H = usr
 
-	if(!istype(H)) return
-	if(H.stat) return
-	if(H.wear_suit != src) return
+	if(!istype(H))
+		return
+	if(H.incapacitated())
+		return
+	if(H.wear_suit != src)
+		return
 
 	if(H.shoes == boots)
 		H << SPAN_NOTE("You retract your suit helmet.")
@@ -205,9 +211,12 @@
 
 	var/mob/living/carbon/human/H = usr
 
-	if(!istype(H)) return
-	if(H.stat) return
-	if(H.wear_suit != src) return
+	if(!istype(H))
+		return
+	if(H.incapacitated())
+		return
+	if(H.wear_suit != src)
+		return
 
 	H << "<span class='info'>You press the emergency release, ejecting \the [tank] from your suit.</span>"
 	tank.canremove = 1

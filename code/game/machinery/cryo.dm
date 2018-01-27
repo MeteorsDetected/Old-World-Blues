@@ -41,9 +41,7 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()
-	if(!node)
-		return
-	if(!on)
+	if(!node || !on)
 		return
 
 	if(occupant)
@@ -61,10 +59,7 @@
 	return 1
 
 /obj/machinery/atmospherics/unary/cryo_cell/relaymove(mob/user as mob)
-	if(user.stat)
-		return
 	go_out()
-	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)
 	ui_interact(user)
@@ -82,7 +77,7 @@
   */
 /obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 
-	if(user == occupant || user.stat)
+	if(user == occupant || user.incapacitated())
 		return
 
 	// this is the data which will be sent to the ui
@@ -328,11 +323,10 @@
 			return
 		go_out()//and release him from the eternal prison.
 	else
-		if(usr.stat)
+		if(usr.incapacitated())
 			return
 		go_out()
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
 	set name = "Move Inside"
@@ -342,10 +336,9 @@
 		if(M.Victim == usr)
 			usr << "You're too busy getting your life sucked out of you."
 			return
-	if (usr.stat != 0)
+	if (usr.incapacitated(INCAPACITATION_DISABLED))
 		return
 	put_mob(usr)
-	return
 
 /atom/proc/return_air_for_internal_lifeform()
 	return return_air()
