@@ -13,12 +13,8 @@
 
 
 /obj/item/weapon/paper_bin/MouseDrop(mob/user as mob)
-	if((user == usr && (!( usr.restrained() ) && (!( usr.stat ) && (usr.contents.Find(src) || in_range(src, usr))))))
-		if(!isslime(usr) && !isanimal(usr))
-			if( !usr.get_active_hand() )		//if active hand is empty
-				attack_hand(usr, 1, 1)
-
-	return
+	if(user == usr && usr.incapacitated() && src.Adjacent(usr))
+		usr.put_in_active_hand(src)
 
 /obj/item/weapon/paper_bin/attack_hand(mob/user as mob)
 	if(ishuman(user))

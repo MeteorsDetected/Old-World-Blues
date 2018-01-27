@@ -863,7 +863,7 @@
 		return 0
 	if(isobserver(user) && is_admin(user) ) //This is to allow nanoUI interaction by ghost admins.
 		return 1
-	if (user.stat)
+	if (user.incapacitated())
 		user << "<span class='warning'>You must be conscious to use [src]!</span>"
 		return 0
 	if(inoperable())
