@@ -287,10 +287,10 @@
 	..()
 	icon_state = "ironsand[rand(1,15)]"
 
-/turf/simulated/floor/plating/snow
+/*/turf/simulated/floor/plating/snow //USED IN SNOWY EVENT. Ucomment this later
 	name = "snow"
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
 
 /turf/simulated/floor/plating/snow/ex_act(severity)
-	return
+	return*/

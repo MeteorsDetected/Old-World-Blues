@@ -1140,6 +1140,7 @@
 #include "code\modules\events\snowy_event\lootables.dm"
 #include "code\modules\events\snowy_event\snowy_items.dm"
 #include "code\modules\events\snowy_event\snowy_other.dm"
+#include "code\modules\events\snowy_event\turfs.dm"
 #include "code\modules\examine\examine.dm"
 #include "code\modules\examine\descriptions\atmospherics.dm"
 #include "code\modules\examine\descriptions\engineering.dm"
