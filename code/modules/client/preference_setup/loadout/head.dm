@@ -53,6 +53,15 @@
 	path = /obj/item/clothing/head/beret/sec/warden/corp
 	allowed_roles = list("Warden")
 
+/datum/gear/head/cowboyhat
+	display_name = "cowbow hat"
+	path = /obj/item/clothing/head/cowboy_hat
+	options = list(
+		"classic"    = /obj/item/clothing/head/cowboy_hat,
+		"black"    = /obj/item/clothing/head/cowboy_hat/black,
+		"wide"   = /obj/item/clothing/head/cowboy_hat/wide
+	)
+
 /datum/gear/head/cap/corp
 	display_name = "cap, corporate (Security)"
 	path = /obj/item/clothing/head/soft/sec/corp
@@ -81,9 +90,44 @@
 		"white"   = /obj/item/clothing/head/soft/mime
 	)
 
-/datum/gear/head/hairflower
-	display_name = "hair flower pin, red"
+/datum/gear/head/fitnessheadband
+	display_name = "fitness headband"
+	path = /obj/item/clothing/head/whitefitnessheadband
+	options = list(
+		"grey"    = /obj/item/clothing/head/greyfitnessheadband,
+		"blue"    = /obj/item/clothing/head/bluefitnessheadband,
+		"green"   = /obj/item/clothing/head/greenfitnessheadband,
+		"dark green"  = /obj/item/clothing/head/darkgreenfitnessheadband,
+		"orange"  = /obj/item/clothing/head/orangefitnessheadband,
+		"purple"  = /obj/item/clothing/head/purplefitnessheadband,
+		"rainbow" = /obj/item/clothing/head/rainbowfitnessheadband,
+		"yellow"  = /obj/item/clothing/head/yellowfitnessheadband
+	)
+
+
+
+
+/datum/gear/head/witchhat
+	display_name = "witch hat"
+	path = /obj/item/clothing/head/witchhat
+
+/datum/gear/head/pin
+	display_name = "pin"
 	path = /obj/item/clothing/head/hairflower
+	options = list(
+		"clover" = /obj/item/clothing/head/cloverpin,
+		"magnet" = /obj/item/clothing/head/magnetpin,
+		"pink"   = /obj/item/clothing/head/pinkpin,
+		"white"  = /obj/item/clothing/head/whitepin,
+		"butterfly" = /obj/item/clothing/head/butterflypin
+	)
+
+/datum/gear/head/ribbon
+	display_name = "ribbon"
+	path = /obj/item/clothing/head/redribbon
+	options = list(
+		"white" = /obj/item/clothing/head/whiteribbon
+	)
 
 /datum/gear/head/hardhat
 	display_name = "hardhat"

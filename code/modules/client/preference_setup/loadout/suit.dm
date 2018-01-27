@@ -152,6 +152,8 @@
 	options = list(
 		"grey" = /obj/item/clothing/suit/storage/flannel,
 		"red"  = /obj/item/clothing/suit/storage/flannel/red,
+		"yellow"  = /obj/item/clothing/suit/storage/flannel/yellow,
+		"armagan"  = /obj/item/clothing/suit/storage/flannel/armagan,
 		"aqua" = /obj/item/clothing/suit/storage/flannel/aqua
 	)
 

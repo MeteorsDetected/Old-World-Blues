@@ -158,15 +158,14 @@ var/global/photo_count = 0
 	var/icon_off = "camera_off"
 	var/size = 3
 
-////NO LAGS
 
-/////obj/item/device/camera/verb/change_size()
-////	set name = "Set Photo Focus"
-////	set category = "Object"
-////	var/nsize = input("Photo Size","Pick a size of resulting photo.") as null|anything in list(1,3,5,7)
-////	if(nsize)
-////		size = nsize
-////		usr << SPAN_NOTE("Camera will now take [size]x[size] photos.")
+/obj/item/device/camera/verb/change_size()
+	set name = "Set Photo Focus"
+	set category = "Object"
+	var/nsize = input("Photo Size","Pick a size of resulting photo.") as null|anything in list(1,3,5)
+	if(nsize)
+		size = nsize
+		usr << SPAN_NOTE("Camera will now take [size]x[size] photos.")
 
 
 /obj/item/device/camera/attack(mob/living/carbon/human/M as mob, mob/user as mob)

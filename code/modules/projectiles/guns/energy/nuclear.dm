@@ -46,6 +46,8 @@
 /obj/item/weapon/gun/energy/gun/nuclear
 	name = "advanced energy gun"
 	desc = "An energy gun with an experimental miniaturized reactor."
+	icon = 'icons/obj/gun.dmi'
+	sprite_group = SPRITE_GUNS
 	icon_state = "nucgunstun"
 	projectile_type = /obj/item/projectile/beam/stun
 	origin_tech = list(TECH_COMBAT = 3, TECH_MATERIAL = 5, TECH_POWER = 3)

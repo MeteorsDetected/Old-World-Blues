@@ -8,6 +8,22 @@
 	siemens_coefficient = 0.9
 	body_parts_covered = 0
 
+/obj/item/clothing/head/cowboy_hat
+	name = "cowboy hat"
+	desc = "For those that have spurs that go jingle jangle jingle."
+	icon_state = "cowboyhat"
+	body_parts_covered = 0
+
+/obj/item/clothing/head/cowboy_hat/black
+	name = "black cowboy hat"
+	desc = "You can almost hear the old western music."
+	icon_state = "cowboy_black"
+
+/obj/item/clothing/head/cowboy_hat/wide
+	name = "wide-brimmed cowboy hat"
+	desc = "Because justice isn't going to dispense itself."
+	icon_state = "cowboy_wide"
+
 /obj/item/clothing/head/floral_crown
 	name = "flower crown"
 	icon_state = "floral_crown"
@@ -20,6 +36,62 @@
 	icon_state = "hairflower"
 	desc = "Smells nice."
 	item_state = "hairflower"
+	slot_flags = SLOT_HEAD | SLOT_EARS
+	body_parts_covered = 0
+
+/obj/item/clothing/head/cloverpin
+	name = "clover pin"
+	icon_state = "cloverpin"
+	desc = "Smells peace."
+	item_state = "cloverpin"
+	slot_flags = SLOT_HEAD | SLOT_EARS
+	body_parts_covered = 0
+
+/obj/item/clothing/head/whiteribbon
+	name = "white ribbon"
+	icon_state = "whiteribbon"
+	desc = "It's good for girls."
+	item_state = "whiteribbon"
+	slot_flags = SLOT_HEAD | SLOT_EARS
+	body_parts_covered = 0
+
+/obj/item/clothing/head/magnetpin
+	name = "magnet pin"
+	icon_state = "magnetpin"
+	desc = "Smells nice."
+	item_state = "magnetpin"
+	slot_flags = SLOT_HEAD | SLOT_EARS
+	body_parts_covered = 0
+
+/obj/item/clothing/head/pinkpin
+	name = "pink pin"
+	icon_state = "pinkpin"
+	desc = "Smells nice."
+	item_state = "pinkpin"
+	slot_flags = SLOT_HEAD | SLOT_EARS
+	body_parts_covered = 0
+
+/obj/item/clothing/head/whitepin
+	name = "white pin"
+	icon_state = "pin"
+	desc = "Smells nice."
+	item_state = "pin"
+	slot_flags = SLOT_HEAD | SLOT_EARS
+	body_parts_covered = 0
+
+/obj/item/clothing/head/redribbon
+	name = "red ribbon"
+	icon_state = "redribbon"
+	desc = "Smells nice."
+	item_state = "redribbon"
+	slot_flags = SLOT_HEAD | SLOT_EARS
+	body_parts_covered = 0
+
+/obj/item/clothing/head/butterflypin
+	name = "butterfly pin"
+	icon_state = "butterflypin"
+	desc = "Smells nice."
+	item_state = "butterflypin"
 	slot_flags = SLOT_HEAD | SLOT_EARS
 	body_parts_covered = 0
 
@@ -286,6 +358,13 @@
 	icon_state = "beret_black"
 	item_state = "beret_black"
 
+obj/item/clothing/head/witchhat
+	name = "witch hat"
+	desc = "Blood vessel contraction agent Dexmedetomidine hydrochloride added"
+	icon_state = "witchhat"
+	item_state = "witchhat"
+	body_parts_covered = 0
+
 /obj/item/clothing/head/beret/army
 	name = "army beret"
 	desc = "That's the khaki-colored beret. Has a NTCI insignia on it"
@@ -302,6 +381,60 @@
 	desc = "Usuall black beret. Nothing special."
 	icon_state = "beret_white"
 	item_state = "beret_white"
+
+/obj/item/clothing/head/greyfitnessheadband
+    name = "grey fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_gry"
+    icon_state = "headband_gry"
+
+/obj/item/clothing/head/whitefitnessheadband
+    name = "white fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_whi"
+    item_state = "headband_whi"
+
+/obj/item/clothing/head/orangefitnessheadband
+    name = "orange fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_org"
+    item_state = "headband_org"
+
+/obj/item/clothing/head/yellowfitnessheadband
+    name = "yellow fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_yel"
+    item_state = "headband_yel"
+
+/obj/item/clothing/head/greenfitnessheadband
+    name = "green fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_grn"
+    item_state = "headband_grn"
+
+/obj/item/clothing/head/darkgreenfitnessheadband
+    name = "dark green fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_dgn"
+    item_state = "headband_dgn"
+
+/obj/item/clothing/head/bluefitnessheadband
+    name = "blue fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_blu"
+    item_state = "headband_blu"
+
+/obj/item/clothing/head/purplefitnessheadband
+    name = "purple fitness headband"
+    desc = "You are the best."
+    icon_state = "headband_prl"
+    item_state = "headband_prl"
+
+/obj/item/clothing/head/rainbowfitnessheadband
+    name = "rainbow fitness headband"
+    desc = "You are the stoned one."
+    icon_state = "headband_rnb"
+    item_state = "headband_rnb"
 
 /obj/item/clothing/head/beret/army/solar
 	name = "Armored army beret"
