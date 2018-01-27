@@ -190,3 +190,10 @@
 #define SPRITE_HATS     "hats"
 #define SPRITE_MELEE    "melee"
 #define SPRITE_GUNS     "gun"
+
+//affect mob click delay
+#define ENCUMBRANCE_ZERO 0
+#define ENCUMBRANCE_ONE 1
+#define ENCUMBRANCE_TWO 2
+#define ENCUMBRANCE_THREE 3
+#define ENCUMBRANCE_FOUR 4
