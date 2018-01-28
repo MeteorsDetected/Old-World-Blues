@@ -193,8 +193,23 @@
 	var/seal_target = !canremove
 	var/failed_to_seal
 
+
 	canremove = 0 // No removing the suit while unsealing.
 	sealing = 1
+
+	var/obj/screen/rig_booting/booting_L = new
+	var/obj/screen/rig_booting/booting_R = new
+
+	if(!seal_target)
+		booting_L.icon_state = "boot_left"
+		booting_R.icon_state = "boot_load"
+		animate(booting_L, alpha=230, time=30, easing=SINE_EASING)
+		animate(booting_R, alpha=200, time=20, easing=SINE_EASING)
+		M.client.screen += booting_L
+		M.client.screen += booting_R
+
+	canremove = FALSE // No removing the suit while unsealing.
+	sealing = TRUE
 
 	if(!seal_target && !suit_is_deployed())
 		M.visible_message("<span class='danger'>[M]'s suit flashes an error light.</span>","<span class='danger'>Your suit flashes an error light. It can't function properly without being fully deployed.</span>")
@@ -268,6 +283,10 @@
 	sealing = null
 
 	if(failed_to_seal)
+		M.client.screen -= booting_L
+		M.client.screen -= booting_R
+		qdel(booting_L)
+		qdel(booting_R)
 		for(var/obj/item/piece in list(helmet,boots,gloves,chest))
 			if(!piece) continue
 			piece.icon_state = "[initial(icon_state)][!seal_target ? "" : "_sealed"]"
@@ -279,7 +298,14 @@
 
 	// Success!
 	canremove = seal_target
-	M << "<font color='blue'><b>Your entire suit [canremove ? "loosens as the components relax" : "tightens around you as the components lock into place"].</b></font>"
+	M << SPAN_NOTE("<b>Your entire suit [canremove ? "loosens as the components relax" : "tightens around you as the components lock into place"].</b>")
+	M.client.screen -= booting_L
+	qdel(booting_L)
+	booting_R.icon_state = "boot_done"
+	spawn(40)
+		M.client.screen -= booting_R
+		qdel(booting_R)
+
 
 	if(canremove)
 		for(var/obj/item/rig_module/module in installed_modules)
@@ -503,9 +529,9 @@
 	if(href_list["toggle_piece"])
 		if(ishuman(usr) && (usr.stat || usr.stunned || usr.lying))
 			return 0
-		toggle_piece(href_list["toggle_piece"], usr)
+		toggle_piece(href_list["toggle_piece"], wearer)
 	else if(href_list["toggle_seals"])
-		toggle_seals(usr)
+		toggle_seals(wearer)
 	else if(href_list["interact_module"])
 
 		var/module_index = text2num(href_list["interact_module"])
@@ -765,6 +791,16 @@
 
 /obj/item/weapon/rig/get_rig()
 	return src
+
+//Boot animation screen objects
+/obj/screen/rig_booting
+	screen_loc = "1,1"
+	icon = 'icons/obj/rig_boot.dmi'
+	icon_state = ""
+	layer = SCREEN_LAYER
+//	plane = PLANE_FULLSCREEN
+	mouse_opacity = 0
+	alpha = 20 //Animated up when loading
 
 #undef ONLY_DEPLOY
 #undef ONLY_RETRACT
