@@ -24,6 +24,11 @@
 	var/obj/item/inventory_back
 	var/facehugger
 
+	gib()
+		..()
+		new/obj/item/weapon/reagent_containers/food/snacks/meat/corgi(src.loc)
+		new/obj/item/weapon/reagent_containers/food/snacks/meat/corgi(src.loc)
+
 //IAN! SQUEEEEEEEEE~
 /mob/living/simple_animal/corgi/Ian
 	name = "Ian"
