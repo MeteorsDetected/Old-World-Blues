@@ -4,6 +4,14 @@
 	default_icon = 'icons/mob/human_races/cyberlimbs/bishop.dmi'
 	model = "bishop"
 
+/obj/item/organ/external/robotic/expbishop
+	name = "ExpBishop"
+	desc = "Experimental prosthesis with white polymer casing with blue holo-displays.Increased protection!"
+	default_icon = 'icons/mob/human_races/cyberlimbs/expbishop.dmi'
+	model = "expbishop"
+	brute_mod = 0.9
+	burn_mod = 0.9
+
 /obj/item/organ/external/robotic/hesphaistos
 	name = "Hesphaistos"
 	desc = "Prosthesis with militaristic black and green casing with gold stripes."
