@@ -55,13 +55,13 @@ var/list/donator_icons
 		'sound/music/Welcome_to_Lunar_Industries.ogg',
 		'sound/music/Mind_Heist.ogg',*/
 		'sound/music/CCR_-_Bad_Moon_Rising_196.ogg',
-		'sound/music/Death_Stranding_-_Death_Stranding_-_Main_Theme',
-		'sound/music/Beach_House_-_Space_Song',
+		'sound/music/Death_Stranding_-_Death_Stranding_-_Main_Theme.ogg',
+		'sound/music/Beach_House_-_Space_Song.ogg',
 		'sound/music/Crokett_39_s_theme.ogg',
-		'sound/music/1',
-		'sound/music/Low_Roar_-_I_ll_Keep_Coming',
-		'sound/music/OST_Firefly_-_Serenity_theme',
-		'sound/music/Tommy_86_-_High_Fidelity')
+		'sound/music/1.ogg',
+		'sound/music/Low_Roar_-_I_ll_Keep_Coming.ogg',
+		'sound/music/OST_Firefly_-_Serenity_theme.ogg',
+		'sound/music/Tommy_86_-_High_Fidelity.ogg')
 
 	donator_icons = icon_states('icons/donator.dmi')
 
