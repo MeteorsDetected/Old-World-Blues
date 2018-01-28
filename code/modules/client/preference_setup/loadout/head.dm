@@ -81,9 +81,23 @@
 		"white"   = /obj/item/clothing/head/soft/mime
 	)
 
-/datum/gear/head/hairflower
-	display_name = "hair flower pin, red"
+/datum/gear/head/pin
+	display_name = "pin"
 	path = /obj/item/clothing/head/hairflower
+	options = list(
+		"clover" = /obj/item/clothing/head/cloverpin,
+		"magnet" = /obj/item/clothing/head/magnetpin,
+		"pink"   = /obj/item/clothing/head/pinkpin,
+		"white"  = /obj/item/clothing/head/whitepin,
+		"butterfly" = /obj/item/clothing/head/butterflypin
+)
+
+/datum/gear/head/ribbon
+	display_name = "ribbon"
+	path = /obj/item/clothing/head/redribbon
+	options = list(
+		"white" = /obj/item/clothing/head/whiteribbon
+)
 
 /datum/gear/head/hardhat
 	display_name = "hardhat"
