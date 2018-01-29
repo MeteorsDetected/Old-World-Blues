@@ -366,7 +366,7 @@ ADMIN_VERB_ADD(/client/proc/check_words, R_ADMIN)
 
 	attack_self(mob/living/user as mob)
 		usr = user
-		if(!usr.incapacitated(INCAPACITATION_ALL))
+		if(usr.incapacitated())
 			return
 
 		if(!cultwords["travel"])

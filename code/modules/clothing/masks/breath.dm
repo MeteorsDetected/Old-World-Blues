@@ -20,7 +20,7 @@
 	permeability_coefficient = 0.50
 
 /obj/item/clothing/mask/breath/proc/adjust_mask(mob/user)
-	if(user.incapacitated())
+	if(!user.incapacitated())
 		src.hanging = !src.hanging
 		if (src.hanging)
 			gas_transfer_coefficient = 1

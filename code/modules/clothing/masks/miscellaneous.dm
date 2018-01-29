@@ -51,7 +51,7 @@
 	var/hanging = 0
 
 /obj/item/clothing/mask/surgical/proc/adjust_mask(mob_user)
-	if(usr.incapacitated())
+	if(!usr.incapacitated())
 		src.hanging = !src.hanging
 		if (src.hanging)
 			gas_transfer_coefficient = 1
@@ -227,7 +227,7 @@
 	var/tied = 0
 
 /obj/item/clothing/mask/bandana/proc/adjust_bandana(mob/user)
-	if(usr.incapacitated())
+	if(!usr.incapacitated())
 		src.tied = !src.tied
 		if (src.tied)
 			flags_inv = flags_inv & ~HIDEFACE

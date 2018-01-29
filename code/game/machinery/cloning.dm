@@ -279,11 +279,10 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr != occupant && usr.incapacitated() || usr.incapacitated(INCAPACITATION_DISABLED))
+	if(usr.incapacitated(INCAPACITATION_DISABLED))
 		return
 	go_out()
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/clonepod/proc/go_out()
 	if(locked)
@@ -308,7 +307,6 @@
 
 	biomass -= CLONE_BIOMASS
 	update_icon()
-	return
 
 /obj/machinery/clonepod/proc/malfunction()
 	if(occupant)
@@ -320,11 +318,10 @@
 			qdel(occupant)
 	return
 
-/obj/machinery/clonepod/relaymove(mob/user as mob)
+/obj/machinery/clonepod/relaymove(mob/living/user)
 	if(user.incapacitated(INCAPACITATION_DISABLED))
 		return
 	go_out()
-	return
 
 /obj/machinery/clonepod/emp_act(severity)
 	if(prob(100/severity))

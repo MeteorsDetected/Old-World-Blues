@@ -7,24 +7,20 @@
 	siemens_coefficient = 0.9
 	body_parts_covered = 0
 
-	dropped()
-		src.icon_state = initial(icon_state)
-		src.flipped=0
-		..()
+/obj/item/clothing/head/soft/verb/flip()
+	set category = "Object"
+	set name = "Flip cap"
+	set src in usr
 
-	verb/flip()
-		set category = "Object"
-		set name = "Flip cap"
-		set src in usr
-		if(usr.incapacitated())
-			src.flipped = !src.flipped
-			if(src.flipped)
-				icon_state = "[icon_state]_flipped"
-				usr << "You flip the hat backwards."
-			else
-				src.icon_state = initial(icon_state)
-				usr << "You flip the hat back in normal position."
-			update_clothing_icon()	//so our mob-overlays update
+	if(!usr.incapacitated())
+		src.flipped = !src.flipped
+		if(src.flipped)
+			icon_state = "[icon_state]_flipped"
+			usr << "You flip the hat backwards."
+		else
+			src.icon_state = initial(icon_state)
+			usr << "You flip the hat back in normal position."
+		update_clothing_icon()	//so our mob-overlays update
 
 /obj/item/clothing/head/soft/red
 	name = "red cap"

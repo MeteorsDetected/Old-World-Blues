@@ -65,13 +65,11 @@
 	set category = "Object"
 	set name = "Eject DNA Scanner"
 
-	if(usr != occupant && usr.incapacitated())
+	if(usr.incapacitated(INCAPACITATION_DISABLED))
 		return
 
 	eject_occupant()
-
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/dna_scannernew/proc/eject_occupant()
 	src.go_out()

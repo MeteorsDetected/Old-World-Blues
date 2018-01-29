@@ -29,7 +29,7 @@
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(!usr.incapacitated() || !Adjacent(usr))
+	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
 	if(scan)
@@ -38,7 +38,6 @@
 		scan = null
 	else
 		usr << "There is nothing to remove from the console."
-	return
 
 /obj/machinery/computer/secure_data/attackby(obj/item/O as obj, user as mob)
 	if(istype(O, /obj/item/weapon/card/id) && !scan)
@@ -54,7 +53,7 @@
 /obj/machinery/computer/secure_data/attack_hand(mob/user as mob)
 	if(..())
 		return
-	if (src.z > 6)
+	if(isOnPlayerLevel(src))
 		user << "<span class='warning'>Unable to establish a connection:</span> You're too far away from the station!"
 		return
 

@@ -59,6 +59,8 @@
 	return 1
 
 /obj/machinery/atmospherics/unary/cryo_cell/relaymove(mob/user as mob)
+	if(user.incapacitated(INCAPACITATION_DISABLED))
+		return
 	go_out()
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)

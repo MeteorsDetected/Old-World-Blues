@@ -22,7 +22,7 @@
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(!usr.incapacitated() || !Adjacent(usr))
+	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
 	if(scan)
@@ -55,14 +55,14 @@
 			switch(src.screen)
 				if(1.0)
 					dat += {"
-<A href='?src=\ref[src];search=1'>Search Records</A>
-<BR><A href='?src=\ref[src];screen=2'>List Records</A>
+<A href='?src=\ref[src];search=1'>Search Records</A><BR>
+<A href='?src=\ref[src];screen=2'>List Records</A><BR>
 <BR>
-<BR><A href='?src=\ref[src];screen=5'>Virus Database</A>
-<BR><A href='?src=\ref[src];screen=6'>Medbot Tracking</A>
+<A href='?src=\ref[src];screen=5'>Virus Database</A><BR>
+<A href='?src=\ref[src];screen=6'>Medbot Tracking</A><BR>
 <BR>
-<BR><A href='?src=\ref[src];screen=3'>Record Maintenance</A>
-<BR><A href='?src=\ref[src];logout=1'>{Log Out}</A><BR>
+<A href='?src=\ref[src];screen=3'>Record Maintenance</A><BR>
+<A href='?src=\ref[src];logout=1'>{Log Out}</A><BR>
 "}
 				if(2.0)
 					dat += "<B>Record List</B>:<HR>"
@@ -109,9 +109,9 @@
 							dat += "[id]: <A href='?src=\ref[src];field=[field]'>[src.active2.fields[field]]</A><br>"
 							if(id in list("DNA", "Details"))
 								dat += "<BR>"
-						dat += "Important Notes:<BR>\
-						\t<A href='?src=\ref[src];field=notes'>[decode(src.active2.fields["notes"])]</A><BR>\
-						<BR><CENTER><B>Comments/Log</B></CENTER><BR>"
+						dat += "Important Notes:<BR>"
+						dat += "\t<A href='?src=\ref[src];field=notes'>[decode(src.active2.fields["notes"])]</A><BR>"
+						dat += "<BR><CENTER><B>Comments/Log</B></CENTER><BR>"
 						var/counter = 1
 						while(src.active2.fields[text("com_[]", counter)])
 							dat += text("[]<BR><A href='?src=\ref[];del_c=[]'>Delete Entry</A><BR><BR>", src.active2.fields[text("com_[]", counter)], src, counter)
@@ -162,7 +162,6 @@
 			dat += text("<A href='?src=\ref[];login=1'>{Log In}</A>", src)
 	user << browse(text("<HEAD><TITLE>Medical Records</TITLE></HEAD><TT>[]</TT>", dat), "window=med_rec")
 	onclose(user, "med_rec")
-	return
 
 /obj/machinery/computer/med_data/Topic(href, href_list)
 	if(..())
@@ -356,7 +355,6 @@
 							if ((!( t1 ) || !( src.authenticated ) || usr.incapacitated() || (!in_range(src, usr) && (!issilicon(usr))) || src.active1 != a1))
 								return
 							v.fields["description"] = t1
-					else
 
 			if (href_list["p_stat"])
 				if (src.active1)
@@ -510,13 +508,33 @@
 						P.info += "<B>General Record Lost!</B><BR>"
 						P.name = "Medical Record"
 					if (record2)
-						P.info += text("<BR>\n<CENTER><B>Medical Data</B></CENTER><BR>\nBlood Type: []<BR>\nDNA: []<BR>\n<BR>\nMinor Disabilities: []<BR>\nDetails: []<BR>\n<BR>\nMajor Disabilities: []<BR>\nDetails: []<BR>\n<BR>\nAllergies: []<BR>\nDetails: []<BR>\n<BR>\nCurrent Diseases: [] (per disease info placed in log/comment section)<BR>\nDetails: []<BR>\n<BR>\nImportant Notes:<BR>\n\t[]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>", record2.fields["b_type"], record2.fields["b_dna"], record2.fields["mi_dis"], record2.fields["mi_dis_d"], record2.fields["ma_dis"], record2.fields["ma_dis_d"], record2.fields["alg"], record2.fields["alg_d"], record2.fields["cdi"], record2.fields["cdi_d"], decode(record2.fields["notes"]))
+						P.info += "<br><CENTER><B>Medical Data</B></CENTER><br>"
+						var/list/datas = list(
+							"b_type" = "Blood Type",
+							"b_dna" = "DNA",
+							"mi_dis" = "Minor Disabilities",
+							"mi_dis_d" = "Details",
+							"ma_dis" = "Major Disabilities",
+							"ma_dis_d" = "Details",
+							"alg" = "Allergies",
+							"alg_d" = "Details",
+							"cdi" = "Current Diseases",
+							"cdi_d" = "Details"
+						)
+						for(var/field in datas)
+							var/id = datas[field]
+							P.info += "[id]: [src.active2.fields[field]]<br>"
+							if(id in list("DNA", "Details"))
+								P.info += "<br>"
+						P.info += "Important Notes:<br>"
+						P.info += "\t[decode(record2.fields["notes"])]<br><br>"
+						P.info += "<CENTER><B>Comments/Log</B></CENTER><br>"
 						var/counter = 1
-						while(record2.fields[text("com_[]", counter)])
-							P.info += text("[]<BR>", record2.fields[text("com_[]", counter)])
+						while(record2.fields["com_[counter]"])
+							P.info += record2.fields["com_[counter]"] + "<br>"
 							counter++
 					else
-						P.info += "<B>Medical Record Lost!</B><BR>"
+						P.info += "<B>Medical Record Lost!</B><br>"
 					P.info += "</TT>"
 					src.printing = null
 

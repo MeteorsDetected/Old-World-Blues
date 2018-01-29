@@ -107,7 +107,7 @@
 		set name = "Raise glasses up/down"
 		set src in usr
 
-		if(usr.incapacitated())
+		if(!usr.incapacitated())
 			src.glassesup = !src.glassesup
 			if(src.glassesup)
 				icon_state = "[icon_state]_gogup"
@@ -145,7 +145,7 @@
 	var/tied = 0
 
 /obj/item/clothing/mask/keffiehsolar/proc/adjust_keffieh(mob/user)
-	if(usr.incapacitated())
+	if(!usr.incapacitated())
 		src.tied = !src.tied
 		if (src.tied)
 			icon_state = "[icon_state]_up"

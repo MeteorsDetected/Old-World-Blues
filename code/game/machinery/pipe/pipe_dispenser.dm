@@ -199,7 +199,7 @@ Nah
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(href_list["dmake"])
-		if(unwrenched || !usr.incapacitated() || !in_range(loc, usr))
+		if(unwrenched || usr.incapacitated() || !in_range(loc, usr))
 			usr << browse(null, "window=pipedispenser")
 			return
 		if(!wait)
