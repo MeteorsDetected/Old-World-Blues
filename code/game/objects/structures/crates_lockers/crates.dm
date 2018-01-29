@@ -6,6 +6,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "crate"
 	icon_opened = "crateopen"
+	var/points_per_crate = 5
 	climbable = 1
 	var/rigged = 0
 
