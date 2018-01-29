@@ -235,7 +235,7 @@ datum/nano_item_lists
 
 // The purchasing code.
 /obj/item/device/uplink/hidden/Topic(href, href_list)
-	if (usr.stat || usr.restrained())
+	if (usr.incapacitated())
 		return 1
 
 	if (!( ishuman(usr)))

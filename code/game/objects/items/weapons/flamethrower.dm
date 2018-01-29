@@ -70,7 +70,8 @@
 			flame_turf(turflist)
 
 /obj/item/weapon/flamethrower/attackby(obj/item/W as obj, mob/user as mob)
-	if(user.stat || user.restrained() || user.lying)	return
+	if(user.incapacitated())
+		return
 	if(iswrench(W) && !status)//Taking this apart
 		var/turf/T = get_turf(src)
 		if(weldtool)
@@ -119,7 +120,8 @@
 
 
 /obj/item/weapon/flamethrower/attack_self(mob/user as mob)
-	if(user.stat || user.restrained() || user.lying)	return
+	if(user.incapacitated())
+		return
 	user.set_machine(src)
 	if(!ptank)
 		user << SPAN_NOTE("Attach a phoron tank first!")
@@ -135,7 +137,8 @@
 		usr.unset_machine()
 		usr << browse(null, "window=flamethrower")
 		return
-	if(usr.stat || usr.restrained() || usr.lying)	return
+	if(usr.incapacitated())
+		return
 	usr.set_machine(src)
 	if(href_list["light"])
 		if(!ptank)	return

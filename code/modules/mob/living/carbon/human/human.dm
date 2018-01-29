@@ -205,8 +205,7 @@
 
 
 /mob/living/carbon/human/show_inv(mob/user as mob)
-	// TODO :  Change to incapacitated() on merge.
-	if(user.stat || user.lying || user.resting || user.buckled || !user.Adjacent(src))
+	if(user.incapacitated() || !user.Adjacent(src))
 		return
 
 	var/obj/item/clothing/under/suit = null
@@ -491,7 +490,7 @@
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								var/t1 = sanitize(input("Add Comment:", "Sec. records", null, null)  as message)
-								if ( !(t1) || usr.stat || usr.restrained() || !(hasHUD(usr,"security")) )
+								if ( !(t1) || usr.incapacitated() || !(hasHUD(usr,"security")) )
 									return
 								var/counter = 1
 								while(R.fields[text("com_[]", counter)])
@@ -620,7 +619,7 @@
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								var/t1 = sanitize(input("Add Comment:", "Med. records", null, null)  as message)
-								if ( !(t1) || usr.stat || usr.restrained() || !(hasHUD(usr,"medical")) )
+								if ( !(t1) || usr.incapacitated() || !(hasHUD(usr,"medical")) )
 									return
 								var/counter = 1
 								while(R.fields[text("com_[]", counter)])
@@ -1045,7 +1044,7 @@
 	set desc = "Approximately count somebody's pulse. Requires you to stand still at least 6 seconds."
 	set src in view(1)
 
-	if(usr.stat || usr.restrained() || !isliving(usr)) return
+	if(usr.incapacitated() || !isliving(usr)) return
 
 	var/self = (usr == src)
 	if(!self)
@@ -1203,7 +1202,7 @@
 	set name = "Write in blood"
 	set desc = "Use blood on your hands to write a short message on the floor or a wall, murder mystery style."
 
-	if (src.stat)
+	if (src.incapacitated())
 		return
 
 	if (usr != src)
@@ -1370,7 +1369,7 @@
 
 	usr.setClickCooldown(20)
 
-	if(usr.stat)
+	if(usr.incapacitated(INCAPACITATION_DISABLED))
 		usr << "You are unconcious and cannot do that!"
 		return
 

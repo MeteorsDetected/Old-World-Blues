@@ -200,7 +200,7 @@
 		msg += SPAN_WARN("[T.He] [T.is]n't responding to anything around [T.him] and seems to be asleep.")
 		if((stat == DEAD || src.losebreath) && distance <= 3)
 			msg += SPAN_WARN("[T.He] [T.does] not appear to be breathing.")
-		if(ishuman(user) && !usr.stat && Adjacent(user))
+		if(ishuman(user) && !usr.incapacitated() && Adjacent(user))
 			spawn(0)
 				usr.visible_message("<b>[user]</b> checks [src]'s pulse.", "You check [src]'s pulse.")
 				if(do_mob(user, src, 15))

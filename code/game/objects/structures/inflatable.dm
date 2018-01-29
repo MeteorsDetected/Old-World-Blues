@@ -125,7 +125,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || !usr.IsAdvancedToolUser()) //to stop ghosts from deflating
+	if(usr.incapacitated() || !usr.IsAdvancedToolUser()) //to stop ghosts from deflating
 		return
 
 	verbs -= /obj/structure/inflatable/verb/hand_deflate

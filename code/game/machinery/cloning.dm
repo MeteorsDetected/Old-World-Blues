@@ -61,7 +61,6 @@
 	if(occupant.stat != DEAD)
 		var/completion = (100 * ((occupant.health + 50) / (heal_level + 100))) // Clones start at -150 health
 		user << "Current clone cycle is [round(completion)]% complete."
-	return
 
 //Clonepod
 
@@ -169,7 +168,7 @@
 			occupant.adjustCloneLoss(-2 * heal_rate)
 
 			//Premature clones may have brain damage.
-			occupant.adjustBrainLoss(-0.5*heal_rate)
+			occupant.adjustBrainLoss(-0.5 * heal_rate)
 
 			//So clones don't die of oxyloss in a running pod.
 			if(occupant.reagents.get_reagent_amount("inaprovaline") < 30)
@@ -193,9 +192,6 @@
 		occupant = null
 		if(locked)
 			locked = 0
-		return
-
-	return
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -283,11 +279,10 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat)
+	if(usr.incapacitated(INCAPACITATION_DISABLED))
 		return
 	go_out()
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/clonepod/proc/go_out()
 	if(locked)
@@ -312,7 +307,6 @@
 
 	biomass -= CLONE_BIOMASS
 	update_icon()
-	return
 
 /obj/machinery/clonepod/proc/malfunction()
 	if(occupant)
@@ -324,11 +318,10 @@
 			qdel(occupant)
 	return
 
-/obj/machinery/clonepod/relaymove(mob/user as mob)
-	if(user.stat)
+/obj/machinery/clonepod/relaymove(mob/living/user)
+	if(user.incapacitated(INCAPACITATION_DISABLED))
 		return
 	go_out()
-	return
 
 /obj/machinery/clonepod/emp_act(severity)
 	if(prob(100/severity))
@@ -342,23 +335,18 @@
 				A.loc = loc
 				ex_act(severity)
 			qdel(src)
-			return
 		if(2.0)
 			if(prob(50))
 				for(var/atom/movable/A in src)
 					A.loc = loc
 					ex_act(severity)
 				qdel(src)
-				return
 		if(3.0)
 			if(prob(25))
 				for(var/atom/movable/A in src)
 					A.loc = loc
 					ex_act(severity)
 				qdel(src)
-				return
-		else
-	return
 
 /obj/machinery/clonepod/update_icon()
 	..()

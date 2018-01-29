@@ -177,7 +177,7 @@
 	..()
 	if(stat & BROKEN)
 		return
-	if (usr.stat || usr.restrained() || !usr.IsAdvancedToolUser())
+	if (usr.incapacitated() || !usr.IsAdvancedToolUser())
 		return
 
 	if ((istype(src.loc, /turf) && Adjacent(usr)) || isAI(usr))

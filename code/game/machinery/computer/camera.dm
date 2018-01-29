@@ -28,7 +28,9 @@
 		return attack_hand(user)
 
 	check_eye(var/mob/user as mob)
-		if (user.stat || ((get_dist(user, src) > 1 || !( user.canmove ) || user.blinded) && !issilicon(user))) //user can't see - not sure why canmove is here.
+		if(user.incapacitated(INCAPACITATION_DISABLED) || user.blinded)
+			return -1
+		if((get_dist(user, src) > 1) && !issilicon(user))
 			return -1
 		if(!current)
 			return 0
@@ -38,9 +40,12 @@
 		return viewflag
 
 	ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
-		if(src.z > 6) return
-		if(stat & (NOPOWER|BROKEN)) return
-		if(user.stat) return
+		if(!isOnPlayerLevel(src))
+			return
+		if(stat & (NOPOWER|BROKEN))
+			return
+		if(user.incapacitated())
+			return
 
 		var/data[0]
 
@@ -78,26 +83,29 @@
 			ui.set_auto_update(1)
 
 	Topic(href, href_list)
-		if(href_list["switchTo"])
-			if(src.z>6 || stat&(NOPOWER|BROKEN)) return
-			if(usr.stat || ((get_dist(usr, src) > 1 || !( usr.canmove ) || usr.blinded) && !issilicon(usr))) return
-			var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
-			if(!C) return
+		. = ..()
+		if(.)
+			return .
 
+		if(!isOnPlayerLevel(src) || stat&(NOPOWER|BROKEN))
+			return
+		if(usr.incapacitated() || usr.blinded || ((get_dist(usr, src) > 1) && !issilicon(usr)))
+			return
+
+		if(href_list["switchTo"])
+			var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
+			if(!C)
+				return
 			switch_to_camera(usr, C)
 			return 1
 		else if(href_list["reset"])
-			if(src.z>6 || stat&(NOPOWER|BROKEN)) return
-			if(usr.stat || ((get_dist(usr, src) > 1 || !( usr.canmove ) || usr.blinded) && !issilicon(usr))) return
 			reset_current()
 			usr.reset_view(current)
 			return 1
-		else
-			. = ..()
 
 	attack_hand(var/mob/user as mob)
-		if (src.z > 6)
-			user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
+		if(!isOnPlayerLevel(src))
+			user << SPAN_DANG("Unable to establish a connection")+ ": You're too far away from the station!"
 			return
 		if(stat & (NOPOWER|BROKEN))	return
 
@@ -123,7 +131,11 @@
 			A.client.eye = A.eyeobj
 			return 1
 
-		if (!C.can_use() || user.stat || (get_dist(user, src) > 1 || user.machine != src || user.blinded || !( user.canmove ) && !issilicon(user)))
+		if(!C.can_use())
+			return 0
+		if(user.incapacitated(INCAPACITATION_DISABLED) || user.blinded)
+			return 0
+		if(get_dist(user, src) > 1 || user.machine != src && !issilicon(user))
 			return 0
 		set_current(C)
 		user.reset_view(current)

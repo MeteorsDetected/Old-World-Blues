@@ -49,33 +49,31 @@
 /obj/structure/noticeboard/Topic(href, href_list)
 	..()
 	usr.set_machine(src)
-	if(href_list["remove"])
-		if((usr.stat || usr.restrained()))	//For when a player is handcuffed while they have the notice window open
-			return
-		var/obj/item/P = locate(href_list["remove"])
-		if(P && P.loc == src)
-			P.loc = get_turf(src)	//dump paper on the floor because you're a clumsy fuck
-			P.add_fingerprint(usr)
-			add_fingerprint(usr)
-			notices--
-			icon_state = "nboard0[notices]"
-	if(href_list["write"])
-		if((usr.stat || usr.restrained())) //For when a player is handcuffed while they have the notice window open
-			return
-		var/obj/item/P = locate(href_list["write"])
-		if((P && P.loc == src)) //ifthe paper's on the board
-			if(istype(usr.r_hand, /obj/item/weapon/pen)) //and you're holding a pen
-				add_fingerprint(usr)
-				P.attackby(usr.r_hand, usr) //then do ittttt
-			else
-				if(istype(usr.l_hand, /obj/item/weapon/pen)) //check other hand for pen
-					add_fingerprint(usr)
-					P.attackby(usr.l_hand, usr)
-				else
-					usr << SPAN_NOTE("You'll need something to write with!")
 	if(href_list["read"])
 		var/obj/item/weapon/paper/P = locate(href_list["read"])
 		if((P && P.loc == src))
 			usr << browse("<HTML><HEAD><TITLE>[P.name]</TITLE></HEAD><BODY><TT>[P.info]</TT></BODY></HTML>", "window=[P.name]")
 			onclose(usr, "[P.name]")
-	return
+	else
+		if(usr.incapacitated())
+			return
+		if(href_list["remove"])
+			var/obj/item/P = locate(href_list["remove"])
+			if(P && P.loc == src)
+				P.loc = get_turf(src)	//dump paper on the floor because you're a clumsy fuck
+				P.add_fingerprint(usr)
+				add_fingerprint(usr)
+				notices--
+				icon_state = "nboard0[notices]"
+		if(href_list["write"])
+			var/obj/item/P = locate(href_list["write"])
+			if((P && P.loc == src)) //ifthe paper's on the board
+				if(istype(usr.r_hand, /obj/item/weapon/pen)) //and you're holding a pen
+					add_fingerprint(usr)
+					P.attackby(usr.r_hand, usr) //then do ittttt
+				else
+					if(istype(usr.l_hand, /obj/item/weapon/pen)) //check other hand for pen
+						add_fingerprint(usr)
+						P.attackby(usr.l_hand, usr)
+					else
+						usr << SPAN_NOTE("You'll need something to write with!")

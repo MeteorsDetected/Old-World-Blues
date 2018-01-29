@@ -38,8 +38,8 @@
 	if(stat)
 		return
 
-	if(!istype(target) || target.stat || !target.client)
-		src << SPAN_WARN("[target] is not respond.")
+	if(!istype(target) || target.incapacitated() || !target.client)
+		src << SPAN_WARN("[target] can't pick items in thas state.")
 		return
 
 	var/obj/item/I = src.get_active_hand()
@@ -82,8 +82,8 @@
 	if(stat)
 		return
 
-	if(!istype(target) || target.stat || !target.client)
-		src << SPAN_WARN("[target] is not respond.")
+	if(!istype(target) || target.incapacitated() || !target.client)
+		src << SPAN_WARN("[target] can't pick items in that state.")
 		return
 
 	var/obj/item/weapon/gripper/G = src.get_active_hand()

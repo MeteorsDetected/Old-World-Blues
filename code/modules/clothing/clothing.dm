@@ -485,7 +485,8 @@
 /obj/item/clothing/under/proc/set_sensors(mob/usr as mob)
 	var/mob/M = usr
 	if (istype(M, /mob/observer)) return
-	if (usr.stat || usr.restrained()) return
+	if (usr.incapacitated())
+		return
 	if(has_sensor >= 2)
 		usr << "The controls are locked."
 		return 0
@@ -537,15 +538,17 @@
 	set name = "Toggle Suit Sensors"
 	set category = "Object"
 	set src in usr
+
 	set_sensors(usr)
-	..()
 
 /obj/item/clothing/under/verb/rollsuit()
 	set name = "Roll Down Jumpsuit"
 	set category = "Object"
 	set src in usr
-	if(!isliving(usr)) return
-	if(usr.stat || usr.restrained()) return
+	if(!isliving(usr))
+		return
+	if(usr.incapacitated())
+		return
 
 	if(status != ROLL_DOWN)
 		status = ROLL_DOWN
@@ -564,8 +567,10 @@
 	set name = "Roll Up Sleeves"
 	set category = "Object"
 	set src in usr
-	if(!isliving(usr)) return
-	if(usr.stat || usr.restrained()) return
+	if(!isliving(usr))
+		return
+	if(usr.incapacitated())
+		return
 
 	if(status != ROLL_SLEV)
 		status = ROLL_SLEV

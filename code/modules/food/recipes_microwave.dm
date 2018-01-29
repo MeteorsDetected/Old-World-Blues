@@ -268,13 +268,13 @@ I said no!
 	result = /obj/item/weapon/reagent_containers/food/snacks/muffin
 
 /datum/recipe/berrymuffin
-	fruit = list("berry" = 1)
+	fruit = list("berries" = 1)
 	reagents = list("milk" = 5, "flour" = 5)
 	items = list(/obj/item/weapon/reagent_containers/food/snacks/egg)
 	result = /obj/item/weapon/reagent_containers/food/snacks/muffin/berry
 
 /datum/recipe/booberrymuffin
-	fruit = list("berry" = 1)
+	fruit = list("berries" = 1)
 	reagents = list("milk" = 5, "flour" = 5)
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/egg,

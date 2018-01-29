@@ -92,7 +92,7 @@
 	set src in view(1)
 
 	var/mob/living/remover = usr
-	if(!istype(remover) || remover.stat > 0 || !Adjacent(remover))
+	if(!istype(remover) || remover.incapacitated() > 0 || !Adjacent(remover))
 		return ..()
 	if(!sample)
 		remover << "<span class='warning'>\The [src] does not have a sample in it.</span>"

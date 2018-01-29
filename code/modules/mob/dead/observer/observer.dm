@@ -623,7 +623,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		src << "\red That verb is not currently permitted."
 		return
 
-	if (!src.stat)
+	if (!src.incapacitated())
 		return
 
 	if (usr != src)
