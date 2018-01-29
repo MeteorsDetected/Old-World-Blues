@@ -256,9 +256,10 @@ var/list/donator_icons
 		//Otherwise if its a verb it will continue on afterwards.
 		sleep(300)
 
-		if(cinematic)	qdel(cinematic)		//end the cinematic
-		if(temp_buckle)	qdel(temp_buckle)	//release everybody
-		return
+		if(cinematic)
+			qdel(cinematic)		//end the cinematic
+		if(temp_buckle)
+			qdel(temp_buckle)	//release everybody
 
 
 	proc/create_characters()

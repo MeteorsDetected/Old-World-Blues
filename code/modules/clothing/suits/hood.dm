@@ -12,7 +12,7 @@
 		set name = "Toggle Hood"
 		set category = "Object"
 		set src in usr
-		if(usr.stat || usr.restrained())
+		if(usr.incapacitated())
 			return 0
 
 		if(!hood)

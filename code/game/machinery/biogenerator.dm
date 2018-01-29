@@ -127,13 +127,12 @@
 				dat += "<A href='?src=\ref[src];action=menu'>Return to menu</A>"
 	user << browse(dat, "window=biogenerator")
 	onclose(user, "biogenerator")
-	return
 
 /obj/machinery/biogenerator/attack_hand(mob/user as mob)
 	interact(user)
 
 /obj/machinery/biogenerator/proc/activate()
-	if (usr.stat)
+	if (usr.incapacitated())
 		return
 	if (stat) //NOPOWER etc
 		return
@@ -158,7 +157,6 @@
 		update_icon()
 	else
 		menustat = "void"
-	return
 
 /obj/machinery/biogenerator/proc/create_product(var/item, var/cost)
 	cost = round(cost/build_eff)
@@ -221,9 +219,7 @@
 	return 1
 
 /obj/machinery/biogenerator/Topic(href, href_list)
-	if(stat & BROKEN) return
-	if(usr.stat || usr.restrained()) return
-	if(!in_range(src, usr)) return
+	if(stat & BROKEN || usr.incapacitated() || !in_range(src, usr)) return
 
 	usr.set_machine(src)
 

@@ -154,7 +154,7 @@
 		usr << "<span class='warning'>The suit is not initialized.</span>"
 		return 0
 
-	if(usr.lying || usr.stat || usr.stunned || usr.paralysis || usr.weakened)
+	if(usr.incapacitated())
 		usr << "<span class='warning'>You cannot use the suit in this state.</span>"
 		return 0
 

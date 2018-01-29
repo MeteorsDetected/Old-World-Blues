@@ -997,7 +997,7 @@ FIRE ALARM
 		alarm()
 
 /obj/machinery/firealarm/attack_hand(mob/user as mob)
-	if(user.stat || stat & (NOPOWER|BROKEN))
+	if(user.incapacitated() || stat & (NOPOWER|BROKEN))
 		return
 
 	if (buildstage != 2)
@@ -1042,7 +1042,7 @@ FIRE ALARM
 
 /obj/machinery/firealarm/Topic(href, href_list)
 	..()
-	if (usr.stat || stat & (BROKEN|NOPOWER))
+	if (usr.incapacitated() || stat & (BROKEN|NOPOWER))
 		return
 
 	if (buildstage != 2)
@@ -1144,7 +1144,7 @@ Just a object used in constructing fire alarms
 	active_power_usage = 6
 
 /obj/machinery/partyalarm/attack_hand(mob/user as mob)
-	if(user.stat || stat & (NOPOWER|BROKEN))
+	if(user.incapacitated() || stat & (NOPOWER|BROKEN))
 		return
 
 	user.machine = src
@@ -1201,7 +1201,7 @@ Just a object used in constructing fire alarms
 
 /obj/machinery/partyalarm/Topic(href, href_list)
 	..()
-	if (usr.stat || stat & (BROKEN|NOPOWER))
+	if (usr.incapacitated() || stat & (BROKEN|NOPOWER))
 		return
 	if ((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(loc, /turf))) || (isAI(usr)))
 		usr.machine = src

@@ -36,7 +36,7 @@
 		set name = "Toggle force mode"
 		set category = "Prosthesis"
 		set popup_menu = 0
-		if(usr != owner || owner.stat || owner.restrained()) return
+		if(usr != owner || owner.incapacitated()) return
 		if(in_use)
 			owner << SPAN_WARN("Power system still toggling. Wait please.")
 		in_use = 1

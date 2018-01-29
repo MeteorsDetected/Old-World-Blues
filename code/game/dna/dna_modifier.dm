@@ -54,7 +54,8 @@
 	var/opened = 0
 
 /obj/machinery/dna_scannernew/relaymove(mob/user as mob)
-	if (user.stat)
+	if (user.incapacitated(INCAPACITATION_DISABLED))
+		user << SPAN_WARN("You can't get up for doing that")
 		return
 	src.go_out()
 	return
@@ -64,13 +65,11 @@
 	set category = "Object"
 	set name = "Eject DNA Scanner"
 
-	if (usr.stat)
+	if(usr.incapacitated(INCAPACITATION_DISABLED))
 		return
 
 	eject_occupant()
-
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/dna_scannernew/proc/eject_occupant()
 	src.go_out()
@@ -85,7 +84,7 @@
 	set category = "Object"
 	set name = "Enter DNA Scanner"
 
-	if (usr.stat)
+	if (usr.incapacitated(INCAPACITATION_DISABLED))
 		return
 	if (!ishuman(usr) && !issmall(usr)) //Make sure they're a mob that has dna
 		usr << SPAN_NOTE("Try as you might, you can not climb up into the scanner.")
@@ -99,7 +98,6 @@
 	usr.stop_pulling()
 	put_in(usr)
 	src.add_fingerprint(usr)
-	return
 
 /obj/machinery/dna_scannernew/affect_grab(var/mob/user, var/mob/target)
 	if (src.occupant)
@@ -327,7 +325,7 @@
   */
 /obj/machinery/computer/scan_consolenew/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 
-	if(user == connected.occupant || user.stat)
+	if(user == connected.occupant || user.incapacitated(INCAPACITATION_DISABLED))
 		return
 
 	// this is the data which will be sent to the ui

@@ -10,7 +10,7 @@
 
 //mob verbs are faster than object verbs. See above.
 /mob/living/pointed(atom/A as mob|obj|turf in view())
-	if(src.stat || !src.canmove || src.restrained())
+	if(src.incapacitated())
 		return FALSE
 	if(src.status_flags & FAKEDEATH)
 		return FALSE
@@ -55,12 +55,12 @@ default behaviour is:
 			var/mob/living/tmob = AM
 
 			for(var/mob/living/M in range(1,tmob))
-				if(tmob.pinned.len || (M.pulling == tmob && (tmob.restrained() && !M.restrained() && !M.stat)) || tmob.grabbed_by.len)
+				if(tmob.pinned.len || (M.pulling == tmob && (tmob.restrained() && !M.incapacitated())) || tmob.grabbed_by.len)
 					if ( !(world.time % 5) )
 						src << "<span class='warning'>[tmob] is restrained, you cannot push past</span>"
 					now_pushing = FALSE
 					return
-				if(tmob.pulling == M && (M.restrained() && !tmob.restrained() && !tmob.stat))
+				if(tmob.pulling == M && (M.restrained() && !tmob.incapacitated()))
 					if( !(world.time % 5) )
 						src << "<span class='warning'>[tmob] is restraining [M], you cannot push past</span>"
 					now_pushing = FALSE
@@ -465,7 +465,7 @@ default behaviour is:
 	var/t7 = 1
 	if (restrained())
 		for(var/mob/living/M in range(1,src))
-			if (M.pulling == src && !M.stat && !M.restrained())
+			if (M.pulling == src && !M.incapacitated())
 				t7 = null
 	if (t7 && pulling && (get_dist(src, pulling) <= 1) && client && client.moving)
 		var/turf/T = loc
@@ -762,4 +762,29 @@ default behaviour is:
 		return
 	..()
 
+/mob/living/buckled()
+	// Preliminary work for a future buckle rewrite,
+	// where one might be fully restrained (like an elecrical chair), or merely secured (shuttle chair, keeping you safe but not otherwise restrained from acting)
+	if(!buckled)
+		return UNBUCKLED
+	return restrained() ? FULLY_BUCKLED : PARTIALLY_BUCKLED
+
+/mob/living/incapacitated(var/incapacitation_flags = INCAPACITATION_DEFAULT)
+	if((incapacitation_flags & INCAPACITATION_DISABLED) && (stat || paralysis || stunned || weakened || sleeping || (status_flags & FAKEDEATH)))
+		return TRUE
+
+	if((incapacitation_flags & INCAPACITATION_RESTING) && resting)
+		return TRUE
+
+	if((incapacitation_flags & INCAPACITATION_RESTRAINED) && restrained())
+		return TRUE
+
+	if((incapacitation_flags & (INCAPACITATION_BUCKLED_PARTIALLY|INCAPACITATION_BUCKLED_FULLY)))
+		var/buckling = buckled()
+		if(buckling >= PARTIALLY_BUCKLED && (incapacitation_flags & INCAPACITATION_BUCKLED_PARTIALLY))
+			return TRUE
+		if(buckling == FULLY_BUCKLED && (incapacitation_flags & INCAPACITATION_BUCKLED_FULLY))
+			return TRUE
+
+	return FALSE
 

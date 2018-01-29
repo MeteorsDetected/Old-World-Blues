@@ -308,7 +308,7 @@
 
 /obj/mecha/proc/click_action(atom/target,mob/user)
 	if(!src.occupant || src.occupant != user ) return
-	if(user.stat) return
+	if(user.incapacitated()) return
 	if(state)
 		occupant_message("<font color='red'>Maintenance protocols in effect</font>")
 		return
@@ -1062,14 +1062,9 @@
 	set name = "Enter Exosuit"
 	set src in oview(1)
 
-	if (usr.stat || !ishuman(usr))
+	if (usr.incapacitated() || !ishuman(usr))
 		return
 	src.log_message("[usr] tries to move in.")
-	if(iscarbon(usr))
-		var/mob/living/carbon/C = usr
-		if(C.handcuffed)
-			usr << "\red Kinda hard to climb in while handcuffed don't you think?"
-			return
 	if (src.occupant)
 		usr << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_15_stereo_error.ogg',channel = 4, volume = 100)
 		usr << SPAN_NOTE("<B>The [src.name] is already occupied!</B>")
@@ -1618,7 +1613,7 @@ obj/mecha/verb/AIeject()
 	if(href_list["close"])
 		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.ogg',channel=4, volume=100)
 		return
-	if(usr.stat > 0)
+	if(usr.incapacitated())
 		return
 	var/datum/topic_input/filter = new /datum/topic_input(href,href_list)
 	if(href_list["select_equip"])

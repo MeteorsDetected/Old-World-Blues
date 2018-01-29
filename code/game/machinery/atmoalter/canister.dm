@@ -325,7 +325,7 @@ update_flag
 	if (!istype(src.loc, /turf))
 		return 0
 
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr)) // exploit protection -walter0o
+	if(usr.incapacitated() || !in_range(loc, usr)) // exploit protection -walter0o
 		usr << browse(null, "window=canister")
 		onclose(usr, "canister")
 		return
