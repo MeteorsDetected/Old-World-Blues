@@ -153,7 +153,12 @@
 
 
 /mob/proc/restrained()
-	return
+
+/mob/proc/buckled()
+	return UNBUCKLED
+
+/mob/proc/incapacitated(var/incapacitation_flags = INCAPACITATION_DEFAULT)
+	return TRUE
 
 /mob/proc/reset_view(atom/A)
 	if (client)
@@ -179,7 +184,7 @@
 	set name = "Examine"
 	set category = "IC"
 
-	if((is_blind(src) || usr.stat) && !isobserver(src))
+	if((is_blind(src) || usr.incapacitated()) && !isobserver(src))
 		src << SPAN_NOTE("Something is there but you can't see it.")
 		return 1
 
@@ -792,7 +797,7 @@ mob/proc/yank_out_object()
 		return
 	usr.setClickCooldown(20)
 
-	if(usr.stat)
+	if(usr.incapacitated(INCAPACITATION_DISABLED))
 		usr << "You are unconcious and cannot do that!"
 		return
 
@@ -961,4 +966,19 @@ mob/proc/yank_out_object()
 	else
 		qdel(src.client.CH)
 		src << SPAN_NOTE("You unprepare [CH_name].")
-	return
+
+/mob/living/incapacitated(var/incapacitation_flags = INCAPACITATION_DEFAULT)
+	if ((incapacitation_flags & INCAPACITATION_DISABLED) && (stat || paralysis || stunned || weakened || resting || sleeping || (status_flags & FAKEDEATH)))
+		return 1
+
+	if((incapacitation_flags & INCAPACITATION_RESTRAINED) && restrained())
+		return 1
+
+	if((incapacitation_flags & (INCAPACITATION_BUCKLED_PARTIALLY|INCAPACITATION_BUCKLED_FULLY)))
+		var/buckling = buckled()
+		if(buckling >= PARTIALLY_BUCKLED && (incapacitation_flags & INCAPACITATION_BUCKLED_PARTIALLY))
+			return 1
+		if(buckling == FULLY_BUCKLED && (incapacitation_flags & INCAPACITATION_BUCKLED_FULLY))
+			return 1
+
+	return 0

@@ -80,8 +80,10 @@
   * @return nothing
   */
 /obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main",var/datum/nanoui/ui = null, var/force_open = 1)
-	if(stat & (BROKEN|NOPOWER)) return
-	if(user.stat || user.restrained()) return
+	if(stat & (BROKEN|NOPOWER))
+		return
+	if(user.incapacitated())
+		return
 
 	// this is the data which will be sent to the ui
 	var/data[0]
@@ -660,7 +662,6 @@
 		return 1
 
 	user << SPAN_WARN("\The [O] is not suitable for blending.")
-	return 0
 
 
 /obj/machinery/reagentgrinder/proc/insert_material(var/obj/item/I, var/mob/living/user)
@@ -735,37 +736,35 @@
 
 	switch(href_list["action"])
 		if("grind")
-			grind()
+			grind(usr)
 		if("eject")
-			eject()
+			eject(usr)
 		if("detach")
-			detach()
+			detach(usr)
 	src.updateUsrDialog()
 	return 1
 
-/obj/machinery/reagentgrinder/proc/detach()
-
-	if (usr.stat != 0)
+/obj/machinery/reagentgrinder/proc/detach(mob/living/user)
+	if(user.incapacitated())
 		return
-	if (!beaker)
+	if(!beaker)
 		return
-	beaker.loc = src.loc
+	beaker.forceMove(src.loc)
 	beaker = null
 	update_icon()
 
-/obj/machinery/reagentgrinder/proc/eject()
-
-	if (usr.stat != 0)
+/obj/machinery/reagentgrinder/proc/eject(mob/living/user)
+	if(user.incapacitated())
 		return
-	if (!holdingitems || holdingitems.len == 0)
+	if(!holdingitems || holdingitems.len == 0)
 		return
 
 	for(var/obj/item/O in holdingitems)
-		O.loc = src.loc
+		O.forceMove(src.loc)
 		holdingitems -= O
 	holdingitems.Cut()
 
-/obj/machinery/reagentgrinder/proc/grind()
+/obj/machinery/reagentgrinder/proc/grind(mob/living/user)
 
 	if(stat & (NOPOWER|BROKEN))
 		return

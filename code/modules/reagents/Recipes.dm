@@ -473,7 +473,6 @@
 			e.amount *= 0.5
 	e.start()
 	holder.clear_reagents()
-	return
 
 /datum/chemical_reaction/flash_powder
 	name = "Flash powder"

@@ -9,7 +9,7 @@
 	set category = "Object"
 	set src = usr
 
-	if(usr.stat || usr.restrained() || usr.lying)
+	if(usr.incapacitated())
 		return
 	print_report(usr)
 

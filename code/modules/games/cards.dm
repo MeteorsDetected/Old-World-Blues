@@ -66,7 +66,7 @@
 	set desc = "Draw a card from a deck."
 	set src in view(1)
 
-	if(usr.stat || !Adjacent(usr)) return
+	if(usr.incapacitated() || !Adjacent(usr)) return
 
 	if(!iscarbon(usr))
 		return
@@ -102,7 +102,7 @@
 	set desc = "Deal a card from a deck."
 	set src in view(1)
 
-	if(usr.stat || !Adjacent(usr)) return
+	if(usr.incapacitated() || !Adjacent(usr)) return
 
 	if(!cards.len)
 		usr << "There are no cards in the deck."

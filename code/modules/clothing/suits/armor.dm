@@ -193,8 +193,11 @@
 	set name = "Holster"
 	set category = "Object"
 	set src in usr
-	if(!isliving(usr)) return
-	if(usr.stat) return
+
+	if(!isliving(usr))
+		return
+	if(usr.incapacitated())
+		return
 
 	if(!holster.holstered)
 		var/obj/item/W = usr.get_active_hand()
