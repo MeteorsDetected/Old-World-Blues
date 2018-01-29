@@ -6,7 +6,7 @@
 	flags = NOBLUDGEON|CONDUCT
 	slot_flags = SLOT_BELT
 	req_access = list(access_heads)
-	w_class = ITEMSIZE_SMALL
+	w_class = ITEM_SIZE_SMALL
 	origin_tech = list(TECH_MATERIAL = 1)
 
 	var/locked = 1
@@ -158,7 +158,7 @@
 
 
 
-/obj/item/device/retail_scanner/attackby(obj/O as obj, user as mob)
+/obj/item/device/retail_scanner/attackby(obj/item/O as obj, user as mob)
 	// Check for a method of paying (ID, PDA, e-wallet, cash, ect.)
 	var/obj/item/weapon/card/id/I = O.GetID()
 	if(I)

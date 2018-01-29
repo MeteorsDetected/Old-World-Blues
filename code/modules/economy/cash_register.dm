@@ -166,7 +166,7 @@
 
 
 
-/obj/machinery/cash_register/attackby(obj/O as obj, user as mob)
+/obj/machinery/cash_register/attackby(obj/item/O as obj, user as mob)
 	// Check for a method of paying (ID, PDA, e-wallet, cash, ect.)
 	var/obj/item/weapon/card/id/I = O.GetID()
 	if(I)
@@ -488,7 +488,6 @@
 	else
 		user.visible_message("<span class='warning'>\The [user] begins unsecuring \the [src] from the floor.</span>",
 	                         "You begin unsecuring \the [src] from the floor.")
-	playsound(src, W.usesound, 50, 1)
 	if(!do_after(user, 20 * W.toolspeed))
 		manipulating = 0
 		return
