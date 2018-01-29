@@ -71,7 +71,7 @@
 		usr << "\red You are physically incapable of emptying the ore box."
 		return
 
-	if( usr.stat || usr.restrained() )
+	if(usr.incapacitated())
 		return
 
 	if(!Adjacent(usr)) //You can only empty the box if you can physically reach it

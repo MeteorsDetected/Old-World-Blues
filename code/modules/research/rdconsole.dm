@@ -296,7 +296,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else if(href_list["build_categeory"])
 		if(linked_lathe)
 			var/new_pc = input("Select category for displaying") as null|anything in linked_lathe.categories
-			if(Adjacent(usr) && !usr.stat)
+			if(Adjacent(usr) && !usr.incapacitated())
 				if(new_pc == "None")
 					linked_lathe.category = null
 				else
@@ -322,7 +322,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else if(href_list["imprint_categeory"])
 		if(linked_imprinter)
 			var/new_cc = input("Select category for displaying") as null|anything in linked_imprinter.categories
-			if(Adjacent(usr) && !usr.stat)
+			if(Adjacent(usr) && !usr.incapacitated())
 				if(new_cc == "None")
 					linked_imprinter.category = null
 				else

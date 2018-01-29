@@ -307,8 +307,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	// TODO :  Change to incapacitated() on merge.
-	if(usr.stat || usr.lying || usr.resting || usr.buckled)
+	if(usr.incapacitated())
 		return 0
 
 	if(anchored)
@@ -327,8 +326,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	// TODO :  Change to incapacitated() on merge.
-	if(usr.stat || usr.lying || usr.resting || usr.buckled)
+	if(usr.incapacitated())
 		return 0
 
 	if(anchored)

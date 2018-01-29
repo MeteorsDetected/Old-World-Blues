@@ -21,9 +21,11 @@
 
 	var/mob/living/T = input(src,"Who do you wish to tackle?") as null|anything in choices
 
-	if(!T || !src || src.stat) return
+	if(!T || !src || src.incapacitated())
+		return
 
-	if(!Adjacent(T)) return
+	if(!Adjacent(T))
+		return
 
 	if(last_special > world.time)
 		return
@@ -69,9 +71,11 @@
 
 	var/mob/living/T = input(src,"Who do you wish to leap at?") as null|anything in choices
 
-	if(!T || !src || src.stat) return
+	if(!T || !src || src.incapacitated())
+		return
 
-	if(get_dist(get_turf(T), get_turf(src)) > 4) return
+	if(get_dist(get_turf(T), get_turf(src)) > 4)
+		return
 
 	if(last_special > world.time)
 		return
@@ -167,6 +171,10 @@
 	var/list/targets = list()
 	var/target = null
 	var/text = null
+
+	if(stat)
+		src << "You're not in right state for doint that"
+		return
 
 	targets += getmobs() //Fill list, prompt user with list
 	target = input("Select a creature!", "Speak to creature", null, null) as null|anything in targets

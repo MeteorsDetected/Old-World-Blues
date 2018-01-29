@@ -42,7 +42,7 @@
 
 /obj/item/device/radio/electropack/Topic(href, href_list)
 	//..()
-	if(usr.stat || usr.restrained())
+	if(usr.incapacitated())
 		return
 	if( ishuman(usr) && usr.Adjacent(get_turf(src)) )
 		usr.set_machine(src)

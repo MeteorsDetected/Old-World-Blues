@@ -89,11 +89,12 @@
 		//ui.set_auto_update(1)
 
 /obj/item/device/transfer_valve/Topic(href, href_list)
-	..()
-	if ( usr.stat || usr.restrained() )
-		return 0
-	if (src.loc != usr)
-		return 0
+	if(..())
+		return TRUE
+	if(usr.incapacitated())
+		return TRUE
+	if(src.loc != usr)
+		return TRUE
 	if(tank_one && href_list["tankone"])
 		remove_tank(tank_one)
 	else if(tank_two && href_list["tanktwo"])

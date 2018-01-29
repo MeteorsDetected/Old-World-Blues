@@ -236,7 +236,8 @@
 	playing = 0
 
 /obj/item/device/violin/attack_self(mob/user as mob)
-	if(!isliving(user) || user.stat || user.restrained() || user.lying)	return
+	if(!isliving(user) || user.incapacitated())
+		return
 	user.set_machine(src)
 
 	var/dat = "<HEAD><TITLE>Violin</TITLE></HEAD><BODY>"

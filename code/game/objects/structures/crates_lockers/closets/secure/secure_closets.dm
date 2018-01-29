@@ -166,7 +166,7 @@
 	set name = "Toggle Lock"
 
 	// Don't use it if you're not able to! Checks for stuns, ghost and restrain
-	if(!usr.canmove || usr.stat || usr.restrained())
+	if(usr.incapacitated())
 		return
 
 	if(ishuman(usr))

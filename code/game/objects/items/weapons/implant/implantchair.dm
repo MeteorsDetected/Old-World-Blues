@@ -158,7 +158,7 @@
 			set name = "Move Inside"
 			set category = "Object"
 			set src in oview(1)
-			if(usr.stat || stat & (NOPOWER|BROKEN))
+			if(usr.incapacitated() || stat & (NOPOWER|BROKEN))
 				return
 			put_mob(usr)
 			return

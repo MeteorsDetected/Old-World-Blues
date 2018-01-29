@@ -117,7 +117,7 @@ be able to influence the host through various commands.
 		return
 */
 	if(host.stat == DEAD)
-		src << "\red <b>Your host has died.. you fade away..</b>"
+		src << SPAN_DANG("Your host has died.. you fade away..")
 		src.death()
 		return
 

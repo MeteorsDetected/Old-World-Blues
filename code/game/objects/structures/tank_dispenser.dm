@@ -82,7 +82,7 @@
 		return
 
 /obj/structure/dispenser/Topic(href, href_list)
-	if(usr.stat || usr.restrained())
+	if(usr.incapacitated())
 		return
 	if(Adjacent(usr))
 		usr.set_machine(src)

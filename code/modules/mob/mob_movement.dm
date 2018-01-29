@@ -67,17 +67,14 @@
 	set hidden = 1
 	if(!iscarbon(mob))
 		return
-	if (!mob.stat && isturf(mob.loc) && !mob.restrained())
-		mob:toggle_throw_mode()
-	else
-		return
+	if (!mob.incapacitated() && isturf(mob.loc))
+		mob.toggle_throw_mode()
 
 
 /client/verb/drop_item()
 	set hidden = 1
 	if(!isrobot(mob) && mob.stat == CONSCIOUS && isturf(mob.loc))
 		return mob.drop_active_hand()
-	return
 
 
 /client/Center()
@@ -224,7 +221,7 @@
 		if(mob.restrained())//Why being pulled while cuffed prevents you from moving
 			for(var/mob/M in range(1,mob))
 				if(M.pulling == mob)
-					if(!M.restrained() && !M.stat && M.canmove && mob.Adjacent(M))
+					if(!M.incapacitated() && mob.Adjacent(M))
 						src << SPAN_NOTE("You're restrained! You can't move!")
 						return 0
 					else

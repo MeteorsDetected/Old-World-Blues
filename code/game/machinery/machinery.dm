@@ -226,7 +226,7 @@ Class Procs:
 /obj/machinery/attack_hand(mob/user as mob)
 	if(inoperable(MAINT))
 		return 1
-	if(user.lying || user.stat)
+	if(user.incapacitated())
 		return 1
 	if (!user.IsAdvancedToolUser())
 		usr << "<span class='warning'>You don't have the dexterity to do this!</span>"

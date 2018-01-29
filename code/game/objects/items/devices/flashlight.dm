@@ -153,7 +153,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!usr.stat)
+	if(!usr.incapacitated())
 		attack_self(usr)
 
 /obj/item/device/flashlight/lamp/AltClick(var/mob/user)

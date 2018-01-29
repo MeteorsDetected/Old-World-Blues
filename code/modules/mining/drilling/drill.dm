@@ -265,7 +265,8 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat) return
+	if(usr.incapacitated())
+		return
 
 	var/obj/structure/ore_box/B = locate() in orange(1)
 	if(B)
@@ -339,7 +340,8 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat) return
+	if(usr.incapacitated())
+		return
 
 	if (src.anchored)
 		usr << "It is anchored in place!"

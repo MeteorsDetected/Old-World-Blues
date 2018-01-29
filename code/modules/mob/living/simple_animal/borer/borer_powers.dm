@@ -240,7 +240,7 @@
 		src << "You cannot do that from within a host body."
 		return
 
-	if(src.stat)
+	if(src.incapacitated())
 		src << "You cannot do that in your current state."
 		return
 
@@ -276,7 +276,7 @@
 		src << "You are not inside a host body."
 		return
 
-	if(src.stat)
+	if(src.incapacitated())
 		src << "You cannot do that in your current state."
 		return
 
