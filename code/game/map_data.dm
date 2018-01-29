@@ -121,7 +121,6 @@ ADMIN_VERB_ADD(/client/proc/test_MD, R_DEBUG)
 /obj/map_data/finds
 	name = "Overmap finds Level"
 	is_overmap_finds = 1
-	is_player_level = 1
 	is_accessable_level = 1
 
 /obj/map_data/New()

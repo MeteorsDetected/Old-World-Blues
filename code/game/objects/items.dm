@@ -127,7 +127,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!istype(src.loc, /turf) || usr.stat || usr.restrained() )
+	if(!istype(src.loc, /turf) || usr.incapacitated() )
 		return
 
 	var/turf/T = src.loc
@@ -416,18 +416,18 @@ var/list/global/slot_flags_enumeration = list(
 
 	if(!usr) //BS12 EDIT
 		return
-	if(!usr.canmove || usr.stat || usr.restrained() || !Adjacent(usr))
+	if(!Adjacent(usr))
 		return
 	if((!iscarbon(usr)) || (isbrain(usr)))//Is humanoid, and is not a brain
 		usr << "<span class='warning'>You can't pick things up!</span>"
 		return
-	var/mob/living/carbon/C = usr
-	if( usr.stat || usr.restrained() )//Is not asleep/dead and is not restrained
+	if(usr.incapacitated())//Is not asleep/dead and is not restrained
 		usr << "<span class='warning'>You can't pick things up!</span>"
 		return
 	if(src.anchored) //Object isn't anchored
 		usr << "<span class='warning'>You can't pick that up!</span>"
 		return
+	var/mob/living/carbon/C = usr
 	if(C.get_active_hand()) //Hand is not full
 		usr << "<span class='warning'>Your hand is full.</span>"
 		return
@@ -606,7 +606,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 
 	var/cannotzoom
 
-	if(usr.stat || !(ishuman(usr)))
+	if(usr.incapacitated() || !(ishuman(usr)))
 		usr << "You are unable to focus through the [devicename]"
 		cannotzoom = 1
 	else if(!zoom && global_hud.darkMask[1] in usr.client.screen)

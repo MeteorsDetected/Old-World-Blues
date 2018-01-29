@@ -55,7 +55,7 @@
 	if(!usr.canClick())
 		return 1
 
-	if(usr.stat || usr.restrained() || usr.stunned || usr.lying)
+	if(usr.incapacitated())
 		return 1
 
 	if(!(owner in usr))
@@ -90,7 +90,7 @@
 /obj/screen/storage/Click()
 	if(!usr.canClick())
 		return 1
-	if(usr.stat || usr.paralysis || usr.stunned || usr.weakened)
+	if(usr.incapacitated())
 		return 1
 	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
@@ -269,7 +269,7 @@
 		if("internal")
 			if(iscarbon(usr))
 				var/mob/living/carbon/C = usr
-				if(!C.stat && !C.stunned && !C.paralysis && !C.restrained())
+				if(!C.incapacitated())
 					if(C.internal)
 						C.internal = null
 						C << SPAN_NOTE("No longer running on internals.")
@@ -385,7 +385,7 @@
 		if("pull")
 			usr.stop_pulling()
 		if("throw")
-			if(!usr.stat && isturf(usr.loc) && !usr.restrained())
+			if(!usr.incapacitated() && isturf(usr.loc))
 				usr:toggle_throw_mode()
 		if("drop")
 			if(usr.client)
@@ -501,7 +501,7 @@
 	// We don't even know if it's a middle click
 	if(!usr.canClick())
 		return 1
-	if(usr.stat || usr.paralysis || usr.stunned || usr.weakened)
+	if(usr.incapacitated())
 		return 1
 	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1

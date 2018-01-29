@@ -28,7 +28,7 @@
 
 /obj/item/blueprints/Topic(href, href_list)
 	..()
-	if ((usr.restrained() || usr.stat || usr.get_active_hand() != src))
+	if ((usr.incapacitated() || usr.get_active_hand() != src))
 		return
 	if (!href_list["action"])
 		return

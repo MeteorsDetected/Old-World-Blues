@@ -42,7 +42,7 @@
 			src.add_fingerprint(user)
 
 /obj/structure/alien_nest/user_buckle_mob(mob/M as mob, mob/user as mob)
-	if ( !ismob(M) || (get_dist(src, user) > 1) || (M.loc != src.loc) || user.restrained() || usr.stat || M.buckled || ispAI(user) )
+	if(!ismob(M) || (get_dist(src, user) > 1) || (M.loc != src.loc) || user.incapacitated() || M.buckled || ispAI(user))
 		return
 
 	unbuckle_mob()

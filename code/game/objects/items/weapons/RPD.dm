@@ -167,7 +167,7 @@ RPD
 	return
 
 /obj/item/weapon/rpd/Topic(href, href_list)
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+	if(usr.incapacitated() || !in_range(loc, usr))
 		usr << browse(null, "window=rpd")
 		return
 	usr.set_machine(src)
@@ -307,7 +307,7 @@ RPD
 
 
 /obj/item/weapon/rpd/proc/can_use(var/mob/user,var/turf/T)
-	return (user.Adjacent(T) && user.get_active_hand() == src && !user.stat && !user.restrained())
+	return (user.Adjacent(T) && user.get_active_hand() == src && !user.incapacitated())
 
 /*/obj/item/weapon/rpd/proc/alter_turf(var/turf/T,var/mob/user,var/deconstruct)
 
@@ -418,5 +418,5 @@ RPD
 	return
 
 /obj/item/weapon/rpd/mounted/can_use(var/mob/user,var/turf/T)
-	return (user.Adjacent(T) && !user.stat && !user.restrained())
+	return (user.Adjacent(T) && !user.incapacitated())
 */

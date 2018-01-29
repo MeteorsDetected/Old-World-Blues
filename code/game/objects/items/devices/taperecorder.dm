@@ -54,7 +54,7 @@
 	set name = "Start Recording"
 	set category = "Object"
 
-	if(usr.stat)
+	if(usr.incapacitated())
 		return
 	if(emagged == 1)
 		usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
@@ -81,7 +81,7 @@
 	set name = "Stop"
 	set category = "Object"
 
-	if(usr.stat)
+	if(usr.incapacitated())
 		return
 	if(emagged == 1)
 		usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
@@ -105,7 +105,7 @@
 	set name = "Clear Memory"
 	set category = "Object"
 
-	if(usr.stat)
+	if(usr.incapacitated())
 		return
 	if(emagged == 1)
 		usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
@@ -125,7 +125,7 @@
 	set name = "Playback Memory"
 	set category = "Object"
 
-	if(usr.stat)
+	if(usr.incapacitated())
 		return
 	if(emagged == 1)
 		usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
@@ -184,7 +184,7 @@
 	set name = "Print Transcript"
 	set category = "Object"
 
-	if(usr.stat)
+	if(usr.incapacitated())
 		return
 	if(emagged == 1)
 		usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
@@ -209,7 +209,7 @@
 
 /obj/item/device/taperecorder/attack_self(mob/user)
 	if(recording == 0 && playing == 0)
-		if(usr.stat)
+		if(usr.incapacitated())
 			return
 		if(emagged == 1)
 			usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
@@ -231,7 +231,7 @@
 		else
 			usr << "<span class='warning'>Either your tape recorder's memory is full, or it is currently playing back its memory.</span>"
 	else
-		if(usr.stat)
+		if(usr.incapacitated())
 			usr << "Not when you're incapacitated."
 			return
 		if(recording == 1)
