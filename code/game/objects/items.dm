@@ -213,7 +213,7 @@
 	user.put_in_active_hand(src)
 	return
 
-/obj/item/attack_ai(mob/user as mob)
+/obj/item/attack_robot(mob/user as mob)
 	if (istype(src.loc, /obj/item/weapon/robot_module))
 		//If the item is part of a cyborg module, equip it
 		if(!isrobot(user))
