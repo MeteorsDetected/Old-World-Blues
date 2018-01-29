@@ -172,7 +172,7 @@
 	var/target = null
 	var/text = null
 
-	if(incapacitated(INCAPACITATION_DISABLED))
+	if(stat)
 		src << "You're not in right state for doint that"
 		return
 

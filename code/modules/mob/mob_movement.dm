@@ -67,8 +67,8 @@
 	set hidden = 1
 	if(!iscarbon(mob))
 		return
-	if (mob.incapacitated() && isturf(mob.loc))
-		mob:toggle_throw_mode()
+	if (!mob.incapacitated() && isturf(mob.loc))
+		mob.toggle_throw_mode()
 
 
 /client/verb/drop_item()

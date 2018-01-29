@@ -1369,7 +1369,7 @@
 
 	usr.setClickCooldown(20)
 
-	if(usr.incapacitated(INCAPACITATION_DISABLED))
+	if(usr.stat)
 		usr << "You are unconcious and cannot do that!"
 		return
 

@@ -13,7 +13,7 @@
 
 
 /obj/item/weapon/paper_bin/MouseDrop(mob/user as mob)
-	if(user == usr && usr.incapacitated() && src.Adjacent(usr))
+	if(user == usr && !usr.incapacitated() && src.Adjacent(usr))
 		usr.put_in_active_hand(src)
 
 /obj/item/weapon/paper_bin/attack_hand(mob/user as mob)
