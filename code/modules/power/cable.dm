@@ -189,13 +189,7 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/proc/shock(mob/user, prb, var/siemens_coeff = 1.0)
 	if(!prob(prb))
 		return 0
-	if (electrocute_mob(user, powernet, src, siemens_coeff))
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-		s.set_up(5, 1, src)
-		s.start()
-		if(usr.stunned)
-			return 1
-	return 0
+	return electrocute_mob(user, powernet, src, siemens_coeff)
 
 //explosion handling
 /obj/structure/cable/ex_act(severity)

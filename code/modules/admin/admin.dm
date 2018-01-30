@@ -72,7 +72,6 @@ ADMIN_VERB_ADD(/datum/admins/proc/show_player_panel, null, TRUE)
 		else
 			body += "<A href='?_src_=holder;watchadd=\ref[M.ckey]'>Add to Watchlist</A> "
 
-		body += "| <A HREF='?src=\ref[src];sendtoprison=\ref[M]'>Prison</A> | "
 		var/muted = M.client.prefs.muted
 		body += {"<br><b>Mute: </b>
 			\[<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"blue"]'>IC</font></a> |
@@ -170,10 +169,10 @@ ADMIN_VERB_ADD(/datum/admins/proc/show_player_panel, null, TRUE)
 			"}
 	if (M.client)
 		body += {" |
-			<A href='?src=\ref[src];tdome1=\ref[M]'>Thunderdome 1</A> |
-			<A href='?src=\ref[src];tdome2=\ref[M]'>Thunderdome 2</A> |
-			<A href='?src=\ref[src];tdomeadmin=\ref[M]'>Thunderdome Admin</A> |
-			<A href='?src=\ref[src];tdomeobserve=\ref[M]'>Thunderdome Observer</A> |
+			<A href='?src=\ref[src];tdome=\ref[M];team=one'>Thunderdome 1</A> |
+			<A href='?src=\ref[src];tdome=\ref[M];team=two'>Thunderdome 2</A> |
+			<A href='?src=\ref[src];tdome=\ref[M];team=admin'>Thunderdome Admin</A> |
+			<A href='?src=\ref[src];tdome=\ref[M];team=observe'>Thunderdome Observer</A> |
 		"}
 	// language toggles
 	body += "<br><br><b>Languages:</b><br>"
@@ -859,18 +858,6 @@ ADMIN_VERB_ADD(/datum/admins/proc/immreboot, R_SERVER)
 	log_admin("[key_name(usr)] initiated an immediate reboot.")
 
 	world.Reboot()
-
-/datum/admins/proc/unprison(var/mob/M in mob_list)
-	set category = "Admin"
-	set name = "Unprison"
-	if(isOnAdminLevel(M))
-		if (config.allow_admin_jump)
-			M.loc = pick(latejoin)
-			log_admin("[key_name(usr)] has unprisoned [key_name(M)]")
-		else
-			alert("Admin jumping disabled")
-	else
-		alert("[M.name] is not prisoned.")
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 

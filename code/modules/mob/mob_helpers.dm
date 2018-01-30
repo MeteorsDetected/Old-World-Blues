@@ -18,12 +18,6 @@
 /mob/living/silicon/isSynthetic()
 	return 1
 
-/mob/proc/isMonkey()
-	return 0
-
-/mob/living/carbon/human/isMonkey()
-	return istype(species, /datum/species/monkey)
-
 proc/isdeaf(A)
 	if(isliving(A))
 		var/mob/living/M = A
@@ -324,13 +318,6 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 			sleep(1)
 		M.client.eye=oldeye
 		M.shakecamera = 0
-
-
-/proc/findname(msg)
-	for(var/mob/M in mob_list)
-		if (M.real_name == text("[msg]"))
-			return 1
-	return 0
 
 
 /mob/proc/abiotic(var/full_body = 0)

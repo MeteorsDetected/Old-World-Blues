@@ -189,7 +189,7 @@
 //Will return 1 on failure
 /obj/machinery/power/smes/proc/make_terminal(const/mob/user)
 	if (user.loc == loc)
-		user << "<span class='warning'>You must not be on the same tile as the [src].</span>"
+		user << SPAN_WARN("You must not be on the same tile as the [src].")
 		return 1
 
 	//Direction the terminal will face to
@@ -201,11 +201,11 @@
 			tempDir = WEST
 	var/turf/tempLoc = get_step(src, reverse_direction(tempDir))
 	if (istype(tempLoc, /turf/space))
-		user << "<span class='warning'>You can't build a terminal on space.</span>"
+		user << SPAN_WARN("You can't build a terminal on space.")
 		return 1
 	else if (istype(tempLoc))
 		if(tempLoc.intact)
-			user << "<span class='warning'>You must remove the floor plating first.</span>"
+			user << SPAN_WARN("You must remove the floor plating first.")
 			return 1
 	user << SPAN_NOTE("You start adding cable to the [src].")
 	if(do_after(user, 50))
@@ -246,14 +246,14 @@
 			return 0
 
 	if (!open_hatch)
-		user << "<span class='warning'>You need to open access hatch on [src] first!</spann>"
+		user << SPAN_WARN("You need to open access hatch on [src] first!")
 		return 0
 
 	if(istype(W, /obj/item/stack/cable_coil) && !terminal && !building_terminal)
 		building_terminal = 1
 		var/obj/item/stack/cable_coil/CC = W
 		if (CC.get_amount() <= 10)
-			user << "<span class='warning'>You need more cables.</span>"
+			user << SPAN_WARN("You need more cables.")
 			building_terminal = 0
 			return 0
 		if (make_terminal(user))
@@ -261,8 +261,8 @@
 			return 0
 		building_terminal = 0
 		CC.use(10)
-		user.visible_message(\
-				SPAN_NOTE("[user.name] has added cables to the [src]."),\
+		user.visible_message(
+				SPAN_NOTE("[user.name] has added cables to the [src]."),
 				SPAN_NOTE("You added cables to the [src]."))
 		terminal.connect_to_network()
 		stat = 0
@@ -273,21 +273,17 @@
 		var/turf/tempTDir = terminal.loc
 		if (istype(tempTDir))
 			if(tempTDir.intact)
-				user << "<span class='warning'>You must remove the floor plating first.</span>"
+				user << SPAN_WARN("You must remove the floor plating first.")
 			else
 				user << SPAN_NOTE("You begin to cut the cables...")
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 				if(do_after(user, 50))
 					if (prob(50) && electrocute_mob(usr, terminal.powernet, terminal))
-						var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-						s.set_up(5, 1, src)
-						s.start()
 						building_terminal = 0
-						if(usr.stunned)
-							return 0
+						return 0
 					new /obj/item/stack/cable_coil(loc,10)
-					user.visible_message(\
-						SPAN_NOTE("[user.name] cut the cables and dismantled the power terminal."),\
+					user.visible_message(
+						SPAN_NOTE("[user.name] cut the cables and dismantled the power terminal."),
 						SPAN_NOTE("You cut the cables and dismantle the power terminal."))
 					qdel(terminal)
 		building_terminal = 0

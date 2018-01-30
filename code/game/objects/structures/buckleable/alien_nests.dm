@@ -10,7 +10,7 @@
 	can_buckle = TRUE
 	buckle_dir = SOUTH
 	buckle_lying = RIGHT
-	mob_offset_y = 3
+	mob_offset_y = 6
 	var/health = 100
 
 /obj/structure/alien_nest/user_unbuckle_mob(mob/user as mob)
@@ -64,15 +64,10 @@
 			SPAN_WARN("[user.name] drenches you in a foul-smelling resin, trapping you in the [src]!"),
 			SPAN_NOTE("You hear squelching...")
 		)
-	M.buckled = src
-	M.loc = src.loc
-	M.set_dir(src.dir)
-	M.update_canmove()
-	M.pixel_y = 6
-	M.old_y = 6
-	src.buckled_mob = M
+
+	if(buckle_mob(M))
+		M.forceMove(src.loc)
 	src.add_fingerprint(user)
-	return
 
 /obj/structure/alien_nest/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	var/aforce = W.force

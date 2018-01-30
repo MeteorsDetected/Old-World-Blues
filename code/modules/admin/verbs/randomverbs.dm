@@ -14,31 +14,6 @@
 
 	log_admin("[key_name(usr)] made [key_name(M)] drop everything!", M)
 
-/client/proc/cmd_admin_prison(mob/M as mob in mob_list)
-	set category = "Admin"
-	set name = "Prison"
-	if(!holder)
-		src << "Only administrators may use this command."
-		return
-	if (ismob(M))
-		if(isAI(M))
-			alert("The AI can't be sent to prison you jerk!", null, null, null, null, null)
-			return
-		//strip their stuff before they teleport into a cell :downs:
-		for(var/obj/item/W in M)
-			M.drop_from_inventory(W)
-		//teleport person to cell
-		M.Paralyse(5)
-		sleep(5)	//so they black out before warping
-		M.loc = pick(prisonwarp)
-		if(ishuman(M))
-			var/mob/living/carbon/human/prisoner = M
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), slot_shoes)
-		spawn(50)
-			M << "\red You have been sent to the prison station!"
-		log_admin("[key_name(usr)] sent [key_name(M)] to the prison station.", M)
-
 ADMIN_VERB_ADD(/client/proc/cmd_admin_subtle_message, R_ADMIN|R_MOD)
 /*send an message to somebody as a 'voice in their head'*/
 /client/proc/cmd_admin_subtle_message(mob/M as mob in mob_list)

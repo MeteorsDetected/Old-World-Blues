@@ -239,9 +239,11 @@
 				usr << "\red It's already fully loaded."
 
 
-	afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
-		if(!isturf(target.loc) || target == user) return
-		if(flag) return
+	afterattack(atom/target, mob/living/user as mob, flag)
+		if(!isturf(target.loc) || target == user)
+			return
+		if(flag)
+			return
 
 		if (locate (/obj/structure/table, src.loc))
 			return
@@ -262,7 +264,7 @@
 						if(!isliving(M)) continue
 						if(M == user) continue
 						for(var/mob/O in viewers(world.view, D))
-							O.show_message(text("\red [] was hit by the foam dart!", M), 1)
+							O.show_message("\red [M] was hit by the foam dart!", 1)
 						new /obj/item/toy/ammo/crossbow(M.loc)
 						qdel(D)
 						return
@@ -272,7 +274,6 @@
 						if(A.density)
 							new /obj/item/toy/ammo/crossbow(A.loc)
 							qdel(D)
-
 				sleep(1)
 
 			spawn(10)
@@ -284,37 +285,33 @@
 		else if (bullets == 0)
 			user.Weaken(5)
 			for(var/mob/O in viewers(world.view, user))
-				O.show_message(text("\red [] realized they were out of ammo and starting scrounging for some!", user), 1)
+				O.show_message("\red [user] realized they were out of ammo and starting scrounging for some!", 1)
 
 
-	attack(mob/M as mob, mob/user as mob)
+	attack(mob/living/M, mob/living/user)
 		src.add_fingerprint(user)
+		if(M.lying)
+			if (src.bullets > 0)
+				for(var/mob/O in viewers(M, null))
+					if(O.client)
+						O.show_message(
+							"\red <B>[user] casually lines up a shot with [M]'s head and pulls the trigger!</B>", 1,
+							"\red You hear the sound of foam against skull", 2
+						)
+						O.show_message("\red [M] was hit in the head by the foam dart!", 1)
 
-// ******* Check
-
-		if (src.bullets > 0 && M.lying)
-
-			for(var/mob/O in viewers(M, null))
-				if(O.client)
-					O.show_message(
-						"\red <B>[user] casually lines up a shot with [M]'s head and pulls the trigger!</B>", 1,
-						"\red You hear the sound of foam against skull", 2
-					)
-					O.show_message("\red [M] was hit in the head by the foam dart!", 1)
-
-			playsound(user.loc, 'sound/items/syringeproj.ogg', 50, 1)
-			new /obj/item/toy/ammo/crossbow(M.loc)
-			src.bullets--
-		else if (M.lying && src.bullets == 0)
-			for(var/mob/O in viewers(M, null))
-				if (O.client)
-					O.show_message(
-						"\red <B>[user] casually lines up a shot with [M]'s head, pulls the trigger, \
-							then realizes they are out of ammo and drops to the floor in search of some!</B>", 1,
-						"\red You hear someone fall", 2
-					)
-			user.Weaken(5)
-		return
+				playsound(user.loc, 'sound/items/syringeproj.ogg', 50, 1)
+				new /obj/item/toy/ammo/crossbow(M.loc)
+				src.bullets--
+			else if(src.bullets == 0)
+				for(var/mob/O in viewers(M, null))
+					if (O.client)
+						O.show_message(
+							"\red <B>[user] casually lines up a shot with [M]'s head, pulls the trigger, \
+								then realizes they are out of ammo and drops to the floor in search of some!</B>", 1,
+							"\red You hear someone fall", 2
+						)
+				user.Weaken(5)
 
 /obj/item/toy/ammo/crossbow
 	name = "foam dart"

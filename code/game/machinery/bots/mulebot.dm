@@ -709,16 +709,15 @@
 // called when bot bumps into anything
 /obj/machinery/bot/mulebot/Bump(var/atom/obs)
 	if(!wires.MobAvoid())		//usually just bumps, but if avoidance disabled knock over mobs
-		var/mob/M = obs
-		if(ismob(M))
-			if(isrobot(M))
-				src.visible_message("\red [src] bumps into [M]!")
+		if(isliving(obs))
+			if(isrobot(obs))
+				src.visible_message(SPAN_WARN("[src] bumps into [obs]!"))
 			else
-				src.visible_message("\red [src] knocks over [M]!")
+				var/mob/living/M = obs
+				src.visible_message(SPAN_WARN("[src] knocks over [M]!"))
 				M.stop_pulling()
 				M.Stun(8)
 				M.Weaken(5)
-				M.lying = 1
 	..()
 
 /obj/machinery/bot/mulebot/alter_health()
