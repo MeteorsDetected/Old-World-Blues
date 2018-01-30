@@ -104,6 +104,13 @@
 		"yellow"  = /obj/item/clothing/head/yellowfitnessheadband
 	)
 
+
+
+
+/datum/gear/head/witchhat
+	display_name = "witch hat"
+	path = /obj/item/clothing/head/witchhat
+
 /datum/gear/head/pin
 	display_name = "pin"
 	path = /obj/item/clothing/head/hairflower

@@ -6,8 +6,8 @@
 /obj/item/device/depth_scanner
 	name = "depth analysis scanner"
 	desc = "Used to check spatial depth and density of rock outcroppings."
-	icon = 'icons/obj/pda.dmi'
-	icon_state = "crap"
+	icon = 'icons/obj/xenoarchaeology.dmi'
+	icon_state = "depth_scanner"
 	item_state = "analyzer"
 	w_class = ITEM_SIZE_SMALL
 	slot_flags = SLOT_BELT
