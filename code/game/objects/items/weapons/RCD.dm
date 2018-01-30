@@ -29,7 +29,7 @@
 	return 0
 
 /obj/item/weapon/rcd/proc/can_use(var/mob/user,var/turf/T)
-	return (user.Adjacent(T) && user.get_active_hand() == src && !user.stat && !user.restrained())
+	return (user.Adjacent(T) && user.get_active_hand() == src && !user.incapacitated())
 
 /obj/item/weapon/rcd/examine()
 	. = ..()
@@ -178,7 +178,7 @@
 	return
 
 /obj/item/weapon/rcd/borg/can_use(var/mob/user,var/turf/T)
-	return (user.Adjacent(T) && !user.stat)
+	return (user.Adjacent(T) && !user.incapacitated())
 
 
 /obj/item/weapon/rcd/mounted/useResource(var/amount, var/mob/user)
@@ -195,4 +195,4 @@
 	return
 
 /obj/item/weapon/rcd/mounted/can_use(var/mob/user,var/turf/T)
-	return (user.Adjacent(T) && !user.stat && !user.restrained())
+	return (user.Adjacent(T) && !user.incapacitated())

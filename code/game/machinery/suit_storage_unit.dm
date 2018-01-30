@@ -422,8 +422,12 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat != 0)
-		return
+	if(usr == OCCUPANT)
+		if(usr.incapacitated(INCAPACITATION_DISABLED))
+			return
+	else
+		if(usr.incapacitated())
+			return
 	eject_occupant(usr)
 	add_fingerprint(usr)
 	updateUsrDialog()
@@ -436,7 +440,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat != 0)
+	if(usr.incapacitated(INCAPACITATION_MOVE))
 		return
 	if(!isopen)
 		usr << "<font color='red'>The unit's doors are shut.</font>"
@@ -939,8 +943,12 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat != 0)
-		return
+	if(usr == occupant)
+		if(usr.incapacitated(INCAPACITATION_DISABLED))
+			return
+	else
+		if(usr.incapacitated())
+			return
 
 	eject_occupant(usr)
 

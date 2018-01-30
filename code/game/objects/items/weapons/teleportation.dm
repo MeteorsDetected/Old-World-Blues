@@ -46,7 +46,7 @@ Frequency:
 
 /obj/item/weapon/locator/Topic(href, href_list)
 	..()
-	if (usr.stat || usr.restrained())
+	if (usr.incapacitated())
 		return
 	var/turf/current_location = get_turf(usr)//What turf is the user on?
 	if(!current_location||current_location.z==2)//If turf was not found or they're on z level 2.
@@ -159,7 +159,7 @@ Frequency:
 	if(turfs.len)
 		L["None (Dangerous)"] = pick(turfs)
 	var/t1 = input(user, "Please select a teleporter to lock in on.", "Hand Teleporter") in L
-	if ((user.get_active_hand() != src || user.stat || user.restrained()))
+	if(user.get_active_hand() != src || user.incapacitated())
 		return
 	var/count = 0	//num of portals from this teleport in world
 	for(var/obj/effect/portal/PO in world)
@@ -282,7 +282,7 @@ Frequency:
 /obj/item/weapon/vortex_manipulator/Topic(href, href_list)
 	if(..())
 		return 1
-	if (usr.stat || usr.restrained() || src.loc != usr)
+	if (usr.incapacitated() || src.loc != usr)
 		return
 	if (!ishuman(usr))
 		return 1
@@ -583,7 +583,7 @@ Frequency:
 	if(!malf_use)
 		A = input(user, "Beacon to jump to", "JEEROOONIMOOO") in beacon_locations
 	var/area/thearea = beacon_locations[A]
-	if (user.stat || user.restrained())
+	if (user.incapacitated())
 		return
 	if(!((user == loc || (in_range(src, user) && istype(src.loc, /turf)))))
 		return
@@ -619,7 +619,7 @@ Frequency:
 	if(!malf_use)
 		A = input(user, "Area to jump to", "JEEROOONIMOOO") in teleportlocs
 	var/area/thearea = teleportlocs[A]
-	if (user.stat || user.restrained())
+	if (user.incapacitated())
 		return
 	if(!((user == loc || (in_range(src, user) && istype(src.loc, /turf)))))
 		return

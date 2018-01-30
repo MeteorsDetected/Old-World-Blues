@@ -277,7 +277,7 @@
 		return
 	if(O.loc == user)
 		return
-	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis)
+	if(user.incapacitated())
 		return
 	if((!(istype(O, /atom/movable) ) || O.anchored || !Adjacent(user) || !Adjacent(O) || !user.Adjacent(O) || user.contents.Find(src)))
 		return
@@ -298,7 +298,7 @@
 		attack_hand(user)
 
 /obj/structure/closet/relaymove(mob/user as mob)
-	if(user.stat || !isturf(src.loc))
+	if(user.incapacitated(INCAPACITATION_DISABLED) || !isturf(src.loc))
 		return
 
 	if(!src.open())
@@ -319,9 +319,10 @@
 	set category = "Object"
 	set name = "Toggle Open"
 
-	if(!usr.canmove || usr.stat || usr.restrained())
+	if(usr.incapacitated())
 		return
 
+	//TODO: LETHALGHOST - replace with isAdvToolUser
 	if(ishuman(usr) || isrobot(usr))
 		src.add_fingerprint(usr)
 		src.toggle(usr)
@@ -378,7 +379,7 @@
 		if(!do_after(escapee, 50)) //5 seconds
 			breakout = 0
 			return
-		if(!escapee || escapee.stat || escapee.loc != src)
+		if(!escapee || escapee.incapacitated(INCAPACITATION_DISABLED) || escapee.loc != src)
 			breakout = 0
 			return //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 		//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...

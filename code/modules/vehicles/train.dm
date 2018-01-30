@@ -90,7 +90,7 @@
 	return 1
 
 /obj/vehicle/train/MouseDrop_T(var/atom/movable/C, mob/user as mob)
-	if(user.buckled || user.stat || user.restrained() || !Adjacent(user) || !user.Adjacent(C) || !istype(C) || (user == C && !user.canmove))
+	if(user.incapacitated(INCAPACITATION_ALL) || !Adjacent(user) || !user.Adjacent(C) || !istype(C) || (user == C && !user.canmove))
 		return
 	if(istype(C,/obj/vehicle/train))
 		latch(C, user)
@@ -99,7 +99,7 @@
 			user << "\red You were unable to load [C] on [src]."
 
 /obj/vehicle/train/attack_hand(mob/user as mob)
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return 0
 
 	if(user != load && (user in src))
@@ -120,7 +120,7 @@
 	if(!ishuman(usr))
 		return
 
-	if(!usr.canmove || usr.stat || usr.restrained() || !Adjacent(usr))
+	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
 	unattach(usr)

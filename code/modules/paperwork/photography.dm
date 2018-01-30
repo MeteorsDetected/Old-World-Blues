@@ -45,7 +45,7 @@ var/global/photo_count = 0
 /obj/item/weapon/photo/attackby(obj/item/weapon/P as obj, mob/user as mob)
 	if(istype(P, /obj/item/weapon/pen))
 		var/txt = sanitize(input_utf8(user, "What would you like to write on the back?", "Photo Writing", null, "text"), 128)
-		if(!user.stat && Adjacent(user))
+		if(!user.incapacitated() && Adjacent(user))
 			scribble = txt
 	..()
 
@@ -79,10 +79,9 @@ var/global/photo_count = 0
 
 	var/n_name = sanitizeSafe(input(usr, "What would you like to label the photo?", "Photo Labelling", null)  as text, MAX_NAME_LEN)
 	//loc.loc check is for making possible renaming photos in clipboards
-	if(( (loc == usr || (loc.loc && loc.loc == usr)) && !usr.stat))
+	if(( (loc == usr || (loc.loc && loc.loc == usr)) && !usr.incapacitated()))
 		name = "[(n_name ? text("[n_name]") : "photo")]"
 	add_fingerprint(usr)
-	return
 
 
 /obj/item/weapon/photo/custom/show(mob/user)
@@ -120,7 +119,7 @@ var/global/photo_count = 0
 		return ..()
 
 	playsound(loc, "rustle", 50, 1, -5)
-	if(!H.restrained() && !H.stat && H.back == src)
+	if(!H.incapacitated() && H.back == src)
 		switch(over_object.name)
 			if(BP_R_HAND)
 				if(H.unEquip(src))

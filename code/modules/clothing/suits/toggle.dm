@@ -6,7 +6,8 @@
 		set name = "Toggle Coat Buttons"
 		set category = "Object"
 		set src in usr
-		if(!usr.canmove || usr.stat || usr.restrained())
+
+		if(usr.incapacitated())
 			return 0
 
 		//Will check whether icon state is currently set to the "open" or "closed" state

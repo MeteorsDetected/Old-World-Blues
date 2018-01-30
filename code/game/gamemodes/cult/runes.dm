@@ -73,7 +73,7 @@ var/list/sacrificed = list()
 			for(var/mob/living/carbon/C in orange(1,src))
 				if(iscultist(C) && !C.stat)
 					culcount++
-			if(culcount>=3)
+			if(culcount >= 3)
 				user.say("Sas[pick("'","`")]so c'arta forbici tarem!")
 				user.visible_message("<span class='warning'>You feel air moving from the rune - like as it was swapped with somewhere else.</span>", \
 				"<span class='warning'>You feel air moving from the rune - like as it was swapped with somewhere else.</span>", \

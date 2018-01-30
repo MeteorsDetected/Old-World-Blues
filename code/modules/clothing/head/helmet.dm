@@ -24,7 +24,7 @@
 		set category = "Object"
 		set name = "Raise glasses up/down"
 		set src in usr
-		if(usr.canmove && !usr.stat && !usr.restrained())
+		if(usr.incapacitated())
 			src.glassesup = !src.glassesup
 			if(src.glassesup)
 				body_parts_covered &= ~EYES
@@ -50,7 +50,7 @@
 		set category = "Object"
 		set name = "Toggle flasher"
 		set src in usr
-		if(usr.canmove && !usr.stat && !usr.restrained())
+		if(usr.incapacitated())
 			on = !on
 			update_flashlight(usr)
 			icon_state = "hardhat_justice[on]"
@@ -75,7 +75,7 @@
 		set category = "Object"
 		set name = "Raise glasses up/down"
 		set src in usr
-		if(usr.canmove && !usr.stat && !usr.restrained())
+		if(usr.incapacitated())
 			src.glassesup = !src.glassesup
 			if(src.glassesup)
 				icon_state = "[icon_state]_glassesup"
@@ -116,7 +116,7 @@
 		set category = "Object"
 		set name = "Raise glasses up/down"
 		set src in usr
-		if(usr.canmove && !usr.stat && !usr.restrained())
+		if(usr.incapacitated())
 			src.glassesup = !src.glassesup
 			if(src.glassesup)
 				icon_state = "[icon_state]_glassesup"

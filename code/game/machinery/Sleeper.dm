@@ -359,7 +359,7 @@
 		set name = "Eject Sleeper"
 		set category = "Object"
 		set src in oview(1)
-		if(usr.stat)
+		if(usr != occupant && usr.incapacitated() || usr.incapacitated(INCAPACITATION_DISABLED))
 			return
 		update_icon()
 		src.go_out()
@@ -370,7 +370,7 @@
 		set name = "Remove Beaker"
 		set category = "Object"
 		set src in oview(1)
-		if(usr.stat != 0)
+		if(usr.incapacitated())
 			return
 		if(beaker)
 			filtering = 0
@@ -384,7 +384,7 @@
 		set category = "Object"
 		set src in oview(1)
 
-		if(usr.stat != 0 || !(ishuman(usr) || issmall(usr)))
+		if(usr.incapacitated(INCAPACITATION_MOVE) || !ishuman(usr))
 			return
 
 		if(src.occupant)
@@ -410,8 +410,6 @@
 			for(var/obj/O in src)
 				if(O!=beaker) O.forceMove(loc)
 			src.add_fingerprint(usr)
-			return
-		return
 
 /obj/machinery/sleeper/old
 	icon_state = "sleeper_old"

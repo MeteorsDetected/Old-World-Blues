@@ -292,7 +292,7 @@ ADMIN_VERB_ADD(/client/proc/check_words, R_ADMIN)
 	Topic(href,href_list[])
 		if (src.loc == usr)
 			var/number = text2num(href_list["number"])
-			if (usr.stat|| usr.restrained())
+			if (usr.incapacitated(INCAPACITATION_ALL))
 				return
 			switch(href_list["action"])
 				if("clear")
@@ -366,7 +366,7 @@ ADMIN_VERB_ADD(/client/proc/check_words, R_ADMIN)
 
 	attack_self(mob/living/user as mob)
 		usr = user
-		if(!usr.canmove || usr.stat || usr.restrained())
+		if(usr.incapacitated())
 			return
 
 		if(!cultwords["travel"])

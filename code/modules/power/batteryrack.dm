@@ -96,8 +96,6 @@
 			user.set_machine(src)
 			interact(user)
 			return 1
-	return
-
 
 //The shitty one that will blow up.
 /obj/machinery/power/smes/batteryrack/makeshift

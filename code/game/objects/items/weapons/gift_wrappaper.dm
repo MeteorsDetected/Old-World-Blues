@@ -28,7 +28,7 @@
 	return
 
 /obj/effect/spresent/relaymove(mob/user as mob)
-	if (user.stat)
+	if (user.incapacitated(INCAPACITATION_DISABLED))
 		return
 	user << SPAN_NOTE("You cant move.")
 
@@ -218,7 +218,7 @@
 
 /obj/item/weapon/wrapping_paper/attack(mob/living/carbon/human/H as mob, mob/user as mob)
 	if (!istype(H)) return
-	if (istype(H.wear_suit, /obj/item/clothing/suit/straight_jacket) || H.stat)
+	if (istype(H.wear_suit, /obj/item/clothing/suit/straight_jacket) || H.incapacitated())
 		if (src.amount > 2)
 			var/obj/effect/spresent/present = new /obj/effect/spresent (H.loc)
 			src.amount -= 2

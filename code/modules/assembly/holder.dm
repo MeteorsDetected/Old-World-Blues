@@ -251,7 +251,7 @@
 		set category = "Object"
 		set src in usr
 
-		if ( !(usr.stat || usr.restrained()) )
+		if(!usr.incapacitated())
 			var/obj/item/device/assembly_holder/holder
 			if(istype(src,/obj/item/weapon/grenade/chem_grenade))
 				var/obj/item/weapon/grenade/chem_grenade/gren = src
@@ -274,4 +274,4 @@
 				else
 					usr << SPAN_NOTE("Timer can't be [ntime<=0?"negative":"more than 1000 seconds"].")
 		else
-			usr << SPAN_NOTE("You cannot do this while [usr.stat?"unconscious/dead":"restrained"].")
+			usr << SPAN_NOTE("You cannot do this while [usr.restrained()?"restrained":"unconscious/dead"].")

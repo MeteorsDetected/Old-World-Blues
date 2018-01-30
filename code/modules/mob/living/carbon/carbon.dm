@@ -294,7 +294,7 @@
 
 /mob/living/carbon/throw_item(atom/target)
 	src.throw_mode_off()
-	if(usr.stat || !target)
+	if(usr.incapacitated() || !target)
 		return
 	if(target.type == /obj/screen) return
 
@@ -353,12 +353,11 @@
 	bodytemperature += temp_inc
 
 /mob/living/carbon/restrained()
-	if (handcuffed)
-		return 1
-	return
+	return handcuffed
 
 /mob/living/carbon/u_equip(obj/item/W as obj)
-	if(!W)	return 0
+	if(!W)
+		return 0
 
 	else if (W == handcuffed)
 		handcuffed = null

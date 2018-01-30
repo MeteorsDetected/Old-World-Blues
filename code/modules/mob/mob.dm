@@ -144,7 +144,12 @@
 
 
 /mob/proc/restrained()
-	return
+
+/mob/proc/buckled()
+	return UNBUCKLED
+
+/mob/proc/incapacitated(var/incapacitation_flags = INCAPACITATION_DEFAULT)
+	return TRUE
 
 /mob/proc/reset_view(atom/A)
 	if (client)
@@ -650,4 +655,3 @@
 	else
 		qdel(src.client.CH)
 		src << SPAN_NOTE("You unprepare [CH_name].")
-	return

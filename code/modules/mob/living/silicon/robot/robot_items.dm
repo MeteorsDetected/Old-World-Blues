@@ -253,7 +253,7 @@
 		return
 
 	//n_name = copytext(n_name, 1, 32)
-	if(get_dist(user,paper) <= 1  && !user.stat)
+	if(get_dist(user,paper) <= 1  && !user.incapacitated())
 		add_fingerprint(user)
 		paper.name = "paper[(n_name ? text("- '[n_name]'") : null)]"
 	return
