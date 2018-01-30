@@ -426,7 +426,7 @@
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
 
-/obj/machinery/power/apc/attackby(obj/item/W, mob/user)
+/obj/machinery/power/apc/attackby(obj/item/W, mob/living/user)
 
 	if (issilicon(user) && get_dist(src,user)>1)
 		return src.attack_hand(user)
@@ -541,32 +541,29 @@
 				var/turf/T = get_turf(src)
 				var/obj/structure/cable/N = T.get_cable_node()
 				if (prob(50) && electrocute_mob(usr, N, N))
-					var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-					s.set_up(5, 1, src)
-					s.start()
-					if(user.stunned)
-						return
+					return
 				C.use(10)
-				user.visible_message(\
-					"<span class='warning'>[user.name] has added cables to the APC frame!</span>",\
-					"You add cables to the APC frame.")
+				user.visible_message(
+					SPAN_WARN("[user.name] has added cables to the APC frame!"),
+					"You add cables to the APC frame."
+				)
 				make_terminal()
 				operating = 0
 	else if (istype(W, /obj/item/weapon/wirecutters) && terminal && opened && has_electronics!=2)
-		if (src.loc:intact)
-			user << "<span class='warning'>You must remove the floor plating in front of the APC first.</span>"
-			return
-		user.visible_message("<span class='warning'>[user.name] dismantles the power terminal from [src].</span>", \
-							"You begin to cut the cables...")
+		if(isturf(loc))
+			var/turf/T = loc
+			if(T.intact)
+				user << SPAN_WARN("You must remove the floor plating in front of the APC first.")
+				return
+		user.visible_message(
+			SPAN_WARN("[user.name] dismantles the power terminal from [src]."),
+			"You begin to cut the cables..."
+		)
 		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 		if(do_after(user, 50))
 			if(terminal && opened && has_electronics!=2)
 				if (prob(50) && electrocute_mob(usr, terminal.powernet, terminal))
-					var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-					s.set_up(5, 1, src)
-					s.start()
-					if(usr.stunned)
-						return
+					return
 				new /obj/item/stack/cable_coil(loc,10)
 				user << SPAN_NOTE("You cut the cables and dismantle the power terminal.")
 				qdel(terminal)
@@ -786,7 +783,8 @@
 		"totalLoad" = round(lastused_total),
 		"totalCharging" = round(lastused_charging),
 		"coverLocked" = coverlocked,
-		"siliconUser" = issilicon(user) || isobserver(user), //I add observer here so admins can have more control, even if it makes 'siliconUser' seem inaccurate.
+		//I add observer here so admins can have more control, even if it makes 'siliconUser' seem inaccurate.
+		"siliconUser" = issilicon(user) || isobserver(user),
 
 		"powerChannels" = list(
 			list(

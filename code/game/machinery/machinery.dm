@@ -288,19 +288,7 @@ Class Procs:
 		return 0
 	if(!prob(prb))
 		return 0
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-	s.set_up(5, 1, src)
-	s.start()
-	if (electrocute_mob(user, get_area(src), src, 0.7))
-		var/area/temp_area = get_area(src)
-		if(temp_area)
-			var/obj/machinery/power/apc/temp_apc = temp_area.get_apc()
-
-			if(temp_apc && temp_apc.terminal && temp_apc.terminal.powernet)
-				temp_apc.terminal.powernet.trigger_warning()
-		if(user.stunned)
-			return 1
-	return 0
+	return electrocute_mob(user, get_area(src), src, 0.7)
 
 /obj/machinery/proc/default_part_replacement(var/mob/user, var/obj/item/storage/part_replacer/R)
 	if(!istype(R))

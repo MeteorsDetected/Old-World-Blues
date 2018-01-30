@@ -244,7 +244,7 @@
 	..()
 	name += spellname
 
-/obj/item/weapon/spellbook/oneuse/attack_self(mob/user as mob)
+/obj/item/weapon/spellbook/oneuse/attack_self(mob/living/user)
 	var/spell/S = new spell(user)
 	for(var/spell/knownspell in user.spell_list)
 		if(knownspell.type == S.type)
@@ -264,8 +264,8 @@
 		onlearned(user)
 		origin_tech[TECH_ARCANE]--
 
-/obj/item/weapon/spellbook/oneuse/proc/recoil(mob/user as mob)
-	user.visible_message("<span class='warning'>[src] glows in a black light!</span>")
+/obj/item/weapon/spellbook/oneuse/proc/recoil(mob/living/user)
+	user.visible_message(SPAN_WARN("[src] glows in a black light!"))
 
 /obj/item/weapon/spellbook/oneuse/proc/onlearned(mob/user as mob)
 	used = 1
@@ -280,7 +280,7 @@
 	icon_state ="bookfireball"
 	desc = "This book feels warm to the touch."
 
-/obj/item/weapon/spellbook/oneuse/fireball/recoil(mob/user as mob)
+/obj/item/weapon/spellbook/oneuse/fireball/recoil(mob/living/user)
 	..()
 	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 	qdel(src)
@@ -291,7 +291,7 @@
 	icon_state ="booksmoke"
 	desc = "This book is overflowing with the dank arts."
 
-/obj/item/weapon/spellbook/oneuse/smoke/recoil(mob/user as mob)
+/obj/item/weapon/spellbook/oneuse/smoke/recoil(mob/living/user)
 	..()
 	user <<"<span class='caution'>Your stomach rumbles...</span>"
 	if(user.nutrition)
@@ -307,9 +307,9 @@
 	icon_state ="bookblind"
 	desc = "This book looks blurry, no matter how you look at it."
 
-/obj/item/weapon/spellbook/oneuse/blind/recoil(mob/user as mob)
+/obj/item/weapon/spellbook/oneuse/blind/recoil(mob/living/user)
 	..()
-	user <<"<span class='warning'>You go blind!</span>"
+	user <<SPAN_WARN("You go blind!")
 	user.eye_blind = 10
 */
 /obj/item/weapon/spellbook/oneuse/mindswap
@@ -325,13 +325,13 @@
 	name = "spellbook of [spellname]" //Note, desc doesn't change by design
 	..()
 
-/obj/item/weapon/spellbook/oneuse/mindswap/recoil(mob/user as mob)
+/obj/item/weapon/spellbook/oneuse/mindswap/recoil(mob/living/user)
 	..()
 	if(stored_swap in dead_mob_list)
 		stored_swap = null
 	if(!stored_swap)
 		stored_swap = user
-		user <<"<span class='warning'>For a moment you feel like you don't even know who you are anymore.</span>"
+		user <<SPAN_WARN("For a moment you feel like you don't even know who you are anymore.")
 		return
 	if(stored_swap == user)
 		user <<SPAN_NOTE("You stare at the book some more, but there doesn't seem to be anything else to learn...")
@@ -363,8 +363,8 @@
 		for(var/V in user.mind.special_verbs)
 			user.verbs += V
 
-	stored_swap <<"<span class='warning'>You're suddenly somewhere else... and someone else?!</span>"
-	user <<"<span class='warning'>Suddenly you're staring at [src] again... where are you, who are you?!</span>"
+	stored_swap <<SPAN_WARN("You're suddenly somewhere else... and someone else?!")
+	user <<SPAN_WARN("Suddenly you're staring at [src] again... where are you, who are you?!")
 	stored_swap = null
 
 /obj/item/weapon/spellbook/oneuse/forcewall
@@ -373,9 +373,9 @@
 	icon_state ="bookforcewall"
 	desc = "This book has a dedication to mimes everywhere inside the front cover."
 
-/obj/item/weapon/spellbook/oneuse/forcewall/recoil(mob/user as mob)
+/obj/item/weapon/spellbook/oneuse/forcewall/recoil(mob/living/user)
 	..()
-	user <<"<span class='warning'>You suddenly feel very solid!</span>"
+	user <<SPAN_WARN("You suddenly feel very solid!")
 	var/obj/structure/closet/statue/S = new(user.loc, user)
 	S.timer = 30
 	user.drop_from_inventory(src)
@@ -387,9 +387,9 @@
 	icon_state ="bookknock"
 	desc = "This book is hard to hold closed properly."
 
-/obj/item/weapon/spellbook/oneuse/knock/recoil(mob/user as mob)
+/obj/item/weapon/spellbook/oneuse/knock/recoil(mob/living/user)
 	..()
-	user <<"<span class='warning'>You're knocked down!</span>"
+	user <<SPAN_WARN("You're knocked down!")
 	user.Weaken(20)
 
 /obj/item/weapon/spellbook/oneuse/horsemask
@@ -417,7 +417,7 @@
 	icon_state ="bookcharge"
 	desc = "This book is made of 100% post-consumer wizard."
 
-/obj/item/weapon/spellbook/oneuse/charge/recoil(mob/user as mob)
+/obj/item/weapon/spellbook/oneuse/charge/recoil(mob/living/user)
 	..()
-	user <<"<span class='warning'>[src] suddenly feels very warm!</span>"
+	user <<SPAN_WARN("[src] suddenly feels very warm!")
 	empulse(src, 1, 1)

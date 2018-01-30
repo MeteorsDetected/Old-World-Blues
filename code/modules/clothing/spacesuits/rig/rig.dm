@@ -711,11 +711,7 @@
 	take_hit((100/severity_class), "electrical pulse", 1)
 
 /obj/item/weapon/rig/proc/shock(mob/user)
-	if (electrocute_mob(user, cell, src)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
-		spark_system.start()
-		if(user.stunned)
-			return TRUE
-	return FALSE
+	return electrocute_mob(user, cell, src)
 
 /obj/item/weapon/rig/proc/take_hit(damage, source, is_emp=0)
 

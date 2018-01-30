@@ -50,11 +50,16 @@
 	spell_masters = null
 	zone_sel = null
 
-/mob/proc/show_message(msg, type, alt, alt_type)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 
-	if(!client)	return
+//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+/mob/proc/show_message(msg, type, alt, alt_type)
+	src << msg
 
-	if (type)
+/mob/living/show_message(msg, type, alt, alt_type)
+	if(!client)
+		return
+
+	if(type)
 		if((type & 1) && ((sdisabilities & BLIND) || blinded || paralysis) )//Vision related
 			if (!( alt ))
 				return
@@ -433,13 +438,13 @@
 	return 1
 
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
-/mob/proc/update_canmove()
+/mob/living/proc/update_canmove()
 	var/downed = 0
 	var/lying = 0
 	var/canmove = 1
 	if(istype(buckled, /obj/vehicle) || istype(buckled, /obj/motorcycle))
 		var/obj/vehicle/V = buckled
-		if(stat || paralysis || sleeping || (status_flags & FAKEDEATH))
+		if(incapacitated(INCAPACITATION_DISABLED))
 			lying = 1
 			canmove = 0
 			pixel_y = V.mob_offset_y - 5

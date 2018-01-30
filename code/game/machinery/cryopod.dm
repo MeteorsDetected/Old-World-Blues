@@ -179,9 +179,9 @@
 	var/allow_occupant_types = list(/mob/living/carbon/human)
 	var/disallow_occupant_types = list()
 
-	var/mob/occupant = null       // Person waiting to be despawned.
-	var/time_till_despawn = 18000 // 30 minutes-ish safe period before being despawned.
-	var/time_entered = 0          // Used to keep track of the safe period.
+	var/mob/living/occupant = null // Person waiting to be despawned.
+	var/time_till_despawn = 18000  // 30 minutes-ish safe period before being despawned.
+	var/time_entered = 0           // Used to keep track of the safe period.
 	var/obj/item/device/radio/intercom/announce //
 
 	var/obj/machinery/computer/cryopod/control_computer
