@@ -33,6 +33,7 @@
 /obj/item/device/flashlight/lantern
 	name = "lantern"
 	icon_state = "lantern"
+	item_state = "lantern"
 	desc = "A mining lantern."
 	brightness_on = 6			// luminosity when on
 
@@ -184,6 +185,139 @@
 	icon_state = "miningcar"
 	density = 1
 	icon_opened = "miningcaropen"
+
+/**********************Point Transfer Card**********************/
+
+/obj/item/weapon/card/mining_point_card
+	name = "mining points card"
+	desc = "A small card preloaded with mining points. Swipe your ID card over it to transfer the points, then discard."
+	icon_state = "data"
+	var/points = 500
+
+/obj/item/weapon/card/mining_point_card/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weapon/card/id))
+		if(points)
+			var/obj/item/weapon/card/id/C = I
+			C.mining_points += points
+			user << "<span class='info'>You transfer [points] points to [C].</span>"
+			points = 0
+		else
+			user << "<span class='info'>There's no points left on [src].</span>"
+	..()
+
+/obj/item/weapon/card/mining_point_card/examine(mob/user)
+	..()
+	user << "There's [points] point\s on the card."
+
+/******************************Sculpting*******************************/
+/obj/item/weapon/autochisel
+	name = "auto-chisel"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "jackhammer"
+	item_state = "jackhammer"
+	origin_tech = list(TECH_MATERIAL = 3, TECH_POWER = 2, TECH_ENGINEERING = 2)
+	desc = "With an integrated AI chip and hair-trigger precision, this baby makes sculpting almost automatic!"
+
+/obj/structure/sculpting_block
+	name = "sculpting block"
+	desc = "A finely chiselled sculpting block, it is ready to be your canvas."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "sculpting_block"
+	density = 1
+	opacity = 1
+	anchored = 0
+	var/sculpted = 0
+	var/mob/living/T
+	var/times_carved = 0
+	var/last_struck = 0
+
+/obj/structure/sculpting_block/verb/rotate()
+	set name = "Rotate"
+	set category = "Object"
+	set src in oview(1)
+
+	if (src.anchored || usr:stat)
+		usr << "It is fastened to the floor!"
+		return 0
+	src.set_dir(turn(src.dir, 90))
+	return 1
+
+/obj/structure/sculpting_block/attackby(obj/item/C as obj, mob/user as mob)
+
+	if (iswrench(C))
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
+		user << "<span class='notice'>You [anchored ? "un" : ""]anchor the [name].</span>"
+		anchored = !anchored
+
+	if (istype(C, /obj/item/weapon/autochisel))
+		if(!sculpted)
+			if(last_struck)
+				return
+
+			if(!T)
+				var/list/choices = list()
+				for(var/mob/living/M in view(7,user))
+					choices += M
+				T = input(user,"Who do you wish to sculpt?") as null|anything in choices
+				user.visible_message("<span class='notice'>[user] begins sculpting.</span>",
+					"<span class='notice'>You begin sculpting.</span>")
+
+			var/sculpting_coefficient = get_dist(user,T)
+			if(sculpting_coefficient <= 0)
+				sculpting_coefficient = 1
+
+			if(sculpting_coefficient >= 7)
+				user << "<span class='warning'>You hardly remember what [T] really looks like! Bah!</span>"
+				T = null
+
+			user.visible_message("<span class='notice'>[user] carves away at the sculpting block!</span>",
+				"<span class='notice'>You continue sculpting.</span>")
+
+			if(prob(25))
+				playsound(user, 'sound/items/Screwdriver.ogg', 20, 1)
+			else
+				playsound(user, "sound/weapons/chisel[rand(1,2)].ogg", 20, 1)
+				spawn(3)
+					playsound(user, "sound/weapons/chisel[rand(1,2)].ogg", 20, 1)
+					spawn(3)
+						playsound(user, "sound/weapons/chisel[rand(1,2)].ogg", 20, 1)
+
+			last_struck = 1
+			if(do_after(user,(20)))
+				last_struck = 0
+				if(times_carved <= 9)
+					times_carved += 1
+					if(times_carved < 1)
+						user << "<span class='notice'>You review your work and see there is more to do.</span>"
+					return
+				else
+					sculpted = 1
+					user.visible_message("<span class='notice'>[user] finishes sculpting their magnum opus!</span>",
+						"<span class='notice'>You finish sculpting a masterpiece.</span>")
+					src.appearance = T
+					src.color = list(
+					    0.35, 0.3, 0.25,
+					    0.35, 0.3, 0.25,
+					    0.35, 0.3, 0.25
+					)
+					src.pixel_y += 8
+					var/image/pedestal_underlay = image('icons/obj/mining.dmi', icon_state = "pedestal")
+					pedestal_underlay.appearance_flags = RESET_COLOR
+					pedestal_underlay.pixel_y -= 8
+					src.underlays += pedestal_underlay
+					var/title = sanitize(input(usr, "If you would like to name your art, do so here.", "Christen Your Sculpture", "") as text|null)
+					if(title)
+						name = title
+					else
+						name = "*[T.name]*"
+					var/legend = sanitize(input(usr, "If you would like to describe your art, do so here.", "Story Your Sculpture", "") as message|null)
+					if(legend)
+						desc = legend
+					else
+						desc = "This is a sculpture of [T.name]. All craftsmanship is of the highest quality. It is decorated with rock and more rock. It is covered with rock. On the item is an image of a rock. The rock is [T.name]."
+			else
+				last_struck = 0
+		return
 
 // Flags.
 

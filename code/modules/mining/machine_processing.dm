@@ -6,10 +6,15 @@
 	icon_state = "console"
 	density = 1
 	anchored = 1
+	use_power = 1
+	idle_power_usage = 15
+	active_power_usage = 50
 
 	var/obj/machinery/mineral/processing_unit/machine = null
 	var/machinedir = EAST
 	var/show_all_ores = 0
+	var/points = 0
+	var/obj/item/weapon/card/id/inserted_id
 
 /obj/machinery/mineral/processing_unit_console/New()
 	..()
@@ -36,6 +41,14 @@
 	user.set_machine(src)
 
 	var/dat = "<h1>Ore processor console</h1>"
+
+	dat += "Current unclaimed points: [points]<br>"
+
+	if(istype(inserted_id))
+		dat += "You have [inserted_id.mining_points] mining points collected. <A href='?src=\ref[src];choice=eject'>Eject ID.</A><br>"
+		dat += "<A href='?src=\ref[src];choice=claim'>Claim points.</A><br>"
+	else
+		dat += "No ID inserted.  <A href='?src=\ref[src];choice=insert'>Insert ID.</A><br>"
 
 	dat += "<hr><table>"
 
@@ -79,6 +92,32 @@
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 
+	if(href_list["choice"])
+		if(istype(inserted_id))
+			if(href_list["choice"] == "eject")
+				inserted_id.loc = loc
+				if(!usr.get_active_hand())
+					usr.put_in_hands(inserted_id)
+				inserted_id = null
+			if(href_list["choice"] == "claim")
+				if(access_mining_station in inserted_id.access)
+					if(points >= 0)
+						inserted_id.mining_points += points
+						if(points != 0)
+							ping( "\The [src] pings, \"Point transfer complete! Transaction total: [points] points!\"" )
+						points = 0
+					else
+						usr << "<span class='warning'>[station_name()]'s mining division is currently indebted to NanoTrasen. Transaction incomplete until debt is cleared.</span>"
+				else
+					usr << "<span class='warning'>Required access not found.</span>"
+		else if(href_list["choice"] == "insert")
+			var/obj/item/weapon/card/id/I = usr.get_active_hand()
+			if(istype(I))
+				usr.unEquip(I, src)
+				I.loc = src
+				inserted_id = I
+			else usr << "<span class='warning'>No valid ID.</span>"
+
 	if(href_list["toggle_smelting"])
 
 		var/choice = input("What setting do you wish to use for processing [href_list["toggle_smelting"]]?")\
@@ -96,6 +135,10 @@
 	if(href_list["toggle_power"])
 
 		machine.active = !machine.active
+		if(machine.active)
+			machine.icon_state = "furnace"
+		else
+			machine.icon_state = "furnace-off"
 
 	if(href_list["toggle_ores"])
 
@@ -106,7 +149,7 @@
 
 /**********************Mineral processing unit**************************/
 
-//This isn't actually a goddamn furnace, we're in space and it's processing platinum and flammable phoron...
+//This isn't actually a goddamn furnace, we're in space and it's processing platinum and flammable phoron... //lol fuk u bay it is
 /obj/machinery/mineral/processing_unit
 	name = "material processor"
 	icon = 'icons/obj/machines/mining_machines.dmi'
@@ -116,12 +159,17 @@
 	light_range = 3
 	var/obj/machinery/mineral/input = null
 	var/obj/machinery/mineral/output = null
-	var/obj/machinery/mineral/console = null
+	var/obj/machinery/mineral/processing_unit_console/console = null
 	var/sheets_per_tick = 10
 	var/list/ores_processing[0]
 	var/list/ores_stored[0]
 	var/static/list/alloy_data
 	var/active = 0
+	use_power = 1
+	idle_power_usage = 15
+	active_power_usage = 50
+
+
 
 /obj/machinery/mineral/processing_unit/New()
 	..()
@@ -197,6 +245,10 @@
 					else
 						var/total
 						for(var/needs_metal in A.requires)
+							if(console)
+								var/ore/Ore = ore_data[needs_metal]
+								console.points += Ore.worth
+							use_power(100)
 							ores_stored[needs_metal] -= A.requires[needs_metal]
 							total += A.requires[needs_metal]
 							total = max(1,round(total*A.product_mod)) //Always get at least one sheet.
@@ -204,6 +256,9 @@
 
 						var/material/M = get_material_by_name(A.product)
 						for(var/i=0,i<total,i++)
+							if(console)
+								console.points += O.worth*2
+							use_power(100)
 							M.place_sheet(output.loc)
 
 			else if(ores_processing[metal] == 2 && O.compresses_to) //Compressing.
@@ -218,6 +273,9 @@
 					continue
 
 				for(var/i=0,i<can_make,i+=2)
+					if(console)
+						console.points += O.worth*2
+					use_power(100)
 					ores_stored[metal]-=2
 					sheets+=2
 					M.place_sheet(output.loc)
@@ -230,10 +288,16 @@
 					continue
 
 				for(var/i=0,i<can_make,i++)
+					if(console)
+						console.points += O.worth
+					use_power(100)
 					ores_stored[metal]--
 					sheets++
 					M.place_sheet(output.loc)
 			else
+				if(console)
+					console.points -= O.worth*3 //reee wasting our materials!
+				use_power(500)
 				ores_stored[metal]--
 				sheets++
 				new /obj/item/weapon/ore/slag(output.loc)
@@ -243,3 +307,9 @@
 
 	if(update)
 		console.updateUsrDialog()
+
+/obj/machinery/mineral/processing_unit/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(default_deconstruction_screwdriver(user, W))
+		return
+	else if(default_part_replacement(user, W))
+		return
