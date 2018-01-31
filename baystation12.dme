@@ -862,6 +862,7 @@
 #include "code\game\turfs\simulated\floor.dm"
 #include "code\game\turfs\simulated\floor_types.dm"
 #include "code\game\turfs\simulated\rock.dm"
+#include "code\game\turfs\simulated\shuttle.dm"
 #include "code\game\turfs\simulated\wall_attacks.dm"
 #include "code\game\turfs\simulated\wall_icon.dm"
 #include "code\game\turfs\simulated\wall_types.dm"
