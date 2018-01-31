@@ -17,8 +17,8 @@
 /obj/machinery/computer/atmoscontrol/laptop
 	name = "Atmospherics Laptop"
 	desc = "Cheap Nanotrasen Laptop."
-	density = FALSE
 	icon = 'icons/obj/computer_laptop.dmi'
+	frame = FRAME_LAPTOP
 
 /obj/machinery/computer/atmoscontrol/attack_ai(var/mob/user as mob)
 	ui_interact(user)
