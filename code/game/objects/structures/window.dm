@@ -5,7 +5,7 @@
 	density = 1
 	w_class = ITEM_SIZE_NORMAL
 	layer = 3.2//Just above doors
-	anchored = 1.0
+	anchored = TRUE
 	flags = ON_BORDER
 	var/maxhealth = 14.0
 	var/health
@@ -129,16 +129,11 @@
 /obj/structure/window/meteorhit()
 	shatter()
 
-//TODO: Make full windows a separate type of window.
-//Once a full window, it will always be a full window, so there's no point
-//having the same type for both.
-/obj/structure/window/proc/is_full_window()
-	return (dir == SOUTHWEST || dir == SOUTHEAST || dir == NORTHWEST || dir == NORTHEAST)
 
 /obj/structure/window/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
-	if(is_full_window())
+	if(is_fulltile())
 		return 0	//full tile window, you can't move into it!
 	if(get_dir(loc, target) == dir)
 		return !density
@@ -337,7 +332,7 @@
 	set_dir(turn(dir, 270))
 	updateSilicate()
 	update_nearby_tiles(need_rebuild=1)
-	return
+
 
 /obj/structure/window/New(Loc, start_dir=null, constructed=0)
 	..()
@@ -349,6 +344,8 @@
 	if (start_dir)
 		set_dir(start_dir)
 
+
+/obj/structure/window/initialize()
 	health = maxhealth
 
 	ini_dir = dir
@@ -371,6 +368,9 @@
 	set_dir(ini_dir)
 	update_nearby_tiles(need_rebuild=1)
 
+//TODO: Make full windows a separate type of window.
+//Once a full window, it will always be a full window, so there's no point
+//having the same type for both.
 //checks if this window is full-tile one
 /obj/structure/window/proc/is_fulltile()
 	if(dir & (dir - 1))
@@ -491,8 +491,30 @@
 	reinf = 1
 	dir = 5
 
-	update_icon() //icon_state has to be set manually
-		return
+/obj/structure/window/shuttle/is_fulltile()
+	return TRUE
+
+/obj/structure/window/shuttle/update_icon() //icon_state has to be set manually
+	var/wallcount = 0
+	var/wall_dirs = 0
+	var/windowcount = 0
+	var/window_dirs = 0
+	for(var/dir in cardinal)
+		var/turf/T = get_step(src, dir)
+		if(istype(T, /turf/simulated/shuttle/wall) || locate(/obj/shuttle/corner) in T)
+			wallcount += 1
+			wall_dirs |= dir
+		else if(locate(/obj/structure/window/shuttle) in T)
+			windowcount += 1
+			window_dirs |= dir
+	icon_state = "[wallcount]_[windowcount]"
+	if(windowcount >= wallcount)
+		dir = window_dirs
+	else
+		dir = wall_dirs
+	if(dir == NORTH|SOUTH || dir == EAST|WEST)
+		dir = dir & (NORTH|WEST)
+
 
 /obj/structure/window/reinforced/polarized
 	name = "electrochromic window"
