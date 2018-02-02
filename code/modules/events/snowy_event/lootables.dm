@@ -6,7 +6,6 @@
 	var/obj/loot
 	var/amount_of_loot = 1
 	var/list/possible_loot = list()
-	var/list/tools = list(/obj/item/weapon/wrench, /obj/item/weapon/screwdriver, /obj/item/weapon/wirecutters, /obj/item/weapon/crowbar)
 	var/ultimate_tool = /obj/item/weapon/weldingtool
 	var/ultimate_tool_can_be_used = 1
 	var/ultimate_tool_message = "You slice metal debris with"
@@ -15,6 +14,7 @@
 	var/stage = 1
 	var/rand_stages = "yes"
 	var/randomize_tools = "yes"
+	var/list/tools = list(/obj/item/weapon/wrench, /obj/item/weapon/screwdriver, /obj/item/weapon/wirecutters, /obj/item/weapon/crowbar)
 	var/list/tools_messages = list(/obj/item/weapon/wrench = list("You wrench the", "Looks like here need to wrench something."),
 								/obj/item/weapon/screwdriver = list("You screwed the", "Need to screw some of these screws."),
 								/obj/item/weapon/wirecutters = list("You cutted up that", "There's better to cut it up"),
@@ -38,6 +38,7 @@
 		if(!loot && possible_loot.len != 0)
 			loot = pick(possible_loot)
 
+
 /obj/structure/lootable/examine(mob/user as mob)
 	..()
 	if(!harvested)
@@ -58,19 +59,27 @@
 	else
 		after_harvest(user)
 
+
 /obj/structure/lootable/proc/after_harvest(var/mob/user as mob)
 	icon_state = "debris_junk"
 	name = "Metal debris"
 	desc = "Now this just a junk..."
 	harvested = 1
 
-/obj/structure/lootable/proc/junk_harvest(var/mob/user as mob)
-	user << "You slice [src.name] into a few lists of metal"
-	playsound(src, 'sound/items/Welder.ogg', 100, 1)
-	if(do_after(user, 30))
-		var/obj/item/stack/material/steel/S = new(user.loc)
-		S.amount = rand(8, 16)
-		qdel(src)
+
+/obj/structure/lootable/proc/junk_harvest(var/mob/user as mob, var/obj/item/weapon/W)
+	if(istype(W, /obj/item/weapon/weldingtool))
+		var/obj/item/weapon/weldingtool/WT = W
+		if(WT.welding == 1)
+			playsound(src, 'sound/items/Welder.ogg', 100, 1)
+			if(do_after(user, 30))
+				if(src)
+					user << SPAN_NOTE("You slice a [src.name] into a few lists of metal")
+					WT.remove_fuel(10, user)
+					var/obj/item/stack/material/steel/S = new(user.loc)
+					S.amount = rand(8, 16)
+					qdel(src)
+
 
 /obj/structure/lootable/attack_hand(var/mob/user as mob)
 	if(tools.len)
@@ -80,6 +89,7 @@
 			harvest(user)
 		else
 			junk_harvest(user)
+
 
 /obj/structure/lootable/attackby(obj/item/weapon/T as obj, mob/user as mob)
 	if(istype(T, tools[stage]) && !harvested)
@@ -91,7 +101,7 @@
 			stage++
 		else
 			user << SPAN_WARN("You doing something wrong. Oops.")
-			src.visible_message("[src.name] colapses!")
+			src.visible_message(SPAN_WARN("[src.name] colapses!"))
 			after_harvest(user)
 	else if(istype(T, ultimate_tool) && ultimate_tool_can_be_used)
 		if(!harvested)
@@ -103,7 +113,15 @@
 				src.visible_message("[src.name] colapses!")
 				after_harvest(user)
 		else
-			junk_harvest(user)
+			junk_harvest(user, T)
+
+
+
+/obj/structure/lootable/chunk
+
+	New()
+		..()
+		icon_state = "debris[rand(1, 3)]"
 
 
 
@@ -112,7 +130,7 @@
 	desc = "Mushrooms under layer of snow. Looks alive..."
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = "shrooms_hided"
-	loot = /obj/item/weapon/reagent_containers/food/snacks/mushroom
+	loot = /obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom
 	tools = list()
 	amount_of_loot = 3
 	del_when_harvested = 1
@@ -122,16 +140,21 @@
 	ultimate_tool = null
 	ultimate_tool_can_be_used = 0
 
+	New()
+		..()
+		icon_state = "shrooms_hided[rand(1, 5)]"
+		amount_of_loot = rand(2, 4)
+
 
 /obj/structure/lootable/mushroom_hideout/tree_mush
 	name = "Mushrooms"
 	desc = "Mushrooms that grow on the tree. Looks undamaged."
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = "shrooms_hided"
-	loot = /obj/item/weapon/reagent_containers/food/snacks/mushroom
+	loot = /obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom
 	amount_of_loot = 2
 	del_when_harvested = 1
 
 	New()
 		..()
-		icon_state = "shrooms_trees[rand(1,2)]"
+		icon_state = "shrooms_trees[rand(1, 3)]"

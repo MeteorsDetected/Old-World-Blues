@@ -1,8 +1,14 @@
+//TODO-list:
+//Find and fix bugs
+
+
 //Cant find flora. So i make it. Sorry
 /obj/structure/flora
 	var/loot_left = 3
 	var/loot_chance = 35
 	var/list/loot_list = list(/obj/item/weapon/reagent_containers/food/snacks/bug, /obj/item/weapon/spider_silk)
+
+
 
 /obj/structure/flora/attack_hand(var/mob/user as mob)
 	if(user.a_intent == I_DISARM)
@@ -18,6 +24,7 @@
 		else
 			user << SPAN_WARN("You check all possible places, but nothing.")
 		return
+
 
 
 /obj/structure/flora/snowytree
@@ -47,6 +54,7 @@
 		icon_state = "old_wood[rand(1, 3)]"
 
 
+
 //You can do very-very-very big trees, but don't forget about cutted overlays and make another object
 /obj/structure/flora/snowytree/big
 	name = "tree"
@@ -66,7 +74,6 @@
 
 /obj/structure/flora/snowytree/big/another
 	icon_state = "tree_3"
-	pixel_x = -16
 	max_health = 25
 	tree_health = 25
 	wood_amount = 2
@@ -132,13 +139,13 @@
 		var/datum/effect/effect/system/steam_spread/F = new /datum/effect/effect/system/steam_spread/spread()
 		F.set_up(4, 0, src.loc, /obj/effect/effect/steam/flinders)
 		F.start()
-		playsound(src.loc, 'sound/effects/woodhit.ogg', 60, rand(-50, 50), 8, 6)
+		playsound(src.loc, 'sound/effects/woodhit.ogg', 60, rand(-50, 50), 8, 2)
 		user << SPAN_NOTE("You aim a blow and hit that [src.name].")
 		update_icon()
 
 	if(tree_health <= 0)
 		src.visible_message(SPAN_WARN("<b>[src.name] falling down!</b>"))
-		playsound(src.loc, 'sound/effects/snowy/falling_tree.ogg', 45, rand(-90, 90), 36, 12)
+		playsound(src.loc, 'sound/effects/snowy/falling_tree.ogg', 45, rand(-50, 50), 36, 2)
 		var/d = pick(alldirs)
 		var/t = get_step(src, d)
 		for(var/i = 1, i<=wood_amount, i++) //In the memory of Jarlo, my old partner who makes tree falling almost like there. Thank you
@@ -151,6 +158,9 @@
 		new /obj/structure/flora/stump(src.loc)
 		qdel(src)
 
+
+
+
 /obj/structure/flora/snowybush
 	name = "Bush"
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
@@ -159,12 +169,24 @@
 	layer = 8
 	var/dead = 0
 	var/berries_left = 3
-	var/obj/item/weapon/reagent_containers/food/snacks/berries/berry = /obj/item/weapon/reagent_containers/food/snacks/berries
+	var/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/berry = /obj/item/weapon/reagent_containers/food/snacks/ingredient/berries
 
 	New()
-		icon_state = "snowbush[rand(4, 5)]"
 		if(!dead)
-			overlays += "berries-full"
+			icon_state = "snowbush[rand(4, 5)]"
+			if(berry && berries_left)
+				overlays += "berries-full"
+		else
+			icon_state = "deadbush[rand(1, 4)]"
+
+
+/obj/structure/flora/snowybush/deadbush/examine(var/mob/user as mob)
+	..()
+	if(dead)
+		user << SPAN_NOTE("That bush is dead or sleeping at this time.")
+	else
+		if(berry && berries_left)
+			user << SPAN_NOTE("You see how [berry.name] berries growing here. You can harvest them for [berries_left] times left.")
 
 
 /obj/structure/flora/snowybush/attackby(obj/item/weapon/T as obj, mob/user as mob)
@@ -174,19 +196,18 @@
 			new /obj/item/weapon/branches(src.loc)
 			qdel(src)
 
+
 /obj/structure/flora/snowybush/attack_hand(var/mob/user as mob)
 	..()
-	if(!dead && berries_left)
+	if(!dead && berries_left && user.a_intent != I_DISARM)
 		berries_left = berries_left-1
 		new berry(user.loc)
 
 
 /obj/structure/flora/snowybush/deadbush
 	name = "Bush"
-	icon_state = "deadbush"
+	icon_state = "deadbush1"
 	dead = 1
-
-	New()
 
 
 /obj/structure/fshadow
@@ -195,13 +216,14 @@
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = "falling_tree_shadow"
 	anchored = 1
-	var/list/objs_holder = list() //Object to spawn
 	var/timer = 2
 	var/alpha_channel = 50
+	var/list/objs_holder = list() //Objects to spawn
 
 	New()
 		icon += rgb(,,, alpha_channel)
 		processing_objects.Add(src)
+
 
 /obj/structure/fshadow/process()
 	timer--
@@ -220,42 +242,12 @@
 		qdel(src)
 
 
+
 /obj/structure/bed/chair/office/log
 	name = "wood log"
 	desc = "Part of tree. You are not sure about what kind of part is it, but you can sit down on it and drink some milk. Or cut into chunks."
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = "log"
-
-
-/obj/structure/flora/stump
-	name = "tree's stump"
-	desc = "Bottom part of tree."
-	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
-	icon_state = "stump"
-	var/list/stored_items = list()
-	anchored = 1
-
-/obj/structure/flora/stump/attackby(obj/item/weapon/T as obj, mob/user as mob)
-	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
-	if(istype(T, /obj/item/weapon/material/hatchet) || istype(T, /obj/item/weapon/melee/energy))
-		user << SPAN_NOTE("You swing your [T.name] and hit the [src.name].")
-
-		var/datum/effect/effect/system/steam_spread/F = new /datum/effect/effect/system/steam_spread/spread()
-		F.set_up(4, 0, src.loc, /obj/effect/effect/steam/flinders)
-		F.start()
-		playsound(src.loc, 'sound/effects/woodhit.ogg', 60, rand(-50, 50), 8, 6)
-
-		if(prob(30))
-			new /obj/item/weapon/snowy_woodchunks(src.loc)
-			user << SPAN_NOTE("You chop [src.name] into usable chunks.")
-			qdel(src)
-
-
-/obj/structure/flora/stump/fallen
-	name = "old wood log"
-	desc = "Old and hollow."
-	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
-	icon_state = "old_trunk"
 
 
 /obj/structure/bed/chair/office/log/attackby(obj/item/weapon/T as obj, mob/user as mob)
@@ -266,5 +258,70 @@
 		var/datum/effect/effect/system/steam_spread/F = new /datum/effect/effect/system/steam_spread/spread()
 		F.set_up(4, 0, src.loc, /obj/effect/effect/steam/flinders)
 		F.start()
-		playsound(src.loc, 'sound/effects/woodhit.ogg', 60, rand(-50, 50), 8, 6)
+		playsound(src.loc, 'sound/effects/woodhit.ogg', 60, rand(-50, 50), 8, 2)
 		qdel(src)
+
+
+
+/obj/structure/flora/stump
+	name = "tree's stump"
+	desc = "Bottom part of tree."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "stump"
+	anchored = 1
+	var/list/stored_items = list()
+
+
+/obj/structure/flora/stump/attackby(obj/item/weapon/T as obj, mob/user as mob)
+	if(user.a_intent != I_GRAB)
+		user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
+		if(istype(T, /obj/item/weapon/material/hatchet) || istype(T, /obj/item/weapon/melee/energy))
+			user << SPAN_NOTE("You swing your [T.name] and hit the [src.name].")
+
+			var/datum/effect/effect/system/steam_spread/F = new /datum/effect/effect/system/steam_spread/spread()
+			F.set_up(4, 0, src.loc, /obj/effect/effect/steam/flinders)
+			F.start()
+			playsound(src.loc, 'sound/effects/woodhit.ogg', 60, rand(-50, 50), 8, 2)
+
+			if(prob(30))
+				new /obj/item/weapon/snowy_woodchunks(src.loc)
+				user << SPAN_NOTE("You chop [src.name] into usable chunks.")
+				if(stored_items.len)
+					src.visible_message(SPAN_NOTE("Something drops from [src]!"))
+					for(var/obj/item/W in stored_items)
+						W.loc = src.loc
+						stored_items.Remove(W)
+				qdel(src)
+	else
+		if(stored_items.len < 5)
+			if(T.w_class <= 3)
+				stored_items.Add(T)
+				user << SPAN_NOTE("You place [T.name] into the [src.name].")
+				user.drop_from_inventory(T, src)
+			else
+				user << SPAN_WARN("There's no space for such big item.")
+		else
+			user << SPAN_WARN("There's no more space.")
+
+
+/obj/structure/flora/stump/attack_hand(mob/user as mob)
+	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
+	if(user.a_intent == I_GRAB)
+		if(stored_items.len)
+			var/obj/item/weapon/F = pick(stored_items)
+			if(prob(60))
+				user << SPAN_NOTE("You shove your hand into the [src.name] and take something!")
+				user.put_in_hands(F)
+				stored_items.Remove(F)
+			else
+				user << SPAN_WARN("You check this [src.name] but nothing is here.")
+		else
+			user << SPAN_WARN("You check this [src.name] but nothing is here.")
+
+
+
+/obj/structure/flora/stump/fallen
+	name = "old wood log"
+	desc = "Old and hollow."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "old_trunk"

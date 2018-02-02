@@ -1,3 +1,9 @@
+//Maked special for snowy event.
+//TODO-list:
+//Make small corpses for little animals
+//Make custom stages of butching and refact this?..
+
+
 //_________***BUTCHERING***_________\\
 
 //___*ITEMS*___\\
@@ -27,51 +33,54 @@
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "bone"
 
-/obj/item/weapon/reagent_containers/food/snacks/liver
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/liver
 	name = "liver"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "liver"
 
-/obj/item/weapon/reagent_containers/food/snacks/heart
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/heart
 	name = "heart"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "heart"
 
-/obj/item/weapon/reagent_containers/food/snacks/ribs
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/ribs
 	name = "ribs"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "ribs"
 
-/obj/item/weapon/reagent_containers/food/snacks/meat/natural //Real meat. From mother nature to you.
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/natural //Real meat. From mother nature to you
 	name = "meat"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "meat"
 
-/obj/item/weapon/reagent_containers/food/snacks/meat/natural/bad
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/natural/bad
 	name = "bad meat"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "meat"
 
-/obj/item/weapon/reagent_containers/food/snacks/meat/natural/hard
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/natural/hard
 	name = "hard meat"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "meat"
+
+
+
+//___*ORGANS*___\\
 
 //Special animal's external organs
 //That's not the same as human organs
 /datum/animal_organ
 	var/name = "animal's limb"
-	var/meat = /obj/item/weapon/reagent_containers/food/snacks/meat/natural
 	var/meat_left = 0
 	var/tendons_left = 0
 	var/has_tendon = 0
 	var/has_bones = 0
 	var/bones_left = 0
 	var/bitted = 0 //if carnivores bites the body
-	var/list/internals = list()
 	var/cutted = 0
 	var/needed_organ //for damage zone selecting and precise butching
 	var/part_overlay //some overlays to image the process
+	var/list/internals = list()
 
 /datum/animal_organ/chest
 	name = "deer's chest"
@@ -80,7 +89,7 @@
 	bones_left = 4
 	needed_organ = BP_CHEST
 	part_overlay = "chest"
-	internals = list(/obj/item/weapon/reagent_containers/food/snacks/ribs = 2, /obj/item/weapon/reagent_containers/food/snacks/heart = 1)
+	internals = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/ribs = 2, /obj/item/weapon/reagent_containers/food/snacks/ingredient/heart = 1)
 
 /datum/animal_organ/abdomen
 	name = "deer's abdomen"
@@ -89,7 +98,7 @@
 	bones_left = 2
 	needed_organ = BP_GROIN
 	part_overlay = "groin"
-	internals = list(/obj/item/weapon/reagent_containers/food/snacks/liver = 1)
+	internals = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/liver = 1)
 
 /datum/animal_organ/leg
 	name = "deer's right leg"
@@ -116,8 +125,13 @@
 	needed_organ = BP_L_ARM
 	part_overlay = "left_front_leg"
 
+
+//___*CORPSES*___\\
+
 //This unreliable now. Use it carefully. WIP
-//Working on freezing mechanics...
+//Freezing mechanics needed. Hmmm
+//If you want to make your own corpse of animal, you need set organs or create new one, change sprite of body, set sprite of head
+//And set head of animal. Don't forget about tendons and meat.
 /obj/structure/butcherable
 	name = "Corpse"
 	desc = "Dead and unskinned body of animal."
@@ -126,9 +140,13 @@
 	var/sliced = 0 //if body sliced and user can get entrails
 	var/has_head = 1
 	var/head = /obj/item/weapon/head
+	var/head_overlay = "animal_corpse_deer_head"
+	var/skin_overlay = "animal_corpse_deer"
+	var/mob/living/animal
+	var/meat_type = /obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/natural
 	var/skin = 1
-	var/list/col = list("r" = 28, "g" = 14, "b" = 6)
-	//Well... Maybe do it with datum's tags is better idea than it. Hm. I make it later
+	var/list/col = list("r" = 28, "g" = 14, "b" = 6) //color of the skin
+	//Well... Maybe do it with datum's tags is better idea than it. Hm. Maybe.
 	var/list/external_organs = list("chest" = /datum/animal_organ/chest,
 									"abdomen" = /datum/animal_organ/abdomen,
 									"right leg" = /datum/animal_organ/leg,
@@ -147,6 +165,15 @@
 		update_icon()
 
 
+/obj/structure/butcherable/examine(mob/user as mob)
+	..()
+	for(var/part in external_organs)
+		var/datum/animal_organ/O = external_organs[part]
+		if(O.needed_organ == user.zone_sel.selecting)
+			if(!skin && O.meat_left && O.tendons_left)
+				user << SPAN_NOTE("You look at unskinned animal's part and see [O.tendons_left] tendons here.")
+
+
 /obj/structure/butcherable/update_icon()
 	overlays.Cut()
 	if(!skin)
@@ -160,69 +187,59 @@
 	else
 		icon = initial(icon) //reset color
 		icon += rgb(col["r"], col["g"], col["b"])
-		overlays += "animal_corpse_deer"
+		overlays += skin_overlay
 	if(has_head)
-		overlays += "animal_corpse_deer_head"
+		overlays += head_overlay
+
 
 //This looks slightly crappy. Maybe i make it better later
 /obj/structure/butcherable/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(W.sharp && (has_head || skin))
+	if(W.sharp && (has_head || skin) && !istype(W, /obj/item/weapon/wirecutters))
 		if(has_head)
 			if(prob(45))
-				user << SPAN_NOTE("You cut off the head of [name].")
+				user.visible_message(
+						SPAN_NOTE("<b>[user] cuts off the head of [name].</b>"),
+						SPAN_NOTE("<b>You cut off the head of [name].</b>")
+					)
 				new head(src.loc)
 				has_head = 0
 			else
-				user << SPAN_NOTE("You raise your hand and chop the neck of [name].")
+				user.visible_message(
+						SPAN_NOTE("[user] raises them hand and chop the neck of [name]."),
+						SPAN_NOTE("You raise your hand and chop the neck of [name].")
+					)
 		else
 			if(skin)
 				unskin(W, user)
 				icon = initial(icon) //And we reset colors after unskin
 		update_icon()
+
 	else if(W.sharp || istype(W, /obj/item/weapon/wirecutters) && !has_head && !skin)
 		for(var/part in external_organs)
 			var/datum/animal_organ/A = external_organs[part]
 			if(A.needed_organ == user.zone_sel.selecting)
 				if(A.has_tendon && istype(W, /obj/item/weapon/wirecutters))
 					A.tendons_left--
-					user << SPAN_NOTE("You cut and take some tendon from [A.name]. As you can see, here is [A.tendons_left] left.")
+					user << SPAN_NOTE("You carve and take some tendon from [A.name].")
 					new /obj/item/weapon/tendon(src.loc)
 					if(A.tendons_left <= 0)
 						A.has_tendon = 0
 					return
 
-				if(W.sharp && A.meat_left && !istype(W, /obj/item/weapon/wirecutters))
-					if(A.internals.len > 0)
-						if(A.cutted)
-							new /obj/item/weapon/reagent_containers/food/snacks/meat/natural/bad(src.loc)
-							A.meat_left--
-							user << SPAN_WARN("You slice some meat from corpse. Looks like you touch entrails and spoiled the meat.")
-							if(A.internals.len > 0 && !A.meat_left)
-								for(var/I in A.internals) //Drop entrails if all meat cutted off
-									A.internals.Remove(I)
-									new I(src.loc)
-								sliced = 0
-							update_icon()
-							return
-						else
-							A.cutted = 1
-							sliced = 1 //for overlay
-							user << SPAN_NOTE("You slice open [A.name].")
-							update_icon()
-							return
-					A.meat_left--
-					user << SPAN_NOTE("You slice some meat from corpse.")
-					if(A.has_tendon)
-						new /obj/item/weapon/reagent_containers/food/snacks/meat/natural/hard(src.loc)
+				if(A.meat_left)
+					if(W.sharp && !istype(W, /obj/item/weapon/wirecutters))
+						cutMeat(W, user, A)
 					else
-						new /obj/item/weapon/reagent_containers/food/snacks/meat/natural(src.loc)
-					if(!A.meat_left && A.has_tendon)
-						A.has_tendon = 0
-						A.tendons_left = 0
-				if(istype(W, /obj/item/weapon/wirecutters) && !A.meat_left)
-					external_organs.Remove(part)
-					qdel(A)
-					new /obj/item/weapon/bone(src.loc)
+						user << SPAN_WARN("You need something sharp.")
+
+				if(!A.meat_left)
+					if(istype(W, /obj/item/weapon/wirecutters))
+						external_organs.Remove(part)
+						qdel(A)
+						new /obj/item/weapon/bone(src.loc)
+					else
+						user << SPAN_WARN("You need wirecutters or something like this to extract bones.")
+
 			if(external_organs.len == 0)
 				qdel(src)
 		update_icon()
@@ -234,9 +251,50 @@
 		if(organ.needed_organ == user.zone_sel.selecting && organ.internals.len > 0)
 			if(user.a_intent == I_GRAB)
 				var/guts = pick(organ.internals)
-				var/obj/O = new guts(src.loc)
+				var/obj/O
+				for(var/i = 1, i<=organ.internals[guts], i++)
+					O = new guts(src.loc)
 				organ.internals.Remove(guts)
 				user << SPAN_NOTE("You carefull take [O.name] from [organ.name] of [name].")
+
+
+/obj/structure/butcherable/proc/cutMeat(obj/item/weapon/W as obj, mob/user as mob, var/datum/animal_organ/A)
+	if(A.internals.len > 0)
+		if(A.cutted)
+			new /obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/natural/bad(src.loc)
+			A.meat_left--
+			user.visible_message(
+					SPAN_WARN("[user] cut away meat from [name], but touched entrails and spoiled the meat!"),
+					SPAN_WARN("You cut away some meat from [name]. Looks like you touch entrails and spoiled the meat!")
+				)
+			if(A.internals.len > 0 && !A.meat_left)
+				for(var/I in A.internals) //Drop entrails if all meat cutted away
+					A.internals.Remove(I)
+					for(var/i = 1, i<=A.internals[I], i++)
+						new I(src.loc)
+			if(!A.meat_left)
+				sliced = 0
+			update_icon()
+			return
+		else
+			A.cutted = 1
+			sliced = 1 //for overlay
+			user.visible_message(
+					SPAN_NOTE("[user] sliced open [A.name]."),
+					SPAN_NOTE("You slice open [A.name].")
+				)
+			update_icon()
+			return
+	A.meat_left--
+	user << SPAN_NOTE("You cut away some meat from [name].")
+	if(A.has_tendon)
+		new /obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/natural/hard(src.loc)
+	else
+		new meat_type(src.loc)
+
+	if(!A.meat_left && A.has_tendon)
+		A.has_tendon = 0
+		A.tendons_left = 0
 
 
 /obj/structure/butcherable/proc/unskin(obj/item/weapon/W as obj, mob/user as mob)
@@ -253,11 +311,15 @@
 		if(!part.cutted)
 			get_good_skin = 0
 
-	var/obj/item/weapon/skin/S
-	if(get_good_skin)
-		S = new /obj/item/weapon/skin
+	user << SPAN_NOTE("You careful flay the skin...")
+	if(do_after(user, 50))
+		var/obj/item/weapon/skin/S
+		if(get_good_skin)
+			S = new /obj/item/weapon/skin
+		else
+			S = new /obj/item/weapon/skin/bad
+		S.icon += rgb(col["r"], col["g"], col["b"])
+		S.loc = src.loc
+		skin = 0
 	else
-		S = new /obj/item/weapon/skin/bad
-	S.icon += rgb(col["r"], col["g"], col["b"])
-	S.loc = src.loc
-	skin = 0
+		user << SPAN_WARN("You need to stay still to do this.")

@@ -1135,6 +1135,7 @@
 #include "code\modules\events\snowy_event\basic_flora.dm"
 #include "code\modules\events\snowy_event\butchering.dm"
 #include "code\modules\events\snowy_event\campfires.dm"
+#include "code\modules\events\snowy_event\cooking.dm"
 #include "code\modules\events\snowy_event\fishing_fishes.dm"
 #include "code\modules\events\snowy_event\fishing_items.dm"
 #include "code\modules\events\snowy_event\lootables.dm"

@@ -124,6 +124,9 @@
 		return
 	..()
 
+	if(istype(target, /obj/item/weapon/reagent_containers/glass/beaker/cauldron)) //Snowy Event fix for cauldron. Delete this after it pass
+		return
+
 	if(!is_open_container()) return
 
 	for(var/type in can_be_placed_into)

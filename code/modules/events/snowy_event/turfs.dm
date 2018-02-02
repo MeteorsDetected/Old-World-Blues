@@ -4,11 +4,39 @@
 	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	icon_state = "snow_turf"
 
-/turf/simulated/floor/plating/snow/relaymove(atom/movable/A as mob|obj)
-	return
 
 /turf/simulated/floor/plating/snow/ex_act(severity)
 	return
+
+
+/turf/simulated/floor/plating/snow/attack_hand(var/mob/user as mob)
+	if(user.a_intent == I_GRAB)
+		var/obj/item/weapon/snow/S = new(src)
+		user.put_in_hands(S)
+		user << SPAN_NOTE("You grab some snow.")
+
+
+/turf/simulated/floor/plating/snow/Entered(mob/living/user as mob)
+	if(istype(user, /mob/living))
+		if(prob(15))
+			var/p = pick('sound/effects/snowy/snow_step1.ogg', 'sound/effects/snowy/snow_step2.ogg', 'sound/effects/snowy/snow_step3.ogg')
+			playsound(src, p, 15, rand(-50, 50))
+		var/image/I = image(icon, "footprint[1]", dir = user.dir)
+		I.pixel_x = rand(-6, 6)
+		I.pixel_y = rand(-6, 6)
+		overlays += I
+		spawn(1200) //Hm. Maybe that's a bad idea. Or not?..
+			overlays -= I
+
+
+/turf/simulated/floor/plating/snow/Exited(mob/living/user as mob)
+	if(istype(user, /mob/living))
+		var/image/I = image(icon, "footprint[2]", dir = user.dir)
+		I.pixel_x = rand(-6, 6)
+		I.pixel_y = rand(-6, 6)
+		overlays += I
+		spawn(1200)
+			overlays -= I
 
 
 
@@ -113,23 +141,58 @@
 
 
 /turf/simulated/floor/plating/chasm/update_icon()
+	overlays.Cut()
 	var/nums = 0
+	var/list/our_dirs = list()
 	for(var/direction in list(1, 4, 2, 8))
 		if(istype(get_step(src,direction),/turf/simulated/floor/plating/chasm))
 			nums += direction
-	if(nums)
+			our_dirs.Add(direction)
+	if(nums && nums != 15)
 		icon_state = "chasm-[nums]"
+	if(our_dirs.len > 1)
+		for(var/i = 1, i<=our_dirs.len, i++)
+			var/next_dir = i+1
+			if(i == our_dirs.len)
+				next_dir = 1
+			var/sum_dir = our_dirs[i] + our_dirs[next_dir]
+			if(!istype(get_step(src, sum_dir), /turf/simulated/floor/plating/chasm))
+				overlays += "corner-[sum_dir]"
 
 
-/turf/simulated/floor/plating/chasm/Entered(atom/movable/M as mob|obj)
+/turf/simulated/floor/plating/chasm/proc/eat(atom/movable/M as mob|obj)
 	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 		if(H.stat != DEAD)
-			var/obj/structure/fallingman/F = new(src)
-			F.pull_in_colonist(M)
-	else
-		src.visible_message("[M.name] falling in the abyss!")
+			var/can_clutch = 0
+			for(var/direction in list(1,2,4,8))
+				if(!istype(get_step(src,direction), /turf/simulated/floor/plating/chasm))
+					can_clutch = 1
+					break
+			if(can_clutch)
+				var/obj/structure/fallingman/F = new(src)
+				F.pull_in_colonist(M)
+			else
+				H.ghostize()
+				qdel(M)
+				src.visible_message(SPAN_WARN("[M.name] falling in the abyss!"))
+		else
+			src.visible_message(SPAN_WARN("[M.name] falling in the abyss!")) //meh, these three... I fix it later maybe
+			if(H.ckey)
+				H.ghostize()
+			qdel(M)
+	else if(!istype(M, /mob/observer))
+		src.visible_message(SPAN_WARN("[M.name] falling in the abyss!"))
 		qdel(M)
+
+
+/turf/simulated/floor/plating/chasm/Entered(atom/movable/M as mob|obj)
+	if(M.throwing)
+		spawn(5) //Hm. Can't find need proc and hitby not working. Dont know why nobody puts Entered() under else at impact
+			if(M.loc == src)
+				eat(M)
+	else
+		eat(M)
 
 
 /turf/simulated/floor/plating/ice
@@ -141,86 +204,34 @@
 		..()
 		icon_state = "ice[rand(1, 5)]"
 
+
+//need to add effects and sound here
+/turf/simulated/floor/plating/ice/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(W.sharp && !istype(W, /obj/item/weapon/wirecutters) && !istype(W, /obj/item/weapon/material/shard))
+		var/obj/structure/ice_hole/I = locate(/obj/structure/ice_hole) in src
+		if(I)
+			user << SPAN_WARN("Ice is already are cracked here.")
+		else
+			user << SPAN_NOTE("You cracks trough ice with your [W.name]...")
+			if(do_after(user, 30))
+				I = locate(/obj/structure/ice_hole) in src
+				if(I)
+					user << SPAN_WARN("Ice is already are cracked here.")
+				else
+					new /obj/structure/ice_hole(src)
+				user << SPAN_NOTE("A few time ago you can see water under thin layer of ice.")
+			else
+				user << SPAN_WARN("You need to stay still.")
+
+
+//I rework it to something better later
 /turf/simulated/floor/plating/ice/Entered(var/mob/living/A)
 	if(A.last_move && prob(10))
 		if(istype(A, /mob/living/carbon/human))
 			if(A.intent == "walk")
 				return
-		A << SPAN_NOTE("You slips away!")
-		var/direction = pick(alldirs)
-//		if(
-		step(A, direction)
-		if(prob(10) && istype(A, /mob/living/carbon/human))
+		if(prob(30) && istype(A, /mob/living/carbon/human))
+			A << SPAN_WARN("You slips away!")
 			A.Weaken(2)
-
-
-
-//I move it later
-/obj/structure/fallingman
-	name = "Colonist in danger"
-	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
-	icon_state = "colonist_in_danger"
-	var/mob/living/carbon/human/colonist
-	dir = 1
-
-
-/obj/structure/fallingman/update_icon()
-	overlays.Cut()
-	if(colonist)
-		var/obj/item/organ/external/head/H = locate(/obj/item/organ/external/head) in colonist.organs
-		var/image/I = new(H.icon, H.get_icon())
-		if(dir == 2)
-			I.pixel_y = I.pixel_y - 12
-		else if(dir == 1)
-			I.pixel_y = I.pixel_y + 3
-		else if(dir == 4)
-			I.pixel_y = I.pixel_y - 7
-			I.pixel_x = I.pixel_x + 5
-		else if(dir == 8)
-			I.pixel_y = I.pixel_y - 7
-			I.pixel_x = I.pixel_x - 5
-		I.overlays += H.hair
-		I.overlays += H.facial
-		overlays += I
-		src.set_dir(dir)
-
-
-/obj/structure/fallingman/proc/pull_out_colonist()
-	if(colonist)
-		colonist << SPAN_NOTE("You are in safety now.")
-		for(var/direction in list(1,2,4,8))
-			if(!istype(get_step(src,direction),/turf/simulated/floor/plating/chasm))
-				var/turf/T = get_step(src,direction)
-				colonist.loc = T
-				colonist.canmove = 1
-				colonist.Weaken(3)
-				colonist = null
-				qdel(src)
-				break
-
-
-/obj/structure/fallingman/proc/pull_in_colonist(var/mob/living/carbon/human/H)
-	if(!colonist)
-		H.loc = src
-		colonist = H
-		H.canmove = 0
-		for(var/direction in list(1,2,4,8))
-			if(!istype(get_step(src,direction),/turf/simulated/floor/plating/chasm))
-				src.dir = direction
-				update_icon()
-				break
-
-
-
-/obj/structure/fallingman/attack_hand(var/mob/living/carbon/human/user as mob)
-	if(!colonist)
-		qdel(src)
-		return
-	//if(user == colonist) return
-	user << SPAN_NOTE("You trying to pull out [colonist.name]...")
-	if(do_after(user, 30))
-		if(colonist)
-			user << SPAN_NOTE("You saved [colonist.name]!")
-			pull_out_colonist()
-		else
-			user << SPAN_WARN("That's too late...")
+			var/direction = pick(alldirs)
+			step(A, direction)

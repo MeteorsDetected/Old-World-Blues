@@ -8,6 +8,8 @@
 //Holy crab. This file is full of shit. I work in gasmask. If you dont have one, RUN
 //Really, tons of shitcode. I rework it slightly now
 
+//TODO-list:
+//Absolutly rework all fishing
 
 //Catch and meals here
 var/list/fishing_garbage = list(	/obj/item/weapon/handcuffs,
@@ -17,10 +19,10 @@ var/list/fishing_garbage = list(	/obj/item/weapon/handcuffs,
 							/obj/item/toy/gun
 							)
 
-var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks/fish/space_dolphin,
-									/obj/item/weapon/reagent_containers/food/snacks/fish/space_shellfish,
-									/obj/item/weapon/reagent_containers/food/snacks/fish/space_torped_shark,
-									/obj/item/weapon/reagent_containers/food/snacks/fish/space_catfish
+var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_dolphin,
+									/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_shellfish,
+									/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_torped_shark,
+									/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_catfish
 							)
 
 
@@ -55,24 +57,24 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 	var/addChance = 5
 	attack_verb = list("whiped", "slapped")
 
+
 /obj/item/weapon/fishing_line/examine(mob/user as mob)
 	..()
 	user << SPAN_NOTE("[src.length] of fishing line left.")
 
+
 /obj/item/weapon/fishing_line/attack_self(mob/user as mob)
 	if(src.length >= 1)
 		src.length -= 1
-		usr << SPAN_NOTE("You make the fishing tackle. [src.length] of [src.name] left.")
+		user << SPAN_NOTE("You make the fishing tackle.")
 		var/turf/T = get_turf(src)
 		var/obj/item/weapon/fishing_tackle/ft = new(T)
 		ft.fishing_line = src
 		ft.update_icon()
 		if(src.length == 0)
-			user.drop_from_inventory(src)
 			qdel(src)
 	else
-		usr << SPAN_WARN("Not enough of fishing line length.")
-	return
+		user << SPAN_WARN("Length of this fishing line is not enough.")
 
 
 /obj/item/weapon/fishing_tackle
@@ -80,16 +82,6 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 	name = "fishing tackle"
 	icon = 'icons/obj/snowy_event/fishing.dmi'
 	icon_state = "tackle"
-	var/obj/item/weapon/hook/hook = null
-	var/obj/item/weapon/fishing_line/fishing_line = null
-	var/obj/item/bait = null
-	var/damaged = 0
-	var/fish = null
-	var/chance = 1 // Chance of a fish // Big fish = -60 of chance/ Rare fish = -90 of chance/ Legend fish = -160 of chance
-	var/chance_bait = 15 // Chance to catch something. From 1 to 15 // Be patient.
-	var/obj/structure/ice_hole/place
-	var/obj/item/Catch
-	var/in_process = 0
 	force = 3.0
 	throwforce = 6.0
 	throw_speed = 8
@@ -97,10 +89,24 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 	w_class = ITEM_SIZE_SMALL
 	attack_verb = list("hooked up", "cutted down")
 
+	var/obj/item/weapon/hook/hook = null
+	var/obj/item/weapon/fishing_line/fishing_line = null
+	var/obj/item/bait = null
+	var/damaged = 0
+	var/fish = null
+	var/chance = 1 // Chance of a fish // Big fish = -60 of chance/ Rare fish = -90 of chance/ Legend fish = -160 of chance
+	var/chance_bait = 5 // basic chance to catch something. From 1 to 5 // Be patient.
+	var/obj/structure/ice_hole/place
+	var/obj/item/Catch
+	var/in_process = 0
+
+
 	New()
 		if(!fishing_line)
 			fishing_line = new /obj/item/weapon/fishing_line(src)
 			fishing_line.length = 1
+
+
 
 /obj/item/weapon/fishing_tackle/update_icon()
 	overlays.Cut()
@@ -128,11 +134,13 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 	if(bait)
 		user << SPAN_NOTE("Bait is <B>[bait]</B>.")
 
+
+
 /obj/item/weapon/fishing_tackle/attackby(obj/item/F as obj, mob/user as mob)
 	if(istype(F, /obj/item/weapon/hook))
 		hook = F
 		user.drop_from_inventory(F, src)
-		usr << SPAN_NOTE("You attach [F.name] to [src.name].")
+		user << SPAN_NOTE("You attach [F.name] to [src.name].")
 		update_icon()
 
 	else if(istype(F, /obj/item/weapon/fishing_line))
@@ -142,9 +150,10 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 			if(damaged == 1)
 				user << SPAN_NOTE("You repair [src].")
 				damaged = 0
+				f.length--
 //			else
-//				user << SPAN_NOTE("You replace fishing line on that [src.name].")
-			f.length--
+//				user << SPAN_NOTE("You replace fishing line on that [src.name].") //What a useless thing. Need different types of lines
+//			f.length--
 			if(!f.length)
 				qdel(f)
 			update_icon()
@@ -192,28 +201,31 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 	qdel(src)
 
 
-
-
 /obj/item/weapon/fishing_tackle/afterattack(atom/target, mob/user, proximity)
 	if(!proximity) return
 	if(in_process)
 		user << SPAN_WARN("You are already fishing.")
 		return
-	if(src.damaged == 1)
+	if(src.damaged)
 		user << SPAN_WARN("Fishing tackle is too damaged.")
 		return
 	if(istype(target,/obj/structure/ice_hole))
-		user.visible_message("[user] drops his tackle at [target] and wait for his prey.", "You drop your [src.name] at [target].")
-		src.chance = src.chance + src.hook.addChance + src.fishing_line.addChance
-		src.place = target
-		place.tackles.Add(src)
-		place.update_icon()
-		processing_objects.Add(src)
-		in_process = 1
-		update_icon()
+		var/obj/structure/ice_hole/H = target
+		if(!H.freezing_stage)
+			user.visible_message(SPAN_NOTE("[user] drops his tackle at [target] and wait for his prey."), SPAN_NOTE("You drop your [src.name] at [target]."))
+			src.chance = src.chance + src.hook.addChance + src.fishing_line.addChance
+			src.place = target
+			place.tackles.Add(src)
+			place.update_icon()
+			processing_objects.Add(src)
+			in_process = 1
+			update_icon()
+		else
+			user << SPAN_WARN("This [target.name] is freezed. You need something sharp to crack this ice.")
+
 
 /obj/item/weapon/fishing_tackle/proc/ending()
-	chance = 1
+	chance = 5
 	if(bait && Catch)
 		qdel(bait)
 	processing_objects.Remove(src)
@@ -230,7 +242,7 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 		ending()
 		return
 	else if(Catch && in_process)
-		user << SPAN_NOTE("You hook in [src]!")
+		user.visible_message(SPAN_NOTE("[user] hooks in the fish!"), SPAN_NOTE("You hook in [src]!"))
 		if(prob(50))
 			new src.Catch(place.loc)
 			src.ending()
@@ -279,13 +291,40 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 	icon = 'icons/obj/snowy_event/fishing.dmi'
 	icon_state = "hole"
 	anchored = 1
+	var/freezing_stage = 2
+	var/last_update_time = 0
 	var/list/tackles = list() //For overlay updating
+
+	New()
+		processing_objects.Add(src)
+		update_icon()
+
+
+/obj/structure/ice_hole/process()
+	if(world.time - last_update_time > 200)
+		last_update_time = world.time
+		if(prob(30))
+			if(!tackles.len)
+				if(prob(10))
+					freezing_stage++
+					update_icon()
+		if(freezing_stage == 4)
+			processing_objects.Remove(src)
+			qdel(src)
+
 
 /obj/structure/ice_hole/update_icon()
 	overlays.Cut()
 	for(var/obj/O in tackles)
 		var/d = get_dir(src.loc, O.loc) //need nums
 		overlays += "fishing_line-[d]"
+	if(!tackles.len)
+		if(freezing_stage)
+			overlays += "hole_freeze-[freezing_stage]"
+
 
 /obj/structure/ice_hole/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	//blank space. Just to prevent hit message
+	if(W.sharp && freezing_stage)
+		freezing_stage--
+		user << SPAN_NOTE("You cracks trough ice with [W.name].")
+		update_icon()
