@@ -122,8 +122,6 @@
 
 	var/datum/hud/hud_used = null
 
-	var/list/mapobjs = list()
-
 	var/in_throw_mode = 0
 
 	var/inertia_dir = 0
