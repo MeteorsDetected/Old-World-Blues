@@ -468,11 +468,6 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "zippo"
 	item_state = "zippo"
 
-/obj/item/weapon/flame/lighter/zippo/black
-	name = "\improper holy Zippo lighter"
-	desc = "Only in regards to Christianity, that is."
-	icon_state = "blackzippo"
-
 /obj/item/weapon/flame/lighter/zippo/blue
 	name = "\improper blue Zippo lighter"
 	icon_state = "bluezippo"
