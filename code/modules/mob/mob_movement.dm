@@ -327,12 +327,14 @@
 		else
 			. = mob.SelfMove(n, direct)
 
-		for (var/obj/item/weapon/grab/G in mob)
-			if (G.state == GRAB_NECK)
-				mob.set_dir(reverse_dir[direct])
-			G.adjust_position()
-		for (var/obj/item/weapon/grab/G in mob.grabbed_by)
-			G.adjust_position()
+		if(isliving(mob))
+			var/mob/living/L = mob
+			for (var/obj/item/weapon/grab/G in L)
+				if (G.state == GRAB_NECK)
+					mob.set_dir(reverse_dir[direct])
+				G.adjust_position()
+			for (var/obj/item/weapon/grab/G in L.grabbed_by)
+				G.adjust_position()
 
 		moving = 0
 

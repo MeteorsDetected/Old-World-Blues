@@ -30,6 +30,11 @@
 	var/backbag = 2		//Which backpack type the player has chosen. Nothing, Satchel or Backpack.
 
 	// General information
+	var/med_record = ""
+	var/sec_record = ""
+	var/gen_record = ""
+	var/exploit_record = ""
+
 	var/home_system = ""
 	var/citizenship = ""
 	var/personal_faction = ""
