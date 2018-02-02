@@ -29,10 +29,6 @@
 			latejoin_cyborg += loc
 			qdel(src)
 			return
-		if("prisonwarp")
-			prisonwarp += loc
-			qdel(src)
-			return
 		if("Holding Facility")
 			holdingfacility += loc
 		if("tdome1")
