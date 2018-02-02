@@ -77,6 +77,20 @@
 /datum/gear/zippo
 	display_name = "zippo"
 	path = /obj/item/weapon/flame/lighter/zippo
+	options = list(
+		"default"    = /obj/item/weapon/flame/lighter/zippo,
+		"blue"       = /obj/item/weapon/flame/lighter/zippo/blue,
+		"engraved"   = /obj/item/weapon/flame/lighter/zippo/engraved,
+		"moff"       = /obj/item/weapon/flame/lighter/zippo/moff,
+		"red"        = /obj/item/weapon/flame/lighter/zippo/red,
+		"gold"       = /obj/item/weapon/flame/lighter/zippo/gold,
+		"ironic"     = /obj/item/weapon/flame/lighter/zippo/ironic,
+		"capitalist" = /obj/item/weapon/flame/lighter/zippo/capitalist,
+		"communist"  = /obj/item/weapon/flame/lighter/zippo/communist,
+		"royal"      = /obj/item/weapon/flame/lighter/zippo/royal,
+		"gonzo"      = /obj/item/weapon/flame/lighter/zippo/gonzo,
+		"rainbow"    = /obj/item/weapon/flame/lighter/zippo/rainbow
+	)
 
 // Belt
 

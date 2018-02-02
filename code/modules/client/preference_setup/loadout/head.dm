@@ -85,10 +85,10 @@
 	display_name = "pin"
 	path = /obj/item/clothing/head/hairflower
 	options = list(
-		"clover" = /obj/item/clothing/head/cloverpin,
-		"magnet" = /obj/item/clothing/head/magnetpin,
-		"pink"   = /obj/item/clothing/head/pinkpin,
-		"white"  = /obj/item/clothing/head/whitepin,
+		"clover"    = /obj/item/clothing/head/cloverpin,
+		"magnet"    = /obj/item/clothing/head/magnetpin,
+		"pink"      = /obj/item/clothing/head/pinkpin,
+		"white"     = /obj/item/clothing/head/whitepin,
 		"butterfly" = /obj/item/clothing/head/butterflypin
 )
 
@@ -114,10 +114,15 @@
 	display_name = "welding helmet"
 	path = /obj/item/clothing/head/welding
 	options = list(
-		"default"= /obj/item/clothing/head/welding,
-		"flame"  = /obj/item/clothing/head/welding/flame,
-		"white"  = /obj/item/clothing/head/welding/white,
-		"blue"   = /obj/item/clothing/head/welding/blue
+		"default"       = /obj/item/clothing/head/welding,
+		"flame"         = /obj/item/clothing/head/welding/flame,
+		"white"         = /obj/item/clothing/head/welding/white,
+		"blue"          = /obj/item/clothing/head/welding/blue,
+		"knight"        = /obj/item/clothing/head/welding/knight,
+		"engie"         = /obj/item/clothing/head/welding/engie,
+		"demon"         = /obj/item/clothing/head/welding/demon,
+		"fancy"         = /obj/item/clothing/head/welding/fancy,
+		"norah briggs"  = /obj/item/clothing/head/welding/navy_blue
 	)
 	cost = 2
 

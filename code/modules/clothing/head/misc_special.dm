@@ -18,7 +18,7 @@
 	item_state = "welding"
 	matter = list(MATERIAL_STEEL = 3000, MATERIAL_GLASS = 1000)
 	var/up = 0
-	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 35, bullet = 10, laser = 20,energy = 10, bomb = 20, bio = 0, rad = 0)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 	body_parts_covered = HEAD|FACE|EYES
 	icon_action_button = "action_welding"
@@ -60,11 +60,47 @@
 	icon_state = "welding_white"
 	item_state = "welding_white"
 
-obj/item/clothing/head/welding/blue
+/obj/item/clothing/head/welding/blue
 	name = "blue welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye with style."
 	icon_state = "welding_blue"
 	item_state = "welding_blue"
+
+/obj/item/clothing/head/welding/knight
+	name = "knightwelding welding helmet"
+	desc = "A painted welding helmet, this one looks like a knights helmet."
+	icon_state = "knightwelding"
+	item_state = "knightwelding"
+
+/obj/item/clothing/head/welding/engie
+	name = "engineering welding helmet"
+	desc = "A painted welding helmet, this one has been painted the engineering colours."
+	icon_state = "engiewelding"
+	item_state = "engiewelding"
+
+/obj/item/clothing/head/welding/demon
+	name = "demonic welding helmet"
+	desc = "A painted welding helmet, this one has a demonic face on it."
+	icon_state = "demonwelding"
+	item_state = "demonwelding"
+
+/obj/item/clothing/head/welding/fancy
+	name = "fancy welding helmet"
+	desc = "A painted welding helmet, the black and gold make this one look very fancy."
+	icon_state = "fancywelding"
+	item_state = "fancywelding"
+
+/obj/item/clothing/head/welding/navy_blue
+	name = "navy blue welding helmet"
+	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye with style."
+	icon_state = "navy_blue"
+	item_state = "navy_blue"
+
+obj/item/clothing/head/welding/welding_hot
+	name = "Comin'In Hot welding helmet"
+	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye with style. Inscription on a helmet: from Chloe N."
+	icon_state = "welding_hot"
+	item_state = "welding_hot"
 
 /*
  * Cakehat
