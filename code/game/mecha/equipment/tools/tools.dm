@@ -1160,7 +1160,7 @@
 	set src in oview(1)
 
 	//check that usr can climb in
-	if (usr.stat || !ishuman(usr))
+	if (usr.incapacitated() || !ishuman(usr))
 		return
 
 	if (!usr.Adjacent(src))

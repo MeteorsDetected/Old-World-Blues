@@ -43,10 +43,6 @@
 			tdomeadmin += loc
 		if("tdomeobserve")
 			tdomeobserve += loc
-		if("prisonsecuritywarp")
-			prisonsecuritywarp += loc
-			qdel(src)
-			return
 		if("blobstart")
 			blobstart += loc
 			qdel(src)

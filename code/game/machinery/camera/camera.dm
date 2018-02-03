@@ -202,7 +202,7 @@
 	else
 		update_coverage()
 		set_status(!src.status)
-		if (!(src.status))
+		if (!src.status)
 			if(user)
 				visible_message(SPAN_NOTE(" [user] has deactivated [src]!"))
 			else

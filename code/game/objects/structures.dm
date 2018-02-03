@@ -185,7 +185,7 @@
 	if (user.restrained() || user.buckled)
 		user << SPAN_NOTE("You need your hands and legs free for this.")
 		return 0
-	if (user.stat || user.paralysis || user.sleeping || user.lying || user.weakened)
+	if (user.incapacitated())
 		return 0
 	if (issilicon(user))
 		user << SPAN_NOTE("You need hands for this.")

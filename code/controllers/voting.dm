@@ -176,7 +176,7 @@ datum/controller/vote
 	proc/submit_vote(var/ckey, var/vote)
 		if(mode)
 			if(!dead_allow_forced && config.vote_no_dead && !usr.client.holder)
-				if(usr.stat == DEAD || usr.type == /mob/living/simple_animal/mouse || usr.type == /mob/living/silicon/robot/drone || isOnAdminLevel(usr))
+				if(usr.stat == DEAD || istype(usr, /mob/living/simple_animal) || istype(usr, /mob/living/silicon/robot/drone) || isOnAdminLevel(usr))
 					return 0
 			if(vote && vote >= 1 && vote <= choices.len)
 				if(current_votes[ckey])

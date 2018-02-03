@@ -2,20 +2,6 @@
 	name = "shuttle"
 	icon = 'icons/turf/shuttle.dmi'
 
-/obj/structure/shuttle/window
-	name = "shuttle window"
-	icon = 'icons/obj/podwindows.dmi'
-	icon_state = "1"
-	density = TRUE
-	opacity = FALSE
-	anchored = TRUE
-
-	CanPass(atom/movable/mover, turf/target, height, air_group)
-		if(!height || air_group)
-			return FALSE
-		else
-			return ..()
-
 /obj/structure/shuttle/engine
 	icon = 'icons/obj/shuttle.dmi'
 	name = "engine"

@@ -15,7 +15,6 @@
 	brainmob.stat = 0
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
-	return
 
 /obj/item/device/mmi
 	name = "man-machine interface"

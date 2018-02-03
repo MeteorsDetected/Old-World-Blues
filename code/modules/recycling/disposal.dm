@@ -132,49 +132,52 @@
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/target, mob/user)
-	if (!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || isAI(user))
+	if (!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || isAI(user))
 		return
-	if(isanimal(user) && target != user) return //animals cannot put mobs other than themselves into disposal
+	if(isanimal(user) && target != user)
+		return //animals cannot put mobs other than themselves into disposal
 	src.add_fingerprint(user)
+
+	var/check_flags = INCAPACITATION_DEFAULT
+	if(target == user)
+		check_flags = INCAPACITATION_DISABLED
+	if(user.incapacitated(check_flags))
+		return
+
 	var/target_loc = target.loc
-	var/msg
-	for (var/mob/V in viewers(usr))
-		if(target == user && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
-			V.show_message("[usr] starts climbing into the disposal.", 3)
-		if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
-			if(target.anchored) return
-			V.show_message("[usr] starts stuffing [target.name] into the disposal.", 3)
-	if(!do_after(usr, 20))
+	if(target == user)
+		user.visible_message("[user] starts climbing into the disposal.")
+	else
+		user.visible_message("[user] starts stuffing [target.name] into the disposal.")
+
+	if(!do_after(usr, 20, src, incapacitation_flags = check_flags))
 		return
-	if(target_loc != target.loc)
+	if(target_loc != target.loc || target.buckled)
 		return
-	if(target == user && !user.stat && !user.weakened && !user.stunned && !user.paralysis)	// if drop self, then climbed in
-											// must be awake, not stunned or whatever
-		msg = "[user.name] climbs into the [src]."
-		user << "You climb into the [src]."
-	else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
-		msg = "[user.name] stuffs [target.name] into the [src]!"
-		user << "You stuff [target.name] into the [src]!"
+
+	if(target == user)
+		user.visible_message(
+			"[user.name] climbs into the [src].",
+			"You climb into the [src]."
+		)
+	else
+		user.visible_message(
+			"[user] stuffs [target] into the [src]!",
+			"You stuff [target] into the [src]!"
+		)
 
 		admin_attack_log(user, target,
 			"Has placed [key_name(target)] in disposals.",
 			"Has been placed in disposals by [key_name(user)].",
 			"placed in a disposals unit "
 		)
-	else
-		return
+
 	if (target.client)
 		target.client.perspective = EYE_PERSPECTIVE
 		target.client.eye = src
-	target.loc = src
-
-	for (var/mob/C in viewers(src))
-		if(C == user)
-			continue
-		C.show_message(msg, 3)
+	target.forceMove(src)
 
 	update_icon()
-	return
 
 // can breath normally in the disposal
 /obj/machinery/disposal/alter_health()
@@ -182,11 +185,10 @@
 
 // attempt to move while inside
 /obj/machinery/disposal/relaymove(mob/user as mob)
-	if(user.stat || src.flushing)
+	if(user.incapacitated() || src.flushing)
 		return
 	if(user.loc == src)
 		src.go_out(user)
-	return
 
 // leave the disposal
 /obj/machinery/disposal/proc/go_out(mob/user)
@@ -196,7 +198,6 @@
 		user.client.perspective = MOB_PERSPECTIVE
 	user.loc = src.loc
 	update_icon()
-	return
 
 // ai as human but can't flush
 /obj/machinery/disposal/attack_ai(mob/user as mob)
@@ -268,7 +269,7 @@
 
 	if(stat & BROKEN)
 		return
-	if(usr.stat || usr.restrained() || src.flushing)
+	if(usr.incapacitated() || src.flushing)
 		return
 
 	if(istype(src.loc, /turf))
@@ -596,7 +597,7 @@
 
 		var/mob/living/U = user
 
-		if (U.stat || U.last_special <= world.time)
+		if (U.incapacitated() || U.last_special <= world.time)
 			return
 
 		U.last_special = world.time+100

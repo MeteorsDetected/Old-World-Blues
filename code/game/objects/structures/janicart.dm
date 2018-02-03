@@ -209,7 +209,7 @@
 
 
 /obj/structure/material/chair/janicart/relaymove(mob/user, direction)
-	if(user.stat || user.stunned || user.weakened || user.paralysis)
+	if(user.incapacitated())
 		unbuckle_mob()
 	if(istype(user.l_hand, /obj/item/key) || istype(user.r_hand, /obj/item/key))
 		step(src, direction)

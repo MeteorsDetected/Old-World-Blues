@@ -136,7 +136,7 @@
 		attacker.visible_message("<span class='danger'>[attacker] forces [target] to the ground!</span>")
 		apply_pinning(target, attacker)
 
-/obj/item/weapon/grab/proc/apply_pinning(mob/target, mob/attacker)
+/obj/item/weapon/grab/proc/apply_pinning(mob/living/target, mob/living/attacker)
 	force_down = 1
 	target.Weaken(3)
 	target.lying = 1

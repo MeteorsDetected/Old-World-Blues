@@ -308,7 +308,7 @@
 
 /obj/mecha/proc/click_action(atom/target,mob/user)
 	if(!src.occupant || src.occupant != user ) return
-	if(user.stat) return
+	if(user.incapacitated()) return
 	if(state)
 		occupant_message("<font color='red'>Maintenance protocols in effect</font>")
 		return
@@ -1062,14 +1062,9 @@
 	set name = "Enter Exosuit"
 	set src in oview(1)
 
-	if (usr.stat || !ishuman(usr))
+	if (usr.incapacitated() || !ishuman(usr))
 		return
 	src.log_message("[usr] tries to move in.")
-	if(iscarbon(usr))
-		var/mob/living/carbon/C = usr
-		if(C.handcuffed)
-			usr << "\red Kinda hard to climb in while handcuffed don't you think?"
-			return
 	if (src.occupant)
 		usr << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_15_stereo_error.ogg',channel = 4, volume = 100)
 		usr << SPAN_NOTE("<B>The [src.name] is already occupied!</B>")
@@ -1223,16 +1218,61 @@
 	return
 
 
+obj/mecha/verb/AIeject()
+	set name = "AI Eject"
+	set category = "Exosuit Interface"
+	set popup_menu = 0
+
+	var/atom/movable/mob_container
+	if(ishuman(occupant) || isAI(occupant))
+		mob_container = src.occupant
+
+	if(usr!=src.occupant)
+		return
+
+	if(isAI(mob_container))
+		var/obj/item/mecha_parts/mecha_equipment/tool/ai_holder/AH = locate() in src
+		if(AH)
+			AH.go_out()
+
+
 /obj/mecha/proc/go_out()
 	if(!src.occupant) return
 	var/atom/movable/mob_container
-	if(ishuman(occupant))
+	if(ishuman(occupant) || isAI(occupant))
 		mob_container = src.occupant
 	else if(isbrain(occupant))
 		var/mob/living/carbon/brain/brain = occupant
 		mob_container = brain.container
 	else
 		return
+
+	if(isAI(mob_container))
+		AIeject()
+		return
+
+	//Eject for AI in mecha
+	if(mob_container.forceMove(src.loc))//ejecting mob container
+
+		src.log_message("[mob_container] moved out.")
+		occupant.reset_view()
+		/*
+		if(src.occupant.client)
+			src.occupant.client.eye = src.occupant.client.mob
+			src.occupant.client.perspective = MOB_PERSPECTIVE
+		*/
+		src.occupant << browse(null, "window=exosuit")
+		if(istype(mob_container, /obj/item/device/mmi))
+			var/obj/item/device/mmi/mmi = mob_container
+			if(mmi.brainmob)
+				occupant.loc = mmi
+			mmi.mecha = null
+			src.occupant.canmove = 0
+			src.verbs += /obj/mecha/verb/eject
+		src.occupant = null
+		src.update_icon()
+		src.set_dir(dir_in)
+
 	if(mob_container.forceMove(src.loc))//ejecting mob container
 	/*
 		if(ishuman(occupant) && (return_pressure() > HAZARD_HIGH_PRESSURE))
@@ -1573,7 +1613,7 @@
 	if(href_list["close"])
 		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.ogg',channel=4, volume=100)
 		return
-	if(usr.stat > 0)
+	if(usr.incapacitated())
 		return
 	var/datum/topic_input/filter = new /datum/topic_input(href,href_list)
 	if(href_list["select_equip"])

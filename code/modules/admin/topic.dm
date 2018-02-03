@@ -821,47 +821,7 @@
 		speech = sanitize(speech) // Nah, we don't trust them
 		log_admin("[key_name(usr)] forced [key_name(M)] to say: [speech]", M)
 
-	else if(href_list["sendtoprison"])
-		if(!check_rights(R_ADMIN))	return
-
-		if(alert(usr, "Send to admin prison for the round?", "Message", "Yes", "No") != "Yes")
-			return
-
-		var/mob/M = locate(href_list["sendtoprison"])
-		if(!ismob(M))
-			usr << "This can only be used on instances of type /mob"
-			return
-		if(isAI(M))
-			usr << "This cannot be used on instances of type /mob/living/silicon/ai"
-			return
-
-		var/turf/prison_cell = pick(prisonwarp)
-		if(!prison_cell)	return
-
-		var/obj/structure/closet/secure_closet/brig/locker = new /obj/structure/closet/secure_closet/brig(prison_cell)
-		locker.opened = 0
-		locker.locked = 1
-
-		//strip their stuff and stick it in the crate
-		for(var/obj/item/I in M)
-			M.drop_from_inventory(I, locker)
-		M.update_icons()
-
-		//so they black out before warping
-		M.Paralyse(5)
-		sleep(5)
-		if(!M)	return
-
-		M.loc = prison_cell
-		if(ishuman(M))
-			var/mob/living/carbon/human/prisoner = M
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), slot_shoes)
-
-		M << "\red You have been sent to the prison station!"
-		log_admin("[key_name(usr)] sent [key_name(M)] to the prison station.", M)
-
-	else if(href_list["tdome1"])
+	else if(href_list["tdome"] && href_list["team"])
 		if(!check_rights(R_FUN))	return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
@@ -875,88 +835,36 @@
 			usr << "This cannot be used on instances of type /mob/living/silicon/ai"
 			return
 
-		for(var/obj/item/I in M)
-			M.drop_from_inventory(I)
+		var/team = ""
+		var/list/locs = null
+		switch(href_list["team"])
+			if("one")
+				team = "Team 1"
+				locs = tdome1
+			if("two")
+				team = "Team 2"
+				locs = tdome2
+			if("admin")
+				team = "Admin"
+				locs = tdomeadmin
+			if("observe")
+				team = "Observer"
+				locs = tdomeobserve
 
-		M.Paralyse(5)
-		sleep(5)
-		M.loc = pick(tdome1)
-		spawn(50)
-			M << SPAN_NOTE("You have been sent to the Thunderdome.")
-		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Team 1)", M)
+		M.forceMove(pick(locs))
+		if(isliving(M))
+			var/mob/living/L = M
+			if(team != "Admin")
+				for(var/obj/item/I in L)
+					L.drop_from_inventory(I)
+				if(team == "Observe" && ishuman(L))
+					var/mob/living/carbon/human/H = L
+					H.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(H), slot_w_uniform)
+					H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(H), slot_shoes)
+			L.Paralyse(5)
 
-	else if(href_list["tdome2"])
-		if(!check_rights(R_FUN))	return
-
-		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
-			return
-
-		var/mob/M = locate(href_list["tdome2"])
-		if(!ismob(M))
-			usr << "This can only be used on instances of type /mob"
-			return
-		if(isAI(M))
-			usr << "This cannot be used on instances of type /mob/living/silicon/ai"
-			return
-
-		for(var/obj/item/I in M)
-			M.drop_from_inventory(I)
-
-		M.Paralyse(5)
-		sleep(5)
-		M.loc = pick(tdome2)
-		spawn(50)
-			M << SPAN_NOTE("You have been sent to the Thunderdome.")
-		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Team 2)", M)
-
-	else if(href_list["tdomeadmin"])
-		if(!check_rights(R_FUN))	return
-
-		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
-			return
-
-		var/mob/M = locate(href_list["tdomeadmin"])
-		if(!ismob(M))
-			usr << "This can only be used on instances of type /mob"
-			return
-		if(isAI(M))
-			usr << "This cannot be used on instances of type /mob/living/silicon/ai"
-			return
-
-		M.Paralyse(5)
-		sleep(5)
-		M.loc = pick(tdomeadmin)
-		spawn(50)
-			M << SPAN_NOTE("You have been sent to the Thunderdome.")
-		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Admin.)", M)
-
-	else if(href_list["tdomeobserve"])
-		if(!check_rights(R_FUN))	return
-
-		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
-			return
-
-		var/mob/M = locate(href_list["tdomeobserve"])
-		if(!ismob(M))
-			usr << "This can only be used on instances of type /mob"
-			return
-		if(isAI(M))
-			usr << "This cannot be used on instances of type /mob/living/silicon/ai"
-			return
-
-		for(var/obj/item/I in M)
-			M.drop_from_inventory(I)
-
-		if(ishuman(M))
-			var/mob/living/carbon/human/observer = M
-			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(observer), slot_w_uniform)
-			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), slot_shoes)
-		M.Paralyse(5)
-		sleep(5)
-		M.loc = pick(tdomeobserve)
-		spawn(50)
-			M << SPAN_NOTE("You have been sent to the Thunderdome.")
-		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Observer.)", M)
+		M << SPAN_NOTE("You have been sent to the Thunderdome.")
+		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. ([team])", M)
 
 	else if(href_list["revive"])
 		if(!check_rights(R_REJUVINATE))	return

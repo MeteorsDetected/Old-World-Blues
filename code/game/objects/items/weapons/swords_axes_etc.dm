@@ -23,7 +23,7 @@
 	slot_flags = SLOT_BELT
 	force = 10
 
-/obj/item/weapon/melee/classic_baton/attack(mob/M as mob, mob/living/user as mob)
+/obj/item/weapon/melee/classic_baton/attack(mob/living/M, mob/living/user)
 	//TODO: DNA3 clown_block
 /*
 	if ((CLUMSY in user.mutations) && prob(50))
@@ -44,8 +44,11 @@
 			M.stuttering = 8
 		M.Stun(8)
 		M.Weaken(8)
-		for(var/mob/O in viewers(M))
-			if (O.client)	O.show_message("\red <B>[M] has been beaten with \the [src] by [user]!</B>", 1, "\red You hear someone fall", 2)
+		M.visible_message(
+			SPAN_DANG("[M] has been beaten with \the [src] by [user]!"),
+			SPAN_DANG("You has been beaten with \the [src] by [user]!"),
+			SPAN_WARN("You hear someone fall")
+		)
 	else
 		playsound(src.loc, 'sound/weapons/Genhit.ogg', 50, 1, -1)
 		M.Stun(5)
@@ -57,8 +60,11 @@
 		)
 		src.add_fingerprint(user)
 
-		for(var/mob/O in viewers(M))
-			if (O.client)	O.show_message("\red <B>[M] has been stunned with \the [src] by [user]!</B>", 1, "\red You hear someone fall", 2)
+		M.visible_message(
+			SPAN_DANG("[M] has been stunned with \the [src] by [user]!"),
+			SPAN_DANG("You has been stunned with \the [src] by [user]!"),
+			SPAN_WARN("You hear someone fall")
+		)
 
 //Telescopic baton
 /obj/item/weapon/melee/telebaton

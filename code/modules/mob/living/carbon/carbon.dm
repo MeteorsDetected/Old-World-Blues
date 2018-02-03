@@ -294,7 +294,7 @@
 
 /mob/living/carbon/throw_item(atom/target)
 	src.throw_mode_off()
-	if(usr.stat || !target)
+	if(usr.incapacitated() || !target)
 		return
 	if(target.type == /obj/screen) return
 
@@ -310,7 +310,7 @@
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
 			if(start_T && end_T)
-				var/mob/M = item
+				var/mob/living/M = item
 				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
 				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
 
@@ -352,20 +352,12 @@
 	var/temp_inc = max(min(BODYTEMP_HEATING_MAX*(1-get_heat_protection()), exposed_temperature - bodytemperature), 0)
 	bodytemperature += temp_inc
 
-/mob/living/carbon/can_use_hands()
-	if(handcuffed)
-		return 0
-	if(buckled && ! istype(buckled, /obj/structure/material/chair)) // buckling does not restrict hands
-		return 0
-	return 1
-
 /mob/living/carbon/restrained()
-	if (handcuffed)
-		return 1
-	return
+	return handcuffed
 
 /mob/living/carbon/u_equip(obj/item/W as obj)
-	if(!W)	return 0
+	if(!W)
+		return 0
 
 	else if (W == handcuffed)
 		handcuffed = null
@@ -407,11 +399,11 @@
 	set name = "Sleep"
 	set category = "IC"
 
-	if(usr.sleeping)
-		usr << "\red You are already sleeping"
+	if(src.sleeping)
+		src << "\red You are already sleeping"
 		return
 	if(alert(src,"You sure you want to sleep for a while?","Sleep","Yes","No") == "Yes")
-		usr.sleeping = 20 //Short nap
+		src.sleeping = 20 //Short nap
 
 /mob/living/carbon/Bump(var/atom/movable/AM, yes)
 	if(now_pushing || !yes)

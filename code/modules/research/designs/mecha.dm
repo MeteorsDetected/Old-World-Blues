@@ -81,6 +81,13 @@
 	id = "mech_jetpack"
 	build_path = /obj/item/mecha_parts/mecha_equipment/jetpack
 
+
+/datum/design/item/mecha/ai_holder
+	name = "AI holder"
+	id = "mech_aiholder"
+	build_path = /obj/item/mecha_parts/mecha_equipment/tool/ai_holder
+	materials = list(DEFAULT_WALL_MATERIAL = 2000, "glass" = 1000)
+
 //obj/item/mecha_parts/mecha_equipment/repair_droid,
 
 /datum/design/item/mechfab/equipment/default/taser

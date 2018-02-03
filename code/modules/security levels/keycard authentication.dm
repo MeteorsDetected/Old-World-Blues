@@ -45,7 +45,9 @@
 		icon_state = "auth_off"
 
 /obj/machinery/keycard_auth/attack_hand(mob/user as mob)
-	if(user.stat || stat & (NOPOWER|BROKEN))
+	if(user.incapacitated())
+		return
+	if(stat & (NOPOWER|BROKEN))
 		user << "This device is not powered."
 		return
 	if(!user.IsAdvancedToolUser())
@@ -83,7 +85,7 @@
 	if(busy)
 		usr << "This device is busy."
 		return
-	if(usr.stat || stat & (BROKEN|NOPOWER))
+	if(usr.incapacitated() || stat & (BROKEN|NOPOWER))
 		usr << "This device is without power."
 		return
 	if(href_list["triggerevent"])

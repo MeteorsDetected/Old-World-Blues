@@ -13,7 +13,7 @@
 		set category = "Object"
 		set name = "Access Computer's Internals"
 		set src in oview(1)
-		if(!Adjacent(usr) || usr.restrained() || usr.lying || usr.stat || issilicon(usr) || !isliving(usr))
+		if(!Adjacent(usr) || usr.incapacitated() || issilicon(usr) || !isliving(usr))
 			return
 
 		opened = !opened

@@ -104,7 +104,7 @@
 		set name = "Rotate Pipe"
 		set src in view(1)
 
-		if(usr.stat)
+		if(usr.incapacitated())
 			return
 
 		if(anchored)
@@ -118,7 +118,7 @@
 		set category = "Object"
 		set name = "Flip Pipe"
 		set src in view(1)
-		if(usr.stat)
+		if(usr.incapacitated())
 			return
 
 		if(anchored)

@@ -534,7 +534,7 @@
 		return 0
 
 	if(href_list["toggle_piece"])
-		if(ishuman(usr) && (usr.stat || usr.stunned || usr.lying))
+		if(ishuman(usr) && (usr.incapacitated()))
 			return 0
 		toggle_piece(href_list["toggle_piece"], wearer)
 	else if(href_list["toggle_seals"])
@@ -605,7 +605,8 @@
 	if(!istype(wearer) || !wearer.back == src)
 		return
 
-	if(usr == wearer && (usr.stat||usr.paralysis||usr.stunned)) // If the usr isn't wearing the suit it's probably an AI.
+	// If the usr isn't wearing the suit it's probably an AI.
+	if(usr == wearer && usr.incapacitated())
 		return
 
 	var/equip_to
@@ -710,11 +711,7 @@
 	take_hit((100/severity_class), "electrical pulse", 1)
 
 /obj/item/weapon/rig/proc/shock(mob/user)
-	if (electrocute_mob(user, cell, src)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
-		spark_system.start()
-		if(user.stunned)
-			return TRUE
-	return FALSE
+	return electrocute_mob(user, cell, src)
 
 /obj/item/weapon/rig/proc/take_hit(damage, source, is_emp=0)
 

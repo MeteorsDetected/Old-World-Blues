@@ -51,7 +51,7 @@
 	if (!(src.loc == H) || (src.loc && src.loc.loc == H))
 		return
 
-	if (usr.restrained() || usr.stat)
+	if (usr.incapacitated())
 		return
 
 	switch(over_object.name)
@@ -396,7 +396,7 @@
 	set name = "Empty Contents"
 	set category = "Object"
 
-	if((!ishuman(usr) && (src.loc != usr)) || usr.stat || usr.restrained())
+	if((!ishuman(usr) && (src.loc != usr)) || usr.incapacitated())
 		return
 
 	var/turf/T = get_turf(src)

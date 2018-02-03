@@ -34,18 +34,16 @@ BLIND     // can't see anything
 
 /obj/item/clothing/glasses/attack_self(mob/user)
 	if(toggleable)
+		active = !active
 		if(active)
-			active = 0
-			icon_state = off_state
-			user.update_inv_glasses()
-			usr << "You deactivate the optical matrix on the [src]."
-		else
-			active = 1
 			icon_state = initial(icon_state)
-			user.update_inv_glasses()
 			if(activation_sound)
 				usr << activation_sound
 			usr << "You activate the optical matrix on the [src]."
+		else
+			icon_state = off_state
+			usr << "You deactivate the optical matrix on the [src]."
+		user.update_inv_glasses()
 
 /obj/item/clothing/glasses/meson
 	name = "Optical Meson Scanner"
@@ -111,8 +109,11 @@ BLIND     // can't see anything
 		set name = "Switch Eyepatch"
 		set category = "Object"
 		set src in usr
-		if(!isliving(usr)) return
-		if(usr.stat) return
+
+		if(!isliving(usr))
+			return
+		if(usr.incapacitated())
+			return
 
 		if(icon_state == initial(icon_state))
 			icon_state = "[initial(icon_state)]_l"
@@ -219,7 +220,7 @@ BLIND     // can't see anything
 	set name = "Adjust welding goggles"
 	set src in usr
 
-	if(usr.canmove && !usr.stat && !usr.restrained())
+	if(usr.incapacitated())
 		if(src.up)
 			src.up = !src.up
 			flags_inv |= HIDEEYES

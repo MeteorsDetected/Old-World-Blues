@@ -16,28 +16,30 @@
 	active_power_usage = 10000	//10 kW. It's a big all-body scanner.
 
 /obj/machinery/bodyscanner/relaymove(mob/user as mob)
-	if (user.stat)
+	if (user.incapacitated(INCAPACITATION_DISABLED))
 		return
 	src.go_out()
-	return
 
 /obj/machinery/bodyscanner/verb/eject()
 	set src in oview(1)
 	set category = "Object"
 	set name = "Eject Body Scanner"
 
-	if (usr.stat != 0)
-		return
+	if(usr == occupant)
+		if(usr.incapacitated(INCAPACITATION_DISABLED))
+			return
+	else
+		if(usr.incapacitated())
+			return
 	src.go_out()
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/bodyscanner/verb/move_inside()
 	set src in oview(1)
 	set category = "Object"
 	set name = "Enter Body Scanner"
 
-	if(usr.stat)
+	if(usr.incapacitated(INCAPACITATION_MOVE))
 		return
 	if(src.occupant)
 		usr << SPAN_NOTE("<B>The scanner is already occupied!</B>")

@@ -123,8 +123,9 @@
 					M << "\red The floor lurches beneath you!"
 					shake_camera(M, 10, 1)
 		if(iscarbon(M))
-			if(!M.buckled)
-				M.Weaken(3)
+			var/mob/living/carbon/C = M
+			if(!C.buckled)
+				C.Weaken(3)
 
 	// Power-related checks. If shuttle contains power related machinery, update powernets.
 	var/update_power = 0

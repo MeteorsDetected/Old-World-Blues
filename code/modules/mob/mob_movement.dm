@@ -1,3 +1,6 @@
+/mob/proc/movement_delay()
+	return 0
+
 /mob/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(air_group || (height==0)) return 1
 
@@ -67,17 +70,14 @@
 	set hidden = 1
 	if(!iscarbon(mob))
 		return
-	if (!mob.stat && isturf(mob.loc) && !mob.restrained())
-		mob:toggle_throw_mode()
-	else
-		return
+	if (!mob.incapacitated() && isturf(mob.loc))
+		mob.toggle_throw_mode()
 
 
 /client/verb/drop_item()
 	set hidden = 1
 	if(!isrobot(mob) && mob.stat == CONSCIOUS && isturf(mob.loc))
 		return mob.drop_active_hand()
-	return
 
 
 /client/Center()
@@ -172,6 +172,11 @@
 		mob.ghostize()
 		return
 
+	if(isAI(mob))
+		var/mob/living/silicon/ai/AI = mob
+		if(AI.controlled_mech)
+			return AI.controlled_mech.relaymove(mob, direct)
+
 	// handle possible Eye movement
 	if(mob.eyeobj)
 		return mob.EyeMove(n,direct)
@@ -224,7 +229,7 @@
 		if(mob.restrained())//Why being pulled while cuffed prevents you from moving
 			for(var/mob/M in range(1,mob))
 				if(M.pulling == mob)
-					if(!M.restrained() && !M.stat && M.canmove && mob.Adjacent(M))
+					if(!M.incapacitated() && mob.Adjacent(M))
 						src << SPAN_NOTE("You're restrained! You can't move!")
 						return 0
 					else

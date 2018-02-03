@@ -224,7 +224,8 @@
 	set category = "Object"
 	set src in usr
 
-	if(usr.stat || usr.restrained()) return
+	if(usr.incapacitated())
+		return
 
 	unload_ammo(usr)
 */

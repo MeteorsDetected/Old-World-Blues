@@ -42,7 +42,7 @@
 
 /obj/item/device/radio/electropack/Topic(href, href_list)
 	//..()
-	if(usr.stat || usr.restrained())
+	if(usr.incapacitated())
 		return
 	if( ishuman(usr) && usr.Adjacent(get_turf(src)) )
 		usr.set_machine(src)
@@ -82,8 +82,8 @@
 	if(!signal || signal.encryption != code)
 		return
 
-	if(ismob(loc) && on)
-		var/mob/M = loc
+	if(isliving(loc) && on)
+		var/mob/living/M = loc
 		var/turf/T = M.loc
 		if(istype(T, /turf))
 			if(!M.moved_recently && M.last_move)

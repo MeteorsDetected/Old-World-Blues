@@ -278,7 +278,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
 		announce_ghost_joinleave(ghost)
 
-/mob/observer/dead/can_use_hands()	return 0
 /mob/observer/dead/is_active()		return 0
 
 /mob/observer/dead/Stat()
@@ -623,7 +622,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		src << "\red That verb is not currently permitted."
 		return
 
-	if (!src.stat)
+	if (!src.incapacitated())
 		return
 
 	if (usr != src)

@@ -321,7 +321,7 @@ Buildable meters
 	set name = "Rotate Pipe"
 	set src in view(1)
 
-	if ( usr.stat || usr.restrained() )
+	if(usr.incapacitated())
 		return
 
 	src.set_dir(turn(src.dir, -90))

@@ -270,7 +270,7 @@
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
 
-	if(user.stat || stat & (NOPOWER|BROKEN))
+	if(user.incapacitated() || stat & (NOPOWER|BROKEN))
 		user << "This device is not powered."
 		return
 

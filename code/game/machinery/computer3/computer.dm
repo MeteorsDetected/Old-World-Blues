@@ -76,7 +76,7 @@
 		set category = "Object"
 		set src in view(1)
 
-		if(usr.stat || usr.restrained() || usr.lying || !isliving(usr))
+		if(usr.incapacitated() || !isliving(usr))
 			usr << "\red You can't do that."
 			return
 
