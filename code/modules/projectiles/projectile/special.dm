@@ -149,3 +149,54 @@
 	spawn
 		qdel(src)
 	return
+
+/obj/item/projectile/kinetic
+	name = "kinetic force"
+	icon_state = null
+	damage = 15
+	damage_type = BRUTE
+	check_armour = "bomb"
+	kill_count = 2
+
+	var/pressure_decrease = 0.25
+	var/turf_aoe = FALSE
+	var/mob_aoe = 0
+	var/list/hit_overlays = list()
+
+/obj/item/projectile/kinetic/launch(atom/target, mob/user, obj/item/weapon/gun/launcher, var/target_zone, var/x_offset=0, var/y_offset=0)
+	if(istype(launcher, /obj/item/weapon/gun/energy/kinetic_accelerator))
+		var/obj/item/weapon/gun/energy/kinetic_accelerator/KA = launcher
+		for(var/A in KA.get_modkits())
+			var/obj/item/borg/upgrade/modkit/M = A
+			M.modify_projectile(src)
+	..()
+
+/obj/item/projectile/kinetic/on_impact(var/atom/A)
+	strike_thing(A)
+	. = ..()
+
+/obj/item/projectile/kinetic/proc/strike_thing(atom/target)
+	var/turf/target_turf = get_turf(target)
+	if(!target_turf)
+		target_turf = get_turf(src)
+	var/datum/gas_mixture/environment = target_turf.return_air()
+	var/pressure = environment.return_pressure()
+	if(pressure > 50)
+		name = "weakened [name]"
+		damage *= pressure_decrease
+	if(istype(target_turf, /turf/simulated/mineral))
+		var/turf/simulated/mineral/M = target_turf
+		M.GetDrilled(1)
+	var/obj/effect/overlay/temp/kinetic_blast/K = new /obj/effect/overlay/temp/kinetic_blast(target_turf)
+	K.color = color
+	for(var/type in hit_overlays)
+		new type(target_turf)
+	if(turf_aoe)
+		for(var/T in orange(1, target_turf))
+			if(istype(T, /turf/simulated/mineral))
+				var/turf/simulated/mineral/M = T
+				M.GetDrilled(1)
+	if(mob_aoe)
+		for(var/mob/living/L in range(1, target_turf) - firer - target)
+			L.apply_damage(damage*mob_aoe, damage_type, def_zone, armor)
+			L << "<span class='danger'>You're struck by a [name]!</span>"

@@ -284,3 +284,38 @@
 		/obj/item/weapon/reagent_containers/spray,
 		/obj/item/weapon/soap
 		)
+
+/obj/item/storage/belt/mining
+	name = "explorer's belt"
+	desc = "A versatile chest rig, cherished by miners and hunters alike."
+	icon_state = "explorer"
+	item_state = "explorer"
+	storage_slots = 9
+	w_class = 4
+	max_w_class = 4 //Pickaxes are big.
+	can_hold = list(/obj/item/weapon/crowbar,
+		/obj/item/weapon/screwdriver,
+		/obj/item/weapon/weldingtool,
+		/obj/item/weapon/wirecutters,
+		/obj/item/weapon/wrench,
+		/obj/item/device/flashlight,
+		/obj/item/stack/cable_coil,
+		/obj/item/stack/flag,
+		/obj/item/device/analyzer,
+		/obj/item/weapon/extinguisher/mini,
+		/obj/item/device/radio,
+		/obj/item/clothing/gloves,
+		/obj/item/weapon/pickaxe,
+		/obj/item/weapon/shovel,
+		/obj/item/stack/material/animalhide,
+		/obj/item/weapon/flame/lighter,
+		/obj/item/weapon/storage/fancy/cigarettes,
+		/obj/item/weapon/reagent_containers/food/drinks/bottle,
+		/obj/item/stack/medical,
+		/obj/item/weapon/reagent_containers/hypospray,
+		/obj/item/device/gps,
+		/obj/item/weapon/reagent_containers/pill,
+		/obj/item/weapon/ore,
+		/obj/item/weapon/reagent_containers/food/drinks,
+		/obj/item/weapon/gun/energy/kinetic_accelerator
+		)

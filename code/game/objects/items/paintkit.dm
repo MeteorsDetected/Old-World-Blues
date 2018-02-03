@@ -110,6 +110,16 @@
 	else
 		return ..()
 
+/obj/item/device/kit/paint/ripley/random
+	name = "quantum ripley kit"
+
+/obj/item/device/kit/paint/ripley/random/New()
+	..()
+	var/list/ripleys = typesof(/obj/item/device/kit/paint/ripley)
+	var/build_path = pick(ripleys)
+	new build_path(src.loc)
+	del(src)
+
 //Ripley APLU kits.
 /obj/item/device/kit/paint/ripley
 	name = "\"Classic\" APLU customisation kit"
