@@ -184,41 +184,6 @@ BLIND     // can't see anything
 	icon_state = "aviator"
 	item_state = "aviator"
 
-/obj/item/clothing/glasses/sunglasses/aviator_black
-	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
-	name = "black aviator sunglasses"
-	icon_state = "aviator_black"
-	item_state = "aviator_black"
-
-/obj/item/clothing/glasses/sunglasses/aviator_bloody
-	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
-	name = "bloody aviator sunglasses"
-	icon_state = "aviator_bloody"
-	item_state = "aviator_bloody"
-/*
-/obj/item/clothing/glasses/meson/aviator/prescription
-	name = "engineering aviators"
-	desc = "Engineering Aviators with prescription lenses."
-	prescription = 1
-		off_state = "aviator_hud"
-	item_state_slots = list(slot_r_hand_str = "sunglasses", slot_l_hand_str = "sunglasses")
-	action_button_name = "Toggle HUD"
-	//activation_sound = 'sound/effects/pop.ogg'
-
-/obj/item/clothing/glasses/hud/health/aviator
-	name = "medical HUD aviators"
-	desc = "Modified aviator glasses with a toggled health HUD."
-	icon_state = "aviator_med"
-	off_state = "sec_hud"
-	action_button_name = "Toggle Mode"
-	toggleable = 1
-	//activation_sound = 'sound/effects/pop.ogg'
-
-/obj/item/clothing/glasses/hud/health/aviator/prescription
-	name = "prescription medical HUD aviators"
-	desc = "Modified aviator glasses with a toggled health HUD. Comes with bonus prescription lenses."
-	prescription = 6
-*/
 /obj/item/clothing/glasses/sunglasses/red
 	name = "crimson glasses"
 	desc = "They make you look like an elite agent."
@@ -302,17 +267,7 @@ BLIND     // can't see anything
 		..()
 		src.hud = new/obj/item/clothing/glasses/hud/security(src)
 		return
-/*
-/obj/item/clothing/glasses/sunglasses/sechud/aviator
-	name = "security HUD aviators"
-	desc = "Modified aviator glasses that can be switch between HUD and flash protection modes."
-	icon_state = "aviator_sec"
-	off_state = "aviator_hud"
-	action_button_name = "Toggle Mode"
-	var/on = 1
-	toggleable = 1
-	//activation_sound = 'sound/effects/pop.ogg'
-*/
+
 /obj/item/clothing/glasses/sunglasses/sechud/tactical
 	name = "tactical HUD"
 	desc = "Flash-resistant goggles with inbuilt combat and security information."

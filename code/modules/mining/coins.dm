@@ -76,13 +76,3 @@
 		comment = "heads"
 	user.visible_message(SPAN_NOTE("[user] has thrown \the [src]. It lands on [comment]! "), \
 						 SPAN_NOTE("You throw \the [src]. It lands on [comment]! "))
-
-/obj/item/weapon/coin/coin_selection/attack_self(mob/user as mob)
-	var/result = rand(1, sides)
-	var/comment = ""
-	if(result == 1)
-		comment = "mortem"
-	else if(result == 2)
-		comment = "victoria"
-	user.visible_message(SPAN_NOTE("[user] has thrown \the [src]. It lands on [comment]! "), \
-						 SPAN_NOTE("You throw \the [src]. It lands on [comment]! "))

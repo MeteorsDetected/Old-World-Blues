@@ -16,26 +16,6 @@
 /datum/gear/eyes/glasses/aviator
 	display_name = "Glasses, aviator"
 	path = /obj/item/clothing/glasses/sunglasses/aviator
-	options = list(
-		"aviator"               = /obj/item/clothing/glasses/sunglasses/aviator,
-		"aviator black"         = /obj/item/clothing/glasses/sunglasses/aviator_black,
-		"bloody aviator"        = /obj/item/clothing/glasses/sunglasses/aviator_bloody
-		/*"engineering aviators"  = /obj/item/clothing/glasses/meson/aviator/prescription,
-		"medical HUD aviators"  = /obj/item/clothing/glasses/hud/health/aviator,
-		"security HUD aviators" = /obj/item/clothing/glasses/sunglasses/sechud/aviator */
-	)
-
-/datum/gear/head/hardhat
-	display_name = "hardhat"
-	path = /obj/item/clothing/head/hardhat
-	cost = 2
-	options = list(
-		"yellow" = /obj/item/clothing/head/hardhat,
-		"blue"   = /obj/item/clothing/head/hardhat/dblue,
-		"orange" = /obj/item/clothing/head/hardhat/orange,
-		"red"    = /obj/item/clothing/head/hardhat/red
-	)
-
 
 /datum/gear/eyes/glasses/prescriptionhipster
 	display_name = "Glasses, hipster"
