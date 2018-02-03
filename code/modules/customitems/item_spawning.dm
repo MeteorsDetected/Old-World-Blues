@@ -99,6 +99,10 @@
 	current_data.item_path = /obj/item/device/radio/headset/moonphones
 	L |= current_data
 
+	current_data = new()
+	current_data.character_name = "Vikro Box"
+	current_data.item_path = /obj/item/device/radio/headset/moonphones
+	L |= current_data
 	custom_items["phoenixvito"] = L
 
 ///Fox231///
