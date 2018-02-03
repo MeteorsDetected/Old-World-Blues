@@ -367,7 +367,6 @@
 	dried_type = null
 	dry = 0
 	nutriment_amt = 0
-	ingest = 1
 	var/sliced = 0 //I know but that slicing is different
 	var/obj/item/weapon/reagent_containers/food/snacks/ingredient/inside
 	var/feel_desc = "resin-like shroom"
