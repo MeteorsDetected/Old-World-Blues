@@ -194,7 +194,7 @@
 	qdel(src)
 
 /obj/effect/landmark/costume/cutewitch/New()
-	new /obj/item/clothing/under/sundress(src.loc)
+	new /obj/item/clothing/under/dress/sundress(src.loc)
 	new /obj/item/clothing/head/witchwig(src.loc)
 	new /obj/item/weapon/staff/broom(src.loc)
 	qdel(src)

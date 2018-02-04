@@ -313,7 +313,7 @@
 /*
 /datum/donat_stuff/uniform/centcom_officer
 	name = "Central Command Officer"
-	path = /obj/item/clothing/under/rank/centcom_officer
+	path = /obj/item/clothing/under/rank/centcom/officer
 	cost = 390
 */
 
@@ -329,7 +329,7 @@
 
 /datum/donat_stuff/uniform/really_black
 	name = "Executive Suit"
-	path = /obj/item/clothing/under/suit_jacket/really_black
+	path = /obj/item/clothing/under/really_black
 	cost = 130
 
 /datum/donat_stuff/uniform/schoolgirl
@@ -359,17 +359,17 @@
 
 /datum/donat_stuff/uniform/tan
 	name = "Tan Suit"
-	path = /obj/item/clothing/under/suit_jacket/tan
+	path = /obj/item/clothing/under/tan_suit
 	cost = 130
 
 /datum/donat_stuff/uniform/charcoal
 	name = "Charcoal"
-	path = /obj/item/clothing/under/suit_jacket/charcoal
+	path = /obj/item/clothing/under/charcoal_suit
 	cost = 130
 
 /datum/donat_stuff/uniform/navy
 	name = "Navy Suit"
-	path = /obj/item/clothing/under/suit_jacket/navy
+	path = /obj/item/clothing/under/navy_suit
 	cost = 120
 
 /datum/donat_stuff/uniform/suit_jacket

@@ -62,7 +62,7 @@
 
 /obj/cryo_spawner/proc/equip_character(mob/living/carbon/human/H, is_admin=0)
 	if(is_admin)
-		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_captain(H), slot_w_uniform)
+		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom/captain(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/white(H), slot_gloves)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/beret/centcom/captain(H), slot_head)
@@ -77,7 +77,7 @@
 		W.registered_name = H.real_name
 		H.equip_to_slot_or_del(W, slot_wear_id)
 	else
-		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(H), slot_w_uniform)
+		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom/officer(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/white(H), slot_gloves)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/beret/centcom/officer(H), slot_head)
