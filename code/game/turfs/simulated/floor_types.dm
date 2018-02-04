@@ -153,6 +153,10 @@
 	heat_capacity = 0
 	layer = 2
 
+/turf/simulated/shuttle/wall/edge
+	density = 1
+	blocks_air = 1
+
 /turf/simulated/shuttle/wall
 	name = "wall"
 	icon_state = "wall"
