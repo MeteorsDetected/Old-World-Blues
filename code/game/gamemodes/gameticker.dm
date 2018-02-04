@@ -61,7 +61,8 @@ var/list/donator_icons
 		'sound/music/1.ogg',
 		'sound/music/Low_Roar_-_I_ll_Keep_Coming.ogg',
 		'sound/music/OST_Firefly_-_Serenity_theme.ogg',
-		'sound/music/Tommy_86_-_High_Fidelity.ogg')
+		'sound/music/Tommy_86_-_High_Fidelity.ogg',
+		'sound/music/Alessandro_Cortini_-_Perdonare.ogg')
 
 	donator_icons = icon_states('icons/donator.dmi')
 
