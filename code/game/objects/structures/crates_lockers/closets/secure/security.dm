@@ -62,7 +62,7 @@
 		..()
 		new /obj/item/clothing/under/rank/hop(src)
 		new /obj/item/clothing/under/rank/hop/dress(src)
-		new /obj/item/clothing/under/dress/hr(src)
+		new /obj/item/clothing/under/rank/hop/dress/hr(src)
 		new /obj/item/clothing/under/lawyer/female(src)
 		new /obj/item/clothing/under/lawyer/black(src)
 		new /obj/item/clothing/under/lawyer/red(src)

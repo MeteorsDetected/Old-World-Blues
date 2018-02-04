@@ -34,13 +34,6 @@
 	..()
 	desc += owner
 
-
-/obj/item/clothing/accessory/purple_heart/egorkor
-	owner = "Graham Maclagan"
-
-/obj/item/clothing/accessory/purple_heart/madman
-	owner = "Megan Abbott"
-
 /obj/item/clothing/accessory/purple_heart/solar
 	owner = "Aiden McMurray"
 
@@ -55,7 +48,6 @@
 /***************************************/
 /*****************Solar&Madman*****************/
 /***************************************/
-//private military contractors 4life <3
 /obj/item/clothing/suit/storage/vest/madman
 	name = "\improper MOLLE plate carrier"
 	desc = "That's the high quality generic plate carrier."
@@ -67,12 +59,6 @@
 	desc = "That's the high quality generic plate carrier."
 	icon_state = "mollesolar"
 	item_state = "jensen"
-
-/obj/item/clothing/under/rank/security/madman
-	name = "\improper generic clothes"
-	desc = "That's some generic black pants with a tan shirt."
-	icon_state = "pmcsuitmadman"
-	item_state = "black"
 
 /obj/item/clothing/under/rank/security/solar
 	name = "\improper generic clothes"

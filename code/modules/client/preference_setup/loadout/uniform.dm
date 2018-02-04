@@ -107,7 +107,7 @@
 
 /datum/gear/uniform/blackjumpskirt
 	display_name = "jumpskirt, black"
-	path = /obj/item/clothing/under/blackjumpskirt
+	path = /obj/item/clothing/under/color/blackjumpskirt
 
 /datum/gear/uniform/blackfjumpsuit
 	display_name = "jumpsuit, female-black"
@@ -194,23 +194,23 @@
 
 /datum/gear/uniform/suit/burgundy
 	display_name = "suit, burgundy"
-	path = /obj/item/clothing/under/suit_jacket/burgundy
+	path = /obj/item/clothing/under/burgundy_suit
 
 /datum/gear/uniform/suit/checkered
 	display_name = "suit, checkered"
-	path = /obj/item/clothing/under/suit_jacket/checkered
+	path = /obj/item/clothing/under/checkered_suit
 
 /datum/gear/uniform/suit/charcoal
 	display_name = "suit, charcoal"
-	path = /obj/item/clothing/under/suit_jacket/charcoal
+	path = /obj/item/clothing/under/charcoal_suit
 
 /datum/gear/uniform/suit/exec
 	display_name = "suit, executive"
-	path = /obj/item/clothing/under/suit_jacket/really_black
+	path = /obj/item/clothing/under/really_black
 
 /datum/gear/uniform/suit/femaleexec
 	display_name = "suit, female-executive"
-	path = /obj/item/clothing/under/suit_jacket/female
+	path = /obj/item/clothing/under/suit_female
 
 /datum/gear/uniform/suit/gentle
 	display_name = "suit, gentlemen"
@@ -218,11 +218,7 @@
 
 /datum/gear/uniform/suit/navy
 	display_name = "suit, navy"
-	path = /obj/item/clothing/under/suit_jacket/navy
-
-/datum/gear/uniform/suit/red
-	display_name = "suit, red"
-	path = /obj/item/clothing/under/suit_jacket/red
+	path = /obj/item/clothing/under/navy_suit
 
 /datum/gear/uniform/suit/redlawyer
 	display_name = "suit, lawyer-red"
@@ -238,7 +234,7 @@
 
 /datum/gear/uniform/suit/tan
 	display_name = "suit, tan"
-	path = /obj/item/clothing/under/suit_jacket/tan
+	path = /obj/item/clothing/under/tan_suit
 
 /datum/gear/uniform/suit/white
 	display_name = "suit, white"
@@ -250,11 +246,11 @@
 
 /datum/gear/uniform/sundress
 	display_name = "sundress"
-	path = /obj/item/clothing/under/sundress
+	path = /obj/item/clothing/under/dress/sundress
 
 /datum/gear/uniform/sundress/white
 	display_name = "sundress, white"
-	path = /obj/item/clothing/under/sundress_white
+	path = /obj/item/clothing/under/dress/sundress_white
 
 /datum/gear/uniform/dress_fire
 	display_name = "flame dress"
@@ -295,7 +291,7 @@
 
 /datum/gear/uniform/uniform_hr
 	display_name = "uniform, HR director (HoP)"
-	path = /obj/item/clothing/under/dress/hr
+	path = /obj/item/clothing/under/rank/hop/dress/hr
 	allowed_roles = list("Head of Personnel")
 
 /datum/gear/uniform/dnavysecsuit
@@ -334,6 +330,3 @@
 			tmp_path = /obj/item/clothing/under/rank/warden/tan
 	return new tmp_path ()
 
-/datum/gear/uniform/squatter_outfit
-	display_name = "slav squatter tracksuit"
-	path = /obj/item/clothing/under/squatter_outfit

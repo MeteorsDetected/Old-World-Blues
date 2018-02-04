@@ -5,8 +5,8 @@
 
 /obj/structure/closet/athletic_mixed/New()
 	..()
+	new /obj/item/clothing/under/shorts(src)
 	new /obj/item/clothing/under/shorts/grey(src)
-	new /obj/item/clothing/under/shorts/black(src)
 	new /obj/item/clothing/under/shorts/red(src)
 	new /obj/item/clothing/under/shorts/blue(src)
 	new /obj/item/clothing/under/shorts/green(src)
