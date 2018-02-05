@@ -43,10 +43,10 @@
 /datum/gear/flask
 	display_name = "flask"
 	path = /obj/item/weapon/reagent_containers/glass/drinks/flask/barflask
-
-/datum/gear/vacflask
-	display_name = "vacuum-flask"
-	path = /obj/item/weapon/reagent_containers/glass/drinks/flask/vacuumflask
+	options = list(
+		"common" = /obj/item/weapon/reagent_containers/glass/drinks/flask/barflask,
+		"vacuum" = /obj/item/weapon/reagent_containers/glass/drinks/flask/vacuumflask
+	)
 
 /datum/gear/comb
 	display_name = "purple comb"
