@@ -98,8 +98,14 @@
 
 
 /datum/gear/uniform/cheongsam
-	display_name = "cheongsam, white"
+	display_name = "cheongsam"
 	path = /obj/item/clothing/under/cheongsam
+	options = list(
+		"white" = /obj/item/clothing/under/cheongsam,
+		"blue"  = /obj/item/clothing/under/cheongsam/blue,
+		"red"   = /obj/item/clothing/under/cheongsam/red,
+		"black" = /obj/item/clothing/under/cheongsam/black
+	)
 
 /datum/gear/uniform/kilt
 	display_name = "kilt"
@@ -135,46 +141,29 @@
 	display_name = "skirt, black"
 	path = /obj/item/clothing/under/blackskirt
 
-/datum/gear/uniform/pants
-	display_name = "Pants, classic jeans"
-	path = /obj/item/clothing/under/pants/classicjeans
-
-/datum/gear/uniform/pants/blackjeans
-	display_name = "Pants, black"
-	path = /obj/item/clothing/under/pants/blackjeans
-
-/datum/gear/uniform/pants/white
-	display_name = "Pants, white"
-	path = /obj/item/clothing/under/pants/white
-
-/datum/gear/uniform/pants/red
-	display_name = "Pants, red"
-	path = /obj/item/clothing/under/pants/red
-
-/datum/gear/uniform/pants/black
-	display_name = "Pants, black"
-	path = /obj/item/clothing/under/pants/black
-
-/datum/gear/uniform/pants/track
-	display_name = "Pants, track"
-	path = /obj/item/clothing/under/pants/track
-
-/datum/gear/uniform/pants/tan
-	display_name = "Pants, tan"
-	path = /obj/item/clothing/under/pants/tan
-
 /datum/gear/uniform/pants/jeans
-	display_name = "Pants, jeans"
+	display_name = "Pants (jeans)"
 	path = /obj/item/clothing/under/pants/jeans
+	options = list(
+		"common"     = /obj/item/clothing/under/pants/jeans,
+		"classic"    = /obj/item/clothing/under/pants/classicjeans,
+		"must hang"  = /obj/item/clothing/under/pants/mustangjeans,
+		"young folks"= /obj/item/clothing/under/pants/youngfolksjeans,
+		"black"      = /obj/item/clothing/under/pants/blackjeans
+	)
 
-/datum/gear/uniform/pants/khaki
-	display_name = "Pants, khaki"
-	path = /obj/item/clothing/under/pants/khaki
-
-/datum/gear/uniform/pants/camo
-	display_name = "Pants, camo"
-	path = /obj/item/clothing/under/pants/camo
-
+/datum/gear/uniform/pants/color
+	display_name = "Pants (color)"
+	path = /obj/item/clothing/under/pants/white
+	options = list(
+		"white" = /obj/item/clothing/under/pants/white,
+		"red" = /obj/item/clothing/under/pants/red,
+		"black" = /obj/item/clothing/under/pants/black,
+		"track" = /obj/item/clothing/under/pants/track,
+		"tan" = /obj/item/clothing/under/pants/tan,
+		"khaki" = /obj/item/clothing/under/pants/khaki,
+		"camo" = /obj/item/clothing/under/pants/camo,
+	)
 
 /datum/gear/uniform/suit  //amish
 	display_name = "suit, amish"
@@ -193,16 +182,15 @@
 	path = /obj/item/clothing/under/lawyer/blue
 
 /datum/gear/uniform/suit/burgundy
-	display_name = "suit, burgundy"
-	path = /obj/item/clothing/under/burgundy_suit
-
-/datum/gear/uniform/suit/checkered
-	display_name = "suit, checkered"
-	path = /obj/item/clothing/under/checkered_suit
-
-/datum/gear/uniform/suit/charcoal
-	display_name = "suit, charcoal"
-	path = /obj/item/clothing/under/charcoal_suit
+	display_name = "formal suit with jaket"
+	path = /obj/item/clothing/under/with_suit/burgundy
+	options = list(
+		"burgundy" = /obj/item/clothing/under/with_suit/burgundy,
+		"checkred" = /obj/item/clothing/under/with_suit/checkered,
+		"charcoal" = /obj/item/clothing/under/with_suit/charcoal,
+		"navy"     = /obj/item/clothing/under/with_suit/navy,
+		"tan"      = /obj/item/clothing/under/with_suit/tan
+	)
 
 /datum/gear/uniform/suit/exec
 	display_name = "suit, executive"
@@ -216,10 +204,6 @@
 	display_name = "suit, gentlemen"
 	path = /obj/item/clothing/under/gentlesuit
 
-/datum/gear/uniform/suit/navy
-	display_name = "suit, navy"
-	path = /obj/item/clothing/under/navy_suit
-
 /datum/gear/uniform/suit/redlawyer
 	display_name = "suit, lawyer-red"
 	path = /obj/item/clothing/under/lawyer/red
@@ -232,10 +216,6 @@
 	display_name = "suit, purple"
 	path = /obj/item/clothing/under/lawyer/purpsuit
 
-/datum/gear/uniform/suit/tan
-	display_name = "suit, tan"
-	path = /obj/item/clothing/under/tan_suit
-
 /datum/gear/uniform/suit/white
 	display_name = "suit, white"
 	path = /obj/item/clothing/under/scratch
@@ -247,10 +227,10 @@
 /datum/gear/uniform/sundress
 	display_name = "sundress"
 	path = /obj/item/clothing/under/dress/sundress
-
-/datum/gear/uniform/sundress/white
-	display_name = "sundress, white"
-	path = /obj/item/clothing/under/dress/sundress_white
+	options = list(
+		"black" = /obj/item/clothing/under/dress/sundress,
+		"white" = /obj/item/clothing/under/dress/sundress_white
+	)
 
 /datum/gear/uniform/dress_fire
 	display_name = "flame dress"

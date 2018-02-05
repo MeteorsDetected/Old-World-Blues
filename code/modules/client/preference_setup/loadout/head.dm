@@ -1,57 +1,52 @@
 /datum/gear/head
-	display_name = "bandana, pirate-red"
-	path = /obj/item/clothing/head/bandana
 	slot = slot_head
 	sort_category = "Hats and Headwear"
 
-/datum/gear/head/bandana_green
-	display_name = "bandana, green"
-	path = /obj/item/clothing/head/greenbandana
-
-/datum/gear/head/bandana_orange
-	display_name = "bandana, orange"
-	path = /obj/item/clothing/head/orangebandana
+/datum/gear/head
+	display_name = "Bandana (head)"
+	path = /obj/item/clothing/head/bandana
+	options = list(
+		"pirate-red" = /obj/item/clothing/head/bandana,
+		"green"  = /obj/item/clothing/head/greenbandana,
+		"orange" = /obj/item/clothing/head/orangebandana
+	)
 
 /datum/gear/head/beret
-	display_name = "beret, red"
+	display_name = "beret"
 	path = /obj/item/clothing/head/beret
-
-/datum/gear/head/beret/bsec
-	display_name = "beret, navy (officer)"
-	path = /obj/item/clothing/head/beret/sec/alt
-	allowed_roles = list("Security Officer","Head of Security","Warden")
-
-/datum/gear/head/beret/eng
-	display_name = "beret, engie-orange"
-	path = /obj/item/clothing/head/beret/eng
-
-/datum/gear/head/beret/purp
-	display_name = "beret, purple"
-	path = /obj/item/clothing/head/beret/jan
-
-/datum/gear/head/beret/black
-	display_name = "beret, black"
-	path = /obj/item/clothing/head/beret/black
+	options = list(
+		"red" = /obj/item/clothing/head/beret,
+		"orange/engineer" = /obj/item/clothing/head/beret/eng,
+		"purple/janitor" = /obj/item/clothing/head/beret/jan,
+		"black" = /obj/item/clothing/head/beret/black
+	)
 
 /datum/gear/head/beret/sec
-	display_name = "beret, red (security)"
+	display_name = "beret (security)"
 	path = /obj/item/clothing/head/beret/sec
 	allowed_roles = list("Security Officer","Head of Security","Warden")
+	options = list(
+		"red" = /obj/item/clothing/head/beret/sec,
+		"navy" = /obj/item/clothing/head/beret/sec/alt
+	)
 
 /datum/gear/head/beret/sec_corp
-	display_name = "beret, black (security)"
+	display_name = "beret, corporage (security)"
 	path = /obj/item/clothing/head/beret/sec/alt/corp
 	allowed_roles = list("Security Officer","Head of Security","Warden","Detective","Forensic Technician")
 
-/datum/gear/head/beret/sec_hos
-	display_name = "beret, black (HoS)"
-	path = /obj/item/clothing/head/beret/sec/hos/corp
-	allowed_roles = list("Head of Security")
-
-/datum/gear/head/beret/sec_war
-	display_name = "beret, black (Warden)"
-	path = /obj/item/clothing/head/beret/sec/warden/corp
-	allowed_roles = list("Warden")
+/datum/gear/uniform/job_jeans/spawn_for(var/mob/living/carbon/human/H)
+	var/tmp_path = path
+	switch(H.job)
+		if("Head of Security")
+			tmp_path = /obj/item/clothing/head/beret/sec/hos/corp
+		if("Warden")
+			tmp_path = /obj/item/clothing/head/beret/sec/warden/corp
+		if("Security Officer")
+			tmp_path = /obj/item/clothing/head/beret/sec/alt/corp
+		else
+			H << SPAN_WARN("Your current job does not permit you to spawn with [display_name]!")
+	return new tmp_path(H)
 
 /datum/gear/head/cap/corp
 	display_name = "cap, corporate (Security)"

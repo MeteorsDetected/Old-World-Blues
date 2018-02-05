@@ -359,17 +359,17 @@
 
 /datum/donat_stuff/uniform/tan
 	name = "Tan Suit"
-	path = /obj/item/clothing/under/tan_suit
+	path = /obj/item/clothing/under/with_suit/tan
 	cost = 130
 
 /datum/donat_stuff/uniform/charcoal
 	name = "Charcoal"
-	path = /obj/item/clothing/under/charcoal_suit
+	path = /obj/item/clothing/under/with_suit/charcoal
 	cost = 130
 
 /datum/donat_stuff/uniform/navy
 	name = "Navy Suit"
-	path = /obj/item/clothing/under/navy_suit
+	path = /obj/item/clothing/under/with_suit/navy
 	cost = 120
 
 /datum/donat_stuff/uniform/suit_jacket

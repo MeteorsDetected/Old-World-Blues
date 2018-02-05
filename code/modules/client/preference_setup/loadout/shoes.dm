@@ -16,64 +16,38 @@
 /datum/gear/shoes/sandals
 	display_name = "sandals"
 	path = /obj/item/clothing/shoes/sandal
+	options = list(
+		"common" = /obj/item/clothing/shoes/sandal,
+		"brown"  = /obj/item/clothing/shoes/sandal/brown,
+		"pink"   = /obj/item/clothing/shoes/sandal/pink
+	)
 
 /datum/gear/shoes/black
-	display_name = "shoes, black"
+	display_name = "shoes (color)"
 	path = /obj/item/clothing/shoes/black
-
-/datum/gear/shoes/blue
-	display_name = "shoes, blue"
-	path = /obj/item/clothing/shoes/blue
-
-/datum/gear/shoes/brown
-	display_name = "shoes, brown"
-	path = /obj/item/clothing/shoes/brown
+	options = list(
+		"black"  = /obj/item/clothing/shoes/black,
+		"blue"   = /obj/item/clothing/shoes/blue,
+		"brown"  = /obj/item/clothing/shoes/brown,
+		"green"  = /obj/item/clothing/shoes/green,
+		"orange" = /obj/item/clothing/shoes/orange,
+		"purple" = /obj/item/clothing/shoes/purple,
+		"rainbow"= /obj/item/clothing/shoes/rainbow,
+		"red"    = /obj/item/clothing/shoes/red,
+		"white"  = /obj/item/clothing/shoes/white,
+		"yellow" = /obj/item/clothing/shoes/yellow,
+	)
 
 /datum/gear/shoes/lacey
 	display_name = "shoes, classy"
 	path = /obj/item/clothing/shoes/laceup
 
-/datum/gear/shoes/green
-	display_name = "shoes, green"
-	path = /obj/item/clothing/shoes/green
-
 /datum/gear/shoes/leather
 	display_name = "shoes, leather"
 	path = /obj/item/clothing/shoes/leather
-
-/datum/gear/shoes/orange
-	display_name = "shoes, orange"
-	path = /obj/item/clothing/shoes/orange
-
-/datum/gear/shoes/purple
-	display_name = "shoes, purple"
-	path = /obj/item/clothing/shoes/purple
-
-/datum/gear/shoes/rainbow
-	display_name = "shoes, rainbow"
-	path = /obj/item/clothing/shoes/rainbow
-
-/datum/gear/shoes/red
-	display_name = "shoes, red"
-	path = /obj/item/clothing/shoes/red
-
-/datum/gear/shoes/white
-	display_name = "shoes, white"
-	path = /obj/item/clothing/shoes/white
-
-/datum/gear/shoes/yellow
-	display_name = "shoes, yellow"
-	path = /obj/item/clothing/shoes/yellow
 
 /datum/gear/shoes/footwraps
 	display_name = "footwraps"
 	path = /obj/item/clothing/shoes/footwraps
 
-/datum/gear/shoes/sandals_brown
-	display_name = "sandals, brown"
-	path = /obj/item/clothing/shoes/sandal/brown
-
-/datum/gear/shoes/sandals_pink
-	display_name = "sandals, pink"
-	path = /obj/item/clothing/shoes/sandal/pink
 

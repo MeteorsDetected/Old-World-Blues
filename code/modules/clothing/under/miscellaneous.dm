@@ -119,35 +119,35 @@
 	icon_state = "black_suit_fem"
 	item_state = "lawyer_black"
 
-/obj/item/clothing/under/charcoal_suit
+/obj/item/clothing/under/with_suit/charcoal
 	name = "charcoal suit"
 	desc = "A charcoal suit and red tie. Very professional."
 	icon_state = "charcoal_suit"
 	item_state = "lawyer_black"
 	starting_accessories = list(/obj/item/clothing/accessory/navy, /obj/item/clothing/accessory/charcoal_jacket)
 
-/obj/item/clothing/under/navy_suit
+/obj/item/clothing/under/with_suit/navy
 	name = "navy suit"
 	desc = "A navy suit and red tie, intended for the station's finest."
 	icon_state = "navy_suit"
 	item_state = "lawyer_blue"
 	starting_accessories = list(/obj/item/clothing/accessory/red, /obj/item/clothing/accessory/navy_jacket)
 
-/obj/item/clothing/under/burgundy_suit
+/obj/item/clothing/under/with_suit/burgundy
 	name = "burgundy suit"
 	desc = "A burgundy suit and black tie. Somewhat formal."
 	icon_state = "burgundy_suit"
 	item_state = "lawyer_red"
 	starting_accessories = list(/obj/item/clothing/accessory/black, /obj/item/clothing/accessory/burgundy_jacket)
 
-/obj/item/clothing/under/checkered_suit
+/obj/item/clothing/under/with_suit/checkered
 	name = "checkered suit"
 	desc = "That's a very nice suit you have there. Shame if something were to happen to it, eh?"
 	icon_state = "checkered_suit"
 	item_state = "lawyer_black"
 	starting_accessories = list(/obj/item/clothing/accessory/black, /obj/item/clothing/accessory/checkered_jacket)
 
-/obj/item/clothing/under/tan_suit
+/obj/item/clothing/under/with_suit/tan
 	name = "tan suit"
 	desc = "A tan suit. Smart, but casual."
 	icon_state = "tan_suit"
