@@ -349,3 +349,191 @@
 	else
 		opened = !opened
 	update_icon()
+
+
+/obj/structure/girder/wooden
+	name = "wooden wall girders"
+	desc = "reliable girders for wall."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "wooden_girder"
+
+
+
+/obj/structure/girder/wooden/dismantle()
+	new /obj/item/stack/material/wood(get_turf(src))
+	qdel(src)
+
+
+/obj/structure/girder/wooden/construct_wall(obj/item/stack/material/S, mob/user)
+	if(istype(S, /obj/item/stack/material/wood))
+		if(S.get_amount() < 2)
+			user << SPAN_NOTE("There isn't enough material here to construct a wall.")
+			return 0
+
+		var/material/M = name_to_material[S.default_type]
+		if(!istype(M))
+			return 0
+
+		var/wall_fake
+		add_hiddenprint(usr)
+
+		if(M.integrity < 25)
+			user << SPAN_NOTE("This material is too soft for use in wall construction.")
+			return 0
+
+		user << SPAN_NOTE("You begin adding the plating...")
+
+		if(!do_after(user,40) || !S.use(2))
+			return 1 //once we've gotten this far don't call parent attackby()
+
+		if(anchored)
+			user << SPAN_NOTE("You added the plating!")
+		else
+			user << SPAN_NOTE("You create a false wall! Push on it to open or close the passage.")
+			wall_fake = 1
+
+		var/turf/Tsrc = get_turf(src)
+		Tsrc.ChangeTurf(/turf/simulated/wall/wood)
+		var/turf/simulated/wall/T = get_turf(src)
+		T.set_material(M, reinf_material)
+		if(wall_fake)
+			T.can_open = 1
+		T.add_hiddenprint(usr)
+		qdel(src)
+		return 1
+	else
+		user << SPAN_WARN("This girder is slimpsy for that material.")
+
+
+/obj/structure/girder/wooden/attackby(obj/item/W as obj, mob/user as mob)
+	if((istype(W, /obj/item/weapon/wrench) || istype(W, /obj/item/weapon/crowbar)) && anchored)
+		return
+	else
+		..()
+
+
+/obj/structure/girder/wooden/attack_hand(mob/user as mob)
+	user << SPAN_NOTE("Now disassembling the girder...")
+	if(do_after(user,40))
+		if(!src) return
+		user << SPAN_NOTE("You dissasembled the girder!")
+		dismantle()
+
+
+
+
+
+//////////////SOME KIND OF A CHILL MECHANICS///////////////
+//Bulky and slightly shitty. I rework it asap
+
+//Need to rework it to better version. And faster. But later
+//Well. I maked it simple, without Newton's law of cooling or other formulas
+//if body part not covered -1c per part
+//if body part covered, but clothes is meeeeh and not for winter is -0.5c
+//if body part covered with winter stuff but min temperature of protection is lowes than env, is -0.3c
+//if body part covered well - -0.1c
+//but if you wear spess suit, you got 0
+
+/mob/living/carbon/human/var/last_chill_tick = 0 //Chill updates every 3 ticks. That's slow enough i think
+
+/mob/living/carbon/human/proc/snowyTemperatureHandler(var/env_temp)
+	//All of these bitflags and organs hard to tie. Hm.
+	if(stat == DEAD && in_stasis)
+		return
+	world << "[bodytemperature]  -  [env_temp]"
+	var/list/parts = list()
+	var/list/flags_bp = list(UPPER_TORSO, LOWER_TORSO, HEAD, ARMS, ARMS, HANDS, HANDS, LEGS, LEGS, FEET, FEET)
+	var/i = 0
+	for(var/part in BP_ALL) //At first, we setup our list. Yes, this is slowly...
+		i++
+		var/list/L = list("part" = part, "flag" = flags_bp[i], "temp" = 1)
+		parts.Add(list(L))
+
+	var/list/clothes = list(head, wear_mask, wear_suit, w_uniform, gloves, shoes)
+	for(var/obj/item/clothing/C in clothes)
+		var/t = 1
+		if(istype(C, /obj/item/clothing/suit/space))
+			return 0
+		if(C.cold_protection && C.min_cold_protection_temperature >= env_temp)
+			t = 0.1
+		else if(C.cold_protection && C.min_cold_protection_temperature < env_temp)
+			t = 0.3
+		else
+			t = 0.5
+		for(var/list/p in parts)
+			if(C.body_parts_covered & p["flag"])
+				p["temp"] = t
+
+
+	if(bodytemperature <= T0C-5 && bodytemperature > T0C-10)
+		if(prob(10))
+			src << SPAN_WARN("You feel your limbs badly. Chill bites into the skin.")
+	else if(bodytemperature <= T0C-10 && bodytemperature > T0C-20)
+		if(prob(10))
+			src << SPAN_WARN("You almost not feel your limbs. Your eyelids close...")
+
+	var/G = 0
+	for(var/list/part in parts)
+		if(bodytemperature <= T0C-20)
+			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+				apply_damage(part["temp"],  BURN, part["part"],  0, 0, "Freeze") //Too fast. Need to slow down that process
+		G += part["temp"]
+	last_chill_tick = 0
+	G = G/parts.len
+	return G
+
+
+
+
+////////////////Rails>>>
+
+obj/machinery/lightrail
+	name = "rail with light"
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "rail_light"
+	anchored = 1
+	use_power = 1
+	idle_power_usage = 4
+	var/light_on = 1
+	pass_flags = PASSTABLE
+
+
+obj/machinery/lightrail/update_icon()
+	overlays.Cut()
+	overlays += "light_on"
+
+
+obj/machinery/lightrail/process()
+	..()
+	if(stat & (NOPOWER))
+		update_use_power(0)
+		light_on = 0
+		if(!light_on)
+			update_icon()
+			set_light(2, 0.5, "#ff1a1a")
+		return
+	else
+		light_on = 1
+		if(light_on)
+			update_icon()
+			set_light(6, 1, "#ffff80")
+
+/obj/structure/snowyrail
+	name = "rails"
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "rail"
+	anchored = 1
+
+/obj/structure/snowyrail/tie
+	name = "tie"
+	icon_state = "tie"
+
+/obj/structure/snowyrail/railtie
+	icon_state = "railtie"
+
+/obj/structure/snowyrail/deadend
+	name = "dead end"
+	icon_state = "deadend"
+
+/obj/structure/snowyrail/device
+	icon_state = "device"

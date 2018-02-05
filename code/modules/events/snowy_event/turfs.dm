@@ -3,6 +3,24 @@
 	name = "snow"
 	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	icon_state = "snow_turf"
+	var/default_icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
+	temperature = T0C - 25
+	dynamic_lighting = 0
+	luminosity = 1
+
+	New()
+		..()
+		icon_state = "snow_turf"
+
+
+/turf/simulated/floor/plating/snow/update_icon()
+	if(floor_type)
+		overlays.Cut()
+		icon = 'icons/turf/floors.dmi'
+	else
+		icon = initial(icon)
+		icon_state = "snow_turf"
+
 
 
 /turf/simulated/floor/plating/snow/ex_act(severity)
@@ -10,38 +28,41 @@
 
 
 /turf/simulated/floor/plating/snow/attack_hand(var/mob/user as mob)
-	if(user.a_intent == I_GRAB)
-		var/obj/item/weapon/snow/S = new(src)
-		user.put_in_hands(S)
-		user << SPAN_NOTE("You grab some snow.")
+	if(!floor_type)
+		if(user.a_intent == I_GRAB)
+			var/obj/item/weapon/snow/S = new(src)
+			user.put_in_hands(S)
+			user << SPAN_NOTE("You grab some snow.")
 
 
 /turf/simulated/floor/plating/snow/Entered(mob/living/user as mob)
-	if(istype(user, /mob/living))
-		if(prob(15))
-			var/p = pick('sound/effects/snowy/snow_step1.ogg', 'sound/effects/snowy/snow_step2.ogg', 'sound/effects/snowy/snow_step3.ogg')
-			playsound(src, p, 15, rand(-50, 50))
-		var/image/I = image(icon, "footprint[1]", dir = user.dir)
-		I.pixel_x = rand(-6, 6)
-		I.pixel_y = rand(-6, 6)
-		overlays += I
-		spawn(1200) //Hm. Maybe that's a bad idea. Or not?..
-			overlays -= I
+	if(!floor_type)
+		if(istype(user, /mob/living))
+			if(prob(15))
+				var/p = pick('sound/effects/snowy/snow_step1.ogg', 'sound/effects/snowy/snow_step2.ogg', 'sound/effects/snowy/snow_step3.ogg')
+				playsound(src, p, 15, rand(-50, 50))
+			var/image/I = image(icon, "footprint[1]", dir = user.dir)
+			I.pixel_x = rand(-6, 6)
+			I.pixel_y = rand(-6, 6)
+			overlays += I
+			spawn(1200) //Hm. Maybe that's a bad idea. Or not?..
+				overlays -= I
 
 
 /turf/simulated/floor/plating/snow/Exited(mob/living/user as mob)
-	if(istype(user, /mob/living))
-		var/image/I = image(icon, "footprint[2]", dir = user.dir)
-		I.pixel_x = rand(-6, 6)
-		I.pixel_y = rand(-6, 6)
-		overlays += I
-		spawn(1200)
-			overlays -= I
+	if(!floor_type)
+		if(istype(user, /mob/living))
+			var/image/I = image(icon, "footprint[2]", dir = user.dir)
+			I.pixel_x = rand(-6, 6)
+			I.pixel_y = rand(-6, 6)
+			overlays += I
+			spawn(1200)
+				overlays -= I
 
 
 
 /turf/simulated/floor/plating/snow/light_forest
-	dynamic_lighting = 1
+	icon_state = "snow_forest"
 	var/bush_factor = 1 //helper. Dont change or use it please
 
 	New()
@@ -49,8 +70,8 @@
 		spawn(4)
 			if(src)
 				forest_gen(20, list(/obj/structure/flora/snowytree/big/another, /obj/structure/flora/snowytree/big, /obj/structure/flora/snowytree), 40,
-								list(/obj/structure/flora/snowybush/deadbush, /obj/structure/flora/snowybush, /obj/structure/lootable/mushroom_hideout), 10, 40,
-								list(/obj/structure/flora/stump/fallen, /obj/structure/flora/stump), 20,
+								list(/obj/structure/flora/snowybush/deadbush, /obj/structure/flora/snowybush), 10, 40,
+								list(/obj/structure/flora/stump/fallen, /obj/structure/flora/stump, /obj/structure/lootable/mushroom_hideout), 20,
 								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 3, /obj/structure/lootable = 2, /obj/structure/butcherable = 1))
 
 
@@ -99,8 +120,10 @@
 
 
 /turf/simulated/floor/plating/snow/light_forest/pines
+	icon_state = "snow_pines"
 
 	New()
+		..()
 		spawn(4)
 			if(src)
 				forest_gen(30, list(/obj/structure/flora/snowytree/high), 35,
@@ -110,14 +133,29 @@
 
 
 /turf/simulated/floor/plating/snow/light_forest/mixed
+	icon_state = "snow_mixed"
 
 	New()
+		..()
 		spawn(4)
 			if(src)
 				forest_gen(50, list(/obj/structure/flora/snowytree/high, /obj/structure/flora/snowytree/big/another, /obj/structure/flora/snowytree/big, /obj/structure/flora/snowytree), 35,
 								list(/obj/structure/flora/snowybush/deadbush, /obj/structure/flora/snowybush), 20, 40,
 								list(/obj/structure/flora/stump/fallen, /obj/structure/flora/stump, /obj/structure/lootable/mushroom_hideout), 20,
 								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 3, /obj/structure/lootable = 2, /obj/structure/butcherable = 1))
+
+
+/turf/simulated/floor/plating/snow/light_forest/bushes
+	icon_state = "snow_bushes"
+	New()
+		..()
+		spawn(4)
+			if(src)
+				forest_gen(40, list(/obj/structure/flora/snowytree), 10,
+								list(/obj/structure/flora/snowybush/deadbush, /obj/structure/flora/snowybush), 35, rand(20, 60),
+								list(/obj/structure/lootable/mushroom_hideout), 30,
+								list(/obj/item/weapon/branches = 20, /obj/structure/rock = 3, /obj/structure/lootable = 2, /obj/structure/butcherable = 1))
+
 
 
 
@@ -235,3 +273,56 @@
 			A.Weaken(2)
 			var/direction = pick(alldirs)
 			step(A, direction)
+
+
+/turf/unsimulated/snow
+	name = "snow"
+	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
+	icon_state = "freezer"
+	temperature = T0C - 25
+
+	New()
+		..()
+		icon_state = "snow_turf"
+
+
+
+/turf/simulated/wall/wood
+
+/turf/simulated/wall/wood/New(var/newloc)
+	..(newloc,MATERIAL_WOOD)
+
+
+
+/turf/simulated/wall/wood/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/weapon/weldingtool))
+		return
+	else if(istype(W, /obj/item/weapon/crowbar))
+		user << SPAN_NOTE("You pry wooden panels...")
+		if(do_after(user, 40))
+			if(src)
+				dismantle_wall()
+	else
+		..()
+
+
+
+/turf/simulated/wall/wood/dismantle_wall(var/devastated, var/explode, var/no_product)
+	playsound(src, 'sound/items/Deconstruct.ogg', 100, 1)
+	if(!no_product) //Yeah, another copypast. That inconvenient proc does not allow do otherwise
+		material.place_dismantled_product(src,devastated)
+		new /obj/structure/girder/wooden(src)
+
+	for(var/obj/O in src.contents) //Eject contents!
+		if(istype(O,/obj/item/weapon/contraband/poster))
+			var/obj/item/weapon/contraband/poster/P = O
+			P.roll_and_drop(src)
+		else
+			O.loc = src
+
+	clear_plants()
+	material = get_material_by_name("placeholder")
+	reinf_material = null
+	check_relatives()
+
+	ChangeTurf(/turf/simulated/floor/plating/snow) //Hm. Need to memory last tile...

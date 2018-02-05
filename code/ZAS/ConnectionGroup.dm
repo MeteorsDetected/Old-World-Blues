@@ -230,7 +230,8 @@ Class Procs:
 
 	if(equiv)
 		A.air.copy_from(air)
-		air_master.mark_edge_sleeping(src)
+		//		air_master.mark_edge_sleeping(src) //Yes-yes, i'm shitbrained dickhead, but map is really big and will update regularly. Snowy Event
+//				Maybe i make it later not trough ass. Sorry.
 
 	air_master.mark_zone_update(A)
 

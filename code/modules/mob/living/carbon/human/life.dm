@@ -496,12 +496,15 @@
 	// Hot air hurts :(
 	if(breath.temperature < species.cold_level_1 || breath.temperature > species.heat_level_1)
 
-		if(breath.temperature <= species.cold_level_1)
+/*		if(breath.temperature <= species.cold_level_1)
 			if(prob(20))
 				src << "<span class='danger'>You feel your face freezing and icicles forming in your lungs!</span>"
 		else if(breath.temperature >= species.heat_level_1)
 			if(prob(20))
-				src << "<span class='danger'>You feel your face burning and a searing heat in your lungs!</span>"
+				src << "<span class='danger'>You feel your face burning and a searing heat in your lungs!</span>"*/
+		if(breath.temperature >= species.heat_level_1) //Snowy event. Uncomment this ^ and delete from here
+			if(prob(20))
+				src << "<span class='danger'>You feel your face burning and a searing heat in your lungs!</span>" //to here
 
 		if(breath.temperature >= species.heat_level_1)
 			if(breath.temperature < species.heat_level_2)
@@ -514,7 +517,7 @@
 				apply_damage(HEAT_GAS_DAMAGE_LEVEL_3, BURN, BP_HEAD, used_weapon = "Excessive Heat")
 				fire_alert = max(fire_alert, 2)
 
-		else if(breath.temperature <= species.cold_level_1)
+/*		else if(breath.temperature <= species.cold_level_1) //Snowy event. Uncomment this after it pass
 			if(breath.temperature > species.cold_level_2)
 				apply_damage(COLD_GAS_DAMAGE_LEVEL_1, BURN, BP_HEAD, used_weapon = "Excessive Cold")
 				fire_alert = max(fire_alert, 1)
@@ -523,13 +526,14 @@
 				fire_alert = max(fire_alert, 1)
 			else
 				apply_damage(COLD_GAS_DAMAGE_LEVEL_3, BURN, BP_HEAD, used_weapon = "Excessive Cold")
-				fire_alert = max(fire_alert, 1)
+				fire_alert = max(fire_alert, 1)*/
 
 
 		//breathing in hot/cold air also heats/cools you a bit
 		var/temp_adj = breath.temperature - bodytemperature
 		if (temp_adj < 0)
-			temp_adj /= (BODYTEMP_COLD_DIVISOR * 5)	//don't raise temperature as much as if we were directly exposed
+//			temp_adj /= (BODYTEMP_COLD_DIVISOR * 5)	//don't raise temperature as much as if we were directly exposed
+			temp_adj /= (BODYTEMP_COLD_DIVISOR * 10) //Snowy event. Delete this after it pass and uncomment this ^
 		else
 			temp_adj /= (BODYTEMP_HEAT_DIVISOR * 5)	//don't raise temperature as much as if we were directly exposed
 
@@ -582,6 +586,14 @@
 			loc_temp = loc:air_contents.temperature
 		else
 			loc_temp = environment.temperature
+
+
+		if(loc_temp < T0C+15) //Delete from here
+			if(last_chill_tick >= 3)
+				bodytemperature -= snowyTemperatureHandler(loc_temp) //Needed for snowy event. Proc location in snowy_other.dm at modules/events/snowy
+		else
+			last_chill_tick++ //to here after it pass
+
 
 		if(adjusted_pressure < species.warning_high_pressure && adjusted_pressure > species.warning_low_pressure &&\
 				abs(loc_temp - bodytemperature) < 20 && bodytemperature < species.heat_level_1 && bodytemperature > species.cold_level_1)
@@ -682,6 +694,14 @@
 		bodytemperature += species.passive_temp_gain
 	if (species.body_temperature == null)
 		return //this species doesn't have metabolic thermoregulation
+
+	var/datum/gas_mixture/env = loc.return_air() //Needed for snowy event //Delete from here
+	var/env_temp = env.temperature
+	if(env_temp <= T0C && env_temp >= T0C-90)
+		if(bodytemperature < species.cold_level_1)
+			if(nutrition >= 2)
+				nutrition -= 2
+		return //to here after it pass
 
 
 	var/body_temperature_difference = species.body_temperature - bodytemperature
