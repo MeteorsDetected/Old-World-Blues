@@ -10,8 +10,13 @@
 	path = /obj/item/clothing/glasses/regular
 
 /datum/gear/eyes/glasses/green
-	display_name = "Glasses, green"
+	display_name = "Glasses (color)"
 	path = /obj/item/clothing/glasses/gglasses
+	options = list(
+		"green" = /obj/item/clothing/glasses/gglasses,
+		"orange"= /obj/item/clothing/glasses/orange,
+		"red"   = /obj/item/clothing/glasses/red
+	)
 
 /datum/gear/eyes/glasses/aviator
 	display_name = "Glasses, aviator"
@@ -26,7 +31,7 @@
 	path = /obj/item/clothing/glasses/monocle
 
 /datum/gear/eyes/scanning_goggles
-	display_name = "scanning goggles"
+	display_name = "Scanning goggles"
 	path = /obj/item/clothing/glasses/regular/scanners
 
 /datum/gear/eyes/sciencegoggles
@@ -49,25 +54,20 @@
 	path = /obj/item/clothing/glasses/hud/health/prescription
 
 /datum/gear/eyes/crimson
-	display_name = "sunglasses, crimson"
+	display_name = "Sunglasses, crimson"
 	path = /obj/item/clothing/glasses/sunglasses/red
 	cost = 2
 
 /datum/gear/eyes/shades
 	display_name = "Sunglasses, fat (Security/Command)"
 	path = /obj/item/clothing/glasses/sunglasses/big
-	allowed_roles = list("Security Officer","Head of Security","Warden","Captain","Head of Personnel","Quartermaster","Internal Affairs Agent","Detective")
+	allowed_roles = list(
+		"Security Officer","Head of Security","Warden","Captain","Head of Personnel",
+		"Quartermaster","Internal Affairs Agent","Detective"
+	)
 
 /datum/gear/eyes/shades/prescriptionsun
-	display_name = "sunglasses, presciption (Security/Command)"
+	display_name = "Sunglasses, presciption (Security/Command)"
 	path = /obj/item/clothing/glasses/sunglasses/prescription
 	cost = 2
-
-/datum/gear/eyes/orange
-	path = /obj/item/clothing/glasses/orange
-	display_name = "Glasses, orange"
-
-/datum/gear/eyes/red
-	path = /obj/item/clothing/glasses/red
-	display_name = "Glasses, red"
 

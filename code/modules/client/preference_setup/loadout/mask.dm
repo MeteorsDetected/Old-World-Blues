@@ -1,21 +1,17 @@
 // Mask
 /datum/gear/mask
-	display_name = "bandana, blue"
-	path = /obj/item/clothing/mask/bandana/blue
 	slot = slot_wear_mask
 	sort_category = "Masks and Facewear"
 
-/datum/gear/mask/gold
-	display_name = "bandana, gold"
-	path = /obj/item/clothing/mask/bandana/gold
-
-/datum/gear/mask/green
-	display_name = "bandana, green 2"
-	path = /obj/item/clothing/mask/bandana/green
-
-/datum/gear/mask/red
-	display_name = "bandana, red"
-	path = /obj/item/clothing/mask/bandana/red
+/datum/gear/mask/bandana
+	display_name = "bandana"
+	path = /obj/item/clothing/mask/bandana/blue
+	options = list(
+		"blue" = /obj/item/clothing/mask/bandana/blue,
+		"gold" = /obj/item/clothing/mask/bandana/gold,
+		"green"= /obj/item/clothing/mask/bandana/green,
+		"red"  = /obj/item/clothing/mask/bandana/red
+	)
 
 /datum/gear/mask/sterile
 	display_name = "sterile mask"
@@ -24,33 +20,24 @@
 
 /datum/gear/mask/scarf
 	cost = 2
-	display_name = "scarf, blue"
+	display_name = "scarf"
 	path = /obj/item/clothing/mask/scarf/blue
-
-/datum/gear/mask/scarf/red_white
-	display_name = "scarf, red and white"
-	path = /obj/item/clothing/mask/scarf/redwhite
-
-/datum/gear/mask/scarf/red
-	display_name = "scarf, red"
-	path = /obj/item/clothing/mask/scarf/red
-
-/datum/gear/mask/scarf/green
-	display_name = "scarf, green"
-	path = /obj/item/clothing/mask/scarf/green
+	options = list(
+		"blue" = /obj/item/clothing/mask/scarf/blue,
+		"red" = /obj/item/clothing/mask/scarf/red,
+		"red and white" = /obj/item/clothing/mask/scarf/redwhite,
+		"green" = /obj/item/clothing/mask/scarf/green
+	)
 
 /datum/gear/mask/scarf/stripedred
-	display_name = "scarf, striped red"
+	display_name = "striped scarf"
 	path = /obj/item/clothing/mask/scarf/long_red
+	options = list(
+		"red"   = /obj/item/clothing/mask/scarf/long_red,
+		"green" = /obj/item/clothing/mask/scarf/long_green,
+		"blue"  = /obj/item/clothing/mask/scarf/long_blue
+	)
 
-/datum/gear/mask/scarf/stripedgreen
-	display_name = "scarf, striped green"
-	path = /obj/item/clothing/mask/scarf/long_green
-
-/datum/gear/mask/scarf/stripedblue
-	display_name = "scarf, striped blue"
-	path = /obj/item/clothing/mask/scarf/long_blue
-
-/datum/gear/scarf/arafatka
+/datum/gear/mask/scarf/arafatka
 	display_name = "scarf, shemagh"
 	path = /obj/item/clothing/mask/scarf/arafatka

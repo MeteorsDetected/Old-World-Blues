@@ -51,12 +51,12 @@
 	path = /obj/item/clothing/suit/storage/hazardvest
 
 /datum/gear/suit/hoodie
-	display_name = "hoodie, grey"
+	display_name = "hoodie"
 	path = /obj/item/clothing/suit/storage/toggle/hoodie
-
-/datum/gear/suit/hoodie/black
-	display_name = "hoodie, black"
-	path = /obj/item/clothing/suit/storage/toggle/hoodie/black
+	options = list(
+		"grey"  = /obj/item/clothing/suit/storage/toggle/hoodie,
+		"black" = /obj/item/clothing/suit/storage/toggle/hoodie/black
+	)
 
 /datum/gear/suit/unathi_mantle
 	display_name = "hide mantle (Unathi)"

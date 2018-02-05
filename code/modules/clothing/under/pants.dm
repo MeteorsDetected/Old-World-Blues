@@ -2,6 +2,12 @@
 	gender = PLURAL
 	body_parts_covered = LOWER_TORSO|LEGS
 
+/obj/item/clothing/under/pants/jeans
+	name = "jeans"
+	desc = "A nondescript pair of tough blue jeans."
+	icon_state = "jeans"
+	item_state = "jeansc"
+
 /obj/item/clothing/under/pants/classicjeans
 	name = "classic jeans"
 	desc = "You feel cooler already."
@@ -13,15 +19,15 @@
 	desc = "Made in the finest space jeans factory this side of Alpha Centauri."
 	icon_state = "jeansmustang"
 
-/obj/item/clothing/under/pants/blackjeans
-	name = "black jeans"
-	desc = "Only for those who can pull it off."
-	icon_state = "jeansblack"
-
 /obj/item/clothing/under/pants/youngfolksjeans
 	name = "young folks jeans"
 	desc = "For those tired of boring old jeans. Relive the passion of your youth!"
 	icon_state = "jeansyoungfolks"
+
+/obj/item/clothing/under/pants/blackjeans
+	name = "black jeans"
+	desc = "Only for those who can pull it off."
+	icon_state = "jeansblack"
 
 /obj/item/clothing/under/pants/white
 	name = "white pants"
@@ -47,12 +53,6 @@
 	name = "track pants"
 	desc = "A pair of track pants, for the athletic."
 	icon_state = "trackpants"
-
-/obj/item/clothing/under/pants/jeans
-	name = "jeans"
-	desc = "A nondescript pair of tough blue jeans."
-	icon_state = "jeans"
-	item_state = "jeansc"
 
 /obj/item/clothing/under/pants/sweaterj
 	name = "sweaterj"

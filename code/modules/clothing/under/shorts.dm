@@ -30,27 +30,28 @@
  * Skrits
  */
 
-/obj/item/clothing/miniskirt
+/obj/item/clothing/under/miniskirt
 	name = "swept skirt"
 	desc = "A skirt that is swept to one side."
 	icon_state = "skirt_swept"
+	body_parts_covered = LOWER_TORSO
 
-/obj/item/clothing/miniskirt/black
+/obj/item/clothing/under/miniskirt/black
 	name = "short black skirt"
 	desc = "A skirt that is a shiny black."
 	icon_state = "skirt_short_black"
 
-/obj/item/clothing/miniskirt/blue
+/obj/item/clothing/under/miniskirt/blue
 	name = "short blue skirt"
 	desc = "A skirt that is a shiny blue."
 	icon_state = "skirt_short_blue"
 
-/obj/item/clothing/miniskirt/red
+/obj/item/clothing/under/miniskirt/red
 	name = "short red skirt"
 	desc = "A skirt that is a shiny red."
 	icon_state = "skirt_short_red"
 
-/obj/item/clothing/miniskirt/khaki
+/obj/item/clothing/under/miniskirt/khaki
 	name = "khaki skirt"
 	desc = "A skirt that is a khaki color."
 	icon_state = "skirt_khaki"
