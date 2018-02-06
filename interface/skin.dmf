@@ -1032,6 +1032,31 @@ menu "menu"
 		is-disabled = false
 		saved-params = "is-checked"
 	elem 
+		name = "&Zoom mode"
+		command = ""
+		command = ""
+		category = ""
+		is-checked = false
+		can-check = false
+		group = ""
+		is-disabled = false
+		saved-params = "is-checked"
+	elem 
+		name = "&Nearest Neighbor"
+		command = ".winset \"mapwindow.map.zoom-mode=distort\""
+		category = "&Zoom mode"
+		saved-params = "is-checked"
+	elem 
+		name = "&Point Sampling"
+		command = ".winset \"mapwindow.map.zoom-mode=normal\""
+		category = "&Zoom mode"
+		saved-params = "is-checked"
+	elem 
+		name = "&Bilinear"
+		command = ".winset \"mapwindow.map.zoom-mode=blur\""
+		category = "&Zoom mode"
+		saved-params = "is-checked"
+	elem 
 		name = "&Help"
 		command = ""
 		category = ""
