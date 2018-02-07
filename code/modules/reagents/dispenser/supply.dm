@@ -1,7 +1,7 @@
 /datum/supply_packs/chemistry_dispenser
 	name = "Reagent dispenser"
 	contains = list(
-			/obj/machinery/chemical_dispenser{anchored = 0}
+			/obj/machinery/chemical_dispenser
 		)
 	cost = 25
 	containertype = /obj/structure/largecrate
@@ -11,7 +11,7 @@
 /datum/supply_packs/beer_dispenser
 	name = "Booze dispenser"
 	contains = list(
-			/obj/machinery/chemical_dispenser/bar_alc{anchored = 0}
+			/obj/machinery/chemical_dispenser/bar_alc
 		)
 	cost = 25
 	containertype = /obj/structure/largecrate
@@ -21,7 +21,7 @@
 /datum/supply_packs/soda_dispenser
 	name = "Soda dispenser"
 	contains = list(
-			/obj/machinery/chemical_dispenser/bar_soft{anchored = 0}
+			/obj/machinery/chemical_dispenser/bar_soft
 		)
 	cost = 25
 	containertype = /obj/structure/largecrate
