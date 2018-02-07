@@ -14,6 +14,10 @@
 	name = "mime shoes"
 	icon_state = "mime"
 
+obj/item/clothing/shoes/witchshoes
+	name = "Witch shoes"
+	icon_state = "witch_shoes"
+
 /obj/item/clothing/shoes/jackboots/swat
 	name = "\improper SWAT shoes"
 	desc = "When you want to turn up the heat."

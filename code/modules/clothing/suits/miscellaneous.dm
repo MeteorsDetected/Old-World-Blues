@@ -28,6 +28,12 @@
 	allowed = list (/obj/item/weapon/gun/energy/lasertag/red)
 	siemens_coefficient = 3.0
 
+
+obj/item/clothing/suit/witchrobe
+	name = "Witch robe"
+	desc = "Im a 14 years old witch!"
+	icon_state = "witch_robe"
+
 /*
  * Costume
  */

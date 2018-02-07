@@ -1157,6 +1157,47 @@
 		/obj/item/weapon/staff = 2,
 	)
 
+obj/machinery/vending/clothesvend
+	name = "Clothing vendomat"
+	desc = "Dress up!"
+	ads_list = list(
+		"Clother for all of your needs!",
+		"90% discount! Only today!",
+		"BuyALot!"
+	)
+	icon_state = "clothesvend"
+	products = list(
+		/obj/item/clothing/head/greenbandana = 2,
+		/obj/item/clothing/head/orangebandana = 2,
+		/obj/item/clothing/head/bandana = 2,
+		/obj/item/clothing/head/cowboy_hat = 2,
+		/obj/item/clothing/head/tajaran/scarf = 2,
+		/obj/item/clothing/head/hairflower = 2,
+		/obj/item/clothing/head/whiteribbon = 2,
+		/obj/item/clothing/head/sombrero = 2,
+		/obj/item/clothing/head/ushanka = 2,
+		/obj/item/clothing/shoes/sandal = 2,
+		/obj/item/clothing/shoes/sandal/brown = 2,
+		/obj/item/clothing/shoes/sandal/pink = 2,
+		/obj/item/clothing/under/pants/blackjeans = 2,
+		/obj/item/clothing/under/pants/classicjeans = 2,
+		/obj/item/clothing/under/pants/white = 2,
+		/obj/item/clothing/under/pants/red = 2,
+		/obj/item/clothing/under/pants/black = 2,
+		/obj/item/clothing/under/pants/track = 2,
+		/obj/item/clothing/under/pants/tan = 2,
+		/obj/item/clothing/under/pants/jeans = 2,
+		/obj/item/clothing/under/pants/camo = 2,
+		/obj/item/clothing/under/pants/khaki = 2,
+		/obj/item/clothing/under/blackskirt = 2,
+		/obj/item/clothing/under/dress/plaid_blue = 2,
+	)
+	contraband = list(
+		/obj/item/clothing/suit/witchrobe = 2,
+		/obj/item/clothing/head/witchhat = 2,
+		/obj/item/clothing/shoes/witchshoes = 2,
+	)
+
 /obj/machinery/vending/dinnerware
 	name = "Dinnerware"
 	desc = "A kitchen and restaurant equipment vendor."
