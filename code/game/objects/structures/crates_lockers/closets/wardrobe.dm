@@ -36,12 +36,7 @@
 		/obj/item/clothing/accessory/holster/gun/hip
 	)
 	for(var/i in 1 to 3)
-		. += pick(\
-			/obj/item/storage/backpack/security,
-			/obj/item/storage/backpack/satchel/sec,
-			/obj/item/storage/backpack/dufflebag/sec,
-			/obj/item/storage/backpack/messenger/sec,
-		)
+		. += pick(getBackpackTypes(BACKPACK_SECURITY))
 
 /obj/structure/closet/wardrobe/redalt
 	name = "alternative security wardrobe"
@@ -220,11 +215,7 @@
 		/obj/item/clothing/shoes/white = 3,
 	)
 	for(var/i in 1 to 2)
-		. += pick(\
-			/obj/item/storage/backpack/toxins,
-			/obj/item/storage/backpack/satchel/tox,
-			/obj/item/storage/backpack/messenger/tox,
-		)
+		. += pick(getBackpackTypes(BACKPACK_SCIENCE))
 
 /obj/structure/closet/wardrobe/robotics_black
 	name = "robotics wardrobe"
@@ -246,11 +237,7 @@
 		/obj/item/device/radio/headset/rob,
 	)
 	for(var/i in 1 to 2)
-		. += pick(\
-			/obj/item/storage/backpack/toxins,
-			/obj/item/storage/backpack/satchel/tox,
-			/obj/item/storage/backpack/messenger/tox,
-		)
+		. += pick(getBackpackTypes(BACKPACK_SCIENCE))
 
 
 /obj/structure/closet/wardrobe/chemistry_white
@@ -446,12 +433,7 @@
 		/obj/item/clothing/glasses/sunglasses
 	)
 	for(var/i in 1 to 2)
-		. += pick(
-			/obj/item/storage/backpack/captain,
-			/obj/item/storage/backpack/satchel/cap,
-			/obj/item/storage/backpack/dufflebag/cap,
-		)
-
+		. += pick(getBackpackTypes(BACKPACK_CAPTAIN))
 
 /obj/structure/closet/wardrobe/ems
 	name = "EMS wardrobe"
