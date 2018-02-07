@@ -4,43 +4,29 @@
 	req_access = list(access_all_personal_lockers)
 	var/registered_name = null
 
-/obj/structure/closet/secure_closet/personal/New()
-	..()
-	switch(rand(4))
-		if(1) new /obj/item/storage/backpack(src)
-		if(2) new /obj/item/storage/backpack/satchel/norm(src)
-		if(3) new /obj/item/storage/backpack/dufflebag(src)
-		if(4) new /obj/item/storage/backpack/messenger(src)
-	new /obj/item/device/radio/headset( src )
-	return
+/obj/structure/closet/secure_closet/personal/willContatin()
+	. = list(/obj/item/device/radio/headset)
+	. += pick(getBackpackTypes(BACKPACK_COMMON))
 
 
 /obj/structure/closet/secure_closet/personal/patient
 	name = "patient's closet"
 
-/obj/structure/closet/secure_closet/personal/patient/New()
-	..()
-	spawn(4)
-		// Not really the best way to do this, but it's better than "contents = list()"!
-		for(var/atom/movable/AM in contents)
-			qdel(AM)
-		new /obj/item/clothing/under/color/white( src )
-		new /obj/item/clothing/shoes/white( src )
-	return
+/obj/structure/closet/secure_closet/personal/patient/willContatin()
+	return list(
+		/obj/item/clothing/under/color/white,
+		/obj/item/clothing/shoes/white,
+	)
 
 /obj/structure/closet/secure_closet/personal/cabinet
 	icon_state = "cabinetdetective"
 	icon_opened = "cabinetdetective_open"
 
-/obj/structure/closet/secure_closet/personal/cabinet/New()
-	..()
-	spawn(4)
-		// Not really the best way to do this, but it's better than "contents = list()"!
-		for(var/atom/movable/AM in contents)
-			qdel(AM)
-		new /obj/item/storage/backpack/satchel/withwallet( src )
-		new /obj/item/device/radio/headset( src )
-	return
+/obj/structure/closet/secure_closet/personal/cabinet/willContatin()
+	return list(
+		/obj/item/storage/backpack/satchel/withwallet,
+		/obj/item/device/radio/headset,
+	)
 
 /obj/structure/closet/secure_closet/personal/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (src.opened)

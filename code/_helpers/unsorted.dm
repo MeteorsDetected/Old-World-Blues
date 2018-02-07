@@ -1853,6 +1853,57 @@ var/list/WALLITEMS = list(
 					return 1
 	return 0
 
+/proc/getBackpackTypes(var/department = BACKPACK_COMMON)
+	switch(department)
+		if(BACKPACK_COMMON)
+			return list(
+				/obj/item/storage/backpack,
+				/obj/item/storage/backpack/satchel/norm,
+				/obj/item/storage/backpack/dufflebag,
+				/obj/item/storage/backpack/messenger,
+			)
+		if(BACKPACK_MEDICAL)
+			return list(
+				/obj/item/storage/backpack/medic,
+				/obj/item/storage/backpack/satchel/med,
+				/obj/item/storage/backpack/dufflebag/med,
+				/obj/item/storage/backpack/messenger/med,
+			)
+		if(BACKPACK_PARAMEDIC)
+			return list(
+				/obj/item/storage/backpack/emt,
+				/obj/item/storage/backpack/satchel/emt,
+				/obj/item/storage/backpack/dufflebag/emt,
+				/obj/item/storage/backpack/messenger/emt,
+			)
+		if(BACKPACK_SECURITY)
+			return list(
+				/obj/item/storage/backpack/security,
+				/obj/item/storage/backpack/satchel/sec,
+				/obj/item/storage/backpack/dufflebag/sec,
+				/obj/item/storage/backpack/messenger/sec
+			)
+		if(BACKPACK_ENGINEERING)
+			return list(
+				/obj/item/storage/backpack/industrial,
+				/obj/item/storage/backpack/satchel/eng,
+				/obj/item/storage/backpack/dufflebag/eng,
+				/obj/item/storage/backpack/messenger/eng
+			)
+		if(BACKPACK_SCIENCE)
+			return list(
+				/obj/item/storage/backpack/toxins,
+				/obj/item/storage/backpack/satchel/tox,
+				/obj/item/storage/backpack/messenger/tox
+			)
+		if(BACKPACK_CAPTAIN)
+			return list(
+				/obj/item/storage/backpack/captain,
+				/obj/item/storage/backpack/satchel/cap,
+				/obj/item/storage/backpack/dufflebag/cap,
+				/obj/item/storage/backpack/messenger/com
+			)
+
 /proc/format_text(text)
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
 

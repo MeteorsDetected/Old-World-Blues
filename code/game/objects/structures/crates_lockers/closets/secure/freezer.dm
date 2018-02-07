@@ -6,16 +6,12 @@
 	name = "kitchen cabinet"
 	req_access = list(access_kitchen)
 
-	New()
-		..()
-		for(var/i = 1 to 7)
-			new /obj/item/weapon/reagent_containers/condiment/flour(src)
-		for(var/i = 1 to 2)
-			new /obj/item/weapon/reagent_containers/condiment/sugar(src)
-		for(var/i = 1 to 3)
-			new /obj/item/weapon/reagent_containers/food/snacks/meat/monkey(src)
-		return
-
+/obj/structure/closet/secure_closet/freezer/kitchen/willContatin()
+	return list(
+		/obj/item/weapon/reagent_containers/condiment/flour = 7,
+		/obj/item/weapon/reagent_containers/condiment/sugar = 2,
+		/obj/item/weapon/reagent_containers/food/snacks/meat/monkey = 3
+	)
 
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
 	req_access = list()
@@ -24,40 +20,30 @@
 /obj/structure/closet/secure_closet/freezer/meat
 	name = "meat fridge"
 
-	New()
-		..()
-		for(var/i = 0, i < 4, i++)
-			new /obj/item/weapon/reagent_containers/food/snacks/meat/monkey(src)
-		return
-
+/obj/structure/closet/secure_closet/freezer/meat/willContatin()
+	return list(
+		/obj/item/weapon/reagent_containers/food/snacks/meat/monkey = 4
+	)
 
 
 /obj/structure/closet/secure_closet/freezer/fridge
 	name = "refrigerator"
 
-	New()
-		..()
-		for(var/i = 1 to 6)
-			new /obj/item/weapon/reagent_containers/glass/drinks/milk(src)
-		for(var/i = 1 to 4)
-			new /obj/item/weapon/reagent_containers/glass/drinks/soymilk(src)
-		for(var/i = 1 to 2)
-			new /obj/item/storage/fancy/egg_box(src)
-		return
-
+/obj/structure/closet/secure_closet/freezer/fridge/willContatin()
+	return list(
+		new /obj/item/weapon/reagent_containers/glass/drinks/milk = 6,
+		new /obj/item/weapon/reagent_containers/glass/drinks/soymilk = 4,
+		new /obj/item/storage/fancy/egg_box = 2
+	)
 
 
 /obj/structure/closet/secure_closet/freezer/money
 	name = "freezer"
 	req_access = list(access_heads_vault)
 
-
-	New()
-		..()
-		for(var/i = 1 to 3)
-			new /obj/item/weapon/spacecash/c1000(src)
-		for(var/i = 1 to 4)
-			new /obj/item/weapon/spacecash/c500(src)
-		for(var/i = 1 to 5)
-			new /obj/item/weapon/spacecash/c200(src)
-		return
+/obj/structure/closet/secure_closet/freezer/money/willContatin()
+	return list(
+		/obj/item/weapon/spacecash/c1000 = 3,
+		/obj/item/weapon/spacecash/c500 = 4,
+		/obj/item/weapon/spacecash/c200 = 5
+	)
