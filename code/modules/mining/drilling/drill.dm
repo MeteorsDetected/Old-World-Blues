@@ -281,6 +281,7 @@
 	desc = "A machinery brace for an industrial drill. It looks easily two feet thick."
 	icon_state = "mining_brace"
 	var/obj/machinery/mining/drill/connected
+	circuit = /obj/item/weapon/circuitboard/miningdrillbrace
 
 /obj/machinery/mining/brace/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/wrench))

@@ -45,17 +45,30 @@
 
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "lightreplacer0"
-	item_state = "electronic"
+	item_state = "lightreplacer"
 
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	origin_tech = list(TECH_MAGNET = 3, TECH_MATERIAL = 2)
 
-	var/max_uses = 32
-	var/uses = 16
+	var/max_uses = 20
+	var/uses = 10
 	var/emagged = 0
 	var/failmsg = ""
 	var/charge = 0
+	var/load_interval = 60
+	var/store_broken = 0//If set, this lightreplacer will suck up and store broken bulbs
+	var/max_stored = 10
+
+/obj/item/device/lightreplacer/advanced
+	store_broken = 1
+	load_interval = 10
+	max_uses = 30
+	uses = 0 //Starts empty
+	name = "advanced light replacer"
+	desc = "A specialised light replacer which stores more lights, refills faster from boxes, and sucks up broken bulbs. Empty into a disposal or trashbag when full!"
+	icon_state = "adv_lightreplacer"
+	item_state = "adv_lightreplacer"
 
 /obj/item/device/lightreplacer/New()
 	failmsg = "The [name]'s refill light blinks red."
@@ -65,6 +78,8 @@
 	. = ..()
 	if(. <= 2)
 		user << "It has [uses] lights remaining."
+		if (store_broken)
+			user << "It is storing [stored()]/[max_stored] broken lights."
 
 /obj/item/device/lightreplacer/attackby(obj/item/W, mob/user)
 	if(ismaterial(W) && W.get_material_name() == MATERIAL_GLASS)
@@ -91,6 +106,19 @@
 		else
 			user << "You need a working light."
 			return
+
+/obj/item/device/lightreplacer/proc/box_contains_lights(var/obj/item/weapon/storage/box/box)
+	for (var/obj/item/weapon/light/L in box.contents)
+		if (L.status == 0)
+			return 1
+	return 0
+
+/obj/item/device/lightreplacer/proc/stored()
+	var/count = 0
+	for (var/obj/item/weapon/light/L in src)
+		count++
+
+	return count
 
 /obj/item/device/lightreplacer/attack_self(mob/user)
 	/* // This would probably be a bit OP. If you want it though, uncomment the code.
@@ -144,6 +172,13 @@
 
 				target.status = LIGHT_EMPTY
 				target.update()
+
+				if (store_broken)
+					if (stored() < max_stored)
+						L1.forceMove(src)
+						U << "<span class='notice'>\The [src] neatly sucks the broken [target.fitting] into its internal storage. Now storing [stored()]/[max_stored] broken bulbs</span>"
+					else
+						U << "<span class='danger'>\The [src] tries to suck up the broken [target.fitting] but it has no more space. Empty it into the trash!</span>"
 
 			var/obj/item/weapon/light/L2 = new target.light_type()
 
