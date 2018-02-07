@@ -305,6 +305,14 @@ other types of metals and chemistry for reagents).
 	materials = list(MATERIAL_STEEL = 1500, MATERIAL_SILVER = 150, MATERIAL_GLASS = 3000)
 	build_path = /obj/item/device/lightreplacer
 
+/datum/design/item/advanced_light_replacer
+	name = "Advanced Light Replacer"
+	desc = "A specialised light replacer which stores more lights, refills faster from boxes, and sucks up broken bulbs."
+	id = "advanced_light_replacer"
+	req_tech = list(TECH_MAGNET = 4, TECH_MATERIAL = 6)
+	materials = list(MATERIAL_STEEL = 1500, MATERIAL_SILVER = 300, MATERIAL_GLASS = 3000, MATERIAL_URANIUM = 50)
+	build_path =/obj/item/device/lightreplacer/advanced
+
 // *** Power cells
 /datum/design/item/powercell
 	build_type = PROTOLATHE | MECHFAB
@@ -569,6 +577,13 @@ other types of metals and chemistry for reagents).
 	materials = list(MATERIAL_STEEL = 10000, MATERIAL_GLASS = 5000, MATERIAL_SILVER = 1000, MATERIAL_GOLD = 1000, MATERIAL_DIAMOND = 2000)
 	build_path = /obj/item/weapon/vortex_manipulator
 
+
+/datum/design/item/weapon/shield_diffuser
+	id = "p_shield_diffuser"
+	name = "Portable shield diffuser"
+	desc = "A small handheld device designed to disrupt energy barriers"
+	req_tech = list(TECH_POWER = 5, TECH_MATERIAL = 4)
+	build_path = /obj/item/weapon/shield_diffuser
 
 /datum/design/item/weapon/nuclear_gun
 	id = "nuclear_gun"

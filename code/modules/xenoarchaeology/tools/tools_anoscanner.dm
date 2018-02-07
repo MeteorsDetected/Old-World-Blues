@@ -29,6 +29,9 @@
 				user << "Exotic energy detected on wavelength '[nearest_artifact_id]' in a radius of [nearest_artifact_distance]m"
 			else
 				user << "Background radiation levels detected."
+			icon_state = "ano_scanner"
+			spawn(25)
+				icon_state = "ano_scanner2"
 	else
 		user << "Scanning array is recharging."
 

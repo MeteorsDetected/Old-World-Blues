@@ -207,6 +207,9 @@ var/list/spells = typesof(/spell) //needed for the badmin verb for now
 	if(silenced > 0)
 		return
 
+	if(user.health - user.halloss <= config.health_threshold_softcrit)
+		return FALSE
+
 	var/turf/user_turf = get_turf(user)
 	if(!user_turf)
 		user << SPAN_WARN("You cannot cast spells in null space!")
