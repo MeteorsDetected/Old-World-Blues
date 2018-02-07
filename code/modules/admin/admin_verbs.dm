@@ -18,9 +18,6 @@
 	world.registrate_verbs()
 	return TRUE
 
-/world/proc/registrate_verbs()
-
-
 var/list/admin_verbs = list("default" = list(), "hideable" = list())
 
 /client/proc/add_admin_verbs()
