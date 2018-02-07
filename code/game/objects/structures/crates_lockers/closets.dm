@@ -23,12 +23,18 @@
 
 	var/const/default_mob_size = 15
 
-/obj/structure/closet/New()
-	if(!icon_closed) icon_closed = icon_state
-	..()
+	var/autoload = TRUE
 
 /obj/structure/closet/initialize()
+	. = ..()
+	if(!icon_closed)
+		icon_closed = icon_state
+
 	if(!opened)		// if closed, any item at the crate's loc is put in the contents
+
+		if(autoload)
+			PopulateContents()
+
 		var/obj/item/I
 		for(I in src.loc)
 			if(I.density || I.anchored || I == src) continue
@@ -40,6 +46,16 @@
 		if(content_size > storage_capacity-5)
 			storage_capacity = content_size + 5
 
+/obj/structure/closet/proc/willContatin()
+
+/obj/structure/closet/proc/PopulateContents()
+	var/list/preloaded = willContatin()
+	for(var/path in preloaded)
+		var/amount = preloaded[path]
+		if(!amount)
+			amount = 1
+		for(var/i in 1 to amount)
+			new path (src)
 
 /obj/structure/closet/examine(mob/user, return_dist=1)
 	.=..()

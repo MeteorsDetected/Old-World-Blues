@@ -4,21 +4,21 @@
 	icon_state = "hydrosecure"
 	icon_opened = "hydrosecureopen"
 
-	New()
-		..()
-		switch(rand(1,2))
-			if(1)
-				new /obj/item/clothing/suit/apron(src)
-			if(2)
-				new /obj/item/clothing/suit/apron/overalls(src)
-		new /obj/item/storage/bag/plants(src)
-		new /obj/item/clothing/under/rank/hydroponics(src)
-		new /obj/item/device/analyzer/plant_analyzer(src)
-		new /obj/item/device/radio/headset/service(src)
-		new /obj/item/clothing/head/greenbandana(src)
-		new /obj/item/weapon/material/minihoe(src)
-		new /obj/item/weapon/material/hatchet(src)
-		new /obj/item/weapon/wirecutters/clippers(src)
-		new /obj/item/weapon/reagent_containers/spray/plantbgone(src)
-//		new /obj/item/weapon/bee_net(src) //No more bees, March 2014
-		return
+/obj/structure/closet/secure_closet/hydroponics/willContatin()
+	. = list(
+		/obj/item/storage/bag/plants,
+		/obj/item/clothing/under/rank/hydroponics,
+		/obj/item/device/analyzer/plant_analyzer,
+		/obj/item/device/radio/headset/service,
+		/obj/item/clothing/head/greenbandana,
+		/obj/item/weapon/material/minihoe,
+		/obj/item/weapon/material/hatchet,
+		/obj/item/weapon/wirecutters/clippers,
+		/obj/item/weapon/reagent_containers/spray/plantbgone,
+//		/obj/item/weapon/bee_net, //No more bees, March 2014
+	)
+	. += pick(\
+		/obj/item/clothing/suit/apron,
+		/obj/item/clothing/suit/apron/overalls,
+	)
+

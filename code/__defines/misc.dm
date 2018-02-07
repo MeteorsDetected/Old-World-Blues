@@ -71,6 +71,15 @@
 #define COLOR_PALE_PURPLE_GRAY	"#BDA2BA"
 #define COLOR_PURPLE_GRAY		"#A2819E"
 
+//	Backpacks
+#define BACKPACK_COMMON      1
+#define BACKPACK_MEDICAL     2
+#define BACKPACK_PARAMEDIC   3
+#define BACKPACK_SECURITY    4
+#define BACKPACK_ENGINEERING 5
+#define BACKPACK_SCIENCE     6
+#define BACKPACK_CAPTAIN     7
+
 //	Shuttles.
 
 // These define the time taken for the shuttle to get to the space station, and the time before it leaves again.

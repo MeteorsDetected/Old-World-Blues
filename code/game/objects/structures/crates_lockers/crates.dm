@@ -297,23 +297,22 @@
 	icon_state = "crate"
 	icon_opened = "crateopen"
 
-/obj/structure/closet/crate/rcd/New()
-	..()
-	new /obj/item/weapon/rcd_ammo(src)
-	new /obj/item/weapon/rcd_ammo(src)
-	new /obj/item/weapon/rcd_ammo(src)
-	new /obj/item/weapon/rcd(src)
+/obj/structure/closet/crate/rcd/willContatin()
+	return list(
+		/obj/item/weapon/rcd_ammo = 3,
+		/obj/item/weapon/rcd
+	)
 
 /obj/structure/closet/crate/solar
 	name = "solar pack crate"
 
-/obj/structure/closet/crate/solar/New()
-	..()
-	for(var/i = 1 to 21)
-		new /obj/item/solar_assembly(src)
-	new /obj/item/weapon/circuitboard/solar_control(src)
-	new /obj/item/weapon/tracker_electronics(src)
-	new /obj/item/weapon/paper/solar(src)
+/obj/structure/closet/crate/solar/willContatin()
+	return list(
+		/obj/item/solar_assembly = 21,
+		/obj/item/weapon/circuitboard/solar_control,
+		/obj/item/weapon/tracker_electronics,
+		/obj/item/weapon/paper/solar
+	)
 
 /obj/structure/closet/crate/freezer
 	name = "freezer"
@@ -357,12 +356,10 @@
 	desc = "A crate of emergency rations."
 
 
-/obj/structure/closet/crate/freezer/rations/New()
-	..()
-	new /obj/item/weapon/reagent_containers/food/snacks/liquidfood(src)
-	new /obj/item/weapon/reagent_containers/food/snacks/liquidfood(src)
-	new /obj/item/weapon/reagent_containers/food/snacks/liquidfood(src)
-	new /obj/item/weapon/reagent_containers/food/snacks/liquidfood(src)
+/obj/structure/closet/crate/freezer/rations/willContatin()
+	return list(
+		/obj/item/weapon/reagent_containers/food/snacks/liquidfood = 4
+	)
 
 /obj/structure/closet/crate/bin
 	name = "large bin"
@@ -376,11 +373,11 @@
 	icon_state = "radiation"
 	icon_opened = "radiationopen"
 
-/obj/structure/closet/crate/radiation/New()
-	..()
-	for(var/i in 1 to 4)
-		new /obj/item/clothing/suit/radiation(src)
-		new /obj/item/clothing/head/radiation(src)
+/obj/structure/closet/crate/radiation/willContatin()
+	return list(
+		/obj/item/clothing/suit/radiation = 4,
+		/obj/item/clothing/head/radiation = 4
+	)
 
 /obj/structure/closet/crate/secure/weapon
 	name = "weapons crate"
@@ -439,7 +436,6 @@
 				if(!M.anchored)
 					M.forceMove(src)
 					break
-	return
 
 /obj/structure/closet/crate/secure/large
 	name = "large crate"
@@ -466,7 +462,6 @@
 				if(!M.anchored)
 					M.forceMove(src)
 					break
-	return
 
 //fluff variant
 /obj/structure/closet/crate/secure/large/reinforced
@@ -480,16 +475,11 @@
 	icon_state = "hydrocrate"
 	icon_opened = "hydrocrateopen"
 
-/obj/structure/closet/crate/hydroponics/prespawned
-	//This exists so the prespawned hydro crates spawn with their contents.
-
-	New()
-		..()
-		new /obj/item/weapon/reagent_containers/spray/plantbgone(src)
-		new /obj/item/weapon/reagent_containers/spray/plantbgone(src)
-		new /obj/item/weapon/material/minihoe(src)
-//		new /obj/item/weapon/weedspray(src)
-//		new /obj/item/weapon/weedspray(src)
-//		new /obj/item/weapon/pestspray(src)
-//		new /obj/item/weapon/pestspray(src)
-//		new /obj/item/weapon/pestspray(src)
+//This exists so the prespawned hydro crates spawn with their contents.
+/obj/structure/closet/crate/hydroponics/prespawned/willContatin()
+	return list(
+		/obj/item/weapon/reagent_containers/spray/plantbgone = 2,
+		/obj/item/weapon/material/minihoe,
+//		/obj/item/weapon/weedspray = 2,
+//		/obj/item/weapon/pestspray = 3
+	)

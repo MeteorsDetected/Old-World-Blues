@@ -27,7 +27,7 @@
 	large = 0
 
 
-/obj/structure/closet/secure_closet/New()
+/obj/structure/closet/secure_closet/initialize()
 	..()
 	update_icon()
 
