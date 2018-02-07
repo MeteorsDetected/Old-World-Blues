@@ -1,4 +1,7 @@
-var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon","Phi","Chi","Psi","Omega")
+var/global/list/possible_changeling_IDs = list(
+	"Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi",
+	"Omicron","Pi","Rho","Sigma","Tau","Upsilon","Phi","Chi","Psi","Omega"
+)
 
 /datum/changeling //stores changeling powers, changeling recharge thingie, changeling absorbed DNA and changeling ID (for changeling hivemind)
 	var/list/absorbed_dna = list()
@@ -39,7 +42,7 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 	return chosen_dna
 
 //Restores our verbs. It will only restore verbs allowed during lesser (monkey) form if we are not human
-/mob/proc/make_changeling()
+/mob/living/carbon/human/proc/make_changeling()
 
 	if(!mind)				return
 	if(!mind.changeling)	mind.changeling = new /datum/changeling(gender)
@@ -293,7 +296,8 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 					if(!Tp.isVerb)
 						call(Tp.verbpath)()
 					else
-						src.make_changeling()
+						var/mob/living/carbon/human/H = src
+						H.make_changeling()
 
 		changeling.chem_charges += T.mind.changeling.chem_charges
 		changeling.geneticpoints += T.mind.changeling.geneticpoints
@@ -310,7 +314,7 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 
 
 //Change our DNA to that of somebody we've absorbed.
-/mob/proc/changeling_transform()
+/mob/living/carbon/human/proc/changeling_transform()
 	set category = "Changeling"
 	set name = "Transform (5)"
 
@@ -329,30 +333,21 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 		return
 
 	changeling.chem_charges -= 5
-	var/old_body_build = src:body_build
-	src.visible_message("<span class='warning'>[src] transforms!</span>")
+	var/datum/body_build/previos = body_build
+	src.visible_message(SPAN_WARN("[src] transforms!"))
 	changeling.geneticdamage = 30
 	src.dna = chosen_dna.Clone()
 	src.real_name = chosen_dna.real_name
 	src.flavor_text = ""
 	src.UpdateAppearance()
-	var/mob/living/carbon/human/H = src
-	if(istype(H) && old_body_build != src:body_build)
-		update_inv_wear_suit(0)
-		update_inv_gloves(0)
-		update_inv_shoes(0)
-		update_inv_w_uniform(0)
-		update_inv_belt(0)
-		update_inv_wear_id(0)
-		update_inv_ears(0)
-		update_inv_s_store(0)
-		update_inv_back(0)
-		update_inv_wear_mask()
+	if(previos!= body_build)
+		regenerate_icons()
 
 	//TODO: DNA3 update_mutations
 
-	src.verbs -= /mob/proc/changeling_transform
-	spawn(10)	src.verbs += /mob/proc/changeling_transform
+	src.verbs -= /mob/living/carbon/human/proc/changeling_transform
+	spawn(10)
+		src.verbs += /mob/living/carbon/human/proc/changeling_transform
 	return 1
 
 
@@ -473,7 +468,8 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 	set name = "Regenerative Stasis (20)"
 
 	var/datum/changeling/changeling = changeling_power(20,1,100,DEAD)
-	if(!changeling)	return
+	if(!changeling)
+		return
 
 	var/mob/living/carbon/C = src
 	if(!C.stat && alert("Are we sure we wish to fake our death?",,"Yes","No") == "No")//Confirmation for living changelings if they want to fake their death
@@ -498,14 +494,22 @@ var/global/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","E
 /mob/proc/changeling_revive()
 	set category = "Changeling"
 	set name = "Revive"
+	return
+	// sending display messages
+	src << SPAN_NOTE("We have regenerated.")
+	verbs -= /mob/proc/changeling_revive
 
-	var/mob/living/carbon/C = src
+/mob/living/carbon/changeling_revive()
 	// restore us to health
-	C.revive()
+	revive()
 	// remove our fake death flag
-	C.status_flags &= ~(FAKEDEATH)
+	status_flags &= ~(FAKEDEATH)
 	// let us move again
-	C.update_canmove()
+	update_canmove()
+	..()
+
+/mob/living/carbon/human/changeling_revive()
+	..()
 	// re-add out changeling powers
 	C.make_changeling()
 	// sending display messages

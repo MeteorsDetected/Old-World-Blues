@@ -1,10 +1,3 @@
-#define DNA_BLOCK_SIZE 3
-
-// Buffer datatype flags.
-#define DNA2_BUF_UI 1
-#define DNA2_BUF_UE 2
-#define DNA2_BUF_SE 4
-
 //list("data" = null, "owner" = null, "label" = null, "type" = null, "ue" = 0),
 /datum/dna2/record
 	var/datum/dna/dna = null
@@ -86,14 +79,14 @@
 
 	if (usr.incapacitated(INCAPACITATION_DISABLED))
 		return
-	if (!ishuman(usr) && !issmall(usr)) //Make sure they're a mob that has dna
+	if (!ishuman(usr)) //Make sure they're a mob that has dna
 		usr << SPAN_NOTE("Try as you might, you can not climb up into the scanner.")
 		return
 	if (src.occupant)
-		usr << "<span class='warning'>The scanner is already occupied!</span>"
+		usr << SPAN_WARN("The scanner is already occupied!")
 		return
 	if (usr.abiotic())
-		usr << "<span class='warning'>The subject cannot have abiotic items on.</span>"
+		usr << SPAN_WARN("The subject cannot have abiotic items on.")
 		return
 	usr.stop_pulling()
 	put_in(usr)
@@ -118,7 +111,10 @@
 			return
 		beaker = item
 		user.drop_from_inventory(item, src)
-		user.visible_message("\The [user] adds \a [item] to \the [src]!", "You add \a [item] to \the [src]!")
+		user.visible_message(
+			"\The [user] adds \a [item] to \the [src]!",
+			"You add \a [item] to \the [src]!"
+		)
 		return
 	else if(default_deconstruction_screwdriver(user, item))
 		return 1
@@ -127,10 +123,12 @@
 	else
 		return ..()
 
-/obj/machinery/dna_scannernew/proc/put_in(var/mob/M)
-	M.reset_view(src)
-	M.loc = src
+/obj/machinery/dna_scannernew/proc/put_in(var/mob/living/carbon/human/M)
+	if(!istype(M))
+		return
+	M.check_dna()
 	src.occupant = M
+	src.occupant.forceMove(src)
 	src.icon_state = "scanner_1"
 
 	// search for ghosts, if the corpse is empty and the scanner is connected to a cloner
@@ -152,13 +150,13 @@
 	if(!ismob(target))
 		return
 	if (src.occupant)
-		user << "<span class='warning'>The scanner is already occupied!</span>"
+		user << SPAN_WARN("The scanner is already occupied!")
 		return
 	if (target.abiotic())
-		user << "<span class='warning'>The subject cannot have abiotic items on.</span>"
+		user << SPAN_WARN("The subject cannot have abiotic items on.")
 		return
 	if (target.buckled)
-		user << "<span class='warning'>Unbuckle the subject before attempting to move them.</span>"
+		user << SPAN_WARN("Unbuckle the subject before attempting to move them.")
 		return
 	user.visible_message(
 		SPAN_NOTE("\The [user] begins placing \the [target] into \the [src]."),
@@ -183,28 +181,22 @@
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/A as mob|obj in src)
-				A.loc = src.loc
+				A.forceMove(loc)
 				ex_act(severity)
-				//Foreach goto(35)
-			//SN src = null
 			qdel(src)
 			return
 		if(2.0)
 			if (prob(50))
 				for(var/atom/movable/A as mob|obj in src)
-					A.loc = src.loc
+					A.forceMove(loc)
 					ex_act(severity)
-					//Foreach goto(108)
-				//SN src = null
 				qdel(src)
 				return
 		if(3.0)
 			if (prob(25))
 				for(var/atom/movable/A as mob|obj in src)
-					A.loc = src.loc
+					A.forceMove(loc)
 					ex_act(severity)
-					//Foreach goto(181)
-				//SN src = null
 				qdel(src)
 				return
 		else
@@ -213,8 +205,8 @@
 
 /obj/machinery/dna_scannernew/blob_act()
 	if(prob(75))
-		for(var/atom/movable/A as mob|obj in src)
-			A.loc = src.loc
+		for(var/atom/movable/A in src)
+			A.forceMove(loc)
 		qdel(src)
 
 /obj/machinery/computer/scan_consolenew
@@ -259,12 +251,10 @@
 
 	switch(severity)
 		if(1.0)
-			//SN src = null
 			qdel(src)
 			return
 		if(2.0)
 			if (prob(50))
-				//SN src = null
 				qdel(src)
 				return
 		else
@@ -292,17 +282,8 @@
 /obj/machinery/computer/scan_consolenew/proc/all_dna_blocks(var/list/buffer)
 	var/list/arr = list()
 	for(var/i = 1, i <= buffer.len, i++)
-		arr += "[i]:[EncodeDNABlock(buffer[i])]"
+		arr["[i]:[EncodeDNABlock(buffer[i])]"] = i
 	return arr
-
-/obj/machinery/computer/scan_consolenew/proc/setInjectorBlock(var/obj/item/weapon/dnainjector/I, var/blk, var/datum/dna2/record/buffer)
-	var/pos = findtext(blk,":")
-	if(!pos) return 0
-	var/id = text2num(copytext(blk,1,pos))
-	if(!id) return 0
-	I.block = id
-	I.buf = buffer
-	return 1
 
 /obj/machinery/computer/scan_consolenew/attack_ai(user as mob)
 	src.add_hiddenprint(user)
@@ -382,7 +363,7 @@
 		occupantData["name"] = connected.occupant.real_name
 		occupantData["stat"] = connected.occupant.stat
 		occupantData["isViableSubject"] = 1
-		if((NOCLONE & connected.occupant.status_flags) || !src.connected.occupant.dna)
+		if(NOCLONE & connected.occupant.status_flags)
 			occupantData["isViableSubject"] = 0
 		occupantData["health"] = connected.occupant.health
 		occupantData["maxHealth"] = connected.occupant.maxHealth
@@ -584,10 +565,16 @@
 
 	// This chunk of code updates selected block / sub-block based on click (se stands for strutural enzymes)
 	if (href_list["selectSEBlock"] && href_list["selectSESubblock"])
+		var/select_block = text2num(href_list["selectSEBlock"])
+		var/select_subblock = text2num(href_list["selectSESubblock"])
+		if ((select_block <= connected.occupant.dna.SE.len) && (select_block >= 1))
+			src.selected_se_block = select_block
+		if ((select_subblock <= DNA_BLOCK_SIZE) && (select_subblock >= 1))
+			src.selected_se_subblock = select_subblock
 		return 1 // return 1 forces an update to all Nano uis attached to src
 
 	if (href_list["pulseSERadiation"])
-		var/block = src.connected.occupant.dna.GetSESubBlock(src.selected_se_block,src.selected_se_subblock)
+		var/block = src.connected.occupant.dna.GetSESubBlock(selected_se_block, selected_se_subblock)
 
 		irradiating = src.radiation_duration
 		var/lock_state = src.connected.locked
@@ -599,18 +586,20 @@
 		irradiating = 0
 
 		if(src.connected.occupant)
+			var/mob/living/carbon/human/H = connected.occupant
 			if (prob(80 + (src.radiation_duration / 2)))
-				var/real_SE_block=selected_se_block
 				block = miniscramble(block, src.radiation_intensity, src.radiation_duration)
 
-				src.connected.occupant.radiation += (src.radiation_intensity+src.radiation_duration)
+				H.dna.SetSESubBlock(selected_se_block,selected_se_subblock,block)
+				H.update_mutations(selected_se_block)
+				H.radiation += (src.radiation_intensity+src.radiation_duration)
 			else
-				src.connected.occupant.radiation += ((src.radiation_intensity*2)+src.radiation_duration)
+				H.radiation += ((src.radiation_intensity*2)+src.radiation_duration)
 				if	(prob(80-src.radiation_duration))
-					randmutb(src.connected.occupant)
+					randmutb(H)
 				else
-					randmuti(src.connected.occupant)
-					src.connected.occupant.UpdateAppearance()
+					randmuti(H)
+					H.UpdateAppearance()
 		src.connected.locked = lock_state
 		return 1 // return 1 forces an update to all Nano uis attached to src
 
@@ -727,11 +716,11 @@
 			return 1
 
 		if (bufferOption == "createInjector")
-			if (src.injector_ready )
-
+			if(injector_ready)
 				var/success = 1
 				var/obj/item/weapon/dnainjector/I = new
 				var/datum/dna2/record/buf = src.buffers[bufferId]
+				var/datum/species/S = all_species[buf.dna.species]
 				src.injector_ready = 0
 				if(href_list["createBlockInjector"])
 					var/list/selectedbuf
@@ -739,12 +728,24 @@
 						selectedbuf=buf.dna.SE
 					else
 						selectedbuf=buf.dna.UI
-					var/blk = input(usr,"Select Block","Block") in all_dna_blocks(selectedbuf)
-					success = setInjectorBlock(I,blk,buf)
+					var/list/blocks = all_dna_blocks(selectedbuf)
+					var/blk = input(usr,"Select Block","Block") in blocks
+					var/id = blocks[blk]
+					if(buf.types & DNA2_BUF_SE)
+						I.mutations = list()
+						I.mutations[S.mutations[id]] = selectedbuf[id]
+					else
+						I.block = id
+						I.buf = buf
 				else
-					I.buf = buf
+					if(buf.types & DNA2_BUF_SE)
+						I.mutations = list()
+						for(var/i = 1 to buf.dna.SE.len)
+							I.mutations[S.mutations[i]] = buf.dna.SE[i]
+					else
+						I.buf = buf
 				if(success)
-					I.loc = src.loc
+					I.forceMove(loc)
 					I.name += " ([buf.name])"
 					//src.temphtml = "Injector created."
 					spawn(300)
