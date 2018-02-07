@@ -31,9 +31,9 @@
 
 /obj/structure/closet/secure_closet/freezer/fridge/willContatin()
 	return list(
-		new /obj/item/weapon/reagent_containers/glass/drinks/milk = 6,
-		new /obj/item/weapon/reagent_containers/glass/drinks/soymilk = 4,
-		new /obj/item/storage/fancy/egg_box = 2
+		/obj/item/weapon/reagent_containers/glass/drinks/milk = 6,
+		/obj/item/weapon/reagent_containers/glass/drinks/soymilk = 4,
+		/obj/item/storage/fancy/egg_box = 2
 	)
 
 
@@ -44,6 +44,6 @@
 /obj/structure/closet/secure_closet/freezer/money/willContatin()
 	return list(
 		/obj/item/weapon/spacecash/c1000 = 3,
-		/obj/item/weapon/spacecash/c500 = 4,
-		/obj/item/weapon/spacecash/c200 = 5
+		/obj/item/weapon/spacecash/c500  = 4,
+		/obj/item/weapon/spacecash/c200  = 5
 	)
