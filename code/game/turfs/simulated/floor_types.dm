@@ -153,7 +153,7 @@
 	heat_capacity = 0
 	layer = 2
 
-/turf/simulated/shuttle/wall/edge
+/turf/simulated/shuttle/edge
 	density = 1
 	blocks_air = 1
 

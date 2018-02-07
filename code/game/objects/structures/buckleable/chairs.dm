@@ -174,6 +174,11 @@
 /obj/structure/material/chair/office/dark
 	icon_state = "officechair_dark"
 
+/obj/structure/material/chair/office/bridge
+	name = "command chair"
+	desc = "It exudes authority... and looks about as comfortable as a brick."
+	icon_state = "bridge"
+
 // Chair types
 /obj/structure/material/chair/wood
 	name = "wooden chair"
