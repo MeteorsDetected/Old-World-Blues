@@ -59,7 +59,7 @@
 	icon_state = "welding_white"
 	item_state = "welding_white"
 
-obj/item/clothing/head/welding/blue
+/obj/item/clothing/head/welding/blue
 	name = "blue welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye with style."
 	icon_state = "welding_blue"

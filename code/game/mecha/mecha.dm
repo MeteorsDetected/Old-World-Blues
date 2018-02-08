@@ -1218,7 +1218,7 @@
 	return
 
 
-obj/mecha/verb/AIeject()
+/obj/mecha/verb/AIeject()
 	set name = "AI Eject"
 	set category = "Exosuit Interface"
 	set popup_menu = 0
