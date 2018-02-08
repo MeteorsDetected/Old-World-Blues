@@ -352,7 +352,7 @@
 		)
 
 
-mob/proc/MayRespawn()
+/mob/proc/MayRespawn()
 	return 0
 
 client/proc/MayRespawn(feed, delay)
