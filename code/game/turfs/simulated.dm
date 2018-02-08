@@ -10,6 +10,12 @@
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 	var/dirt = 0
 
+/turf/simulated/New()
+	..()
+	if(istype(loc, /area/chapel))
+		holy = 1
+	levelupdate()
+
 // This is not great.
 /turf/simulated/proc/wet_floor(var/wet_val = 1)
 	spawn(0)
@@ -36,11 +42,13 @@
 		B.clean_blood()
 	..()
 
-/turf/simulated/New()
-	..()
-	if(istype(loc, /area/chapel))
-		holy = 1
-	levelupdate()
+/turf/simulated/proc/add_vomit(mob/living/carbon/M, toxvomit = FALSE)
+	var/obj/effect/decal/cleanable/vomit/this = locate() in src
+	if(!this)
+		this = new /obj/effect/decal/cleanable/vomit(src)
+	// Make toxins vomit look different
+	if(toxvomit)
+		this.icon_state = "vomittox_[pick(1,4)]"
 
 /turf/simulated/proc/AddTracks(var/typepath,var/bloodDNA,var/comingdir,var/goingdir,var/bloodcolor="#A10808")
 	var/obj/effect/decal/cleanable/blood/tracks/tracks = locate(typepath) in src
