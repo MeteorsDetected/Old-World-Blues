@@ -89,6 +89,7 @@
 		"communist"  = /obj/item/weapon/flame/lighter/zippo/communist,
 		"royal"      = /obj/item/weapon/flame/lighter/zippo/royal,
 		"gonzo"      = /obj/item/weapon/flame/lighter/zippo/gonzo,
+		"bullet"     = /obj/item/weapon/flame/lighter/zippo/bulletzippo,
 		"rainbow"    = /obj/item/weapon/flame/lighter/zippo/rainbow
 	)
 

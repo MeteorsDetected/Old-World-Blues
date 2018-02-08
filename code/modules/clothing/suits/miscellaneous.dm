@@ -444,3 +444,129 @@
 	desc = "A comfy, aqua flannel shirt.  Unleash your inner hipster."
 	icon_state = "flannel_aqua"
 	item_state = "b_suit"
+
+//wintercoat
+
+/obj/item/clothing/suit/storage/toggleable_hood/wintercoat
+	name = "winter coat"
+	desc = "A heavy jacket made from 'synthetic' animal furs."
+	icon_state = "wintercoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
+	armor = list(melee = 25, bullet = 20, laser = 20,energy = 25, bomb = 20, bio = 10, rad = 0)
+	hood_type = /obj/item/clothing/head/toggleable_hood/wintercoat_hood
+		allowed = list(
+		/obj/item/device/flashlight,
+		/obj/item/weapon/gun,
+		/obj/item/ammo_magazine,
+		/obj/item/weapon/melee,
+		/obj/item/weapon/material/knife,
+		/obj/item/device/radio,
+		/obj/item/weapon/pickaxe
+		)
+
+/obj/item/clothing/head/toggleable_hood/wintercoat_hood
+	name = "winter hood"
+	desc = "A hood attached to a heavy winter jacket."
+	icon_state = "wintercoat_hood"
+	body_parts_covered = HEAD
+	cold_protection = HEAD
+	flags_inv = HIDEEARS | BLOCKHAIR
+	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECTION_TEMPERATURE
+	armor = list(melee = 25, bullet = 20, laser = 20,energy = 25, bomb = 20, bio = 10, rad = 0)
+
+/obj/item/clothing/suit/storage/toggleable_hood/wintercoat/wintercoatcap_hood
+	name = "captain's winter coat"
+	icon_state = "wintercoatcap"
+	armor = list(melee = 45, bullet = 35, laser = 40, energy = 50, bomb = 35, bio = 0, rad = 0)
+	hood_type = /obj/item/clothing/head/toggleable_hood/wintercoatcap_hood
+
+/obj/item/clothing/head/toggleable_hood/wintercoatcap_hood
+	name = "colony director's winter hood"
+	icon_state = "wintercoatcap_hood"
+	armor = list(melee = 45, bullet = 35, laser = 30, energy = 40, bomb = 25, bio = 0, rad = 0)
+
+/obj/item/clothing/suit/storage/toggleable_hood/wintercoat/security
+	name = "security winter coat"
+	icon_state = "wintercoatsec"
+	armor = list(melee = 45, bullet = 40, laser = 40, energy = 45, bomb = 30, bio = 0, rad = 0)
+	hood_type = /obj/item/clothing/head/toggleable_hood/wintercoatsec_hood
+
+/obj/item/clothing/head/toggleable_hood/wintercoatsec_hood
+	name = "security winter hood"
+	icon_state = "wintercoatsec_hood"
+	armor = list(melee = 40, bullet = 40, laser = 40, energy = 45, bomb = 30, bio = 0, rad = 0)
+
+/obj/item/clothing/suit/storage/toggleable_hood/wintercoat/medical
+	name = "medical winter coat"
+	icon_state = "wintercoatmed"
+	armor = list(melee = 20, bullet = 35, laser = 35,energy = 35, bomb = 15, bio = 50, rad = 0)
+	hood_type = /obj/item/clothing/head/toggleable_hood/wintercoatmed_hood
+
+/obj/item/clothing/head/toggleable_hood/wintercoatmed_hood
+	name = "medical winter hood"
+	icon_state = "wintercoatmed_hood"
+	armor = list(melee = 20, bullet = 35, laser = 35,energy = 35, bomb = 15, bio = 50, rad = 0)
+
+/obj/item/clothing/suit/storage/toggleable_hood/wintercoat/science
+	name = "science winter coat"
+	icon_state = "wintercoatsci"
+	armor = list(melee = 35, bullet = 35, laser = 35,energy = 45, bomb = 25, bio = 30, rad = 0)
+	hood_type = /obj/item/clothing/head/toggleable_hood/wintercoatsci_hood
+
+/obj/item/clothing/head/toggleable_hood/wintercoatsci_hood
+	name = "science winter hood"
+	icon_state = "wintercoatsci_hood"
+	armor = list(melee = 35, bullet = 35, laser = 35,energy = 45, bomb = 20, bio = 30, rad = 0)
+
+/obj/item/clothing/suit/storage/toggleable_hood/wintercoat/engineering
+	name = "engineering winter coat"
+	icon_state = "wintercoatengi"
+	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 25, bio = 0, rad = 40)
+	hood_type = /obj/item/clothing/head/toggleable_hood/wintercoatengi_hood
+
+/obj/item/clothing/head/toggleable_hood/wintercoatengi_hood
+	name = "engineering winter hood"
+	icon_state = "wintercoatengi_hood"
+	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 25, bio = 0, rad = 40)
+
+/obj/item/clothing/suit/storage/toggleable_hood/wintercoatatmos_hood
+	name = "atmospherics winter coat"
+	icon_state = "wintercoatatmos"
+	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 25, bio = 0, rad = 40)
+	hood_type = /obj/item/clothing/head/toggleable_hood/wintercoatatmos_hood
+
+/obj/item/clothing/head/toggleable_hood/wintercoatatmos_hood
+	name = "atmospherics winter hood"
+	icon_state = "wintercoatatmos_hood"
+	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 25, bio = 0, rad = 40)
+
+/obj/item/clothing/suit/storage/toggleable_hood/wintercoat/hydro
+	name = "hydroponics winter coat"
+	icon_state = "wintercoathydro"
+	hood_type = /obj/item/clothing/head/toggleable_hood/wintercoathydro_hood
+
+/obj/item/clothing/head/toggleable_hood/wintercoathydro_hood
+	name = "hydroponics winter hood"
+	icon_state = "wintercoathydro_hood"
+
+/obj/item/clothing/suit/storage/toggleable_hood/wintercoat/cargo
+	name = "cargo winter coat"
+	icon_state = "wintercoatcargo"
+	hood_type = /obj/item/clothing/head/toggleable_hood/wintercoatcargo_hood
+
+/obj/item/clothing/head/toggleable_hood/wintercoatcargo_hood
+	name = "cargo winter hood"
+	icon_state = "wintercoatcargo_hood"
+
+/obj/item/clothing/suit/storage/toggleable_hood/wintercoat/miner
+	name = "mining winter coat"
+	icon_state = "wintercoatminer"
+	armor = list(melee = 50, bullet = 30, laser = 35, energy = 30, bomb = 35, bio = 0, rad = 0)
+	hood_type = /obj/item/clothing/head/toggleable_hood/wintercoatminer_hood
+
+/obj/item/clothing/head/toggleable_hood/wintercoatminer_hood
+	name = "mining winter hood"
+	icon_state = "wintercoatminer_hood"
+	armor = list(melee = 50, bullet = 30, laser = 35, energy = 30, bomb = 35, bio = 0, rad = 0)

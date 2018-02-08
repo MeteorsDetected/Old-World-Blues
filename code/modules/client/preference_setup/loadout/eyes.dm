@@ -18,7 +18,7 @@
 	path = /obj/item/clothing/glasses/sunglasses/aviator
 	options = list(
 		"aviator"               = /obj/item/clothing/glasses/sunglasses/aviator,
-		"aviator black"         = /obj/item/clothing/glasses/sunglasses/aviator_black,
+		"black aviator"         = /obj/item/clothing/glasses/sunglasses/aviator_black,
 		"bloody aviator"        = /obj/item/clothing/glasses/sunglasses/aviator_bloody
 		/*"engineering aviators"  = /obj/item/clothing/glasses/meson/aviator/prescription,
 		"medical HUD aviators"  = /obj/item/clothing/glasses/hud/health/aviator,

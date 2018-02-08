@@ -27,6 +27,7 @@
 	desc = "A long, thick black leather coat. That one has armored inserts. Signed by: Nelson"
 	icon_state = "leathercoatnel"
 	item_state = "leathercoatnel"
+	flags_inv = HIDEJUMPSUIT
 	cold_protection = LOWER_TORSO|UPPER_TORSO|ARMS
 	min_cold_protection_temperature = T0C - 15
 
@@ -34,11 +35,11 @@
 	name = "Dark Zippo lighter"
 	desc = "A black zippo lighter.The inscription on the side: Aut vincere aut mori!"
 	icon_state = "nelson"
-	item_state = "zippo"
+	item_state = "nelson"
 
 /obj/item/weapon/coin/coin_selection
 	name = "selection coin"
-	desc = "The choice is yours"
+	desc = "The choice is yours."
 	icon_state = "coin_selection"
 
  /***************************************/

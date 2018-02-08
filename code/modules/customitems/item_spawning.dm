@@ -90,6 +90,47 @@
 
 	custom_items["gremy4uu"] = L
 
+///Your Hero///
+
+	L = list()
+
+	current_data = new()
+	current_data.character_name = "Duncan Nelson"
+	current_data.item_path = /obj/item/clothing/suit/storage/leathercoatsec/leathercoatnel
+	L |= current_data
+
+	current_data = new()
+	current_data.character_name = "Duncan Nelson"
+	current_data.item_path = /obj/item/weapon/flame/lighter/zippo/nelson
+	L |= current_data
+
+	current_data = new()
+	current_data.character_name = "Duncan Nelson"
+	current_data.item_path = /obj/item/weapon/coin/coin_selection
+	L |= current_data
+
+	current_data = new()
+	current_data.character_name = "Chloe Nelson"
+	current_data.item_path = /obj/item/weapon/flame/lighter/zippo/nelson
+	L |= current_data
+
+	current_data = new()
+	current_data.character_name = "Chloe Nelson"
+	current_data.item_path = /obj/item/weapon/coin/coin_selection
+	L |= current_data
+
+	current_data = new()
+	current_data.character_name = "Ramona Moore"
+	current_data.item_path = /obj/item/weapon/flame/lighter/zippo/nelson
+	L |= current_data
+
+	current_data = new()
+	current_data.character_name = "Ramona Moore"
+	current_data.item_path = /obj/item/weapon/coin/coin_selection
+	L |= current_data
+
+	custom_items["yourhero"] = L
+
 ///PhoeniX Vito///
 
 	L = list()
@@ -101,8 +142,9 @@
 
 	current_data = new()
 	current_data.character_name = "Vikro Box"
-	current_data.item_path = /obj/item/device/radio/headset/moonphones
+	current_data.item_path = /obj/item/clothing/head/welding/welding_hot
 	L |= current_data
+
 	custom_items["phoenixvito"] = L
 
 ///Fox231///
