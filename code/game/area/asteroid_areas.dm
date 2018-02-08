@@ -14,6 +14,7 @@
 	name = "Mine"
 	icon_state = "unexplored"
 	ambience = list('sound/ambience/ambimine.ogg', 'sound/ambience/song_game.ogg')
+	lighting_use_dynamic = 0
 
 
 // OUTPOSTS

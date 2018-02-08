@@ -13,7 +13,7 @@
 	icon_state = "snow_turf"
 	var/default_icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	temperature = T0C-20
-	dynamic_lighting = 0
+	dynamic_lighting = 1
 	luminosity = 1
 
 	New()
@@ -105,7 +105,7 @@
 
 //Another long shit. Hell!
 /turf/simulated/floor/plating/snow/light_forest/proc/forest_gen(spawn_chance, trees, tree_chance, bushes, bush_chance, bush_density, stumps, stump_chance, additions)
-	if(!istype(src, /turf/simulated/floor/plating/snow/light_forest)
+	if(!istype(src, /turf/simulated/floor/plating/snow/light_forest))
 		return
 	if(locate(/obj) in src) //If something here, return
 		return
@@ -283,7 +283,7 @@
 	name = "ice"
 	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	icon_state = "ice1"
-	dynamic_lighting = 0
+	dynamic_lighting = 1
 	luminosity = 1
 
 	New()
