@@ -23,7 +23,7 @@
 
 	var/blood_type = null
 
-/obj/item/weapon/reagent_containers/blood/New()
+/obj/item/weapon/reagent_containers/blood/initialize()
 	..()
 	if(blood_type != null)
 		name = "BloodPack [blood_type]"

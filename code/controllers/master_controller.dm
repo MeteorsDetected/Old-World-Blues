@@ -10,6 +10,8 @@ var/global/last_tick_duration = 0
 var/global/air_processing_killed = 0
 var/global/pipe_processing_killed = 0
 
+var/global/atomInstantInitialize = FALSE
+
 /datum/controller/game_controller
 
 /datum/controller/game_controller/New()
@@ -44,6 +46,7 @@ var/global/pipe_processing_killed = 0
 /datum/controller/game_controller/proc/setup_objects()
 	admin_notice("<span class='danger'>Initializing objects</span>", R_DEBUG)
 	sleep(-1)
+	atomInstantInitialize = TRUE
 	for(var/atom/movable/object in world)
 		object.initialize()
 
@@ -67,6 +70,7 @@ var/global/pipe_processing_killed = 0
 			var/obj/machinery/atmospherics/unary/vent_scrubber/T = U
 			T.broadcast_status()
 
+	sleep(-1)
 	// Create the mining ore distribution map.
 	if(config.generate_asteroid)
 		for(var/level in maps_data.asteroid_leves)

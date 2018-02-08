@@ -42,7 +42,6 @@
 		admin_inject_log(user, M, src, contained, trans)
 		user << SPAN_NOTE("[trans] units injected. [reagents.total_volume] units remaining in \the [src].")
 
-	return
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector
 	name = "autoinjector"
@@ -53,19 +52,13 @@
 	volume = 5
 	w_class = ITEM_SIZE_TINY
 	center_of_mass = list("x"=16, "y"=16)
-
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/New()
-	..()
-	reagents.add_reagent("inaprovaline", 5)
-	update_icon()
-	return
+	preloaded = list("inaprovaline" = 5)
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/attack(mob/M as mob, mob/user as mob)
 	..()
 	if(reagents.total_volume <= 0) //Prevents autoinjectors to be refilled.
 		flags &= ~OPENCONTAINER
 	update_icon()
-	return
 
 /obj/item/weapon/reagent_containers/hypospray/autoinjector/update_icon()
 	if(reagents.total_volume > 0)
@@ -85,8 +78,4 @@
 	volume = 10
 	name = "autoinjector (combat)"
 	desc = "Contains stimulants."
-	New()
-		..()
-		reagents.add_reagent("tramadol", 5)
-		reagents.add_reagent("hyperzine",  5)
-		update_icon()
+	preloaded = list("inaprovaline" = 5, "tramadol" = 5, "hyperzine" = 5)

@@ -22,7 +22,7 @@ using metal and glass, it uses glass and reagents (usually sulphuric acid).
 /obj/machinery/r_n_d/circuit_imprinter/RefreshParts()
 	var/T = 0
 	for(var/obj/item/weapon/reagent_containers/glass/G in component_parts)
-		T += G.reagents.maximum_volume
+		T += G.reagents.total_volume
 	if(!reagents)
 		create_reagents(T)
 	reagents.maximum_volume = T

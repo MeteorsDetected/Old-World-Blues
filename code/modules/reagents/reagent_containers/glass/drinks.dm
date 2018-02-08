@@ -12,7 +12,7 @@
 	icon_state = null
 	amount_per_transfer_from_this = 5
 	volume = 50
-	isGlass = 0
+	isGlass = FALSE
 
 /obj/item/weapon/reagent_containers/glass/drinks/on_reagent_change()
 	return
@@ -65,9 +65,6 @@
 	possible_transfer_amounts = null
 	volume = 150
 	flags = CONDUCT | OPENCONTAINER
-
-/obj/item/weapon/reagent_containers/glass/drinks/golden_cup/tournament_26_06_2011
-	desc = "A golden cup. It will be presented to a winner of tournament 26 june and name of the winner will be graved on it."
 
 
 ///////////////////////////////////////////////Drinks
@@ -208,7 +205,7 @@
 	amount_per_transfer_from_this = 10
 	volume = 120
 	center_of_mass = list("x"=17, "y"=7)
-	isGlass = 1
+	isGlass = TRUE
 
 /obj/item/weapon/reagent_containers/glass/drinks/flask
 	name = "\improper Captain's flask"
@@ -254,7 +251,7 @@
 	icon_state = "britcup"
 	volume = 30
 	center_of_mass = list("x"=15, "y"=13)
-	isGlass = 1
+	isGlass = TRUE
 
 /obj/item/weapon/reagent_containers/glass/drinks/irecup
 	name = "cup"
@@ -262,7 +259,7 @@
 	icon_state = "irecup"
 	volume = 30
 	center_of_mass = list("x"=15, "y"=13)
-	isGlass = 1
+	isGlass = TRUE
 
 /obj/item/weapon/reagent_containers/glass/drinks/ntcup
 	name = "cup"
@@ -270,5 +267,5 @@
 	icon_state = "nt"
 	volume = 30
 	center_of_mass = list("x"=15, "y"=13)
-	isGlass = 1
+	isGlass = TRUE
 

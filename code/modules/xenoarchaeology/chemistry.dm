@@ -26,60 +26,35 @@
 	name = "solution tray box"
 	icon_state = "solution_trays"
 
-	New()
-		..()
-		for(var/i = 1 to 7)
-			new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
+/obj/item/storage/box/solution_trays/initialize()
+	..()
+	for(var/i = 1 to 7)
+		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
 
 /obj/item/weapon/reagent_containers/glass/beaker/tungsten
 	name = "beaker 'tungsten'"
-	New()
-		..()
-		reagents.add_reagent("tungsten",50)
-		update_icon()
+	preloaded = list("tungsten" = 50)
 
 /obj/item/weapon/reagent_containers/glass/beaker/acetone
 	name = "beaker 'acetone'"
-	New()
-		..()
-		reagents.add_reagent("acetone",50)
-		update_icon()
+	preloaded = list("acetone" = 50)
 
 /obj/item/weapon/reagent_containers/glass/beaker/sodium
 	name = "beaker 'sodium'"
-	New()
-		..()
-		reagents.add_reagent("sodium",50)
-		update_icon()
+	preloaded = list("sodium" = 50)
 
 /obj/item/weapon/reagent_containers/glass/beaker/lithium
 	name = "beaker 'lithium'"
-
-	New()
-		..()
-		reagents.add_reagent("lithium",50)
-		update_icon()
+	preloaded = list("lithium" = 50)
 
 /obj/item/weapon/reagent_containers/glass/beaker/water
 	name = "beaker 'water'"
-
-	New()
-		..()
-		reagents.add_reagent("water",50)
-		update_icon()
+	preloaded = list("water" = 50)
 
 /obj/item/weapon/reagent_containers/glass/beaker/water
 	name = "beaker 'water'"
-
-	New()
-		..()
-		reagents.add_reagent("water",50)
-		update_icon()
+	preloaded = list("water" = 50)
 
 /obj/item/weapon/reagent_containers/glass/beaker/fuel
 	name = "beaker 'fuel'"
-
-	New()
-		..()
-		reagents.add_reagent("fuel",50)
-		update_icon()
+	preloaded = list("fuel" = 50)

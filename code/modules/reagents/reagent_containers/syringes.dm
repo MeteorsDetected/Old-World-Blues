@@ -205,7 +205,6 @@
 				mode = SYRINGE_DRAW
 				update_icon()
 
-	return
 
 /obj/item/weapon/reagent_containers/syringe/update_icon()
 	overlays.Cut()
@@ -313,47 +312,27 @@
 /obj/item/weapon/reagent_containers/syringe/inaprovaline
 	name = "Syringe (inaprovaline)"
 	desc = "Contains inaprovaline - used to stabilize patients."
-
-/obj/item/weapon/reagent_containers/syringe/inaprovaline/New()
-	..()
-	reagents.add_reagent("inaprovaline", 15)
 	mode = SYRINGE_INJECT
-	update_icon()
+	preloaded = list("inaprovaline" = 15)
 
 /obj/item/weapon/reagent_containers/syringe/antitoxin
 	name = "Syringe (anti-toxin)"
 	desc = "Contains anti-toxins."
-
-/obj/item/weapon/reagent_containers/syringe/antitoxin/New()
-	..()
-	reagents.add_reagent("anti_toxin", 15)
+	preloaded = list("anti_toxin" = 15)
 	mode = SYRINGE_INJECT
-	update_icon()
 
 /obj/item/weapon/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
-
-/obj/item/weapon/reagent_containers/syringe/antiviral/New()
-	..()
-	reagents.add_reagent("spaceacillin", 15)
+	preloaded = list("spaceacillin" = 15)
 	mode = SYRINGE_INJECT
-	update_icon()
 
 /obj/item/weapon/reagent_containers/syringe/drugs
 	name = "Syringe (drugs)"
 	desc = "Contains aggressive drugs meant for torture."
-
-/obj/item/weapon/reagent_containers/syringe/drugs/New()
-	..()
-	reagents.add_reagent("space_drugs",  5)
-	reagents.add_reagent("mindbreaker",  5)
-	reagents.add_reagent("cryptobiolin", 5)
+	preloaded = list("space_drugs" = 5, "mindbreaker" = 5, "cryptobiolin" = 5)
 	mode = SYRINGE_INJECT
-	update_icon()
 
-/obj/item/weapon/reagent_containers/syringe/ld50_syringe/choral/New()
-	..()
-	reagents.add_reagent("chloralhydrate", 50)
+/obj/item/weapon/reagent_containers/syringe/ld50_syringe/choral
+	preloaded = list("chloralhydrate" = 50)
 	mode = SYRINGE_INJECT
-	update_icon()

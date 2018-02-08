@@ -141,7 +141,7 @@
 	center_of_mass = list("x"=17, "y"=3)
 	preloaded = list("vodka" = 100)
 
-/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka/badminka
+/obj/item/weapon/reagent_containers/glass/drinks/bottle/vodka/badminka
 	name = "Badminka Vodka"
 	desc = "The label's written in Cyrillic. All you can make out is the name and a word that looks vaguely like 'Vodka'."
 	icon_state = "badminka"
