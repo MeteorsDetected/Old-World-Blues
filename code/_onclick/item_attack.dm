@@ -5,7 +5,7 @@ These are the default click code call sequences used when clicking on stuff with
 Atoms:
 
 mob/ClickOn() calls the item's resolve_attackby() proc.
-item/resolve_attackby() calls the target atom's attackby() proc.
+obj/item/resolve_attackby() calls the target atom's attackby() proc.
 
 */
 

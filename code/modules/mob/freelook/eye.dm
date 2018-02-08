@@ -31,7 +31,7 @@
 	updateallghostimages()
 	..()
 
-mob/observer/eye/Destroy()
+/mob/observer/eye/Destroy()
 	if (ghostimage)
 		ghost_darkness_images -= ghostimage
 		ghost_sightless_images -= ghostimage

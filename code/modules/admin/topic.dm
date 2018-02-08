@@ -1662,11 +1662,11 @@
 				PlayerNotesPage(text2num(href_list["index"]))
 		return
 
-mob/living/proc/can_centcom_reply()
+/mob/living/proc/can_centcom_reply()
 	return 0
 
-mob/living/carbon/human/can_centcom_reply()
+/mob/living/carbon/human/can_centcom_reply()
 	return istype(l_ear, /obj/item/device/radio/headset) || istype(r_ear, /obj/item/device/radio/headset)
 
-mob/living/silicon/ai/can_centcom_reply()
+/mob/living/silicon/ai/can_centcom_reply()
 	return common_radio != null && !check_unable(2)
