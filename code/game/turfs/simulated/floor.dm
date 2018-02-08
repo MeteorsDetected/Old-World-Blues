@@ -359,7 +359,10 @@ turf/simulated/floor/proc/update_icon()
 						FF.update_icon() //so siding get updated properly
 
 	if(!floor_type) return
-	icon_plating = "plating"
+	if(istype(src, /turf/simulated/floor/plating/wooden))
+		icon_plating = "plating"
+	else
+		icon_plating = "plating_wood"
 	set_light(0)
 	floor_type = null
 	intact = 0

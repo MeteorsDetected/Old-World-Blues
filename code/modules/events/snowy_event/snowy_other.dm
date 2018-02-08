@@ -440,7 +440,6 @@
 	//All of these bitflags and organs hard to tie. Hm.
 	if(stat == DEAD && in_stasis)
 		return
-	world << "[bodytemperature]  -  [env_temp]"
 	var/list/parts = list()
 	var/list/flags_bp = list(UPPER_TORSO, LOWER_TORSO, HEAD, ARMS, ARMS, HANDS, HANDS, LEGS, LEGS, FEET, FEET)
 	var/i = 0
@@ -537,3 +536,12 @@ obj/machinery/lightrail/process()
 
 /obj/structure/snowyrail/device
 	icon_state = "device"
+
+
+
+//Some special reagents
+
+/datum/reagent/nutriment/protein/fish
+	name = "fish"
+	taste_description = "fish"
+	id = "fish"

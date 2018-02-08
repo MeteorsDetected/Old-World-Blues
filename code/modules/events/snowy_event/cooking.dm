@@ -61,7 +61,7 @@
 		else if(cauldron.reagents.total_volume >= 100)
 			overlays += "cauldron-something"
 		if(cauldron.temperature >= 100)
-			if(cauldron.snowed < 3)
+			if(cauldron.snowed < 3 && !cauldron.reagents.total_volume)
 				overlays += "cauldron-boiling"
 			var/image/SO = image(icon, "cooking_steam")
 			SO.pixel_y = SO.pixel_y + 8
@@ -198,19 +198,20 @@
 
 	switch(href_list["action"])
 		if("take") //for skewers
-			usr << SPAN_NOTE("You take [S.name] back.")
-			S.loc = usr.loc
-			usr.put_in_hands(S)
-			cookables.Remove(S)
-			sticks--
-			world << cookables.len
+			if(S)
+				usr << SPAN_NOTE("You take [S.name] back.")
+				S.loc = usr.loc
+				usr.put_in_hands(S)
+				cookables.Remove(S)
+				sticks--
 			if(cookables.len == 0)
 				usr.unset_machine()
 				usr << browse(null, "window=cooker1")
 		if("get") //for cauldron's ingredients
-			cauldron.ingredients.Remove(F)
-			F.loc = usr.loc
-			usr.put_in_hands(F)
+			if(F)
+				cauldron.ingredients.Remove(F)
+				F.loc = usr.loc
+				usr.put_in_hands(F)
 			if(!cauldron.ingredients.len)
 				usr.unset_machine()
 				usr << browse(null, "window=cauldron")
@@ -284,6 +285,7 @@
 			snowed++
 			user << SPAN_NOTE("You drop some snow into the [src.name].")
 			qdel(W)
+			update_icon()
 		else
 			user << SPAN_WARN("[src.name] is full.")
 	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks/ingredient))
@@ -298,6 +300,7 @@
 		var/obj/item/weapon/reagent_containers/glass/C = W
 		if(C.reagents.total_volume && istype(C, /obj/item/weapon/reagent_containers/glass/beaker/cauldron))
 			C.standard_pour_into(user, src)
+			update_icon()
 		else
 			src.standard_pour_into(user, C)
 
@@ -318,7 +321,7 @@
 					snowed--
 					update_icon()
 
-		if(temperature >= 100)
+		if(temperature >= 100 && (!reagents.total_volume || !ingredients.len))
 			if(prob(50)) //I hope it will not lead to ear fuck. Sorry. I make my own tiny sound system later
 				playsound(cooker.loc, 'sound/effects/bubbles2.ogg', 40, rand(-50, 50))
 			var/datum/reagent/MR = reagents.get_master_reagent()
@@ -359,7 +362,7 @@
 	name = "ingredient"
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = ""
-	bitesize = 1
+	bitesize = 3
 	bitecount = 0
 	trash = null
 	slice_path
@@ -369,9 +372,9 @@
 	nutriment_amt = 0
 	var/sliced = 0 //I know but that slicing is different
 	var/obj/item/weapon/reagent_containers/food/snacks/ingredient/inside
-	var/feel_desc = "resin-like shroom"
+	var/feel_desc = "odd substance"
 	var/standard_temp = 10
-	var/spoil_time = 400 //-1 every ~10 ticks if not freezed
+//	var/spoil_time = 400 //-1 every ~10 ticks if not freezed
 
 	var/list/inside_properties = list(current_temp = 10, temp_desc = "cold")
 	var/list/properties = list(current_temp = 10,
@@ -485,11 +488,11 @@
 
 
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/On_Consume(var/mob/M)
-	M << SPAN_NOTE("When bite you feel [properties["status"]] and [properties["temp_desc"]] [feel_desc] with [inside_properties["temp_desc"]] insides.")
+	M << SPAN_NOTE("When bite you feel <b>[properties["status"]]</b> and <b>[properties["temp_desc"]] [feel_desc]</b> with <b>[inside_properties["temp_desc"]]</b> insides.")
 	..()
 
 
-
+//Ingredient for tests. Will be removed later
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/testos
 	icon_state = "dustbomb"
 //	nutriment_amt = 1
@@ -498,6 +501,272 @@
 
 	New()
 		..()
-		reagents.add_reagent("honey", 5)
-		reagents.add_reagent("ethanol", 5)
+		reagents.add_reagent("honey", 10)
+		reagents.add_reagent("ethanol", 15)
 		bitesize = 5
+
+
+//shrooms
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom
+	name = "mushroom"
+	desc = "Unknown shroom. Eatable. Can be toxic."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "shroom_upper1"
+	var/icon_bottom = "shroom_bottom1"
+	var/icon_ring = "shroom_ring1"
+	var/list/bottom_color = list(r = 0, g = 0, b = 0)
+	var/list/head_color = list(r = 0, g = 0, b = 0)
+	var/list/ring_color = list(r = 0, g = 0, b = 0)
+
+	New()
+		..()
+		update_icon()
+		bitesize = 4
+		name = "[name] shroom"
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/update_icon()
+	overlays.Cut()
+	if(head_color)
+		var/icon/H = new(icon, icon_state)
+		H.Blend(rgb(head_color["r"], head_color["g"], head_color["b"]), ICON_ADD)
+		overlays += H
+	if(icon_bottom)
+		var/icon/B = new(icon, icon_bottom)
+		B.Blend(rgb(bottom_color["r"], bottom_color["g"], bottom_color["b"]), ICON_ADD)
+		underlays += B
+	if(icon_ring)
+		var/icon/R = new(icon, icon_ring)
+		R.Blend(rgb(ring_color["r"], ring_color["g"], ring_color["b"]), ICON_ADD)
+		overlays += R
+
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/dumb
+	name = "Insensibilitate obruti"
+	icon_ring = null
+	bottom_color = list(r = 51, g = 41, b = 0)
+	head_color = list(r = 179, g = 143, b = 0)
+	ring_color = list(r = 0, g = 0, b = 0)
+	feel_desc = "mild but sticks to the teeth"
+	reagents_to_change = list("egg" = "hyperzine")
+
+	New()
+		..()
+		reagents.add_reagent("toxin", 5)
+		reagents.add_reagent("tramadol", 15)
+		reagents.add_reagent("egg", 5)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/mind
+	name = "Illustratio"
+	icon_ring = null
+	icon_bottom = null
+	bottom_color = list(r = 0, g = 0, b = 0)
+	head_color = list(r = 77, g = 0, b = 38)
+	ring_color = list(r = 0, g = 0, b = 0)
+	feel_desc = "a lot of fiber, which you need to chew carefully"
+	reagents_to_change = list("rice" = "toxin")
+
+	New()
+		..()
+		reagents.add_reagent("methylphenidate", 5)
+		reagents.add_reagent("alkysine", 5)
+		reagents.add_reagent("rice", 5)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/healer
+	name = "Amepythoniss"
+	bottom_color = list(r = 85, g = 128, b = 0)
+	head_color = list(r = 170, g = 255, b = 38)
+	ring_color = list(r = 0, g = 0, b = 65)
+	feel_desc = "a lot of fiber, which you need to chew carefully"
+	reagents_to_vaporize = list("mindbreaker")
+
+	New()
+		..()
+		reagents.add_reagent("peridaxon", 5)
+		reagents.add_reagent("mindbreaker", 10)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/guts
+	name = "Ridiculam Viscera"
+	bottom_color = list(r = 85, g = 128, b = 0)
+	head_color = list(r = 170, g = 255, b = 38)
+	ring_color = list(r = 65, g = 0, b = 0)
+	feel_desc = "a lot of fiber, which you need to chew carefully"
+	reagents_to_vaporize = list("radium")
+
+	New()
+		..()
+		reagents.add_reagent("leporazine", 5)
+		reagents.add_reagent("stoxin", 5)
+		reagents.add_reagent("radium", 10)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/choco
+	name = "Spiritus scelerisque"
+	icon_ring = null
+	bottom_color = list(r = 172, g = 115, b = 57)
+	head_color = list(r = 172, g = 115, b = 57)
+	ring_color = list(r = 0, g = 0, b = 0)
+	feel_desc = "incredibly tender to the taste and literally melting in the mouth"
+	reagents_to_vaporize = list("lexorin")
+
+	New()
+		..()
+		reagents.add_reagent("lexorin", 10)
+		reagents.add_reagent("coco", 5)
+		reagents.add_reagent("cream", 5)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/paradise
+	name = "Dulcis paradisus"
+	icon_ring = null
+	icon_bottom = null
+	bottom_color = list(r = 0, g = 0, b = 0)
+	head_color = list(r = 102, g = 0, b = 102)
+	ring_color = list(r = 0, g = 0, b = 0)
+	feel_desc = "incredibly tender to the taste and literally melting in the mouth"
+	reagents_to_vaporize = list("mutagen", "pacid", "cryptobiolin")
+
+	New()
+		..()
+		reagents.add_reagent("mutagen", 2)
+		reagents.add_reagent("pacid", 2)
+		reagents.add_reagent("cryptobiolin", 2)
+		reagents.add_reagent("berryjuice", 5)
+		reagents.add_reagent("sugar", 5)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/pure
+	name = "Contagionem purificationi"
+	icon_ring = null
+	icon_bottom = null
+	bottom_color = list(r = 0, g = 0, b = 0)
+	head_color = list(r = 150, g = 69, b = 96)
+	ring_color = list(r = 0, g = 0, b = 0)
+	feel_desc = "mild but sticks to the teeth"
+	reagents_to_vaporize = list("tricordrazine", "anti_toxin")
+
+	New()
+		..()
+		reagents.add_reagent("tricordrazine", 2)
+		reagents.add_reagent("arithrazine", 2)
+		reagents.add_reagent("hyronalin", 2)
+		reagents.add_reagent("anti_toxin", 5)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/meat
+	name = "Comedenti"
+	bottom_color = list(r = 20, g = 0, b = 0)
+	head_color = list(r = 51, g = 0, b = 0)
+	ring_color = list(r = 51, g = 0, b = 0)
+	feel_desc = "a lot of fiber, which you need to chew carefully"
+	reagents_to_vaporize = list("blood")
+
+	New()
+		..()
+		reagents.add_reagent("protein", 10)
+		reagents.add_reagent("blood", 6)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/rad
+	name = "lucidum"
+	icon_ring = null
+	bottom_color = list(r = 0, g = 75, b = 0)
+	head_color = list(r = 0, g = 40, b = 0)
+	ring_color = list(r = 0, g = 0, b = 0)
+	feel_desc = "like you started chewing dusty plaster"
+	reagents_to_vaporize = list("radium")
+
+	New()
+		..()
+		reagents.add_reagent("carrotjuice", 5)
+		reagents.add_reagent("radium", 10)
+
+
+//berries
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries
+	name = "Berries"
+	desc = "Unknown berries. You can eat them. They can kill you."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "handful_berries"
+	var/list/berry_color = list(r = 0, g = 0, b = 0)
+
+	New()
+		..()
+		icon += rgb(berry_color["r"], berry_color["g"], berry_color["b"])
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/aqua
+	name = "Aqua berries"
+	berry_color = list(r = 26, g = 140, b = 255)
+	feel_desc = "juicy and soft"
+
+	New()
+		..()
+		reagents.add_reagent("water", 10)
+		reagents.add_reagent("berryjuice", 5)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/salty
+	name = "Saltys berries"
+	berry_color = list(r = 255, g = 140, b = 26)
+	feel_desc = "juicy and soft"
+
+	New()
+		..()
+		reagents.add_reagent("sodiumchloride", 10)
+		reagents.add_reagent("limejuice", 5)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/lip
+	name = "Slim berries"
+	berry_color = list(r = 255, g = 179, b = 102)
+	feel_desc = "rather dry and fibrous"
+
+	New()
+		..()
+		reagents.add_reagent("lipozine", 10)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/soul
+	name = "Cor berries"
+	berry_color = list(r = 204, g = 102, b = 153)
+	feel_desc = "very dry, almost powdered"
+	reagents_to_vaporize = list("psilocybin")
+
+	New()
+		..()
+		reagents.add_reagent("cryptobiolin", 3)
+		reagents.add_reagent("stoxin", 3)
+		reagents.add_reagent("space_drugs", 3)
+		reagents.add_reagent("psilocybin", 3)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/healthy
+	name = "Spinarak berries"
+	berry_color = list(r = 61, g = 61, b = 92)
+	feel_desc = "rather dry and fibrous"
+
+	New()
+		..()
+		reagents.add_reagent("spaceacillin", 2)
+		reagents.add_reagent("ryetalyn", 2)
+		reagents.add_reagent("cherryjelly", 10)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/hot
+	name = "Costis berries"
+	berry_color = list(r = 153, g = 31, b = 0)
+	feel_desc = "rather dry and has a lot of seeds"
+
+	New()
+		..()
+		reagents.add_reagent("leporazine", 2)
+		reagents.add_reagent("capsaicin", 2)
+		reagents.add_reagent("cornoil", 8)
+
+

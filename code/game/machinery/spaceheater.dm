@@ -193,6 +193,11 @@
 						cell.use(power_used*CELLRATE)
 
 				env.merge(removed)
+			for(var/mob/living/L in range(3, src)) //Snowy event. Delete from this
+				if(istype(L, /mob/living/carbon/human))
+					var/mob/living/carbon/human/H = L
+					if(H.bodytemperature <= 320)
+						H.bodytemperature = H.bodytemperature + 3 //to this after it pass
 		else
 			on = 0
 			power_change()

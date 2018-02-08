@@ -194,7 +194,8 @@ var/list/solars_list = list()
 	var/ay = y
 	var/turf/T = null
 
-	for(var/i = 1 to 20)		// 20 steps is enough
+//	for(var/i = 1 to 20)		// 20 steps is enough
+	for(var/i = 1 to 5) //Snowy Event. Remove this and uncomment that ^ after it pass
 		ax += sun.dx	// do step
 		ay += sun.dy
 

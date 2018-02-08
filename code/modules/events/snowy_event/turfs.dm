@@ -1,10 +1,18 @@
+/turf/simulated/floor/plating/var/last_turf //Here we memorize last turf. if none, returns world.turf
+
+
+/turf/simulated/floor/plating/wooden
+	name = "wooden plating"
+	icon_state = "plating_wood"
+	icon_plating = "plating_wood"
+
 
 /turf/simulated/floor/plating/snow
 	name = "snow"
 	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	icon_state = "snow_turf"
 	var/default_icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
-	temperature = T0C - 25
+	temperature = T0C-20
 	dynamic_lighting = 0
 	luminosity = 1
 
@@ -33,6 +41,22 @@
 			var/obj/item/weapon/snow/S = new(src)
 			user.put_in_hands(S)
 			user << SPAN_NOTE("You grab some snow.")
+
+
+/turf/simulated/floor/plating/snow/attackby(obj/item/C as obj, mob/user as mob)
+	if(istype(C, /obj/item/stack/tile/steel))
+		var/turf/simulated/floor/plating/P = src.ChangeTurf(/turf/simulated/floor/plating)
+		P.luminosity = luminosity
+		P.temperature = temperature
+		P.last_turf = src.type
+		return
+	if(istype(C, /obj/item/stack/tile/wood))
+		var/turf/simulated/floor/plating/P = src.ChangeTurf(/turf/simulated/floor/plating/wooden)
+		P.luminosity = luminosity
+		P.temperature = temperature
+		P.last_turf = src.type
+		return
+
 
 
 /turf/simulated/floor/plating/snow/Entered(mob/living/user as mob)
@@ -72,7 +96,7 @@
 				forest_gen(20, list(/obj/structure/flora/snowytree/big/another, /obj/structure/flora/snowytree/big, /obj/structure/flora/snowytree), 40,
 								list(/obj/structure/flora/snowybush/deadbush, /obj/structure/flora/snowybush), 10, 40,
 								list(/obj/structure/flora/stump/fallen, /obj/structure/flora/stump, /obj/structure/lootable/mushroom_hideout), 20,
-								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 3, /obj/structure/lootable = 2, /obj/structure/butcherable = 1))
+								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 3, /obj/structure/lootable/chunk = 2, /obj/structure/butcherable = "very rare"))
 
 
 
@@ -81,6 +105,10 @@
 
 //Another long shit. Hell!
 /turf/simulated/floor/plating/snow/light_forest/proc/forest_gen(spawn_chance, trees, tree_chance, bushes, bush_chance, bush_density, stumps, stump_chance, additions)
+	if(!istype(src, /turf/simulated/floor/plating/snow/light_forest)
+		return
+	if(locate(/obj) in src) //If something here, return
+		return
 	if(prob(spawn_chance))
 		if(prob(tree_chance))
 			var/obj/structure/S = pick(trees)
@@ -100,8 +128,23 @@
 			return
 		var/list/equal_chances = list()
 		for(var/p in additions)
-			if(prob(additions[p]))
-				equal_chances.Add(p)
+			if(isnum(additions[p]))
+				if(prob(additions[p]))
+					equal_chances.Add(p)
+			else
+				switch(additions[p])
+					if("rare")
+						if(rand(1, 100) == 1) // 1:100
+							new p(src)
+							return
+					if("very rare")
+						if(rand(1, 250) == 1) // 1:250
+							new p(src)
+							return
+					if("extra rare")
+						if(rand(1, 500) == 1) // 1:500
+							new p(src)
+							return
 		if(equal_chances.len)
 			var/to_spawn = pick(equal_chances)
 			new to_spawn(src)
@@ -109,10 +152,9 @@
 
 /turf/simulated/floor/plating/snow/light_forest/proc/bush_gen(var/chance, var/bush) //play with this carefully
 	for(var/dir in alldirs)
-		if(istype(get_step(src, dir), /turf/simulated/floor/plating/snow))
+		if(istype(get_step(src, dir), /turf/simulated/floor/plating/snow/light_forest))
 			var/turf/simulated/floor/plating/snow/light_forest/K = get_step(src, dir)
-			var/obj/structure/B = locate(/obj/structure) in K
-			if(!B)
+			if(!(locate(/obj) in K))
 				if(prob(chance/src.bush_factor))
 					K.bush_factor = src.bush_factor + 1
 					new bush(K)
@@ -126,10 +168,10 @@
 		..()
 		spawn(4)
 			if(src)
-				forest_gen(30, list(/obj/structure/flora/snowytree/high), 35,
-								list(/obj/structure/flora/snowybush/deadbush), 20, 40,
-								list(/obj/structure/flora/stump/fallen, /obj/structure/flora/stump, /obj/structure/lootable/mushroom_hideout), 20,
-								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 3, /obj/structure/lootable = 2, /obj/structure/butcherable = 1))
+				forest_gen(45, list(/obj/structure/flora/snowytree/high), 35,
+								list(/obj/structure/flora/snowybush/deadbush), 15, 30,
+								list(/obj/structure/lootable/mushroom_hideout), 30,
+								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 6, /obj/structure/lootable/chunk = 2, /obj/structure/butcherable = "very rare"))
 
 
 /turf/simulated/floor/plating/snow/light_forest/mixed
@@ -139,10 +181,10 @@
 		..()
 		spawn(4)
 			if(src)
-				forest_gen(50, list(/obj/structure/flora/snowytree/high, /obj/structure/flora/snowytree/big/another, /obj/structure/flora/snowytree/big, /obj/structure/flora/snowytree), 35,
+				forest_gen(40, list(/obj/structure/flora/snowytree/high, /obj/structure/flora/snowytree/big/another, /obj/structure/flora/snowytree/big, /obj/structure/flora/snowytree), 35,
 								list(/obj/structure/flora/snowybush/deadbush, /obj/structure/flora/snowybush), 20, 40,
 								list(/obj/structure/flora/stump/fallen, /obj/structure/flora/stump, /obj/structure/lootable/mushroom_hideout), 20,
-								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 3, /obj/structure/lootable = 2, /obj/structure/butcherable = 1))
+								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 3, /obj/structure/lootable/chunk = 2, /obj/structure/butcherable = "very rare"))
 
 
 /turf/simulated/floor/plating/snow/light_forest/bushes
@@ -151,10 +193,10 @@
 		..()
 		spawn(4)
 			if(src)
-				forest_gen(40, list(/obj/structure/flora/snowytree), 10,
-								list(/obj/structure/flora/snowybush/deadbush, /obj/structure/flora/snowybush), 35, rand(20, 60),
+				forest_gen(25, list(/obj/structure/flora/snowytree), 10,
+								list(/obj/structure/flora/snowybush/deadbush, /obj/structure/flora/snowybush), rand(10, 20), rand(20, 60),
 								list(/obj/structure/lootable/mushroom_hideout), 30,
-								list(/obj/item/weapon/branches = 20, /obj/structure/rock = 3, /obj/structure/lootable = 2, /obj/structure/butcherable = 1))
+								list(/obj/item/weapon/branches = 20, /obj/structure/rock = 3, /obj/structure/lootable/chunk = 2, /obj/structure/butcherable = "very rare"))
 
 
 
@@ -198,6 +240,10 @@
 				overlays += "corner-[sum_dir]"
 
 
+/turf/simulated/floor/plating/chasm/attackby(obj/item/C as obj, mob/user as mob)
+	return
+
+
 /turf/simulated/floor/plating/chasm/proc/eat(atom/movable/M as mob|obj)
 	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
@@ -237,6 +283,8 @@
 	name = "ice"
 	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	icon_state = "ice1"
+	dynamic_lighting = 0
+	luminosity = 1
 
 	New()
 		..()

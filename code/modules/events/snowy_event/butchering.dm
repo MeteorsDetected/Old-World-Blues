@@ -9,9 +9,16 @@
 //___*ITEMS*___\\
 
 /obj/item/weapon/head
-	name = "head"
+	name = "deer's head"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "deer_head"
+
+
+/obj/item/weapon/head/wolf
+	name = "wolf's head"
+	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
+	icon_state = "wolf_head"
+
 
 /obj/item/weapon/skin
 	name = "skin"
@@ -37,26 +44,56 @@
 	name = "liver"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "liver"
+	reagents_to_vaporize = list("toxin", "blood")
+	New()
+		..()
+		reagents.add_reagent("protein", 15)
+		reagents.add_reagent("toxin", 5)
+		reagents.add_reagent("blood", 10)
+
 
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/heart
 	name = "heart"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "heart"
+	reagents_to_vaporize = list("blood")
+	New()
+		..()
+		reagents.add_reagent("protein", 30)
+		reagents.add_reagent("tramadol", 15)
+		reagents.add_reagent("blood", 10)
+
 
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/ribs
 	name = "ribs"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "ribs"
+	reagents_to_vaporize = list("blood")
+	New()
+		..()
+		reagents.add_reagent("protein", 15)
+		reagents.add_reagent("blood", 10)
+
 
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/natural //Real meat. From mother nature to you
 	name = "meat"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "meat"
+	reagents_to_vaporize = list("blood")
+	New()
+		..()
+		reagents.add_reagent("protein", 25)
+		reagents.add_reagent("blood", 15)
+
 
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/natural/bad
 	name = "bad meat"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "meat"
+	New()
+		..()
+		reagents.add_reagent("toxin", 20)
+
 
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/natural/hard
 	name = "hard meat"
@@ -323,3 +360,17 @@
 		skin = 0
 	else
 		user << SPAN_WARN("You need to stay still to do this.")
+
+
+
+/obj/structure/butcherable/wolf
+	name = "Wolf's corpse"
+	desc = "Dead and unskinned body of wolf."
+	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
+	head = /obj/item/weapon/head/wolf
+	head_overlay = "animal_corpse_wolf_head"
+	skin_overlay = "animal_corpse_deer"
+	meat_type = /obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/natural
+	skin = 1
+	col = list("r" = 15, "g" = 15, "b" = 15)
+

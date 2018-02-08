@@ -26,9 +26,12 @@
 
 
 /obj/item/weapon/snowy_woodchunks/attack_self(var/mob/user as mob)
-	new /obj/structure/campfire(user.loc)
-	user << SPAN_NOTE("You place chunks in circle and make campfire.")
-	qdel(src)
+	if(!(locate(/obj/structure/campfire) in user.loc))
+		new /obj/structure/campfire(user.loc)
+		user << SPAN_NOTE("You place chunks in circle and make campfire.")
+		qdel(src)
+	else
+		user << SPAN_WARN("Campfire is already here.")
 
 
 
@@ -94,7 +97,7 @@
 
 
 /obj/item/weapon/stick/attack_hand(var/mob/user as mob)
-	if(user.a_intent == I_GRAB)
+	if(src.loc == user)
 		if(ingredients.len)
 			var/obj/O = locate(/obj/item/weapon/reagent_containers/food/snacks/ingredient) in src.ingredients
 			user << SPAN_NOTE("You take [O.name] from [src.name].")
@@ -139,41 +142,12 @@
 	w_class = ITEM_SIZE_TINY
 
 
-
 /obj/item/weapon/wgrill
 	name = "Grill"
 	desc = "Wooden makeshift grill."
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = "grill"
 	w_class = ITEM_SIZE_SMALL
-
-
-
-/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom
-	name = "mushroom"
-	desc = "Unknown shroom. Eatable. Can be toxic."
-	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
-	icon_state = "shroom_bottom1"
-	var/icon_head = "shroom_upper1"
-	var/icon_ring = "shroom_ring1"
-
-	New()
-		..()
-		update_icon()
-
-
-/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/update_icon()
-	if(icon_head)
-		overlays += icon_head
-	if(icon_ring)
-		overlays += icon_ring
-
-
-/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries
-	name = "Berries"
-	desc = "Unknown berries. You can eat it, but they might kill you."
-	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
-	icon_state = "handful_berries"
 
 
 /obj/item/weapon/reagent_containers/food/snacks/bug

@@ -6,7 +6,10 @@
 /obj/structure/flora
 	var/loot_left = 3
 	var/loot_chance = 35
-	var/list/loot_list = list(/obj/item/weapon/reagent_containers/food/snacks/bug, /obj/item/weapon/spider_silk)
+	var/list/loot_list = list(/obj/item/weapon/reagent_containers/food/snacks/bug,
+								/obj/item/weapon/hook,
+								/obj/item/weapon/paper,
+								/obj/item/weapon/spider_silk)
 
 
 
@@ -16,6 +19,8 @@
 			if(prob(loot_chance))
 				user << SPAN_NOTE("You found something.")
 				var/loot =  pick(loot_list)
+				if(loot == /obj/item/weapon/paper)
+					loot = pick(typesof(/obj/item/weapon/paper))
 				new loot(user.loc)
 				loot_left--
 			else
@@ -28,7 +33,7 @@
 
 
 /obj/structure/flora/snowytree
-	name = "tree"
+	name = "Old tree"
 	desc = "Just old trunk."
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 
@@ -57,8 +62,8 @@
 
 //You can do very-very-very big trees, but don't forget about cutted overlays and make another object
 /obj/structure/flora/snowytree/big
-	name = "tree"
-	desc = "Just old trunk."
+	name = "Tree"
+	desc = "Looks freezed. But maybe still alive and useful."
 	icon = 'icons/obj/snowy_event/snowy_trees_big.dmi'
 	icon_state = "tree_1"
 	pixel_x = -16
@@ -85,15 +90,15 @@
 
 
 /obj/structure/flora/snowytree/high
-	name = "tree"
-	desc = "Just old trunk."
+	name = "Pine"
+	desc = "You can see a lot of small needles at every bough. Wonderful."
 	icon = 'icons/obj/snowy_event/snowy_trees_high.dmi'
 	icon_state = "pine_1"
 	pixel_x = -16
-	max_health = 40
-	tree_health = 40
+	max_health = 50
+	tree_health = 50
 	wood_amount = 3
-	toughness = 1
+	toughness = 2
 	branch_factor = 3
 
 
@@ -168,16 +173,43 @@
 	anchored = 1
 	layer = 8
 	var/dead = 0
-	var/berries_left = 3
-	var/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/berry = /obj/item/weapon/reagent_containers/food/snacks/ingredient/berries
+	var/list/berries = list()
 
 	New()
 		if(!dead)
 			icon_state = "snowbush[rand(4, 5)]"
-			if(berry && berries_left)
-				overlays += "berries-full"
+			berry_gen()
+			update_icon()
 		else
 			icon_state = "deadbush[rand(1, 4)]"
+
+
+/obj/structure/flora/snowybush/update_icon()
+	overlays.Cut()
+	if(!dead && berries.len)
+		var/I = "berries-full"
+		if(berries.len > 2)
+			I = "berries-full"
+		else if(berries.len == 2)
+			I = "berries-half"
+		else
+			I = "berries-few"
+		var/icon/B = new(icon, I)
+		var/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/C = berries[1]
+		B.Blend(rgb(C.berry_color["r"], C.berry_color["g"], C.berry_color["b"]), ICON_ADD)
+		overlays += B
+
+
+/obj/structure/flora/snowybush/proc/berry_gen()
+	var/list/B = typesof(/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries)
+	var/berry
+	B.Remove(/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries)
+	if(B.len)
+		berry = pick(B)
+	for(var/i = 1, i<= 3, i++)
+		var/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/F = new berry(src)
+		berries.Add(F)
+
 
 
 /obj/structure/flora/snowybush/deadbush/examine(var/mob/user as mob)
@@ -185,8 +217,8 @@
 	if(dead)
 		user << SPAN_NOTE("That bush is dead or sleeping at this time.")
 	else
-		if(berry && berries_left)
-			user << SPAN_NOTE("You see how [berry.name] berries growing here. You can harvest them for [berries_left] times left.")
+		if(berries.len)
+			user << SPAN_NOTE("You see some berries growing here. You can harvest them for [berries.len] times left.")
 
 
 /obj/structure/flora/snowybush/attackby(obj/item/weapon/T as obj, mob/user as mob)
@@ -199,9 +231,14 @@
 
 /obj/structure/flora/snowybush/attack_hand(var/mob/user as mob)
 	..()
-	if(!dead && berries_left && user.a_intent != I_DISARM)
-		berries_left = berries_left-1
-		new berry(user.loc)
+	if(!dead && berries.len && user.a_intent != I_DISARM)
+		var/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/B = locate(/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries) in src
+		if(B)
+			B.loc = user.loc
+			berries.Remove(B)
+			user << SPAN_NOTE("You take some berries from this bush.")
+			update_icon()
+
 
 
 /obj/structure/flora/snowybush/deadbush

@@ -129,17 +129,15 @@
 
 
 /obj/structure/campfire/attack_hand(var/mob/user as mob)
+	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 	if(user.a_intent == I_HELP && fire_stage == 1)
 		if(fire_stage == 3 && firewood <= 50)
 			user << SPAN_WARN("Not enough wood.")
 			return
-		user.visible_message(
-					SPAN_NOTE("[user] trying to kindle fire..."),
-					SPAN_NOTE("You carefull waves with your hand in attempt to fire it campfire up...")
-				)
+		user << SPAN_NOTE("You carefull waves with your hand in attempt to fire it campfire up...")
 		if(do_after(user, 30))
 			if(fire_stage == 1)
-				if(prob(35+(10*tinder)))
+				if(prob(15+(10*tinder))) //tinder is needed to fire up the campfire. But if you really need...
 					firingUp()
 				else
 					user << SPAN_WARN("You still can't see fire. Maybe try again?")
@@ -199,6 +197,7 @@
 				H.apply_damage(rand(5, 20)*fire_stage, BURN) //Witches gonna hurt...
 			else
 				H.apply_damage(rand(1, 10)*fire_stage, BURN, pick(BP_R_LEG, BP_L_LEG, BP_L_FOOT, BP_R_FOOT)) //Dont play with fire, kids
+		heating()
 	else
 		processing_objects.Remove(src)
 		fire_stage = 0
@@ -256,3 +255,37 @@
 		if(cook_place.cauldron)
 			cook_place.cauldron.boil()
 		cook_place.updateUsrDialog()
+
+
+//Ye-e-ea-ah... Copypasted from space heater. I know, it's very-very-very bad, but... This is temporary method until i study atmos
+//Sorry. Another shame on me
+/obj/structure/campfire/proc/heating()
+	var/heating_power = burning_temp*100
+	var/set_temperature = T0C + (5 + (10*fire_stage))
+	var/datum/gas_mixture/env = loc.return_air()
+	if(env && abs(env.temperature - set_temperature) > 0.1)
+		var/transfer_moles = 0.25 * env.total_moles
+		var/datum/gas_mixture/removed = env.remove(transfer_moles)
+
+		if(removed)
+			var/heat_transfer = removed.get_thermal_energy_change(set_temperature)
+			if(heat_transfer > 0)	//heating air
+				heat_transfer = min( heat_transfer , heating_power ) //limit by the power rating of the heater
+
+				removed.add_thermal_energy(heat_transfer)
+			else	//cooling air
+				heat_transfer = abs(heat_transfer)
+
+				//Assume the heat is being pumped into the hull which is fixed at 20 C
+				var/cop = removed.temperature/T20C	//coefficient of performance from thermodynamics -> power used = heat_transfer/cop
+				heat_transfer = min(heat_transfer, cop * heating_power)	//limit heat transfer by available power
+
+				heat_transfer = removed.add_thermal_energy(-heat_transfer)	//get the actual heat transfer
+
+		env.merge(removed)
+
+	for(var/mob/living/L in range(fire_stage, src)) //Fire stage as range. Why not?
+		if(istype(L, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = L
+			if(H.bodytemperature <= 320)
+				H.bodytemperature = H.bodytemperature + fire_stage

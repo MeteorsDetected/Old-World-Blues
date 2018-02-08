@@ -591,8 +591,8 @@
 		if(loc_temp < T0C+15) //Delete from here
 			if(last_chill_tick >= 3)
 				bodytemperature -= snowyTemperatureHandler(loc_temp) //Needed for snowy event. Proc location in snowy_other.dm at modules/events/snowy
-		else
-			last_chill_tick++ //to here after it pass
+			else
+				last_chill_tick++ //to here after it pass
 
 
 		if(adjusted_pressure < species.warning_high_pressure && adjusted_pressure > species.warning_low_pressure &&\

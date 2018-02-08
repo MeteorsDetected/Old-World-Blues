@@ -1140,6 +1140,7 @@
 #include "code\modules\events\snowy_event\fishing_items.dm"
 #include "code\modules\events\snowy_event\lootables.dm"
 #include "code\modules\events\snowy_event\snowy_items.dm"
+#include "code\modules\events\snowy_event\snowy_mobs.dm"
 #include "code\modules\events\snowy_event\snowy_other.dm"
 #include "code\modules\events\snowy_event\turfs.dm"
 #include "code\modules\examine\examine.dm"

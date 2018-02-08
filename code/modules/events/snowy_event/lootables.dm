@@ -130,7 +130,12 @@
 	desc = "Mushrooms under layer of snow. Looks alive..."
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = "shrooms_hided"
-	loot = /obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom
+	possible_loot = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/dumb,
+						/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/healer,
+						/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/guts,
+						/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/choco,
+						/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/meat,
+						/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/rad)
 	tools = list()
 	amount_of_loot = 3
 	del_when_harvested = 1
@@ -151,7 +156,9 @@
 	desc = "Mushrooms that grow on the tree. Looks undamaged."
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = "shrooms_hided"
-	loot = /obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom
+	possible_loot = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/mind,
+						/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/paradise,
+						/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/pure)
 	amount_of_loot = 2
 	del_when_harvested = 1
 

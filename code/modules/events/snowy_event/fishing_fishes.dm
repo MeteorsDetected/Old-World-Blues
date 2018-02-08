@@ -18,9 +18,11 @@
 	var/sizeAdd = 40
 	var/anomalySizeAdd = 40
 	var/rarity		//1 - common, reagents *1/ 2 - big(100%), reagents *2/ 3 - rare(200%), reagents *3 / 4 - legend(300%), you know what you got
-	var/list/liked_baits = list(	/obj/item/weapon/reagent_containers/food/snacks/bug)
-	var/list/internals = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/fishmeat = 2) //bones, eyes and guts i make later
+	var/list/liked_baits = list(/obj/item/weapon/reagent_containers/food/snacks/bug)
+//	var/list/internals = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/fishmeat = 2) //bones, eyes and guts i make later
 	center_of_mass = list("x"=17, "y"=13)
+	reagents_to_vaporize = list("blood")
+	feel_desc = "fibrous fish"
 
 
 	New()
@@ -47,7 +49,7 @@
 		bitesize = 12-(3*rarity)
 
 
-/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/attackby(obj/item/weapon/O as obj, mob/user as mob)
+/*/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/attackby(obj/item/weapon/O as obj, mob/user as mob)
 	if(O.sharp)
 		user << SPAN_NOTE("You swiftly slice fish open and bowel it.")
 		var/adds = 0
@@ -56,7 +58,8 @@
 		for(var/obj/item/I in internals)
 			for(var/i = 1, i<=internals[I]+adds, i++)
 				new I(user.loc)
-		qdel(src)
+		qdel(src)*/
+//Butchering of fishes i make later. And better than this sheeesh!
 
 
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/examine(mob/M as mob)
@@ -82,9 +85,9 @@
 	anomalySizeAdd = 70
 	New()
 		..()
-		reagents.add_reagent("nutriment", 10*rarity)
-		reagents.add_reagent("carpotoxin", 5*rarity)
-		reagents.add_reagent("cryoxadone", 10*rarity)
+		reagents.add_reagent("fish", 5*rarity)
+		reagents.add_reagent("cryoxadone", 5*rarity)
+		reagents.add_reagent("blood", 3*rarity)
 
 
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_shellfish
@@ -97,9 +100,9 @@
 	anomalySizeAdd = 70
 	New()
 		..()
-		reagents.add_reagent("nutriment", 15*rarity)
-		reagents.add_reagent("carpotoxin", 5*rarity)
-		reagents.add_reagent("radium", 10*rarity)
+		reagents.add_reagent("fish", 5*rarity)
+		reagents.add_reagent("radium", 5*rarity)
+		reagents.add_reagent("blood", 3*rarity)
 
 
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_torped_shark
@@ -112,9 +115,9 @@
 	anomalySizeAdd = 110
 	New()
 		..()
-		reagents.add_reagent("nutriment", 5*rarity)
-		reagents.add_reagent("carpotoxin", 10*rarity)
-		reagents.add_reagent("iron", 15*rarity)
+		reagents.add_reagent("fish", 5*rarity)
+		reagents.add_reagent("iron", 5*rarity)
+		reagents.add_reagent("sulfur", 3*rarity)
 
 
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_catfish
@@ -127,5 +130,35 @@
 	anomalySizeAdd = 60
 	New()
 		..()
-		reagents.add_reagent("nutriment", 20*rarity)
-		reagents.add_reagent("carpotoxin", 10*rarity)
+		reagents.add_reagent("fish", 5*rarity)
+		reagents.add_reagent("sugar", 5*rarity)
+		reagents.add_reagent("blood", 3*rarity)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/iced_carp
+	name = "iced carp"
+	desc = "Small fish with six eyes and bloody cold skin."
+	icon_state = "iced_carp"
+	minSize = 40
+	maxSize = 160
+	sizeAdd = 35
+	anomalySizeAdd = 20
+	New()
+		..()
+		reagents.add_reagent("fish", 5*rarity)
+		reagents.add_reagent("frostoil", 5*rarity)
+		reagents.add_reagent("blood", 3*rarity)
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/bloodshell
+	name = "bloodshell fish"
+	desc = "Fish with some kind of soft shell on her back. Edges of this shell used for moving. This fish flowing above bottom."
+	icon_state = "bloody_shell"
+	minSize = 70
+	maxSize = 310
+	sizeAdd = 50
+	anomalySizeAdd = 80
+	New()
+		..()
+		reagents.add_reagent("fish", 5*rarity)
+		reagents.add_reagent("blood", 10*rarity)

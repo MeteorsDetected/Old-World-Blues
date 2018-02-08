@@ -22,7 +22,9 @@ var/list/fishing_garbage = list(	/obj/item/weapon/handcuffs,
 var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_dolphin,
 									/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_shellfish,
 									/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_torped_shark,
-									/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_catfish
+									/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_catfish,
+									/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/iced_carp,
+									/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/bloodshell
 							)
 
 
@@ -212,14 +214,17 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 	if(istype(target,/obj/structure/ice_hole))
 		var/obj/structure/ice_hole/H = target
 		if(!H.freezing_stage)
-			user.visible_message(SPAN_NOTE("[user] drops his tackle at [target] and wait for his prey."), SPAN_NOTE("You drop your [src.name] at [target]."))
-			src.chance = src.chance + src.hook.addChance + src.fishing_line.addChance
-			src.place = target
-			place.tackles.Add(src)
-			place.update_icon()
-			processing_objects.Add(src)
-			in_process = 1
-			update_icon()
+			if(hook)
+				user.visible_message(SPAN_NOTE("[user] drops his tackle at [target] and wait for his prey."), SPAN_NOTE("You drop your [src.name] at [target]."))
+				src.chance = src.chance + src.hook.addChance + src.fishing_line.addChance
+				src.place = target
+				place.tackles.Add(src)
+				place.update_icon()
+				processing_objects.Add(src)
+				in_process = 1
+				update_icon()
+			else
+				user << SPAN_WARN("You can't fishing without hook!")
 		else
 			user << SPAN_WARN("This [target.name] is freezed. You need something sharp to crack this ice.")
 
