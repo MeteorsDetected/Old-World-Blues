@@ -18,7 +18,6 @@
 	var/isGlass = 1
 
 	var/label_text = ""
-	var/list/preloaded = null
 
 	var/list/can_be_placed_into = list(
 		/obj/machinery/chem_master,
@@ -41,24 +40,22 @@
 		/mob/living/simple_animal/hostile/retaliate/goat,
 		/obj/machinery/centrifuge,
 		/obj/machinery/sleeper,
-		/obj/machinery/smartfridge/,
+		/obj/machinery/smartfridge,
 		/obj/machinery/biogenerator,
 		/obj/machinery/constructable_frame,
 		/obj/machinery/radiocarbon_spectrometer
 		)
 
 // Self procs //
-
-/obj/item/weapon/reagent_containers/glass/New()
+/obj/item/weapon/reagent_containers/glass/initialize()
 	..()
-	if(isGlass) unacidable = 1
+	if(isGlass)
+		unacidable = 1
+
 	if(!base_name)
 		base_name = name
 	else
 		update_name_label()
-	if(preloaded)
-		for(var/reagent in preloaded)
-			reagents.add_reagent(reagent, preloaded[reagent])
 
 /obj/item/weapon/reagent_containers/glass/proc/update_name_label()
 	if(label_text == "")

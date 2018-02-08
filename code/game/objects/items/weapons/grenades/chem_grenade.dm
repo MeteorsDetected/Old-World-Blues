@@ -15,7 +15,8 @@
 	var/list/allowed_containers = list(/obj/item/weapon/reagent_containers/glass/beaker)
 	var/affected_area = 3
 
-	New()
+	initialize()
+		..()
 		create_reagents(1000)
 
 	attack_self(mob/user as mob)
@@ -197,7 +198,7 @@
 	path = 1
 	stage = 2
 
-	New()
+	initialize()
 		..()
 		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
@@ -218,7 +219,7 @@
 	path = 1
 	stage = 2
 
-	New()
+	initialize()
 		..()
 		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
@@ -241,7 +242,7 @@
 	path = 1
 	stage = 2
 
-	New()
+	initialize()
 		..()
 		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
@@ -263,7 +264,7 @@
 	stage = 2
 	path = 1
 
-	New()
+	initialize()
 		..()
 		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
@@ -285,7 +286,7 @@
 	path = 1
 	stage = 2
 
-	New()
+	initialize()
 		..()
 		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
@@ -295,7 +296,7 @@
 		B2.reagents.add_reagent("phosphorus", 25)
 		B2.reagents.add_reagent("sugar", 25)
 
-		detonator = new/obj/item/device/assembly_holder/timer_igniter(src)
+		detonator = new /obj/item/device/assembly_holder/timer_igniter(src)
 
 		beakers += B1
 		beakers += B2

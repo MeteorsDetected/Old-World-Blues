@@ -31,6 +31,7 @@
 
 /obj/item/weapon/reagent_containers/glass/beaker/vial/random
 	flags = 0
+	preloaded = null
 	var/list/random_reagent_list = list(list("water" = 15) = 1, list("cleaner" = 15) = 1)
 
 /obj/item/weapon/reagent_containers/glass/beaker/vial/random/toxin
@@ -40,7 +41,7 @@
 		list("impedrezene" = 15)						= 2,
 		list("zombiepowder" = 10)						= 1)
 
-/obj/item/weapon/reagent_containers/glass/beaker/vial/random/New()
+/obj/item/weapon/reagent_containers/glass/beaker/vial/random/initialize()
 	..()
 	if(is_open_container())
 		flags ^= OPENCONTAINER

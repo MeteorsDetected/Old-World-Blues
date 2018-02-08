@@ -18,7 +18,7 @@
 	volume = 250
 	center_of_mass = list("x"=17, "y"=12)
 
-/obj/item/weapon/reagent_containers/spray/New()
+/obj/item/weapon/reagent_containers/spray/initialize()
 	..()
 	src.verbs -= /obj/item/weapon/reagent_containers/verb/set_APTFT
 
@@ -80,7 +80,6 @@
 	.=..()
 	if(.<=1)
 		user << "[round(reagents.total_volume)] units left."
-	return
 
 /obj/item/weapon/reagent_containers/spray/verb/empty()
 
@@ -103,10 +102,7 @@
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	volume = 50
-
-/obj/item/weapon/reagent_containers/spray/cleaner/New()
-	..()
-	reagents.add_reagent("cleaner", volume)
+	preloaded = list("cleaner" = 50)
 
 /obj/item/weapon/reagent_containers/spray/pepper
 	name = "pepperspray"
@@ -117,10 +113,7 @@
 	possible_transfer_amounts = null
 	volume = 40
 	var/safety = 1
-
-/obj/item/weapon/reagent_containers/spray/pepper/New()
-	..()
-	reagents.add_reagent("condensedcapsaicin", 40)
+	preloaded = list("condensedcapsaicin" = 40)
 
 /obj/item/weapon/reagent_containers/spray/pepper/examine(mob/user, return_dist=1)
 	.=..()
@@ -146,10 +139,7 @@
 	amount_per_transfer_from_this = 1
 	possible_transfer_amounts = null
 	volume = 10
-
-/obj/item/weapon/reagent_containers/spray/waterflower/New()
-	..()
-	reagents.add_reagent("water", 10)
+	preloaded = list("water" = 10)
 
 /obj/item/weapon/reagent_containers/spray/chemsprayer
 	name = "chem sprayer"
@@ -191,10 +181,7 @@
 	icon_state = "plantbgone"
 	item_state = "plantbgone"
 	volume = 100
-
-/obj/item/weapon/reagent_containers/spray/plantbgone/New()
-	..()
-	reagents.add_reagent("plantbgone", 100)
+	preloaded = list("plantbgone" = 100)
 
 /obj/item/weapon/reagent_containers/spray/plantbgone/afterattack(atom/A as mob|obj, mob/user as mob, proximity)
 	if(!proximity) return

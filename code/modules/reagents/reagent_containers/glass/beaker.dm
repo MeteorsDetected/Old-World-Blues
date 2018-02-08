@@ -87,7 +87,7 @@
 	volume = 60
 	amount_per_transfer_from_this = 10
 	flags = OPENCONTAINER | NOREACT
-	isGlass = 0
+	isGlass = FALSE
 
 /obj/item/weapon/reagent_containers/glass/beaker/bluespace
 	name = "bluespace beaker"
@@ -99,7 +99,7 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,60,120,300)
 	flags = OPENCONTAINER
-	isGlass = 0
+	isGlass = FALSE
 
 /obj/item/weapon/reagent_containers/glass/beaker/vial
 	name = "vial"
@@ -134,7 +134,7 @@
 	volume = 120
 	flags = OPENCONTAINER
 	unacidable = 0
-	isGlass = 0
+	isGlass = FALSE
 	var/obj/item/device/assembly/prox_sensor/sensor = null
 
 /obj/item/weapon/reagent_containers/glass/beaker/bucket/attackby(var/obj/D, mob/user as mob)
