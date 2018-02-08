@@ -16,7 +16,7 @@ Has two important vars:
 	obj_type	-	type of overmap object it spawns. Could be overriden for custom overmap objects.
 	landing_area -	type of area used as inbound shuttle landing, null if no shuttle landing area.
 
-Object could be placed anywhere on zlevel. Should only be placed on zlevel that should appear on overmap as a separate entitety.
+/object could be placed anywhere on zlevel. Should only be placed on zlevel that should appear on overmap as a separate entitety.
 Right after creation it sends itself to nullspace and creates an overmap object, corresponding to this zlevel.
 
 *************************************************************

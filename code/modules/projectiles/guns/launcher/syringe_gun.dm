@@ -1,4 +1,4 @@
-obj/item/weapon/reagent_containers/syringe/throw_impact(atom/hit_atom, var/speed)
+/obj/item/weapon/reagent_containers/syringe/throw_impact(atom/hit_atom, var/speed)
 	..()
 	//check speed to see if we hit hard enough to trigger the rapid injection
 	//incidentally, this means syringe_cartridges can be used with the pneumatic launcher
