@@ -22,8 +22,6 @@ var/global/defer_powernet_rebuild = 0      // True if net rebuild will be called
 
 var/global/datum/universal_state/universe = new
 
-var/global/list/global_map = null
-
 // Noises made when hit while typing.
 var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 
