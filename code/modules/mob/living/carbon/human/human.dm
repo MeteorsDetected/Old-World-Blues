@@ -765,7 +765,8 @@
 
 				var/turf/location = loc
 				if (istype(location, /turf/simulated))
-					location.add_vomit_floor(src, 1)
+					var/turf/simulated/S = location
+					S.add_vomit(src, 1)
 
 				nutrition -= 40
 				adjustToxLoss(-3)
