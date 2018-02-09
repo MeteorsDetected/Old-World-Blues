@@ -1908,5 +1908,8 @@
 #include "code\ZAS\Zone.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
-#include "maps\snowland.dmm"
+#include "maps\asterodstation.dmm"
+#include "maps\CentComm.dmm"
+#include "maps\exodus\3.satelite.dmm"
+#include "maps\exodus\derelict.dmm"
 // END_INCLUDE
