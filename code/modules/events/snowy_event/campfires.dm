@@ -51,7 +51,7 @@
 
 
 /obj/structure/campfire/attackby(obj/item/weapon/T as obj, mob/user as mob)
-	if(istype(T, /obj/item/weapon/snowy_woodchunks) || istype(T, /obj/item/stack/material/wood))
+	if(istype(T, /obj/item/weapon/snowy_woodchunks) || istype(T, /obj/item/stack/material/wood) || istype(T, /obj/item/weapon/branches))
 		if(istype(T, /obj/item/weapon/snowy_woodchunks))
 			firewood = firewood + 300
 			qdel(T)
@@ -74,7 +74,7 @@
 
 	if(istype(T, /obj/item/weapon/paper) || istype(T, /obj/item/weapon/spacecash))
 		if(tinder < 5)
-			user << SPAN_NOTE("You put a tinder into [src.name].")
+			user << SPAN_NOTE("You put a [T.name] as tinder into [src.name].")
 			tinder = tinder + 1
 			firewood = firewood + 5
 			qdel(T)

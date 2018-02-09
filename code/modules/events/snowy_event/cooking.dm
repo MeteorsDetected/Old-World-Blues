@@ -269,7 +269,16 @@
 
 
 /obj/item/weapon/reagent_containers/glass/beaker/cauldron/attack_self(var/mob/user as mob)
-	return
+	if(user.a_intent == I_HURT && (ingredients.len || reagents.total_volume || snowed))
+		user << SPAN_WARN("You splash cauldron's contents onto the [user.loc].")
+		for(var/obj/item/weapon/reagent_containers/food/snacks/ingredient/I in src)
+			ingredients.Remove(I)
+			I.loc = user.loc
+		reagents.clear_reagents()
+		snowed = 0
+		update_icon()
+		if(cooker)
+			cooker.update_icon()
 
 
 /obj/item/weapon/reagent_containers/glass/beaker/cauldron/afterattack(atom/target, mob/user, proximity)
@@ -321,7 +330,7 @@
 					snowed--
 					update_icon()
 
-		if(temperature >= 100 && (!reagents.total_volume || !ingredients.len))
+		if(temperature >= 100 && (reagents.total_volume || ingredients.len))
 			if(prob(50)) //I hope it will not lead to ear fuck. Sorry. I make my own tiny sound system later
 				playsound(cooker.loc, 'sound/effects/bubbles2.ogg', 40, rand(-50, 50))
 			var/datum/reagent/MR = reagents.get_master_reagent()

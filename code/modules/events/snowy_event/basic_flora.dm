@@ -144,13 +144,13 @@
 		var/datum/effect/effect/system/steam_spread/F = new /datum/effect/effect/system/steam_spread/spread()
 		F.set_up(4, 0, src.loc, /obj/effect/effect/steam/flinders)
 		F.start()
-		playsound(src.loc, 'sound/effects/woodhit.ogg', 60, rand(-50, 50), 8, 2)
+		playsound(src.loc, 'sound/effects/woodhit.ogg', 60, rand(-50, 50), 16, 1)
 		user << SPAN_NOTE("You aim a blow and hit that [src.name].")
 		update_icon()
 
 	if(tree_health <= 0)
 		src.visible_message(SPAN_WARN("<b>[src.name] falling down!</b>"))
-		playsound(src.loc, 'sound/effects/snowy/falling_tree.ogg', 45, rand(-50, 50), 36, 2)
+		playsound(src.loc, 'sound/effects/snowy/falling_tree.ogg', 45, rand(-50, 50), 40, 1)
 		var/d = pick(alldirs)
 		var/t = get_step(src, d)
 		for(var/i = 1, i<=wood_amount, i++) //In the memory of Jarlo, my old partner who makes tree falling almost like there. Thank you
@@ -288,14 +288,14 @@
 
 
 /obj/structure/bed/chair/office/log/attackby(obj/item/weapon/T as obj, mob/user as mob)
-	if(istype(T, /obj/item/weapon/material/hatchet) || istype(T, /obj/item/weapon/melee/energy))
+	if(istype(T, /obj/item/weapon/material/hatchet) || istype(T, /obj/item/weapon/melee/energy)  || istype(T, /obj/item/weapon/material/twohanded/fireaxe))
 		for(var/i = 1, i<=3, i++)
 			new /obj/item/weapon/snowy_woodchunks(src.loc)
 		user << SPAN_NOTE("You chop log into usable chunks.")
 		var/datum/effect/effect/system/steam_spread/F = new /datum/effect/effect/system/steam_spread/spread()
 		F.set_up(4, 0, src.loc, /obj/effect/effect/steam/flinders)
 		F.start()
-		playsound(src.loc, 'sound/effects/woodhit.ogg', 60, rand(-50, 50), 8, 2)
+		playsound(src.loc, 'sound/effects/woodhit.ogg', 60, rand(-50, 50), 16, 1)
 		qdel(src)
 
 
@@ -312,13 +312,13 @@
 /obj/structure/flora/stump/attackby(obj/item/weapon/T as obj, mob/user as mob)
 	if(user.a_intent != I_GRAB)
 		user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
-		if(istype(T, /obj/item/weapon/material/hatchet) || istype(T, /obj/item/weapon/melee/energy))
+		if(istype(T, /obj/item/weapon/material/hatchet) || istype(T, /obj/item/weapon/melee/energy) || istype(T, /obj/item/weapon/material/twohanded/fireaxe))
 			user << SPAN_NOTE("You swing your [T.name] and hit the [src.name].")
 
 			var/datum/effect/effect/system/steam_spread/F = new /datum/effect/effect/system/steam_spread/spread()
 			F.set_up(4, 0, src.loc, /obj/effect/effect/steam/flinders)
 			F.start()
-			playsound(src.loc, 'sound/effects/woodhit.ogg', 60, rand(-50, 50), 8, 2)
+			playsound(src.loc, 'sound/effects/woodhit.ogg', 60, rand(-50, 50), 16, 1)
 
 			if(prob(30))
 				new /obj/item/weapon/snowy_woodchunks(src.loc)

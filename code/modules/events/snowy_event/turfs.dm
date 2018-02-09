@@ -208,6 +208,7 @@
 	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	icon_state = "chasm"
 	dynamic_lighting = 1
+	luminosity = 1
 
 	New()
 		..()

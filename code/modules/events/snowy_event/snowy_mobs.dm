@@ -155,10 +155,10 @@
 //meeh. Shhh
 /mob/living/simple_animal/snowy_animal/proc/update_icon()
 	..()
-	if(life_mode == "living")
-		icon_state = icon_living
-	else if(life_mode == "sleep")
+	if(life_mode == "sleep")
 		icon_state = icon_sleep
+	else
+		icon_state = icon_living
 
 
 
@@ -237,7 +237,7 @@
 		for(var/mob/living/L in range(hearing, src))
 			if(L != src)
 				if(istype(L, /mob/living/carbon/human))
-					if(intent == "run")
+					if(L.intent == "run")
 						setPanic(L)
 						return
 				else if(!istype(L, /mob/living/simple_animal/snowy_animal))
@@ -249,11 +249,12 @@
 /mob/living/simple_animal/snowy_animal/proc/setPanic(var/atom/T)
 	if(life_mode != "panic" && !target)
 		src.visible_message("<b>[name]</b> jumps at place in scare.")
-		playsound(src.loc, sound_list["warn_howl"], 60, rand(-70, 70), 60, 1)
+		playsound(src.loc, sound_list["warn_howl"], 80, rand(-70, 70), 60, 1) //Well, this will warn another animals. Later
 		speed = 4
 	life_mode = "panic"
 	target = T
 	new_place = null
+	update_icon()
 
 
 /mob/living/simple_animal/snowy_animal/proc/Calm()
@@ -282,7 +283,7 @@
 
 
 /mob/living/simple_animal/snowy_animal/proc/howl()
-	playsound(src.loc, pick(sound_list["howl"]), 60, rand(-70, 70), 60, 1)
+	playsound(src.loc, pick(sound_list["howl"]), 80, rand(-70, 70), 60, 1)
 	howl_ticks = 0
 
 
@@ -380,7 +381,7 @@
 
 
 /mob/living/simple_animal/hostile/creature/wolf/proc/howl()
-	playsound(src.loc, 'sound/effects/snowy/wolf_howl.ogg', 90, rand(-70, 70), 100, 1)
+	playsound(src.loc, 'sound/effects/snowy/wolf_howl.ogg', 100, rand(-70, 70), 100, 1)
 	howl_count--
 	if(howl_count < 0)
 		howl_count = 0

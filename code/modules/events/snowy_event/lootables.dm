@@ -92,7 +92,7 @@
 
 
 /obj/structure/lootable/attackby(obj/item/weapon/T as obj, mob/user as mob)
-	if(istype(T, tools[stage]) && !harvested)
+	if(tools.len && istype(T, tools[stage]) && !harvested)
 		if(prob(85))
 			if(tools_messages[tools[stage]][1])
 				user << SPAN_NOTE("[tools_messages[tools[stage]][1]] [messages_by_stages[stage]].")
