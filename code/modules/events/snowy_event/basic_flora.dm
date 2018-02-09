@@ -173,7 +173,9 @@
 	anchored = 1
 	layer = 8
 	var/dead = 0
-	var/list/berries = list()
+	var/berries_left = 3
+	var/berry
+	var/list/berries_color = list(r = 0, g = 0, b = 0)
 
 	New()
 		if(!dead)
@@ -186,30 +188,27 @@
 
 /obj/structure/flora/snowybush/update_icon()
 	overlays.Cut()
-	if(!dead && berries.len)
+	if(!dead && berries_left)
 		var/I = "berries-full"
-		if(berries.len > 2)
+		if(berries_left > 2)
 			I = "berries-full"
-		else if(berries.len == 2)
+		else if(berries_left == 2)
 			I = "berries-half"
 		else
 			I = "berries-few"
 		var/icon/B = new(icon, I)
-		var/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/C = berries[1]
-		B.Blend(rgb(C.berry_color["r"], C.berry_color["g"], C.berry_color["b"]), ICON_ADD)
+		B.Blend(rgb(berries_color["r"], berries_color["g"], berries_color["b"]), ICON_ADD)
 		overlays += B
 
 
 /obj/structure/flora/snowybush/proc/berry_gen()
 	var/list/B = typesof(/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries)
-	var/berry
 	B.Remove(/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries)
 	if(B.len)
 		berry = pick(B)
-	for(var/i = 1, i<= 3, i++)
-		var/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/F = new berry(src)
-		berries.Add(F)
-
+	var/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/F = new berry(src) //Hm. Maybe tmp var is better idea
+	berries_color = F.berry_color
+	qdel(F)
 
 
 /obj/structure/flora/snowybush/deadbush/examine(var/mob/user as mob)
@@ -217,8 +216,8 @@
 	if(dead)
 		user << SPAN_NOTE("That bush is dead or sleeping at this time.")
 	else
-		if(berries.len)
-			user << SPAN_NOTE("You see some berries growing here. You can harvest them for [berries.len] times left.")
+		if(berries_left)
+			user << SPAN_NOTE("You see some berries growing here. You can harvest them for [berries_left] times left.")
 
 
 /obj/structure/flora/snowybush/attackby(obj/item/weapon/T as obj, mob/user as mob)
@@ -231,13 +230,11 @@
 
 /obj/structure/flora/snowybush/attack_hand(var/mob/user as mob)
 	..()
-	if(!dead && berries.len && user.a_intent != I_DISARM)
-		var/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/B = locate(/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries) in src
-		if(B)
-			B.loc = user.loc
-			berries.Remove(B)
-			user << SPAN_NOTE("You take some berries from this bush.")
-			update_icon()
+	if(!dead && berries_left && user.a_intent != I_DISARM)
+		berries_left--
+		user << SPAN_NOTE("You take some berries from this bush.")
+		new berry(user.loc)
+		update_icon()
 
 
 
@@ -297,6 +294,7 @@
 		F.start()
 		playsound(src.loc, 'sound/effects/woodhit.ogg', 60, rand(-50, 50), 16, 1)
 		qdel(src)
+	..()
 
 
 

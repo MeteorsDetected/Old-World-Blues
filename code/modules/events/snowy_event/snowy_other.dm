@@ -461,7 +461,7 @@
 			t = 0.5
 		for(var/list/p in parts)
 			if(C.body_parts_covered & p["flag"])
-				p["temp"] = t
+				p["temp"] = t*2 //Yeah. Let's make this harder. Later i rework all of that and made it based on env temperature
 
 
 	if(bodytemperature <= T0C-5 && bodytemperature > T0C-10)
@@ -475,7 +475,7 @@
 	for(var/list/part in parts)
 		if(bodytemperature <= T0C-20)
 			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-				apply_damage(part["temp"],  BURN, part["part"],  0, 0, "Freeze") //Too fast. Need to slow down that process
+				apply_damage(part["temp"],  BURN, part["part"],  0, 0, "Freeze")
 		G += part["temp"]
 	last_chill_tick = 0
 	G = G/parts.len

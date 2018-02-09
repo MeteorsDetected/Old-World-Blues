@@ -383,6 +383,7 @@
 	var/obj/item/weapon/reagent_containers/food/snacks/ingredient/inside
 	var/feel_desc = "odd substance"
 	var/standard_temp = 10
+	var/processing = 0
 //	var/spoil_time = 400 //-1 every ~10 ticks if not freezed
 
 	var/list/inside_properties = list(current_temp = 10, temp_desc = "cold")
@@ -400,6 +401,7 @@
 		..()
 		updateDescAndIcon()
 		processing_objects.Add(src) //I know. There we need separate process for ingredients. I'm working on it...
+		processing = 1
 
 
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/proc/updateDescAndIcon()
@@ -433,6 +435,9 @@
 			inside_properties["current_temp"] = inside_properties["current_temp"]--
 		if(properties["current_temp"] > standard_temp)
 			properties["current_temp"] = properties["current_temp"] - 2
+	else
+		processing = 0
+		processing_objects.Remove(src)
 
 
 
