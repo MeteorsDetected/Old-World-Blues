@@ -65,9 +65,9 @@
 /obj/item/storage/wallet/GetAccess()
 	return front_id && front_id.access
 
-/obj/item/storage/wallet/random/New()
+/obj/item/storage/wallet/random/populateContents()
 	..()
-	var/item1_type = pick(\
+	var/spawn_path = pick(\
 		/obj/item/weapon/spacecash/c10,
 		/obj/item/weapon/spacecash/c100,
 		/obj/item/weapon/spacecash/c1000,
@@ -75,9 +75,10 @@
 		/obj/item/weapon/spacecash/c200,
 		/obj/item/weapon/spacecash/c50,
 		/obj/item/weapon/spacecash/c500)
-	var/item2_type
+	new spawn_path (src)
+
 	if(prob(50))
-		item2_type = pick(\
+		spawn_path = pick(\
 			/obj/item/weapon/spacecash/c10,
 			/obj/item/weapon/spacecash/c100,
 			/obj/item/weapon/spacecash/c1000,
@@ -85,18 +86,14 @@
 			/obj/item/weapon/spacecash/c200,
 			/obj/item/weapon/spacecash/c50,
 			/obj/item/weapon/spacecash/c500)
-	var/item3_type = pick(\
+		new spawn_path (src)
+
+	spawn_path = pick(\
 		/obj/item/weapon/coin/silver,
 		/obj/item/weapon/coin/silver,
 		/obj/item/weapon/coin/gold,
 		/obj/item/weapon/coin/iron,
 		/obj/item/weapon/coin/iron,
 		/obj/item/weapon/coin/iron)
+	new spawn_path (src)
 
-	spawn(2)
-		if(item1_type)
-			new item1_type(src)
-		if(item2_type)
-			new item2_type(src)
-		if(item3_type)
-			new item3_type(src)

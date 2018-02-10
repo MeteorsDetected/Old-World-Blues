@@ -24,6 +24,7 @@
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/collection_mode = 1;  //0 = pick one at a time, 1 = pick all on tile
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
+	var/preloaded = null
 
 /obj/item/storage/Destroy()
 	close_all()
@@ -380,7 +381,7 @@
 	src.add_fingerprint(user)
 	return
 
-/obj/item/storage/verb/toggle_gathering_mode()
+/obj/item/storage/proc/toggle_gathering_mode()
 	set name = "Switch Gathering Method"
 	set category = "Object"
 
@@ -392,7 +393,7 @@
 			usr << "[src] now picks up one item at a time."
 
 
-/obj/item/storage/verb/quick_empty()
+/obj/item/storage/proc/quick_empty()
 	set name = "Empty Contents"
 	set category = "Object"
 
@@ -404,23 +405,16 @@
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, T)
 
-/obj/item/storage/New()
+/obj/item/storage/initialize()
 	..()
 	if(allow_quick_empty)
-		verbs += /obj/item/storage/verb/quick_empty
-	else
-		verbs -= /obj/item/storage/verb/quick_empty
+		verbs += /obj/item/storage/proc/quick_empty
 
 	if(allow_quick_gather)
-		verbs += /obj/item/storage/verb/toggle_gathering_mode
-	else
-		verbs -= /obj/item/storage/verb/toggle_gathering_mode
+		verbs += /obj/item/storage/proc/toggle_gathering_mode
 
-	spawn(5)
-		var/total_storage_space = 0
-		for(var/obj/item/I in contents)
-			total_storage_space += I.get_storage_cost()
-		max_storage_space = max(total_storage_space,max_storage_space) //prevents spawned containers from being too small for their contents
+	populateContents()
+	expandSpace()
 
 	src.boxes = new /obj/screen/storage(  )
 	src.boxes.name = "storage"
@@ -433,7 +427,30 @@
 	src.closer.icon_state = "x"
 	src.closer.layer = 20
 	orient2hud()
-	return
+
+/obj/item/storage/proc/populateContents()
+	if(!preloaded)
+		return
+
+	var/amount = 0
+	for(var/path in preloaded)
+		amount = preloaded[path]
+		if(amount < 1)
+			amount = 1
+		for(var/i in 1 to amount)
+			PoolOrNew(path, src)
+
+
+/obj/item/storage/proc/expandSpace()
+	if(storage_slots) // if slot limit exist
+		storage_slots = max(storage_slots, contents.len)
+	var/total_storage_space = 0
+	for(var/obj/item/I in contents)
+		total_storage_space += I.get_storage_cost()
+		can_hold |= I.type
+		max_w_class = max(I.w_class, max_w_class)
+	max_storage_space = max(total_storage_space,max_storage_space)
+
 
 /obj/item/storage/emp_act(severity)
 	if(!isliving(src.loc))
@@ -443,10 +460,9 @@
 
 /obj/item/storage/attack_self(mob/user as mob)
 	//Clicking on itself will empty it, if it has the verb to do that.
-	if(user.get_active_hand() == src)
-		if(src.verbs.Find(/obj/item/storage/verb/quick_empty))
-			src.quick_empty()
-			return 1
+	if(allow_quick_empty)
+		src.quick_empty()
+		return 1
 
 /obj/item/storage/hear_talk(mob/M as mob, text, verb, datum/language/speaking)
 	for (var/atom/A in src)

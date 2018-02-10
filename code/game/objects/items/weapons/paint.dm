@@ -26,7 +26,7 @@ var/global/list/cached_icons = list()
 		else
 			return ..()
 
-	New()
+	initialize()
 		if(paint_type && lentext(paint_type) > 0)
 			name = paint_type + " " + name
 		..()

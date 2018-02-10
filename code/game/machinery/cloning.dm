@@ -427,16 +427,9 @@ TODO: DNA3 monkey disk
 /obj/item/storage/box/disks
 	name = "Diskette Box"
 	icon_state = "disk_kit"
-
-/obj/item/storage/box/disks/New()
-	..()
-	new /obj/item/weapon/disk/data(src)
-	new /obj/item/weapon/disk/data(src)
-	new /obj/item/weapon/disk/data(src)
-	new /obj/item/weapon/disk/data(src)
-	new /obj/item/weapon/disk/data(src)
-	new /obj/item/weapon/disk/data(src)
-	new /obj/item/weapon/disk/data(src)
+	preloaded = list(
+		/obj/item/weapon/disk/data = 7
+	)
 
 /*
  *	Manual -- A big ol' manual.

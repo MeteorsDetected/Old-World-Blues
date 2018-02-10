@@ -185,13 +185,12 @@
 	anchored = 1.0
 	density = 0
 	cant_hold = list(/obj/item/storage/secure/briefcase)
+	preloaded = list(
+		/obj/item/weapon/paper,
+		/obj/item/weapon/pen
+	)
 
-	New()
-		..()
-		new /obj/item/weapon/paper(src)
-		new /obj/item/weapon/pen(src)
-
-	attack_hand(mob/user as mob)
+/obj/item/storage/secure/safe/attack_hand(mob/living/user)
 		return attack_self(user)
 
 /obj/item/storage/secure/safe/HoS/New()

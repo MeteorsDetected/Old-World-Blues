@@ -869,7 +869,7 @@
 		/obj/item/weapon/flame/lighter/random = 4,
 	)
 	contraband = list(/obj/item/weapon/flame/lighter/zippo = 4)
-	premium = list(/obj/item/storage/fancy/cigar = 5)
+	premium = list(/obj/item/storage/fancy/cigarettes/cigar = 5)
 	prices = list(
 		/obj/item/storage/fancy/cigarettes = 150,
 		/obj/item/weapon/flame/lighter/random = 20,

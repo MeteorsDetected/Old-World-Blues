@@ -20,48 +20,54 @@
 	name = "emergency toolbox"
 	icon_state = "red"
 	item_state = "toolbox_red"
+	preloaded = list(
+		/obj/item/weapon/crowbar/red,
+		/obj/item/weapon/extinguisher/mini,
+		/obj/item/device/radio,
+	)
 
-/obj/item/storage/toolbox/emergency/New()
+/obj/item/storage/toolbox/emergency/populateContents()
 	..()
-	new /obj/item/weapon/crowbar/red(src)
-	new /obj/item/weapon/extinguisher/mini(src)
 	if(prob(50))
-		new /obj/item/device/flashlight(src)
+		PoolOrNew(/obj/item/device/flashlight, src)
 	else
-		new /obj/item/device/flashlight/flare(src)
-	new /obj/item/device/radio(src)
+		PoolOrNew(/obj/item/device/flashlight/flare, src)
+
 
 /obj/item/storage/toolbox/mechanical
 	name = "mechanical toolbox"
 	icon_state = "blue"
 	item_state = "toolbox_blue"
+	preloaded = list(
+		/obj/item/weapon/screwdriver,
+		/obj/item/weapon/wrench,
+		/obj/item/weapon/weldingtool,
+		/obj/item/weapon/crowbar,
+		/obj/item/device/analyzer,
+		/obj/item/weapon/wirecutters,
+	)
 
-/obj/item/storage/toolbox/mechanical/New()
-	..()
-	new /obj/item/weapon/screwdriver(src)
-	new /obj/item/weapon/wrench(src)
-	new /obj/item/weapon/weldingtool(src)
-	new /obj/item/weapon/crowbar(src)
-	new /obj/item/device/analyzer(src)
-	new /obj/item/weapon/wirecutters(src)
 
 /obj/item/storage/toolbox/electrical
 	name = "electrical toolbox"
 	icon_state = "yellow"
 	item_state = "toolbox_yellow"
+	preloaded = list(
+		/obj/item/weapon/screwdriver,
+		/obj/item/weapon/wirecutters,
+		/obj/item/device/t_scanner,
+		/obj/item/weapon/crowbar,
+		/obj/item/stack/cable_coil/random,
+		/obj/item/stack/cable_coil/random,
+	)
 
-/obj/item/storage/toolbox/electrical/New()
+/obj/item/storage/toolbox/electrical/populateContents()
 	..()
-	new /obj/item/weapon/screwdriver(src)
-	new /obj/item/weapon/wirecutters(src)
-	new /obj/item/device/t_scanner(src)
-	new /obj/item/weapon/crowbar(src)
-	new /obj/item/stack/cable_coil/random(src,30)
-	new /obj/item/stack/cable_coil/random(src,30)
 	if(prob(5))
-		new /obj/item/clothing/gloves/yellow(src)
+		PoolOrNew(/obj/item/clothing/gloves/yellow, src)
 	else
-		new /obj/item/stack/cable_coil/random(src,30)
+		PoolOrNew(/obj/item/stack/cable_coil/random, src)
+
 
 /obj/item/storage/toolbox/syndicate
 	name = "black and red toolbox"
@@ -69,13 +75,13 @@
 	item_state = "toolbox_syndi"
 	origin_tech = list(TECH_COMBAT = 1, TECH_ILLEGAL = 1)
 	force = 14
+	preloaded = list(
+		/obj/item/clothing/gloves/yellow,
+		/obj/item/weapon/screwdriver,
+		/obj/item/weapon/wrench,
+		/obj/item/weapon/weldingtool,
+		/obj/item/weapon/crowbar,
+		/obj/item/weapon/wirecutters,
+		/obj/item/device/multitool,
+	)
 
-/obj/item/storage/toolbox/syndicate/New()
-	..()
-	new /obj/item/clothing/gloves/yellow(src)
-	new /obj/item/weapon/screwdriver(src)
-	new /obj/item/weapon/wrench(src)
-	new /obj/item/weapon/weldingtool(src)
-	new /obj/item/weapon/crowbar(src)
-	new /obj/item/weapon/wirecutters(src)
-	new /obj/item/device/multitool(src)
