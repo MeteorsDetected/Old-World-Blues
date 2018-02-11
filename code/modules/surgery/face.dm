@@ -147,7 +147,7 @@
 			SPAN_NOTE("You cauterize the incision on [target]'s face and neck with \the [tool].")
 		)
 		affected.open = 0
-		affected.status &= ~ORGAN_BLEEDING
+		affected.stopBleeding()
 		if (target.op_stage.face == 3)
 			var/obj/item/organ/external/head/h = affected
 			h.disfigured = 0

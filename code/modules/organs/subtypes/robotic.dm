@@ -58,6 +58,10 @@
 	germ_level = 0
 	return
 
+/obj/item/organ/external/robotic/setBleeding()
+	return FALSE
+
+
 /obj/item/organ/external/robotic/proc/can_activate()
 	if(owner.sleeping || owner.stunned || owner.restrained())
 		owner << SPAN_WARN("You can't do that now!")

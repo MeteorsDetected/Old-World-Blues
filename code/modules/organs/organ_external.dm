@@ -602,7 +602,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	number_wounds = 0
 	brute_dam = 0
 	burn_dam = 0
-	status &= ~ORGAN_BLEEDING
+	stopBleeding()
 	var/clamped = 0
 
 	//update damage counts
@@ -613,17 +613,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 			else
 				brute_dam += W.damage
 
-		if(robotic < ORGAN_ROBOT && W.bleeding() && (owner && owner.should_have_organ(O_HEART)))
+		if(W.bleeding())
 			W.bleed_timer--
-			status |= ORGAN_BLEEDING
+			src.setBleeding()
 
 		clamped |= W.clamped
 
 		number_wounds += W.amount
 
 	//things tend to bleed if they are CUT OPEN
-	if (open && !clamped && owner && owner.should_have_organ(O_HEART))
-		status |= ORGAN_BLEEDING
+	if (open && !clamped && owner)
+		src.setBleeding()
 
 	//Bone fractures
 	if(config.bones_can_break && brute_dam > min_broken_damage * config.organ_health_multiplier && robotic<ORGAN_ROBOT)
@@ -794,7 +794,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/bandage()
 	var/rval = 0
-	status &= ~ORGAN_BLEEDING
+	src.stopBleeding()
 	for(var/datum/wound/W in wounds)
 		if(W.internal) continue
 		rval |= !W.bandaged
@@ -819,12 +819,22 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/clamp()
 	var/rval = 0
-	src.status &= ~ORGAN_BLEEDING
+	src.stopBleeding()
 	for(var/datum/wound/W in wounds)
 		if(W.internal) continue
 		rval |= !W.clamped
 		W.clamped = 1
 	return rval
+
+/obj/item/organ/external/proc/setBleeding()
+	if(robotic >= ORGAN_ROBOT || owner.species.flags & NO_BLOOD)
+		return FALSE
+	status |= ORGAN_BLEEDING
+	return TRUE
+
+/obj/item/organ/external/proc/stopBleeding()
+	status &= ~ORGAN_BLEEDING
+
 
 /obj/item/organ/external/proc/fracture()
 	if(robotic >= ORGAN_ROBOT)
@@ -833,10 +843,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 
 	if(owner)
-		owner.visible_message(\
-			"<span class='danger'>You hear a loud cracking sound coming from \the [owner].</span>",\
-			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
-			"<span class='danger'>You hear a sickening crack.</span>")
+		owner.visible_message(
+			"<span class='danger'>You hear a loud cracking sound coming from \the [owner].</span>",
+			"<span class='danger'>Something feels like it shattered in your [name]!</span>",
+			"<span class='danger'>You hear a sickening crack.</span>"
+		)
 		if(owner.species && !(owner.species.flags & NO_PAIN))
 			owner.emote("scream")
 
