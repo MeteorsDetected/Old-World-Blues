@@ -61,7 +61,7 @@
 		else if(cauldron.reagents.total_volume >= 100)
 			overlays += "cauldron-something"
 		if(cauldron.temperature >= 100)
-			if(cauldron.snowed < 3 && !cauldron.reagents.total_volume)
+			if(cauldron.snowed < 3 && cauldron.reagents.total_volume)
 				overlays += "cauldron-boiling"
 			var/image/SO = image(icon, "cooking_steam")
 			SO.pixel_y = SO.pixel_y + 8
@@ -284,8 +284,18 @@
 /obj/item/weapon/reagent_containers/glass/beaker/cauldron/afterattack(atom/target, mob/user, proximity)
 	if(!proximity) return
 //	if(temperature >= 100)
-	standard_splash_mob(user, target)
-	standard_dispenser_refill(user, target)
+	if(istype(target, /mob/living) && !istype(target, /mob/living/simple_animal/cow))
+		if(user.a_intent == I_HELP)
+			if(standard_feed_mob(user, target))
+				return
+		else if(standard_splash_mob(user, target))
+			return
+	else if(istype(target, /obj/structure/sink))
+		standard_dispenser_refill(user, target)
+
+
+/obj/item/weapon/reagent_containers/glass/beaker/cauldron/smash(var/newloc, atom/against = null)
+	return
 
 
 /obj/item/weapon/reagent_containers/glass/beaker/cauldron/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -307,7 +317,7 @@
 			return
 	if(istype(W, /obj/item/weapon/reagent_containers/glass))
 		var/obj/item/weapon/reagent_containers/glass/C = W
-		if(C.reagents.total_volume && istype(C, /obj/item/weapon/reagent_containers/glass/beaker/cauldron))
+		if(C.reagents.total_volume || istype(C, /obj/item/weapon/reagent_containers/glass/beaker/cauldron))
 			C.standard_pour_into(user, src)
 			update_icon()
 		else
