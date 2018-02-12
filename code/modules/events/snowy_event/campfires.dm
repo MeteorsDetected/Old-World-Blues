@@ -263,7 +263,7 @@
 	var/heating_power = burning_temp*100
 	var/set_temperature = T0C + (5 + (10*fire_stage))
 	var/datum/gas_mixture/env = loc.return_air()
-	if(env && abs(env.temperature - set_temperature) > 0.1)
+	if(env && abs(env.temperature - set_temperature) > 0.1 && !istype(loc.loc, /area/outdoor))
 		var/transfer_moles = 0.25 * env.total_moles
 		var/datum/gas_mixture/removed = env.remove(transfer_moles)
 

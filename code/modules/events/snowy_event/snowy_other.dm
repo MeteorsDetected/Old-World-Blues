@@ -126,6 +126,27 @@
 			qdel(src)
 
 
+/area/outdoor
+	name = "Outdoor"
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "outdoor_area"
+	requires_power = 1
+	always_unpowered = 1
+	lighting_use_dynamic = 0
+	power_light = 0
+	power_equip = 0
+	power_environ = 0
+	ambience = list(
+		'sound/effects/wind/wind_2_1.ogg','sound/effects/wind/wind_2_2.ogg','sound/effects/wind/wind_3_1.ogg',
+		'sound/effects/wind/wind_4_1.ogg','sound/effects/wind/wind_4_2.ogg','sound/effects/wind/wind_5_1.ogg'
+	)
+
+
+/area/indoor
+	name = "Indoor"
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "indoor_area"
+
 
 /obj/structure/fallingman
 	name = "Colonist in danger"

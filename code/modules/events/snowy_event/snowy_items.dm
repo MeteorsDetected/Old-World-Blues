@@ -11,6 +11,15 @@
 
 
 /obj/item/weapon/snowy_woodchunks/attackby(obj/item/weapon/T as obj, mob/user as mob)
+	if(istype(T, /obj/item/weapon/tendon))
+		user << SPAN_NOTE("You take useful wood, tendons and crafted construction kit.")
+		var/obj/item/blueprints/ckit/CK = new(user.loc)
+		qdel(T)
+		qdel(src)
+		user.put_in_hands(CK)
+		return
+	if(!T.sharp || istype(T, /obj/item/weapon/wirecutters))
+		return
 	if(!T.sharp || istype(T, /obj/item/weapon/wirecutters))
 		return
 
@@ -225,3 +234,110 @@
 	if(istype(hit_atom, /obj) || istype(hit_atom, /mob))
 		hit_atom.visible_message(SPAN_WARN("<b>[hit_atom.name] got some snow!</b>"))
 	qdel(src) //need to place here some nice effects later
+
+
+
+//Room building. Temporary method. Maybe later i make roof building as part of construction
+//Or rework this and make trough atmos's zones
+//Or i drink some coffee and will never touch that shit
+//Maybe...
+/obj/item/blueprints/ckit
+	name = "Construction kit"
+	desc = "Some of wood, ropes and your imagination"
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "construction_kit"
+	w_class = ITEM_SIZE_NORMAL
+	var/in_process = 0
+
+
+/obj/item/blueprints/ckit/attack_self(mob/living/carbon/human/H as mob)
+	var/area/A = get_area()
+	if(istype(A, /area/outdoor))
+		H << SPAN_NOTE("You begin reinforce the roof...")
+		in_process = 1
+		if(do_after(H, 70))
+			create_area()
+			H << SPAN_NOTE("You reinforced the roof.")
+		else
+			in_process = 0
+			H << SPAN_WARN("You stop the reinforcing.")
+	else if(istype(A, /area/indoor))
+		H << SPAN_NOTE("You begin to remove cover from roof...")
+		in_process = 1
+		if(do_after(H, 70))
+			removeArea()
+			H << SPAN_NOTE("You removed cover from roof.")
+		else
+			in_process = 0
+			H << SPAN_WARN("You change your mind.")
+
+
+//Copypasted and slightly changed
+/obj/item/blueprints/ckit/create_area()
+	var/res = detect_room(get_turf(usr))
+	if(!istype(res,/list))
+		switch(res)
+			if(ROOM_ERR_SPACE)
+				usr << "\red You need full closed room with platings to reinforce roof properly."
+				return
+			if(ROOM_ERR_TOOLARGE)
+				usr << "\red This room is too large for roof building. Or this is not room."
+				return
+			else
+				usr << "\red Error! Please notify administration!"
+				return
+	var/list/turf/turfs = res
+	var/area/indoor/A = new
+	A.name = "Room [rand(1, 100)]-[rand(1, 999)]"
+	A.power_equip = 0
+	A.power_light = 0
+	A.power_environ = 0
+	A.always_unpowered = 0
+	move_turfs_to_area(turfs, A)
+	for(var/turf/T in A.contents)
+		T.lighting_build_overlays()
+	qdel(src)
+
+
+//Copypasted with some changes
+//For some reason .. not working here. Hm. I'm take a look closer later
+/obj/item/blueprints/ckit/check_tile_is_border(var/turf/T2,var/dir)
+	if (istype(T2, /turf/simulated/floor/plating/snow))
+		return BORDER_SPACE //omg hull breach we all going to die here
+	if (istype(T2, /turf/simulated/shuttle))
+		return BORDER_SPACE
+	if (get_area_type(T2.loc)!=AREA_SPACE)
+		return BORDER_BETWEEN
+	if (istype(T2, /turf/simulated/wall))
+		return BORDER_2NDTILE
+	if (!istype(T2, /turf/simulated))
+		return BORDER_BETWEEN
+	for (var/obj/structure/window/W in T2)
+		if(turn(dir,180) == W.dir)
+			return BORDER_BETWEEN
+		if (W.dir in list(NORTHEAST,SOUTHEAST,NORTHWEST,SOUTHWEST))
+			return BORDER_2NDTILE
+	for(var/obj/machinery/door/window/D in T2)
+		if(turn(dir,180) == D.dir)
+			return BORDER_BETWEEN
+	if (locate(/obj/machinery/door) in T2)
+		return BORDER_2NDTILE
+
+	return BORDER_NONE
+
+
+/obj/item/blueprints/ckit/get_area_type(var/area/A = get_area())
+	if(istype(A, /area/outdoor) || istype(A, /area/indoor))
+		return AREA_SPACE
+	..()
+
+
+/obj/item/blueprints/ckit/proc/removeArea()
+	var/area/master_area = locate(/area/outdoor) in world //there must be the world.area, bu-u-u-ut... I think this is not necessary
+	var/area/A = get_area()
+	var/list/turf/turfs = detect_room(get_turf(usr))
+	move_turfs_to_area(turfs, master_area)
+	for(var/turf/T in master_area.contents)
+		T.lighting_clear_overlays()
+	qdel(A)
+	qdel(src)

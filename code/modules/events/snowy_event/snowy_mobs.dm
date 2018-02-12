@@ -71,70 +71,16 @@
 		return
 
 	mobDetection()
-	if(life_mode == "panic")
-		panicRun(target)
-		update_icon()
-	else if(life_mode == "hungry")
-		if(chew_ticks)
-			chew_ticks--
-			if(prob(35))
-				src.visible_message("<b>[name]</b> chews.")
-		else
-			if(nutrition >= nutrition_max)
-				life_mode = "living"
-				return
-			for(var/F in allowed_food)
-				var/obj/feed = locate(F) in view(vision, src)
-				if(feed)
-					if(feed in range(1, src))
-						src.visible_message("<b>[name]</b> puts his head into the [feed] and eat some roots.")
-						nutrition = nutrition + 5
-						chew_ticks = 3
-					else
-						walk_to(src, feed, 1, speed)
-					break
-				else
-					go_away_ticks = 0
-					life_mode = "living"
-		update_icon()
-	else if(life_mode == "sleep")
-		sleep_need--
-		if(health >= maxHealth)
-			bleeding = 0
-			health = maxHealth
-		else
-			health = health+2
-		if(sleep_need <= 0)
-			sleep_need = 0
-			life_mode = "living"
-		update_icon()
-	else
-		if(sleep_need >= 50)
-			life_mode = "sleep"
-			icon_state = icon_sleep
-			src.visible_message("<b>[name]</b> lay down and close eyes.")
-			walk(src, 0)
+	switch(life_mode)
+		if("panic")
+			panicRun(target)
 			update_icon()
-			return
-		else
-			sleep_need++
-		if(go_away_ticks && !bleeding)
-			go_away_ticks--
-		else
-			new_place = getNewPlace(16)
-		if(nutrition)
-			nutrition--
-		else
-			if(!new_place)
-				life_mode = "hungry"
-		if(new_place)
-			walk_to(src, new_place, 0, speed) //I know, no need to call walks every time, but i remake it later
-			for(var/turf/simulated/floor/plating/chasm/C in range(1, src))
-				walk_away(src, C, 1, speed)
-			go_away_ticks = ticks_to_move
-			if(new_place in range(1, src.loc))
-				new_place = null
-		update_icon()
+		if("hungry")
+			hungry()
+		if("sleep")
+			sleeping()
+		if("living")
+			living()
 
 	if(bleeding)
 		health--
@@ -150,6 +96,74 @@
 		walk_away(src, C, 1, speed)
 	for(var/obj/structure/fence/F in range(1, src)) //And this. Yeah, i rework all of this later
 		walk_away(src, F, 1, speed)
+
+
+/mob/living/simple_animal/snowy_animal/proc/hungry()
+	if(chew_ticks)
+		chew_ticks--
+		if(prob(35))
+			src.visible_message("<b>[name]</b> chews.")
+	else
+		if(nutrition >= nutrition_max)
+			life_mode = "living"
+			return
+		for(var/F in allowed_food)
+			var/obj/feed = locate(F) in view(vision, src)
+			if(feed)
+				if(feed in range(1, src))
+					src.visible_message("<b>[name]</b> puts his head into the [feed] and eat some roots.")
+					nutrition = nutrition + 5
+					chew_ticks = 3
+				else
+					walk_to(src, feed, 1, speed)
+				break
+			else
+				go_away_ticks = 0
+				life_mode = "living"
+	update_icon()
+
+
+/mob/living/simple_animal/snowy_animal/proc/sleeping()
+	sleep_need--
+	if(health >= maxHealth)
+		bleeding = 0
+		health = maxHealth
+	else
+		health = health+2
+	if(sleep_need <= 0)
+		sleep_need = 0
+		life_mode = "living"
+	update_icon()
+
+
+/mob/living/simple_animal/snowy_animal/proc/living()
+	if(sleep_need >= 50)
+		life_mode = "sleep"
+		icon_state = icon_sleep
+		src.visible_message("<b>[name]</b> lay down and close eyes.")
+		walk(src, 0)
+		update_icon()
+		return
+	else
+		sleep_need++
+	if(go_away_ticks && !bleeding)
+		go_away_ticks--
+	else
+		new_place = getNewPlace(16)
+	if(nutrition)
+		nutrition--
+	else
+		if(!new_place)
+			life_mode = "hungry"
+	if(new_place)
+		walk_to(src, new_place, 0, speed) //I know, no need to call walks every time, but i remake it later
+		for(var/turf/simulated/floor/plating/chasm/C in range(1, src))
+			walk_away(src, C, 1, speed)
+		go_away_ticks = ticks_to_move
+		if(new_place in range(1, src.loc))
+			new_place = null
+	update_icon()
+
 
 
 //meeh. Shhh
@@ -249,7 +263,7 @@
 /mob/living/simple_animal/snowy_animal/proc/setPanic(var/atom/T)
 	if(life_mode != "panic" && !target)
 		src.visible_message("<b>[name]</b> jumps at place in scare.")
-		playsound(src.loc, sound_list["warn_howl"], 80, rand(-70, 70), 60, 1) //Well, this will warn another animals. Later
+		playsound(src.loc, sound_list["warn_howl"], 60, rand(-70, 70), 60, 1)
 		speed = 4
 	life_mode = "panic"
 	target = T
@@ -283,7 +297,7 @@
 
 
 /mob/living/simple_animal/snowy_animal/proc/howl()
-	playsound(src.loc, pick(sound_list["howl"]), 80, rand(-70, 70), 60, 1)
+	playsound(src.loc, pick(sound_list["howl"]), 60, rand(-70, 70), 60, 1)
 	howl_ticks = 0
 
 
@@ -353,10 +367,10 @@
 	icon_state = "wolf"
 	icon_living = "wolf"
 	icon_dead = ""
-	health = 400
-	maxHealth = 400
-	melee_damage_lower = 10
-	melee_damage_upper = 20
+	health = 160
+	maxHealth = 160
+	melee_damage_lower = 15
+	melee_damage_upper = 25
 	see_in_dark = 8
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/natural
 	attacktext = "bitted"
@@ -381,12 +395,12 @@
 
 
 /mob/living/simple_animal/hostile/creature/wolf/proc/howl()
-	playsound(src.loc, 'sound/effects/snowy/wolf_howl.ogg', 100, rand(-70, 70), 100, 1)
+	playsound(src.loc, 'sound/effects/snowy/wolf_howl.ogg', 90, rand(-70, 70), 100, 1)
 	howl_count--
 	if(howl_count < 0)
 		howl_count = 0
 	for(var/mob/living/simple_animal/hostile/creature/wolf/W in range(100, src))
-		if(W.howl_count && prob(30))
+		if(W.howl_count && prob(40))
 			spawn(rand(3, 6)*10)
 				W.howl()
 
