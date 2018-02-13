@@ -5,22 +5,18 @@
 	icon_state = "dnakit"
 	can_hold = list(/obj/item/weapon/forensics/swab)
 	storage_slots = 14
-
-/obj/item/storage/box/swabs/New()
-	..()
-	for(var/i = 1 to storage_slots) // Fill 'er up.
-		new /obj/item/weapon/forensics/swab(src)
+	preloaded = list(
+		/obj/item/weapon/forensics/swab = 14
+	)
 
 /obj/item/storage/box/evidence
 	name = "evidence bag box"
 	desc = "A box claiming to contain evidence bags."
 	storage_slots = 7
 	can_hold = list(/obj/item/weapon/evidencebag)
-
-/obj/item/storage/box/evidence/New()
-	..()
-	for(var/i = 1 to storage_slots)
-		new /obj/item/weapon/evidencebag(src)
+	preloaded = list(
+		/obj/item/weapon/evidencebag = 7
+	)
 
 /obj/item/storage/box/fingerprints
 	name = "box of fingerprint cards"
@@ -29,8 +25,7 @@
 	icon_state = "dnakit"
 	can_hold = list(/obj/item/weapon/sample/print)
 	storage_slots = 14
+	preloaded = list(
+		/obj/item/weapon/sample/print = 14
+	)
 
-/obj/item/storage/box/fingerprints/New()
-	..()
-	for(var/i = 1 to storage_slots)
-		new /obj/item/weapon/sample/print(src)

@@ -25,11 +25,9 @@
 /obj/item/storage/box/solution_trays
 	name = "solution tray box"
 	icon_state = "solution_trays"
-
-/obj/item/storage/box/solution_trays/initialize()
-	..()
-	for(var/i = 1 to 7)
-		new /obj/item/weapon/reagent_containers/glass/solution_tray( src )
+	preloaded = list(
+		/obj/item/weapon/reagent_containers/glass/solution_tray = 7
+	)
 
 /obj/item/weapon/reagent_containers/glass/beaker/tungsten
 	name = "beaker 'tungsten'"

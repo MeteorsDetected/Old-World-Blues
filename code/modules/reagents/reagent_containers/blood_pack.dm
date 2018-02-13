@@ -2,16 +2,10 @@
 	name = "blood packs bags"
 	desc = "This box contains blood packs."
 	icon_state = "sterile"
+	preloaded = list(
+		/obj/item/weapon/reagent_containers/blood/empty = 7
+	)
 
-/obj/item/storage/box/bloodpacks/New()
-	..()
-	new /obj/item/weapon/reagent_containers/blood/empty(src)
-	new /obj/item/weapon/reagent_containers/blood/empty(src)
-	new /obj/item/weapon/reagent_containers/blood/empty(src)
-	new /obj/item/weapon/reagent_containers/blood/empty(src)
-	new /obj/item/weapon/reagent_containers/blood/empty(src)
-	new /obj/item/weapon/reagent_containers/blood/empty(src)
-	new /obj/item/weapon/reagent_containers/blood/empty(src)
 
 /obj/item/weapon/reagent_containers/blood
 	name = "BloodPack"

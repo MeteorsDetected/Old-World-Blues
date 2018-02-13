@@ -197,9 +197,7 @@
 	item_state = "briefcase"
 
 /obj/item/storage/backpack/satchel/withwallet
-	New()
-		..()
-		new /obj/item/storage/wallet/random( src )
+	preloaded = list(/obj/item/storage/wallet/random)
 
 /obj/item/storage/backpack/satchel/norm
 	name = "satchel"
