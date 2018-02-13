@@ -55,8 +55,8 @@
 		//Could be cleaner ...
 		affected.open = 1
 
-		if(istype(target) && !(target.species.flags & NO_BLOOD))
-			affected.status |= ORGAN_BLEEDING
+		if(istype(target))
+			affected.setBleeding()
 
 		affected.createwound(CUT, 1)
 		affected.clamp()
@@ -101,8 +101,8 @@
 		)
 		affected.open = 1
 
-		if(istype(target) && target.should_have_organ(O_HEART))
-			affected.status |= ORGAN_BLEEDING
+		if(istype(target))
+			affected.setBleeding()
 
 		affected.createwound(CUT, 1)
 		affected.clamp()
@@ -149,8 +149,8 @@
 		)
 		affected.open = 1
 
-		if(istype(target) && target.should_have_organ(O_HEART))
-			affected.status |= ORGAN_BLEEDING
+		if(istype(target))
+			affected.setBleeding()
 		playsound(target.loc, 'sound/weapons/bladeslice.ogg', 50, 1)
 
 		affected.createwound(CUT, 1)
@@ -296,7 +296,7 @@
 		)
 		affected.open = 0
 		affected.germ_level = 0
-		affected.status &= ~ORGAN_BLEEDING
+		affected.stopBleeding()
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)

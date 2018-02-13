@@ -103,7 +103,7 @@
 	)
 
 	var/obj/item/organ/external/E = H.get_organ(applayable_organs[body_part])
-	E.status |= ORGAN_BLEEDING
+	E.setBleeding()
 
 	var/blood_state
 

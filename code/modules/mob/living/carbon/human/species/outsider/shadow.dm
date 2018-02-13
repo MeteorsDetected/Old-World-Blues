@@ -20,7 +20,7 @@
 	remains_type = /obj/effect/decal/cleanable/ash
 	death_message = "dissolves into ash..."
 
-	flags = IS_RESTRICTED | NO_BLOOD | NO_SCAN | NO_SLIP | NO_POISON
+	flags = IS_RESTRICTED | NO_SCAN | NO_SLIP | NO_POISON
 
 /datum/species/shadow/handle_environment_special(var/mob/living/carbon/human/H)
 	var/light_amount = 0

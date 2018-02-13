@@ -798,7 +798,7 @@
 		dat += "</br><b>Often present on human stations.</b>"
 	if(show_species.flags & IS_WHITELISTED)
 		dat += "</br><b>Whitelist restricted.</b>"
-	if(show_species.flags & NO_BLOOD)
+	if(!show_species.has_organ[O_HEART])
 		dat += "</br><b>Does not have blood.</b>"
 	if(show_species.flags & NO_BREATHE)
 		dat += "</br><b>Does not breathe.</b>"
