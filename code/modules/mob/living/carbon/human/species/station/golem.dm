@@ -11,7 +11,7 @@
 		new /datum/unarmed_attack/kick,
 		new /datum/unarmed_attack/punch
 		)
-	flags = IS_RESTRICTED | NO_BREATHE | NO_PAIN | NO_BLOOD | NO_SCAN | NO_POISON
+	flags = IS_RESTRICTED | NO_BREATHE | NO_PAIN | NO_SCAN | NO_POISON
 	siemens_coefficient = 0
 
 	breath_type = null

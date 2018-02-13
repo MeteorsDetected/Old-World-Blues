@@ -18,22 +18,21 @@
 	SPECIES_MONKEY, SPECIES_FARWA, SPECIES_NEAERA, SPECIES_STOK)
 
 // Species flags.
-#define NO_BLOOD          1     // Vessel var is not filled with blood, cannot bleed out.
-#define NO_BREATHE        2     // Cannot suffocate or take oxygen loss.
-#define NO_SCAN           4     // Cannot be scanned in a DNA machine/genome-stolen.
-#define NO_PAIN           8     // Cannot suffer halloss/recieves deceptive health indicator.
-#define NO_SLIP           16    // Cannot fall over.
-#define NO_POISON         32    // Cannot not suffer toxloss.
-#define HAS_SKIN_TONE     64    // Skin tone selectable in chargen. (0-255)
-#define HAS_SKIN_COLOR    128   // Skin colour selectable in chargen. (RGB)
-#define HAS_LIPS          256   // Lips are drawn onto the mob icon. (lipstick)
-#define HAS_UNDERWEAR     512   // Underwear is drawn onto the mob icon.
-#define IS_PLANT          1024  // Is a treeperson.
-#define IS_WHITELISTED    2048  // Must be whitelisted to play.
-#define IS_SYNTHETIC      4096  // Is a machine race.
-#define HAS_EYE_COLOR     8192  // Eye colour selectable in chargen. (RGB)
-#define CAN_JOIN          16384 // Species is selectable in chargen.
-#define IS_RESTRICTED     32768 // Is not a core/normally playable species. (castes, mutantraces)
+#define NO_BREATHE        1     // Cannot suffocate or take oxygen loss.
+#define NO_SCAN           2     // Cannot be scanned in a DNA machine/genome-stolen.
+#define NO_PAIN           4     // Cannot suffer halloss/recieves deceptive health indicator.
+#define NO_SLIP           8    // Cannot fall over.
+#define NO_POISON         16    // Cannot not suffer toxloss.
+#define HAS_SKIN_TONE     32    // Skin tone selectable in chargen. (0-255)
+#define HAS_SKIN_COLOR    64   // Skin colour selectable in chargen. (RGB)
+#define HAS_LIPS          128   // Lips are drawn onto the mob icon. (lipstick)
+#define HAS_UNDERWEAR     256   // Underwear is drawn onto the mob icon.
+#define IS_PLANT          512  // Is a treeperson.
+#define IS_WHITELISTED    1024  // Must be whitelisted to play.
+#define IS_SYNTHETIC      2048  // Is a machine race.
+#define HAS_EYE_COLOR     4096  // Eye colour selectable in chargen. (RGB)
+#define CAN_JOIN          8192 // Species is selectable in chargen.
+#define IS_RESTRICTED     16384 // Is not a core/normally playable species. (castes, mutantraces)
 
 // Languages.
 #define LANGUAGE_GALCOM "Galactic Common"
