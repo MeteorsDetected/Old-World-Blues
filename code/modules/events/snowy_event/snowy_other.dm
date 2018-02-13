@@ -146,6 +146,8 @@
 	name = "Indoor"
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = "indoor_area"
+	lighting_use_dynamic = 1
+
 
 
 /obj/structure/fallingman
@@ -199,7 +201,7 @@
 	if(colonist)
 		colonist << SPAN_NOTE("You are in safety now.")
 		for(var/direction in list(1,2,4,8))
-			if(!istype(get_step(src,direction),/turf/simulated/floor/plating/chasm))
+			if(!istype(get_step(src,direction),/turf/simulated/floor/plating/chasm) || locate(/obj/structure/bridge) in get_step(src, direction))
 				var/turf/T = get_step(src,direction)
 				colonist.loc = T
 				colonist.canmove = 1
@@ -215,7 +217,7 @@
 		colonist = H
 		H.canmove = 0
 		for(var/direction in list(1,2,4,8))
-			if(!istype(get_step(src,direction),/turf/simulated/floor/plating/chasm))
+			if(!istype(get_step(src,direction),/turf/simulated/floor/plating/chasm) || locate(/obj/structure/bridge) in get_step(src, direction))
 				src.dir = direction
 				update_icon()
 				break
@@ -387,6 +389,10 @@
 
 /obj/structure/girder/wooden/construct_wall(obj/item/stack/material/S, mob/user)
 	if(istype(S, /obj/item/stack/material/wood))
+		if(istype(src.loc, /turf/simulated/floor/plating/snow))
+			user << SPAN_WARN("You need the solid ground to build this.")
+			return 0
+
 		if(S.get_amount() < 2)
 			user << SPAN_NOTE("There isn't enough material here to construct a wall.")
 			return 0
@@ -441,7 +447,183 @@
 		dismantle()
 
 
+//Bridge mechanics
+//TO-DO:
+//Need to add do_after's
+//Need to add mecha's checks
+//Need to add attackby destroying
+/obj/structure/bridge
+	name = "bridge"
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "bridge"
+	//var/fall_chance
+	var/planks = 0
+	var/bridge_reliability = 0
+	var/list/segments = list()
+	var/bordered = 0
+	var/crashing = 0 //helper
 
+	New()
+		for(var/direction in list(1, 4, 2, 8))
+			if(!istype(get_step(src,direction),/turf/simulated/floor/plating/chasm))
+				bridge_reliability = 100
+				bordered = 1
+			var/obj/structure/bridge/B = locate() in get_step(src, direction)
+			if(B)
+				segments.Add(B)
+				B.segments.Add(src)
+				B.updateReliability()
+		updateReliability()
+		update_icon()
+
+
+/obj/structure/bridge/examine(mob/user as mob)
+	..()
+	user << SPAN_NOTE("Looks [getReliabilityStatus()].")
+
+
+/obj/structure/bridge/update_icon()
+	..()
+	overlays.Cut()
+	if(planks)
+		for(var/i = 0, i<=planks-1, i++)
+			var/image/I = image(icon, "[name]-plank")
+			switch(dir)
+				if(1)
+					I.pixel_y = I.pixel_y+(6*i)
+				if(2)
+					I.pixel_y = I.pixel_y-(6*i)
+				if(4)
+					I.pixel_x = I.pixel_x+(6*i)
+				if(8)
+					I.pixel_x = I.pixel_x-(6*i)
+			I.dir = dir
+			overlays += I
+
+
+/obj/structure/bridge/proc/getReliabilityStatus()
+	if(bridge_reliability >= 100)
+		return "<b>Safely</b>"
+	else if(bridge_reliability < 100 && bridge_reliability >= 80)
+		return "<b>Almost reliably</b>"
+	else if(bridge_reliability <= 79 && bridge_reliability >= 60)
+		return "\red<b>Unreliably</b>"
+	else if(bridge_reliability <= 59 && bridge_reliability >= 40)
+		return "\red<b>Dangerously</b>"
+	else if(bridge_reliability < 40)
+		return "\red<b>Very dangerously</b>"
+
+
+//Later i make it trough datum and will calculate bridge with bordered segments. Or just slightly rework this.
+//But now... Something temporary
+/obj/structure/bridge/proc/updateReliability()
+	if(bordered)
+		return
+	if(!segments.len)
+		crash()
+		return
+	for(var/obj/structure/bridge/segment in segments)
+		if(segment.bordered)
+			bridge_reliability = 80
+		else
+			if(bridge_reliability < segment.bridge_reliability)
+				bridge_reliability = segment.bridge_reliability
+		bridge_reliability = bridge_reliability+10
+	bridge_reliability = bridge_reliability-30
+	if(bridge_reliability > 100)
+		bridge_reliability = 100
+	if(bridge_reliability <= 10)
+		crash()
+
+
+/obj/structure/bridge/proc/crash()
+	crashing = 1
+	for(var/obj/structure/bridge/segment in segments)
+		segment.segments.Remove(src)
+		if(!segment.crashing)
+			segment.updateReliability()
+	src.visible_message(SPAN_WARN("<b>[src] crashes into the abyss!</b>"))
+	playsound(src.loc, 'sound/effects/snowy/crash_creek.ogg', 80, rand(-80, 80), 10, 1)
+	spawn(20)
+		playsound(src.loc, 'sound/effects/snowy/bridge_crash.ogg', 50, rand(-50, 50), 20, 1)
+		var/turf/simulated/floor/plating/chasm/C = src.loc
+		if(istype(src.loc, /turf/simulated/floor/plating/chasm))
+			C = src.loc
+		qdel(src)
+		if(C)
+			for(var/atom/movable/O as obj|mob in C)
+				if(O != src)
+					C.eat(O)
+			for(var/direction in list(1, 4, 2, 8))
+				var/obj/structure/fallingman/F = locate() in get_step(src,direction)
+				if(F)
+					if(direction*2 == F.dir || direction/2 == F.dir)
+						F.fall()
+
+
+/obj/structure/bridge/proc/stepped(var/atom/movable/M)
+	if(istype(M, /mob/observer))
+		return
+	if(istype(M, /mob/living/carbon/human))
+		var/mob/living/carbon/human/L = M
+		if(L.m_intent == "run")
+			if(bridge_reliability <= 60)
+				if(prob(100-bridge_reliability))
+					crash()
+				else
+					playsound(src.loc, 'sound/effects/snowy/bridge_boo_creek.ogg', 80, rand(-80, 80))
+		else
+			if(bridge_reliability <= 40)
+				if(prob((100-bridge_reliability)/2))
+					crash()
+				playsound(src.loc, 'sound/effects/snowy/bridge_boo_creek.ogg', 80, rand(-80, 80))
+		return
+	if(istype(M, /mob/living))
+		if(bridge_reliability <= 60)
+			if(prob(100-bridge_reliability))
+				crash()
+	if(istype(M, /obj/item))
+		var/obj/item/I = M
+		if(bridge_reliability <= 40 && I.w_class > ITEM_SIZE_NORMAL)
+			crash()
+	//There we need mecha check. But i make it a bit later
+
+
+/obj/structure/bridge/attackby(obj/item/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/stack/material/wood))
+		var/obj/item/stack/material/wood/M = W
+		if(M.amount >= 10)
+			user << SPAN_NOTE("You careful place planks at girders.")
+			planks++
+			M.amount = M.amount - 10
+			if(M.amount <= 0)
+				qdel(W)
+			if(planks == 5)
+				user << SPAN_NOTE("Segment of bridge is ready. Looks [getReliabilityStatus()].")
+				updateReliability()
+			update_icon()
+		else
+			user << SPAN_WARN("You need at least 10 amount of wood.")
+	if(istype(W, /obj/item/weapon/crowbar) && planks)
+		for(var/atom/movable/M as obj|mob in src.loc)
+			if(M != src)
+				user << SPAN_WARN("You can't deconstruct the bridge while something on it.")
+				return
+		var/obj/item/stack/material/wood/M = new(user.loc)
+		M.amount = 10
+		planks--
+		update_icon()
+		user << SPAN_NOTE("You cut the improvised ropes and pry planks to get it back.")
+
+
+/obj/structure/bridge/attack_hand(mob/user as mob)
+	if(!planks && user.a_intent == I_GRAB)
+		new /obj/item/weapon/snowy_woodchunks(user.loc)
+		if(segments)
+			for(var/obj/structure/bridge/segment in segments)
+				segment.updateReliability()
+		user << SPAN_NOTE("You take bridge girders back, but some parts has been destroyed in process.")
+		qdel(src)
 
 
 //////////////SOME KIND OF A CHILL MECHANICS///////////////

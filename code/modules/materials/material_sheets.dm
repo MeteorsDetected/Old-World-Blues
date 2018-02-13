@@ -97,6 +97,9 @@
 	return transfer
 
 /obj/item/stack/material/attack_self(var/mob/user)
+	if(istype(user.loc, /turf/simulated/floor/plating/chasm)) //Snowy Event. Remove it later
+		user << SPAN_WARN("You cannot build something here. It's too dangerous. But once...") //And this
+		return //And that, yeah
 	if(!material.build_windows(user, src))
 		..()
 

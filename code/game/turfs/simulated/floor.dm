@@ -599,6 +599,15 @@ turf/simulated/floor/proc/update_icon()
 				else
 					user << SPAN_NOTE("You need more welding fuel to complete this task.")
 
+	if(istype(C, /obj/item/weapon/wrench)) //Snowy Event. Delete this from here
+		if(is_plating())
+			user << SPAN_NOTE("You wrench some bolts around the perimeter of plating and pry it with wrench.")
+			if(istype(src, /turf/simulated/floor/plating/wooden))
+				new /obj/item/stack/tile/wood(src)
+			else
+				new /obj/item/stack/tile/steel(src)
+			ChangeTurf(/turf/simulated/floor/plating/snow) //to here after it pass
+
 #undef LIGHTFLOOR_ON_BIT
 
 #undef LIGHTFLOOR_STATE_OK

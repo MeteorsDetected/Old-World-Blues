@@ -11,10 +11,7 @@
 	name = "snow"
 	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	icon_state = "snow_turf"
-	var/default_icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	temperature = T0C-20
-	dynamic_lighting = 1
-	luminosity = 1
 
 	New()
 		..()
@@ -45,16 +42,24 @@
 
 /turf/simulated/floor/plating/snow/attackby(obj/item/C as obj, mob/user as mob)
 	if(istype(C, /obj/item/stack/tile/steel))
+		var/obj/item/stack/tile/T = C
 		var/turf/simulated/floor/plating/P = src.ChangeTurf(/turf/simulated/floor/plating)
+		P.dynamic_lighting = dynamic_lighting
 		P.luminosity = luminosity
-		P.temperature = temperature
 		P.last_turf = src.type
+		T.use(1)
+		if(T.get_amount() < 1)
+			qdel(T)
 		return
 	if(istype(C, /obj/item/stack/tile/wood))
+		var/obj/item/stack/tile/T = C
 		var/turf/simulated/floor/plating/P = src.ChangeTurf(/turf/simulated/floor/plating/wooden)
+		P.dynamic_lighting = dynamic_lighting
 		P.luminosity = luminosity
-		P.temperature = temperature
 		P.last_turf = src.type
+		T.use(1)
+		if(T.get_amount() < 1)
+			qdel(T)
 		return
 
 
@@ -207,8 +212,6 @@
 	desc = "Dark bottomless abyss."
 	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	icon_state = "chasm"
-	dynamic_lighting = 1
-	luminosity = 1
 
 	New()
 		..()
@@ -242,16 +245,28 @@
 
 
 /turf/simulated/floor/plating/chasm/attackby(obj/item/C as obj, mob/user as mob)
-	return
+	if(istype(C, /obj/item/blueprints/ckit))
+		if(!locate(/obj/structure/bridge) in src)
+			user << SPAN_NOTE("You build the bridge girders.")
+			qdel(C)
+			var/obj/structure/bridge/B = new(src)
+			B.dir = user.dir
+			B.update_icon()
+		else
+			user << SPAN_WARN("Bridge is already at this location.")
 
 
 /turf/simulated/floor/plating/chasm/proc/eat(atom/movable/M as mob|obj)
+	var/obj/structure/bridge/Bridge = locate() in src
+	if(Bridge && Bridge.planks == 5)
+		Bridge.stepped(M)
+		return
 	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 		if(H.stat != DEAD)
 			var/can_clutch = 0
 			for(var/direction in list(1,2,4,8))
-				if(!istype(get_step(src,direction), /turf/simulated/floor/plating/chasm))
+				if(!istype(get_step(src,direction), /turf/simulated/floor/plating/chasm) || locate(/obj/structure/bridge) in get_step(src, direction))
 					can_clutch = 1
 					break
 			if(can_clutch)
@@ -284,8 +299,6 @@
 	name = "ice"
 	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	icon_state = "ice1"
-	dynamic_lighting = 1
-	luminosity = 1
 
 	New()
 		..()
@@ -315,7 +328,7 @@
 /turf/simulated/floor/plating/ice/Entered(var/mob/living/A)
 	if(A.last_move && prob(10))
 		if(istype(A, /mob/living/carbon/human))
-			if(A.intent == "walk")
+			if(A.m_intent == "walk")
 				return
 		if(prob(30) && istype(A, /mob/living/carbon/human))
 			A << SPAN_WARN("You slips away!")
@@ -374,4 +387,4 @@
 	reinf_material = null
 	check_relatives()
 
-	ChangeTurf(/turf/simulated/floor/plating/snow) //Hm. Need to memory last tile...
+	ChangeTurf(/turf/simulated/floor/plating/wooden) //Hm. Need to memory last tile...

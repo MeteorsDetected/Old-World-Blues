@@ -251,7 +251,8 @@
 		for(var/mob/living/L in range(hearing, src))
 			if(L != src)
 				if(istype(L, /mob/living/carbon/human))
-					if(L.intent == "run")
+					var/mob/living/carbon/human/H = L
+					if(H.m_intent == "run") //Where is my freaking brain!?
 						setPanic(L)
 						return
 				else if(!istype(L, /mob/living/simple_animal/snowy_animal))
