@@ -30,7 +30,7 @@
 				if(fexists(path + filename))
 					asset_files.Add(fcopy_rsc(path + filename)) // add this file to asset_files for sending to clients when they connect
 
-
+	return
 
  /**
   * Get an open /nanoui ui for the current user, src_object and ui_key and try to update it with data
