@@ -153,16 +153,16 @@
 	max_storage_space = DEFAULT_BACKPACK_STORAGE
 
 /obj/item/storage/secure/briefcase/attack_hand(mob/user as mob)
-		if ((src.loc == user) && (src.locked == 1))
-			usr << "<span class='warning'>[src] is locked and cannot be opened!</span>"
-		else if ((src.loc == user) && (!src.locked))
-			src.open(usr)
-		else
-			..()
-			for(var/mob/M in range(1))
-				if (M.s_active == src)
-					src.close(M)
-		src.add_fingerprint(user)
+	if ((src.loc == user) && (src.locked == 1))
+		usr << "<span class='warning'>[src] is locked and cannot be opened!</span>"
+	else if ((src.loc == user) && (!src.locked))
+		src.open(usr)
+	else
+		..()
+		for(var/mob/M in range(1))
+			if (M.s_active == src)
+				src.close(M)
+	src.add_fingerprint(user)
 
 // -----------------------------
 //        Secure Safe
