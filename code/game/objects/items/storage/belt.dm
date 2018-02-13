@@ -59,24 +59,26 @@
 		)
 
 
-/obj/item/storage/belt/utility/full/New()
-	..()
-	new /obj/item/weapon/screwdriver(src)
-	new /obj/item/weapon/wrench(src)
-	new /obj/item/weapon/weldingtool(src)
-	new /obj/item/weapon/crowbar(src)
-	new /obj/item/weapon/wirecutters(src)
-	new /obj/item/stack/cable_coil(src,30,pick("red","yellow","orange"))
+/obj/item/storage/belt/utility/full
+	preloaded = list(
+		/obj/item/weapon/screwdriver,
+		/obj/item/weapon/wrench,
+		/obj/item/weapon/weldingtool,
+		/obj/item/weapon/crowbar,
+		/obj/item/weapon/wirecutters,
+		/obj/item/stack/cable_coil/random
+	)
 
 
-/obj/item/storage/belt/utility/atmostech/New()
-	..()
-	new /obj/item/weapon/screwdriver(src)
-	new /obj/item/weapon/wrench(src)
-	new /obj/item/weapon/weldingtool(src)
-	new /obj/item/weapon/crowbar(src)
-	new /obj/item/weapon/wirecutters(src)
-	new /obj/item/device/t_scanner(src)
+/obj/item/storage/belt/utility/atmostech
+	preloaded = list(
+		/obj/item/weapon/screwdriver,
+		/obj/item/weapon/wrench,
+		/obj/item/weapon/weldingtool,
+		/obj/item/weapon/crowbar,
+		/obj/item/weapon/wirecutters,
+		/obj/item/device/t_scanner,
+	)
 
 
 
@@ -188,14 +190,10 @@
 	storage_slots = 6
 	can_hold = list(/obj/item/device/soulstone)
 
-/obj/item/storage/belt/soulstone/full/New()
-	..()
-	new /obj/item/device/soulstone(src)
-	new /obj/item/device/soulstone(src)
-	new /obj/item/device/soulstone(src)
-	new /obj/item/device/soulstone(src)
-	new /obj/item/device/soulstone(src)
-	new /obj/item/device/soulstone(src)
+/obj/item/storage/belt/soulstone/full
+	preloaded = list(
+		/obj/item/device/soulstone = 6
+	)
 
 
 /obj/item/storage/belt/champion
