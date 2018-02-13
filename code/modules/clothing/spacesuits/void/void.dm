@@ -126,6 +126,12 @@
 		tank.canremove = 1
 		tank.forceMove(src)
 
+/obj/item/clothing/suit/space/void/AltClick(mob/living/user)
+	if(loc == user)
+		toggle_helmet()
+	else
+		..()
+
 /obj/item/clothing/suit/space/void/verb/toggle_helmet()
 
 	set name = "Toggle Helmet"

@@ -19,8 +19,8 @@
 
 /obj/item/clothing/suit/space/void/medical/prepared/initialize()
 	..()
-	helmet = /obj/item/clothing/head/helmet/space/void/medical
-	boots = /obj/item/clothing/shoes/magboots/toggleable
+	helmet = new /obj/item/clothing/head/helmet/space/void/medical
+	boots = new /obj/item/clothing/shoes/magboots/toggleable
 
 //Surplus Voidsuits
 /obj/item/clothing/head/helmet/space/void/medical/alt
