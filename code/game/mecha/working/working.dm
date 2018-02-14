@@ -8,7 +8,6 @@
 	var/turf/T = get_turf(src)
 	if(isPlayerLevel(T.z))
 		new /obj/item/mecha_parts/mecha_tracking(src)
-	return
 
 /obj/mecha/working/Destroy()
 	for(var/mob/M in src)
@@ -23,8 +22,7 @@
 		if(T)
 			T.Entered(A)
 		step_rand(A)
-	..()
-	return
+	return ..()
 
 /obj/mecha/working/Topic(href, href_list)
 	..()
@@ -38,7 +36,6 @@
 			if(T)
 				T.Entered(O)
 			src.log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - src.cargo.len]")
-	return
 
 /obj/mecha/working/Exit(atom/movable/O)
 	if(O in cargo)

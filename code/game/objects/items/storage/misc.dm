@@ -37,6 +37,10 @@
 		/obj/item/weapon/reagent_containers/food/snacks/donut/normal = 6
 	)
 
+/obj/item/storage/box/donut/initialize()
+	..()
+	update_icon()
+
 /obj/item/storage/box/donut/update_icon()
 	overlays.Cut()
 	var/i = 0

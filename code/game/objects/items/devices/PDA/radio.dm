@@ -218,6 +218,7 @@
 	var/datum/radio_frequency/radio_connection
 
 	initialize()
+		..()
 		if(!radio_controller)
 			return
 

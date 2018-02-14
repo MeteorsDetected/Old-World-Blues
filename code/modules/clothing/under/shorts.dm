@@ -6,6 +6,7 @@
 	var/item_color = "black"
 
 /obj/item/clothing/under/shorts/initialize()
+	..()
 	name = "[item_color] [name]"
 	item_state = item_color
 
