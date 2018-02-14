@@ -106,8 +106,8 @@
 		/obj/item/weapon/tank/emergency_oxygen/double,
 		/obj/item/weapon/tank/emergency_oxygen/double,
 		/obj/item/weapon/tank/jetpack/oxygen,
-		/obj/item/weapon/tank/oxygen
-		/obj/item/weapon/tank/oxygen
+		/obj/item/weapon/tank/oxygen,
+		/obj/item/weapon/tank/oxygen,
 		/obj/item/weapon/tank/oxygen
 	)
 	cost = 60
