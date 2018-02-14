@@ -141,7 +141,7 @@ var/list/mechtoys = list(
 /datum/controller/supply
 	//supply points
 	var/points = 150
-	var/points_per_process = 0,1
+	var/points_per_process = 0.1
 	var/points_per_slip = 5
 	var/material_cost = list(
 		MATERIAL_PHORON = 5,
