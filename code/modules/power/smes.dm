@@ -93,7 +93,8 @@
 
 /obj/machinery/power/smes/update_icon()
 	overlays.Cut()
-	if(stat & BROKEN)	return
+	if(stat & BROKEN)
+		return
 
 	overlays += image('icons/obj/power.dmi', "smes-op[outputting]")
 
@@ -108,7 +109,6 @@
 	var/clevel = chargedisplay()
 	if(clevel>0)
 		overlays += image('icons/obj/power.dmi', "smes-og[clevel]")
-	return
 
 
 /obj/machinery/power/smes/proc/chargedisplay()

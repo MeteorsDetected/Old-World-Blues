@@ -130,6 +130,7 @@
 
 
 /obj/machinery/door/airlock/initialize()
+	..()
 	if(frequency)
 		set_frequency(frequency)
 
@@ -210,12 +211,8 @@
 	radio_connection = radio_controller.add_object(src, frequency, RADIO_AIRLOCK)
 
 /obj/machinery/airlock_sensor/initialize()
-	set_frequency(frequency)
-
-/obj/machinery/airlock_sensor/New()
 	..()
-	if(radio_controller)
-		set_frequency(frequency)
+	set_frequency(frequency)
 
 /obj/machinery/airlock_sensor/Destroy()
 	if(radio_controller)
@@ -280,14 +277,9 @@
 
 
 /obj/machinery/access_button/initialize()
+	..()
 	set_frequency(frequency)
 
-
-/obj/machinery/access_button/New()
-	..()
-
-	if(radio_controller)
-		set_frequency(frequency)
 
 /obj/machinery/access_button/Destroy()
 	if(radio_controller)

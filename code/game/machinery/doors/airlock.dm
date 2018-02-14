@@ -1027,6 +1027,7 @@ About the new airlock wires panel:
 		wires = new/datum/wires/airlock(src)
 
 /obj/machinery/door/airlock/initialize()
+	..()
 	if(src.closeOtherId != null)
 		for (var/obj/machinery/door/airlock/A in machines)
 			if(A.closeOtherId == src.closeOtherId && A != src)
