@@ -10,12 +10,16 @@
 
 	var/amount_per_transfer_from_this = 10
 	var/possible_transfer_amounts = list(10,25,50,100)
+	var/list/preloaded = null
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
 		return
 
 	initialize()
 		create_reagents(1000)
+		if(preloaded)
+			for(var/reagent in preloaded)
+				reagents.add_reagent(reagent, preloaded[reagent])
 		if (!possible_transfer_amounts)
 			src.verbs -= /obj/structure/reagent_dispensers/verb/set_APTFT
 		..()
@@ -42,19 +46,14 @@
 		switch(severity)
 			if(1.0)
 				qdel(src)
-				return
 			if(2.0)
 				if (prob(50))
 					new /obj/effect/effect/water(src.loc)
 					qdel(src)
-					return
 			if(3.0)
 				if (prob(5))
 					new /obj/effect/effect/water(src.loc)
 					qdel(src)
-					return
-			else
-		return
 
 	blob_act()
 		if(prob(50))
@@ -73,22 +72,16 @@
 	desc = "A watertank"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "watertank"
-	amount_per_transfer_from_this = 10
-	New()
-		..()
-		reagents.add_reagent("water",1000)
+	preloaded = list("water" = 1000)
 
 /obj/structure/reagent_dispensers/fueltank
 	name = "fueltank"
 	desc = "A fueltank"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "weldtank"
-	amount_per_transfer_from_this = 10
+	preloaded = list("fuel" = 1000)
 	var/modded = 0
 	var/obj/item/device/assembly_holder/rig = null
-	New()
-		..()
-		reagents.add_reagent("fuel",1000)
 
 /obj/structure/reagent_dispensers/fueltank/examine(mob/user, return_dist=1)
 	.=..()
@@ -105,7 +98,7 @@
 			usr.visible_message(SPAN_NOTE("[usr] detaches [rig] from \the [src]."), SPAN_NOTE("You detach [rig] from \the [src]"))
 			rig.loc = get_turf(usr)
 			rig = null
-			overlays = new/list()
+			overlays.Cut()
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	src.add_fingerprint(user)
@@ -188,9 +181,7 @@
 	anchored = 1
 	density = 0
 	amount_per_transfer_from_this = 45
-	New()
-		..()
-		reagents.add_reagent("condensedcapsaicin",1000)
+	preloaded = list("condensedcapsaicin" = 1000)
 
 
 /obj/structure/reagent_dispensers/water_cooler
@@ -201,9 +192,7 @@
 	icon_state = "water_cooler"
 	possible_transfer_amounts = null
 	anchored = 1
-	New()
-		..()
-		reagents.add_reagent("water",500)
+	preloaded = list("water" = 500)
 
 
 /obj/structure/reagent_dispensers/beerkeg
@@ -212,9 +201,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "beertankTEMP"
 	amount_per_transfer_from_this = 10
-	New()
-		..()
-		reagents.add_reagent("beer",1000)
+	preloaded = list("beer" = 1000)
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act()
 	explosion(src.loc,0,3,5,7,10)
@@ -227,10 +214,7 @@
 	icon_state = "virusfoodtank"
 	amount_per_transfer_from_this = 10
 	anchored = 1
-
-	New()
-		..()
-		reagents.add_reagent("virusfood", 1000)
+	preloaded = list("virusfood" = 1000)
 
 /obj/structure/reagent_dispensers/acid
 	name = "Sulphuric Acid Dispenser"
@@ -239,7 +223,4 @@
 	icon_state = "acidtank"
 	amount_per_transfer_from_this = 10
 	anchored = 1
-
-	New()
-		..()
-		reagents.add_reagent("sacid", 1000)
+	preloaded = list("sacid" = 1000)
