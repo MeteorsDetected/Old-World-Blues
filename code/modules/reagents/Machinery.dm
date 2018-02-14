@@ -284,11 +284,9 @@
 	var/client/has_sprites = list()
 	var/max_pill_count = 20
 
-/obj/machinery/chem_master/New()
+/obj/machinery/chem_master/initialize()
 	..()
-	var/datum/reagents/R = new/datum/reagents(120)
-	reagents = R
-	R.my_atom = src
+	create_reagents(120)
 
 /obj/machinery/chem_master/ex_act(severity)
 	switch(severity)
