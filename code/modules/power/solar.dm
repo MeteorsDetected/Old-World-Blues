@@ -361,7 +361,8 @@ var/list/solars_list = list()
 
 /obj/machinery/power/solar_control/initialize()
 	..()
-	if(!connect_to_network()) return
+	if(!connect_to_network())
+		return
 	set_panels(cdir)
 
 /obj/machinery/power/solar_control/update_icon()

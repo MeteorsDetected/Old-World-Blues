@@ -31,6 +31,7 @@ FLOOR SAFES
 
 
 /obj/structure/safe/initialize()
+	..()
 	for(var/obj/item/I in loc)
 		if(space >= maxspace)
 			return
