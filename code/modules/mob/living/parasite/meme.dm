@@ -36,7 +36,8 @@ be able to influence the host through various commands.
 	host.parasites.Add(src)
 	host.status_flags |= PASSEMOTES
 
-	if(client) client.eye = host
+	if(client)
+		client.eye = host
 
 	return 1
 
@@ -93,8 +94,10 @@ be able to influence the host through various commands.
 	..()
 
 	if(client)
-		if(blinded) client.eye = null
-		else		client.eye = host
+		if(blinded)
+			client.eye = null
+		else
+			client.eye = host
 
 	if(!host) return
 

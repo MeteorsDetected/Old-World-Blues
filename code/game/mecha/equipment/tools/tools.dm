@@ -1113,13 +1113,7 @@
 		return
 	occupant.forceMove(get_turf(src))
 	occupant.reset_view()
-	/*
-	if(occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
-	*/
 	occupant = null
-	return
 
 /obj/item/mecha_parts/mecha_equipment/tool/passenger/attached()
 	..()

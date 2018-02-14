@@ -56,11 +56,6 @@
 				target.forceMove(src)
 				occupant = target
 				target.reset_view(src)
-				/*
-				if(target.client)
-					target.client.perspective = EYE_PERSPECTIVE
-					target.client.eye = chassis
-				*/
 				set_ready_state(0)
 				pr_mech_sleeper.start()
 				occupant_message("<font color='blue'>[target] successfully loaded into [src]. Life support functions engaged.</font>")
@@ -85,11 +80,6 @@
 		occupant_message("[occupant] ejected. Life support functions disabled.")
 		log_message("[occupant] ejected. Life support functions disabled.")
 		occupant.reset_view()
-		/*
-		if(occupant.client)
-			occupant.client.eye = occupant.client.mob
-			occupant.client.perspective = MOB_PERSPECTIVE
-		*/
 		occupant = null
 		pr_mech_sleeper.stop()
 		set_ready_state(1)

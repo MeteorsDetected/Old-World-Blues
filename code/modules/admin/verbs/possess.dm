@@ -13,10 +13,10 @@ ADMIN_VERB_ADD(/proc/possess, R_POSSESS)
 	if(!usr.control_object) //If you're not already possessing something...
 		usr.name_archive = usr.real_name
 
-	usr.loc = O
+	usr.forceMove(O)
 	usr.real_name = O.name
 	usr.name = O.name
-	usr.client.eye = O
+	usr.reset_view(O)
 	usr.control_object = O
 
 ADMIN_VERB_ADD(/proc/release, R_POSSESS)
@@ -34,7 +34,7 @@ ADMIN_VERB_ADD(/proc/release, R_POSSESS)
 //		usr.regenerate_icons() //So the name is updated properly
 
 	usr.forceMove(O.loc) // Appear where the object you were controlling is -- TLE
-	usr.client.eye = usr
+	usr.reset_view()
 	usr.control_object = null
 
 /proc/givetestverbs(mob/M as mob in mob_list)

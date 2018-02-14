@@ -128,8 +128,8 @@
 		return ..()
 
 /obj/machinery/dna_scannernew/proc/put_in(var/mob/M)
+	M.forceMove(src)
 	M.reset_view(src)
-	M.loc = src
 	src.occupant = M
 	src.icon_state = "scanner_1"
 

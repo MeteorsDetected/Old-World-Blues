@@ -150,20 +150,16 @@
 		return
 	src.go_out()
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/gibber/proc/go_out()
 	if(operating || !src.occupant)
 		return
 	for(var/obj/O in src)
 		O.loc = src.loc
-	if (src.occupant.client)
-		src.occupant.client.eye = src.occupant.client.mob
-		src.occupant.client.perspective = MOB_PERSPECTIVE
-	src.occupant.loc = src.loc
+	src.occupant.forceMove(src.loc)
+	src.occupant.reset_view()
 	src.occupant = null
 	update_icon()
-	return
 
 
 /obj/machinery/gibber/proc/startgibbing(mob/user as mob)

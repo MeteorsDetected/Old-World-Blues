@@ -292,8 +292,7 @@
 
 	canmove = 1
 
-	src.client.perspective = EYE_PERSPECTIVE
-	src.client.eye = src
+	src.reset_view()
 	src.forceMove(get_turf(card))
 
 	card.forceMove(src)
@@ -371,8 +370,8 @@
 	else
 		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
 	spawn(1)
-		if(stat != DEAD) close_up()
-	return
+		if(stat != DEAD)
+			close_up()
 
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
 	visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
@@ -390,8 +389,7 @@
 	if(istype(T)) T.visible_message("<b>[src]</b> neatly folds inwards, compacting down to a rectangular card.")
 
 	src.stop_pulling()
-	src.client.perspective = EYE_PERSPECTIVE
-	src.client.eye = card
+	src.reset_view(card)
 
 	//stop resting
 	resting = 0

@@ -128,7 +128,7 @@
 				return 0
 
 			A.eyeobj.setLoc(get_turf(C))
-			A.client.eye = A.eyeobj
+			A.reset_view(A.eyeobj)
 			return 1
 
 		if(!C.can_use())

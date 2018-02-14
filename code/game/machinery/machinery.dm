@@ -221,7 +221,7 @@ Class Procs:
 	if(isrobot(user))
 		// For some reason attack_robot doesn't work
 		// This is to stop robots from using cameras to remotely control machines.
-		if(user.client && user.client.eye == user)
+		if(src in view(world.view, user))
 			return src.attack_hand(user)
 	else
 		return src.attack_hand(user)

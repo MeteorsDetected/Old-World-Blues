@@ -67,11 +67,9 @@
 	if(owner)
 		T = get_turf(T)
 		if(T != loc)
-			loc = T
+			src.forceMove(T)
 
-			if(owner.client)
-				owner.client.eye = src
-
+			owner.reset_view(src)
 			if(owner_follows_eye)
 				visualnet.updateVisibility(owner, 0)
 				owner.loc = loc

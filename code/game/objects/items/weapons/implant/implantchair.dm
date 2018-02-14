@@ -90,16 +90,13 @@
 			return
 		if(M == occupant) // so that the guy inside can't eject himself -Agouri
 			return
-		if (src.occupant.client)
-			src.occupant.client.eye = src.occupant.client.mob
-			src.occupant.client.perspective = MOB_PERSPECTIVE
-		src.occupant.loc = src.loc
+		src.occupant.reset_view()
+		src.occupant.forceMove(src.loc)
 		if(injecting)
 			implant(src.occupant)
 			injecting = 0
 		src.occupant = null
 		icon_state = "implantchair"
-		return
 
 
 	put_mob(mob/living/carbon/M as mob)
@@ -109,11 +106,9 @@
 		if(src.occupant)
 			usr << "\red <B>The [src.name] is already occupied!</B>"
 			return
-		if(M.client)
-			M.client.perspective = EYE_PERSPECTIVE
-			M.client.eye = src
+		M.reset_view(src)
 		M.stop_pulling()
-		M.loc = src
+		M.forceMove(src)
 		src.occupant = M
 		src.add_fingerprint(usr)
 		icon_state = "implantchair_on"

@@ -297,10 +297,9 @@
 	if(!occupant)
 		return
 
-	if(occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
-	occupant.loc = loc
+	occupant.forceMove(loc)
+	occupant.reset_view()
+
 	eject_wait = 0 //If it's still set somehow.
 	//TODO: DNA3 update_mutations
 	occupant = null

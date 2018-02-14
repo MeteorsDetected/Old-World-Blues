@@ -403,7 +403,8 @@
 	//So this is a simple fix that only allows a selection of item types to be considered. Further narrowing-down is below.
 	if(!istype(C,/obj/item) && !istype(C,/obj/machinery) && !istype(C,/obj/structure) && !ismob(C))
 		return
-	if(!isturf(C.loc)) //To prevent the loading from stuff from someone's inventory, which wouldn't get handled properly.
+	//To prevent the loading from stuff from someone's inventory, which wouldn't get handled properly.
+	if(!isturf(C.loc) || C.anchored)
 		return
 
 	if(get_dist(C, src) > 1 || load || !on)
@@ -418,11 +419,7 @@
 	if(istype(crate))
 		crate.close()
 
-	C.loc = src.loc
-	sleep(2)
-	if(C.loc != src.loc) //To prevent you from going onto more thano ne bot.
-		return
-	C.loc = src
+	C.forceMove(src)
 	load = C
 
 	C.pixel_y += 9
@@ -432,9 +429,7 @@
 
 	if(ismob(C))
 		var/mob/M = C
-		if(M.client)
-			M.client.perspective = EYE_PERSPECTIVE
-			M.client.eye = src
+		M.reset_view(src)
 
 	mode = 0
 	send_status()
@@ -449,23 +444,22 @@
 	mode = 1
 	overlays.Cut()
 
-	load.loc = src.loc
+	load.forceMove(src.loc)
 	load.pixel_y -= 9
 	load.layer = initial(load.layer)
 	if(ismob(load))
 		var/mob/M = load
-		if(M.client)
-			M.client.perspective = MOB_PERSPECTIVE
-			M.client.eye = src
-
+		M.reset_view()
 
 	if(dirn)
 		var/turf/T = src.loc
 		T = get_step(T,dirn)
-		if(CanPass(load,T))//Can't get off onto anything that wouldn't let you pass normally
+		//Can't get off onto anything that wouldn't let you pass normally
+		if(CanPass(load,T))
 			step(load, dirn)
 		else
-			load.loc = src.loc//Drops you right there, so you shouldn't be able to get yourself stuck
+			load.forceMove(src.loc)
+			//Drops you right there, so you shouldn't be able to get yourself stuck
 
 	load = null
 
@@ -476,14 +470,12 @@
 	for(var/atom/movable/AM in src)
 		if(AM == cell || AM == botcard) continue
 
-		AM.loc = src.loc
+		AM.forceMove(src.loc)
 		AM.layer = initial(AM.layer)
 		AM.pixel_y = initial(AM.pixel_y)
 		if(ismob(AM))
 			var/mob/M = AM
-			if(M.client)
-				M.client.perspective = MOB_PERSPECTIVE
-				M.client.eye = src
+			M.reset_view()
 	mode = 0
 
 

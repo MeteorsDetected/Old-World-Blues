@@ -360,30 +360,6 @@
 			isUV = 0 //Cycle ends
 	update_icon()
 	updateUsrDialog()
-	return
-
-/*	spawn(200) //Let's clean dat shit after 20 secs  //Eh, this doesn't work
-		if(HELMET)
-			HELMET.clean_blood()
-		if(SUIT)
-			SUIT.clean_blood()
-		if(MASK)
-			MASK.clean_blood()
-		isUV = 0 //Cycle ends
-		update_icon()
-		updateUsrDialog()
-
-	var/i
-	for(i=0,i<4,i++) //Gradually give the guy inside some damaged based on the intensity
-		spawn(50)
-			if(OCCUPANT)
-				if(issuperUV)
-					OCCUPANT.take_organ_damage(0,40)
-					user << "Test. You gave him 40 damage"
-				else
-					OCCUPANT.take_organ_damage(0,8)
-					user << "Test. You gave him 8 damage"
-	return*/
 
 
 /obj/machinery/suit_storage_unit/proc/cycletimeleft()
@@ -407,15 +383,13 @@
 		if(user.loc != src.loc)
 			OCCUPANT << "<font color='blue'>You leave the not-so-cozy confines of the SSU.</font>"
 
-		OCCUPANT.client.eye = OCCUPANT.client.mob
-		OCCUPANT.client.perspective = MOB_PERSPECTIVE
-	OCCUPANT.loc = src.loc
+	OCCUPANT.forceMove(src.loc)
+	OCCUPANT.reset_view()
+
 	OCCUPANT = null
 	if(!isopen)
 		isopen = 1
 	update_icon()
-	return
-
 
 /obj/machinery/suit_storage_unit/verb/get_out()
 	set name = "Eject Suit Storage Unit"
@@ -432,7 +406,6 @@
 	add_fingerprint(usr)
 	updateUsrDialog()
 	update_icon()
-	return
 
 
 /obj/machinery/suit_storage_unit/verb/move_inside()
@@ -454,23 +427,16 @@
 	visible_message("[usr] starts squeezing into the suit storage unit!", 3)
 	if(do_after(usr, 10))
 		usr.stop_pulling()
-		usr.client.perspective = EYE_PERSPECTIVE
-		usr.client.eye = src
-		usr.loc = src
-//		usr.metabslow = 1
+		usr.forceMove(src)
+		usr.reset_view(src)
 		OCCUPANT = usr
 		isopen = 0 //Close the thing after the guy gets inside
 		update_icon()
 
-//		for(var/obj/O in src)
-//			qdel(O)
-
 		add_fingerprint(usr)
 		updateUsrDialog()
-		return
 	else
 		OCCUPANT = null //Testing this as a backup sanity test
-	return
 
 /obj/machinery/suit_storage_unit/affect_grab(var/mob/user, var/mob/target)
 	if(!isopen)
@@ -484,8 +450,8 @@
 		return
 	visible_message("[user] starts putting [target] into the Suit Storage Unit.")
 	if(do_after(user, 20, src) && Adjacent(target))
-		target.reset_view(src)
 		target.forceMove(src)
+		target.reset_view(src)
 		OCCUPANT = target
 		isopen = 0 //close ittt
 
@@ -684,8 +650,8 @@
 	visible_message(SPAN_NOTE("[user] starts putting [target] into the suit cycler."))
 
 	if(do_after(user, 20) && Adjacent(target))
-		target.reset_view(src)
 		target.forceMove(src)
+		target.reset_view(src)
 		occupant = target
 
 		add_fingerprint(user)
@@ -961,18 +927,13 @@
 	if(!occupant)
 		return
 
-	if(occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
-
-	occupant.loc = get_turf(occupant)
+	occupant.forceMove(loc)
+	occupant.reset_view()
 	occupant = null
 
 	add_fingerprint(usr)
 	updateUsrDialog()
 	update_icon()
-
-	return
 
 //There HAS to be a less bloated way to do this. TODO: some kind of table/icon name coding? ~Z
 /obj/machinery/suit_cycler/proc/apply_paintjob()

@@ -42,14 +42,12 @@
 	user << SPAN_NOTE("You cut open the present.")
 
 	for(var/mob/M in src) //Should only be one but whatever.
-		M.loc = src.loc
-		if (M.client)
-			M.client.eye = M.client.mob
-			M.client.perspective = MOB_PERSPECTIVE
+		M.forceMove(src.loc)
+		M.reset_view()
 
 	qdel(src)
 
-/obj/item/weapon/a_gift/attack_self(mob/M as mob)
+/obj/item/weapon/a_gift/attack_self(mob/M)
 	var/gift_type = pick(/obj/item/weapon/sord,
 		/obj/item/storage/wallet,
 		/obj/item/storage/photo_album,
@@ -223,10 +221,7 @@
 			var/obj/effect/spresent/present = new /obj/effect/spresent (H.loc)
 			src.amount -= 2
 
-			if (H.client)
-				H.client.perspective = EYE_PERSPECTIVE
-				H.client.eye = present
-
+			H.reset_view(present)
 			H.forceMove(present)
 
 			admin_attack_log(user, H,

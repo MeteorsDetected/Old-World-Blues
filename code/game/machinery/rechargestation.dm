@@ -195,8 +195,8 @@
 		return
 
 	add_fingerprint(R)
-	R.reset_view(src)
 	R.forceMove(src)
+	R.reset_view(src)
 	occupant = R
 	update_icon()
 	return 1

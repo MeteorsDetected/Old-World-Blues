@@ -100,9 +100,7 @@
 
 	for(var/mob/M in src)
 		M.forceMove(src.loc)
-		if(M.client)
-			M.client.eye = M.client.mob
-			M.client.perspective = MOB_PERSPECTIVE
+		M.reset_view()
 
 /obj/structure/closet/proc/open()
 	if(src.opened)
@@ -169,9 +167,7 @@
 		var/current_mob_size = (M.mob_size ? M.mob_size : default_mob_size)
 		if(stored_units + added_units + current_mob_size > storage_capacity)
 			break
-		if(M.client)
-			M.client.perspective = EYE_PERSPECTIVE
-			M.client.eye = src
+		M.reset_view(src)
 		M.forceMove(src)
 		added_units += current_mob_size
 	return added_units

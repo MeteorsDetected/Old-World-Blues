@@ -172,9 +172,7 @@
 			"placed in a disposals unit "
 		)
 
-	if (target.client)
-		target.client.perspective = EYE_PERSPECTIVE
-		target.client.eye = src
+	target.reset_view(src)
 	target.forceMove(src)
 
 	update_icon()
@@ -193,10 +191,8 @@
 // leave the disposal
 /obj/machinery/disposal/proc/go_out(mob/user)
 
-	if (user.client)
-		user.client.eye = user.client.mob
-		user.client.perspective = MOB_PERSPECTIVE
-	user.loc = src.loc
+	user.forceMove(src.loc)
+	user.reset_view()
 	update_icon()
 
 // ai as human but can't flush
@@ -569,11 +565,11 @@
 	// used when a a holder meets a stuck holder
 	proc/merge(var/obj/structure/disposalholder/other)
 		for(var/atom/movable/AM in other)
-			AM.loc = src		// move everything in other holder to this one
+			AM.forceMove(src)
+			// move everything in other holder to this one
 			if(ismob(AM))
 				var/mob/M = AM
-				if(M.client)	// if a client mob, update eye to follow this holder
-					M.client.eye = src
+				M.reset_view(src)
 
 		qdel(other)
 
@@ -1515,11 +1511,7 @@
 
 // check if mob has client, if so restore client view on eject
 /mob/pipe_eject(var/direction)
-	if (src.client)
-		src.client.perspective = MOB_PERSPECTIVE
-		src.client.eye = src
-
-	return
+	src.reset_view(src)
 
 /obj/effect/decal/cleanable/blood/gibs/pipe_eject(var/direction)
 	var/list/dirs

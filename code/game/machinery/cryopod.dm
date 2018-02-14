@@ -511,26 +511,17 @@
 		icon_state = base_icon_state
 
 /obj/machinery/cryopod/proc/go_out()
-
 	if(!occupant)
 		return
-
-	if(occupant.client)
-		occupant.client.eye = src.occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
-
 	occupant.forceMove(get_turf(src))
+	occupant.reset_view()
 	set_occupant(null)
-
-	return
 
 /obj/machinery/cryopod/proc/set_occupant(var/mob/occupant)
 	name = initial(name)
 	if(occupant)
-		if(occupant.client)
-			occupant.client.perspective = EYE_PERSPECTIVE
-			occupant.client.eye = src
-		occupant.loc = src
+		occupant.reset_view(src)
+		occupant.forceMove(src)
 		time_entered = world.time
 		name = "[name] ([occupant])"
 

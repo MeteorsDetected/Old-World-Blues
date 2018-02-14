@@ -19,21 +19,14 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	src.updateUsrDialog()
-	return
 
 /obj/machinery/sleep_console/ex_act(severity)
 	switch(severity)
 		if(1.0)
-			//SN src = null
 			qdel(src)
-			return
 		if(2.0)
 			if (prob(50))
-				//SN src = null
 				qdel(src)
-				return
-		else
-	return
 
 /obj/machinery/sleep_console/New()
 	..()
@@ -133,7 +126,6 @@
 			src.connected.eject()
 			src.updateUsrDialog()
 		src.add_fingerprint(usr)
-	return
 
 
 
@@ -182,7 +174,6 @@
 					if (ishuman(src.occupant))
 						src.occupant.vessel.trans_to_obj(beaker, pumped + 1)
 		src.updateUsrDialog()
-		return
 
 	update_icon()
 		if(occupant)
@@ -196,7 +187,6 @@
 				A.loc = src.loc
 				A.blob_act()
 			qdel(src)
-		return
 
 	affect_grab(var/mob/user, var/mob/target)
 		if(src.occupant)
@@ -214,8 +204,8 @@
 			if(src.occupant)
 				user << SPAN_NOTE("<B>The sleeper is already occupied!</B>")
 				return
-			target.reset_view(src)
 			target.forceMove(src)
+			target.reset_view(src)
 			update_use_power(2)
 			occupant = target
 			update_icon()
@@ -245,22 +235,19 @@
 					A.loc = src.loc
 					ex_act(severity)
 				qdel(src)
-				return
 			if(2.0)
 				if(prob(50))
 					for(var/atom/movable/A as mob|obj in src)
 						A.loc = src.loc
 						ex_act(severity)
 					qdel(src)
-					return
 			if(3.0)
 				if(prob(25))
 					for(var/atom/movable/A as mob|obj in src)
 						A.loc = src.loc
 						ex_act(severity)
 					qdel(src)
-					return
-		return
+
 	emp_act(severity)
 		if(filtering)
 			toggle_filter()
@@ -288,6 +275,7 @@
 		if (M:reagents.get_reagent_amount("inaprovaline") < 5)
 			M:reagents.add_reagent("inaprovaline", 5)
 		return
+
 	proc/toggle_filter()
 		if(!src.occupant)
 			filtering = 0
@@ -302,14 +290,11 @@
 			toggle_filter()
 		if(!src.occupant)
 			return
-		if(src.occupant.client)
-			src.occupant.client.eye = src.occupant.client.mob
-			src.occupant.client.perspective = MOB_PERSPECTIVE
-		src.occupant.loc = src.loc
+		src.occupant.forceMove(src.loc)
+		src.occupant.reset_view()
 		src.occupant = null
 		update_icon()
 		update_use_power(1)
-		return
 
 
 	proc/inject_chemical(mob/living/user as mob, chemical, amount)
@@ -364,7 +349,6 @@
 		update_icon()
 		src.go_out()
 		add_fingerprint(usr)
-		return
 
 	verb/remove_beaker()
 		set name = "Remove Beaker"
@@ -396,13 +380,13 @@
 				usr << "You're too busy getting your life sucked out of you."
 				return
 		visible_message("[usr] starts climbing into the sleeper.", 3)
-		if(do_after(usr, 20))
+		if(do_after(usr, 20, src))
 			if(src.occupant)
 				usr << SPAN_NOTE("<B>The sleeper is already occupied!</B>")
 				return
 			usr.stop_pulling()
-			usr.reset_view()
-			usr.loc = src
+			usr.forceMove(src)
+			usr.reset_view(src)
 			update_use_power(2)
 			src.occupant = usr
 			update_icon()

@@ -249,16 +249,14 @@
 	//loc.assume_air(expel_gas)
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
-	if(!( occupant ))
+	if(!occupant)
 		return
-	//for(var/obj/O in src)
-	//	O.loc = loc
-	if (occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
 	occupant.loc = get_step(loc, SOUTH)	//this doesn't account for walls or anything, but i don't forsee that being a problem.
-	if (occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
-		occupant.bodytemperature = 261									  // Changed to 70 from 140 by Zuhayr due to reoccurance of bug.
+	occupant.reset_view()
+	//Patch by Aranclanos to stop people from taking burn damage after being ejected
+	if (occupant.bodytemperature < 261 && occupant.bodytemperature >= 70)
+		// Changed to 70 from 140 by Zuhayr due to reoccurance of bug.
+		occupant.bodytemperature = 261
 //	occupant.metabslow = 0
 	occupant = null
 	current_heat_capacity = initial(current_heat_capacity)
@@ -266,7 +264,7 @@
 	update_icon()
 	return
 
-/obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M as mob)
+/obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M)
 	if (stat & (NOPOWER|BROKEN))
 		usr << SPAN_WARN("The cryo cell is not functioning.")
 		return
@@ -282,11 +280,9 @@
 	if(!node)
 		usr << SPAN_WARN("The cell is not correctly connected to its pipe network!")
 		return
-	if (M.client)
-		M.client.perspective = EYE_PERSPECTIVE
-		M.client.eye = src
 	M.stop_pulling()
-	M.loc = src
+	M.forceMove(src)
+	M.reset_view(src)
 	M.ExtinguishMob()
 	if(M.health > -100 && (M.health < 0 || M.sleeping))
 		M << SPAN_NOTE("<b>You feel a cold liquid surround you. Your skin starts to freeze up.</b>")
@@ -311,7 +307,6 @@
 	if(!do_after(user, 30, src) || !Adjacent(target))
 		return
 	put_mob(target)
-	return
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()

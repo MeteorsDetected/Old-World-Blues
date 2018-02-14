@@ -285,7 +285,7 @@
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
 		usr.machine = src
 
-		if( href_list["view"] )
+		if(href_list["view"] )
 			usr.client.eye = src.compressor
 		else if( href_list["str"] )
 			src.compressor.starter = !src.compressor.starter

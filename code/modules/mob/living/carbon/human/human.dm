@@ -877,7 +877,7 @@
 	set name = "Remote View"
 	set category = "Superpower"
 
-	if(stat!=CONSCIOUS)
+	if(stat != CONSCIOUS)
 		remoteview_target = null
 		reset_view(0)
 		return
