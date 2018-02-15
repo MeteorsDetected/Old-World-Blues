@@ -255,11 +255,9 @@ REAGENT SCANNER
 	var/details = 0
 	var/recent_fail = 0
 
-/obj/item/device/mass_spectrometer/New()
+/obj/item/device/mass_spectrometer/initialize()
+	create_reagents(5)
 	..()
-	var/datum/reagents/R = new/datum/reagents(5)
-	reagents = R
-	R.my_atom = src
 
 /obj/item/device/mass_spectrometer/on_reagent_change()
 	if(reagents.total_volume)

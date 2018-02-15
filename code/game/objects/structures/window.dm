@@ -346,6 +346,7 @@
 
 
 /obj/structure/window/initialize()
+	..()
 	health = maxhealth
 
 	ini_dir = dir

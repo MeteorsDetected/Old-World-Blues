@@ -13,6 +13,7 @@
 	var/turf/target = null
 
 /obj/shuttle_beacon/initialize()
+	..()
 	setup()
 
 /obj/shuttle_beacon/verb/setup()

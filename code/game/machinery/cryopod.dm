@@ -236,7 +236,6 @@
 
 /obj/machinery/cryopod/initialize()
 	..()
-
 	find_control_computer()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)

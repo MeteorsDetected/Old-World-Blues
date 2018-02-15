@@ -488,10 +488,8 @@ var/mob/living/silicon/robot/global/list/redcode_robot_modules = list(
 	src.modules += new /obj/item/weapon/extinguisher/mini(src)
 	src.emag = new /obj/item/weapon/reagent_containers/glass/drinks/bottle/small/beer(src)
 
-	var/datum/reagents/R = new/datum/reagents(50)
-	src.emag.reagents = R
-	R.my_atom = src.emag
-	R.add_reagent("beer2", 50)
+	src.emag.create_reagents(50)
+	src.emag.reagents.add_reagent("beer2", 50)
 	src.emag.name = "Mickey Finn's Special Brew"
 	..()
 

@@ -116,7 +116,7 @@
 
 /obj/item/weapon/cartridge/signal/Destroy()
 	qdel(radio)
-	..()
+	return ..()
 
 /obj/item/weapon/cartridge/quartermaster
 	name = "\improper Space Parts & Space Vendors cartridge"
@@ -142,6 +142,7 @@
 	access_security = 1
 
 /obj/item/weapon/cartridge/hop/initialize()
+	..()
 	radio = new /obj/item/radio/integrated/mule(src)
 
 /obj/item/weapon/cartridge/hos
