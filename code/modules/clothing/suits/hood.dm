@@ -50,6 +50,7 @@
 	flags_inv = BLOCKHAIR
 	body_parts_covered = HEAD
 	var/obj/item/clothing/suit/holder = null
+	update_clothing_icon()
 
 /obj/item/clothing/head/toggleable_hood/dropped(var/mob/user)
 	. = ..()
