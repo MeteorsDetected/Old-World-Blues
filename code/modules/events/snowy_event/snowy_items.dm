@@ -296,6 +296,7 @@
 	move_turfs_to_area(turfs, A)
 	for(var/turf/T in A.contents)
 		T.lighting_build_overlays()
+		T.luminosity = !A.lighting_use_dynamic
 	qdel(src)
 
 
@@ -339,5 +340,6 @@
 	move_turfs_to_area(turfs, master_area)
 	for(var/turf/T in master_area.contents)
 		T.lighting_clear_overlays()
+		T.luminosity = !master_area.lighting_use_dynamic
 	qdel(A)
 	qdel(src)

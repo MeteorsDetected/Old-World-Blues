@@ -605,10 +605,11 @@
 		else
 			user << SPAN_WARN("You need at least 10 amount of wood.")
 	if(istype(W, /obj/item/weapon/crowbar) && planks)
-		for(var/atom/movable/M as obj|mob in src.loc)
-			if(M != src)
-				user << SPAN_WARN("You can't deconstruct the bridge while something on it.")
-				return
+		for(var/atom/movable/M in src.loc)
+			if(istype(M, /mob/living) || istype(M, /obj))
+				if(M != src)
+					user << SPAN_WARN("You can't deconstruct the bridge while something on it.")
+					return
 		var/obj/item/stack/material/wood/M = new(user.loc)
 		M.amount = 10
 		planks--
