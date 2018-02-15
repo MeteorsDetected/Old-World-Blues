@@ -20,6 +20,13 @@
 	cost = 10
 	containertype = /obj/structure/closet/crate
 	containername = "Glass sheets crate"
+	
+/datum/supply_packs/materials/plasteel
+	name = "20 plasteel sheets"
+	contains = list(/obj/item/stack/material/plasteel{amount = 20}) //I praise the gods, that this does work, please
+	cost = 20
+	containertype = /obj/structure/closet/crate
+	containername = "Plasteel sheets crate"
 
 /datum/supply_packs/materials/wood
 	name = "50 wooden planks"
@@ -49,4 +56,21 @@
 	containertype = /obj/structure/closet/crate
 	containername = "Imported carpets crate"
 
-
+/datum/supply_packs/randomised/materials/research
+	name = "Research materials"
+	num_contained = 10
+	contains = list(
+		/obj/item/stack/material/phoron,	//Highest probability
+		/obj/item/stack/material/phoron,
+		/obj/item/stack/material/phoron,
+		/obj/item/stack/material/silver,	//Medium probability
+		/obj/item/stack/material/silver,
+		/obj/item/stack/material/gold,
+		/obj/item/stack/material/gold,
+		/obj/item/stack/material/uranium,
+		/obj/item/stack/material/uranium,
+		/obj/item/stack/material/diamond	//Lowest probability
+	)
+	cost = 200
+	containertype = /obj/structure/closet/crate
+	containername = "Research materials crate"
