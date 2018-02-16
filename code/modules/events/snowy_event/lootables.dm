@@ -3,7 +3,7 @@
 	desc = "Chunk of spaceship. You don't sure what part it is, but looks like something can be inside."
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = "debris1"
-	var/obj/loot
+	var/loot
 	var/amount_of_loot = 1
 	var/list/possible_loot = list()
 	var/ultimate_tool = /obj/item/weapon/weldingtool
@@ -120,8 +120,24 @@
 /obj/structure/lootable/chunk
 
 	New()
-		..()
 		icon_state = "debris[rand(1, 3)]"
+		if(prob(30))
+			possible_loot = typesof(/obj/machinery/computer3)
+			possible_loot.Remove(/obj/machinery/computer3)
+			possible_loot.Remove(/obj/machinery/computer3/wall_comp)
+			possible_loot.Remove(/obj/machinery/computer3/communications) //ha-ha-ha. No.
+			..()
+			return
+		if(prob(40))
+			possible_loot = typesof(/obj/structure/closet/crate)
+			possible_loot.Remove(/obj/structure/closet/crate)
+			..()
+			return
+		if(prob(70))
+			possible_loot = typesof(/obj/item/weapon) //This can be a big mistake, but... It's make all of that a bit interesting...
+			possible_loot.Remove(/obj/item/weapon)
+			amount_of_loot = rand(1, 10)
+		..()
 
 
 
