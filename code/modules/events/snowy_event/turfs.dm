@@ -312,7 +312,7 @@
 		if(I)
 			user << SPAN_WARN("Ice is already are cracked here.")
 		else
-			user << SPAN_NOTE("You cracks trough ice with your [W.name]...")
+			user << SPAN_NOTE("You cracks trough the ice with your [W.name]...")
 			if(do_after(user, 30))
 				I = locate(/obj/structure/ice_hole) in src
 				if(I)
@@ -331,7 +331,7 @@
 			if(A.m_intent == "walk")
 				return
 		if(prob(30) && istype(A, /mob/living/carbon/human))
-			A << SPAN_WARN("You slips away!")
+			A << SPAN_WARN("You are slipping away!")
 			A.Weaken(2)
 			var/direction = pick(alldirs)
 			step(A, direction)
