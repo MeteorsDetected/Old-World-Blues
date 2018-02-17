@@ -120,7 +120,7 @@
 	var/list/internals = list()
 
 /datum/animal_organ/chest
-	name = "deer's chest"
+	name = "chest"
 	meat_left = 2
 	has_bones = 1
 	bones_left = 4
@@ -129,7 +129,7 @@
 	internals = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/ribs = 2, /obj/item/weapon/reagent_containers/food/snacks/ingredient/heart = 1)
 
 /datum/animal_organ/abdomen
-	name = "deer's abdomen"
+	name = "abdomen"
 	meat_left = 1
 	has_bones = 1
 	bones_left = 2
@@ -138,7 +138,7 @@
 	internals = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/liver = 1)
 
 /datum/animal_organ/leg
-	name = "deer's right leg"
+	name = "right leg"
 	meat_left = 1
 	has_bones = 1
 	bones_left = 1
@@ -148,17 +148,17 @@
 	part_overlay = "right_leg"
 
 /datum/animal_organ/leg/left_leg
-	name = "deer's left leg"
+	name = "left leg"
 	needed_organ = BP_L_LEG
 	part_overlay = "left_leg"
 
 /datum/animal_organ/leg/front_right_leg
-	name = "deer's front right leg"
+	name = "front right leg"
 	needed_organ = BP_R_ARM
 	part_overlay = "right_front_leg"
 
 /datum/animal_organ/leg/front_left_leg
-	name = "deer's front left leg"
+	name = "front left leg"
 	needed_organ = BP_L_ARM
 	part_overlay = "left_front_leg"
 
@@ -317,8 +317,8 @@
 			A.cutted = 1
 			sliced = 1 //for overlay
 			user.visible_message(
-					SPAN_NOTE("[user] sliced open [A.name]."),
-					SPAN_NOTE("You slice open [A.name].")
+					SPAN_NOTE("[user] sliced open [src.name]'s [A.name]."),
+					SPAN_NOTE("You slice open [src.name]'s [A.name].")
 				)
 			update_icon()
 			return

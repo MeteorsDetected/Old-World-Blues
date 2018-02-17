@@ -390,17 +390,17 @@
 		if(prob(10))
 			howl()
 	else
-		if(prob(5))
+		if(prob(1))
 			howl_count++
 
 
 
 /mob/living/simple_animal/hostile/creature/wolf/proc/howl()
-	playsound(src.loc, 'sound/effects/snowy/wolf_howl.ogg', 90, rand(-70, 70), 100, 1)
+	playsound(src.loc, 'sound/effects/snowy/wolf_howl.ogg', 90, rand(-70, 70), 90, 1)
 	howl_count--
 	if(howl_count < 0)
 		howl_count = 0
-	for(var/mob/living/simple_animal/hostile/creature/wolf/W in range(100, src))
+	for(var/mob/living/simple_animal/hostile/creature/wolf/W in range(15, src))
 		if(W.howl_count && prob(40))
 			spawn(rand(3, 6)*10)
 				W.howl()
