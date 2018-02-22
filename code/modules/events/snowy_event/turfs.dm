@@ -18,14 +18,6 @@
 		icon_state = "snow_turf"
 
 
-/turf/simulated/floor/plating/snow/update_icon()
-	if(floor_type)
-		overlays.Cut()
-		icon = 'icons/turf/floors.dmi'
-	else
-		icon = initial(icon)
-		icon_state = "snow_turf"
-
 
 
 /turf/simulated/floor/plating/snow/ex_act(severity)
@@ -33,11 +25,12 @@
 
 
 /turf/simulated/floor/plating/snow/attack_hand(var/mob/user as mob)
-	if(!floor_type)
-		if(user.a_intent == I_GRAB)
-			var/obj/item/weapon/snow/S = new(src)
-			user.put_in_hands(S)
-			user << SPAN_NOTE("You grab some snow.")
+	if(user.a_intent == I_GRAB)
+		var/obj/item/weapon/snow/S = new(src)
+		user.put_in_hands(S)
+		user << SPAN_NOTE("You grab some snow.")
+		return
+	..(user)
 
 
 /turf/simulated/floor/plating/snow/attackby(obj/item/C as obj, mob/user as mob)
@@ -258,7 +251,7 @@
 
 /turf/simulated/floor/plating/chasm/proc/eat(atom/movable/M as mob|obj)
 	var/obj/structure/bridge/Bridge = locate() in src
-	if(Bridge && Bridge.planks == 5)
+	if(Bridge && Bridge.planks >= 5)
 		Bridge.stepped(M)
 		return
 	if(istype(M, /mob/living/carbon/human))

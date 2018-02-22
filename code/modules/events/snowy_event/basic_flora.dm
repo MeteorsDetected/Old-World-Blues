@@ -5,11 +5,10 @@
 //Cant find flora. So i make it. Sorry
 /obj/structure/flora
 	var/loot_left = 3
-	var/loot_chance = 35
+	var/loot_chance = 25
+	var/goodloot_chance = 10
 	var/list/loot_list = list(/obj/item/weapon/reagent_containers/food/snacks/bug,
-								/obj/item/weapon/hook,
-								/obj/item/weapon/paper,
-								/obj/item/weapon/spider_silk)
+								/obj/item/weapon/spider_silk) //there need some special loot. But i make it later
 
 
 
@@ -19,12 +18,17 @@
 			if(prob(loot_chance))
 				user << SPAN_NOTE("You found something.")
 				var/loot =  pick(loot_list)
-				if(loot == /obj/item/weapon/paper)
-					loot = pick(typesof(/obj/item/weapon/paper))
 				new loot(user.loc)
 				loot_left--
 			else
-				user << SPAN_WARN("You find nothing.")
+				if(prob(goodloot_chance))
+					var/list/new_l = typesof(/obj/item/weapon)
+					new_l.Remove(/obj/item/weapon)
+					var/L = pick(new_l)
+					new L(user.loc)
+					user << SPAN_NOTE("You found something interesting!")
+				else
+					user << SPAN_WARN("You find nothing.")
 			loot_left--
 		else
 			user << SPAN_WARN("You check all possible places, but nothing.")
@@ -36,7 +40,6 @@
 	name = "Old tree"
 	desc = "Just old trunk."
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
-
 	icon_state = "old_wood"
 	anchored = 1
 	density = 1
@@ -155,7 +158,7 @@
 		var/t = get_step(src, d)
 		for(var/i = 1, i<=wood_amount, i++) //In the memory of Jarlo, my old partner who makes tree falling almost like there. Thank you
 			var/obj/structure/fshadow/L = new /obj/structure/fshadow(t)
-			L.objs_holder.Add(new /obj/structure/bed/chair/office/log(L))
+			L.objs_holder.Add(new /obj/structure/material/chair/office/log(L))
 			for(var/q = 1, q<=branch_factor*i, q++)
 				L.objs_holder.Add(new /obj/item/weapon/branches(L))
 			t = get_step(t, d)
@@ -173,7 +176,7 @@
 	anchored = 1
 	layer = 8
 	var/dead = 0
-	var/berries_left = 3
+	var/berries_left = 0
 	var/berry
 	var/list/berries_color = list(r = 0, g = 0, b = 0)
 
@@ -202,13 +205,17 @@
 
 
 /obj/structure/flora/snowybush/proc/berry_gen()
-	var/list/B = typesof(/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries)
-	B.Remove(/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries)
-	if(B.len)
-		berry = pick(B)
-	var/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/F = new berry(src) //Hm. Maybe tmp var is better idea
-	berries_color = F.berry_color
-	qdel(F)
+	if(prob(40))
+		return
+	else
+		var/list/B = typesof(/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries)
+		B.Remove(/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries)
+		if(B.len)
+			berry = pick(B)
+			berries_left = rand(1, 3)
+		var/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/F = new berry(src) //Hm. Maybe tmp var is better idea
+		berries_color = F.berry_color
+		qdel(F)
 
 
 /obj/structure/flora/snowybush/deadbush/examine(var/mob/user as mob)
@@ -267,6 +274,9 @@
 	if(timer <= 0)
 		for(var/obj/O in objs_holder)
 			O.loc = src.loc
+			if(istype(src.loc, /turf/simulated/floor/plating/chasm))
+				var/turf/simulated/floor/plating/chasm/C = src.loc
+				C.eat(O)
 		var/mob/living/carbon/human/H = locate(/mob/living/carbon/human) in src.loc
 		if(H)
 			H.Weaken(5)
@@ -277,14 +287,17 @@
 
 
 
-/obj/structure/bed/chair/office/log
+/obj/structure/material/chair/office/log
 	name = "wood log"
 	desc = "Part of tree. You are not sure about what kind of part is it, but you can sit down on it and drink some milk. Or cut into chunks."
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = "log"
 
+	New()
+		return
 
-/obj/structure/bed/chair/office/log/attackby(obj/item/weapon/T as obj, mob/user as mob)
+
+/obj/structure/material/chair/office/log/attackby(obj/item/weapon/T as obj, mob/user as mob)
 	if(istype(T, /obj/item/weapon/material/hatchet) || istype(T, /obj/item/weapon/melee/energy)  || istype(T, /obj/item/weapon/material/twohanded/fireaxe))
 		for(var/i = 1, i<=3, i++)
 			new /obj/item/weapon/snowy_woodchunks(src.loc)

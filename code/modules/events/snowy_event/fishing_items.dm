@@ -11,6 +11,10 @@
 //TODO-list:
 //Absolutly rework all fishing
 
+
+//All of this is broken. I rework it from scratch asap and starts tomorrow
+
+
 //Catch and meals here
 var/list/fishing_garbage = list(	/obj/item/weapon/handcuffs,
 							/obj/item/weapon/dice,
@@ -216,7 +220,6 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 		if(!H.freezing_stage)
 			if(hook)
 				user.visible_message(SPAN_NOTE("[user] drops his tackle at [target] and wait for his prey."), SPAN_NOTE("You drop your [src.name] at [target]."))
-				src.chance = src.chance + src.hook.addChance + src.fishing_line.addChance
 				src.place = target
 				place.tackles.Add(src)
 				place.update_icon()

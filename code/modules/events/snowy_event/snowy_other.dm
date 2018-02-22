@@ -133,6 +133,7 @@
 	requires_power = 1
 	always_unpowered = 1
 	lighting_use_dynamic = 0
+	sunlight = 1
 	power_light = 0
 	power_equip = 0
 	power_environ = 0
@@ -147,6 +148,7 @@
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = "indoor_area"
 	lighting_use_dynamic = 1
+	ambience = list()
 
 
 
@@ -389,7 +391,7 @@
 
 /obj/structure/girder/wooden/construct_wall(obj/item/stack/material/S, mob/user)
 	if(istype(S, /obj/item/stack/material/wood))
-		if(istype(src.loc, /turf/simulated/floor/plating/snow))
+		if(istype(src.loc, /turf/simulated/floor/plating/snow) || istype(src.loc, /turf/simulated/floor/plating/chasm) || istype(src.loc, /turf/simulated/floor/plating/ice))
 			user << SPAN_WARN("You need the solid ground to build this.")
 			return 0
 
@@ -452,16 +454,32 @@
 //Need to add do_after's
 //Need to add mecha's checks
 //Need to add attackby destroying
+
+
+/datum/bridge_handler
+	var/name
+	var/list/segments = list()
+
+	New()
+		name = "[name] [rand(1, 50)]-[rand(1, 400)]"
+
+
+//datum/bridge_handler/proc/supportCheck()
+//	for(var/obj/structure/bridge/bridge_segment in segments)
+//		for(var/obj/structure/bridge/near in bridge_segment.segments) //Meeeeh. Fuk this. I'm end it later. These bridges takes so much time...
+
+
+
 /obj/structure/bridge
 	name = "bridge"
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = "bridge"
-	//var/fall_chance
 	var/planks = 0
-	var/bridge_reliability = 0
+	var/bridge_reliability = 100
 	var/list/segments = list()
 	var/bordered = 0
 	var/crashing = 0 //helper
+	var/datum/bridge_handler/segment_storage
 
 	New()
 		for(var/direction in list(1, 4, 2, 8))
@@ -472,8 +490,15 @@
 			if(B)
 				segments.Add(B)
 				B.segments.Add(src)
-				B.updateReliability()
 		updateReliability()
+		for(var/obj/structure/bridge/segment in segments)
+			segment.updateReliability()
+			if(segment.segment_storage)
+				segment_storage = segment.segment_storage
+
+		if(!segment_storage)
+			segment_storage = new
+		segment_storage.segments.Add(src)
 		update_icon()
 
 
@@ -506,9 +531,9 @@
 		return "<b>Safely</b>"
 	else if(bridge_reliability < 100 && bridge_reliability >= 80)
 		return "<b>Almost reliably</b>"
-	else if(bridge_reliability <= 79 && bridge_reliability >= 60)
+	else if(bridge_reliability < 80 && bridge_reliability >= 60)
 		return "\red<b>Unreliably</b>"
-	else if(bridge_reliability <= 59 && bridge_reliability >= 40)
+	else if(bridge_reliability < 60 && bridge_reliability >= 40)
 		return "\red<b>Dangerously</b>"
 	else if(bridge_reliability < 40)
 		return "\red<b>Very dangerously</b>"
@@ -522,48 +547,55 @@
 	if(!segments.len)
 		crash()
 		return
-	for(var/obj/structure/bridge/segment in segments)
-		if(segment.bordered)
-			bridge_reliability = 80
-		else
-			if(bridge_reliability < segment.bridge_reliability)
-				bridge_reliability = segment.bridge_reliability
-		bridge_reliability = bridge_reliability+10
-	bridge_reliability = bridge_reliability-30
-	if(bridge_reliability > 100)
-		bridge_reliability = 100
+	if(segments.len == 1)
+		var/obj/structure/bridge/B = segments[1]
+		bridge_reliability = B.bridge_reliability - 20
+	else
+		var/R = 0
+		var/accepted = 0
+		for(var/obj/structure/bridge/segment in segments)
+			if(!bordered && !segment.crashing)
+				R += segment.bridge_reliability
+				accepted++
+		bridge_reliability = R/accepted
 	if(bridge_reliability <= 10)
 		crash()
 
 
+
+
 /obj/structure/bridge/proc/crash()
-	crashing = 1
-	for(var/obj/structure/bridge/segment in segments)
-		segment.segments.Remove(src)
-		if(!segment.crashing)
-			segment.updateReliability()
-	src.visible_message(SPAN_WARN("<b>[src] crashes into the abyss!</b>"))
-	playsound(src.loc, 'sound/effects/snowy/crash_creek.ogg', 80, rand(-80, 80), 10, 1)
-	spawn(20)
-		playsound(src.loc, 'sound/effects/snowy/bridge_crash.ogg', 50, rand(-50, 50), 20, 1)
-		var/turf/simulated/floor/plating/chasm/C = src.loc
-		if(istype(src.loc, /turf/simulated/floor/plating/chasm))
-			C = src.loc
-		qdel(src)
-		if(C)
-			for(var/atom/movable/O as obj|mob in C)
-				if(O != src)
-					C.eat(O)
-			for(var/direction in list(1, 4, 2, 8))
-				var/obj/structure/fallingman/F = locate() in get_step(src,direction)
-				if(F)
-					if(direction*2 == F.dir || direction/2 == F.dir)
-						F.fall()
+	if(src)
+		crashing = 1
+		for(var/obj/structure/bridge/segment in segments)
+			if(!segment.crashing)
+				segment.updateReliability()
+			segment.segments.Remove(src)
+		if(segment_storage)
+			segment_storage.segments.Remove(src)
+		src.visible_message(SPAN_WARN("<b>[src] crashes into the abyss!</b>"))
+		playsound(src.loc, 'sound/effects/snowy/crash_creek.ogg', 80, rand(-80, 80), 10, 1)
+		spawn(20)
+			playsound(src.loc, 'sound/effects/snowy/bridge_crash.ogg', 50, rand(-50, 50), 20, 1)
+			var/turf/simulated/floor/plating/chasm/C = src.loc
+			if(istype(src.loc, /turf/simulated/floor/plating/chasm))
+				C = src.loc
+			qdel(src)
+			if(C)
+				for(var/atom/movable/O as obj|mob in C)
+					if(O != src)
+						C.eat(O)
+				for(var/direction in list(1, 4, 2, 8))
+					var/obj/structure/fallingman/F = locate() in get_step(src,direction)
+					if(F)
+						if(direction*2 == F.dir || direction/2 == F.dir)
+							F.fall()
 
 
 /obj/structure/bridge/proc/stepped(var/atom/movable/M)
 	if(istype(M, /mob/observer))
 		return
+
 	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/L = M
 		if(L.m_intent == "run")
@@ -574,14 +606,18 @@
 					playsound(src.loc, 'sound/effects/snowy/bridge_boo_creek.ogg', 80, rand(-80, 80))
 		else
 			if(bridge_reliability <= 40)
-				if(prob((100-bridge_reliability)/2))
+				if(prob( round((100-bridge_reliability)/4) ))
 					crash()
-				playsound(src.loc, 'sound/effects/snowy/bridge_boo_creek.ogg', 80, rand(-80, 80))
+				else
+					playsound(src.loc, 'sound/effects/snowy/bridge_boo_creek.ogg', 80, rand(-80, 80))
 		return
+
 	if(istype(M, /mob/living))
 		if(bridge_reliability <= 60)
 			if(prob(100-bridge_reliability))
 				crash()
+				return
+
 	if(istype(M, /obj/item))
 		var/obj/item/I = M
 		if(bridge_reliability <= 40 && I.w_class > ITEM_SIZE_NORMAL)
@@ -590,20 +626,17 @@
 
 
 /obj/structure/bridge/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/stack/material/wood))
+	if(istype(W, /obj/item/stack/material/wood) && planks < 5)
 		var/obj/item/stack/material/wood/M = W
-		if(M.amount >= 10)
+		if(M.amount >= 1)
 			user << SPAN_NOTE("You careful place planks at girders.")
 			planks++
-			M.amount = M.amount - 10
+			M.amount = M.amount - 1
 			if(M.amount <= 0)
 				qdel(W)
-			if(planks == 5)
+			if(planks >= 5)
 				user << SPAN_NOTE("Segment of bridge is ready. Looks [getReliabilityStatus()].")
-				updateReliability()
 			update_icon()
-		else
-			user << SPAN_WARN("You need at least 10 amount of wood.")
 	if(istype(W, /obj/item/weapon/crowbar) && planks)
 		for(var/atom/movable/M in src.loc)
 			if(istype(M, /mob/living) || istype(M, /obj))
@@ -611,7 +644,7 @@
 					user << SPAN_WARN("You can't deconstruct the bridge while something on it.")
 					return
 		var/obj/item/stack/material/wood/M = new(user.loc)
-		M.amount = 10
+		M.amount = 1
 		planks--
 		update_icon()
 		user << SPAN_NOTE("You cut the improvised ropes and pry planks to get it back.")
@@ -619,12 +652,20 @@
 
 /obj/structure/bridge/attack_hand(mob/user as mob)
 	if(!planks && user.a_intent == I_GRAB)
+		crashing = 1
 		new /obj/item/weapon/snowy_woodchunks(user.loc)
 		if(segments)
 			for(var/obj/structure/bridge/segment in segments)
 				segment.updateReliability()
+		segment_storage.segments.Remove(src)
 		user << SPAN_NOTE("You take bridge girders back, but some parts has been destroyed in process.")
 		qdel(src)
+
+
+
+/obj/structure/bridge/constructed
+	planks = 5
+
 
 
 //////////////SOME KIND OF A CHILL MECHANICS///////////////
@@ -668,16 +709,19 @@
 				p["temp"] = t*2 //Yeah. Let's make this harder. Later i rework all of that and made it based on env temperature
 
 
-	if(bodytemperature <= T0C-5 && bodytemperature > T0C-10)
+	if(bodytemperature <= T0C-5 && bodytemperature > T0C-10 && !(species.name == SPECIES_TAJARA))
 		if(prob(10))
 			src << SPAN_WARN("You feel your limbs badly. Chill bites into the skin.")
-	else if(bodytemperature <= T0C-10 && bodytemperature > T0C-20)
+	else if(bodytemperature <= T0C-10 && bodytemperature > T0C-20 && !(species.name == SPECIES_TAJARA))
 		if(prob(10))
 			src << SPAN_WARN("You almost not feel your limbs. Your eyelids close...")
 
 	var/G = 0
 	for(var/list/part in parts)
-		if(bodytemperature <= T0C-20)
+		if(species.name == SPECIES_TAJARA && bodytemperature <= T0C-55)
+			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+				apply_damage(part["temp"],  BURN, part["part"],  0, 0, "Freeze")
+		else if(bodytemperature <= T0C-20 && !(species.name == SPECIES_TAJARA))
 			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 				apply_damage(part["temp"],  BURN, part["part"],  0, 0, "Freeze")
 		G += part["temp"]
@@ -749,17 +793,6 @@ obj/machinery/lightrail/process()
 	name = "fish"
 	taste_description = "fish"
 	id = "fish"
-
-
-/obj/structure/sunlight_imit
-	name = "sunlight"
-	anchored = 1
-	var/l_range = 1
-	var/l_power = 1
-	var/l_col = ""
-
-	New()
-		set_light(l_range, l_power)
 
 
 /obj/structure/deadman

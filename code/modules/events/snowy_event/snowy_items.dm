@@ -20,10 +20,8 @@
 		return
 	if(!T.sharp || istype(T, /obj/item/weapon/wirecutters))
 		return
-	if(!T.sharp || istype(T, /obj/item/weapon/wirecutters))
-		return
 
-	for(var/i = 1, i<10, i++)
+	for(var/i = 1, i<5, i++)
 		var/obj/item/stack/material/wood/W = new(user.loc)
 		for (var/obj/item/stack/material/G in user.loc) //Yeah, i copypasted that small part. Sorry. Don't know why nobody puts this in New() of sheets
 			if(G.get_material_name() != MATERIAL_WOOD || G==W)
@@ -297,6 +295,9 @@
 	for(var/turf/T in A.contents)
 		T.lighting_build_overlays()
 		T.luminosity = !A.lighting_use_dynamic
+		for(var/turf/Turf in orange(1, T))
+			if(Turf.luminosity)
+				Turf.update_sunlight()
 	qdel(src)
 
 
@@ -341,5 +342,8 @@
 	for(var/turf/T in master_area.contents)
 		T.lighting_clear_overlays()
 		T.luminosity = !master_area.lighting_use_dynamic
+		for(var/turf/Turf in orange(1, T))
+			if(Turf.luminosity)
+				Turf.update_sunlight()
 	qdel(A)
 	qdel(src)

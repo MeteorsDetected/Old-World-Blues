@@ -34,6 +34,7 @@
 
 	var/dynamic_lighting = 1
 	luminosity = 1
+	var/sunlight = 0 //snowy event
 
 /turf/New()
 	..()
@@ -42,10 +43,26 @@
 			src.Entered(AM)
 			return
 	turfs |= src
+	spawn(10)
+		update_sunlight() //snowy event
 
 /turf/Destroy()
 	turfs -= src
 	..()
+
+/turf/proc/update_sunlight() //snowy event. Delete this proc later
+	if(opacity || density)
+		return
+	var/turf/simulated/S = locate() in orange(1,src)
+	if(S && S.loc != src.loc)
+		if(S.opacity)
+			set_light(2, 0.5)
+		else
+			set_light(5)
+			return
+	else
+		set_light(0)
+
 
 /turf/ex_act(severity)
 	return 0
@@ -263,6 +280,10 @@
 		for(var/turf/space/S in RANGE_TURFS(1,W))
 			S.update_starlight()
 
+		for(var/turf/T in RANGE_TURFS(1,W)) //Snowy event. Delete from here
+			if(T.sunlight)
+				T.update_sunlight() //to here after it pass
+
 		W.levelupdate()
 		. = W
 
@@ -281,6 +302,10 @@
 
 		for(var/turf/space/S in RANGE_TURFS(1,W))
 			S.update_starlight()
+
+		for(var/turf/T in RANGE_TURFS(1,W)) //Snowy event. Delete from here
+			if(T.sunlight)
+				T.update_sunlight() //to here after it pass
 
 		W.levelupdate()
 		. =  W

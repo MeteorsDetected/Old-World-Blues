@@ -131,6 +131,10 @@
 		user << SPAN_NOTE("There isn't enough material here to construct a wall.")
 		return 0
 
+	if(istype(src.loc, /turf/simulated/floor/plating/snow) || istype(src.loc, /turf/simulated/floor/plating/chasm) || istype(src.loc, /turf/simulated/floor/plating/ice))
+		user << SPAN_WARN("You need the solid ground to build this.")
+		return 0
+
 	var/material/M = S.material
 	if(!istype(M))
 		return 0
