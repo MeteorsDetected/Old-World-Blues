@@ -17,6 +17,7 @@ Please maintain these lists valid. --rastaf0
 
 
 /area
+	var/sunlight = 0
 	var/fire = null
 	var/atmos = 1
 	var/atmosalm = 0
