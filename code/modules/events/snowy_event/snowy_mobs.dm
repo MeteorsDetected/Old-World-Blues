@@ -34,9 +34,10 @@
 				death = 'sound/effects/snowy/deer_death.ogg')
 	var/corpse = /obj/structure/butcherable
 	var/turf/new_place
-	var/go_away_ticks = 30 //then this lower to 0, animal will go away to another place
-	var/ticks_to_move = 30
+	var/go_away_ticks = 60 //then this lower to 0, animal will go away to another place
+	var/ticks_to_move = 60
 //	var/footprints
+	var/last_m_detection = 0
 
 	nutrition = 0
 	var/nutrition_max = 50
@@ -70,7 +71,11 @@
 	if(!..())
 		return
 
-	mobDetection()
+	var/list/R = range(hearing, src)
+	if(last_m_detection != R.len || locate(/mob/living/carbon/human) in R)
+		mobDetection()
+		if(!(locate(/mob/living/carbon/human) in R))
+			last_m_detection = R.len
 	switch(life_mode)
 		if("panic")
 			panicRun(target)
@@ -89,13 +94,14 @@
 			spawn(1200)
 				qdel(D)
 
-	howl_ticks++
-	if(howl_ticks >= 40)
-		howl()
 	for(var/turf/simulated/floor/plating/chasm/C in range(1, src)) //Beware the chasms!
 		walk_away(src, C, 1, speed)
 	for(var/obj/structure/fence/F in range(1, src)) //And this. Yeah, i rework all of this later
 		walk_away(src, F, 1, speed)
+
+	howl_ticks++
+	if(howl_ticks >= 40)
+		howl()
 
 
 /mob/living/simple_animal/snowy_animal/proc/hungry()
@@ -118,7 +124,7 @@
 					walk_to(src, feed, 1, speed)
 				break
 			else
-				go_away_ticks = 0
+				//go_away_ticks = 0 //temporary
 				life_mode = "living"
 	update_icon()
 
@@ -149,7 +155,7 @@
 	if(go_away_ticks && !bleeding)
 		go_away_ticks--
 	else
-		new_place = getNewPlace(16)
+		new_place = getNewPlace(12)
 	if(nutrition)
 		nutrition--
 	else
@@ -239,7 +245,6 @@
 		//if this is not living creature... Well. Run?
 
 
-
 /mob/living/simple_animal/snowy_animal/proc/mobDetection()
 	for(var/mob/living/L in view(vision, src))
 		if(L != src)
@@ -291,7 +296,7 @@
 
 
 /mob/living/simple_animal/snowy_animal/proc/isReachable(var/turf/to_T)
-	var/list/path = AStar(src.loc, to_T, /turf/proc/AdjacentTurfsSnowy, /turf/proc/Distance, max_nodes=60)
+	var/list/path = AStar(src.loc, to_T, /turf/proc/AdjacentTurfsSnowy, /turf/proc/Distance, max_nodes=25)
 	if(path && path[path.len] == to_T)
 		return 1
 	return 0
@@ -352,6 +357,8 @@
 		nutrition = rand(10, 60)
 		howl_ticks = rand(10, 30)
 		sleep_need = rand(10, 30)
+		go_away_ticks = rand(25, 60)
+
 
 
 
