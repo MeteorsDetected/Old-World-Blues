@@ -47,6 +47,7 @@
 	matter = list(MATERIAL_STEEL = 75)
 	attack_verb = list("stabbed")
 	sharp  = 1
+	randpixel = 16
 
 	suicide_act(mob/user)
 		viewers(user) << pick(\
@@ -54,7 +55,7 @@
 			"<span class='danger'>\The [user] is stabbing the [src.name] into \his heart! It looks like \he's trying to commit suicide.</span>")
 		return(BRUTELOSS)
 
-/obj/item/weapon/screwdriver/New()
+/obj/item/weapon/screwdriver/initialize()
 	switch(pick("red","blue","purple","brown","green","cyan","yellow"))
 		if ("red")
 			icon_state = "screwdriver2"
@@ -78,9 +79,7 @@
 			icon_state = "screwdriver7"
 			item_state = "screwdriver_yellow"
 
-	if (prob(75))
-		src.pixel_y = rand(0, 16)
-	..()
+	. = ..()
 
 /obj/item/weapon/screwdriver/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!istype(M) || user.a_intent == "help")
@@ -114,11 +113,11 @@
 	sharp = 1
 	edge = 1
 
-/obj/item/weapon/wirecutters/New()
+/obj/item/weapon/wirecutters/initialize()
 	if(prob(50))
 		icon_state = "cutters-y"
 		item_state = "cutters_yellow"
-	..()
+	return ..()
 
 /obj/item/weapon/wirecutters/attack(mob/living/carbon/C as mob, mob/user as mob)
 	if(user.a_intent == I_HELP && istype(C) && istype(C.handcuffed, /obj/item/weapon/handcuffs/cable))
@@ -163,11 +162,10 @@
 	var/status = 1 		//Whether the welder is secured or unsecured (able to attach rods to it to make a flamethrower)
 	var/max_fuel = 20 	//The max amount of fuel the welder can hold
 
-/obj/item/weapon/weldingtool/New()
-	..()
+/obj/item/weapon/weldingtool/initialize()
+	. = ..()
 	create_reagents(max_fuel)
 	reagents.add_reagent("fuel", max_fuel)
-	..()
 
 /obj/item/weapon/weldingtool/Destroy()
 	if(welding)

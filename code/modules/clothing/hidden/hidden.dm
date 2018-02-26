@@ -4,7 +4,7 @@
 	desc = "Totally what you think it is"
 	w_class = ITEM_SIZE_TINY
 
-/obj/item/clothing/hidden/New()
+/obj/item/clothing/hidden/initialize()
 	..()
 	if(!wear_state)
 		wear_state = icon_state

@@ -325,11 +325,11 @@
 	var/skin = null //Same as medbot, set to tox or ointment for the respective kits.
 	w_class = ITEM_SIZE_NORMAL
 
-/obj/item/weapon/firstaid_arm_assembly/New()
+/obj/item/weapon/firstaid_arm_assembly/New(loc, new_skin)
 	..()
-	spawn(5) // Terrible. TODO: fix
-		if(skin)
-			overlays += image('icons/obj/aibots.dmi', "kit_skin_[src.skin]")
+	if(new_skin)
+		src.skin = new_skin
+		overlays += image('icons/obj/aibots.dmi', "kit_skin_[src.skin]")
 
 /obj/item/weapon/firstaid_arm_assembly/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
@@ -357,7 +357,7 @@
 					qdel(W)
 					user << SPAN_NOTE("You complete the Medibot! Beep boop.")
 					var/turf/T = get_turf(src)
-					var/mob/living/bot/medbot/S = new /mob/living/bot/medbot(T)
+					var/mob/living/bot/medbot/S = new /mob/living/bot/medbot(T, skin)
 					S.skin = skin
 					S.name = created_name
 					user.drop_from_inventory(src)

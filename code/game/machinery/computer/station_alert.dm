@@ -16,8 +16,8 @@
 	monitor_type = /obj/nano_module/alarm_monitor/all
 	circuit = /obj/item/weapon/circuitboard/stationalert_all
 
-/obj/machinery/computer/station_alert/New()
-	..()
+/obj/machinery/computer/station_alert/initialize()
+	. = ..()
 	alarm_monitor = new monitor_type(src)
 	alarm_monitor.register(src, /obj/machinery/computer/station_alert/update_icon)
 
@@ -46,7 +46,7 @@
 /obj/machinery/computer/station_alert/update_icon()
 	if( !(stat & (BROKEN|NOPOWER)) )
 		var/list/alarms = alarm_monitor.major_alarms()
-		if(alarms.len)
+		if(alarms && alarms.len)
 			screen_icon = "alert:2"
 		else
 			screen_icon = initial(screen_icon)

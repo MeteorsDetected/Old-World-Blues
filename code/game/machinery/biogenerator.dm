@@ -16,8 +16,8 @@
 	var/eat_eff = 1
 
 
-/obj/machinery/biogenerator/New()
-	..()
+/obj/machinery/biogenerator/initialize()
+	. = ..()
 	create_reagents(1000)
 	beaker = new(src)
 

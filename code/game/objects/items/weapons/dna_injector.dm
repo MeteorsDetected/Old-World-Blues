@@ -19,7 +19,7 @@
 	var/datatype=0
 	var/value=0
 
-/obj/item/weapon/dnainjector/New()
+/obj/item/weapon/dnainjector/initialize()
 	if(datatype && block)
 		buf=new
 		buf.dna=new

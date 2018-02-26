@@ -1,6 +1,7 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
-/obj/item/device/mmi/digital/New()
+/obj/item/device/mmi/digital/initialize()
+	. = ..()
 	src.brainmob = new(src)
 	src.brainmob.add_language("Robot Talk")
 	src.brainmob.loc = src
@@ -138,8 +139,8 @@
 
 	var/obj/item/device/radio/radio = null//Let's give it a radio.
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		radio = new(src)//Spawns a radio inside the MMI.
 		radio.broadcasting = 1//So it's broadcasting from the start.
 

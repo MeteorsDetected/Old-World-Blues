@@ -9,9 +9,9 @@
 	circuit = /obj/item/weapon/circuitboard/crew
 	var/obj/nano_module/crew_monitor/crew_monitor
 
-/obj/machinery/computer/crew/New()
+/obj/machinery/computer/crew/initialize()
 	crew_monitor = new(src)
-	..()
+	return ..()
 
 
 /obj/machinery/computer/crew/attack_ai(mob/user)

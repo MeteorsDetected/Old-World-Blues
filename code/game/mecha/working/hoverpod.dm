@@ -15,14 +15,14 @@
 	var/datum/effect/effect/system/ion_trail_follow/ion_trail
 	var/stabilization_enabled = 1
 
-/obj/mecha/working/hoverpod/New()
-	..()
+/obj/mecha/working/hoverpod/initialize()
+	. = ..()
 	ion_trail = new /datum/effect/effect/system/ion_trail_follow()
 	ion_trail.set_up(src)
 	ion_trail.start()
 
-/obj/mecha/working/hoverpod/cargo/New()
-	..()
+/obj/mecha/working/hoverpod/cargo/initialize()
+	. = ..()
 	attach(new /obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp)
 	attach(new /obj/item/mecha_parts/mecha_equipment/tool/passenger)
 
@@ -95,8 +95,8 @@
 	cargo_capacity = 2
 	max_equip = 2
 
-/obj/mecha/working/hoverpod/combatpod/New()
-	..()
+/obj/mecha/working/hoverpod/combatpod/initialize()
+	. = ..()
 	attach(new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser)
 	attach(new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/explosive)
 
@@ -104,7 +104,7 @@
 /obj/mecha/working/hoverpod/shuttlepod
 	desc = "Who knew a tiny ball could fit three people?"
 
-/obj/mecha/working/hoverpod/shuttlepod/New()
-	..()
+/obj/mecha/working/hoverpod/shuttlepod/initialize()
+	. = ..()
 	attach(new /obj/item/mecha_parts/mecha_equipment/tool/passenger)
 	attach(new /obj/item/mecha_parts/mecha_equipment/tool/passenger)

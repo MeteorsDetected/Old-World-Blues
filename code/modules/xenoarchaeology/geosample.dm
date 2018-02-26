@@ -26,11 +26,11 @@
 	var/source_rock = "/turf/simulated/mineral/"
 	var/datum/geosample/geological_data
 
-/obj/item/weapon/rocksliver/New()
-	..()
+/obj/item/weapon/rocksliver/initialize()
 	icon_state = "sliver[rand(1,3)]"
 	create_reagents(50)
 	reagents.add_reagent("ground_rock",50)
+	. = ..()
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Geosample datum

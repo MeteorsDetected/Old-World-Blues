@@ -28,9 +28,9 @@
 		return dat
 
 
-	New()
-		..()
+	initialize()
 		create_reagents(50)
+		return ..()
 
 	trigger(emote, mob/living/source)
 		if(emote == "deathgasp")

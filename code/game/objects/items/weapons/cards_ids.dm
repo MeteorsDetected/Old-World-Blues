@@ -121,7 +121,6 @@
 
 /obj/item/weapon/card/id/New()
 	..()
-	spawn(30)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		blood_type = H.dna.b_type
@@ -172,8 +171,8 @@
 
 /obj/item/weapon/card/id/syndicate/New(mob/user as mob)
 	..()
-	if(!isnull(user)) // Runtime prevention on laggy starts or where users log out because of lag at round start.
-		registered_name = ishuman(user) ? user.real_name : user.name
+	if(ishuman(user)) // Runtime prevention on laggy starts or where users log out because of lag at round start.
+		registered_name = user.real_name
 	else
 		registered_name = "Agent Card"
 	assignment = "Agent"
@@ -248,9 +247,10 @@
 	registered_name = "Captain"
 	assignment = "Captain"
 
-/obj/item/weapon/card/id/captains_spare/New()
+/obj/item/weapon/card/id/captains_spare/initialize()
 	access = get_all_accesses()
-	..()
+	return ..()
+
 
 /obj/item/weapon/card/id/centcom
 	name = "\improper CentCom. ID"
@@ -258,24 +258,27 @@
 	icon_state = "centcom"
 	registered_name = "Central Command"
 	assignment = "General"
-	New()
-		access = get_all_centcom_access()
-		..()
+
+/obj/item/weapon/card/id/centcom/New()
+	access = get_all_centcom_access()
+	return ..()
+
 
 /obj/item/weapon/card/id/army
 	name = "\improper Army Identification Card"
 	desc = "An AID straight from NTCI"
 	icon_state = "centcom_old"
 	assignment = "NT Colonial Infantry"
-	New()
-		access = get_all_centcom_access()
-		..()
+
+/obj/item/weapon/card/id/army/initialize()
+	access = get_all_centcom_access()
+	return ..()
 
 
 /obj/item/weapon/card/id/centcom/ERT
 	name = "\improper Emergency Response Team ID"
 	assignment = "Emergency Response Team"
 
-/obj/item/weapon/card/id/centcom/ERT/New()
-	..()
-	access += get_all_accesses()
+/obj/item/weapon/card/id/centcom/ERT/initialize()
+	access = get_all_accesses()
+	return ..()

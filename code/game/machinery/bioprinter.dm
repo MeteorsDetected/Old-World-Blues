@@ -48,11 +48,6 @@
 	desc = "It's a machine that prints prosthetic organs."
 	prints_prosthetics = 1
 
-/obj/machinery/bioprinter/New()
-	..()
-	if(!(ticker && ticker.current_state == GAME_STATE_PLAYING))
-		stored_matter = 200
-
 
 /obj/machinery/bioprinter/attack_hand(mob/user)
 

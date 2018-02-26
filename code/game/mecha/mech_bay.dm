@@ -17,7 +17,7 @@
 		if(istype(O, /obj/mecha))
 			if(last_message_time + 50 >= world.time)
 				last_message_time = world.time
-				O:occupant_message("<font color='red'>Recharger is locked.</font>")
+				O:occupant_message(SPAN_WARN("Recharger is locked."))
 			return 0
 		else if(istype(O, /obj/item/mecha_parts/chassis))
 			return 0
@@ -25,7 +25,8 @@
 
 
 /turf/simulated/floor/mech_bay_recharge_floor/Enter(atom)
-	if(!check_pass(atom)) return 0
+	if(!check_pass(atom))
+		return 0
 	return ..(atom)
 
 /turf/simulated/floor/mech_bay_recharge_floor/Entered(var/obj/mecha/mecha)
@@ -38,13 +39,13 @@
 			recharge_console.mecha_in(mecha)
 			return
 		else if(!recharge_console)
-			mecha.occupant_message("<font color='red'>Control console not found. Terminating.</font>")
+			mecha.occupant_message(SPAN_WARN("Control console not found. Terminating."))
 		else if(!recharge_port)
-			mecha.occupant_message("<font color='red'>Power port not found. Terminating.</font>")
-	return
+			mecha.occupant_message(SPAN_WARN("Power port not found. Terminating."))
 
 /turf/simulated/floor/mech_bay_recharge_floor/Exit(atom)
-	if(!check_pass(atom)) return 0
+	if(!check_pass(atom))
+		return 0
 	return ..(atom)
 
 /turf/simulated/floor/mech_bay_recharge_floor/Exited(atom)
@@ -53,7 +54,6 @@
 		recharging_mecha = null
 		if(recharge_console)
 			recharge_console.mecha_out()
-	return
 
 /turf/simulated/floor/mech_bay_recharge_floor/proc/init_devices()
 	if(!recharge_console)
@@ -69,7 +69,6 @@
 		recharge_port.recharge_floor = src
 		if(recharge_console)
 			recharge_port.recharge_console = recharge_console
-	return
 
 // temporary fix for broken icon until somebody gets around to make these player-buildable
 /turf/simulated/floor/mech_bay_recharge_floor/attackby(obj/item/C as obj, mob/user as mob)
@@ -91,32 +90,29 @@
 
 /obj/machinery/mech_bay_recharge_port/New()
 	..()
-	pr_recharger = new /datum/global_iterator/mech_bay_recharger(null,0)
-	return
+	pr_recharger = new /datum/global_iterator/mech_bay_recharger(null, 0)
 
 /obj/machinery/mech_bay_recharge_port/proc/start_charge(var/obj/mecha/recharging_mecha)
 	if(stat&(NOPOWER|BROKEN))
-		recharging_mecha.occupant_message("<font color='red'>Power port not responding. Terminating.</font>")
+		recharging_mecha.occupant_message(SPAN_WARN("Power port not responding. Terminating."))
 		return 0
 	else
 		if(recharging_mecha.cell)
 			recharging_mecha.occupant_message("Now charging...")
 			pr_recharger.start(list(src,recharging_mecha))
+			if(recharge_console)
+				recharge_console.update_icon()
 			return 1
 		else
 			return 0
 
 /obj/machinery/mech_bay_recharge_port/proc/stop_charge()
-	if(recharge_console && !recharge_console.stat)
-		recharge_console.icon_state = initial(recharge_console.icon_state)
+	if(recharge_console)
+		recharge_console.update_icon()
 	pr_recharger.stop()
-	return
 
 /obj/machinery/mech_bay_recharge_port/proc/active()
-	if(pr_recharger.active())
-		return 1
-	else
-		return 0
+	return pr_recharger.active()
 
 /obj/machinery/mech_bay_recharge_port/power_change()
 	..()
@@ -168,22 +164,23 @@
 	var/tmp/obj/machinery/mech_bay_recharge_port/recharge_port
 	var/locked = 0
 
+/obj/machinery/computer/mech_bay_power_console/update_icon()
+	if(recharge_port && recharge_port.active())
+		screen_icon = initial(src.screen_icon)+"_on"
+	else
+		screen_icon = initial(src.screen_icon)
+	..()
+
 /obj/machinery/computer/mech_bay_power_console/proc/mecha_in(var/obj/mecha/mecha)
 	if(stat&(NOPOWER|BROKEN))
-		mecha.occupant_message("<font color='red'>Control console not responding. Terminating...</font>")
+		mecha.occupant_message(SPAN_WARN("Control console not responding. Terminating..."))
 		return
 	if(recharge_port && autostart)
-		var/answer = recharge_port.start_charge(mecha)
-		if(answer)
-			recharge_port.set_voltage(voltage)
-			src.icon_state = initial(src.icon_state)+"_on"
-	return
+		recharge_port.start_charge(mecha)
 
 /obj/machinery/computer/mech_bay_power_console/proc/mecha_out()
 	if(recharge_port)
 		recharge_port.stop_charge()
-	return
-
 
 /obj/machinery/computer/mech_bay_power_console/power_change()
 	..()

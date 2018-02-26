@@ -9,18 +9,16 @@
 	thrown_force_divisor = 1
 	origin_tech = list(TECH_MATERIAL = 1)
 	attack_verb = list("attacked", "stabbed", "poked")
+	randpixel = 4
 	sharp = 1
 	edge = 1
 	force_divisor = 0.1 // 6 when wielded with hardness 60 (steel)
 	thrown_force_divisor = 0.25 // 5 when thrown with weight 20 (steel)
 	var/loaded      //Descriptive string for currently loaded food object.
 
-/obj/item/weapon/material/kitchen/utensil/New()
-	..()
-	if (prob(60))
-		src.pixel_y = rand(0, 4)
+/obj/item/weapon/material/kitchen/utensil/initialize()
 	create_reagents(5)
-	return
+	return ..()
 
 /obj/item/weapon/material/kitchen/utensil/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!istype(M))

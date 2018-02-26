@@ -45,7 +45,7 @@
 	else
 		recharged -= 1
 
-/obj/machinery/chem_dispenser/New()
+/obj/machinery/chem_dispenser/initialize()
 	..()
 	recharge()
 	dispensable_reagents = sortList(dispensable_reagents)

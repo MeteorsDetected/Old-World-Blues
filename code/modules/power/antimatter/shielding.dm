@@ -26,11 +26,9 @@ proc/cardinalrange(var/center)
 	var/efficiency = 1//How many cores this core counts for when doing power processing, phoron in the air and stability could affect this
 
 
-/obj/machinery/am_shielding/New(loc)
-	..(loc)
-	spawn(10)
-		controllerscan()
-	return
+/obj/machinery/am_shielding/initialize()
+	. = ..()
+	controllerscan()
 
 
 /obj/machinery/am_shielding/proc/controllerscan(var/priorscan = 0)

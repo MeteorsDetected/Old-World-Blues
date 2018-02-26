@@ -11,11 +11,10 @@
 	var/uses = 1.0
 
 
-	New()
+	initialize()
 		src.activation_emote = pick("blink", "blink_r", "eyebrow", "chuckle", "twitch_s", "frown", "nod", "blush", "giggle", "grin", "groan", "shrug", "smile", "pale", "sniff", "whimper", "wink")
 		src.uses = rand(1, 5)
-		..()
-		return
+		return ..()
 
 
 	trigger(emote, mob/living/carbon/source as mob)

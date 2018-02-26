@@ -51,7 +51,7 @@
 		"cold"
 	)
 
-/obj/machinery/door/firedoor/New()
+/obj/machinery/door/firedoor/initialize()
 	. = ..()
 	var/area/A = get_area(src)
 	ASSERT(istype(A))

@@ -26,10 +26,10 @@
 		qdel(src)
 		return
 
-	proc/bang(var/turf/T , var/mob/living/carbon/M)					// Added a new proc called 'bang' that takes a location and a person to be banged.
-		if (locate(/obj/item/weapon/cloaking_device, M))			// Called during the loop that bangs people in lockers/containers and when banging
-			for(var/obj/item/weapon/cloaking_device/S in M)			// people in normal view.  Could theroetically be called during other explosions.
-				S.active = 0										// -- Polymorph
+	proc/bang(var/turf/T , var/mob/living/carbon/M)			// Added a new proc called 'bang' that takes a location and a person to be banged.
+		if (locate(/obj/item/weapon/cloaking_device, M))	// Called during the loop that bangs people in lockers/containers and when banging
+			for(var/obj/item/weapon/cloaking_device/S in M)	// people in normal view.  Could theroetically be called during other explosions.
+				S.active = 0								// -- Polymorph
 				S.icon_state = "shield0"
 
 		M << "<span class='danger'>BANG</span>"
@@ -127,7 +127,8 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang_segment"
 
-/obj/item/weapon/grenade/flashbang/clusterbang/segment/New()//Segments should never exist except part of the clusterbang, since these immediately 'do their thing' and asplode
+/obj/item/weapon/grenade/flashbang/clusterbang/segment/New()
+//Segments should never exist except part of the clusterbang, since these immediately 'do their thing' and asplode
 	icon_state = "clusterbang_segment_active"
 	active = 1
 	banglet = 1
@@ -152,15 +153,15 @@
 	qdel(src)
 	return
 
-/obj/item/weapon/grenade/flashbang/cluster/New()//Same concept as the segments, so that all of the parts don't become reliant on the clusterbang
-	spawn(0)
-		icon_state = "flashbang_active"
-		active = 1
-		banglet = 1
-		var/stepdist = rand(1,3)
-		var/temploc = src.loc
-		walk_away(src,temploc,stepdist)
-		var/dettime = rand(15,60)
-		spawn(dettime)
+//Same concept as the segments, so that all of the parts don't become reliant on the clusterbang
+/obj/item/weapon/grenade/flashbang/cluster/initialize()
+	icon_state = "flashbang_active"
+	active = 1
+	banglet = 1
+	var/stepdist = rand(1,3)
+	var/temploc = src.loc
+	walk_away(src,temploc,stepdist)
+	var/dettime = rand(15,60)
+	spawn(dettime)
 		prime()
-	..()
+	return ..()

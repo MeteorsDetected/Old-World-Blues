@@ -10,7 +10,7 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = ITEM_SIZE_NORMAL
-	var/charge = 0	// note %age conveted to actual charge in New
+	var/charge = CELL_FULLCHARGED	// note %age conveted to actual charge in New
 	var/maxcharge = 1000
 	var/rigged = 0		// true if rigged to explode
 	var/minor_fault = 0 //If not 100% reliable, it will build up faults.
@@ -19,6 +19,11 @@
 	suicide_act(mob/user)
 		viewers(user) << "<span class='danger'>\The [user] is licking the electrodes of \the [src]! It looks like \he's trying to commit suicide.</span>"
 		return (FIRELOSS)
+
+/obj/item/weapon/cell/initialize()
+	if(charge == CELL_FULLCHARGED)
+		charge = maxcharge
+	return ..()
 
 //currently only used by energy-type guns, that may change in the future.
 /obj/item/weapon/cell/device
@@ -44,8 +49,7 @@
 	maxcharge = 500
 	matter = list(MATERIAL_STEEL = 700, MATERIAL_GLASS = 40)
 
-/obj/item/weapon/cell/crap/empty/New()
-	..()
+/obj/item/weapon/cell/crap/empty
 	charge = 0
 
 /obj/item/weapon/cell/secborg
@@ -54,8 +58,7 @@
 	maxcharge = 600	//600 max charge / 100 charge per shot = six shots
 	matter = list(MATERIAL_STEEL = 700, MATERIAL_GLASS = 40)
 
-/obj/item/weapon/cell/secborg/empty/New()
-	..()
+/obj/item/weapon/cell/secborg/empty
 	charge = 0
 
 /obj/item/weapon/cell/apc
@@ -71,8 +74,7 @@
 	maxcharge = 10000
 	matter = list(MATERIAL_STEEL = 700, MATERIAL_GLASS = 60)
 
-/obj/item/weapon/cell/high/empty/New()
-	..()
+/obj/item/weapon/cell/high/empty
 	charge = 0
 
 /obj/item/weapon/cell/super
@@ -82,8 +84,7 @@
 	maxcharge = 20000
 	matter = list(MATERIAL_STEEL = 700, MATERIAL_GLASS = 70)
 
-/obj/item/weapon/cell/super/empty/New()
-	..()
+/obj/item/weapon/cell/super/empty
 	charge = 0
 
 /obj/item/weapon/cell/hyper
@@ -93,8 +94,7 @@
 	maxcharge = 30000
 	matter = list(MATERIAL_STEEL = 700, MATERIAL_GLASS = 80)
 
-/obj/item/weapon/cell/hyper/empty/New()
-	..()
+/obj/item/weapon/cell/hyper/empty
 	charge = 0
 
 /obj/item/weapon/cell/infinite

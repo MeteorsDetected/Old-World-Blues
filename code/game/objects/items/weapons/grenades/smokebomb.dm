@@ -8,7 +8,7 @@
 	slot_flags = SLOT_BELT
 	var/datum/effect/effect/system/smoke_spread/bad/smoke
 
-	New()
+	initialize()
 		..()
 		src.smoke = PoolOrNew(/datum/effect/effect/system/smoke_spread/bad)
 		src.smoke.attach(src)

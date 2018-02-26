@@ -11,11 +11,11 @@
 	w_class = ITEM_SIZE_TINY
 	var/obj/item/weapon/implant/imp = null
 
-/obj/item/weapon/implantcase/New()
-	..()
+/obj/item/weapon/implantcase/initialize()
 	if(ispath(imp))
 		imp = new imp(src)
 		update_icon()
+	return ..()
 
 /obj/item/weapon/implantcase/update_icon()
 	if(src.imp)

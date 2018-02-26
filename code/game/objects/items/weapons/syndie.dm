@@ -23,7 +23,7 @@
 	power = 2
 	size = "large"
 
-/obj/item/weapon/syndie/c4explosive/New()
+/obj/item/weapon/syndie/c4explosive/initialize()
 	var/K = rand(1,2000)
 	K = md5(num2text(K)+name)
 	K = copytext(K,1,7)
@@ -31,6 +31,7 @@
 	var/obj/item/weapon/syndie/c4detonator/detonator = new(src.loc)
 	detonator.desc += "\n You see [K] engraved on the lighter."
 	detonator.bomb = src
+	. = ..()
 
 /obj/item/weapon/syndie/c4explosive/proc/detonate()
 	icon_state = "c-4[size]_1"

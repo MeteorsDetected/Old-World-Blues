@@ -36,11 +36,11 @@
 	if(src.type == /obj/item/weapon/rcd && loc == usr)
 		usr << "It currently holds [stored_matter]/100 matter-units."
 
-/obj/item/weapon/rcd/New()
-	..()
+/obj/item/weapon/rcd/initialize()
 	src.spark_system = new /datum/effect/effect/system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
+	return ..()
 
 /obj/item/weapon/rcd/Destroy()
 	qdel(spark_system)

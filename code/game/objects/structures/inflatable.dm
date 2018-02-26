@@ -35,7 +35,7 @@
 	var/undeploy_path = /obj/item/inflatable
 	var/health = 50.0
 
-/obj/structure/inflatable/New(location)
+/obj/structure/inflatable/initialize()
 	..()
 	update_nearby_tiles(need_rebuild=1)
 
@@ -260,13 +260,8 @@
 	w_class = ITEM_SIZE_LARGE
 	max_storage_space = DEFAULT_LARGEBOX_STORAGE
 	can_hold = list(/obj/item/inflatable)
+	preloaded = list(
+		/obj/item/inflatable/door = 3,
+		/obj/item/inflatable = 4
+	)
 
-	New()
-		..()
-		new /obj/item/inflatable/door(src)
-		new /obj/item/inflatable/door(src)
-		new /obj/item/inflatable/door(src)
-		new /obj/item/inflatable(src)
-		new /obj/item/inflatable(src)
-		new /obj/item/inflatable(src)
-		new /obj/item/inflatable(src)

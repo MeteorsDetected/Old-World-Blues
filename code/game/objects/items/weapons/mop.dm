@@ -11,8 +11,9 @@
 	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
 
 
-/obj/item/weapon/mop/New()
+/obj/item/weapon/mop/initialize()
 	create_reagents(30)
+	return ..()
 
 /obj/item/weapon/mop/afterattack(atom/A, mob/user, proximity)
 	if(!proximity) return

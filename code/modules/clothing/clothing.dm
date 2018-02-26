@@ -27,8 +27,8 @@
 	gunshot_residue = null
 	update_clothing_icon()
 
-/obj/item/clothing/New()
-	..()
+/obj/item/clothing/initialize()
+	. = ..()
 	if(starting_accessories)
 		for(var/T in starting_accessories)
 			var/obj/item/clothing/accessory/tie = new T(src)
@@ -234,7 +234,7 @@
 	var/has_light = 1
 	var/on = 0
 
-/obj/item/clothing/head/New()
+/obj/item/clothing/head/initialize()
 	..()
 	if(!icon_action_button && brightness_on)
 		icon_action_button = "[icon_state]"
@@ -585,9 +585,9 @@
 		update_status()
 
 
-/obj/item/clothing/under/rank/New()
+/obj/item/clothing/under/rank/initialize()
 	sensor_mode = pick(0,1,2,3)
-	..()
+	. = ..()
 
 #undef ROLL_NONE
 #undef ROLL_DOWN

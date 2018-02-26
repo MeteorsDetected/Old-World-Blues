@@ -14,7 +14,7 @@
 	required_type = /obj/mecha/medical
 	salvageable = 0
 
-	New()
+	initialize()
 		..()
 		pr_mech_sleeper = new /datum/global_iterator/mech_sleeper(list(src),0)
 		pr_mech_sleeper.set_delay(equip_cooldown)
@@ -229,7 +229,7 @@
 	var/max_cable = 1000
 	required_type = /obj/mecha/working
 
-	New()
+	initialize()
 		cable = new(src)
 		cable.amount = 0
 		..()
@@ -378,7 +378,7 @@
 	origin_tech = list(TECH_MATERIAL = 3, TECH_BIO = 4, TECH_MAGNET = 4, TECH_DATA = 3)
 	required_type = /obj/mecha/medical
 
-	New()
+	initialize()
 		..()
 		flags |= NOREACT
 		syringes = new

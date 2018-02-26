@@ -20,9 +20,7 @@
 	..()
 	update_nearby_tiles()
 	if (src.req_access && src.req_access.len)
-		src.icon_state = "[src.icon_state]"
 		src.base_state = src.icon_state
-	return
 
 /obj/machinery/door/window/update_icon()
 	if(density)

@@ -14,10 +14,11 @@
 	matter = list(MATERIAL_GLASS = 500)
 	var/lid_type = ""
 
-/obj/item/weapon/reagent_containers/glass/beaker/New()
-	..()
-	if(!lid_type) lid_type = icon_state
+/obj/item/weapon/reagent_containers/glass/beaker/initialize()
+	if(!lid_type)
+		lid_type = icon_state
 	desc += " Can hold up to [volume] units."
+	. = ..()
 
 /obj/item/weapon/reagent_containers/glass/beaker/attack_self()
 	..()

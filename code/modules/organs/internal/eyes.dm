@@ -132,8 +132,8 @@
 	var/obj/item/eye_camera/camera
 	var/obj/item/eye_camera/linked_camera
 
-/obj/item/organ/internal/eyes/mechanic/cam/New(holder, install, var/color = "#ffffff")
-	..(holder, install)
+/obj/item/organ/internal/eyes/mechanic/cam/New(holder)
+	..(holder)
 	camera = new()
 	linked_camera = camera
 

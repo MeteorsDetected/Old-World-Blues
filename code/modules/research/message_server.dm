@@ -167,7 +167,9 @@ var/obj/machinery/blackbox_recorder/blackbox
 	if(blackbox)
 		if(istype(blackbox,/obj/machinery/blackbox_recorder))
 			qdel(src)
+			return
 	blackbox = src
+	..()
 
 /obj/machinery/blackbox_recorder/Destroy()
 	var/turf/T = locate(1,1,2)

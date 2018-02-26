@@ -3,13 +3,13 @@
 /obj/item/storage/box/samplebags
 	name = "sample bag box"
 	desc = "A box claiming to contain sample bags."
-	New()
-		for(var/i=0, i<7, i++)
-			var/obj/item/weapon/evidencebag/S = new(src)
-			S.name = "sample bag"
-			S.desc = "a bag for holding research samples."
-		..()
-		return
+	preloaded = list(
+		/obj/item/weapon/evidencebag = 7
+	)
+
+/obj/item/weapon/evidencebag/sample
+	name = "sample bag"
+	desc = "a bag for holding research samples"
 
 //////////////////////////////////////////////////////////////////
 

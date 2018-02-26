@@ -15,31 +15,31 @@
 	active_power_usage = 2000
 	idle_power_usage = 1000
 
-/obj/machinery/auto_cloner/New()
-	..()
+/obj/machinery/auto_cloner/initialize()
+	. = ..()
 
 	time_per_spawn = rand(1200,3600)
 
 	//33% chance to spawn nasties
 	if(prob(33))
 		spawn_type = pick(\
-		/mob/living/simple_animal/hostile/giant_spider/nurse,\
-		/mob/living/simple_animal/hostile/alien,\
-		/mob/living/simple_animal/hostile/bear,\
-		/mob/living/simple_animal/hostile/creature\
+			/mob/living/simple_animal/hostile/giant_spider/nurse,
+			/mob/living/simple_animal/hostile/alien,
+			/mob/living/simple_animal/hostile/bear,
+			/mob/living/simple_animal/hostile/creature,
 		)
 	else
 		spawn_type = pick(\
-		/mob/living/simple_animal/cat,\
-		/mob/living/simple_animal/corgi,\
-		/mob/living/simple_animal/corgi/puppy,\
-		/mob/living/simple_animal/chicken,\
-		/mob/living/simple_animal/cow,\
-		/mob/living/simple_animal/parrot,\
-		/mob/living/simple_animal/slime,\
-		/mob/living/simple_animal/crab,\
-		/mob/living/simple_animal/mouse,\
-		/mob/living/simple_animal/hostile/retaliate/goat\
+			/mob/living/simple_animal/cat,
+			/mob/living/simple_animal/corgi,
+			/mob/living/simple_animal/corgi/puppy,
+			/mob/living/simple_animal/chicken,
+			/mob/living/simple_animal/cow,
+			/mob/living/simple_animal/parrot,
+			/mob/living/simple_animal/slime,
+			/mob/living/simple_animal/crab,
+			/mob/living/simple_animal/mouse,
+			/mob/living/simple_animal/hostile/retaliate/goat,
 		)
 
 //todo: how the hell is the asteroid permanently powered?

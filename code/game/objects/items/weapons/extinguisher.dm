@@ -34,9 +34,10 @@
 	spray_particles = 5
 	sprite_name = "miniFE"
 
-/obj/item/weapon/extinguisher/New()
+/obj/item/weapon/extinguisher/initialize()
 	create_reagents(max_water)
 	reagents.add_reagent("water", max_water)
+	return ..()
 
 /obj/item/weapon/extinguisher/examine(mob/user, return_dist = 1)
 	. = ..()

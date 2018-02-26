@@ -17,10 +17,9 @@
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		air_contents.adjust_gas("oxygen", (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
-		return
 
 
 	examine(mob/user, return_dist=1)
@@ -48,14 +47,12 @@
 	icon_state = "anesthetic"
 	item_state = "anesthetic"
 
-/obj/item/weapon/tank/anesthetic/New()
-	..()
-
+/obj/item/weapon/tank/anesthetic/initialize()
+	. = ..()
 	air_contents.gas["oxygen"] = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
 	air_contents.gas["sleeping_agent"] = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
 	air_contents.update_values()
 
-	return
 
 /*
  * Air
@@ -72,12 +69,9 @@
 			user << "\red <B>The meter on the [src.name] indicates you are almost out of air!</B>"
 			user << sound('sound/effects/alert.ogg')
 
-/obj/item/weapon/tank/air/New()
-	..()
-
+/obj/item/weapon/tank/air/initialize()
+	. = ..()
 	src.air_contents.adjust_multi("oxygen", (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD, "nitrogen", (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
-
-	return
 
 
 /*
@@ -91,11 +85,10 @@
 	slot_flags = null	//they have no straps!
 
 
-/obj/item/weapon/tank/phoron/New()
-	..()
-
+/obj/item/weapon/tank/phoron/initialize()
+	. = ..()
 	src.air_contents.adjust_gas("phoron", (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C))
-	return
+
 
 /obj/item/weapon/tank/phoron/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
@@ -123,12 +116,9 @@
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 	volume = 2 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
 
-
-	New()
-		..()
+	initialize()
+		. = ..()
 		src.air_contents.adjust_gas("oxygen", (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
-
-		return
 
 
 	examine(mob/user, return_dist=1)
@@ -158,11 +148,10 @@
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 	volume = 2
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		src.air_contents.adjust_gas("nitrogen", (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
-		return
 
 
 	examine(mob/user, return_dist=1)
@@ -181,11 +170,9 @@
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 
 
-/obj/item/weapon/tank/nitrogen/New()
-	..()
-
+/obj/item/weapon/tank/nitrogen/initialize()
+	. = ..()
 	src.air_contents.adjust_gas("nitrogen", (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C))
-	return
 
 /obj/item/weapon/tank/nitrogen/examine(mob/user, return_dist=1)
 	.=..()

@@ -490,10 +490,12 @@ By design, d1 is the smallest direction and d2 is the highest
 	return(OXYLOSS)
 
 /obj/item/stack/cable_coil/New(loc, length = MAXCOIL, var/param_color = null)
-	..()
-	src.amount = length
+	..(loc, length)
 	if (param_color) // It should be red by default, so only recolor it if parameter was specified.
 		color = param_color
+
+/obj/item/stack/cable_coil/initialize()
+	. = ..()
 	update_icon()
 	update_wclass()
 
@@ -842,10 +844,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	randpixel = 3
 
 /obj/item/stack/cable_coil/cut/New(loc)
-	..()
-	src.amount = rand(1,2)
-	update_icon()
-	update_wclass()
+	..(loc, rand(1,2))
 
 /obj/item/stack/cable_coil/red
 	color = COLOR_RED
@@ -871,6 +870,6 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/item/stack/cable_coil/white
 	color = COLOR_WHITE
 
-/obj/item/stack/cable_coil/random/New()
+/obj/item/stack/cable_coil/random/initialize()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 	..()

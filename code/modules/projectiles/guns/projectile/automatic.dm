@@ -171,12 +171,12 @@
 
 	var/obj/item/weapon/gun/launcher/grenade/underslung/launcher
 
-/obj/item/weapon/gun/projectile/automatic/z8/New()
+/obj/item/weapon/gun/projectile/automatic/z8/initialize()
 	..()
 	launcher = new(src)
 
 /obj/item/weapon/gun/projectile/automatic/z8/attackby(obj/item/I, mob/user)
-	if((istype(I, /obj/item/weapon/grenade)))
+	if(istype(I, /obj/item/weapon/grenade))
 		launcher.load(I, user)
 	else
 		..()

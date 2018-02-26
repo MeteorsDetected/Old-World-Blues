@@ -40,10 +40,9 @@
 	wreckage = /obj/effect/decal/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
 
-/obj/mecha/working/ripley/deathripley/New()
-	..()
+/obj/mecha/working/ripley/deathripley/initialize()
+	. = ..()
 	attach(new /obj/item/mecha_parts/mecha_equipment/tool/safety_clamp)
-	return
 
 /obj/mecha/working/ripley/lagan
 	desc = "ROW ROW FIGHT THE POWAH!"
@@ -56,11 +55,10 @@
 	wreckage = /obj/effect/decal/mecha_wreckage/ripley/lagan
 
 /obj/mecha/working/ripley/lagan/New()
-	..()
+	. = ..()
 	//Attach drill
 	attach(new /obj/item/mecha_parts/mecha_equipment/tool/drill/diamonddrill)
 	//Attach hydrolic clamp
 	attach(new /obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp)
 	attach(new /obj/item/mecha_parts/mecha_equipment/tool/passenger)
 	attach(new /obj/item/mecha_parts/mecha_equipment/tool/passenger)
-	return

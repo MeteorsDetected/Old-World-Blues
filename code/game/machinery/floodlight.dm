@@ -12,7 +12,7 @@
 	var/open = 0
 	var/brightness_on = 8		//can't remember what the maxed out value is
 
-/obj/machinery/floodlight/New()
+/obj/machinery/floodlight/initialize()
 	src.cell = new(src)
 	cell.maxcharge = 1000
 	cell.charge = 1000 // 41minutes @ 200W

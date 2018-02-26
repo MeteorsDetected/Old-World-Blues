@@ -21,8 +21,9 @@
 	var/last_twitch = 0
 	var/max_stored_messages = 100
 
-/obj/item/clothing/mask/gas/poltergeist/New()
-	processing_objects.Add(src)
+/obj/item/clothing/mask/gas/poltergeist/initialize()
+	. = ..()
+	processing_objects |= src
 
 /obj/item/clothing/mask/gas/poltergeist/process()
 	if(heard_talk.len && isliving(src.loc) && prob(10))
@@ -54,8 +55,8 @@
 	var/wight_check_index = 1
 	var/list/shadow_wights = list()
 
-/obj/item/weapon/vampiric/New()
-	..()
+/obj/item/weapon/vampiric/initialize()
+	. = ..()
 	processing_objects.Add(src)
 
 /obj/item/weapon/vampiric/process()

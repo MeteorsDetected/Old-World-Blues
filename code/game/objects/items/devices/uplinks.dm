@@ -56,13 +56,13 @@ datum/nano_item_lists
 /obj/item/device/uplink/nano_host()
 	return loc
 
-/obj/item/device/uplink/New()
-	..()
+/obj/item/device/uplink/initialize()
+	. = ..()
 	welcome = ticker.mode.uplink_welcome
 	uses = ticker.mode.uplink_uses
 	ItemsCategory = ticker.mode.uplink_items
 
-	world_uplinks += src
+	world_uplinks |= src
 
 /obj/item/device/uplink/Destroy()
 	world_uplinks -= src
@@ -309,7 +309,7 @@ datum/nano_item_lists
 // Includes normal radio uplink, multitool uplink,
 // implant uplink (not the implant tool) and a preset headset uplink.
 
-/obj/item/device/radio/uplink/New()
+/obj/item/device/radio/uplink/initialize()
 	..()
 	hidden_uplink = new(src)
 	hidden_uplink.uses = 40
@@ -319,7 +319,8 @@ datum/nano_item_lists
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)
 
-/obj/item/device/multitool/uplink/New()
+/obj/item/device/multitool/uplink/initialize()
+	. = ..()
 	hidden_uplink = new(src)
 
 /obj/item/device/multitool/uplink/attack_self(mob/user as mob)
@@ -329,7 +330,7 @@ datum/nano_item_lists
 /obj/item/device/radio/headset/uplink
 	traitor_frequency = 1445
 
-/obj/item/device/radio/headset/uplink/New()
-	..()
+/obj/item/device/radio/headset/uplink/initialize()
+	. = ..()
 	hidden_uplink = new(src)
 	hidden_uplink.uses = 10

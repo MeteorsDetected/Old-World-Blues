@@ -30,7 +30,7 @@
 	icon_state = "bronze_heart"
 	var/owner = ""
 
-/obj/item/clothing/accessory/purple_heart/New()
+/obj/item/clothing/accessory/purple_heart/initialize()
 	..()
 	desc += owner
 

@@ -668,7 +668,7 @@
 			desc = "A broken [name]."
 
 
-/obj/item/weapon/light/New()
+/obj/item/weapon/light/initialize()
 	..()
 	switch(name)
 		if("light tube")

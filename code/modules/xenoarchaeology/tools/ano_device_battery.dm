@@ -8,7 +8,7 @@
 	var/stored_charge = 0
 	var/effect_id = ""
 
-/obj/item/weapon/anobattery/New()
+/obj/item/weapon/anobattery/initialize()
 	battery_effect = new()
 
 /obj/item/weapon/anobattery/proc/UpdateSprite()
@@ -33,9 +33,9 @@
 	var/turf/archived_loc
 	var/energy_consumed_on_touch = 100
 
-/obj/item/weapon/anodevice/New()
+/obj/item/weapon/anodevice/initialize()
 	..()
-	processing_objects.Add(src)
+	processing_objects |= src
 
 /obj/item/weapon/anodevice/attackby(var/obj/I as obj, var/mob/user as mob)
 	if(istype(I, /obj/item/weapon/anobattery))

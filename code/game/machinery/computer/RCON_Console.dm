@@ -15,8 +15,8 @@
 	var/current_tag = null
 	var/obj/nano_module/rcon/rcon
 
-/obj/machinery/computer/rcon/New()
-	..()
+/obj/machinery/computer/rcon/initialize()
+	. = ..()
 	rcon = new(src)
 
 // Proc: attack_hand()

@@ -89,9 +89,10 @@
 
 	device_type = /obj/item/weapon/rcd/mounted
 
-/obj/item/rig_module/device/New()
+/obj/item/rig_module/device/initialize()
 	..()
-	if(device_type) device = new device_type(src)
+	if(device_type)
+		device = new device_type(src)
 
 /obj/item/rig_module/device/engage(atom/target)
 
@@ -274,7 +275,7 @@
 
 	var/obj/item/voice_changer/voice_holder
 
-/obj/item/rig_module/voice/New()
+/obj/item/rig_module/voice/initialize()
 	..()
 	voice_holder = new(src)
 	voice_holder.active = 0
@@ -363,7 +364,7 @@
 		jets.toggle()
 	return 1
 
-/obj/item/rig_module/maneuvering_jets/New()
+/obj/item/rig_module/maneuvering_jets/initialize()
 	..()
 	jets = new(src)
 

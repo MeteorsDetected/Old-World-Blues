@@ -48,8 +48,8 @@
 		MATERIAL_PLASTIC = 0, MATERIAL_WOOD = 0
 	)
 
-/obj/machinery/autolathe/New()
-	..()
+/obj/machinery/autolathe/initialize()
+	. = ..()
 	wires = new(src)
 
 /obj/machinery/autolathe/Destroy()

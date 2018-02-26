@@ -331,11 +331,11 @@ RPD
 	if(src.type == /obj/item/weapon/rpd && loc == usr)
 		usr << "It currently holds [stored_matter]/30 matter-units."
 */
-/obj/item/weapon/rpd/New()
-	..()
+/obj/item/weapon/rpd/initialize()
 	src.spark_system = new /datum/effect/effect/system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
+	. = ..()
 
 /obj/item/weapon/rpd/Destroy()
 	qdel(spark_system)
