@@ -26,7 +26,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/initialize()
 	if(!plant_controller)
-		world << "<span class='danger'>Plant controller does not exist and [src] requires it. Aborting.</span>"
+		world.log << "PLANTS: Plant controller does not exist and [src] requires it. Aborting."
 		qdel(src)
 		return
 
@@ -37,6 +37,8 @@
 
 	name = "[seed.seed_name]"
 	trash = seed.get_trash_type()
+
+	. = ..()
 
 	update_icon()
 
@@ -55,7 +57,6 @@
 	update_desc()
 	if(reagents.total_volume > 0)
 		bitesize = 1+round(reagents.total_volume / 2, 1)
-	. = ..()
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/proc/update_desc()
 
