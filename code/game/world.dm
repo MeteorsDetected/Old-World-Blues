@@ -10,6 +10,7 @@
 */
 var/global/datum/global_init/init = new ()
 
+
 /*
 	Pre-map initialization stuff should go here.
 */
@@ -18,8 +19,8 @@ var/global/datum/global_init/init = new ()
 	makeDatumRefLists()
 	load_configuration()
 
-
 	qdel(src) //we're done
+
 
 /datum/global_init/Destroy()
 	return 1
@@ -80,7 +81,6 @@ var/global/datum/global_init/init = new ()
 
 #undef RECOMMENDED_VERSION
 
-	return
 
 var/world_topic_spam_protect_ip = "0.0.0.0"
 var/world_topic_spam_protect_time = world.timeofday

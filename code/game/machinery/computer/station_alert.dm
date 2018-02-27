@@ -17,9 +17,9 @@
 	circuit = /obj/item/weapon/circuitboard/stationalert_all
 
 /obj/machinery/computer/station_alert/initialize()
-	. = ..()
 	alarm_monitor = new monitor_type(src)
 	alarm_monitor.register(src, /obj/machinery/computer/station_alert/update_icon)
+	. = ..()
 
 /obj/machinery/computer/station_alert/Destroy()
 	alarm_monitor.unregister(src)
