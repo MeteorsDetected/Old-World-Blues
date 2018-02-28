@@ -11,15 +11,9 @@
 	use_power = 1
 	idle_power_usage = 15
 
-/obj/machinery/meter/New()
-	..()
-	src.target = locate(/obj/machinery/atmospherics/pipe) in loc
-	return 1
-
 /obj/machinery/meter/initialize()
 	..()
-	if (!target)
-		src.target = locate(/obj/machinery/atmospherics/pipe) in loc
+	src.target = locate(/obj/machinery/atmospherics/pipe) in loc
 
 /obj/machinery/meter/process()
 	if(!target)
@@ -110,16 +104,9 @@
 
 // TURF METER - REPORTS A TILE'S AIR CONTENTS
 
-/obj/machinery/meter/turf/New()
-	..()
-	src.target = loc
-	return 1
-
-
 /obj/machinery/meter/turf/initialize()
 	..()
-	if (!target)
-		src.target = loc
+	target = loc
 
 /obj/machinery/meter/turf/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	return

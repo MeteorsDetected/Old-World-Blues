@@ -96,19 +96,15 @@
 		overlays += image('icons/obj/pipes.dmi', "comp-o1", FLY_LAYER)
 	 //TODO: DEFERRED
 
-/obj/machinery/power/turbine/New()
+/obj/machinery/power/turbine/initialize()
 	..()
-
 	outturf = get_step(src, dir)
-
-	spawn(5)
-
-		compressor = locate() in get_step(src, get_dir(outturf, src))
-		if(!compressor)
-			stat |= BROKEN
-		else
-			compressor.stat &= !BROKEN
-			compressor.turbine = src
+	compressor = locate() in get_step(src, get_dir(outturf, src))
+	if(!compressor)
+		stat |= BROKEN
+	else
+		compressor.stat &= !BROKEN
+		compressor.turbine = src
 
 
 #define TURBPRES 9000000

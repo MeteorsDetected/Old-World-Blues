@@ -159,8 +159,6 @@ var/list/donator_icons
 
 	processScheduler.start()
 
-	for(var/obj/multiz/ladder/L in world) L.connect() //Lazy hackfix for ladders. TODO: move this to an actual controller. ~ Z
-
 	return 1
 
 /datum/controller/gameticker

@@ -11,17 +11,14 @@
 	var/obj/machinery/mineral/output = null
 
 
-/obj/machinery/mineral/unloading_machine/New()
+/obj/machinery/mineral/unloading_machine/initialize()
 	..()
-	spawn( 5 )
-		for (var/dir in cardinal)
-			src.input = locate(/obj/machinery/mineral/input, get_step(src, dir))
-			if(src.input) break
-		for (var/dir in cardinal)
-			src.output = locate(/obj/machinery/mineral/output, get_step(src, dir))
-			if(src.output) break
-		return
-	return
+	for (var/dir in cardinal)
+		src.input = locate(/obj/machinery/mineral/input, get_step(src, dir))
+		if(src.input) break
+	for (var/dir in cardinal)
+		src.output = locate(/obj/machinery/mineral/output, get_step(src, dir))
+		if(src.output) break
 
 /obj/machinery/mineral/unloading_machine/process()
 	if (src.output && src.input)
@@ -36,11 +33,7 @@
 					return
 		if (locate(/obj/item, input.loc))
 			var/obj/item/O
-			var/i
-			for (i = 0; i<10; i++)
+			for(var/i = 0; i<10; i++)
 				O = locate(/obj/item, input.loc)
 				if (O)
-					O.loc = src.output.loc
-				else
-					return
-	return
+					O.forceMove(src.output.loc)

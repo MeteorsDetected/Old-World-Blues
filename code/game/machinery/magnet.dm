@@ -29,15 +29,14 @@
 	var/center_y = 0
 	var/max_dist = 20 // absolute value of center_x,y cannot exceed this integer
 
-	New()
+	initialize()
 		..()
 		var/turf/T = loc
 		hide(T.intact)
 		center = T
 
-		spawn(10)	// must wait for map loading to finish
-			if(radio_controller)
-				radio_controller.add_object(src, freq, RADIO_MAGNETS)
+		if(radio_controller)
+			radio_controller.add_object(src, freq, RADIO_MAGNETS)
 
 		spawn()
 			magnetic_process()
@@ -220,19 +219,15 @@
 	var/datum/radio_frequency/radio_connection
 
 
-	New()
+	initialize()
 		..()
-
 		if(autolink)
 			for(var/obj/machinery/magnetic_module/M in machines)
 				if(M.freq == frequency && M.code == code)
 					magnets.Add(M)
 
-
-		spawn(45)	// must wait for map loading to finish
-			if(radio_controller)
-				radio_connection = radio_controller.add_object(src, frequency, RADIO_MAGNETS)
-
+		if(radio_controller)
+			radio_connection = radio_controller.add_object(src, frequency, RADIO_MAGNETS)
 
 		if(path) // check for default path
 			filter_path() // renders rpath

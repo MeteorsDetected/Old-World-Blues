@@ -16,7 +16,7 @@ var/global/list/narsie_list = list()
 	consume_range = 3 //How many tiles out do we eat
 
 
-/obj/singularity/narsie/New()
+/obj/singularity/narsie/initialize()
 	..()
 	narsie_list.Add(src)
 
@@ -40,7 +40,7 @@ var/global/list/narsie_list = list()
 	var/announce=1
 	var/cause_hell = 1
 
-/obj/singularity/narsie/large/New()
+/obj/singularity/narsie/large/initialize()
 	..()
 	if(announce)
 		world << "<font size='15' color='red'><b>[uppertext(name)] HAS RISEN</b></font>"

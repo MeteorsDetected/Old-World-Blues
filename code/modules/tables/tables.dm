@@ -53,8 +53,9 @@
 		visible_message(SPAN_WARN("\The [src] breaks down!"))
 		return break_to_parts() // if we break and form shards, return them to the caller to do !FUN! things with
 
-/obj/structure/table/New()
+/obj/structure/table/initialize()
 	..()
+
 	// One table per turf.
 	for(var/obj/structure/table/T in loc)
 		if(T != src)
@@ -63,8 +64,6 @@
 			break_to_parts(full_return = 1)
 			return
 
-/obj/structure/table/initialize()
-	..()
 	// reset color/alpha, since they're set for nice map previews
 	color = "#ffffff"
 	alpha = 255

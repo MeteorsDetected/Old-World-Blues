@@ -68,12 +68,11 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 			//Messages having theese tokens will be rejected by server. Case sensitive
 	var/spamfilter_limit = MESSAGE_SERVER_DEFAULT_SPAM_LIMIT	//Maximal amount of tokens
 
-/obj/machinery/message_server/New()
+/obj/machinery/message_server/initialize()
 	message_servers += src
 	decryptkey = GenerateKey()
 	send_pda_message("System Administrator", "system", "This is an automated message. The messaging system is functioning correctly.")
 	..()
-	return
 
 /obj/machinery/message_server/Destroy()
 	message_servers -= src

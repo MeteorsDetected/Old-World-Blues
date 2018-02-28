@@ -258,7 +258,7 @@
 	var/obj/machinery/computer/teleporter/com
 
 
-/obj/machinery/teleport/hub/New()
+/obj/machinery/teleport/hub/initialize()
 	..()
 	underlays.Cut()
 	underlays += image('icons/obj/stationobjs.dmi', icon_state = "tele-wires")
@@ -268,7 +268,6 @@
 		if (src.icon_state == "tele1")
 			teleport(M)
 			use_power(5000)
-	return
 
 /obj/machinery/teleport/hub/proc/teleport(atom/movable/M as mob|obj)
 	if (!com)
@@ -394,7 +393,7 @@
 	active_power_usage = 2000
 	var/obj/machinery/teleport/hub/com
 
-/obj/machinery/teleport/station/New()
+/obj/machinery/teleport/station/initialize()
 	..()
 	overlays.Cut()
 	overlays += image('icons/obj/stationobjs.dmi', icon_state = "controller-wires")

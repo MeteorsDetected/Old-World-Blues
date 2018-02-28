@@ -6,26 +6,28 @@
 	icon_opened = "miningsecopen"
 	req_access = list(access_mining)
 
-/obj/structure/closet/secure_closet/miner/New()
-	..()
-	switch(rand(4))
-		if(1) new /obj/item/storage/backpack/industrial(src)
-		if(2) new /obj/item/storage/backpack/satchel/eng(src)
-		if(3) new /obj/item/storage/backpack/dufflebag/eng(src)
-		if(4) new /obj/item/storage/backpack/messenger/eng(src)
-	new /obj/item/device/radio/headset/cargo(src)
-	new /obj/item/clothing/under/rank/miner(src)
-	new /obj/item/clothing/gloves/black(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/device/analyzer(src)
-	new /obj/item/storage/bag/ore(src)
-	new /obj/item/device/flashlight/lantern(src)
-	new /obj/item/weapon/shovel(src)
+
+/obj/structure/closet/secure_closet/medical3/willContatin()
+	. = list(
+		/obj/item/device/radio/headset/cargo,
+		/obj/item/clothing/under/rank/miner,
+		/obj/item/clothing/gloves/black,
+		/obj/item/clothing/shoes/black,
+		/obj/item/device/analyzer,
+		/obj/item/storage/bag/ore,
+		/obj/item/device/flashlight/lantern,
+		/obj/item/weapon/shovel,
+		/obj/item/clothing/glasses/material,
+	)
+
 	if(prob(50))
-		new /obj/item/weapon/pickaxe(src)
+		. += /obj/item/weapon/pickaxe
 	else
-		new /obj/item/weapon/pickaxe/drill(src)
-	new /obj/item/clothing/glasses/material(src)
+		. += /obj/item/weapon/pickaxe/drill
+
+	. += pick(getBackpackTypes(BACKPACK_ENGINEERING))
+
+
 
 /******************************Lantern*******************************/
 

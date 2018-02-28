@@ -56,7 +56,7 @@
 	var/bstate = 0
 	var/plaque_contents = "Unnamed alien creature"
 
-/obj/skeleton/New()
+/obj/skeleton/initialize()
 	src.breq = rand(6)+3
 	src.desc = "An incomplete skeleton, looks like it could use [src.breq-src.bnum] more bones."
 

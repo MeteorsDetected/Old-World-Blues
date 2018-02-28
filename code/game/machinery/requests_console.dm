@@ -65,7 +65,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		if(icon_state == "req_comp_off")
 			icon_state = "req_comp0"
 
-/obj/machinery/requests_console/New()
+/obj/machinery/requests_console/initialize()
 	..()
 
 	announcement.title = "[department] announcement"

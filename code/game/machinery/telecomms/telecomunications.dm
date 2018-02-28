@@ -112,7 +112,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 		return 0
 
 
-/obj/machinery/telecomms/New()
+/obj/machinery/telecomms/initialize()
 	telecomms_list += src
 	..()
 
@@ -506,7 +506,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/language = "human"
 	var/obj/item/device/radio/headset/server_radio = null
 
-/obj/machinery/telecomms/server/New()
+/obj/machinery/telecomms/server/initialize()
 	..()
 	Compiler = new()
 	Compiler.Holder = src

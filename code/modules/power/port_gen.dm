@@ -109,7 +109,7 @@
 	var/temperature = 0		//The current temperature
 	var/overheating = 0		//if this gets high enough the generator explodes
 
-/obj/machinery/power/port_gen/pacman/New()
+/obj/machinery/power/port_gen/pacman/initialize()
 	..()
 	if(fuel_material)
 		fuel_material = get_material_by_name(fuel_material)

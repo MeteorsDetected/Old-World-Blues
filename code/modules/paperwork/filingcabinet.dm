@@ -202,7 +202,7 @@
 /obj/structure/filingcabinet/engi
 
 
-/obj/structure/filingcabinet/engi/New()
+/obj/structure/filingcabinet/engi/initialize()
 	new /obj/item/weapon/paper/wires/airlock(src)
 	new /obj/item/weapon/paper/wires/apc(src)
 	new /obj/item/weapon/paper/wires/alarm(src)
@@ -215,4 +215,4 @@
 	new /obj/item/weapon/paper/wires/airlock(src)
 	new /obj/item/weapon/paper/wires/apc(src)
 	new /obj/item/weapon/paper/wires/alarm(src)
-	..()
+	return ..()

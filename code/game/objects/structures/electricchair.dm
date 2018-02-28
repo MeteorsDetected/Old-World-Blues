@@ -6,10 +6,9 @@
 	var/obj/item/assembly/shock_kit/part = null
 	var/last_time = 1.0
 
-/obj/structure/material/chair/e_chair/New()
+/obj/structure/material/chair/e_chair/initialize()
 	..()
 	overlays += image('icons/obj/objects.dmi', src, "echair_over", MOB_LAYER + 1, dir)
-	return
 
 /obj/structure/material/chair/e_chair/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/wrench))
@@ -20,8 +19,6 @@
 		part.master = null
 		part = null
 		qdel(src)
-		return
-	return
 
 /obj/structure/material/chair/e_chair/verb/toggle()
 	set name = "Toggle Electric Chair"
@@ -35,13 +32,13 @@
 		on = 1
 		icon_state = "echair1"
 	usr << SPAN_NOTE("You switch [on ? "on" : "off"] [src].")
-	return
 
 /obj/structure/material/chair/e_chair/rotate()
 	..()
 	overlays.Cut()
-	overlays += image('icons/obj/objects.dmi', src, "echair_over", MOB_LAYER + 1, dir)	//there's probably a better way of handling this, but eh. -Pete
-	return
+	//there's probably a better way of handling this, but eh. -Pete
+	overlays += image('icons/obj/objects.dmi', src, "echair_over", MOB_LAYER + 1, dir)
+
 
 /obj/structure/material/chair/e_chair/proc/shock()
 	if(!on)
@@ -70,7 +67,10 @@
 		sleep(1)
 		buckled_mob.burn_skin(85)
 		buckled_mob.Stun(600)
-	visible_message("<span class='danger'>The electric chair went off!</span>", "<span class='danger'>You hear a deep sharp shock!</span>")
+	visible_message(
+		SPAN_DANG("The electric chair went off!"),
+		SPAN_DANG("You hear a deep sharp shock!")
+	)
 
 	A.power_light = light
 	A.updateicon()

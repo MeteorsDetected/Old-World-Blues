@@ -54,7 +54,7 @@
 	health = 300
 	wreckage = /obj/effect/decal/mecha_wreckage/ripley/lagan
 
-/obj/mecha/working/ripley/lagan/New()
+/obj/mecha/working/ripley/lagan/initialize()
 	. = ..()
 	//Attach drill
 	attach(new /obj/item/mecha_parts/mecha_equipment/tool/drill/diamonddrill)

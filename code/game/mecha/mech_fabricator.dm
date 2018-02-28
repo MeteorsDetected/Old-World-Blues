@@ -41,11 +41,10 @@
 	var/category = null
 
 
-/obj/machinery/mecha_part_fabricator/New()
+/obj/machinery/mecha_part_fabricator/initialize()
 	..()
 	files = new /datum/research(src) //Setup the research data holder.
 	update_categories()
-	return
 
 /obj/machinery/mecha_part_fabricator/RefreshParts()
 	var/T = 0

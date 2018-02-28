@@ -14,7 +14,7 @@
 
 	consume_range = 6
 
-/obj/singularity/narsie/large/exit/New()
+/obj/singularity/narsie/large/exit/initialize()
 	..()
 	processing_objects.Add(src)
 

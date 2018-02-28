@@ -112,7 +112,7 @@
 // Proc: New()
 // Parameters: None
 // Description: Set wires with requed type
-/obj/machinery/power/smes/buildable/New()
+/obj/machinery/power/smes/buildable/initialize()
 	..()
 	src.wires = new /datum/wires/smes(src)
 

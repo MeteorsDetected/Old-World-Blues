@@ -8,7 +8,7 @@
 	var/obj/item/weapon/extinguisher/has_extinguisher
 	var/opened = 0
 
-/obj/structure/extinguisher_cabinet/New()
+/obj/structure/extinguisher_cabinet/initialize()
 	..()
 	has_extinguisher = new/obj/item/weapon/extinguisher(src)
 

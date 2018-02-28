@@ -88,7 +88,7 @@
 	var/tmp/obj/machinery/computer/mech_bay_power_console/recharge_console
 	var/tmp/datum/global_iterator/mech_bay_recharger/pr_recharger
 
-/obj/machinery/mech_bay_recharge_port/New()
+/obj/machinery/mech_bay_recharge_port/initialize()
 	..()
 	pr_recharger = new /datum/global_iterator/mech_bay_recharger(null, 0)
 

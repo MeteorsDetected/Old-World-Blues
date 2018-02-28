@@ -40,7 +40,7 @@
 		"plant-xmas"
 	)
 
-/obj/structure/cyberplant/New()
+/obj/structure/cyberplant/initialize()
 	..()
 	plant = prepare_icon(plant)
 	overlays += plant

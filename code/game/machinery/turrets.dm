@@ -89,21 +89,17 @@
 		return
 	take_damage(Proj.damage)
 	..()
-	return
 
-/obj/machinery/turret/New()
+/obj/machinery/turret/initialize()
 	maxhealth = health
 	spark_system = new /datum/effect/effect/system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
-//	targets = new
 	..()
-	return
 
 /obj/machinery/turret/proc/update_health()
 	if(src.health<=0)
 		qdel(src)
-	return
 
 /obj/machinery/turretcover
 	name = "pop-up turret cover"
@@ -146,7 +142,6 @@
 	var/area/turret_protected/TP = get_area(src)
 	if(istype(TP))
 		return TP
-	return
 
 /obj/machinery/turret/proc/check_target(var/atom/movable/T as mob|obj)
 	if( T && T in protected_area.turretTargets )

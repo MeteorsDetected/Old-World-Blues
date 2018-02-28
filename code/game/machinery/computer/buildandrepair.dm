@@ -18,7 +18,7 @@
 	frame_type = FRAME_LAPTOP
 	icon_state = "laptop"
 
-/obj/structure/computerframe/New()
+/obj/structure/computerframe/initialize()
 	..()
 	update_icon()
 

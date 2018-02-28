@@ -234,10 +234,9 @@
 	var/kin_to_el_ratio = 0.1	//How much kinetic energy will be taken from turbine and converted into electricity
 	var/obj/machinery/atmospherics/pipeturbine/turbine
 
-	New()
+	initialize()
 		..()
-		spawn(1)
-			updateConnection()
+		updateConnection()
 
 	proc/updateConnection()
 		turbine = null
