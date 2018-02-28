@@ -13,7 +13,7 @@
 	desc = "It's a storage unit for formal clothing."
 	icon_state = "black"
 
-/obj/structure/closet/gmcloset/New()
+/obj/structure/closet/gmcloset/willContatin()
 	return list(
 		/obj/item/clothing/head/that = 2,
 		/obj/item/device/radio/headset/service = 2,

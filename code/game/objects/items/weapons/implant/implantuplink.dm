@@ -3,12 +3,11 @@
 	desc = "Summon things."
 	var/activation_emote = "chuckle"
 
-/obj/item/weapon/implant/uplink/New()
+/obj/item/weapon/implant/uplink/initialize()
 	activation_emote = pick("blink", "blink_r", "eyebrow", "chuckle", "twitch_s", "frown", "nod", "blush", "giggle", "grin", "groan", "shrug", "smile", "pale", "sniff", "whimper", "wink")
 	hidden_uplink = new(src)
 	hidden_uplink.uses = 5
-	..()
-	return
+	return ..()
 
 /obj/item/weapon/implant/uplink/on_implanted(mob/source)
 	activation_emote = input("Choose activation emote:") in list("blink", "blink_r", "eyebrow", "chuckle", "twitch_s", "frown", "nod", "blush", "giggle", "grin", "groan", "shrug", "smile", "pale", "sniff", "whimper", "wink")
@@ -20,4 +19,3 @@
 /obj/item/weapon/implant/uplink/trigger(emote, mob/source as mob)
 	if(hidden_uplink && usr == source) // Let's not have another people activate our uplink
 		hidden_uplink.check_trigger(source, emote, activation_emote)
-	return

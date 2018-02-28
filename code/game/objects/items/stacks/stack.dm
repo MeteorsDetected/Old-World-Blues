@@ -27,7 +27,6 @@
 		stacktype = type
 	if (amount)
 		src.amount = amount
-	return
 
 /obj/item/stack/Destroy()
 	if(uses_charge)

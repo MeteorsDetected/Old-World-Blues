@@ -11,12 +11,11 @@
 	idle_power_usage = 0
 	var/obj/item/device/radio/beacon/Beacon
 
-	New()
+	initialize()
 		..()
 		var/turf/T = loc
-		Beacon = new /obj/item/device/radio/beacon
+		Beacon = new /obj/item/device/radio/beacon(T)
 		Beacon.invisibility = INVISIBILITY_MAXIMUM
-		Beacon.loc = T
 
 		hide(T.intact)
 
@@ -43,9 +42,8 @@
 	process()
 		if(!Beacon)
 			var/turf/T = loc
-			Beacon = new /obj/item/device/radio/beacon
+			Beacon = new /obj/item/device/radio/beacon(T)
 			Beacon.invisibility = INVISIBILITY_MAXIMUM
-			Beacon.loc = T
 		if(Beacon)
 			if(Beacon.loc != loc)
 				Beacon.loc = loc

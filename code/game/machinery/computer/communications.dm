@@ -36,8 +36,8 @@
 
 	var/datum/announcement/priority/crew_announcement = new
 
-/obj/machinery/computer/communications/New()
-	..()
+/obj/machinery/computer/communications/initialize()
+	. = ..()
 	crew_announcement.newscast = 1
 
 /obj/machinery/computer/communications/process()

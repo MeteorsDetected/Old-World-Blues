@@ -223,8 +223,8 @@
 /obj/item/device/assembly_holder/timer_igniter
 	name = "timer-igniter assembly"
 
-	New()
-		..()
+	initialize()
+		. = ..()
 
 		var/obj/item/device/assembly/igniter/ign = new(src)
 		ign.secured = 1

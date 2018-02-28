@@ -12,7 +12,7 @@
 	else
 		..()
 
-/obj/machinery/portable_atmospherics/hydroponics/soil/New()
+/obj/machinery/portable_atmospherics/hydroponics/soil/initialize()
 	..()
 	verbs -= /obj/machinery/portable_atmospherics/hydroponics/verb/close_lid_verb
 	verbs -= /obj/machinery/portable_atmospherics/hydroponics/verb/remove_label

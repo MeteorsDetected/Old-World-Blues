@@ -28,13 +28,12 @@
 			if (prob(50))
 				qdel(src)
 
-/obj/machinery/sleep_console/New()
+/obj/machinery/sleep_console/initialize()
 	..()
-	spawn(5)
-		for(var/dir in cardinal)
-			connected = locate(/obj/machinery/sleeper) in get_step(src, dir)
-			if(connected)
-				return
+	for(var/dir in cardinal)
+		connected = locate(/obj/machinery/sleeper) in get_step(src, dir)
+		if(connected)
+			return
 
 
 /obj/machinery/sleep_console/attack_ai(mob/user as mob)
@@ -156,7 +155,7 @@
 	idle_power_usage = 15
 	active_power_usage = 200 //builtin health analyzer, dialysis machine, injectors.
 
-	New()
+	initialize()
 		..()
 		beaker = new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
 

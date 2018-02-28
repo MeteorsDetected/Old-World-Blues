@@ -14,7 +14,7 @@
 	icon_action_button = "action_music"
 	var/obj/item/device/player/player = null
 
-/obj/item/clothing/ears/earmuffs/mp3/New()
+/obj/item/clothing/ears/earmuffs/mp3/initialize()
 	..()
 	player = new(src)
 

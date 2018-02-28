@@ -19,15 +19,14 @@
 	var/volume = 70
 	var/manipulated_by = null		//Used by _onclick/hud/screen_objects.dm internals to determine if someone has messed with our tank or not.
 						//If they have and we haven't scanned it with the PDA or gas analyzer then we might just breath whatever they put in it.
-/obj/item/weapon/tank/New()
-	..()
-
+/obj/item/weapon/tank/initialize()
 	src.air_contents = new /datum/gas_mixture()
 	src.air_contents.volume = volume //liters
 	src.air_contents.temperature = T20C
 
 	processing_objects.Add(src)
-	return
+
+	. = ..()
 
 /obj/item/weapon/tank/Destroy()
 	if(air_contents)

@@ -23,11 +23,13 @@
 	var/list/supported_programs
 	var/list/restricted_programs
 
-/obj/machinery/computer/HolodeckControl/New()
+/obj/machinery/computer/HolodeckControl/initialize()
 	..()
 	linkedholodeck = locate(linkedholodeck_area)
-	supported_programs = list()
-	restricted_programs = list()
+	if(!supported_programs)
+		supported_programs = list()
+	if(!restricted_programs)
+		restricted_programs = list()
 
 /obj/machinery/computer/HolodeckControl/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
@@ -346,25 +348,22 @@
 
 /obj/machinery/computer/HolodeckControl/Exodus
 	linkedholodeck_area = /area/holodeck/alphadeck
-
-/obj/machinery/computer/HolodeckControl/Exodus/New()
-	..()
 	supported_programs = list(
-	"Empty Court" 		= "emptycourt",
-	"Basketball Court" 	= "basketball",
-	"Thunderdome Court"	= "thunderdomecourt",
-	"Boxing Ring"		= "boxingcourt",
-	"Beach" 			= "beach",
-	"Desert" 			= "desert",
-	"Space" 			= "space",
-	"Picnic Area" 		= "picnicarea",
-	"Snow Field" 		= "snowfield",
-	"Theatre" 			= "theatre",
-	"Meeting Hall" 		= "meetinghall",
-	"Courtroom" 		= "courtroom"
+		"Empty Court" 		= "emptycourt",
+		"Basketball Court" 	= "basketball",
+		"Thunderdome Court"	= "thunderdomecourt",
+		"Boxing Ring"		= "boxingcourt",
+		"Beach" 			= "beach",
+		"Desert" 			= "desert",
+		"Space" 			= "space",
+		"Picnic Area" 		= "picnicarea",
+		"Snow Field" 		= "snowfield",
+		"Theatre" 			= "theatre",
+		"Meeting Hall" 		= "meetinghall",
+		"Courtroom" 		= "courtroom"
 	)
 
 	restricted_programs = list(
-	"Atmospheric Burn Simulation" = "burntest",
-	"Wildlife Simulation" = "wildlifecarp"
+		"Atmospheric Burn Simulation" = "burntest",
+		"Wildlife Simulation" = "wildlifecarp"
 	)

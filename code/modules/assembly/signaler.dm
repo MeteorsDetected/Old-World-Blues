@@ -17,11 +17,9 @@
 	var/datum/radio_frequency/radio_connection
 	var/deadman = 0
 
-	New()
-		..()
-		spawn(40)
-			set_frequency(frequency)
-		return
+	initialize()
+		. = ..()
+		set_frequency(frequency)
 
 
 	activate()

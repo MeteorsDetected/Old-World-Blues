@@ -88,8 +88,8 @@
 	var/list/parts = list()
 	var/created_name = ""
 
-/obj/item/robot_parts/robot_suit/with_limbs/New()
-	..()
+/obj/item/robot_parts/robot_suit/with_limbs/initialize()
+	. = ..()
 	var/list/preinstalled = list(
 		/obj/item/robot_parts/r_arm,
 		/obj/item/robot_parts/l_arm,

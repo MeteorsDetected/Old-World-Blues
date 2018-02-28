@@ -45,17 +45,14 @@
 	var/eject_wait = 0 //Don't eject them as soon as they are created fuckkk
 	var/biomass = 0
 
-/obj/machinery/clonepod/New()
-	..()
-	if(!(ticker && ticker.current_state == GAME_STATE_PLAYING))
-		biomass = CLONE_BIOMASS * 3
+/obj/machinery/clonepod/preset
+	biomass = CLONE_BIOMASS * 3
 
-/obj/machinery/clonepod/attack_ai(mob/user as mob)
-
+/obj/machinery/clonepod/attack_ai(mob/living/user)
 	add_hiddenprint(user)
 	return attack_hand(user)
 
-/obj/machinery/clonepod/attack_hand(mob/user as mob)
+/obj/machinery/clonepod/attack_hand(mob/living/user)
 	if(isnull(occupant) || (stat & NOPOWER))
 		return
 	if(occupant.stat != DEAD)
@@ -375,8 +372,7 @@
 	name = "data disk - 'God Emperor of Mankind'"
 	read_only = 1
 
-	New()
-		..()
+	initialize()
 		initializeDisk()
 		buf.types=DNA2_BUF_UE|DNA2_BUF_UI
 		//data = "066000033000000000AF00330660FF4DB002690"
@@ -386,6 +382,7 @@
 		buf.dna.UI=list(0x066,0x000,0x033,0x000,0x000,0x000,0xAF0,0x033,0x066,0x0FF,0x4DB,0x002,0x690)
 		//buf.dna.UI=list(0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x000,0x000,0x000,0x000,0x161,0xFBD,0xDEF) // Farmer Jeff
 		buf.dna.UpdateUI()
+		return ..()
 
 /*
 TODO: DNA3 monkey disk
@@ -405,10 +402,10 @@ TODO: DNA3 monkey disk
 		buf.dna.SetSEValueRange(MONKEYBLOCK,0xDAC, 0xFFF)
 */
 
-/obj/item/weapon/disk/data/New()
-	..()
+/obj/item/weapon/disk/data/initialize()
 	var/diskcolor = pick(0,1,2)
 	icon_state = "datadisk[diskcolor]"
+	return ..()
 
 /obj/item/weapon/disk/data/attack_self(mob/user as mob)
 	read_only = !read_only

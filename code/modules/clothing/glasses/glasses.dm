@@ -55,7 +55,7 @@ BLIND     // can't see anything
 	toggleable = 1
 	vision_flags = SEE_TURFS
 
-/obj/item/clothing/glasses/meson/New()
+/obj/item/clothing/glasses/meson/initialize()
 	..()
 	overlay = global_hud.meson
 
@@ -72,7 +72,7 @@ BLIND     // can't see anything
 	toggleable = 1
 	icon_action_button = "action_science"
 
-/obj/item/clothing/glasses/science/New()
+/obj/item/clothing/glasses/science/initialize()
 	..()
 	overlay = global_hud.science
 
@@ -88,7 +88,7 @@ BLIND     // can't see anything
 	icon_action_button = "action_nvg"
 	off_state = "denight"
 
-/obj/item/clothing/glasses/night/New()
+/obj/item/clothing/glasses/night/initialize()
 	..()
 	overlay = global_hud.nvg
 
@@ -264,7 +264,7 @@ BLIND     // can't see anything
 	icon_state = "sunhud"
 	var/obj/item/clothing/glasses/hud/security/hud = null
 
-	New()
+	initialize()
 		..()
 		src.hud = new/obj/item/clothing/glasses/hud/security(src)
 		return
@@ -298,7 +298,7 @@ BLIND     // can't see anything
 						M.disabilities &= ~NEARSIGHTED
 		..()
 
-/obj/item/clothing/glasses/thermal/New()
+/obj/item/clothing/glasses/thermal/initialize()
 	..()
 	overlay = global_hud.thermal
 

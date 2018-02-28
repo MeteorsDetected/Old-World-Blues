@@ -24,10 +24,11 @@
 
 	//TODO: make it heat up the surroundings when not in space
 
-/obj/item/device/suit_cooling_unit/New()
+/obj/item/device/suit_cooling_unit/initialize()
+	. = ..()
 	processing_objects |= src
-	cell = new/obj/item/weapon/cell/high()	//comes not with the crappy default power cell - because this is dedicated EVA equipment
-	cell.loc = src
+	//comes not with the crappy default power cell - because this is dedicated EVA equipment
+	cell = new/obj/item/weapon/cell/high(src)
 
 /obj/item/device/suit_cooling_unit/process()
 	if (!on || !cell)

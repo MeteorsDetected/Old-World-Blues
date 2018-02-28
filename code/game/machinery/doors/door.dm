@@ -45,7 +45,7 @@
 		visible_message(SPAN_NOTE("\The [user] bonks \the [src] harmlessly."))
 	user.do_attack_animation(src)
 
-/obj/machinery/door/New()
+/obj/machinery/door/initialize()
 	. = ..()
 	if(density)
 		layer = closed_layer
@@ -68,13 +68,11 @@
 	update_icon()
 
 	update_nearby_tiles(need_rebuild=1)
-	return
 
 /obj/machinery/door/Destroy()
 	density = 0
 	update_nearby_tiles()
-	..()
-	return
+	return ..()
 
 /obj/machinery/door/process()
 	if(close_door_at && world.time >= close_door_at)

@@ -51,7 +51,6 @@
 	..()
 	if(!state)
 		return TryToSwitchState(user)
-	return
 
 /obj/structure/simple_door/attack_ai(mob/user as mob) //those aren't machinery, they're just big fucking slabs of a mineral
 	if(isAI(user)) //so the AI can't open it
@@ -64,18 +63,20 @@
 	return TryToSwitchState(user)
 
 /obj/structure/simple_door/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group) return 0
+	if(air_group)
+		return 0
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density
 
 /obj/structure/simple_door/proc/TryToSwitchState(atom/user)
-	if(isSwitchingStates) return
+	if(isSwitchingStates)
+		return
 	if(ismob(user))
 		var/mob/M = user
 		if(!material.can_open_material_door(user))
 			return
-		if(world.time - user.last_bumped <= 60)
+		if(world.time - user.last_bumped <= 10)
 			return
 		if(M.client)
 			if(iscarbon(M))

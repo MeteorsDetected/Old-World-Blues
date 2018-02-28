@@ -19,8 +19,8 @@
 	var/obj/item/device/radio/spy/radio
 	var/obj/machinery/camera/spy/camera
 
-/obj/item/device/spy_bug/New()
-	..()
+/obj/item/device/spy_bug/initialize()
+	. = ..()
 	radio = new(src)
 	camera = new(src)
 
@@ -60,7 +60,8 @@
 	var/obj/machinery/camera/spy/selected_camera
 	var/list/obj/machinery/camera/spy/cameras = new()
 
-/obj/item/device/spy_monitor/New()
+/obj/item/device/spy_monitor/initialize()
+	. = ..()
 	radio = new(src)
 
 /obj/item/device/spy_monitor/examine(mob/user, return_dist = 1)
@@ -137,10 +138,10 @@
 	// These cheap toys are accessible from the mercenary camera console as well
 	network = list("NUKE")
 
-/obj/machinery/camera/spy/New()
-	..()
+/obj/machinery/camera/spy/initialize()
 	name = "DV-136ZB #[rand(1000,9999)]"
 	c_tag = name
+	. = ..()
 
 /obj/machinery/camera/spy/check_eye(var/mob/user as mob)
 	return 0

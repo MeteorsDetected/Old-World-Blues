@@ -15,13 +15,12 @@
 	item_state = "gift1"
 	randpixel = 10
 
-/obj/item/weapon/a_gift/New()
+/obj/item/weapon/a_gift/initialize()
 	..()
 	if(w_class > 0 && w_class < ITEM_SIZE_HUGE)
 		icon_state = "gift[w_class]"
 	else
 		icon_state = "gift[pick(1, 2, 3)]"
-	return
 
 /obj/item/weapon/a_gift/ex_act()
 	qdel(src)
@@ -126,11 +125,16 @@
 
 		//a good example of where we don't want to use the w_class defines
 		switch(gift.w_class)
-			if(1) icon_state = "gift1"
-			if(2) icon_state = "gift1"
-			if(3) icon_state = "gift2"
-			if(4) icon_state = "gift2"
-			else  icon_state = "gift3"
+			if(1)
+				icon_state = "gift1"
+			if(2)
+				icon_state = "gift1"
+			if(3)
+				icon_state = "gift2"
+			if(4)
+				icon_state = "gift2"
+			else
+				icon_state = "gift3"
 
 /obj/item/weapon/gift/attack_self(mob/user as mob)
 	user.unEquip(src)
@@ -142,7 +146,7 @@
 	qdel(src)
 	return
 
-/obj/item/weapon/gift/new_year/New()
+/obj/item/weapon/gift/new_year/initialize()
 	var/surprize = pick(/obj/item/clothing/head/witchwig,
 		/obj/item/clothing/head/philosopher_wig,
 		/obj/item/clothing/head/pirate,

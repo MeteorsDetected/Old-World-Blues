@@ -1,7 +1,7 @@
 /obj/item/clothing/suit/storage
 	var/obj/item/storage/internal/pockets
 
-/obj/item/clothing/suit/storage/New()
+/obj/item/clothing/suit/storage/initialize()
 	..()
 	pockets = new/obj/item/storage/internal(src)
 	pockets.storage_slots = 2	//two slots
@@ -34,7 +34,7 @@
 	..()
 
 //New Vest 4 pocket storage and badge toggles, until suit accessories are a thing.
-/obj/item/clothing/suit/storage/vest/heavy/New()
+/obj/item/clothing/suit/storage/vest/heavy/initialize()
 	..()
 	pockets = new/obj/item/storage/internal(src)
 	pockets.storage_slots = 4

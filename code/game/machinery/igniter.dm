@@ -30,12 +30,8 @@
 			location.hotspot_expose(1000,500,1)
 	return 1
 
-/obj/machinery/igniter/New()
-	..()
-	update_icon()
-
 /obj/machinery/igniter/update_icon()
-	if(!( stat & NOPOWER) )
+	if(!(stat&NOPOWER) )
 		icon_state = "igniter[src.on]"
 	else
 		icon_state = "igniter0"

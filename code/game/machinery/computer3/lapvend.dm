@@ -11,7 +11,6 @@
 	var/obj/item/device/laptop/relap = null
 	var/vendmode = 0
 
-
 	var/cardreader = 0
 	var/floppy = 0
 	var/radionet = 0
@@ -20,18 +19,9 @@
 	var/power = 0
 
 
-/obj/machinery/lapvend/New()
-	..()
-	spawn(4)
-		power_change()
-
 /obj/machinery/lapvend/blob_act()
-	if (prob(50))
-		spawn(0)
-			qdel(src)
-		return
-
-	return
+	if(prob(50))
+		qdel(src)
 
 
 /obj/machinery/lapvend/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -125,7 +115,6 @@
 	popup = new(user, "lapvend", name, 450, 500)
 	popup.set_content(dat)
 	popup.open()
-	return
 
 
 /obj/machinery/lapvend/Topic(href, href_list)
@@ -176,7 +165,6 @@
 			vendmode = 0
 
 	src.updateUsrDialog()
-	return
 
 
 /obj/machinery/lapvend/proc/vend()

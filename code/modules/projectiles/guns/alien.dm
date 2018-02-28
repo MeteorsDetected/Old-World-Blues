@@ -15,10 +15,10 @@
 	fire_sound_text = "a strange noise"
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 
-/obj/item/weapon/gun/launcher/spikethrower/New()
-	..()
-	processing_objects.Add(src)
+/obj/item/weapon/gun/launcher/spikethrower/initialize()
+	processing_objects |= src
 	last_regen = world.time
+	return ..()
 
 /obj/item/weapon/gun/launcher/spikethrower/Destroy()
 	processing_objects.Remove(src)

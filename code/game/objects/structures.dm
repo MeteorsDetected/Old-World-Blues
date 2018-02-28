@@ -60,7 +60,7 @@
 /obj/structure/meteorhit(obj/O as obj)
 	qdel(src)
 
-/obj/structure/New()
+/obj/structure/initialize()
 	..()
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on

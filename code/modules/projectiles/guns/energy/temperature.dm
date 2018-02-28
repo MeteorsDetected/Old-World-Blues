@@ -13,9 +13,9 @@
 	cell_type = /obj/item/weapon/cell/high
 
 
-/obj/item/weapon/gun/energy/temperature/New()
-	..()
-	processing_objects.Add(src)
+/obj/item/weapon/gun/energy/temperature/initialize()
+	processing_objects |= src
+	return ..()
 
 
 /obj/item/weapon/gun/energy/temperature/Destroy()

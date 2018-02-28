@@ -36,8 +36,8 @@ var/list/tape_roll_applications = list()
 	var/crumpled = 0
 	var/icon_base = "police"
 
-/obj/item/tape/New()
-	..()
+/obj/item/tape/initialize()
+	. = ..()
 	if(!hazard_overlays)
 		hazard_overlays = list()
 		hazard_overlays["[NORTH]"]	= new/image('icons/effects/warning_stripes.dmi', icon_state = "N")

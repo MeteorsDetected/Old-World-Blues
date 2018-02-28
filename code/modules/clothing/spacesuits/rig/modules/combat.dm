@@ -97,7 +97,7 @@
 	var/gun_type = /obj/item/weapon/gun/energy/lasercannon/mounted
 	var/obj/item/weapon/gun/gun
 
-/obj/item/rig_module/mounted/New()
+/obj/item/rig_module/mounted/initialize()
 	..()
 	gun = new gun_type(src)
 

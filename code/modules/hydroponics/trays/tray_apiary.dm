@@ -25,8 +25,8 @@
 	var/hydrotray_type = /obj/machinery/portable_atmospherics/hydroponics
 
 //overwrite this after it's created if the apiary needs a custom machinery sprite
-/obj/machinery/apiary/New()
-	..()
+/obj/machinery/apiary/initialize()
+	. = ..()
 	overlays += image('icons/obj/apiary_bees_etc.dmi', icon_state="apiary")
 
 /obj/machinery/apiary/bullet_act(var/obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.

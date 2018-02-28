@@ -10,7 +10,7 @@
 	var/locked = 1
 	var/emagged = 0
 
-/obj/item/weapon/circuitboard/security/New()
+/obj/item/weapon/circuitboard/security/initialize()
 	..()
 	network = station_networks
 
@@ -19,7 +19,7 @@
 	build_path = /obj/machinery/computer/security/engineering
 	req_access = list()
 
-/obj/item/weapon/circuitboard/security/engineering/New()
+/obj/item/weapon/circuitboard/security/engineering/initialize()
 	..()
 	network = engineering_networks
 

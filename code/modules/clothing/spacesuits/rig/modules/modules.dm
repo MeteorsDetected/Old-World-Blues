@@ -108,7 +108,7 @@
 		return
 	..()
 
-/obj/item/rig_module/New()
+/obj/item/rig_module/initialize()
 	..()
 	if(suit_overlay_inactive)
 		suit_overlay = suit_overlay_inactive
@@ -128,11 +128,11 @@
 
 		charges = processed_charges
 
-	stat_modules +=	new/stat_rig_module/activate(src)
-	stat_modules +=	new/stat_rig_module/deactivate(src)
-	stat_modules +=	new/stat_rig_module/engage(src)
-	stat_modules +=	new/stat_rig_module/select(src)
-	stat_modules +=	new/stat_rig_module/charge(src)
+	stat_modules += new/stat_rig_module/activate(src)
+	stat_modules += new/stat_rig_module/deactivate(src)
+	stat_modules += new/stat_rig_module/engage(src)
+	stat_modules += new/stat_rig_module/select(src)
+	stat_modules += new/stat_rig_module/charge(src)
 
 // Called when the module is installed into a suit.
 /obj/item/rig_module/proc/installed(var/obj/item/weapon/rig/new_holder)

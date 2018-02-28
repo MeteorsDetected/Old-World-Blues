@@ -39,7 +39,7 @@
 	icon_state = "black"
 	icon_closed = "black"
 
-/obj/structure/closet/code_red_equipment/New()
+/obj/structure/closet/code_red_equipment/willContatin()
 	return list(
 		/obj/item/storage/backpack/satchel/sec,
 		/obj/item/clothing/head/beret/sec/alt,

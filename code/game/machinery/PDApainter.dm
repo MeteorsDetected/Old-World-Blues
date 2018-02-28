@@ -27,10 +27,12 @@
 
 	return
 
-/obj/machinery/pdapainter/New()
+/obj/machinery/pdapainter/initialize()
 	..()
-	var/blocked = list(/obj/item/device/pda/ai/pai, /obj/item/device/pda/ai, /obj/item/device/pda/heads,
-						/obj/item/device/pda/clear, /obj/item/device/pda/syndicate)
+	var/blocked = list(
+		/obj/item/device/pda/ai/pai, /obj/item/device/pda/ai, /obj/item/device/pda/heads,
+		/obj/item/device/pda/clear, /obj/item/device/pda/syndicate
+	)
 
 	for(var/P in typesof(/obj/item/device/pda)-blocked)
 		var/obj/item/device/pda/D = new P

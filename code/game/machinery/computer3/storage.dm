@@ -21,7 +21,7 @@
 
 	var/list/spawnfiles = list()// For mappers, special drives, and data disks
 
-	New()
+	initialize()
 		..()
 		if(islist(spawnfiles))
 			if(removeable && spawnfiles.len)
@@ -170,8 +170,7 @@
 	var/max_volume = 1028
 
 
-	New()
-		..()
+	initialize()
 		icon_state = "datadisk[rand(0,6)]"
 		files = list()
 		if(istype(spawn_files))
@@ -180,3 +179,4 @@
 				F.device = src
 				files += F
 				volume += F.volume
+		return ..()

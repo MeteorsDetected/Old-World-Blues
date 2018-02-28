@@ -174,13 +174,12 @@
 	anchored = 1
 
 
-/obj/machinery/body_scanconsole/New()
-	..()
-	spawn(5)
-		for(var/dir in cardinal)
-			connected = locate(/obj/machinery/bodyscanner) in get_step(src, dir)
-			if(connected)
-				return
+/obj/machinery/body_scanconsole/initialize()
+	. = ..()
+	for(var/dir in cardinal)
+		connected = locate(/obj/machinery/bodyscanner) in get_step(src, dir)
+		if(connected)
+			return
 
 /obj/machinery/body_scanconsole/attack_ai(user as mob)
 	return src.attack_hand(user)

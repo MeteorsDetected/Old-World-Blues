@@ -9,9 +9,9 @@
 	var/colour = "#F00000"
 	var/open = 0
 
-	New()
-		update_icon()
-		..()
+/obj/item/weapon/lipstick/initialize()
+	update_icon()
+	return ..()
 
 /obj/item/weapon/lipstick/purple
 	name = "purple lipstick"
@@ -36,12 +36,12 @@
 /obj/item/weapon/lipstick/random
 	name = "lipstick"
 
-/obj/item/weapon/lipstick/random/New()
+/obj/item/weapon/lipstick/random/initialize()
 	var/list/colors = list("red"="#F00000","purple"="#D55CD0","jade"="#218C17","black"="#56352F")
 	var/picked_color = pick(colors)
 	name = "[picked_color] lipstick"
 	colour = colors[picked_color]
-	..()
+	return ..()
 
 
 /obj/item/weapon/lipstick/attack_self(mob/user as mob)

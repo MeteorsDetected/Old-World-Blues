@@ -39,7 +39,7 @@
 	desc = "It comes in a box for the fabricator's sake. Where does the wood come from? ... And why is it lighter?"
 	icon_state = "mulecrate"
 
-/obj/structure/largecrate/hoverpod/New()
+/obj/structure/largecrate/hoverpod/initialize()
 	new /obj/mecha/working/hoverpod/cargo (src)
 
 /obj/structure/largecrate/animal
@@ -47,7 +47,7 @@
 	var/held_count = 1
 	var/held_type
 
-/obj/structure/largecrate/animal/New()
+/obj/structure/largecrate/animal/initialize()
 	..()
 	for(var/i = 1;i<=held_count;i++)
 		new held_type(src)

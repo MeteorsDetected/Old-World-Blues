@@ -224,19 +224,16 @@
 	allow_occupant_types = list(/mob/living/silicon/robot)
 	disallow_occupant_types = list(/mob/living/silicon/robot/drone)
 
-/obj/machinery/cryopod/New()
+/obj/machinery/cryopod/initialize()
 	announce = new /obj/item/device/radio/intercom(src)
-	..()
+	find_control_computer()
+	return ..()
 
 /obj/machinery/cryopod/Destroy()
 	if(occupant)
 		occupant.forceMove(loc)
 		occupant.resting = 1
 	..()
-
-/obj/machinery/cryopod/initialize()
-	..()
-	find_control_computer()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)
 	// Workaround for http://www.byond.com/forum/?post=2007448

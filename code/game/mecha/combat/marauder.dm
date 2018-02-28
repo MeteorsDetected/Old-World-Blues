@@ -44,24 +44,22 @@
 	operation_req_access = list(access_syndicate)
 	wreckage = /obj/effect/decal/mecha_wreckage/mauler
 
-/obj/mecha/combat/marauder/preloaded/New()
-	..()
+/obj/mecha/combat/marauder/preloaded/initialize()
+	. = ..()
 	attach(new /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse)
 	attach(new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/explosive)
 	attach(new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src))
 	attach(new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src))
 	src.smoke_system.set_up(3, 0, src)
 	src.smoke_system.attach(src)
-	return
 
-/obj/mecha/combat/marauder/seraph/New()
-	..()
+/obj/mecha/combat/marauder/seraph/initialize()
+	. = ..()
 	attach(new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot(src))
 	attach(new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/explosive(src))
 	attach(new /obj/item/mecha_parts/mecha_equipment/teleporter(src))
 	attach(new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src))
 	attach(new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src))
-	return
 
 /obj/mecha/combat/marauder/Destroy()
 	qdel(smoke_system)

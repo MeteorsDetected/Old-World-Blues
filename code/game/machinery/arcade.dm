@@ -43,7 +43,7 @@
 /obj/machinery/arcade
 	var/turtle = 0
 
-/obj/machinery/arcade/New()
+/obj/machinery/arcade/initialize()
 	..()
 	var/name_action
 	var/name_part1

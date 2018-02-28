@@ -176,8 +176,9 @@
 	var/on_damage = 7
 	var/produce_heat = 1500
 
-/obj/item/device/flashlight/flare/New()
-	fuel = rand(800, 1000) // Sorry for changing this so much but I keep under-estimating how long X number of ticks last in seconds.
+/obj/item/device/flashlight/flare/initialize()
+	// Sorry for changing this so much but I keep under-estimating how long X number of ticks last in seconds.
+	fuel = rand(800, 1000)
 	..()
 
 /obj/item/device/flashlight/flare/process()
@@ -225,7 +226,7 @@
 	brightness_on = 6
 	on = 1 //Bio-luminesence has one setting, on.
 
-/obj/item/device/flashlight/slime/New()
+/obj/item/device/flashlight/slime/initialize()
 	..()
 	set_light(brightness_on)
 

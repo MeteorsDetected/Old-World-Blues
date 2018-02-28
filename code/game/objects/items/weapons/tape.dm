@@ -85,7 +85,7 @@
 
 	var/obj/item/weapon/stuck = null
 
-/obj/item/weapon/ducttape/New()
+/obj/item/weapon/ducttape/initialize()
 	..()
 	flags |= NOBLUDGEON
 

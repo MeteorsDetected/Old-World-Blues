@@ -15,7 +15,7 @@
 	var/obj/item/projectile/BB = null	//The loaded bullet - make it so that the projectiles are created only when needed?
 	var/spent_icon = "s-casing-spent"
 
-/obj/item/ammo_casing/New()
+/obj/item/ammo_casing/initialize()
 	..()
 	if(ispath(projectile_type))
 		BB = new projectile_type(src)
@@ -89,7 +89,8 @@
 /obj/item/ammo_magazine/box
 	w_class = ITEM_SIZE_NORMAL
 
-/obj/item/ammo_magazine/New()
+/obj/item/ammo_magazine/initialize()
+	. = ..()
 	if(multiple_sprites)
 		initialize_magazine_icondata(src)
 

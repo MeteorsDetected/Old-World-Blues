@@ -8,8 +8,8 @@
 	var/on = 0 //Are we currently active??
 	var/menu_message = ""
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		if (istype(loc.loc, /obj/item/device/pda))
 			hostpda = loc.loc
 
@@ -43,11 +43,9 @@
 	var/control_freq = BOT_FREQ
 
 	// create a new QM cartridge, and register to receive bot control & beacon message
-	New()
-		..()
-		spawn(5)
-			if(radio_controller)
-				radio_controller.add_object(src, control_freq, filter = RADIO_SECBOT)
+	initialize()
+		if(radio_controller)
+			radio_controller.add_object(src, control_freq, filter = RADIO_SECBOT)
 
 	// receive radio signals
 	// can detect bot status signals
@@ -115,14 +113,13 @@
 	var/control_freq = BOT_FREQ
 
 	// create a new QM cartridge, and register to receive bot control & beacon message
-	New()
+	initialize()
 		..()
-		spawn(5)
-			if(radio_controller)
-				radio_controller.add_object(src, control_freq, filter = RADIO_MULEBOT)
-				radio_controller.add_object(src, beacon_freq, filter = RADIO_NAVBEACONS)
-				spawn(10)
-					post_signal(beacon_freq, "findbeacon", "delivery", s_filter = RADIO_NAVBEACONS)
+		if(radio_controller)
+			radio_controller.add_object(src, control_freq, filter = RADIO_MULEBOT)
+			radio_controller.add_object(src, beacon_freq, filter = RADIO_NAVBEACONS)
+			spawn(10)
+				post_signal(beacon_freq, "findbeacon", "delivery", s_filter = RADIO_NAVBEACONS)
 
 	// receive radio signals
 	// can detect bot status signals

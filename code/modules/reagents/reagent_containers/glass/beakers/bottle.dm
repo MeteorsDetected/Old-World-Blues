@@ -17,11 +17,10 @@
 	volume = 60
 	lid_type = "bottle"
 
-/obj/item/weapon/reagent_containers/glass/beaker/bottle/New()
+/obj/item/weapon/reagent_containers/glass/beaker/bottle/initialize()
 	if(!icon_state)
 		icon_state = "bottle-[rand(1,4)]"
 	..()
-	update_icon()
 
 /obj/item/weapon/reagent_containers/glass/beaker/bottle/inaprovaline
 	name = "inaprovaline bottle"

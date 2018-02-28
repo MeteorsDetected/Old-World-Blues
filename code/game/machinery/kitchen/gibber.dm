@@ -22,21 +22,20 @@
 /obj/machinery/gibber/autogibber
 	var/turf/input_plate
 
-/obj/machinery/gibber/autogibber/New()
-	..()
-	spawn(5)
-		for(var/i in cardinal)
-			var/obj/machinery/mineral/input/input_obj = locate( /obj/machinery/mineral/input, get_step(src.loc, i) )
-			if(input_obj)
-				if(isturf(input_obj.loc))
-					input_plate = input_obj.loc
-					gib_throw_dir = i
-					qdel(input_obj)
-					break
+/obj/machinery/gibber/autogibber/initialize()
+	. = ..()
+	for(var/i in cardinal)
+		var/obj/machinery/mineral/input/input_obj = locate( /obj/machinery/mineral/input, get_step(src.loc, i) )
+		if(input_obj)
+			if(isturf(input_obj.loc))
+				input_plate = input_obj.loc
+				gib_throw_dir = i
+				qdel(input_obj)
+				break
 
-		if(!input_plate)
-			log_misc("a [src] didn't find an input plate.")
-			return
+	if(!input_plate)
+		log_misc("a [src] didn't find an input plate.")
+		return
 
 /obj/machinery/gibber/autogibber/Bumped(var/atom/A)
 	if(!input_plate) return
@@ -44,15 +43,9 @@
 	if(ismob(A))
 		var/mob/M = A
 
-		if(M.loc == input_plate
-		)
-			M.loc = src
+		if(M.loc == input_plate)
+			M.forceMove(src)
 			M.gib()
-
-
-/obj/machinery/gibber/New()
-	..()
-	src.overlays += image('icons/obj/kitchen.dmi', "grjam")
 
 /obj/machinery/gibber/update_icon()
 	overlays.Cut()
@@ -69,24 +62,23 @@
 
 /obj/machinery/gibber/relaymove(mob/user as mob)
 	src.go_out()
-	return
 
 /obj/machinery/gibber/attack_hand(mob/user as mob)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(operating)
-		user << "<span class='danger'>The gibber is locked and running, wait for it to finish.</span>"
+		user << SPAN_DANG("The gibber is locked and running, wait for it to finish.")
 		return
 	else
 		src.startgibbing(user)
 
 /obj/machinery/gibber/examine()
 	. = ..()
-	usr << "The safety guard is [emagged ? "<span class='danger'>disabled</span>" : "enabled"]."
+	usr << "The safety guard is [emagged ? SPAN_DANG("disabled") : "enabled"]."
 
 /obj/machinery/gibber/emag_act(var/remaining_charges, var/mob/user)
 	emagged = !emagged
-	user << "<span class='danger'>You [emagged ? "disable" : "enable"] the gibber safety guard.</span>"
+	user << SPAN_DANG("You [emagged ? "disable" : "enable"] the gibber safety guard.")
 	return 1
 
 /obj/machinery/gibber/affect_grab(var/mob/user, var/mob/target, var/state)
@@ -119,7 +111,7 @@
 		user << SPAN_DANG("The gibber is locked and running, wait for it to finish.")
 		return
 
-	if(!(iscarbon(victim)) && !(isanimal(victim)) )
+	if(!iscarbon(victim) && !isanimal(victim))
 		user << SPAN_DANG("This is not suitable for the gibber!")
 		return
 

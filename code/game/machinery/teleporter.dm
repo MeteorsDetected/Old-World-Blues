@@ -56,18 +56,17 @@
 	var/one_time_use = 0 //Used for one-time-use teleport cards (such as clown planet coordinates.)
 						 //Setting this to 1 will set src.locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
 
+/obj/machinery/computer/teleporter/update_icon()
+	..()
+	underlays.Cut()
+	underlays += "teleporter-wires"
+
 /* Ghosts can't use this */
 /obj/machinery/computer/teleporter/attack_ghost(user as mob)
 	return 1
 
-/obj/machinery/computer/teleporter/New()
-	src.id = "[rand(1000, 9999)]"
-	..()
-	underlays.Cut()
-	underlays += image('icons/obj/stationobjs.dmi', icon_state = "telecomp-wires")
-	return
-
 /obj/machinery/computer/teleporter/initialize()
+	src.id = "[rand(1000, 9999)]"
 	..()
 	var/obj/machinery/teleport/station/station = locate(/obj/machinery/teleport/station) in get_step(src, dir)
 	var/obj/machinery/teleport/hub/hub
@@ -123,8 +122,6 @@
 			src.add_fingerprint(usr)
 	else
 		..()
-
-	return
 
 /obj/machinery/teleport/station/attack_ai(mob/user)
 	interact(user)
@@ -261,7 +258,7 @@
 	var/obj/machinery/computer/teleporter/com
 
 
-/obj/machinery/teleport/hub/New()
+/obj/machinery/teleport/hub/initialize()
 	..()
 	underlays.Cut()
 	underlays += image('icons/obj/stationobjs.dmi', icon_state = "tele-wires")
@@ -271,7 +268,6 @@
 		if (src.icon_state == "tele1")
 			teleport(M)
 			use_power(5000)
-	return
 
 /obj/machinery/teleport/hub/proc/teleport(atom/movable/M as mob|obj)
 	if (!com)
@@ -397,7 +393,7 @@
 	active_power_usage = 2000
 	var/obj/machinery/teleport/hub/com
 
-/obj/machinery/teleport/station/New()
+/obj/machinery/teleport/station/initialize()
 	..()
 	overlays.Cut()
 	overlays += image('icons/obj/stationobjs.dmi', icon_state = "controller-wires")

@@ -96,7 +96,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/ignitermes = "USER lights NAME with FLAME"
 	var/brand
 
-/obj/item/clothing/mask/smokable/New()
+/obj/item/clothing/mask/smokable/initialize()
 	..()
 	flags |= NOREACT // so it doesn't react until you light it
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 15
@@ -325,7 +325,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	throwforce = 1
 	randpixel = 10
 
-/obj/item/weapon/cigbutt/New()
+/obj/item/weapon/cigbutt/initialize()
 	..()
 	transform = turn(transform,rand(0,360))
 
@@ -366,7 +366,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	weldermes = "USER recklessly lights NAME with FLAME."
 	ignitermes = "USER fiddles with FLAME, and manages to light their NAME with the power of science."
 
-/obj/item/clothing/mask/smokable/pipe/New()
+/obj/item/clothing/mask/smokable/pipe/initialize()
 	..()
 	name = "empty [initial(name)]"
 
@@ -468,11 +468,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "zippo"
 	item_state = "zippo"
 
-/obj/item/weapon/flame/lighter/random
-	New()
-		icon_state = "lighter-[pick("r","c","y","g")]"
-		item_state = icon_state
-		base_state = icon_state
+/obj/item/weapon/flame/lighter/random/initialize()
+	icon_state = "lighter-[pick("r","c","y","g")]"
+	item_state = icon_state
+	base_state = icon_state
 
 /obj/item/weapon/flame/lighter/attack_self(mob/living/user)
 	if(!base_state)
@@ -543,9 +542,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "weed_paper"
 	item_state = "paper"
 
-	New()
+	initialize()
 		create_reagents(10)
-		..()
+		. = ..()
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
 		if(istype(W, /obj/item/weapon/reagent_containers/food/snacks/grown))

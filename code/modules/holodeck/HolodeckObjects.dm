@@ -169,9 +169,9 @@
 		return 1
 	return 0
 
-/obj/item/weapon/holo/esword/New()
-	..()
+/obj/item/weapon/holo/esword/initialize()
 	item_color = pick("red","blue","green","purple")
+	return ..()
 
 /obj/item/weapon/holo/esword/attack_self(mob/living/user as mob)
 	active = !active

@@ -13,7 +13,7 @@
 	var/on = 0
 	var/brightness_on = 3 //luminosity when on
 
-/obj/item/device/pumpkinglamp/New()
+/obj/item/device/pumpkinglamp/initialize()
 	..()
 	icon_state = "pumpkin[rand(1,4)]"
 	update_icon()

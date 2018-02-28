@@ -11,7 +11,7 @@
 	var/light_on = 6
 	var/engine_on = FALSE
 
-/obj/motorcycle/New()
+/obj/motorcycle/initialize()
 	..()
 	move_break = world.time
 	update_icon()

@@ -81,7 +81,7 @@
 
 	return cell.drain_power(drain_check)
 
-/obj/mecha/New()
+/obj/mecha/initialize()
 	..()
 	events = new
 

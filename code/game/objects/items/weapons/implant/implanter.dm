@@ -9,7 +9,7 @@
 	var/obj/item/weapon/implant/imp = null
 	var/start_with = null
 
-/obj/item/weapon/implanter/New()
+/obj/item/weapon/implanter/initialize()
 	..()
 	if(start_with)
 		imp = new start_with(src)

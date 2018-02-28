@@ -7,8 +7,8 @@
 	w_class = ITEM_SIZE_LARGE
 	var/max_fuel = 350
 
-/obj/item/weapon/weldpack/New()
-	..()
+/obj/item/weapon/weldpack/initialize()
+	. = ..()
 	create_reagents(max_fuel)
 	reagents.add_reagent("fuel", max_fuel)
 

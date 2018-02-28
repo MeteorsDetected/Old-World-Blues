@@ -33,7 +33,7 @@ var/bomb_set
 	w_class = ITEM_SIZE_TINY
 
 
-/obj/machinery/nuclearbomb/New()
+/obj/machinery/nuclearbomb/initialize()
 	..()
 	r_code = "[rand(10000, 99999.0)]"//Creates a random code upon object spawn.
 

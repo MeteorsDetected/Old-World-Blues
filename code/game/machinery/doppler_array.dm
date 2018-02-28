@@ -5,9 +5,9 @@ var/list/doppler_arrays = list()
 	desc = "A highly precise directional sensor array which measures the release of quants from decaying tachyons. The doppler shifting of the mirror-image formed by these quants can reveal the size, location and temporal affects of energetic disturbances within a large radius ahead of the array."
 
 
-/obj/machinery/doppler_array/New()
+/obj/machinery/doppler_array/initialize()
 	..()
-	doppler_arrays += src
+	doppler_arrays |= src
 
 /obj/machinery/doppler_array/Destroy()
 	doppler_arrays -= src

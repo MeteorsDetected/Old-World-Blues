@@ -22,7 +22,7 @@
 	var/sheets_refunded = 2
 	var/obj/machinery/light/newlight = null
 
-/obj/machinery/light_construct/New()
+/obj/machinery/light_construct/initialize()
 	..()
 	if (fixture_type == "bulb")
 		icon_state = "bulb-construct-stage1"
@@ -189,32 +189,29 @@
 	brightness_range = 12
 	brightness_power = 4
 
-/obj/machinery/light/built/New()
+/obj/machinery/light/built/initialize()
 	status = LIGHT_EMPTY
 	update(0)
 	..()
 
-/obj/machinery/light/small/built/New()
+/obj/machinery/light/small/built/initialize()
 	status = LIGHT_EMPTY
 	update(0)
 	..()
 
 // create a new lighting fixture
-/obj/machinery/light/New()
-	..()
-
-	spawn(2)
-		on = has_power()
-
-		switch(fitting)
-			if("tube")
-				if(prob(2))
-					broken(1)
-			if("bulb")
-				if(prob(5))
-					broken(1)
-		spawn(1)
-			update(0)
+/obj/machinery/light/initialize()
+	. = ..()
+	on = has_power()
+	switch(fitting)
+		if("tube")
+			if(prob(2))
+				broken(1)
+		if("bulb")
+			if(prob(5))
+				broken(1)
+	spawn(1)
+		update(0)
 
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
@@ -237,7 +234,6 @@
 		if(LIGHT_BROKEN)
 			icon_state = "[base_state]-broken"
 			on = 0
-	return
 
 // update the icon_state and luminosity of the light depending on its state
 /obj/machinery/light/proc/update(var/trigger = 1)
@@ -668,7 +664,7 @@
 			desc = "A broken [name]."
 
 
-/obj/item/weapon/light/New()
+/obj/item/weapon/light/initialize()
 	..()
 	switch(name)
 		if("light tube")

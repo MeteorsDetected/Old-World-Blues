@@ -626,11 +626,10 @@
 	var/icon/droid_overlay
 	var/list/repairable_damage = list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH)
 
-	New()
+	initialize()
 		..()
 		pr_repair_droid = new /datum/global_iterator/mecha_repair_droid(list(src),0)
 		pr_repair_droid.set_delay(equip_cooldown)
-		return
 
 	Destroy()
 		qdel(pr_repair_droid)
@@ -718,11 +717,10 @@
 	var/coeff = 100
 	var/list/use_channels = list(EQUIP,ENVIRON,LIGHT)
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		pr_energy_relay = new /datum/global_iterator/mecha_energy_relay(list(src),0)
 		pr_energy_relay.set_delay(equip_cooldown)
-		return
 
 	Destroy()
 		qdel(pr_energy_relay)
@@ -838,16 +836,16 @@
 	var/power_per_cycle = 20
 	reliability = 1000
 
-	New()
+	initialize()
 		..()
-		init()
+		setFuel()
 
 	Destroy()
 		qdel(pr_mech_generator)
 		pr_mech_generator = null
 		..()
 
-	proc/init()
+	proc/setFuel()
 		fuel = new /obj/item/stack/material/phoron(src)
 		fuel.amount = 0
 		pr_mech_generator = new /datum/global_iterator/mecha_generator(list(src),0)
@@ -973,7 +971,7 @@
 	var/rad_per_cycle = 0.3
 	reliability = 1000
 
-	init()
+	setFuel()
 		fuel = new /obj/item/stack/material/uranium(src)
 		fuel.amount = 0
 		pr_mech_generator = new /datum/global_iterator/mecha_generator/nuclear(list(src),0)

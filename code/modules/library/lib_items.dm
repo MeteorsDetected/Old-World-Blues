@@ -55,21 +55,18 @@
 			for(var/obj/item/weapon/book/b in contents)
 				qdel(b)
 			qdel(src)
-			return
 		if(2.0)
 			for(var/obj/item/weapon/book/b in contents)
-				if (prob(50)) b.loc = (get_turf(src))
-				else qdel(b)
+				if (prob(50))
+					b.forceMove(src.loc)
+				else
+					qdel(b)
 			qdel(src)
-			return
 		if(3.0)
 			if (prob(50))
 				for(var/obj/item/weapon/book/b in contents)
-					b.loc = (get_turf(src))
+					b.forceMove(src.loc)
 				qdel(src)
-			return
-		else
-	return
 
 /obj/structure/bookcase/update_icon()
 	if(contents.len < 5)
@@ -81,7 +78,7 @@
 /obj/structure/bookcase/manuals/medical
 	name = "Medical Manuals bookcase"
 
-	New()
+	initialize()
 		..()
 		new /obj/item/weapon/book/manual/medical_cloning(src)
 		new /obj/item/weapon/book/manual/medical_diagnostics_manual(src)
@@ -93,7 +90,7 @@
 /obj/structure/bookcase/manuals/engineering
 	name = "Engineering Manuals bookcase"
 
-	New()
+	initialize()
 		..()
 		new /obj/item/weapon/book/manual/engineering_construction(src)
 		new /obj/item/weapon/book/manual/engineering_particle_accelerator(src)
@@ -107,7 +104,7 @@
 /obj/structure/bookcase/manuals/research_and_development
 	name = "R&D Manuals bookcase"
 
-	New()
+	initialize()
 		..()
 		new /obj/item/weapon/book/manual/research_and_development(src)
 		update_icon()

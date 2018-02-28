@@ -17,7 +17,6 @@ var/global/list/ashtray_cache = list()
 		return
 	max_butts = round(material.hardness/10) //This is arbitrary but whatever.
 	update_icon()
-	return
 
 /obj/item/weapon/material/ashtray/update_icon()
 	color = null

@@ -12,7 +12,8 @@
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
 	permeability_coefficient = 0.05
 
-/obj/item/clothing/gloves/fyellow/New()
+/obj/item/clothing/gloves/fyellow/initialize()
+	. = ..()
 	//average of 0.5, somewhat better than regular gloves' 0.75
 	siemens_coefficient = pick(0,0.1,0.3,0.5,0.5,0.75,1.35)
 

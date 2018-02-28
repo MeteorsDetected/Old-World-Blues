@@ -19,46 +19,48 @@
 	var/d_state = 1
 	var/obj/multiz/target
 
-	proc/connect()
-		if(icon_state == "ladderdown") // the upper will connect to the lower
-			d_state = 1
-			var/turf/controllerlocation = locate(1, 1, z)
-			for(var/obj/effect/landmark/zcontroller/controller in controllerlocation)
-				if(controller.down)
-					var/turf/below = locate(src.x, src.y, controller.down_target)
-					for(var/obj/multiz/ladder/L in below)
-						if(L.icon_state == "ladderup")
-							target = L
-							L.target = src
-							d_state = 0
-							break
-		return
+/obj/multiz/ladder/initialize()
+	connect()
+	return ..()
 
-	Destroy()
-		spawn(1)
-			if(target && icon_state == "ladderdown")
-				qdel(target)
-		return ..()
+/obj/multiz/ladder/proc/connect()
+	if(icon_state == "ladderdown") // the upper will connect to the lower
+		d_state = 1
+		var/turf/controllerlocation = locate(1, 1, z)
+		for(var/obj/effect/landmark/zcontroller/controller in controllerlocation)
+			if(controller.down)
+				var/turf/below = locate(src.x, src.y, controller.down_target)
+				for(var/obj/multiz/ladder/L in below)
+					if(L.icon_state == "ladderup")
+						target = L
+						L.target = src
+						d_state = 0
+						break
 
-	attack_hand(var/mob/M)
-		if(!target || !istype(target.loc, /turf))
-			M << "The ladder is incomplete and can't be climbed."
+/obj/multiz/ladder/Destroy()
+	if(target && icon_state == "ladderdown")
+		qdel(target)
+	return ..()
+
+/obj/multiz/ladder/attack_hand(var/mob/M)
+	if(!target || !istype(target.loc, /turf))
+		M << "The ladder is incomplete and can't be climbed."
+	else
+		var/turf/T = target.loc
+		var/blocked = 0
+		for(var/atom/A in T.contents)
+			if(A.density)
+				blocked = 1
+				break
+		if(blocked || istype(T, /turf/simulated/wall))
+			M << "Something is blocking the ladder."
 		else
-			var/turf/T = target.loc
-			var/blocked = 0
-			for(var/atom/A in T.contents)
-				if(A.density)
-					blocked = 1
-					break
-			if(blocked || istype(T, /turf/simulated/wall))
-				M << "Something is blocking the ladder."
-			else
-				M.visible_message(
-					SPAN_NOTE("\The [M] climbs [src.icon_state == "ladderup" ? "up" : "down"] \the [src]!"),
-					"You climb [src.icon_state == "ladderup"  ? "up" : "down"] \the [src]!",
-					"You hear some grunting, and clanging of a metal ladder being used."
-				)
-				M.Move(target.loc)
+			M.visible_message(
+				SPAN_NOTE("\The [M] climbs [src.icon_state == "ladderup" ? "up" : "down"] \the [src]!"),
+				"You climb [src.icon_state == "ladderup"  ? "up" : "down"] \the [src]!",
+				"You hear some grunting, and clanging of a metal ladder being used."
+			)
+			M.Move(target.loc)
 
 /obj/multiz/stairs
 	name = "Stairs"
@@ -69,7 +71,7 @@
 	var/turf/target2
 	var/suggest_dir // try this dir first when finding stairs; this is the direction to walk *down* the stairs
 
-	New()
+	initialize()
 		..()
 		var/turf/cl= locate(1, 1, src.z)
 		for(var/obj/effect/landmark/zcontroller/c in cl)
@@ -78,17 +80,16 @@
 				if(istype(O, /turf/space))
 					O.ChangeTurf(/turf/simulated/floor/open)
 
-		spawn(1)
-			var/turf/T
-			if(suggest_dir)
-				T = get_step(src.loc,suggest_dir)
-				find_stair_connection(T, suggest_dir, 1)
-			if(!target)
-				for(var/dir in cardinal)
-					T = get_step(src.loc,dir)
-					find_stair_connection(T, dir)
-					if(target)
-						break
+		var/turf/T
+		if(suggest_dir)
+			T = get_step(src.loc,suggest_dir)
+			find_stair_connection(T, suggest_dir, 1)
+		if(!target)
+			for(var/dir in cardinal)
+				T = get_step(src.loc,dir)
+				find_stair_connection(T, dir)
+				if(target)
+					break
 
 	Bumped(var/atom/movable/M)
 		if(connected && target && istype(src, /obj/multiz/stairs) && locate(/obj/multiz/stairs) in M.loc)

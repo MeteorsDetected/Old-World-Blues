@@ -4,8 +4,9 @@
 	desc = "Wall mounted trophy."
 	var/caption = ""
 	icon = 'icons/obj/decals.dmi'
+	anchored = TRUE
 
-	New()
+	initialize()
 		..()
 		if(name == "generic_trophy")
 			var/obj/structure/trophy/new_type = pick(typesof(/obj/structure/trophy) - type)

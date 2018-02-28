@@ -40,6 +40,7 @@
 						if(SOUTH) pixel_y = 32
 						if(EAST)  pixel_x = 32
 						if(WEST)  pixel_x = -32
+					break
 
 /obj/item/weapon/contraband/poster/attack_hand(mob/user as mob)
 	if(!anchored)

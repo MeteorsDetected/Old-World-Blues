@@ -83,17 +83,13 @@
 		if(!COIN)
 			return
 		COIN.loc = src.loc
-	return
-
 
 
 /obj/item/weapon/moneybag/vault
 
-/obj/item/weapon/moneybag/vault/New()
+/obj/item/weapon/moneybag/vault/initialize()
 	..()
-	new /obj/item/weapon/coin/silver(src)
-	new /obj/item/weapon/coin/silver(src)
-	new /obj/item/weapon/coin/silver(src)
-	new /obj/item/weapon/coin/silver(src)
-	new /obj/item/weapon/coin/gold(src)
-	new /obj/item/weapon/coin/gold(src)
+	for(var/i in 1 to 4)
+		new /obj/item/weapon/coin/silver(src)
+	for(var/i in 1 to 2)
+		new /obj/item/weapon/coin/gold(src)

@@ -22,13 +22,13 @@
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in \his mouth! It looks like \he's trying to commit suicide.</span>")
 	return (FIRELOSS)
 
-/obj/item/weapon/melee/baton/New()
-	..()
+/obj/item/weapon/melee/baton/initialize()
 	update_icon()
+	return ..()
 
-/obj/item/weapon/melee/baton/loaded/New() //this one starts with a cell pre-installed.
+/obj/item/weapon/melee/baton/loaded/initialize() //this one starts with a cell pre-installed.
 	bcell = new/obj/item/weapon/cell/high(src)
-	..()
+	return ..()
 
 /obj/item/weapon/melee/baton/proc/deductcharge(var/chrgdeductamt)
 	if(bcell)
@@ -216,6 +216,6 @@
 	w_class = ITEM_SIZE_SMALL
 	attack_verb = list("shocked")
 
-/obj/item/weapon/melee/baton/shocker/loaded/New()
+/obj/item/weapon/melee/baton/shocker/loaded/initialize()
 	bcell = new/obj/item/weapon/cell/high(src)
-	..()
+	return ..()

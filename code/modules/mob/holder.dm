@@ -5,10 +5,10 @@
 	icon = 'icons/obj/objects.dmi'
 	slot_flags = SLOT_HEAD
 
-/obj/item/weapon/holder/New()
+/obj/item/weapon/holder/initialize()
 	item_state = icon_state
-	..()
 	processing_objects.Add(src)
+	return ..()
 
 /obj/item/weapon/holder/Destroy()
 	processing_objects.Remove(src)

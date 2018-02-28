@@ -17,7 +17,7 @@ var/global/list/rad_collectors = list()
 	var/locked = 0
 	var/drainratio = 1
 
-/obj/machinery/power/rad_collector/New()
+/obj/machinery/power/rad_collector/initialize()
 	..()
 	rad_collectors += src
 

@@ -170,7 +170,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	name = "Security Newscaster"
 	securityCaster = 1
 
-/obj/machinery/newscaster/New()         //Constructor, ho~
+/obj/machinery/newscaster/initialize()  //Constructor, ho~
 	allCasters += src
 	src.paper_remaining = 15            // Will probably change this to something better
 	for(var/obj/machinery/newscaster/NEWSCASTER in allCasters) // Let's give it an appropriate unit number
@@ -203,7 +203,6 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		src.overlays += image(src.icon, "crack[hitstaken]")
 
 	icon_state = "newscaster_normal"
-	return
 
 /obj/machinery/newscaster/ex_act(severity)
 	switch(severity)

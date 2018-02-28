@@ -19,10 +19,10 @@
 	circuit = /obj/item/weapon/circuitboard/security
 	var/camera_cache = null
 
-	New()
+	initialize()
 		if(!network)
 			network = station_networks
-		..()
+		return ..()
 
 	attack_ai(var/mob/user as mob)
 		return attack_hand(user)
@@ -268,10 +268,10 @@
 	circuit = /obj/item/weapon/circuitboard/security/engineering
 	light_color = "#FAC54B"
 
-/obj/machinery/computer/security/engineering/New()
+/obj/machinery/computer/security/engineering/initialize()
 	if(!network)
 		network = engineering_networks
-	..()
+	return ..()
 
 /obj/machinery/computer/security/nuclear
 	name = "head mounted camera monitor"

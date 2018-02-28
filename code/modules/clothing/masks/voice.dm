@@ -26,8 +26,8 @@
 	changer.voice = voice
 	usr << SPAN_NOTE("You are now mimicking <B>[changer.voice]</B>.")
 
-/obj/item/clothing/mask/gas/voice/New()
-	..()
+/obj/item/clothing/mask/gas/voice/initialize()
+	. = ..()
 	changer = new(src)
 
 /obj/item/clothing/mask/gas/batman
@@ -36,7 +36,7 @@
 	desc = "A face-covering mask that can be connected to an air supply. It seems to house some odd electronics."
 	var/obj/item/voice_changer/changer
 
-/obj/item/clothing/mask/gas/batman/New()
+/obj/item/clothing/mask/gas/batman/initialize()
 	..()
 	changer = new(src)
 	changer.voice = "Batman"

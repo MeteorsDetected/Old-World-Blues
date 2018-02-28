@@ -18,7 +18,7 @@
 	var/glass = 0
 	var/created_name = null
 
-	New()
+	initialize()
 		..()
 		update_state()
 
@@ -120,7 +120,8 @@
 	airlock_type = "/multi_tile/glass"
 	glass = -1 //To prevent bugs in deconstruction process.
 
-	New()
+	initialize()
+		. = ..()
 		if(dir in list(EAST, WEST))
 			bound_width = width * world.icon_size
 			bound_height = world.icon_size

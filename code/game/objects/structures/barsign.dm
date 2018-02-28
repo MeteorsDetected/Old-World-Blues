@@ -3,14 +3,15 @@
 	icon_state = "empty"
 	anchored = 1
 	var/cult = 0
-	New()
+
+/obj/structure/sign/double/barsign/initialize()
+		..()
 		ChangeSign(pick("pinkflamingo", "magmasea", "limbo", "rustyaxe", "armokbar", "brokendrum", "meadbay", "thedamnwall", "thecavern", "cindikate", "theorchard", "thesaucyclown", "theclownshead", "whiskeyimplant", "carpecarp", "robustroadhouse", "greytide", "theredshirt","thebark","theharmbaton","theharmedbaton","thesingulo","thedrukcarp","thedrunkcarp", "scotch","officerbeersky","on"))
-		return
-	proc/ChangeSign(var/Text)
+
+/obj/structure/sign/double/barsign/proc/ChangeSign(var/Text)
 		src.icon_state = "[Text]"
 		//on = 0
 		//brightness_on = 4 //uncomment these when the lighting fixes get in
-		return
 
 /obj/structure/sign/double/barsign/attackby(obj/item/I, mob/user)
 	if(cult)
