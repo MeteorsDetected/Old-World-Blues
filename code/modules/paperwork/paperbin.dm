@@ -66,6 +66,7 @@
 	user << SPAN_NOTE("You put [i] in [src].")
 	papers.Add(i)
 	amount++
+	update_icon()
 
 
 /obj/item/weapon/paper_bin/examine(mob/user, return_dist=1)
