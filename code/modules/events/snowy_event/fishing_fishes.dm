@@ -18,7 +18,6 @@
 	var/sizeAdd = 40
 	var/anomalySizeAdd = 40
 	var/rarity		//1 - common, reagents *1/ 2 - big(100%), reagents *2/ 3 - rare(200%), reagents *3 / 4 - legend(300%), you know what you got
-	var/list/liked_baits = list(/obj/item/weapon/reagent_containers/food/snacks/bug)
 //	var/list/internals = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/fishmeat = 2) //bones, eyes and guts i make later
 	center_of_mass = list("x"=17, "y"=13)
 	reagents_to_vaporize = list("blood")
@@ -75,6 +74,21 @@
 		if(4) M << "<B><font color='#FF00FF'> Legend fish </font></B>"
 
 
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/sander
+	name = "sander"
+	desc = "Tiny and famous fish. Almost useless. Too much bones and very bitter taste."
+	icon_state = "sander"
+	minSize = 40
+	maxSize = 80
+	sizeAdd = 20
+	anomalySizeAdd = 40
+	New()
+		..()
+		reagents.add_reagent("fish", 5*rarity)
+		reagents.add_reagent("blood", 3*rarity)
+
+
+
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_dolphin
 	name = "space dolphin"
 	desc = "Small fish with blue soft glistening scales. You can see how she smiles."
@@ -115,7 +129,7 @@
 	anomalySizeAdd = 110
 	New()
 		..()
-		reagents.add_reagent("fish", 5*rarity)
+		reagents.add_reagent("fish", 10*rarity)
 		reagents.add_reagent("iron", 5*rarity)
 		reagents.add_reagent("sulfur", 3*rarity)
 
@@ -162,3 +176,81 @@
 		..()
 		reagents.add_reagent("fish", 5*rarity)
 		reagents.add_reagent("blood", 10*rarity)
+
+
+
+
+
+////////////////////______________]BAITS[_______________\\\\\\\\\\\\\\\\\\\
+
+/obj/item/weapon/reagent_containers/food/snacks/bug
+	name = "Barksleeper"
+	desc = "Small bug with hump on his back. You can try to eat that, but... Well.."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "barksleeper_bug"
+	var/list/baiting_fishes = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/sander = 80,
+									/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_dolphin = 40,
+									/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_catfish = 15)
+	New()
+		..()
+		reagents.add_reagent("protein", 5)
+
+
+
+/obj/item/weapon/reagent_containers/food/snacks/bug/firefly
+	name = "Firefly"
+	desc = "Small fly-like bug with glowing thorax. Feels hot. Looks like that thing are sleeping."
+	icon_state = "firefly_bug"
+	baiting_fishes = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/iced_carp = 75,
+						/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/sander = 35)
+	New()
+		..()
+		reagents.add_reagent("capsaicin", 5)
+
+
+
+/obj/item/weapon/reagent_containers/food/snacks/bug/godeater
+	name = "God eater"
+	desc = "This medium-sized bug looks creepy with this strange skull. A bit heavyweight."
+	icon_state = "godeater_bug"
+	baiting_fishes = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_torped_shark = 70,
+						/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/sander = 40)
+	New()
+		..()
+		reagents.add_reagent("grapejuice", 10)
+
+
+
+/obj/item/weapon/reagent_containers/food/snacks/bug/spore
+	name = "Spore bug"
+	desc = "This tiny bug actually is a spore. They living in the snow. You can see a red part, thermal plate that warm the bug even in the extreme cold."
+	icon_state = "spore_bug"
+	baiting_fishes = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/bloodshell = 80,
+						/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/sander = 40)
+
+
+
+/obj/item/weapon/reagent_containers/food/snacks/bug/snake
+	name = "Snake"
+	desc = "Green worm-like bug. Have three eyes and small mouth with tiny tooths that hard to see. Venomously."
+	icon_state = "snake_bug"
+	baiting_fishes = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_shellfish = 80,
+						/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/sander = 40)
+	New()
+		..()
+		reagents.add_reagent("cyanide", 10)
+
+
+
+/obj/item/weapon/reagent_containers/food/snacks/bug/icespiderling
+	name = "Ice spiderling"
+	desc = "Tiny ice spider. They sets their webs into the bushes for hunting. Web of this creatures is very-very durable and strong enough."
+	icon_state = "icespider_bug"
+	baiting_fishes = list(/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/sander = 60,
+						/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_catfish = 20)
+
+/* //Later
+/obj/item/weapon/reagent_containers/food/snacks/bug/byond
+	name = "Byond bug"
+	desc = "Woah. What kind of bug is it?"
+	icon_state = "byond_bug"*/

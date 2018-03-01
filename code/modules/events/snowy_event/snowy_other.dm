@@ -218,6 +218,7 @@
 		H.loc = src
 		colonist = H
 		H.canmove = 0
+		name = "[H.name] in danger!"
 		for(var/direction in list(1,2,4,8))
 			if(!istype(get_step(src,direction),/turf/simulated/floor/plating/chasm) || locate(/obj/structure/bridge) in get_step(src, direction))
 				src.dir = direction

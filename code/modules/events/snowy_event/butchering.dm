@@ -40,6 +40,13 @@
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "bone"
 
+
+/obj/item/weapon/bone/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(W.sharp)
+		user << SPAN_NOTE("You carve hook from the bone.")
+		new /obj/item/weapon/hook/boned(user.loc)
+		qdel(src)
+
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/liver
 	name = "liver"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'

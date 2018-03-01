@@ -8,6 +8,11 @@
 	var/loot_chance = 25
 	var/goodloot_chance = 10
 	var/list/loot_list = list(/obj/item/weapon/reagent_containers/food/snacks/bug,
+								/obj/item/weapon/reagent_containers/food/snacks/bug/firefly,
+								/obj/item/weapon/reagent_containers/food/snacks/bug/godeater,
+								/obj/item/weapon/reagent_containers/food/snacks/bug/spore,
+								/obj/item/weapon/reagent_containers/food/snacks/bug/snake,
+								/obj/item/weapon/reagent_containers/food/snacks/bug/icespiderling,
 								/obj/item/weapon/spider_silk) //there need some special loot. But i make it later
 
 

@@ -12,17 +12,6 @@
 //Absolutly rework all fishing
 
 
-//All of this is broken. I rework it from scratch asap and starts tomorrow
-
-
-//Catch and meals here
-var/list/fishing_garbage = list(	/obj/item/weapon/handcuffs,
-							/obj/item/weapon/dice,
-							/obj/item/device/multitool,
-							/obj/item/weapon/lipstick/jade,
-							/obj/item/toy/gun
-							)
-
 var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_dolphin,
 									/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_shellfish,
 									/obj/item/weapon/reagent_containers/food/snacks/ingredient/fish/space_torped_shark,
@@ -45,8 +34,11 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 	throw_range = 10
 	w_class = 1.0
 	w_class = ITEM_SIZE_TINY
-	var/addChance = 5
 	attack_verb = list("hooked", "cutted")
+
+
+/obj/item/weapon/hook/boned
+	icon_state = "bone_hook"
 
 
 /obj/item/weapon/fishing_line
@@ -60,7 +52,6 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 	throw_speed = 5
 	throw_range = 6
 	w_class = ITEM_SIZE_TINY
-	var/addChance = 5
 	attack_verb = list("whiped", "slapped")
 
 
@@ -80,7 +71,7 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 		if(src.length == 0)
 			qdel(src)
 	else
-		user << SPAN_WARN("Length of this fishing line is not enough.")
+		user << SPAN_WARN("Not enough fishing line lenght.")
 
 
 /obj/item/weapon/fishing_tackle
@@ -95,11 +86,10 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 	w_class = ITEM_SIZE_SMALL
 	attack_verb = list("hooked up", "cutted down")
 
-	var/obj/item/weapon/hook/hook = null
-	var/obj/item/weapon/fishing_line/fishing_line = null
-	var/obj/item/bait = null
+	var/obj/item/weapon/hook/hook
+	var/obj/item/weapon/fishing_line/fishing_line
+	var/obj/item/weapon/reagent_containers/food/snacks/bug/bait
 	var/damaged = 0
-	var/fish = null
 	var/chance = 1 // Chance of a fish // Big fish = -60 of chance/ Rare fish = -90 of chance/ Legend fish = -160 of chance
 	var/chance_bait = 5 // basic chance to catch something. From 1 to 5 // Be patient.
 	var/obj/structure/ice_hole/place
@@ -120,7 +110,7 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 		icon_state = "tackle_hand"
 		dir = get_dir(src.loc, place.loc)
 	else
-		if(damaged == 0)
+		if(!damaged)
 			icon_state = "tackle"
 		else
 			icon_state = "tackle_damaged"
@@ -157,9 +147,6 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 				user << SPAN_NOTE("You repair [src].")
 				damaged = 0
 				f.length--
-//			else
-//				user << SPAN_NOTE("You replace fishing line on that [src.name].") //What a useless thing. Need different types of lines
-//			f.length--
 			if(!f.length)
 				qdel(f)
 			update_icon()
@@ -173,16 +160,24 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 /obj/item/weapon/fishing_tackle/verb/remove_bait()
 	set name = "Remove bait"
 	set category = "Object"
-	bait.loc = get_turf(src)
-	bait = null
-	update_icon()
+	if(in_process)
+		usr << SPAN_WARN("You must stop fishing before you disassemble your [src]!")
+		return
+	if(bait)
+		bait.loc = get_turf(src)
+		bait = null
+		update_icon()
 
 
 /obj/item/weapon/fishing_tackle/verb/remove_hook()
 	set name = "Remove hook"
 	set category = "Object"
-	hook.loc = get_turf(src)
-	hook = null
+	if(in_process)
+		usr << SPAN_WARN("You must stop fishing before you disassemble your [src]!")
+		return
+	if(hook)
+		hook.loc = get_turf(src)
+		hook = null
 	if(bait)
 		bait.loc = get_turf(src)
 		bait = null
@@ -235,7 +230,9 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 /obj/item/weapon/fishing_tackle/proc/ending()
 	chance = 5
 	if(bait && Catch)
-		qdel(bait)
+		if(prob(50))
+			qdel(bait)
+			bait = null
 	processing_objects.Remove(src)
 	place.tackles.Remove(src)
 	place.update_icon()
@@ -245,14 +242,14 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 
 
 /obj/item/weapon/fishing_tackle/attack_self(mob/user as mob)
-	if(src.Catch == null && in_process)
+	if(!src.Catch && in_process)
 		user << SPAN_NOTE("You take off your [src.name].")
 		ending()
 		return
 	else if(Catch && in_process)
 		user.visible_message(SPAN_NOTE("[user] hooks in the fish!"), SPAN_NOTE("You hook in [src]!"))
 		if(prob(50))
-			new src.Catch(place.loc)
+			new Catch(place.loc)
 			src.ending()
 			user << SPAN_NOTE("You take tackle from water and look on your catch.")
 
@@ -265,10 +262,16 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 	if(Catch == null)
 		if(in_range(place, src))
 			if(prob(rand(1,chance_bait)))
-				if(prob(30) && bait)
-					Catch = pick(fishing_fishes)
+				if(bait)
+					for(var/k in bait.baiting_fishes)
+						if(prob(bait.baiting_fishes[k]))
+							Catch = k
+						else
+							if(prob(25))
+								Catch = /obj/item/weapon/kelpedloot
 				else
-					Catch = pick(fishing_garbage)
+					if(prob(35))
+						Catch = /obj/item/weapon/kelpedloot
 				M.visible_message(SPAN_NOTE("[src] is vibrates and bounces!"), SPAN_NOTE("[src] is vibrates and bounces in your hand!"))
 				qdel(bait)
 		else
@@ -277,18 +280,18 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 			M.visible_message(SPAN_NOTE("[M] takes off his [src]."), SPAN_NOTE("You take off [src.name]."))
 		return
 	else
-		if(prob(20))
-			if(prob(10))
-				M.visible_message(SPAN_WARN("[M] broke his [src.name]!."), SPAN_NOTE("You broke [src.name]."))
-				qdel(hook)
-				damaged = 1
-				chance = 1
-				Catch = null
-				ending()
-				update_icon()
-				return
-			qdel(bait)
+		if(prob(10))
+			M.visible_message(SPAN_WARN("[M] broke his [src.name]!."), SPAN_NOTE("You broke [src.name]."))
+			qdel(hook)
+			hook = null
+			if(bait)
+				qdel(bait)
+				bait = null
+			damaged = 1
+			chance = 1
+			Catch = null
 			ending()
+			update_icon()
 			return
 		M << SPAN_NOTE("Still vibrates!")
 
@@ -336,3 +339,32 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 		freezing_stage--
 		user << SPAN_NOTE("You cracks trough ice with [W.name].")
 		update_icon()
+
+
+/obj/item/weapon/kelpedloot
+	name = "Bunch of kelps"
+	desc = "There can be something interesting under layer of kelps. But be careful..."
+	icon = 'icons/obj/snowy_event/fishing.dmi'
+	icon_state = "kelped"
+
+
+/obj/item/weapon/kelpedloot/attack_self(mob/user as mob)
+	if(prob(5))
+		user << SPAN_WARN("You found nothing! So sad.")
+		qdel(src)
+	var/list/pos_loot = list()
+	if(prob(50))
+		pos_loot = typesof(/obj/item/weapon)
+		pos_loot.Remove(/obj/item/weapon)
+		pos_loot.Remove(/obj/item/weapon/kelpedloot)
+	else
+		pos_loot = typesof(/obj/item/device)
+		pos_loot.Remove(/obj/item/device)
+	if(pos_loot.len)
+		var/loot = pick(pos_loot)
+		new loot(user.loc)
+		user << SPAN_NOTE("You shake the kelps and something drops on the floor!")
+		qdel(src)
+	else
+		user << SPAN_WARN("There's nothing.")
+		qdel(src)

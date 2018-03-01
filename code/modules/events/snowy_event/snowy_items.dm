@@ -157,13 +157,6 @@
 	w_class = ITEM_SIZE_SMALL
 
 
-/obj/item/weapon/reagent_containers/food/snacks/bug
-	name = "Barksleeper"
-	desc = "Small bug with hump on his back. You can try to eat that, but... Well.."
-	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
-	icon_state = "barksleeper_bug"
-
-
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/meat/fishmeat
 	name = "fish meat"
 	desc = "Meat of fish. Looks oily..."

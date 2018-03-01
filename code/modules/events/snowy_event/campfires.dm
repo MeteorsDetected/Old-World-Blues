@@ -95,12 +95,24 @@
 			var/obj/item/weapon/weldingtool/W = T
 			if(!W.welding)
 				return
-
 		if(fire_stage == 0)
 			fire_stage = 1
 			processing_objects.Add(src)
 			update_icon()
 			set_light(fire_stage*2, 1, "#FF8000")
+
+	if(istype(T, /obj/item/weapon/reagent_containers/food/snacks/bug/firefly))
+		if(fire_stage == 0)
+			user << SPAN_NOTE("You put firefly into campfire and she's burn away than awakes.")
+			fire_stage = 2
+			burning_temp = 200
+			processing_objects.Add(src)
+			update_icon()
+			set_light(fire_stage*2, 1, "#FF8000")
+			qdel(T)
+			return
+
+
 	if(istype(T, /obj/item/weapon/holder_stick))
 		if(cook_place)
 			cook_place.attackby(T, user)

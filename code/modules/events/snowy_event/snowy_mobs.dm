@@ -71,33 +71,30 @@
 	if(!..())
 		return
 
-	var/list/R = range(hearing, src)
-	if(last_m_detection != R.len || locate(/mob/living/carbon/human) in R)
+	if(locate(/mob/living/carbon/human) in range(hearing, src))
 		mobDetection()
-		if(!(locate(/mob/living/carbon/human) in R))
-			last_m_detection = R.len
-	switch(life_mode)
-		if("panic")
-			panicRun(target)
-			update_icon()
-		if("hungry")
-			hungry()
-		if("sleep")
-			sleeping()
-		if("living")
-			living()
+		switch(life_mode)
+			if("panic")
+				panicRun(target)
+				update_icon()
+			if("hungry")
+				hungry()
+			if("sleep")
+				sleeping()
+			if("living")
+				living()
 
-	if(bleeding)
-		health--
-		if(prob(50))
-			var/obj/effect/decal/cleanable/blood/drip/D = new(src.loc)
-			spawn(1200)
-				qdel(D)
+		if(bleeding)
+			health--
+			if(prob(50))
+				var/obj/effect/decal/cleanable/blood/drip/D = new(src.loc)
+				spawn(1200)
+					qdel(D)
 
-	for(var/turf/simulated/floor/plating/chasm/C in range(1, src)) //Beware the chasms!
-		walk_away(src, C, 1, speed)
-	for(var/obj/structure/fence/F in range(1, src)) //And this. Yeah, i rework all of this later
-		walk_away(src, F, 1, speed)
+		for(var/turf/simulated/floor/plating/chasm/C in range(1, src)) //Beware the chasms!
+			walk_away(src, C, 1, speed)
+		for(var/obj/structure/fence/F in range(1, src)) //And this. Yeah, i rework all of this later
+			walk_away(src, F, 1, speed)
 
 	howl_ticks++
 	if(howl_ticks >= 40)
@@ -250,7 +247,7 @@
 		if(L != src)
 			if(!istype(L, /mob/living/simple_animal/snowy_animal) && !(locate(/obj/structure/flora/snowybush) in L.loc))
 				setPanic(L)
-				return
+				return 1
 
 	if(!(life_mode == "panic"))
 		for(var/mob/living/L in range(hearing, src))
@@ -259,10 +256,11 @@
 					var/mob/living/carbon/human/H = L
 					if(H.m_intent == "run") //Where is my freaking brain!?
 						setPanic(L)
-						return
+						return 1
 				else if(!istype(L, /mob/living/simple_animal/snowy_animal))
 					setPanic(L)
-					return
+					return 1
+	return 0
 
 
 
