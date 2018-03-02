@@ -55,7 +55,7 @@ obj/item/resolve_attackby() calls the target atom's attackby() proc.
 				M.apply_damage(20, BRUTE, BP_HEAD, 0, sharp=sharp, edge=edge)
 				M.apply_damage(20, BRUTE, BP_HEAD, 0, sharp=sharp, edge=edge)
 				M.adjustOxyLoss(60) // Brain lacks oxygen immediately, pass out
-				flick(G.hud.icon_state, G.hud)
+				flick(G.icon_state, G)
 				G.last_action = world.time
 				user.visible_message("<span class='danger'>[user] slit [M]'s throat open with \the [name]!</span>")
 				admin_attack_log(user, M,

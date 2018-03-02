@@ -9,11 +9,10 @@
 		G.reset_kill_state() //no wandering across the station/asteroid while choking someone
 
 /obj/item/weapon/grab
-	name = "grab"
+	name = "reinforce grab"
 	icon = 'icons/mob/screen1.dmi'
 	icon_state = "reinforce"
 	flags = NOBLUDGEON
-	var/obj/screen/grab/hud = null
 	var/mob/living/affecting = null
 	var/mob/living/carbon/human/assailant = null
 	var/state = GRAB_PASSIVE
@@ -73,12 +72,6 @@
 
 	affecting.grabbed_by += src
 
-	hud = new /obj/screen/grab(src)
-	hud.icon_state = "reinforce"
-	icon_state = "grabbed"
-	hud.name = "reinforce grab"
-	hud.master = src
-
 	//check if assailant is grabbed by victim as well
 	if(assailant.grabbed_by)
 		for (var/obj/item/weapon/grab/G in assailant.grabbed_by)
@@ -103,24 +96,12 @@
 	return null
 
 
-//This makes sure that the grab screen object is displayed in the correct hand.
-/obj/item/weapon/grab/proc/synch()
-	if(affecting)
-		if(assailant.r_hand == src)
-			hud.screen_loc = ui_rhand
-		else
-			hud.screen_loc = ui_lhand
-
 /obj/item/weapon/grab/process()
 	if(gcDestroyed) // GC is trying to delete us, we'll kill our processing so we can cleanly GC
 		return PROCESS_KILL
 
 	if(!confirm())
 		return PROCESS_KILL
-
-	if(assailant.client)
-		assailant.client.screen -= hud
-		assailant.client.screen += hud
 
 	if(assailant.pulling == affecting)
 		assailant.stop_pulling()
@@ -145,11 +126,11 @@
 
 		if(allow_upgrade)
 			if(state < GRAB_AGGRESSIVE)
-				hud.icon_state = "reinforce"
+				icon_state = "reinforce"
 			else
-				hud.icon_state = "reinforce1"
+				icon_state = "reinforce1"
 		else
-			hud.icon_state = "!reinforce"
+			icon_state = "!reinforce"
 
 	if(state >= GRAB_AGGRESSIVE)
 		affecting.drop_active_hand()
@@ -194,7 +175,7 @@
 			affecting.eye_blind = max(affecting.eye_blind, 3)
 
 /obj/item/weapon/grab/attack_self()
-	return s_click(hud)
+	return s_click()
 
 
 //Updating pixelshift, position and direction
@@ -242,7 +223,7 @@
 		if(EAST)
 			animate(affecting, pixel_x =-shift, pixel_y = 0, 5, 1, LINEAR_EASING)
 
-/obj/item/weapon/grab/proc/s_click(obj/screen/S)
+/obj/item/weapon/grab/proc/s_click()
 	if(!confirm())
 		return
 	if(state == GRAB_UPGRADING)
@@ -267,8 +248,7 @@
 			apply_pinning(affecting, assailant)
 
 		state = GRAB_AGGRESSIVE
-		icon_state = "grabbed1"
-		hud.icon_state = "reinforce1"
+		icon_state = "reinforce1"
 
 	else if(state < GRAB_NECK)
 		if(isslime(affecting))
@@ -284,13 +264,13 @@
 			"Has had their neck grabbed by [assailant.name] ([assailant.ckey])",
 			"grabbed the neck of"
 		)
-		hud.icon_state = "kill"
-		hud.name = "kill"
+		icon_state = "kill"
+		name = "kill"
 		affecting.Stun(10) //10 ticks of ensured grab
 
 	else if(state < GRAB_UPGRADING)
 		assailant.visible_message(SPAN_DANG("[assailant] starts to tighten \his grip on [affecting]'s neck!"))
-		hud.icon_state = "kill1"
+		icon_state = "kill1"
 
 		state = GRAB_KILL
 		assailant.visible_message(SPAN_DANG("[assailant] has tightened \his grip on [affecting]'s neck!"))
@@ -334,7 +314,7 @@
 	if(M == affecting)
 		if(ishuman(affecting))
 			var/hit_zone = assailant.zone_sel.selecting
-			flick(hud.icon_state, hud)
+			flick(icon_state, src)
 			switch(assailant.a_intent)
 				if(I_HELP)
 					if(force_down)
@@ -369,7 +349,7 @@
 /obj/item/weapon/grab/proc/reset_kill_state()
 	if(state == GRAB_KILL)
 		assailant.visible_message(SPAN_WARN("[assailant] lost \his tight grip on [affecting]'s neck!"))
-		hud.icon_state = "kill"
+		icon_state = "kill"
 		state = GRAB_NECK
 
 /obj/item/weapon/grab
@@ -382,10 +362,6 @@
 		affecting.grabbed_by -= src
 		affecting = null
 	if(assailant)
-		if(assailant.client)
-			assailant.client.screen -= hud
 		assailant = null
-	qdel(hud)
-	hud = null
 	destroying = 1 // stops us calling qdel(src) on dropped()
 	return ..()
