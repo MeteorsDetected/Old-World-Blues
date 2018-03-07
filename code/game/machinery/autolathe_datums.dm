@@ -107,18 +107,6 @@
 	path = /obj/item/clothing/head/welding
 	category = "General"
 
-/datum/autolathe/recipe/rglass
-	name = "reinforced glass sheets"
-	path = /obj/item/stack/material/glass/reinforced
-	category = "General"
-	is_stack = 1
-
-/datum/autolathe/recipe/rods
-	name = "metal rods"
-	path = /obj/item/stack/rods
-	category = "General"
-	is_stack = 1
-
 /datum/autolathe/recipe/knife
 	name = "kitchen knife"
 	path = /obj/item/weapon/material/knife
