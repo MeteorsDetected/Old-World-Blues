@@ -27,9 +27,9 @@
 		return
 
 	initialize()
-		. = ..()
 		if(ispath(construct))
-			construct = new construct
+			construct = new construct(src)
+		. = ..()
 
 /////////// Ripley
 
