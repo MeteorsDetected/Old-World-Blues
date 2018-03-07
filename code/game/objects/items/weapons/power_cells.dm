@@ -23,7 +23,8 @@
 /obj/item/weapon/cell/initialize()
 	if(charge == CELL_FULLCHARGED)
 		charge = maxcharge
-	return ..()
+	. = ..()
+	update_icon()
 
 //currently only used by energy-type guns, that may change in the future.
 /obj/item/weapon/cell/device
