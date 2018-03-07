@@ -44,6 +44,14 @@ Pipelines + Other Objects -> Pipe network
 		pipe_color = null
 	..()
 
+	// TODO: remove this. Use machinery initialize instead
+	if(!machinery_sort_required && ticker)
+		dd_insertObjectList(machines, src)
+	else
+		machines += src
+		machinery_sort_required = 1
+
+
 /obj/machinery/atmospherics/attackby(atom/A, mob/user as mob)
 	if(istype(A, /obj/item/device/pipe_painter))
 		return
