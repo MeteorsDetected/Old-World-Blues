@@ -1896,6 +1896,6 @@
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
 #include "maps\CentComm.dmm"
-#include "maps\exodus\1.station.dmm"
+#include "maps\exodus\3.satelite.dmm"
 #include "maps\exodus\way.dmm"
 // END_INCLUDE

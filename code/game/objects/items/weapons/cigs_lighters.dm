@@ -520,7 +520,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "rainbowzippo"
 
 /obj/item/weapon/flame/lighter/zippo/bulletzippo
-	name = "it looks like a bullet about 22 mm caliber."
+	name = "Bullet zippo"
+	desc = "It looks like a bullet about 22 mm caliber.."
 	icon_state = "bulletzippo"
 
 /obj/item/weapon/flame/lighter/random
