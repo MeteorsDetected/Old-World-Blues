@@ -72,13 +72,11 @@
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.welding == 1)
 			playsound(src, 'sound/items/Welder.ogg', 100, 1)
-			if(do_after(user, 30))
-				if(src)
-					user << SPAN_NOTE("You slice a [src.name] into a few lists of metal")
-					WT.remove_fuel(10, user)
-					var/obj/item/stack/material/steel/S = new(user.loc)
-					S.amount = rand(8, 16)
-					qdel(src)
+			user << SPAN_NOTE("You slice a [src.name] into a few lists of metal")
+			WT.remove_fuel(10, user)
+			var/obj/item/stack/material/steel/S = new(user.loc)
+			S.amount = rand(8, 16)
+			qdel(src)
 
 
 /obj/structure/lootable/attack_hand(var/mob/user as mob)
