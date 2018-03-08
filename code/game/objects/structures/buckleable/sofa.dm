@@ -6,6 +6,9 @@
 	anchored = TRUE
 	can_buckle = TRUE
 
+/obj/structure/sofa/initialize()
+	update_icon()
+	return ..()
 
 /obj/structure/sofa/left
 	icon_state = "sofa_left"
