@@ -167,6 +167,11 @@
 	build_path = /obj/machinery/computer/shuttle_control/research
 	origin_tech = list(TECH_DATA = 2)
 
+/obj/item/weapon/circuitboard/post_shuttle
+	name = T_BOARD("post shuttle console")
+	build_path = /obj/machinery/computer/shuttle_control/post
+	origin_tech = list(TECH_DATA = 2)
+
 /obj/item/weapon/circuitboard/aifixer
 	name = T_BOARD("AI integrity restorer")
 	build_path = /obj/machinery/computer/aifixer

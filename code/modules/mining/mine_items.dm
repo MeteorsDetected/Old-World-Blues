@@ -7,7 +7,7 @@
 	req_access = list(access_mining)
 
 
-/obj/structure/closet/secure_closet/medical3/willContatin()
+/obj/structure/closet/secure_closet/miner/willContatin()
 	. = list(
 		/obj/item/device/radio/headset/cargo,
 		/obj/item/clothing/under/rank/miner,
@@ -237,7 +237,7 @@
 	var/obj/item/stack/flag/F = locate() in get_turf(src)
 
 	var/turf/T = get_turf(src)
-	if(!T || !istype(T,/turf/simulated/floor/plating/airless/asteroid))
+	if(!T || !istype(T,/turf/simulated/floor/plating/asteroid))
 		user << "The flag won't stand up in this terrain."
 		return
 
