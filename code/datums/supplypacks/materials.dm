@@ -7,6 +7,9 @@
 /datum/supply_packs/materials
 	group = "Materials"
 
+/datum/supply_packs/randomised/materials
+	group = "Materials"
+
 /datum/supply_packs/materials/metal
 	name = "50 metal sheets"
 	contains = list(/obj/item/stack/material/steel/full)
