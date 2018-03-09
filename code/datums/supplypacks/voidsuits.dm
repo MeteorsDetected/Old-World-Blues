@@ -6,7 +6,10 @@
 
 /datum/supply_packs/voidsuits
 	group = "Voidsuits"
-
+	
+/datum/supply_packs/randomised/voidsuits
+	group = "Voidsuits"
+	
 /datum/supply_packs/voidsuits/atmos
 	name = "Atmospheric voidsuits"
 	contains = list(
