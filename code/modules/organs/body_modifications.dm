@@ -216,6 +216,10 @@ var/global/list/modifications_types = list(
 	id = "prosthesis_bishop"
 	replace_limb = /obj/item/organ/external/robotic/bishop
 
+/datum/body_modification/limb/prosthesis/expbishop
+	id = "prosthesis_expbishop"
+	replace_limb = /obj/item/organ/external/robotic/expbishop
+
 /datum/body_modification/limb/prosthesis/hesphaistos
 	id = "prosthesis_hesphaistos"
 	replace_limb = /obj/item/organ/external/robotic/hesphaistos

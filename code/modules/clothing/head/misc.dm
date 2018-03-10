@@ -23,6 +23,61 @@
 	slot_flags = SLOT_HEAD | SLOT_EARS
 	body_parts_covered = 0
 
+/obj/item/clothing/head/cloverpin
+	name = "clover pin"
+	icon_state = "cloverpin"
+	desc = "Smells peace."
+	item_state = "cloverpin"
+	slot_flags = SLOT_HEAD | SLOT_EARS
+	body_parts_covered = 0
+
+/obj/item/clothing/head/whiteribbon
+	name = "white ribbon"
+	icon_state = "whiteribbon"
+	desc = "It's good for girls."
+	item_state = "whiteribbon"
+	slot_flags = SLOT_HEAD | SLOT_EARS
+	body_parts_covered = 0
+
+/obj/item/clothing/head/magnetpin
+	name = "magnet pin"
+	icon_state = "magnetpin"
+	desc = "Smells nice."
+	item_state = "magnetpin"
+	slot_flags = SLOT_HEAD | SLOT_EARS
+	body_parts_covered = 0
+
+/obj/item/clothing/head/pinkpin
+	name = "pink pin"
+	icon_state = "pinkpin"
+	desc = "Smells nice."
+	item_state = "pinkpin"
+	slot_flags = SLOT_HEAD | SLOT_EARS
+	body_parts_covered = 0
+
+/obj/item/clothing/head/whitepin
+	name = "white pin"
+	icon_state = "pin"
+	desc = "Smells nice."
+	item_state = "pin"
+	slot_flags = SLOT_HEAD | SLOT_EARS
+	body_parts_covered = 0
+
+/obj/item/clothing/head/redribbon
+	name = "red ribbon"
+	icon_state = "redribbon"
+	desc = "Smells nice."
+	item_state = "redribbon"
+	slot_flags = SLOT_HEAD | SLOT_EARS
+	body_parts_covered = 0
+
+/obj/item/clothing/head/butterflypin
+	name = "butterfly pin"
+	icon_state = "butterflypin"
+	desc = "Smells nice."
+	item_state = "butterflypin"
+	slot_flags = SLOT_HEAD | SLOT_EARS
+	body_parts_covered = 0
 /obj/item/clothing/head/powdered_wig
 	name = "powdered wig"
 	desc = "A powdered wig."

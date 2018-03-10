@@ -861,16 +861,27 @@
 	vend_delay = 34
 	icon_state = "cigs"
 	products = list(
-		/obj/item/storage/fancy/cigarettes = 10,
+		/obj/item/storage/fancy/cigarettes = 4,
+		/obj/item/storage/fancy/cigarettes/dromedaryco = 2,
+		/obj/item/storage/fancy/cigarettes/luckystars = 2,
+		/obj/item/storage/fancy/cigarettes/jerichos = 2,
+		/obj/item/storage/fancy/cigarettes/menthols = 2,
+		/obj/item/weapon/flame/lighter/random = 5,
 		/obj/item/storage/box/matches = 10,
-		/obj/item/weapon/flame/lighter/random = 4,
 	)
-	contraband = list(/obj/item/weapon/flame/lighter/zippo = 4)
-	premium = list(/obj/item/storage/fancy/cigarettes/cigar = 5)
+	contraband = list(
+		/obj/item/weapon/flame/lighter/zippo = 4,
+		/obj/item/storage/fancy/cigarettes/killthroat = 1,
+	)
+	premium = list(/obj/item/storage/fancy/cigar = 5)
 	prices = list(
 		/obj/item/storage/fancy/cigarettes = 150,
-		/obj/item/weapon/flame/lighter/random = 20,
-		/obj/item/storage/box/matches = 10,
+		/obj/item/storage/fancy/cigarettes/dromedaryco = 200,
+		/obj/item/storage/fancy/cigarettes/luckystars = 200,
+		/obj/item/storage/fancy/cigarettes/jerichos = 200,
+		/obj/item/storage/fancy/cigarettes/menthols = 200,
+		/obj/item/weapon/flame/lighter/random = 50,
+		/obj/item/storage/box/matches = 20,
 	)
 
 /obj/machinery/vending/cigarette/wallmounted

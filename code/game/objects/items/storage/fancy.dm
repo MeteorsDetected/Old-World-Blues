@@ -183,7 +183,49 @@
 	icon_state = "Dpacket"
 	item_state = "Dpacket"
 
-/obj/item/storage/fancy/cigarettes/cigar
+/obj/item/storage/fancy/cigarettes/killthroat
+	name = "\improper AcmeCo packet"
+	desc = "A packet of six AcmeCo cigarettes. For those who somehow want to obtain the record for the most amount of cancerous tumors."
+	icon_state = "Bpacket"
+	//brand = "\improper Acme Co. cigarette"
+
+	New()
+		..()
+		fill_cigarre_package(src,list("chloralhydrate" = 5))
+
+// sweet dreams, baby!//
+
+/obj/item/storage/fancy/cigarettes/luckystars
+	name = "\improper pack of Lucky Stars"
+	desc = "A mellow blend made from synthetic, pod-grown tobacco. The commercial jingle is guaranteed to get stuck in your head."
+	icon_state = "LSpacket"
+	//brand = "\improper Lucky Star"
+
+/obj/item/storage/fancy/cigarettes/jerichos
+	name = "\improper pack of Jerichos"
+	desc = "Typically seen dangling from the lips of Martian soldiers and border world hustlers. Tastes like hickory smoke, feels like warm liquid death down your lungs."
+	icon_state = "Jpacket"
+	//brand = "\improper Jericho"
+
+/obj/item/storage/fancy/cigarettes/menthols
+	name = "\improper pack of Temperamento Menthols"
+	desc = "With a sharp and natural organic menthol flavor, these Temperamentos are a favorite of NDV crews. Hardly anyone knows they make 'em in non-menthol!"
+	icon_state = "TMpacket"
+	//brand = "\improper Temperamento Menthol"
+
+/obj/item/storage/fancy/cigarettes/carcinomas
+	name = "\improper pack of Carcinoma Angels"
+	desc = "This unknown brand was slated for the chopping block, until they were publicly endorsed by an old Earthling gonzo journalist. The rest is history. They sell a variety for cats, too."
+	icon_state = "CApacket"
+	//brand = "\improper Carcinoma Angel"
+
+/obj/item/storage/fancy/cigarettes/professionals
+	name = "\improper pack of Professional 120s"
+	desc = "Let's face it - if you're smoking these, you're either trying to look upper-class or you're 80 years old. That's the only excuse. They are, however, very good quality."
+	icon_state = "P100packet"
+	//brand = "\improper Professional 120"
+
+/obj/item/storage/fancy/cigar
 	name = "cigar case"
 	desc = "A case for holding your cigars when you are not smoking them."
 	icon_state = "cigarcase"
@@ -197,7 +239,38 @@
 	storage_slots = 7
 	can_hold = list(/obj/item/clothing/mask/smokable/cigarette/cigar)
 	icon_type = "cigar"
-	fill_type = /obj/item/clothing/mask/smokable/cigarette/cigar
+
+/obj/item/storage/fancy/cigar/New()
+	..()
+	flags |= NOREACT
+	for(var/i = 1 to storage_slots)
+		new /obj/item/clothing/mask/smokable/cigarette/cigar(src)
+	create_reagents(15 * storage_slots)
+
+/obj/item/storage/fancy/cigar/update_icon()
+	icon_state = "[initial(icon_state)][contents.len]"
+	return
+
+/obj/item/storage/fancy/cigar/remove_from_storage(obj/item/W as obj, atom/new_location)
+		var/obj/item/clothing/mask/smokable/cigarette/cigar/C = W
+		if(!istype(C)) return
+		reagents.trans_to_obj(C, (reagents.total_volume/contents.len))
+		..()
+
+/obj/item/storage/fancy/cigar/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	if(!ismob(M))
+		return
+
+	if(M == user && user.zone_sel.selecting == O_MOUTH && contents.len > 0 && !user.wear_mask)
+		var/obj/item/clothing/mask/smokable/cigarette/cigar/W = new (user)
+		reagents.trans_to_obj(W, (reagents.total_volume/contents.len))
+		user.equip_to_slot_if_possible(W, slot_wear_mask)
+		reagents.maximum_volume = 15 * contents.len
+		contents.len--
+		user << SPAN_NOTE("You take a cigar out of the case.")
+		update_icon()
+	else
+		..()
 
 /*
  * Vial Box
