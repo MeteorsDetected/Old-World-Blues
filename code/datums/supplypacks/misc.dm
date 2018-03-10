@@ -41,6 +41,21 @@
 	cost = 10
 	containertype = /obj/structure/closet/crate
 	containername = "Webbing crate"
+	
+/datum/supply_packs/randomised/misc/holster
+	name = "Holster crate"
+	num_contained = 4
+	contains = list(
+		/obj/item/clothing/accessory/holster/gun,
+		/obj/item/clothing/accessory/holster/gun/armpit,
+		/obj/item/clothing/accessory/holster/gun/waist,
+		/obj/item/clothing/accessory/holster/gun/hip,
+		/obj/item/clothing/accessory/holster/knife,
+		/obj/item/clothing/accessory/holster/knife/hip
+	)
+	cost = 10
+	containertype = /obj/structure/closet/crate
+	containername = "Holster crate"
 
 /datum/supply_packs/misc/underwear
 	name = "Random underwear pack"
