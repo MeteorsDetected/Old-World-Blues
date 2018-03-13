@@ -53,7 +53,6 @@ var/global/list/chameleons_categories = list(
 
 	C.slot_flags = initial(new_type.slot_flags)
 
-	C.item_state_slots = initial(new_type.item_state_slots)
 	C.body_parts_covered = initial(new_type.body_parts_covered)
 	C.flags_inv = initial(new_type.flags_inv)
 	C.description_info = initial(new_type.description_info)
