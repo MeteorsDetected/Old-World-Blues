@@ -189,9 +189,9 @@
 	icon_state = "Bpacket"
 	//brand = "\improper Acme Co. cigarette"
 
-	New()
-		..()
-		fill_cigarre_package(src,list("chloralhydrate" = 5))
+/obj/item/storage/fancy/cigarettes/killthroat/initialize()
+	..()
+	fill_cigarre_package(src,list("chloralhydrate" = 5))
 
 // sweet dreams, baby!//
 
