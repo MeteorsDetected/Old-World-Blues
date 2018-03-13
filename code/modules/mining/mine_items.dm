@@ -7,7 +7,7 @@
 	req_access = list(access_mining)
 
 
-/obj/structure/closet/secure_closet/medical3/willContatin()
+/obj/structure/closet/secure_closet/miner/willContatin()
 	. = list(
 		/obj/item/device/radio/headset/cargo,
 		/obj/item/clothing/under/rank/miner,

@@ -13,6 +13,7 @@
 	max_amount = 60
 	attack_verb = list("hit", "bludgeoned", "whacked")
 
+
 /obj/item/stack/rods/cyborg
 	name = "metal rod synthesizer"
 	desc = "A device that makes metal rods."
@@ -21,6 +22,16 @@
 	uses_charge = 1
 	charge_costs = list(500)
 	stacktype = /obj/item/stack/rods
+
+
+/obj/item/stack/rods/update_icon()
+	if(!synths)
+		switch(amount)
+			if(1 to 4)
+				icon_state = "rods-[amount]"
+			else
+				icon_state = "rods"
+
 
 /obj/item/stack/rods/attackby(obj/item/W as obj, mob/user as mob)
 	..()
@@ -76,4 +87,3 @@
 		in_use = 0
 		F.add_fingerprint(usr)
 		use(2)
-	return

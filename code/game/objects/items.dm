@@ -51,7 +51,6 @@
 
 	var/wear_state = ""   // If set used instead icon_state for on-mob clothing overlays.
 	var/item_state = null // Used to specify the item state for the on-mob overlays.
-	var/item_state_slots = null //overrides the default item_state for particular slots.
 
 	// Specify the icon file to be used when the item is holding.
 	// If not set the default icon for that slot will be used.

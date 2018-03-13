@@ -48,7 +48,6 @@
 			item.icon_state = item_icon
 			return
 		else
-			item.item_state_slots = null
 			item.sprite_group = null
 
 			item.icon_state = item_icon
