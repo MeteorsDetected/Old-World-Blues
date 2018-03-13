@@ -470,6 +470,17 @@ other types of metals and chemistry for reagents).
 	reliability_base = 76
 	build_path = /obj/item/weapon/reagent_containers/glass/beaker/bluespace
 
+	// *** Implants (not really a subtype of design/item/medical)
+	/datum/design/item/weldingtool/experimental
+	name = "experimental welding tool"
+	desc = "An experimental version of a welding tool that is capable of self-replenishing fuel, as well as warming up coffee without harming the dishes."
+	id = "expwelder"
+	req_tech = list(TECH_ENGINEERING = 3, TECH_MATERIAL = 3)
+	materials = list(MATERIAL_STEEL = 500, MATERIAL_GLASS = 220)
+	reliability_base = 88
+	build_path = /obj/item/weapon/weldingtool/experimental
+	category = "Misc"
+
 /datum/design/item/beaker/noreact
 	name = "cryostasis"
 	desc = "A cryostasis beaker that allows for chemical storage without reactions. Can hold up to 50 units."

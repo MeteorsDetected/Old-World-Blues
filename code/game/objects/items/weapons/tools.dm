@@ -377,12 +377,13 @@
 /obj/item/weapon/weldingtool/largetank
 	name = "industrial welding tool"
 	icon_state = "industrialwelder"
-	max_fuel = 40
+	max_fuel = 50
 	origin_tech = list(TECH_ENGINEERING = 2)
 	matter = list(MATERIAL_STEEL = 70, MATERIAL_GLASS = 60)
 
 /obj/item/weapon/weldingtool/hugetank
 	name = "upgraded welding tool"
+	icon_state = "hugetankwelder"
 	max_fuel = 80
 	w_class = ITEM_SIZE_NORMAL
 	origin_tech = list(TECH_ENGINEERING = 3)
@@ -390,11 +391,13 @@
 
 /obj/item/weapon/weldingtool/experimental
 	name = "experimental welding tool"
+	desc = "An experimental version of a welding tool that is capable of self-replenishing fuel, as well as warming up coffee without harming the dishes."
+	icon_state = "expwelder"
 	max_fuel = 40
 	w_class = ITEM_SIZE_NORMAL
 	origin_tech = list(TECH_ENGINEERING = 4, TECH_PHORON = 3)
-	matter = list(MATERIAL_STEEL = 70, MATERIAL_GLASS = 120)
-	var/last_gen = 0
+	matter = list(MATERIAL_STEEL = 200, MATERIAL_GLASS = 120)
+	var/last_gen = 1
 
 //Proc to make the experimental welder generate fuel, optimized as fuck -Sieve
 /obj/item/weapon/weldingtool/experimental/proc/fuel_gen()
