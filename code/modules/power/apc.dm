@@ -37,6 +37,13 @@
 
 //NOTE: STUFF STOLEN FROM AIRLOCK.DM thx
 
+/obj/machinery/test/verb/shift()
+	set name = "Shift"
+	set src in view()
+	var/n_dir = input("dir", "dir") in list("North", "South", "East", "West")
+	n_dir = text2dir(n_dir)
+	shiftOnWall(src, n_dir, 32)
+
 /obj/machinery/power/apc/critical
 	is_critical = 1
 
@@ -56,7 +63,7 @@
 	name = "area power controller"
 	desc = "A control terminal for the area electrical systems."
 
-	icon_state = "apc0"
+	icon_state = "apc_map"
 	anchored = 1
 	use_power = 0
 	req_access = list(access_engine_equip)
@@ -78,7 +85,6 @@
 	var/coverlocked = 1
 	var/aidisabled = 0
 	var/alarmdisabled = 0
-	var/tdir = null
 	var/obj/machinery/power/terminal/terminal = null
 	var/lastused_light = 0
 	var/lastused_equip = 0
@@ -152,11 +158,10 @@
 	// this allows the APC to be embedded in a wall, yet still inside an area
 	if (building)
 		set_dir(ndir)
-	src.tdir = dir		// to fix Vars bug
-	set_dir(SOUTH)
 
-	pixel_x = (src.tdir & 3)? 0 : (src.tdir == 4 ? 24 : -24)
-	pixel_y = (src.tdir & 3)? (src.tdir ==1 ? 24 : -24) : 0
+	shiftOnWall(src, dir, 24)
+	icon_state = "apc0"
+
 	if (building==0)
 		init()
 	else
@@ -195,7 +200,7 @@
 	// create a terminal object at the same position as original turf loc
 	// wires will attach to this
 	terminal = new/obj/machinery/power/terminal(src.loc)
-	terminal.set_dir(tdir)
+	terminal.set_dir(reverse_dir[dir])
 	terminal.master = src
 	terminal.connect_to_network()
 
@@ -207,7 +212,6 @@
 		cell.charge = start_charge * cell.maxcharge / 100.0 		// (convert percentage to actual value)
 
 	var/area/A = src.loc.loc
-
 	//if area isn't specified use current
 	if(isarea(A) && src.areastring == null)
 		src.area = A

@@ -1962,3 +1962,19 @@ var/mob/dview/dview_mob = new
 		if(mob in living_mob_list)
 			living_player_count += 1
 	return living_player_count
+
+/proc/shiftOnWall(atom/movable/A, dir, shift = 32)
+	A.forceMove(get_step(A, dir))
+	switch(reverse_dir[dir])
+		if(NORTH)
+			A.pixel_x = 0
+			A.pixel_y = shift
+		if(SOUTH)
+			A.pixel_x = 0
+			A.pixel_y = -shift
+		if(EAST)
+			A.pixel_x = shift
+			A.pixel_y = 0
+		if(WEST)
+			A.pixel_x = -shift
+			A.pixel_y = 0
