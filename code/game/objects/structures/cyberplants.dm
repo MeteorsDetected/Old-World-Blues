@@ -37,6 +37,16 @@
 		"plant-24",
 		"plant-25",
 		"plant-26",
+		"plant-27",
+		"plant-28",
+		"plant-29",
+		"plant-30",
+		"plant-31",
+		"plant-32",
+		"plant-33",
+		"plant-34",
+		"plant-35",
+		"plant-36",
 		"plant-xmas"
 	)
 
