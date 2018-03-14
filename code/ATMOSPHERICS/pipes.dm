@@ -70,6 +70,9 @@
 
 	..()
 
+/obj/machinery/atmospherics/pipe/power_change()
+	return
+
 /obj/machinery/atmospherics/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	if (istype(src, /obj/machinery/atmospherics/pipe/tank))
 		return ..()
