@@ -1963,9 +1963,8 @@ var/mob/dview/dview_mob = new
 			living_player_count += 1
 	return living_player_count
 
-/proc/shiftOnWall(atom/movable/A, dir, shift = 32)
-	A.forceMove(get_step(A, dir))
-	switch(reverse_dir[dir])
+/proc/shiftPixel(atom/movable/A, dir, shift = 32)
+	switch(dir)
 		if(NORTH)
 			A.pixel_x = 0
 			A.pixel_y = shift
@@ -1978,3 +1977,8 @@ var/mob/dview/dview_mob = new
 		if(WEST)
 			A.pixel_x = -shift
 			A.pixel_y = 0
+
+/proc/shiftOnWall(atom/movable/A, dir, shift)
+	A.forceMove(get_step(A, dir))
+	shiftPixel(A, reverse_dir[dir], shift)
+

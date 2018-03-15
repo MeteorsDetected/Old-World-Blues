@@ -156,15 +156,13 @@
 
 	// offset 24 pixels in direction of dir
 	// this allows the APC to be embedded in a wall, yet still inside an area
-	if (building)
-		set_dir(ndir)
-
-	shiftOnWall(src, dir, 24)
-	icon_state = "apc0"
-
 	if (building==0)
+		shiftOnWall(src, dir, 24)
+		icon_state = "apc0"
 		init()
 	else
+		set_dir(reverse_dir[ndir])
+		shiftPixel(src, ndir, 24)
 		area = get_area(src)
 		area.apc = src
 		opened = 1
