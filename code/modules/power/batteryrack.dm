@@ -101,7 +101,7 @@
 /obj/machinery/power/smes/batteryrack/makeshift
 	name = "makeshift PSU"
 	desc = "A rack of batteries connected by a mess of wires posing as a PSU."
-	circuit = /obj/item/weapon/circuitboard/ghettosmes
+	circuit = /obj/item/weapon/circuitboard/apc
 	var/overcharge_percent = 0
 
 /obj/machinery/power/smes/batteryrack/makeshift/update_icon()

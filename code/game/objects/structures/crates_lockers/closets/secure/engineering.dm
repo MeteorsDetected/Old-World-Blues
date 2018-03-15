@@ -40,7 +40,7 @@
 	return list(
 		/obj/item/clothing/gloves/yellow = 2,
 		/obj/item/storage/toolbox/electrical = 3,
-		/obj/item/weapon/power_control = 3,
+		/obj/item/weapon/circuitboard/apc = 3,
 		/obj/item/device/multitool = 3,
 	)
 
