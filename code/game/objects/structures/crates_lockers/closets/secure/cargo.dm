@@ -4,7 +4,7 @@
 	icon_state = "securecargo"
 	icon_opened = "securecargoopen"
 
-/obj/structure/closet/secure_clset/carbgotech/willContatin()
+/obj/structure/closet/secure_closet/cargotech/willContatin()
 	. = list(
 		/obj/item/clothing/under/rank/cargoshort,
 		/obj/item/clothing/under/rank/cargo/skirt,
