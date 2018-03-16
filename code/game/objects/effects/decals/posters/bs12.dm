@@ -288,3 +288,8 @@
 	icon_state="bsposter58"
 	name = "space carp information poster"
 	desc = "This poster showcases an old spacer saying on the dangers of migrant space carp."
+
+/datum/poster/bay_59
+	icon_state="bsposter59"
+	name = "walking fish poster"
+	desc = "This poster showcases an walking fish. Small signature from below: Meteors Detected!"
