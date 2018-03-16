@@ -156,15 +156,13 @@
 
 	// offset 24 pixels in direction of dir
 	// this allows the APC to be embedded in a wall, yet still inside an area
-	if (building)
-		set_dir(ndir)
-
-	shiftOnWall(src, dir, 24)
-	icon_state = "apc0"
-
 	if (building==0)
+		shiftOnWall(src, dir, 24)
+		icon_state = "apc0"
 		init()
 	else
+		set_dir(reverse_dir[ndir])
+		shiftPixel(src, ndir, 24)
 		area = get_area(src)
 		area.apc = src
 		opened = 1
@@ -455,7 +453,7 @@
 						user.visible_message(\
 							"<span class='warning'>[user.name] has removed the power control board from [src.name]!</span>",\
 							SPAN_NOTE("You remove the power control board."))
-						new /obj/item/weapon/power_control(loc)
+						new /obj/item/weapon/circuitboard/apc(loc)
 		else if (opened!=2) //cover isn't removed
 			opened = 0
 			update_icon()
@@ -571,7 +569,7 @@
 				new /obj/item/stack/cable_coil(loc,10)
 				user << SPAN_NOTE("You cut the cables and dismantle the power terminal.")
 				qdel(terminal)
-	else if (istype(W, /obj/item/weapon/power_control) && opened && has_electronics==0)
+	else if (istype(W, /obj/item/weapon/circuitboard/apc) && opened && has_electronics==0)
 		if ((stat & BROKEN))
 			user << "<span class='warning'>You cannot put the board inside, the frame is damaged.</span>"
 			return
@@ -681,8 +679,6 @@
 				return 1
 
 /obj/machinery/power/apc/attack_hand(mob/user)
-//	if (!can_use(user)) This already gets called in interact() and in topic()
-//		return
 	if(!user)
 		return
 	src.add_fingerprint(user)
@@ -845,15 +841,10 @@
 		area.power_light = (lighting > 1)
 		area.power_equip = (equipment > 1)
 		area.power_environ = (environ > 1)
-//		if (area.name == "AI Chamber")
-//			spawn(10)
-//				world << " [area.name] [area.power_equip]"
 	else
 		area.power_light = 0
 		area.power_equip = 0
 		area.power_environ = 0
-//		if (area.name == "AI Chamber")
-//			world << "[area.power_equip]"
 	area.power_change()
 
 /obj/machinery/power/apc/proc/isWireCut(var/wireIndex)
@@ -1215,7 +1206,6 @@
 	..()
 
 /obj/machinery/power/apc/ex_act(severity)
-
 	switch(severity)
 		if(1.0)
 			//set_broken() //now qdel() do what we need
@@ -1233,7 +1223,6 @@
 				set_broken()
 				if (cell && prob(25))
 					cell.ex_act(3.0)
-	return
 
 /obj/machinery/power/apc/blob_act()
 	if (prob(75))
@@ -1288,19 +1277,4 @@
 	update_icon()
 	return 1
 
-/obj/item/weapon/power_control
-	name = "power control module"
-	desc = "Heavy-duty switching circuits for power control."
-	icon = 'icons/obj/module.dmi'
-	icon_state = "power_mod"
-	item_state = "electronic"
-	matter = list(MATERIAL_STEEL = 50, MATERIAL_GLASS = 50)
-	w_class = ITEM_SIZE_SMALL
-	flags = CONDUCT
-
-/obj/item/weapon/power_control/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-	if (istype(W, /obj/item/device/multitool))
-		var/obj/item/weapon/circuitboard/ghettosmes/newcircuit = new(user.loc)
-		qdel(src)
-		user.put_in_hands(newcircuit)
 #undef APC_UPDATE_ICON_COOLDOWN

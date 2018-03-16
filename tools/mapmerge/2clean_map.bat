@@ -1,8 +1,6 @@
 SET z_levels=6
-cd 
+cd
 
-FOR %%f IN (../../maps/*.dmm) DO (
-  java -jar MapPatcher.jar -clean ../../maps/%%f.backup ../../maps/%%f ../../maps/%%f
+FOR /R ../../maps/ %%f IN (*.dmm) DO (
+  echo java -jar MapPatcher.jar -clean %%f.backup %%f %%f >> out.txt
 )
-
-pause

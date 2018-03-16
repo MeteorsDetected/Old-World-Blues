@@ -1236,7 +1236,7 @@
 	req_one_access = list(access_atmospherics,access_engine_equip)
 	products = list(
 		/obj/item/weapon/airalarm_electronics = 10,
-		/obj/item/weapon/power_control = 10,
+		/obj/item/weapon/circuitboard/apc = 10,
 		/obj/item/weapon/airlock_electronics = 10,
 		/obj/item/device/flashlight/heavy = 6,
 		/obj/item/clothing/glasses/meson = 2,

@@ -16,17 +16,14 @@
 	origin_tech = list(TECH_POWER = 3, TECH_ENGINEERING = 2)
 	req_components = list(/obj/item/weapon/cell = 3)
 
-/obj/item/weapon/circuitboard/ghettosmes
-	name = T_BOARD("makeshift PSU")
-	desc = "An APC circuit repurposed into some power storage device controller"
+/obj/item/weapon/circuitboard/apc
+	name = "power control module"
+	desc = "Heavy-duty switching circuits for power control."
+	matter = list(MATERIAL_STEEL = 50, MATERIAL_GLASS = 50)
+	icon = 'icons/obj/module.dmi'
+	icon_state = "power_mod"
+	item_state = "electronic"
+	flags = CONDUCT
 	build_path = /obj/machinery/power/smes/batteryrack/makeshift
 	board_type = "machine"
 	req_components = list(/obj/item/weapon/cell = 3)
-
-
-//TODO: rewrite this!
-/obj/item/weapon/circuitboard/ghettosmes/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-	if (istype(W, /obj/item/device/multitool))
-		var/obj/item/weapon/power_control/newcircuit = new (user.loc)
-		qdel(src)
-		user.put_in_hands(newcircuit)
