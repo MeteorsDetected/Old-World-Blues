@@ -11,7 +11,7 @@
 	var/emagged = 0
 
 /obj/item/weapon/circuitboard/security/initialize()
-	..()
+	. = ..()
 	network = station_networks
 
 /obj/item/weapon/circuitboard/security/engineering
@@ -20,7 +20,7 @@
 	req_access = list()
 
 /obj/item/weapon/circuitboard/security/engineering/initialize()
-	..()
+	. = ..()
 	network = engineering_networks
 
 /obj/item/weapon/circuitboard/security/mining

@@ -90,7 +90,7 @@
 	device_type = /obj/item/weapon/rcd/mounted
 
 /obj/item/rig_module/device/initialize()
-	..()
+	. = ..()
 	if(device_type)
 		device = new device_type(src)
 
@@ -276,7 +276,7 @@
 	var/obj/item/voice_changer/voice_holder
 
 /obj/item/rig_module/voice/initialize()
-	..()
+	. = ..()
 	voice_holder = new(src)
 	voice_holder.active = 0
 
@@ -365,7 +365,7 @@
 	return 1
 
 /obj/item/rig_module/maneuvering_jets/initialize()
-	..()
+	. = ..()
 	jets = new(src)
 
 /obj/item/rig_module/maneuvering_jets/installed()

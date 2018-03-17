@@ -15,7 +15,7 @@
 	blanks = 0
 
 /obj/item/weapon/deck/cah/initialize()
-	..()
+	. = ..()
 	var/datum/playingcard/P
 	for(var/cardtext in card_text_list)
 		P = new()

@@ -68,7 +68,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	color = COLOR_WHITE
 
 /obj/structure/cable/initialize()
-	..()
+	. = ..()
 
 	// ensure d1 & d2 reflect the icon_state for entering and exiting cable
 	var/dash = findtext(icon_state, "-")
@@ -869,4 +869,4 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/item/stack/cable_coil/random/initialize()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
-	..()
+	. = ..()

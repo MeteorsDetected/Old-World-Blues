@@ -110,7 +110,7 @@
 	var/overheating = 0		//if this gets high enough the generator explodes
 
 /obj/machinery/power/port_gen/pacman/initialize()
-	..()
+	. = ..()
 	if(fuel_material)
 		fuel_material = get_material_by_name(fuel_material)
 	sheet_name = "[capitalize(fuel_material.name)] [capitalize(fuel_material.sheet_plural_name)]"

@@ -19,7 +19,7 @@
 /atom/movable/New()
 	..()
 	if(auto_init && atomInstantInitialize)
-		initialize()
+		initialize(FALSE)
 
 /*
 /atom/movable/Del()
@@ -43,7 +43,10 @@
 			pulledby.pulling = null
 		pulledby = null
 
-/atom/movable/proc/initialize()
+/atom/movable/proc/initialize(maploaded = FALSE)
+	return INITIALIZE_HINT_NORMAL
+
+/atom/movable/proc/lateInitialize()
 	return
 
 /atom/movable/Bump(var/atom/A, yes)
@@ -57,7 +60,6 @@
 			A.Bumped(src)
 		return
 	..()
-	return
 
 /atom/movable/proc/forceMove(atom/NewLoc, Dir = 0)
 	var/OldLoc = loc

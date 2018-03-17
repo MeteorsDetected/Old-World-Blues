@@ -74,7 +74,11 @@
 	..()
 
 /obj/machinery/computer/message_monitor/initialize()
-	..()
+	. = ..()
+	if(. != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/message_monitor/lateInitialize()
 	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
 	if(!linkedServer)
 		if(message_servers && message_servers.len > 0)
@@ -510,10 +514,13 @@
 /obj/item/weapon/paper/monitorkey
 	//..()
 	name = "Monitor Decryption Key"
-	var/obj/machinery/message_server/server = null
 
 /obj/item/weapon/paper/monitorkey/initialize()
-	..()
+	. = ..()
+	if(. != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/item/weapon/paper/monitorkey/lateInitialize()
 	if(message_servers)
 		for(var/obj/machinery/message_server/server in message_servers)
 			if(!isnull(server))

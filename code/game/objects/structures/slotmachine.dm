@@ -13,7 +13,7 @@
 	//var/list/fruits = list("Cherry","Apple","Blueberry","Bell","Watermelon","JACKPOT")
 
 /obj/structure/slotmachine/initialize()
-	..()
+	. = ..()
 	jackpot = rand(1000,50000);
 	plays = rand(1,50)
 	slots = list("1" = "Cherry","2" = "Cherry","3" = "Cherry")

@@ -243,7 +243,7 @@
 	var/list/stored_research
 
 /obj/item/rig_module/datajack/initialize()
-	..()
+	. = ..()
 	stored_research = list()
 
 /obj/item/rig_module/datajack/engage(atom/target)

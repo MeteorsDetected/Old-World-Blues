@@ -33,6 +33,11 @@
 
 /obj/machinery/door_timer/initialize()
 	. = ..()
+	if(src.id && . != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/door_timer/lateInitialize()
+	..()
 	for(var/obj/machinery/door/window/brigdoor/M in machines)
 		if (M.id == src.id)
 			targets += M

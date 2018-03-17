@@ -11,7 +11,7 @@
 	..(loc)
 
 /obj/structure/material/initialize()
-	..()
+	. = ..()
 	color = null
 	material = get_material_by_name(material)
 	if(!istype(material))

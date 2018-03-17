@@ -22,7 +22,7 @@
 	                                                    // For reference, a fully pressurized oxy tank at 50% gas release firing a health
 	                                                    // analyzer with a force_divisor of 10 hit with a damage multiplier of 3000+.
 /obj/item/weapon/gun/launcher/pneumatic/initialize()
-	..()
+	. = ..()
 	item_storage = new(src)
 	item_storage.name = "hopper"
 	item_storage.max_w_class = max_w_class

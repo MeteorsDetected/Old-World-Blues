@@ -10,6 +10,7 @@
 	var/animal = 1
 
 /obj/item/weapon/fossil/base/initialize()
+	. = ..()
 	var/list/l = list(
 		/obj/item/weapon/fossil/bone=9,
 		/obj/item/weapon/fossil/skull=3,
@@ -20,7 +21,7 @@
 	var/turf/T = get_turf(src)
 	if(istype(T, /turf/simulated/mineral))
 		T:last_find = W
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/weapon/fossil/bone
 	name = "Fossilised bone"
@@ -57,6 +58,7 @@
 	var/plaque_contents = "Unnamed alien creature"
 
 /obj/skeleton/initialize()
+	. = ..()
 	src.breq = rand(6)+3
 	src.desc = "An incomplete skeleton, looks like it could use [src.breq-src.bnum] more bones."
 

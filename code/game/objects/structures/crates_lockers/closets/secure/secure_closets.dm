@@ -28,11 +28,11 @@
 
 
 /obj/structure/closet/secure_closet/initialize()
-	..()
+	. = ..()
 	update_icon()
 
 /obj/structure/closet/secure_closet/examine(mob/user, return_dist=1)
-	.=..()
+	. = ..()
 	if(broken)
 		user << "It appears to be broken."
 

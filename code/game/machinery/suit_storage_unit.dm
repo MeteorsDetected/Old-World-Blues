@@ -587,7 +587,7 @@
 	var/datum/wires/suit_storage_unit/wires = null
 
 /obj/machinery/suit_cycler/initialize()
-	..()
+	. = ..()
 	wires = new(src)
 	target_department = departments[1]
 	target_species = species[1]

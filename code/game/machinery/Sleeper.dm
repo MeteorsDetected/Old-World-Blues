@@ -29,7 +29,7 @@
 				qdel(src)
 
 /obj/machinery/sleep_console/initialize()
-	..()
+	. = ..()
 	for(var/dir in cardinal)
 		connected = locate(/obj/machinery/sleeper) in get_step(src, dir)
 		if(connected)
@@ -129,11 +129,6 @@
 
 
 
-
-
-
-
-
 /////////////////////////////////////////
 // THE SLEEPER ITSELF
 /////////////////////////////////////////
@@ -156,7 +151,7 @@
 	active_power_usage = 200 //builtin health analyzer, dialysis machine, injectors.
 
 	initialize()
-		..()
+		. = ..()
 		beaker = new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
 
 	process()

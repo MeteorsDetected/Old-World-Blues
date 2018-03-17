@@ -241,7 +241,7 @@
 	desc = "This template spellbook was never meant for the eyes of man..."
 
 /obj/item/weapon/spellbook/oneuse/initialize()
-	..()
+	. = ..()
 	name += spellname
 
 /obj/item/weapon/spellbook/oneuse/attack_self(mob/living/user)

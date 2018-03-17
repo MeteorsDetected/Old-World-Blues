@@ -31,7 +31,7 @@
 	)
 
 /obj/item/storage/firstair/fire/initialize()
-	..()
+	. = ..()
 	icon_state = pick("ointment", "firefirstaid")
 
 
@@ -57,7 +57,7 @@
 	)
 
 /obj/item/storage/firstaid/toxin/initialize()
-	..()
+	. = ..()
 	icon_state = pick("antitoxin","antitoxfirstaid","antitoxfirstaid2","antitoxfirstaid3")
 
 

@@ -18,7 +18,7 @@ var/global/list/rad_collectors = list()
 	var/drainratio = 1
 
 /obj/machinery/power/rad_collector/initialize()
-	..()
+	. = ..()
 	rad_collectors += src
 
 /obj/machinery/power/rad_collector/Destroy()

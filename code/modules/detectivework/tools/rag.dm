@@ -29,7 +29,7 @@
 	var/burn_time = 20 //if the rag burns for too long it turns to ashes
 
 /obj/item/weapon/reagent_containers/rag/initialize()
-	..()
+	. = ..()
 	update_name()
 
 /obj/item/weapon/reagent_containers/rag/Destroy()

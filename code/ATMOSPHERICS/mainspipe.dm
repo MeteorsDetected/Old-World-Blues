@@ -520,7 +520,7 @@
 				nodes[1] = target
 				break
 
-		..()
+		. = ..()
 
 		var/turf/T = src.loc	// hide if turf is not intact
 		if(level == 1 && !T.is_plating()) hide(1)

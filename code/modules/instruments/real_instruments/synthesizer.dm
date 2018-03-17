@@ -82,7 +82,7 @@
 	var/coding_help = 1
 
 	initialize()
-		..()
+		. = ..()
 		for (var/type in typesof(/datum/instrument))
 			var/datum/instrument/new_instrument = new type
 			if (!new_instrument.id) continue

@@ -12,7 +12,7 @@
 	var/engine_on = FALSE
 
 /obj/motorcycle/initialize()
-	..()
+	. = ..()
 	move_break = world.time
 	update_icon()
 

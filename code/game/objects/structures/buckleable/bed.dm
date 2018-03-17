@@ -27,7 +27,7 @@
 	buckle_lying = LEFT
 
 /obj/structure/material/bed/flipped/initialize()
-	..()
+	. = ..()
 	for(var/obj/item/weapon/bedsheet/B in src.loc)
 		B.transform = src.transform
 

@@ -6,7 +6,7 @@
 	var/spawning_id
 
 /obj/item/weapon/reagent_containers/glass/replenishing/initialize()
-	..()
+	. = ..()
 	processing_objects |= src
 	spawning_id = pick("blood","holywater","lube","stoxin","ethanol","ice","glycerol","fuel","cleaner")
 

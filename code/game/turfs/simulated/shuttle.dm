@@ -68,6 +68,7 @@
 	..()
 
 /obj/shuttle/corner/initialize()
+	. = ..()
 	var/dir = 0
 	var/count = 0
 	for(var/i in cardinal)
@@ -79,7 +80,7 @@
 	if(count != 2)
 		world.log << "ERROR: Shuttle coner ([x],[y],[z]) has [count] neigbors. Must have only 2."
 		new /turf/simulated/shuttle/wall(loc)
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 	else
 		src.dir = dir
 

@@ -58,7 +58,7 @@
 	unacidable = 1
 
 /obj/machinery/embedded_controller/radio/initialize()
-	..()
+	. = ..()
 	set_frequency(frequency)
 
 /obj/machinery/embedded_controller/radio/update_icon()

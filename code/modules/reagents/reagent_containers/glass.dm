@@ -48,7 +48,7 @@
 
 // Self procs //
 /obj/item/weapon/reagent_containers/glass/initialize()
-	..()
+	. = ..()
 	if(isGlass)
 		unacidable = 1
 

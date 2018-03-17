@@ -97,7 +97,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/brand
 
 /obj/item/clothing/mask/smokable/initialize()
-	..()
+	. = ..()
 	flags |= NOREACT // so it doesn't react until you light it
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 15
 
@@ -326,7 +326,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	randpixel = 10
 
 /obj/item/weapon/cigbutt/initialize()
-	..()
+	. = ..()
 	transform = turn(transform,rand(0,360))
 
 /obj/item/weapon/cigbutt/cigarbutt
@@ -367,7 +367,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	ignitermes = "USER fiddles with FLAME, and manages to light their NAME with the power of science."
 
 /obj/item/clothing/mask/smokable/pipe/initialize()
-	..()
+	. = ..()
 	name = "empty [initial(name)]"
 
 /obj/item/clothing/mask/smokable/pipe/light(var/flavor_text = "[usr] lights the [name].")
@@ -469,6 +469,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	item_state = "zippo"
 
 /obj/item/weapon/flame/lighter/random/initialize()
+	. = ..()
 	icon_state = "lighter-[pick("r","c","y","g")]"
 	item_state = icon_state
 	base_state = icon_state

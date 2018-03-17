@@ -13,7 +13,7 @@
 	var/obj/item/device/radio/target_radio
 
 /obj/item/device/beacon_locator/initialize()
-	..()
+	. = ..()
 	processing_objects |= src
 
 /obj/item/device/beacon_locator/Destroy()

@@ -67,7 +67,7 @@
 	// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is crated.
 	src.last_slogan = world.time + rand(0, slogan_delay)
 	src.build_inventory()
-	..()
+	. = ..()
 
 /**
  *  Build src.produdct_records from the products lists

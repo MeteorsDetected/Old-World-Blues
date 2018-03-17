@@ -42,14 +42,14 @@
 // These are used on individual outposts as backup should power line be cut, or engineering outpost lost power.
 // 1M Charge, 150K I/O
 /obj/machinery/power/smes/buildable/outpost_substation/initialize()
-	..()
+	. = ..()
 	component_parts += new /obj/item/weapon/smes_coil/weak(src)
 	RefreshParts()
 
 // This one is pre-installed on engineering shuttle. Allows rapid charging/discharging for easier transport of power to outpost
 // 11M Charge, 2.5M I/O
 /obj/machinery/power/smes/buildable/power_shuttle/initialize()
-	..()
+	. = ..()
 	component_parts += new /obj/item/weapon/smes_coil/super_io(src)
 	component_parts += new /obj/item/weapon/smes_coil/super_io(src)
 	component_parts += new /obj/item/weapon/smes_coil(src)
@@ -113,7 +113,7 @@
 // Parameters: None
 // Description: Set wires with requed type
 /obj/machinery/power/smes/buildable/initialize()
-	..()
+	. = ..()
 	src.wires = new /datum/wires/smes(src)
 
 // Proc: initialize()

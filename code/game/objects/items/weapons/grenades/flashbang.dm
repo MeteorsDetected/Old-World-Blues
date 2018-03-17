@@ -151,7 +151,6 @@
 			new /obj/item/weapon/grenade/flashbang/cluster(src.loc)
 			playsound(src.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 	qdel(src)
-	return
 
 //Same concept as the segments, so that all of the parts don't become reliant on the clusterbang
 /obj/item/weapon/grenade/flashbang/cluster/initialize()

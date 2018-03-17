@@ -82,7 +82,7 @@
 	return cell.drain_power(drain_check)
 
 /obj/mecha/initialize()
-	..()
+	. = ..()
 	events = new
 
 	update_icon()
@@ -99,7 +99,6 @@
 	log_message("[src.name] created.")
 	loc.Entered(src)
 	mechas_list += src //global mech list
-	return
 
 /obj/mecha/Destroy()
 	src.go_out()

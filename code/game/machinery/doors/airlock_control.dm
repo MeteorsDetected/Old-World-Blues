@@ -211,7 +211,7 @@
 	radio_connection = radio_controller.add_object(src, frequency, RADIO_AIRLOCK)
 
 /obj/machinery/airlock_sensor/initialize()
-	..()
+	. = ..()
 	set_frequency(frequency)
 
 /obj/machinery/airlock_sensor/Destroy()
@@ -277,7 +277,7 @@
 
 
 /obj/machinery/access_button/initialize()
-	..()
+	. = ..()
 	set_frequency(frequency)
 
 

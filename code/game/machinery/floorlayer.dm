@@ -11,7 +11,7 @@
 
 /obj/machinery/floorlayer/initialize()
 	T = new/obj/item/stack/tile/steel(src)
-	..()
+	. = ..()
 
 /obj/machinery/floorlayer/Move(new_turf,M_Dir)
 	..()

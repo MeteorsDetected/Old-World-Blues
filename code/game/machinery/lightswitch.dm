@@ -13,7 +13,7 @@
 	//	luminosity = 1
 
 /obj/machinery/light_switch/initialize()
-	..()
+	. = ..()
 	if(otherarea)
 		src.area = locate(text2path("/area/[otherarea]"))
 	else

@@ -36,7 +36,7 @@
 	var/health = 50.0
 
 /obj/structure/inflatable/initialize()
-	..()
+	. = ..()
 	update_nearby_tiles(need_rebuild=1)
 
 /obj/structure/inflatable/Destroy()

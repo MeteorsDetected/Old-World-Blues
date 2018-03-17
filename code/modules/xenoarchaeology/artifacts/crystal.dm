@@ -6,7 +6,7 @@
 	density = 1
 
 /obj/structure/crystal/initialize()
-	..()
+	. = ..()
 	icon_state = pick("ano70","ano80")
 
 	desc = pick(\

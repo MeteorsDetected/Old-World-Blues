@@ -19,7 +19,7 @@
 	anchored = 1
 
 /obj/machinery/chemical_dispenser/initialize()
-	..()
+	.= ..()
 
 	if(spawn_cartridges)
 		for(var/type in spawn_cartridges)

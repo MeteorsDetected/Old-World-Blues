@@ -14,7 +14,7 @@
 	var/locked = TRUE
 
 /obj/structure/fireaxecabinet/initialize()
-	..()
+	. = ..()
 	health = maxhealth
 	fireaxe = new (src)
 	door = new(src.loc)

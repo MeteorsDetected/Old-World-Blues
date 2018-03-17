@@ -360,7 +360,7 @@ var/list/solars_list = list()
 
 
 /obj/machinery/power/solar_control/initialize()
-	..()
+	. = ..()
 	if(!connect_to_network())
 		return
 	set_panels(cdir)

@@ -335,24 +335,25 @@
 
 
 /obj/structure/window/New(Loc, start_dir=null, constructed=0)
-	..()
-
 	//player-constructed windows
 	if (constructed)
 		anchored = 0
-
 	if (start_dir)
 		set_dir(start_dir)
-
-
-/obj/structure/window/initialize()
 	..()
+
+
+/obj/structure/window/initialize(maploaded = FALSE)
+	. = ..()
 	health = maxhealth
 
 	ini_dir = dir
 
 	update_nearby_tiles(need_rebuild=1)
-	update_nearby_icons()
+	if(maploaded)
+		update_icon()
+	else
+		update_nearby_icons()
 
 
 /obj/structure/window/Destroy()
@@ -409,7 +410,6 @@
 			else
 				icon_state = "[basestate][junction]"
 
-		return
 
 /obj/structure/window/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 800)

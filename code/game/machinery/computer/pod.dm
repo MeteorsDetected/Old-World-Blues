@@ -15,6 +15,10 @@
 
 /obj/machinery/computer/pod/initialize()
 	. = ..()
+	if(. != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/pod/lateInitialize()
 	for(var/obj/machinery/mass_driver/M in machines)
 		if(M.id == id)
 			connected = M

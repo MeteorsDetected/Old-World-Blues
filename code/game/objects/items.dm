@@ -64,7 +64,7 @@
 	var/tmp/list/sprite_sheets_obj = null
 
 /obj/item/initialize()
-	..()
+	. = ..()
 	if(randpixel && (!pixel_x && !pixel_y)) //hopefully this will prevent us from messing with mapper-set pixel_x/y
 		pixel_x = rand(-randpixel, randpixel)
 		pixel_y = rand(-randpixel, randpixel)

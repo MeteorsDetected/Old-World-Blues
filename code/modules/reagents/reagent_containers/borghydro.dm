@@ -24,7 +24,7 @@
 	reagent_ids = list("tricordrazine", "inaprovaline", "tramadol", "bicaridine", "dermaline", "anti_toxin", "dexalin")
 
 /obj/item/weapon/reagent_containers/borghypo/initialize()
-	..()
+	. = ..()
 
 	for(var/T in reagent_ids)
 		reagent_volumes[T] = volume

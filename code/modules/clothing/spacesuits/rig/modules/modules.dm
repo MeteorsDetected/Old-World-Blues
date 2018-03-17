@@ -109,7 +109,7 @@
 	..()
 
 /obj/item/rig_module/initialize()
-	..()
+	. = ..()
 	if(suit_overlay_inactive)
 		suit_overlay = suit_overlay_inactive
 

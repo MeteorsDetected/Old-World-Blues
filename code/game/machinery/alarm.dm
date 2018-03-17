@@ -144,7 +144,7 @@
 
 
 /obj/machinery/alarm/initialize()
-	..()
+	. = ..()
 	set_frequency(frequency)
 	if (!master_is_operating())
 		elect_master()
@@ -1109,7 +1109,7 @@ FIRE ALARM
 		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 
 /obj/machinery/firealarm/initialize()
-	..()
+	. = ..()
 	if(isStationLevel(z))
 		if(security_level)
 			src.overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")

@@ -79,6 +79,7 @@
 
 
 /obj/structure/transit_tube_pod/initialize()
+	. = ..()
 	air_contents = new
 	air_contents.adjust_multi("oxygen", MOLES_O2STANDARD * 2, "nitrogen", MOLES_N2STANDARD)
 	air_contents.temperature = T20C

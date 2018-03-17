@@ -171,7 +171,7 @@
 
 
 /obj/structure/material/chair/janicart/initialize()
-	..()
+	. = ..()
 	create_reagents(100)
 
 

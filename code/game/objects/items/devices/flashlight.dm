@@ -15,7 +15,7 @@
 	var/brightness_on = 4 //luminosity when on
 
 /obj/item/device/flashlight/initialize()
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/device/flashlight/update_icon()
@@ -179,7 +179,7 @@
 /obj/item/device/flashlight/flare/initialize()
 	// Sorry for changing this so much but I keep under-estimating how long X number of ticks last in seconds.
 	fuel = rand(800, 1000)
-	..()
+	. = ..()
 
 /obj/item/device/flashlight/flare/process()
 	var/turf/pos = get_turf(src)
@@ -227,7 +227,7 @@
 	on = 1 //Bio-luminesence has one setting, on.
 
 /obj/item/device/flashlight/slime/initialize()
-	..()
+	. = ..()
 	set_light(brightness_on)
 
 /obj/item/device/flashlight/slime/update_icon()

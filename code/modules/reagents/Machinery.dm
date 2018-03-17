@@ -46,7 +46,7 @@
 		recharged -= 1
 
 /obj/machinery/chem_dispenser/initialize()
-	..()
+	. = ..()
 	recharge()
 	dispensable_reagents = sortList(dispensable_reagents)
 
@@ -285,7 +285,7 @@
 	var/max_pill_count = 20
 
 /obj/machinery/chem_master/initialize()
-	..()
+	. = ..()
 	create_reagents(120)
 
 /obj/machinery/chem_master/ex_act(severity)
@@ -596,7 +596,7 @@
 	var/list/holdingitems = list()
 
 /obj/machinery/reagentgrinder/initialize()
-	..()
+	. = ..()
 	beaker = new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
 
 /obj/machinery/reagentgrinder/update_icon()

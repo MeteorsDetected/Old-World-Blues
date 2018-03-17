@@ -10,7 +10,7 @@
 	//	flags = CONDUCT
 
 /obj/structure/lattice/initialize()
-	..()
+	. = ..()
 ///// Z-Level Stuff
 	if(!(istype(src.loc, /turf/space) || istype(src.loc, /turf/simulated/floor/open)))
 ///// Z-Level Stuff

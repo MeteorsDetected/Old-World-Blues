@@ -6,7 +6,7 @@ var/list/doppler_arrays = list()
 
 
 /obj/machinery/doppler_array/initialize()
-	..()
+	. = ..()
 	doppler_arrays |= src
 
 /obj/machinery/doppler_array/Destroy()

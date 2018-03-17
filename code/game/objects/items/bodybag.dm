@@ -126,7 +126,7 @@
 
 /obj/structure/closet/body_bag/cryobag/initialize()
 	tank = new /obj/item/weapon/tank/emergency_oxygen(null) //It's in nullspace to prevent ejection when the bag is opened.
-	..()
+	. = ..()
 
 /obj/structure/closet/body_bag/cryobag/Destroy()
 	qdel(tank)

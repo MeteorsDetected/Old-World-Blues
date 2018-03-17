@@ -31,11 +31,11 @@
 	icon_state = "chitin"
 
 /obj/item/organ/internal/brain/initialize()
-	..()
+	. = ..()
 	health = config.default_brain_health
 	create_reagents(10)
 	if(brainmob && brainmob.client)
-		brainmob.client.screen.len = null //clear the hud
+		brainmob.client.screen.Cut() //clear the hud
 
 /obj/item/organ/internal/brain/Destroy()
 	if(brainmob)

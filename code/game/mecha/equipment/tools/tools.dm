@@ -192,7 +192,7 @@
 	initialize()
 		create_reagents(max_water)
 		reagents.add_reagent("water", max_water)
-		..()
+		. = ..()
 
 	action(atom/target) //copypasted from extinguisher. TODO: Rewrite from scratch.
 		if(!action_checks(target) || get_dist(chassis, target)>3) return
@@ -627,7 +627,7 @@
 	var/list/repairable_damage = list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH)
 
 	initialize()
-		..()
+		. = ..()
 		pr_repair_droid = new /datum/global_iterator/mecha_repair_droid(list(src),0)
 		pr_repair_droid.set_delay(equip_cooldown)
 
@@ -837,7 +837,7 @@
 	reliability = 1000
 
 	initialize()
-		..()
+		. = ..()
 		setFuel()
 
 	Destroy()

@@ -151,9 +151,12 @@
 
 
 /obj/machinery/conveyor_switch/initialize()
-	..()
+	. = ..()
 	update_icon()
+	if(. != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
 
+/obj/machinery/conveyor_switch/lateInitialize()
 	conveyors = list()
 	for(var/obj/machinery/conveyor/C in machines)
 		if(C.id == id)

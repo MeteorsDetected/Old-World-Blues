@@ -20,10 +20,10 @@
 	opacity = 1
 
 /obj/structure/bookcase/initialize()
-	..()
+	. = ..()
 	for(var/obj/item/I in loc)
 		if(istype(I, /obj/item/weapon/book))
-			I.loc = src
+			I.forceMove(src)
 	update_icon()
 
 /obj/structure/bookcase/attackby(obj/O as obj, mob/user as mob)
@@ -79,7 +79,7 @@
 	name = "Medical Manuals bookcase"
 
 	initialize()
-		..()
+		. = ..()
 		new /obj/item/weapon/book/manual/medical_cloning(src)
 		new /obj/item/weapon/book/manual/medical_diagnostics_manual(src)
 		new /obj/item/weapon/book/manual/medical_diagnostics_manual(src)
@@ -91,7 +91,7 @@
 	name = "Engineering Manuals bookcase"
 
 	initialize()
-		..()
+		. = ..()
 		new /obj/item/weapon/book/manual/engineering_construction(src)
 		new /obj/item/weapon/book/manual/engineering_particle_accelerator(src)
 		new /obj/item/weapon/book/manual/engineering_hacking(src)
@@ -105,7 +105,7 @@
 	name = "R&D Manuals bookcase"
 
 	initialize()
-		..()
+		. = ..()
 		new /obj/item/weapon/book/manual/research_and_development(src)
 		update_icon()
 

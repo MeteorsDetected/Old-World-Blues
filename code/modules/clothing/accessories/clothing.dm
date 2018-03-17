@@ -58,6 +58,7 @@
 	name = "flower-pattern shirt"
 
 /obj/item/clothing/accessory/hawaii/random/initialize()
+	. = ..()
 	if(prob(50))
 		icon_state = "hawaii2"
 
