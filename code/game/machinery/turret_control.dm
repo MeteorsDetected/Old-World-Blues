@@ -44,8 +44,10 @@
 			A.turret_controls -= src
 	..()
 
+
+//TODO: CHEK is all_area list already complete
 /obj/machinery/turretid/initialize()
-	..()
+	. = ..()
 	if(!control_area)
 		control_area = get_area(src)
 	else if(istext(control_area))

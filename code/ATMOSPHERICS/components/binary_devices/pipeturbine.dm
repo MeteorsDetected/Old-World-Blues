@@ -235,7 +235,7 @@
 	var/obj/machinery/atmospherics/pipeturbine/turbine
 
 	initialize()
-		..()
+		. = ..()
 		updateConnection()
 
 	proc/updateConnection()

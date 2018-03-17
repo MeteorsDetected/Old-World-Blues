@@ -16,7 +16,7 @@
 
 /obj/machinery/pipelayer/initialize()
 	W = new(src)
-	..()
+	. = ..()
 
 /obj/machinery/pipelayer/Move(new_turf,M_Dir)
 	..()

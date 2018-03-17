@@ -20,7 +20,7 @@
 	)
 
 /obj/item/clothing/suit/space/void/engineering/prepared/initialize()
-	..()
+	. = ..()
 	helmet = new /obj/item/clothing/head/helmet/space/void/engineering
 	boots = new /obj/item/clothing/shoes/magboots/toggleable
 
@@ -41,6 +41,6 @@
 	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 45, bio = 100, rad = 100)
 
 /obj/item/clothing/suit/space/void/engineering/alt/prepared/initialize()
-	..()
+	. = ..()
 	helmet = new /obj/item/clothing/head/helmet/space/void/engineering/alt
 	boots = new /obj/item/clothing/shoes/magboots/toggleable

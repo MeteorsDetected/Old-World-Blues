@@ -16,7 +16,7 @@
 	src.cell = new(src)
 	cell.maxcharge = 1000
 	cell.charge = 1000 // 41minutes @ 200W
-	..()
+	. = ..()
 
 /obj/machinery/floodlight/update_icon()
 	overlays.Cut()

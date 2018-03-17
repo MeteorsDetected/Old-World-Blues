@@ -16,7 +16,7 @@
 	randpixel = 10
 
 /obj/item/weapon/a_gift/initialize()
-	..()
+	. = ..()
 	if(w_class > 0 && w_class < ITEM_SIZE_HUGE)
 		icon_state = "gift[w_class]"
 	else
@@ -144,9 +144,9 @@
 	else
 		user << SPAN_WARN("The gift was empty!")
 	qdel(src)
-	return
 
 /obj/item/weapon/gift/new_year/initialize()
+	..()
 	var/surprize = pick(/obj/item/clothing/head/witchwig,
 		/obj/item/clothing/head/philosopher_wig,
 		/obj/item/clothing/head/pirate,

@@ -95,7 +95,7 @@
 	spark_system = new /datum/effect/effect/system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
-	..()
+	. = ..()
 
 /obj/machinery/turret/proc/update_health()
 	if(src.health<=0)

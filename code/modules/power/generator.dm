@@ -24,7 +24,7 @@
 	var/lastgenlev = 0
 
 /obj/machinery/power/generator/initialize()
-	..()
+	. = ..()
 	desc = initial(desc) + " Rated for [round(max_power/1000)] kW."
 	reconnect()
 

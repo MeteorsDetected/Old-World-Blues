@@ -13,7 +13,7 @@
 	var/propelled = 0 // Check for fire-extinguisher-driven chairs
 
 /obj/structure/material/chair/initialize()
-	..()
+	. = ..()
 	update_layer()
 
 /obj/structure/material/chair/attackby(obj/item/weapon/W as obj, mob/user as mob)

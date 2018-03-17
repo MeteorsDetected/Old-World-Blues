@@ -30,7 +30,7 @@
 // create a new disposal
 // find the attached trunk (if present) and init gas resvr.
 /obj/machinery/disposal/initialize()
-	..()
+	. = ..()
 	trunk = locate() in src.loc
 	if(!trunk)
 		mode = 0
@@ -633,7 +633,7 @@
 	// new pipe, set the icon_state as on map
 
 	initialize()
-		..()
+		. = ..()
 		base_icon_state = icon_state
 
 	// pipe is deleted
@@ -932,7 +932,7 @@
 	icon_state = "pipe-s"
 
 	initialize()
-		..()
+		. = ..()
 		if(icon_state == "pipe-s")
 			dpdir = dir | turn(dir, 180)
 		else
@@ -997,7 +997,7 @@
 	icon_state = "pipe-d"
 
 	initialize()
-		..()
+		. = ..()
 		dpdir = dir
 		update()
 
@@ -1053,7 +1053,7 @@
 	icon_state = "pipe-j1"
 
 	initialize()
-		..()
+		. = ..()
 		if(icon_state == "pipe-j1")
 			dpdir = dir | turn(dir, -90) | turn(dir,180)
 		else if(icon_state == "pipe-j2")
@@ -1300,7 +1300,7 @@
 	var/obj/linked 	// the linked obj/machinery/disposal or obj/disposaloutlet
 
 /obj/structure/disposalpipe/trunk/initialize()
-	..()
+	. = ..()
 	dpdir = dir
 	getlinked()
 	update()

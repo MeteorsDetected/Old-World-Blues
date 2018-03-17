@@ -34,7 +34,7 @@ var/bomb_set
 
 
 /obj/machinery/nuclearbomb/initialize()
-	..()
+	. = ..()
 	r_code = "[rand(10000, 99999.0)]"//Creates a random code upon object spawn.
 
 	src.wires["Red"] = 0

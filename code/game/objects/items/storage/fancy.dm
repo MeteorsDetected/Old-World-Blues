@@ -107,7 +107,7 @@
 	)
 
 /obj/item/storage/fancy/crayons/initialize()
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/storage/fancy/crayons/update_icon()
@@ -302,7 +302,7 @@
 	req_access = list(access_virology)
 
 /obj/item/storage/lockbox/vials/initialize()
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/storage/lockbox/vials/update_icon()

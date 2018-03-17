@@ -23,7 +23,7 @@
 // Parameters: None
 // Description: Automatically assigns name according to ID tag.
 /obj/machinery/power/sensor/initialize()
-	..()
+	. = ..()
 	auto_set_name()
 
 // Proc: auto_set_name()

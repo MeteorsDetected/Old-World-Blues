@@ -93,10 +93,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/initialize()
 	. = ..()
 	files = new /datum/research(src) //Setup the research data holder.
-	if(!id)
-		for(var/obj/machinery/r_n_d/server/centcom/S in machines)
-			S.initialize()
-			break
+
+	if(!id && . != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/rdconsole/lateInitialize()
+	..()
+	for(var/obj/machinery/r_n_d/server/centcom/S in machines)
+		S.initialize()
+		break
 
 /obj/machinery/computer/rdconsole/initialize()
 	SyncRDevices()

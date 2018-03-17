@@ -22,7 +22,7 @@
 	var/list/spawnfiles = list()// For mappers, special drives, and data disks
 
 	initialize()
-		..()
+		. = ..()
 		if(islist(spawnfiles))
 			if(removeable && spawnfiles.len)
 				var/obj/item/part/computer/storage/removable/R = src

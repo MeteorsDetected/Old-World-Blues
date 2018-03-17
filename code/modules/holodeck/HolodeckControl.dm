@@ -24,7 +24,7 @@
 	var/list/restricted_programs
 
 /obj/machinery/computer/HolodeckControl/initialize()
-	..()
+	. = ..()
 	linkedholodeck = locate(linkedholodeck_area)
 	if(!supported_programs)
 		supported_programs = list()

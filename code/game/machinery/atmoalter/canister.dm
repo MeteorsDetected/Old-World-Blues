@@ -384,29 +384,29 @@ update_flag
 	return 1
 
 /obj/machinery/portable_atmospherics/canister/phoron/initialize()
-	..()
+	. = ..()
 	src.air_contents.adjust_gas("phoron", MolesForPressure())
 	src.update_icon()
 
 /obj/machinery/portable_atmospherics/canister/oxygen/initialize()
-	..()
+	. = ..()
 	src.air_contents.adjust_gas("oxygen", MolesForPressure())
 	src.update_icon()
 
 /obj/machinery/portable_atmospherics/canister/oxygen/prechilled/initialize()
-	..()
+	. = ..()
 	src.air_contents.adjust_gas("oxygen", MolesForPressure())
 	src.air_contents.temperature = 80
 	src.update_icon()
 
 /obj/machinery/portable_atmospherics/canister/sleeping_agent/initialize()
-	..()
+	. = ..()
 	air_contents.adjust_gas("sleeping_agent", MolesForPressure())
 	src.update_icon()
 
 //Dirty way to fill room with gas. However it is a bit easier to do than creating some floor/engine/n2o -rastaf0
 /obj/machinery/portable_atmospherics/canister/sleeping_agent/roomfiller/initialize()
-	..()
+	. = ..()
 	air_contents.gas["sleeping_agent"] = 9*4000
 	var/turf/simulated/location = src.loc
 	if (istype(src.loc))
@@ -416,18 +416,18 @@ update_flag
 		air_contents = new
 
 /obj/machinery/portable_atmospherics/canister/nitrogen/initialize()
-	..()
+	. = ..()
 	src.air_contents.adjust_gas("nitrogen", MolesForPressure())
 	src.update_icon()
 
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide/initialize()
-	..()
+	. = ..()
 	src.air_contents.adjust_gas("carbon_dioxide", MolesForPressure())
 	src.update_icon()
 
 
 /obj/machinery/portable_atmospherics/canister/air/initialize()
-	..()
+	. = ..()
 	var/list/air_mix = StandardAirMix()
 	src.air_contents.adjust_multi("oxygen", air_mix["oxygen"], "nitrogen", air_mix["nitrogen"])
 

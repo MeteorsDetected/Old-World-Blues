@@ -77,7 +77,7 @@ var/global/list/chameleons_categories = list(
 		..()
 
 /obj/item/chameleon/initialize()
-	..()
+	. = ..()
 	if(default_type)
 		change_item_appearance(src, default_type)
 	if(category)
@@ -336,7 +336,7 @@ var/global/list/chameleons_categories = list(
 	matter = null
 
 /obj/item/weapon/gun/projectile/chameleon/initialize()
-	..()
+	. = ..()
 	for(var/i in 1 to max_shells)
 		loaded += new/obj/item/ammo_casing/chameleon(src)
 

@@ -24,7 +24,7 @@
 		if(get_dir(src, possible_gen) == src.dir)
 			possible_gen.owned_capacitor = src
 			break
-	..()
+	. = ..()
 
 /obj/machinery/shield_capacitor/emag_act(var/remaining_charges, var/mob/user)
 	if(prob(75))

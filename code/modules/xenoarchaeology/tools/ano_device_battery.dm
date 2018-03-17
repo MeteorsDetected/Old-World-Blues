@@ -9,6 +9,7 @@
 	var/effect_id = ""
 
 /obj/item/weapon/anobattery/initialize()
+	. = ..()
 	battery_effect = new()
 
 /obj/item/weapon/anobattery/proc/UpdateSprite()
@@ -34,7 +35,7 @@
 	var/energy_consumed_on_touch = 100
 
 /obj/item/weapon/anodevice/initialize()
-	..()
+	. = ..()
 	processing_objects |= src
 
 /obj/item/weapon/anodevice/attackby(var/obj/I as obj, var/mob/user as mob)

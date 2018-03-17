@@ -9,7 +9,7 @@
 	var/datum/effect/effect/system/smoke_spread/bad/smoke
 
 	initialize()
-		..()
+		. = ..()
 		src.smoke = PoolOrNew(/datum/effect/effect/system/smoke_spread/bad)
 		src.smoke.attach(src)
 

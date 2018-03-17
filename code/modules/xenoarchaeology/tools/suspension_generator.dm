@@ -16,7 +16,7 @@
 	var/list/secured_mobs = list()
 
 /obj/machinery/suspension_gen/initialize()
-	..()
+	. = ..()
 	src.cell = new /obj/item/weapon/cell/high(src)
 
 /obj/machinery/suspension_gen/process()

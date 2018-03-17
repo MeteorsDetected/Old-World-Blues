@@ -91,7 +91,7 @@
 		usr << "Hardsuit systems are [offline ? "<font color='red'>offline</font>" : "<font color='green'>online</green>"]."
 
 /obj/item/weapon/rig/initialize()
-	..()
+	. = ..()
 
 	item_state = icon_state
 	wires = new(src)

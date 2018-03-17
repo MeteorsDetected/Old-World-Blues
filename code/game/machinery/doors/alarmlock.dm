@@ -10,7 +10,7 @@
 	autoclose = 0
 
 /obj/machinery/door/airlock/alarmlock/initialize()
-	..()
+	. = ..()
 	air_connection = new
 
 /obj/machinery/door/airlock/alarmlock/Destroy()

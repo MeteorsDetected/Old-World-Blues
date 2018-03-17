@@ -20,7 +20,7 @@
 	..(loc)
 
 /obj/item/towel/initialize()
-	..()
+	. = ..()
 	var/material/material = get_material_by_name(src.material)
 	name = "[material.display_name] [initial(name)]"
 	src.color = material.icon_colour

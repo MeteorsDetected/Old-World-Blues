@@ -39,7 +39,7 @@
 	)
 
 /obj/item/clothing/suit/space/void/mining/prepared/initialize()
-	..()
+	. = ..()
 	helmet = new /obj/item/clothing/head/helmet/space/void/mining
 
 
@@ -58,5 +58,5 @@
 	armor = list(melee = 50, bullet = 15, laser = 20,energy = 5, bomb = 55, bio = 100, rad = 0)
 
 /obj/item/clothing/suit/space/void/mining/alt/prepared/initialize()
-	..()
+	. = ..()
 	helmet = new /obj/item/clothing/head/helmet/space/void/mining/alt

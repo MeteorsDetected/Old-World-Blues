@@ -56,7 +56,7 @@ BLIND     // can't see anything
 	vision_flags = SEE_TURFS
 
 /obj/item/clothing/glasses/meson/initialize()
-	..()
+	. = ..()
 	overlay = global_hud.meson
 
 /obj/item/clothing/glasses/meson/prescription
@@ -73,7 +73,7 @@ BLIND     // can't see anything
 	icon_action_button = "action_science"
 
 /obj/item/clothing/glasses/science/initialize()
-	..()
+	. = ..()
 	overlay = global_hud.science
 
 /obj/item/clothing/glasses/night
@@ -89,7 +89,7 @@ BLIND     // can't see anything
 	off_state = "denight"
 
 /obj/item/clothing/glasses/night/initialize()
-	..()
+	. = ..()
 	overlay = global_hud.nvg
 
 /obj/item/clothing/glasses/eyepatch
@@ -301,9 +301,8 @@ BLIND     // can't see anything
 	var/obj/item/clothing/glasses/hud/security/hud = null
 
 	initialize()
-		..()
+		. = ..()
 		src.hud = new/obj/item/clothing/glasses/hud/security(src)
-		return
 
 /obj/item/clothing/glasses/sunglasses/sechud/tactical
 	name = "tactical HUD"
@@ -335,7 +334,7 @@ BLIND     // can't see anything
 		..()
 
 /obj/item/clothing/glasses/thermal/initialize()
-	..()
+	. = ..()
 	overlay = global_hud.thermal
 
 /obj/item/clothing/glasses/thermal/syndi	//These are now a traitor item, concealed as mesons.	-Pete

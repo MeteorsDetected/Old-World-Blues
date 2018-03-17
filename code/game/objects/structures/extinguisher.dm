@@ -9,7 +9,7 @@
 	var/opened = 0
 
 /obj/structure/extinguisher_cabinet/initialize()
-	..()
+	. = ..()
 	has_extinguisher = new/obj/item/weapon/extinguisher(src)
 
 /obj/structure/extinguisher_cabinet/attackby(obj/item/O, mob/user)

@@ -67,7 +67,7 @@
 
 /obj/machinery/computer/teleporter/initialize()
 	src.id = "[rand(1000, 9999)]"
-	..()
+	. = ..()
 	var/obj/machinery/teleport/station/station = locate(/obj/machinery/teleport/station) in get_step(src, dir)
 	var/obj/machinery/teleport/hub/hub
 	if(station)
@@ -259,7 +259,7 @@
 
 
 /obj/machinery/teleport/hub/initialize()
-	..()
+	. = ..()
 	underlays.Cut()
 	underlays += image('icons/obj/stationobjs.dmi', icon_state = "tele-wires")
 
@@ -394,7 +394,7 @@
 	var/obj/machinery/teleport/hub/com
 
 /obj/machinery/teleport/station/initialize()
-	..()
+	. = ..()
 	overlays.Cut()
 	overlays += image('icons/obj/stationobjs.dmi', icon_state = "controller-wires")
 

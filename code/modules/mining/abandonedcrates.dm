@@ -10,7 +10,7 @@
 	locked = 1
 
 /obj/structure/closet/crate/secure/loot/initialize()
-	..()
+	. = ..()
 	var/list/digits = list("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 
 	for(var/i in 1 to codelen)

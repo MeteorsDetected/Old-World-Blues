@@ -17,7 +17,7 @@ var/global/list/narsie_list = list()
 
 
 /obj/singularity/narsie/initialize()
-	..()
+	. = ..()
 	narsie_list.Add(src)
 
 /obj/singularity/narsie/Destroy()
@@ -41,7 +41,7 @@ var/global/list/narsie_list = list()
 	var/cause_hell = 1
 
 /obj/singularity/narsie/large/initialize()
-	..()
+	. = ..()
 	if(announce)
 		world << "<font size='15' color='red'><b>[uppertext(name)] HAS RISEN</b></font>"
 		world << sound('sound/effects/wind/wind_5_1.ogg')

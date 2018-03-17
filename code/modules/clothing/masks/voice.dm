@@ -37,7 +37,7 @@
 	var/obj/item/voice_changer/changer
 
 /obj/item/clothing/mask/gas/batman/initialize()
-	..()
+	. = ..()
 	changer = new(src)
 	changer.voice = "Batman"
 

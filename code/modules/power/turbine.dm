@@ -41,7 +41,7 @@
 // the inlet stage of the gas turbine electricity generator
 
 /obj/machinery/compressor/initialize()
-	..()
+	. = ..()
 
 	gas_contained = new
 	inturf = get_step(src, dir)
@@ -97,7 +97,7 @@
 	 //TODO: DEFERRED
 
 /obj/machinery/power/turbine/initialize()
-	..()
+	. = ..()
 	outturf = get_step(src, dir)
 	compressor = locate() in get_step(src, get_dir(outturf, src))
 	if(!compressor)
@@ -206,6 +206,11 @@
 
 /obj/machinery/computer/turbine_computer/initialize()
 	. = ..()
+	if(. != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/turbine_computer/lateInitialize()
+	..()
 	for(var/obj/machinery/compressor/C in machines)
 		if(id == C.comp_id)
 			compressor = C

@@ -226,7 +226,7 @@
 	density = 0
 
 /obj/structure/grille/broken/initialize()
-	..()
+	. = ..()
 	health = rand(-5, -1) //In the destroyed but not utterly threshold.
 	healthcheck() //Send this to healthcheck just in case we want to do something else with it.
 

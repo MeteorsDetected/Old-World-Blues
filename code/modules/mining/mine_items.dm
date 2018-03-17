@@ -199,7 +199,7 @@
 	var/base_state
 
 /obj/item/stack/flag/initialize()
-	..()
+	. = ..()
 	base_state = icon_state
 
 /obj/item/stack/flag/red

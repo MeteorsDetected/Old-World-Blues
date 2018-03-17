@@ -55,7 +55,7 @@
 
 
 /obj/machinery/power/smes/initialize()
-	..()
+	. = ..()
 	if(!powernet)
 		connect_to_network()
 

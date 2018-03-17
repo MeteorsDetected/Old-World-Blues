@@ -40,7 +40,7 @@
 		radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
 
 /obj/item/device/radio/initialize()
-	..()
+	. = ..()
 	wires = new(src)
 
 /obj/item/device/radio/Destroy()

@@ -8,6 +8,7 @@
 	icon_state = "crystal"
 
 /obj/machinery/crystal/initialize()
+	. = ..()
 	if(prob(50))
 		icon_state = "crystal2"
 

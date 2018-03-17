@@ -12,7 +12,7 @@
 	var/obj/item/device/radio/beacon/Beacon
 
 	initialize()
-		..()
+		. = ..()
 		var/turf/T = loc
 		Beacon = new /obj/item/device/radio/beacon(T)
 		Beacon.invisibility = INVISIBILITY_MAXIMUM

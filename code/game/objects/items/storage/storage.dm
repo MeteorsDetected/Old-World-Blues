@@ -406,7 +406,7 @@
 		remove_from_storage(I, T)
 
 /obj/item/storage/initialize()
-	..()
+	. = ..()
 	if(allow_quick_empty)
 		verbs += /obj/item/storage/proc/quick_empty
 

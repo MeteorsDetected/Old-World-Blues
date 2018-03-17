@@ -310,7 +310,7 @@ datum/nano_item_lists
 // implant uplink (not the implant tool) and a preset headset uplink.
 
 /obj/item/device/radio/uplink/initialize()
-	..()
+	. = ..()
 	hidden_uplink = new(src)
 	hidden_uplink.uses = 40
 	icon_state = "radio"

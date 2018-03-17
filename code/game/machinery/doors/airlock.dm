@@ -1027,12 +1027,16 @@ About the new airlock wires panel:
 		wires = new/datum/wires/airlock(src)
 
 /obj/machinery/door/airlock/initialize()
+	. = ..()
+	if(src.closeOtherId != null && . != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/door/airlock/lateInitialize()
 	..()
-	if(src.closeOtherId != null)
-		for (var/obj/machinery/door/airlock/A in machines)
-			if(A.closeOtherId == src.closeOtherId && A != src)
-				src.closeOther = A
-				break
+	for (var/obj/machinery/door/airlock/A in machines)
+		if(A.closeOtherId == src.closeOtherId && A != src)
+			src.closeOther = A
+			break
 
 /obj/machinery/door/airlock/Destroy()
 	if(wires)

@@ -235,7 +235,7 @@
 	var/on = 0
 
 /obj/item/clothing/head/initialize()
-	..()
+	. = ..()
 	if(!icon_action_button && brightness_on)
 		icon_action_button = "[icon_state]"
 

@@ -31,11 +31,17 @@
 	var/old_maxhealth = maxhealth
 	if(!material)
 		maxhealth = 10
+		name = "table frame"
 	else
 		maxhealth = material.integrity / 2
+		name = "[material.display_name] table"
 
 		if(reinforced)
 			maxhealth += reinforced.integrity / 2
+			name = "reinforced [name]"
+			desc = "[initial(desc)] This one seems to be reinforced with [reinforced.display_name]."
+		else
+			desc = initial(desc)
 
 	health += maxhealth - old_maxhealth
 
@@ -54,7 +60,14 @@
 		return break_to_parts() // if we break and form shards, return them to the caller to do !FUN! things with
 
 /obj/structure/table/initialize()
-	..()
+	// reset color/alpha, since they're set for nice map previews
+	color = "#ffffff"
+	alpha = 255
+
+	if(material)
+		material = get_material_by_name(material)
+		if(reinforced)
+			reinforced = get_material_by_name(reinforced)
 
 	// One table per turf.
 	for(var/obj/structure/table/T in loc)
@@ -64,13 +77,17 @@
 			break_to_parts(full_return = 1)
 			return
 
-	// reset color/alpha, since they're set for nice map previews
-	color = "#ffffff"
-	alpha = 255
-	update_connections(1)
-	update_icon()
-	update_desc()
+	. = ..()
+
 	update_material()
+	if(. != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/structure/table/lateInitialize(maploaded)
+	..()
+	update_connections(!maploaded)
+	update_icon()
+
 
 /obj/structure/table/Destroy()
 	material = null
@@ -96,7 +113,6 @@
 	if(reinforced && istype(W, /obj/item/weapon/screwdriver))
 		remove_reinforced(W, user)
 		if(!reinforced)
-			update_desc()
 			update_icon()
 			update_material()
 		return 1
@@ -131,7 +147,6 @@
 			update_icon()
 			for(var/obj/structure/table/T in oview(src, 1))
 				T.update_icon()
-			update_desc()
 			update_material()
 		return 1
 
@@ -146,8 +161,10 @@
 			playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 			if(!do_after(user, 20) || !F.remove_fuel(1, user))
 				return
-			user.visible_message(SPAN_NOTE("\The [user] repairs some damage to \the [src]."),
-			                              SPAN_NOTE("You repair some damage to \the [src]."))
+			user.visible_message(
+				SPAN_NOTE("\The [user] repairs some damage to \the [src]."),
+				SPAN_NOTE("You repair some damage to \the [src].")
+			)
 			health = max(health+(maxhealth/5), maxhealth) // 20% repair per application
 			return 1
 
@@ -156,7 +173,6 @@
 		if(material)
 			update_connections(1)
 			update_icon()
-			update_desc()
 			update_material()
 		return 1
 
@@ -187,21 +203,8 @@
 
 	reinforced = common_material_add(S, user, "reinforc")
 	if(reinforced)
-		update_desc()
 		update_icon()
 		update_material()
-
-/obj/structure/table/proc/update_desc()
-	if(material)
-		name = "[material.display_name] table"
-	else
-		name = "table frame"
-
-	if(reinforced)
-		name = "reinforced [name]"
-		desc = "[initial(desc)] This one seems to be reinforced with [reinforced.display_name]."
-	else
-		desc = initial(desc)
 
 // Returns the material to set the table to.
 // Verb is actually verb without 'e' or 'ing', which is added. Works for 'plate'/'plating' and 'reinforce'/'reinforcing'.
@@ -371,7 +374,7 @@
 
 // set propagate if you're updating a table that should update tables around it too,
 // for example if it's a new table or something important has changed (like material).
-/obj/structure/table/proc/update_connections(propagate=0)
+/obj/structure/table/proc/update_connections(propagate = FALSE)
 	if(!material)
 		connections = list("nw0", "ne0", "sw0", "se0")
 
@@ -416,7 +419,9 @@
 	for(var/obj/structure/table/T in orange(1,src))
 		var/T_dir = get_dir(src, T)
 		if(T_dir in blocked_dirs) continue
-		if(material && T.material && material.name == T.material.name && flipped == T.flipped)
+		var/my_mater = material && material.name
+		var/other_mater = T.material && T.material.name
+		if(my_mater && other_mater && (other_mater == my_mater) && flipped == T.flipped)
 			connection_dirs |= T_dir
 		if(propagate)
 			spawn(0)

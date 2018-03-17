@@ -12,7 +12,7 @@
 
 
 /obj/machinery/space_heater/initialize()
-	..()
+	. = ..()
 	cell = new(src)
 	update_icon()
 

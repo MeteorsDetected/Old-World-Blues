@@ -10,7 +10,7 @@
 	w_class = ITEM_SIZE_NORMAL
 
 /obj/item/clothing/accessory/storage/initialize()
-	..()
+	. = ..()
 	hold = new/obj/item/storage/internal(src)
 	hold.max_storage_space = slots * 2
 	hold.storage_slots = slots
@@ -94,7 +94,7 @@
 	slots = 2
 
 /obj/item/clothing/accessory/storage/knifeharness/initialize()
-	..()
+	. = ..()
 	hold.max_storage_space = 4
 	hold.can_hold = list(
 		/obj/item/weapon/material/hatchet/unathiknife,

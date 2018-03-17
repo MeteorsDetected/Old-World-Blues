@@ -72,7 +72,7 @@
 	var/suggest_dir // try this dir first when finding stairs; this is the direction to walk *down* the stairs
 
 	initialize()
-		..()
+		. = ..()
 		var/turf/cl= locate(1, 1, src.z)
 		for(var/obj/effect/landmark/zcontroller/c in cl)
 			if(c.up)

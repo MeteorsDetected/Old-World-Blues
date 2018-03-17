@@ -51,7 +51,7 @@
 	)
 
 /obj/structure/cyberplant/initialize()
-	..()
+	. = ..()
 	plant = prepare_icon(plant)
 	overlays += plant
 	set_light(3)

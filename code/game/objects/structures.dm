@@ -61,7 +61,7 @@
 	qdel(src)
 
 /obj/structure/initialize()
-	..()
+	. = ..()
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
 

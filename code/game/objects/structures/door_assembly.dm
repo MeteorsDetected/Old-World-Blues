@@ -19,7 +19,7 @@
 	var/created_name = null
 
 	initialize()
-		..()
+		. = ..()
 		update_state()
 
 /obj/structure/door_assembly/door_assembly_com

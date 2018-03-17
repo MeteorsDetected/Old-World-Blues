@@ -8,15 +8,12 @@
 	flipped = -1
 
 /obj/structure/table/rack/initialize()
-	..()
+	. = ..()
 	verbs -= /obj/structure/table/verb/do_flip
 	verbs -= /obj/structure/table/proc/do_put
 	auto_align()
 
 /obj/structure/table/rack/update_connections()
-	return
-
-/obj/structure/table/rack/update_desc()
 	return
 
 /obj/structure/table/rack/update_icon()

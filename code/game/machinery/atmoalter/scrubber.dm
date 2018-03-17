@@ -20,7 +20,7 @@
 	var/list/scrubbing_gas = list("phoron", "carbon_dioxide", "sleeping_agent", "oxygen_agent_b")
 
 /obj/machinery/portable_atmospherics/powered/scrubber/initialize()
-	..()
+	. = ..()
 	cell = new/obj/item/weapon/cell/apc(src)
 
 /obj/machinery/portable_atmospherics/powered/scrubber/emp_act(severity)
@@ -157,7 +157,7 @@
 	var/id = 0
 
 /obj/machinery/portable_atmospherics/powered/scrubber/huge/initialize()
-	..()
+	. = ..()
 	cell = null
 
 	id = gid
