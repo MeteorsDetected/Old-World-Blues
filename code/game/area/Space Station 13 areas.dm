@@ -972,6 +972,34 @@ area/space/atmosalert()
 	name = "\improper Dormitory Bedroom One"
 	icon_state = "Sleep"
 
+/area/crew_quarters/sleep/bedrooms/rooms
+	name = "\improper Dormitory rooms"
+	icon_state = "Sleep"
+
+/area/crew_quarters/sleep/bedrooms/rooms/one
+	name = "\improper Dormitory room 1"
+	icon_state = "Sleep"
+
+/area/crew_quarters/sleep/bedrooms/rooms/two
+	name = "\improper Dormitory room 2"
+	icon_state = "Sleep"
+
+/area/crew_quarters/sleep/bedrooms/rooms/three
+	name = "\improper Dormitory room 3"
+	icon_state = "Sleep"
+
+/area/crew_quarters/sleep/bedrooms/rooms/four
+	name = "\improper Dormitory room 4"
+	icon_state = "Sleep"
+
+/area/crew_quarters/sleep/bedrooms/rooms/five
+	name = "\improper Dormitory room 5"
+	icon_state = "Sleep"
+
+/area/crew_quarters/sleep/bedrooms/rooms/six
+	name = "\improper Dormitory room 6"
+	icon_state = "Sleep"
+
 /area/crew_quarters/sleep/cryo
 	name = "\improper Cryogenic Storage"
 	icon_state = "Sleep"
