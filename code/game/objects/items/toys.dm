@@ -37,7 +37,7 @@
 	item_state = "balloon-empty"
 
 /obj/item/toy/balloon/initialize()
-	..()
+	. = ..()
 	create_reagents(10)
 
 /obj/item/toy/balloon/attack(mob/living/carbon/human/M as mob, mob/user as mob)
@@ -422,7 +422,7 @@
 /obj/item/toy/waterflower/initialize()
 	create_reagents(10)
 	reagents.add_reagent("water", 10)
-	..()
+	. = ..()
 
 /obj/item/toy/waterflower/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return

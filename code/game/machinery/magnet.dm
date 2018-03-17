@@ -30,7 +30,7 @@
 	var/max_dist = 20 // absolute value of center_x,y cannot exceed this integer
 
 	initialize()
-		..()
+		. = ..()
 		var/turf/T = loc
 		hide(T.intact)
 		center = T
@@ -220,18 +220,21 @@
 
 
 	initialize()
-		..()
-		if(autolink)
-			for(var/obj/machinery/magnetic_module/M in machines)
-				if(M.freq == frequency && M.code == code)
-					magnets.Add(M)
-
+		. = ..()
 		if(radio_controller)
 			radio_connection = radio_controller.add_object(src, frequency, RADIO_MAGNETS)
 
 		if(path) // check for default path
 			filter_path() // renders rpath
 
+		if(autolink && . != INITIALIZE_HINT_QDEL)
+			return INITIALIZE_HINT_LATELOAD
+
+	lateInitialize()
+		..()
+		for(var/obj/machinery/magnetic_module/M in machines)
+			if(M.freq == frequency && M.code == code)
+				magnets.Add(M)
 
 	process()
 		if(magnets.len == 0 && autolink)

@@ -37,10 +37,10 @@ var/const/MAX_ACTIVE_TIME = 400
 	Attach(M)
 
 /obj/item/clothing/mask/facehugger/initialize()
-	if(config.aliens_allowed)
-		..()
+	if(config.aliens_allowed || sterile)
+		. = ..()
 	else
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 
 /obj/item/clothing/mask/facehugger/examine(mob/user)
 	. = ..()

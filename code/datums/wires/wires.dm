@@ -362,35 +362,28 @@ var/const/POWER = 8
 	return solved_txt
 
 
-/obj/item/weapon/paper/wires/
-	name = "ulol"
+/obj/item/weapon/paper/wires
+	name = "hacking guide"
+	var/wire_type
 
+/obj/item/weapon/paper/wires/initialize()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/item/weapon/paper/wires/lateInitialize()
+	info = "[(all_solved_wires[wire_type])]"
+	info_links = info
+	icon_state = "paper_words"
 
 
 /obj/item/weapon/paper/wires/airlock
 	name = "List of an airlock wires"
-
-/obj/item/weapon/paper/wires/airlock/initialize()
-	info = "[(all_solved_wires[/obj/machinery/door/airlock])]"
-	info_links = info
-	icon_state = "paper_words"
-	. = ..()
+	wire_type = /obj/machinery/door/airlock
 
 /obj/item/weapon/paper/wires/apc
 	name = "List of an APC wires"
-
-/obj/item/weapon/paper/wires/apc/initialize()
-	info = "[(all_solved_wires[/obj/machinery/power/apc])]"
-	info_links = info
-	icon_state = "paper_words"
-	. = ..()
+	wire_type = /obj/machinery/power/apc
 
 /obj/item/weapon/paper/wires/alarm
 	name = "List of an air alarm wires"
-
-/obj/item/weapon/paper/wires/alarm/initialize()
-	info = "[(all_solved_wires[/obj/machinery/alarm])]"
-	info_links = info
-	icon_state = "paper_words"
-	. = ..()
+	wire_type = /obj/machinery/alarm
 

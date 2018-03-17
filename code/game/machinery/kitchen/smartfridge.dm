@@ -27,7 +27,7 @@
 	is_secure = 1
 
 /obj/machinery/smartfridge/initialize()
-	..()
+	. = ..()
 	if(is_secure)
 		wires = new/datum/wires/smartfridge/secure(src)
 	else

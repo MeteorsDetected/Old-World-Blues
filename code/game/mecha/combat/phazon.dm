@@ -38,7 +38,6 @@
 				can_move = 1
 	else
 		. = ..()
-	return
 
 /obj/mecha/combat/phazon/click_action(atom/target,mob/user)
 	if(phasing)

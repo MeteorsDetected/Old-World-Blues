@@ -11,7 +11,7 @@
 	autolinkers = list("s_relay")
 
 /obj/machinery/telecomms/relay/preset/station/initialize()
-	..()
+	. = ..()
 	listening_level = maps_data.station_levels[1]
 
 /obj/machinery/telecomms/relay/preset/telecomms
@@ -95,7 +95,7 @@
 		if(i == PUB_FREQ)
 			continue
 		freq_listening |= i
-	..()
+	. = ..()
 
 /obj/machinery/telecomms/bus/preset_three
 	id = "Bus 3"
@@ -186,7 +186,7 @@
 		if(i == AI_FREQ || i == PUB_FREQ)
 			continue
 		freq_listening |= i
-	..()
+	. = ..()
 
 /obj/machinery/telecomms/server/presets/command
 	id = "Command Server"

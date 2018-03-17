@@ -28,7 +28,7 @@
 		list("zombiepowder" = 10)						= 1)
 
 /obj/item/weapon/reagent_containers/glass/beaker/vial/random/initialize()
-	..()
+	. = ..()
 	if(is_open_container())
 		flags ^= OPENCONTAINER
 

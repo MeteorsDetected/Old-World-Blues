@@ -252,7 +252,7 @@
 
 	var/obj/item/ammo_casing/ammo = ammo_type
 	caliber = initial(ammo.caliber)
-	..()
+	. = ..()
 
 /obj/item/weapon/gun/projectile/legalist
 	name = "Legalist MKI"

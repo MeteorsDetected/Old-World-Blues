@@ -15,7 +15,7 @@
 	return ITEM_SIZE_NO_CONTAINER
 
 /obj/item/device/radio/intercom/initialize()
-	..()
+	. = ..()
 	processing_objects |= src
 
 /obj/item/device/radio/intercom/Destroy()

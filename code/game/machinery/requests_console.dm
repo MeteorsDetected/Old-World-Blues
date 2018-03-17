@@ -66,7 +66,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			icon_state = "req_comp0"
 
 /obj/machinery/requests_console/initialize()
-	..()
+	. = ..()
 
 	announcement.title = "[department] announcement"
 	announcement.newscast = 1

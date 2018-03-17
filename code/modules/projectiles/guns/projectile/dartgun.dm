@@ -11,7 +11,7 @@
 
 /obj/item/projectile/bullet/chemdart/initialize()
 	create_reagents(reagent_amount)
-	..()
+	. = ..()
 
 /obj/item/projectile/bullet/chemdart/on_hit(var/atom/target, var/blocked = 0, var/def_zone = null)
 	if(blocked < 2 && isliving(target))
@@ -64,7 +64,7 @@
 	var/list/starting_chems = null
 
 /obj/item/weapon/gun/projectile/dartgun/dartgun/initialize()
-	..()
+	. = ..()
 	if(starting_chems)
 		for(var/chem in starting_chems)
 			var/obj/B = new container_type(src)

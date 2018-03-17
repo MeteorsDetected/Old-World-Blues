@@ -22,7 +22,7 @@
 				reagents.add_reagent(reagent, preloaded[reagent])
 		if (!possible_transfer_amounts)
 			src.verbs -= /obj/structure/reagent_dispensers/verb/set_APTFT
-		..()
+		. = ..()
 
 	examine(mob/user, return_dist=1)
 		.=..()

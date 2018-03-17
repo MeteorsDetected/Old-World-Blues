@@ -27,7 +27,7 @@
 
 
 	initialize()
-		..()
+		. = ..()
 		add_implants()
 
 

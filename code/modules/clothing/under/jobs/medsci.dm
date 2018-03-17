@@ -227,7 +227,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS
 
 /obj/item/clothing/under/rank/medical/sleeveless/initialize()
-	..()
+	. = ..()
 	verbs -= /obj/item/clothing/under/verb/rollsleeves
 
 /obj/item/clothing/under/rank/medical/sleeveless/paramedic

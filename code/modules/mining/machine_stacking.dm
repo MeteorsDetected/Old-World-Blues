@@ -10,7 +10,7 @@
 	var/machinedir = SOUTHEAST
 
 /obj/machinery/mineral/stacking_unit_console/initialize()
-	..()
+	. = ..()
 	var/area/my_area = get_area(src)
 	if(my_area)
 		src.machine = locate() in my_area.contents
@@ -74,7 +74,7 @@
 	var/stack_amt = 50 // Amount to stack before releassing
 
 /obj/machinery/mineral/stacking_machine/initialize()
-	..()
+	. = ..()
 	for (var/dir in cardinal)
 		src.input = locate(/obj/machinery/mineral/input, get_step(src, dir))
 		if(src.input) break

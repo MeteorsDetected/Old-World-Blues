@@ -33,30 +33,23 @@
 
 	var/on_open_network = 0
 
-/obj/machinery/camera/New()
+/obj/machinery/camera/initialize()
 	wires = new(src)
 	assembly = new(src)
 	assembly.state = 4
 
-	/* // Use this to look for cameras that have the same c_tag.
-	for(var/obj/machinery/camera/C in cameranet.cameras)
-		var/list/tempnetwork = C.network&src.network
-		if(C != src && C.c_tag == src.c_tag && tempnetwork.len)
-			world.log << "[src.c_tag] [src.x] [src.y] [src.z] conflicts with [C.c_tag] [C.x] [C.y] [C.z]"
-	*/
 	if(!src.network || src.network.len < 1)
 		if(loc)
 			error("[src.name] in [get_area(src)] (x:[src.x] y:[src.y] z:[src.z] has errored. [src.network?"Empty network list":"Null network list"]")
 		else
 			error("[src.name] in [get_area(src)]has errored. [src.network?"Empty network list":"Null network list"]")
-		ASSERT(src.network)
-		ASSERT(src.network.len > 0)
+		ASSERT(src.network && src.network.len)
 
 	if(!c_tag && isturf(loc))
 		var/area/A = get_area(src)
 		c_tag = A.get_camera_tag(src)
 
-	..()
+	. = ..()
 
 /obj/machinery/camera/Destroy()
 	deactivate(null, 0) //kick anyone viewing out

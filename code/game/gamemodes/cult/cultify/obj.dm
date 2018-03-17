@@ -137,7 +137,6 @@
 	// Could possibly use a new material var for holographic-ness?
 	material = get_material_by_name(MATERIAL_WOOD)
 	reinforced = get_material_by_name(MATERIAL_WOOD)
-	update_desc()
 	update_connections(1)
 	update_icon()
 	update_material()

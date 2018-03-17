@@ -124,6 +124,6 @@
 	..()
 
 /obj/item/device/mmi/digital/posibrain/initialize()
-	..()
+	. = ..()
 	src.brainmob.name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
 	src.brainmob.real_name = src.brainmob.name

@@ -171,7 +171,7 @@ for reference:
 //	req_access = list(access_maint_tunnels)
 
 /obj/machinery/deployable/barrier/initialize()
-	..()
+	. = ..()
 	icon_state = "barrier[locked]"
 
 /obj/machinery/deployable/barrier/attackby(obj/item/weapon/W as obj, mob/user as mob)

@@ -23,7 +23,7 @@
 	var/obj/machinery/light/newlight = null
 
 /obj/machinery/light_construct/initialize()
-	..()
+	. = ..()
 	if (fixture_type == "bulb")
 		icon_state = "bulb-construct-stage1"
 
@@ -192,12 +192,12 @@
 /obj/machinery/light/built/initialize()
 	status = LIGHT_EMPTY
 	update(0)
-	..()
+	. = ..()
 
 /obj/machinery/light/small/built/initialize()
 	status = LIGHT_EMPTY
 	update(0)
-	..()
+	. = ..()
 
 // create a new lighting fixture
 /obj/machinery/light/initialize()
@@ -665,7 +665,7 @@
 
 
 /obj/item/weapon/light/initialize()
-	..()
+	. = ..()
 	switch(name)
 		if("light tube")
 			brightness_range = rand(6,9)

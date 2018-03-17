@@ -88,7 +88,7 @@
 /obj/item/weapon/moneybag/vault
 
 /obj/item/weapon/moneybag/vault/initialize()
-	..()
+	. = ..()
 	for(var/i in 1 to 4)
 		new /obj/item/weapon/coin/silver(src)
 	for(var/i in 1 to 2)

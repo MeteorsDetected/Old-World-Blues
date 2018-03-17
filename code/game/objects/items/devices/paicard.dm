@@ -19,7 +19,7 @@
 		module.holder.forced_move(direction)*/
 
 /obj/item/device/paicard/initialize()
-	..()
+	. = ..()
 	overlays += "pai-off"
 
 /obj/item/device/paicard/Destroy()

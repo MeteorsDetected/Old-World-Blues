@@ -59,7 +59,7 @@
 
 /obj/item/device/lightreplacer/initialize()
 	failmsg = "The [name]'s refill light blinks red."
-	..()
+	. = ..()
 
 /obj/item/device/lightreplacer/examine(mob/user, return_dist = 1)
 	. = ..()

@@ -98,7 +98,7 @@
 	var/obj/item/weapon/gun/gun
 
 /obj/item/rig_module/mounted/initialize()
-	..()
+	. = ..()
 	gun = new gun_type(src)
 
 /obj/item/rig_module/mounted/engage(atom/target)

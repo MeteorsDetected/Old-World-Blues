@@ -27,7 +27,7 @@
 	w_class = ITEM_SIZE_TINY
 
 /obj/item/clothing/mask/muzzle/tape/initialize()
-	..()
+	. = ..()
 	if(prob(50))
 		icon_state = "tape_alt"
 

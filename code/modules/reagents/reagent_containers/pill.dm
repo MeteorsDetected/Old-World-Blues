@@ -15,7 +15,7 @@
 	center_of_mass = list("x"=16, "y"=15)
 
 /obj/item/weapon/reagent_containers/pill/initialize()
-	..()
+	. = ..()
 	if(!icon_state)
 		icon_state = "pill[rand(1, 20)]"
 

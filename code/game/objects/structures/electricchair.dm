@@ -7,7 +7,7 @@
 	var/last_time = 1.0
 
 /obj/structure/material/chair/e_chair/initialize()
-	..()
+	. = ..()
 	overlays += image('icons/obj/objects.dmi', src, "echair_over", MOB_LAYER + 1, dir)
 
 /obj/structure/material/chair/e_chair/attackby(obj/item/weapon/W as obj, mob/user as mob)

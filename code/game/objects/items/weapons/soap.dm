@@ -11,7 +11,7 @@
 	throw_range = 20
 
 /obj/item/weapon/soap/initialize()
-	..()
+	. = ..()
 	create_reagents(10)
 	wet()
 

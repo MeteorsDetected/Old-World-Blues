@@ -22,7 +22,7 @@
 
 
 /obj/machinery/mineral/mint/initialize()
-	..()
+	. = ..()
 	for (var/dir in cardinal)
 		src.input = locate(/obj/machinery/mineral/input, get_step(src, dir))
 		if(src.input) break

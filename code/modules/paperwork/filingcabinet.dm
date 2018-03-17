@@ -32,7 +32,7 @@
 
 
 /obj/structure/filingcabinet/initialize()
-	..()
+	. = ..()
 	for(var/obj/item/I in loc)
 		if(is_type_in_list(I, allowed_items))
 			I.loc = src

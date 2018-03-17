@@ -18,7 +18,7 @@
 	armor = list(melee = 30, bullet = 5, laser = 20,energy = 5, bomb = 25, bio = 100, rad = 50)
 
 /obj/item/clothing/suit/space/void/medical/prepared/initialize()
-	..()
+	. = ..()
 	helmet = new /obj/item/clothing/head/helmet/space/void/medical
 	boots = new /obj/item/clothing/shoes/magboots/toggleable
 
@@ -39,6 +39,6 @@
 	armor = list(melee = 30, bullet = 5, laser = 10,energy = 5, bomb = 5, bio = 100, rad = 60)
 
 /obj/item/clothing/suit/space/void/medical/alt/prepared/initialize()
-	..()
+	. = ..()
 	helmet = new /obj/item/clothing/head/helmet/space/void/medical/alt
 	boots = new /obj/item/clothing/shoes/magboots/toggleable

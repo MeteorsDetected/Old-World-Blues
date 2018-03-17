@@ -38,7 +38,7 @@
 	)
 
 /obj/item/storage/box/donut/initialize()
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/storage/box/donut/update_icon()

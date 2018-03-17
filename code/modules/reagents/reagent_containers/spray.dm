@@ -19,7 +19,7 @@
 	center_of_mass = list("x"=17, "y"=12)
 
 /obj/item/weapon/reagent_containers/spray/initialize()
-	..()
+	. = ..()
 	src.verbs -= /obj/item/weapon/reagent_containers/verb/set_APTFT
 
 /obj/item/weapon/reagent_containers/spray/afterattack(atom/A as mob|obj, mob/user as mob, proximity)

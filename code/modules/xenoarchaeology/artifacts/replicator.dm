@@ -21,7 +21,7 @@
 	var/fail_message
 
 /obj/machinery/replicator/initialize()
-	..()
+	. = ..()
 
 	var/list/viables = list(
 		/obj/item/roller,

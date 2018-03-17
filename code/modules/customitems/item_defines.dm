@@ -31,7 +31,7 @@
 	var/owner = ""
 
 /obj/item/clothing/accessory/purple_heart/initialize()
-	..()
+	. = ..()
 	desc += owner
 
 /obj/item/clothing/accessory/purple_heart/solar

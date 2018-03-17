@@ -30,7 +30,7 @@
 
 
 /obj/machinery/power/am_control_unit/initialize()
-	..()
+	. = ..()
 	linked_shielding = list()
 	linked_cores = list()
 

@@ -45,7 +45,7 @@
 	var/rad_shield = 0
 
 /obj/machinery/radiocarbon_spectrometer/initialize()
-	..()
+	. = ..()
 	create_reagents(500)
 	coolant_reagents_purity["water"] = 0.5
 	coolant_reagents_purity["icecoffee"] = 0.6

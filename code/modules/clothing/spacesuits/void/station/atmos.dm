@@ -21,7 +21,7 @@
 	)
 
 /obj/item/clothing/suit/space/void/atmos/prepared/initialize()
-	..()
+	. = ..()
 	helmet = new /obj/item/clothing/head/helmet/space/void/atmos
 	boots = new /obj/item/clothing/shoes/magboots/toggleable
 
@@ -44,7 +44,7 @@
 	max_heat_protection_temperature = FIRESUIT_MAX_HEAT_PROTECTION_TEMPERATURE
 
 /obj/item/clothing/suit/space/void/atmos/alt/prepared/initialize()
-	..()
+	. = ..()
 	helmet = new /obj/item/clothing/head/helmet/space/void/atmos/alt
 	boots = new /obj/item/clothing/shoes/magboots/toggleable
 

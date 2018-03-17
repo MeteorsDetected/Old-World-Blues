@@ -2,7 +2,7 @@
 	var/obj/item/storage/internal/pockets
 
 /obj/item/clothing/suit/storage/initialize()
-	..()
+	. = ..()
 	pockets = new/obj/item/storage/internal(src)
 	pockets.storage_slots = 2	//two slots
 	pockets.max_w_class = ITEM_SIZE_SMALL		//fit only pocket sized items
@@ -35,7 +35,7 @@
 
 //New Vest 4 pocket storage and badge toggles, until suit accessories are a thing.
 /obj/item/clothing/suit/storage/vest/heavy/initialize()
-	..()
+	. = ..()
 	pockets = new/obj/item/storage/internal(src)
 	pockets.storage_slots = 4
 	pockets.max_w_class = ITEM_SIZE_SMALL

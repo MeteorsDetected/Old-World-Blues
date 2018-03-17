@@ -184,7 +184,7 @@ FLOOR SAFES
 
 
 /obj/structure/safe/floor/initialize()
-	..()
+	. = ..()
 	var/turf/T = loc
 	hide(T.intact)
 

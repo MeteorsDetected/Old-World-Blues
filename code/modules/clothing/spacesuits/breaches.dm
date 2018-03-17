@@ -20,7 +20,7 @@
 	var/base_name                           // Used to keep the original name safe while we apply modifiers.
 
 /obj/item/clothing/suit/space/initialize()
-	..()
+	. = ..()
 	base_name = "[name]"
 
 //Some simple descriptors for breaches. Global because lazy, TODO: work out a better way to do this.

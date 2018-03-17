@@ -12,7 +12,7 @@
 	var/show_all_ores = 0
 
 /obj/machinery/mineral/processing_unit_console/initialize()
-	..()
+	. = ..()
 	var/area/my_area = get_area(src)
 	if(my_area)
 		src.machine = locate() in my_area.contents
@@ -123,7 +123,7 @@
 	var/active = 0
 
 /obj/machinery/mineral/processing_unit/initialize()
-	..()
+	. = ..()
 
 	// initialize static alloy_data list
 	if(!alloy_data)

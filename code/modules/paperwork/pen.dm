@@ -200,4 +200,4 @@
 
 	initialize()
 		name = "[colourName] crayon"
-		..()
+		. = ..()

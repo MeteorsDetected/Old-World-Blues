@@ -89,7 +89,7 @@
 	var/tmp/datum/global_iterator/mech_bay_recharger/pr_recharger
 
 /obj/machinery/mech_bay_recharge_port/initialize()
-	..()
+	. = ..()
 	pr_recharger = new /datum/global_iterator/mech_bay_recharger(null, 0)
 
 /obj/machinery/mech_bay_recharge_port/proc/start_charge(var/obj/mecha/recharging_mecha)

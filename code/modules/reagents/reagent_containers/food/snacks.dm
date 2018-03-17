@@ -17,7 +17,7 @@
 	w_class = ITEM_SIZE_SMALL
 
 /obj/item/weapon/reagent_containers/food/snacks/initialize()
-	..()
+	. = ..()
 	if(nutriment_amt)
 		reagents.add_reagent("nutriment", nutriment_amt, nutriment_desc)
 
@@ -371,7 +371,7 @@
 	nutriment_amt = 3
 	preloaded = list("sprinkles" = 1)
 	initialize()
-		..()
+		. = ..()
 		if(prob(30))
 			src.icon_state = "donut2"
 			src.overlay_state = "box-donut2"
@@ -388,7 +388,7 @@
 	bitesize = 10
 	preloaded = list("sprinkles" = 1)
 	initialize()
-		..()
+		. = ..()
 		var/chaosselect = pick(1,2,3,4,5,6,7,8,9,10)
 		switch(chaosselect)
 			if(1)
@@ -428,7 +428,7 @@
 	bitesize = 5
 	preloaded = list("sprinkles" = 1, "berryjuice" = 5)
 	initialize()
-		..()
+		. = ..()
 		if(prob(30))
 			src.icon_state = "jdonut2"
 			src.overlay_state = "box-donut2"
@@ -445,7 +445,7 @@
 	bitesize = 5
 	preloaded = list("sprinkles" = 1, "slimejelly" = 5)
 	initialize()
-		..()
+		. = ..()
 		if(prob(30))
 			src.icon_state = "jdonut2"
 			src.overlay_state = "box-donut2"
@@ -462,7 +462,7 @@
 	nutriment_amt = 3
 	preloaded = list("sprinkles" = 1, "cherryjelly" = 5)
 	initialize()
-		..()
+		. = ..()
 		if(prob(30))
 			src.icon_state = "jdonut2"
 			src.overlay_state = "box-donut2"
@@ -988,7 +988,7 @@
 	nutriment_desc = list("heartiness" = 2, "mushroom" = 3, "pie" = 3)
 	nutriment_amt = 8
 	initialize()
-		..()
+		. = ..()
 		if(prob(10))
 			name = "exceptional plump pie"
 			desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump pie!"
@@ -1069,7 +1069,7 @@
 	nutriment_amt = 2
 	bitesize = 0.1 //this snack is supposed to be eating during looooong time. And this it not dinner food! --rastaf0
 	initialize()
-		..()
+		. = ..()
 		unpopped = rand(1,10)
 	On_Consume()
 		if(prob(unpopped))	//lol ...what's the point?
@@ -1332,7 +1332,7 @@
 	nutriment_amt = 1
 	bitesize = 5
 	initialize()
-		..()
+		. = ..()
 		var/mysteryselect = pick(1,2,3,4,5,6,7,8,9,10)
 		switch(mysteryselect)
 			if(1)
@@ -1380,7 +1380,7 @@
 	bitesize = 5
 	preloaded = list("water" = 10)
 	initialize()
-		..()
+		. = ..()
 		if(prob(25))
 			src.desc = "A wish come true!"
 			reagents.add_reagent("nutriment", 8, list("something good" = 8))
@@ -1875,7 +1875,7 @@
 	nutriment_desc = list("mushroom" = 4)
 	nutriment_amt = 5
 	initialize()
-		..()
+		. = ..()
 		if(prob(10))
 			name = "exceptional plump helmet biscuit"
 			desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump helmet biscuit!"
@@ -1903,7 +1903,7 @@
 	nutriment_desc = list("tomato" = 4, "beet" = 4)
 	nutriment_amt = 8
 	initialize()
-		..()
+		. = ..()
 		name = pick(list("borsch","bortsch","borstch","borsh","borshch","borscht"))
 
 /obj/item/weapon/reagent_containers/food/snacks/tossedsalad
@@ -2666,22 +2666,22 @@
 	..()
 
 /obj/item/pizzabox/margherita/initialize()
-	..()
+	. = ..()
 	pizza = new /obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza/margherita(src)
 	boxtag = "Margherita Deluxe"
 
 /obj/item/pizzabox/vegetable/initialize()
-	..()
+	. = ..()
 	pizza = new /obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza(src)
 	boxtag = "Gourmet Vegatable"
 
 /obj/item/pizzabox/mushroom/initialize()
-	..()
+	. = ..()
 	pizza = new /obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza/mushroompizza(src)
 	boxtag = "Mushroom Special"
 
 /obj/item/pizzabox/meat/initialize()
-	..()
+	. = ..()
 	pizza = new /obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza/meatpizza(src)
 	boxtag = "Meatlover's Supreme"
 

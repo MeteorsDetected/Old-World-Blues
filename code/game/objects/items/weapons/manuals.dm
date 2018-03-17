@@ -13,7 +13,7 @@
 	title = "Station Repairs and Construction"
 
 /obj/item/weapon/book/manual/engineering_construction/initialize()
-	..()
+	. = ..()
 	dat = {"
 
 		<html><head>
@@ -34,7 +34,7 @@
 	title = "Particle Accelerator User's Guide"
 
 /obj/item/weapon/book/manual/engineering_particle_accelerator/initialize()
-	..()
+	. = ..()
 	dat = {"<html>
 				<head>
 				<style>
@@ -81,7 +81,7 @@
 	title = "Supermatter Engine Operating Manual"
 
 /obj/item/weapon/book/manual/supermatter_engine/initialize()
-	..()
+	. = ..()
 	dat = {"<html>
 				<head>
 				<style>
@@ -154,7 +154,7 @@
 	title = "Hacking"
 
 /obj/item/weapon/book/manual/engineering_hacking/initialize()
-	..()
+	. = ..()
 	dat = {"
 
 		<html><head>
@@ -711,7 +711,7 @@
 	title = "Corporate Regulations"
 
 /obj/item/weapon/book/manual/security_space_law/initialize()
-	..()
+	. = ..()
 	dat = {"
 
 		<html><head>
@@ -735,7 +735,7 @@
 	title = "NT Medical Diagnostics Manual"
 
 /obj/item/weapon/book/manual/medical_diagnostics_manual/initialize()
-	..()
+	. = ..()
 	dat = {"<html>
 				<head>
 				<style>
@@ -782,7 +782,7 @@
 	title = "Engineering Textbook"
 
 /obj/item/weapon/book/manual/engineering_guide/initialize()
-	..()
+	. = ..()
 	dat = {"
 
 		<html><head>

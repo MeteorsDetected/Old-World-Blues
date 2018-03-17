@@ -14,7 +14,7 @@
 	var/datum/money_account/linked_account
 
 /obj/item/device/eftpos/initialize()
-	..()
+	. = ..()
 	machine_id = "[station_name()] EFTPOS #[num_financial_terminals++]"
 	access_code = rand(1111,111111)
 	spawn(0)

@@ -16,7 +16,7 @@
 	var/loading = 0 // Nice loading text
 
 /obj/machinery/computer/cloning/initialize()
-	..()
+	. = ..()
 	updatemodules()
 
 /obj/machinery/computer/cloning/Destroy()

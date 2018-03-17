@@ -15,10 +15,9 @@
 	salvageable = 0
 
 	initialize()
-		..()
+		. = ..()
 		pr_mech_sleeper = new /datum/global_iterator/mech_sleeper(list(src),0)
 		pr_mech_sleeper.set_delay(equip_cooldown)
-		return
 
 	Destroy()
 		qdel(pr_mech_sleeper)
@@ -232,7 +231,7 @@
 	initialize()
 		cable = new(src)
 		cable.amount = 0
-		..()
+		. = ..()
 
 	attached()
 		..()
@@ -379,7 +378,7 @@
 	required_type = /obj/mecha/medical
 
 	initialize()
-		..()
+		. = ..()
 		flags |= NOREACT
 		syringes = new
 		known_reagents = list("inaprovaline"="Inaprovaline","anti_toxin"="Dylovene")
