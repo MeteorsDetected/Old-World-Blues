@@ -19,7 +19,7 @@
 /atom/movable/New()
 	..()
 	if(auto_init && atomInstantInitialize)
-		initialize(FALSE)
+		master_controller.initAtom(src, FALSE)
 
 /*
 /atom/movable/Del()

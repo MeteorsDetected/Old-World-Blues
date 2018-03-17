@@ -87,17 +87,17 @@ var/global/atomInstantInitialize = FALSE
 /datum/controller/game_controller/proc/initializeAtoms()
 	admin_notice("<span class='danger'>Initializing objects</span>", R_DEBUG)
 	atomInstantInitialize = TRUE
-	var/maploaded = TRUE
+
 	var/count = 0
 	for(var/atom/movable/A in world)
-		initAtom(A, maploaded)
+		initAtom(A, TRUE)
 		++count
 	admin_notice(SPAN_DANG("Initialized [count] atoms"), R_DEBUG)
 
 	if(late_loaders && late_loaders.len)
 		for(var/I in late_loaders)
 			var/atom/movable/A = I
-			A.lateInitialize(maploaded)
+			A.lateInitialize(TRUE)
 		admin_notice(SPAN_DANG("Late initialized [late_loaders.len] atoms"), R_DEBUG)
 		late_loaders.Cut()
 
@@ -108,12 +108,12 @@ var/global/atomInstantInitialize = FALSE
 	if(result)
 		switch(result)
 			if(INITIALIZE_HINT_LATELOAD)
-				if(!atomInstantInitialize)	//mapload
+				if(maploaded)
 					if(!late_loaders)
 						late_loaders = new
 					late_loaders += A
 				else
-					A.lateInitialize(maploaded)
+					A.lateInitialize(FALSE)
 			if(INITIALIZE_HINT_QDEL)
 				qdel(A)
 
