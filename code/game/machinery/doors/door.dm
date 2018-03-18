@@ -47,14 +47,6 @@
 
 /obj/machinery/door/initialize()
 	. = ..()
-	if(density)
-		layer = closed_layer
-		explosion_resistance = initial(explosion_resistance)
-		update_heat_protection(get_turf(src))
-	else
-		layer = open_layer
-		explosion_resistance = 0
-
 
 	if(width > 1)
 		if(dir in list(EAST, WEST))
@@ -65,9 +57,11 @@
 			bound_height = width * world.icon_size
 
 	health = maxhealth
-	update_icon()
-
-	update_nearby_tiles(need_rebuild=1)
+	spawn()
+		if(density)
+			close()
+		else
+			open()
 
 /obj/machinery/door/Destroy()
 	density = 0
@@ -132,8 +126,6 @@
 				open()
 			else
 				do_animate("deny")
-		return
-	return
 
 
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
@@ -398,7 +390,6 @@
 			if(density && !(stat & (NOPOWER|BROKEN)))
 				flick("door_deny", src)
 				playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)
-	return
 
 
 /obj/machinery/door/proc/open(var/forced = 0)
