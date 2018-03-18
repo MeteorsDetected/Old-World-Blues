@@ -26,7 +26,7 @@ Deep minerals:
 /datum/random_map/ore
 
 	descriptor = "resource distribution map"
-	real_size = 65         // Must be (power of 2)+1 for diamond-square.
+	real_size = 340         // Must be (power of 2)+1 for diamond-square.
 	cell_range = 255       // These values are used to seed ore values rather than to determine a turf type.
 	iterations = 0        // We'll handle iterating on our end (recursive, with args).
 

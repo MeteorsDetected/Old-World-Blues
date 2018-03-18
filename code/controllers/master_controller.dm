@@ -71,9 +71,13 @@ var/global/atomInstantInitialize = FALSE
 	sleep(-1)
 	// Create the mining ore distribution map.
 	if(config.generate_asteroid)
+		var/x_min = 24
+		var/x_max = 364
+		var/y_min = 16
+		var/y_max = 268
 		for(var/level in maps_data.asteroid_leves)
-			new /datum/random_map(null,13,32,level,217,223)
-			new /datum/random_map/ore(null,13,32,level,217,223)
+			new /datum/random_map(null,x_min,y_min,level,x_max,y_max)
+			new /datum/random_map/ore(null,x_min,y_min,level,x_max,y_max)
 
 	// Set up antagonists.
 	populate_antag_type_list()
