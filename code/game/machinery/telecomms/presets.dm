@@ -66,7 +66,7 @@
 	initialize()
 		for(var/i = 1441, i < 1489, i += 2)
 			freq_listening |= i
-		..()
+		. = ..()
 
 /obj/machinery/telecomms/receiver/preset_cent
 	id = "CentComm Receiver"
