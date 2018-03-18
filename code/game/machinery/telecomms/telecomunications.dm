@@ -120,8 +120,10 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 		//Defaults to our Z level!
 		var/turf/position = get_turf(src)
 		listening_level = position.z
+	if(. != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/telecomms/initialize()
+/obj/machinery/telecomms/lateInitialize()
 	..()
 	if(autolinkers.len)
 		// Links nearby machines

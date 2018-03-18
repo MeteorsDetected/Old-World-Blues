@@ -112,6 +112,11 @@ ADMIN_VERB_ADD(/client/proc/test_MD, R_DEBUG)
 	is_admin_level = 1
 	is_accessable_level = 0
 
+/obj/map_data/telecomm
+	name = "Telecomm level"
+	is_player_level = 1
+	is_accessable_level = 1
+
 /obj/map_data/asteroid
 	name = "Asteroid Level"
 	is_player_level = 1
