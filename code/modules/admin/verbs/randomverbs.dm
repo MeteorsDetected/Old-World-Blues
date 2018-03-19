@@ -467,7 +467,7 @@ ADMIN_VERB_ADD(/client/proc/cmd_admin_rejuvenate, R_REJUVINATE)
 	else
 		alert("Admin revive disabled")
 
-ADMIN_VERB_ADD(/client/proc/cmd_admin_world_narrate, R_ADMIN)
+ADMIN_VERB_ADD(/client/proc/cmd_admin_create_centcom_report, R_ADMIN)
 /client/proc/cmd_admin_create_centcom_report()
 	set category = "Special Verbs"
 	set name = "Create Command Report"
