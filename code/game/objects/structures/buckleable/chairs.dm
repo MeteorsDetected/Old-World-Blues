@@ -43,14 +43,18 @@
 
 /obj/structure/material/chair/update_icon()
 	..()
-	if(padding_material && buckled_mob)
-		var/armrest_key = "[base_icon]-armrest-[padding_material.name]"
-		if(isnull(stool_cache[armrest_key]))
-			var/image/I = image(icon, "[base_icon]_armrest")
-			I.layer = MOB_LAYER + 0.1
-			I.color = padding_material.icon_colour
-			stool_cache[armrest_key] = I
-		overlays |= stool_cache[armrest_key]
+	if(padding_material)
+		desc = "It's a chair. It looks comfy."
+		if(buckled_mob)
+			var/armrest_key = "[base_icon]-armrest-[padding_material.name]"
+			if(isnull(stool_cache[armrest_key]))
+				var/image/I = image(icon, "[base_icon]_armrest")
+				I.layer = MOB_LAYER + 0.1
+				I.color = padding_material.icon_colour
+				stool_cache[armrest_key] = I
+			overlays |= stool_cache[armrest_key]
+	else
+		desc = "You sit in this. Either by will or force."
 
 
 /obj/structure/material/chair/proc/update_layer()
@@ -86,7 +90,6 @@
 
 // Leaving this in for the sake of compilation.
 /obj/structure/material/chair/comfy
-	desc = "It's a chair. It looks comfy."
 	icon_state = "comfychair_preview"
 
 /obj/structure/material/chair/comfy/brown
