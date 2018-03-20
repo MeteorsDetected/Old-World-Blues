@@ -54,10 +54,16 @@
 		user << browse(null, "window=stack")
 	user.set_machine(src) //for correct work of onclose
 	var/list/recipe_list = recipes
+	var/sublist_title = null
 	if (recipes_sublist && recipe_list[recipes_sublist] && istype(recipe_list[recipes_sublist], /datum/stack_recipe_list))
 		var/datum/stack_recipe_list/srl = recipe_list[recipes_sublist]
 		recipe_list = srl.recipes
-	var/t1 = text("<HTML><HEAD><title>Constructions from []</title></HEAD><body><TT>Amount Left: []<br>", src, src.get_amount())
+		sublist_title = srl.title
+	var/t1 = "<HTML><HEAD><title>Constructions from [src]</title></HEAD><body><TT>Amount Left: [src.get_amount()]"
+	if(recipes_sublist)
+		t1 += "<hr>[sublist_title] - <a href='?src=\ref[src];back=go'>back</a><hr>"
+	else
+		t1 += "<br>"
 	for(var/i=1;i<=recipe_list.len,i++)
 		var/E = recipe_list[i]
 		if (isnull(E))
@@ -155,10 +161,13 @@
 /obj/item/stack/Topic(href, href_list)
 	..()
 	if ((usr.incapacitated() || usr.get_active_hand() != src))
-		return
+		return TRUE
 
 	if (href_list["sublist"] && !href_list["make"])
 		list_recipes(usr, text2num(href_list["sublist"]))
+
+	if (href_list["back"])
+		list_recipes(usr, null)
 
 	if (href_list["make"])
 		if (src.get_amount() < 1) qdel(src) //Never should happen
