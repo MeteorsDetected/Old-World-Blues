@@ -952,7 +952,7 @@
 "asp" = (/obj/structure/table/woodentable,/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/item/device/violin,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor/wood,/area/crew_quarters/bar)
 "asq" = (/obj/machinery/door/airlock,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor{icon_state = "grimy"},/area/crew_quarters/barman)
 "asr" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor{icon_state = "grimy"},/area/crew_quarters/barman)
-"ass" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/apc{dir = 4; name = "east bump"; pixel_x = 24},/turf/simulated/floor{icon_state = "grimy"},/area/crew_quarters/barman)
+"ass" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/apc{dir = 4; name = "east bump"; pixel_x = 0},/turf/simulated/floor{icon_state = "grimy"},/area/crew_quarters/barman)
 "ast" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating,/area/maintenance/bar)
 "asu" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/door/airlock/maintenance,/turf/simulated/floor/plating,/area/hallway/primary/central_three)
 "asv" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor,/area/hallway/primary/central_three)
