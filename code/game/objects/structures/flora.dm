@@ -76,7 +76,7 @@
 /obj/structure/flora/pottedplant
 	name = "potted plant"
 	icon = 'icons/obj/plants.dmi'
-	icon_state = "plant-26"
+	icon_state = "plant-21"
 
 //newbushes
 
