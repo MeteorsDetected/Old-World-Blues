@@ -97,19 +97,14 @@
 			for(var/obj/O in src.contents)
 				qdel(O)
 			qdel(src)
-			return
 		if(2.0)
 			for(var/obj/O in src.contents)
 				if(prob(50))
 					qdel(O)
 			qdel(src)
-			return
 		if(3.0)
 			if (prob(50))
 				qdel(src)
-			return
-		else
-	return
 
 /obj/structure/closet/crate/secure
 	desc = "A secure crate."
@@ -462,6 +457,44 @@
 				if(!M.anchored)
 					M.forceMove(src)
 					break
+
+
+//Dresser
+/obj/structure/closet/crate/dresser
+	name = "wooden dresser"
+	icon_state = "dresser"
+	icon_opened = "dresseropen"
+	desc = "A dresser that suits you, your clothes and your space."
+
+/obj/structure/closet/crate/dresser/attackby(obj/item/I, mob/living/user)
+	if(!opened && istype(I, /obj/item/weapon/wrench))
+		var/was_anchored = anchored
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		if(was_anchored)
+			user.visible_message(
+				SPAN_NOTE("[user] begin to loosen \the [src]'s bolts..."),
+				SPAN_NOTE("You begin to loosen \the [src]'s bolts...")
+			)
+		else
+			user.visible_message(
+				SPAN_NOTE("[user] begin to tightened \the [src]'s bolts..."),
+				SPAN_NOTE("You begin to tightened \the [src]'s bolts...")
+			)
+		if(do_after(user,30, src) && was_anchored == anchored)
+			anchored = !anchored
+			if(was_anchored)
+				user.visible_message(
+					"[user] loosens \the [src]'s bolts.",
+					SPAN_NOTE("You have loosened \the [src]. Now it can be pulled somewhere else."),
+					"You hear ratchet."
+				)
+			else
+				user.visible_message(
+					"[user] tights \the [src]'s bolts.",
+					SPAN_NOTE("You have tightened \the [src]. Now it can be pulled somewhere else."),
+					"You hear ratchet."
+				)
+
 
 //fluff variant
 /obj/structure/closet/crate/secure/large/reinforced
