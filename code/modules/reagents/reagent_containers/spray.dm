@@ -97,6 +97,7 @@
 /obj/item/weapon/reagent_containers/spray/cleaner
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
+	preloaded = list("cleaner" = 250)
 
 /obj/item/weapon/reagent_containers/spray/cleaner/drone
 	name = "space cleaner"
