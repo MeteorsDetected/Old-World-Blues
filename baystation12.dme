@@ -1897,4 +1897,5 @@
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
 #include "maps\asterodstation.dmm"
+#include "maps\Xfiles.dmm"
 // END_INCLUDE
