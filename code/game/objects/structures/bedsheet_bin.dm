@@ -134,6 +134,7 @@ LINEN BINS
 
 /obj/item/weapon/bedsheet/doublesheet
 	icon_state = "doublesheet"
+	wear_state = "bedsheet"
 	is_double = TRUE
 
 /obj/item/weapon/bedsheet/doublesheet/rainbow

@@ -7,13 +7,15 @@
 	throw_range = 5
 	w_class = ITEM_SIZE_SMALL
 	var/obj/item/weapon/implant/imp = null
-	var/start_with = null
 
 /obj/item/weapon/implanter/initialize()
 	. = ..()
-	if(start_with)
-		imp = new start_with(src)
-		update_icon()
+	update_icon()
+
+/obj/item/weapon/implanter/proc/implantPrepared()
+	if(ispath(imp))
+		imp = new imp(src)
+	return imp
 
 /*
 /obj/item/weapon/implanter/attack_self(var/mob/user)
@@ -32,7 +34,6 @@
 		src.icon_state = "implanter1"
 	else
 		src.icon_state = "implanter0"
-	return
 
 /obj/item/weapon/implanter/attack(mob/living/M, mob/user)
 	if (!iscarbon(M))
@@ -73,20 +74,19 @@
 
 /obj/item/weapon/implanter/loyalty
 	name = "implanter-loyalty"
-	start_with = /obj/item/weapon/implant/loyalty
+	imp = /obj/item/weapon/implant/loyalty
 
 /obj/item/weapon/implanter/explosive
 	name = "implanter (E)"
-	start_with = /obj/item/weapon/implant/explosive
+	imp = /obj/item/weapon/implant/explosive
 
 /obj/item/weapon/implanter/adrenalin
 	name = "implanter-adrenalin"
-	start_with = /obj/item/weapon/implant/adrenalin
+	imp = /obj/item/weapon/implant/adrenalin
 
 /obj/item/weapon/implanter/compressed
 	name = "implanter (C)"
-	icon_state = "cimplanter1"
-	start_with = /obj/item/weapon/implant/compressed
+	imp = /obj/item/weapon/implant/compressed
 
 /obj/item/weapon/implanter/compressed/update_icon()
 	if (imp)

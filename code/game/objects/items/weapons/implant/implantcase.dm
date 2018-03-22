@@ -12,14 +12,17 @@
 	var/obj/item/weapon/implant/imp = null
 
 /obj/item/weapon/implantcase/initialize()
+	. = ..()
+	update_icon()
+
+/obj/item/weapon/implantcase/proc/implantPrepared()
 	if(ispath(imp))
 		imp = new imp(src)
-		update_icon()
-	return ..()
+	return imp
 
 /obj/item/weapon/implantcase/update_icon()
 	if(src.imp)
-		src.icon_state = "implantcase-[src.imp.implant_color]"
+		src.icon_state = "implantcase-1"
 	else
 		src.icon_state = "implantcase-0"
 	..()
@@ -38,31 +41,30 @@
 		else
 			src.name = "Glass Case"
 	else if(istype(I, /obj/item/weapon/reagent_containers/syringe))
-		if(!src.imp)	return
-		if(!src.imp.allow_reagents)	return
+		if(!src.implantPrepared())
+			user << "\The [src] is empty"
+			return
+		if(!src.imp.allow_reagents)
+			return
 		if(src.imp.reagents.total_volume >= src.imp.reagents.maximum_volume)
 			user << "\red [src] is full."
 		else
-			spawn(5)
-				I.reagents.trans_to_obj(src.imp, 5)
-				user << SPAN_NOTE("You inject 5 units of the solution. The syringe now contains [I.reagents.total_volume] units.")
+			I.reagents.trans_to_obj(src.imp, 5)
+			user << SPAN_NOTE("You inject 5 units of the solution. The syringe now contains [I.reagents.total_volume] units.")
 	else if (istype(I, /obj/item/weapon/implanter))
 		var/obj/item/weapon/implanter/M = I
 		if (M.imp)
-			if ((src.imp || M.imp.implanted))
+			if(src.imp)
 				return
-			M.imp.loc = src
+			M.imp.forceMove(src)
 			src.imp = M.imp
 			M.imp = null
 			src.update_icon()
 			M.update_icon()
 		else
-			if (src.imp)
-				if (M.imp)
-					return
-				src.imp.loc = M
+			if (src.implantPrepared())
+				src.imp.forceMove(M)
 				M.imp = src.imp
 				src.imp = null
 				update_icon()
 			M.update_icon()
-	return
