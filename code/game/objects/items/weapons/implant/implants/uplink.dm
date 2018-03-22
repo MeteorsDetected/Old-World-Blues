@@ -1,3 +1,6 @@
+/obj/item/weapon/implanter/uplink
+	imp = /obj/item/weapon/implant/uplink
+
 /obj/item/weapon/implant/uplink
 	name = "uplink"
 	desc = "Summon things."
