@@ -39,10 +39,8 @@
 			return
 
 		if("freedom")
-			var/obj/item/weapon/implanter/O = PoolOrNew(/obj/item/weapon/implanter, src)
-			O.imp = PoolOrNew(/obj/item/weapon/implant/freedom, O)
-			var/obj/item/weapon/implanter/U = PoolOrNew(/obj/item/weapon/implanter, src)
-			U.imp = PoolOrNew(/obj/item/weapon/implant/uplink, U)
+			PoolOrNew(/obj/item/weapon/implanter, src)
+			PoolOrNew(/obj/item/weapon/implanter/uplink, src)
 			return
 
 		if("hacker")

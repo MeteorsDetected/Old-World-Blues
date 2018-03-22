@@ -3,6 +3,9 @@
 	desc = "A case containing a freedom implant."
 	imp = /obj/item/weapon/implant/freedom
 
+/obj/item/weapon/implanter/freedom
+	imp = /obj/item/weapon/implant/freedom
+
 /obj/item/weapon/implant/freedom
 	name = "freedom implant"
 	desc = "Use this to escape from those evil Red Shirts."
