@@ -146,6 +146,39 @@
 /obj/item/ammo_magazine/c9mm/empty
 	initial_ammo = 0
 
+/obj/item/ammo_magazine/mc9mmMP
+	name = "vertical mounted magazine (9mm)"
+	icon_state = "9mm_mag_20"
+	mag_type = MAGAZINE
+	ammo_type = /obj/item/ammo_casing/c9mm
+	matter = list(MATERIAL_STEEL = 1200)
+	caliber = "9mm"
+	max_ammo = 20
+	multiple_sprites = 1
+
+/obj/item/ammo_magazine/mc9mmMP/empty
+	initial_ammo = 0
+
+/obj/item/ammo_magazine/mc9mmMP/rubber
+	name = "top mounted magazine (9mm rubber)"
+	ammo_type = /obj/item/ammo_casing/c9mm/rubber
+
+/obj/item/ammo_magazine/mc9mmMP/practice
+	name = "top mounted magazine (9mm practice)"
+	ammo_type = /obj/item/ammo_casing/a556/practice
+
+/obj/item/ammo_magazine/c45
+	name = "ammunition Box (.45)"
+	icon_state = "9mm"
+	origin_tech = list(TECH_COMBAT = 2)
+	caliber = ".45"
+	matter = list(MATERIAL_STEEL = 2250)
+	ammo_type = /obj/item/ammo_casing/c9mm/practice
+	max_ammo = 30
+
+/obj/item/ammo_magazine/mc9mmMP/empty
+	initial_ammo = 0
+
 /obj/item/ammo_magazine/a12mm
 	name = "magazine (12mm)"
 	icon_state = "12mm"
