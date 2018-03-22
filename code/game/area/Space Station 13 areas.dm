@@ -1080,6 +1080,7 @@ area/crew_quarters/barman
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"
 	lighting_use_dynamic = 0
+	requires_power = 0
 
 /area/holodeck/alphadeck
 	name = "\improper Holodeck Alpha"
