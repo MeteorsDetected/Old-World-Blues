@@ -56,6 +56,12 @@
 /turf/simulated/shuttle/wall/gray/update_icon()
 	return
 
+/turf/simulated/shuttle/wall/blue
+	icon_state = "wall_blue"
+
+/turf/simulated/shuttle/wall/blue/update_icon()
+	return
+
 /obj/shuttle/corner
 	icon = 'icons/turf/shuttle.dmi'
 	icon_state = "corner"
