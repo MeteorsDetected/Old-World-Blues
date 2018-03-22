@@ -3128,7 +3128,7 @@
 "bih" = (/obj/effect/decal/cleanable/blood/splatter/animated,/obj/item/trash/liquidfood,/turf/simulated/floor/plating,/area/space)
 "bii" = (/obj/structure/table/steel,/obj/item/clothing/mask/gas/security,/turf/simulated/floor/plating,/area/space)
 "bij" = (/obj/structure/boulder,/turf/simulated/floor/plating,/area/space)
-"bik" = (/obj/structure/table/steel,/obj/structure/table/steel,/turf/simulated/floor/plating,/area/space)
+"bik" = (/obj/structure/table/steel,/turf/simulated/floor/plating,/area/space)
 "bil" = (/obj/effect/spider/stickyweb,/turf/simulated/floor/plating,/area/space)
 "bim" = (/turf/simulated/floor/bluegrid,/area/space)
 "bin" = (/obj/structure/material/chair/office/dark{dir = 1},/turf/simulated/floor/plating,/area/space)
