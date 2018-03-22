@@ -3,7 +3,7 @@
 
 /obj/item/weapon/implanter/exile
 	name = "implanter-exile"
-	start_with = /obj/item/weapon/implant/exile
+	imp = /obj/item/weapon/implant/exile
 
 /obj/item/weapon/implant/exile
 	name = "exile"
