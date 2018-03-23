@@ -886,11 +886,6 @@
 	icon_state = "beepskyplushie"
 	phrase = "Ping!"
 
-/obj/item/plushie/kadji
-	name = "plush Kadji"
-	desc = "A plushie of a popular industrious  Kadji! Don't you just want to hug it and squeeze it to death? Nope?"
-	icon_state = "kadjiplushie"
-	phrase = "Meow!"
 
 //Small plushies.
 /obj/item/toy/plushie
@@ -944,6 +939,11 @@
 	name = "kitten plush"
 	desc = "A plushie of a cute kitten! Watch as it purrs it's way right into your heart."
 	icon_state = "cat_black"
+
+/obj/item/plushie/kadji
+	name = "plush Kadji"
+	desc = "A plushie of a popular industrious  Kadji! Don't you just want to hug it and squeeze it to death? Nope?"
+	icon_state = "kadjiplushie"
 
 /obj/item/toy/plushie/kitten/initialize()
 	icon_state = pick(list(
