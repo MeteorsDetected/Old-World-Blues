@@ -3,7 +3,7 @@ var/obj/effect/lobby_image = new /obj/effect/lobby_image
 /obj/effect/lobby_image
 	name = "Polaris"
 	desc = "How are you reading this?"
-	icon = 'icons/misc/title.dmi'
+	icon = 'icons/misc/630x630.dmi'
 	icon_state = "title"
 	screen_loc = "1,1"
 
