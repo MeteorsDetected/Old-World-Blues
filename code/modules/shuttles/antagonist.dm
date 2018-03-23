@@ -10,4 +10,4 @@
 
 /obj/machinery/computer/shuttle_control/multi/alekto
 	name = "Alekto shuttle control console"
-	shuttle_tag = "alecto"
+	shuttle_tag = "Alekto"
