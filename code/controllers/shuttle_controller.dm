@@ -254,3 +254,32 @@ var/global/datum/shuttle_controller/shuttle_controller
 	MS.warmup_time = 0
 	shuttles["Mercenary"] = MS
 
+//Alekto shuttle.
+	var/datum/shuttle/alekto/MS = new/datum/shuttle/alekto()
+	MS.origin = locate(/area/alekto/start)
+	MS.start_location = "Alekto orbit"
+
+	MS.destinations = list(
+		"Disaster - docks" = locate(/area/alekto_derel/docks),
+		"Disaster - rear" = locate(/area/alekto_derel/rear),
+		"Telecomms Satellite" = locate(/area/alekto_post/commssat),
+		"Space bar" = locate(/area/alekto_derel/bar),
+		"???" = locate(/area/alekto_derel/ivent),
+		"Nebulosity Arrivals docks" = locate(/area/alekto_post/dock),
+		"Nebulosity Satellite" = locate(/area/alekto_derel/satellite),
+		"Alekto orbit" = locate(/area/alekto_post/space),
+		)
+
+	MS.docking_controller_tag = "merc_shuttle"
+	MS.destination_dock_targets = list(
+		"Mercenary Base" = "merc_base",
+		"Arrivals dock" = "nuke_shuttle_dock_airlock",
+		)
+
+	/*MS.announcer = "NDV Icarus"
+	MS.arrival_message = "Attention, Exodus, you have a large signature approaching the station - looks unarmed to surface scans. We're too far out to intercept - brace for visitors."
+	MS.departure_message = "Your visitors are on their way out of the system, Nebulosity, burning delta-v like it's nothing. Good riddance."?*/
+	MS.interim = locate(/area/alekto/transit)
+
+	MS.warmup_time = 0
+	shuttles["Alekto"] = MS

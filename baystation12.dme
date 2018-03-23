@@ -1898,5 +1898,7 @@
 #include "interface\skin.dmf"
 #include "maps\CentComm.dmm"
 #include "maps\exodus\3.satelite.dmm"
+#include "maps\exodus\derelict.dmm"
+#include "maps\exodus\finds.dmm"
 #include "maps\exodus\Olivia.dmm"
 // END_INCLUDE
