@@ -481,6 +481,50 @@ area/space/atmosalert()
 	name = "\improper Thunderdome (New)"
 	icon_state = "thundernew"
 
+//ALETKTO
+
+/area/alekto_derel
+	name = "Alekto"
+	icon_state = "purple"
+	requires_power = 0
+
+/area/alekto_derel/docks
+	name = "Disaster docks"
+	icon_state = "purple"
+
+/area/alekto_derel/rear
+	name = "Disaster rear"
+	icon_state = "purple"
+
+/area/alekto_derel/bar
+	name = "Disaster bar"
+	icon_state = "purple"
+
+/area/alekto_derel/satellite
+	name = "Disaster ivent"
+	icon_state = "green"
+
+/area/alekto_derel/ivent
+	name = "Disaster ivent"
+	icon_state = "purple"
+
+/area/alekto_post
+	name = "Disaster ivent"
+	icon_state = "green"
+
+/area/alekto_post/space
+	name = "Disaster space"
+	icon_state = "green"
+
+/area/alekto_post/dock
+	name = "Disaster dock"
+	icon_state = "green"
+
+/area/alekto_post/commssat
+	name = "Disaster ivent"
+	icon_state = "green"
+
+
 //ENEMY
 
 //names are used
