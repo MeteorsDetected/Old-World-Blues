@@ -886,9 +886,9 @@
 	icon_state = "beepskyplushie"
 	phrase = "Ping!"
 
-/obj/structure/plushie/kadji
+/obj/item/plushie/kadji
 	name = "plush Kadji"
-	desc = "A plushie of a popular industrious  Kadji! Don't you just want to hug it and squeeze and squeeze it to death? Nope?"
+	desc = "A plushie of a popular industrious  Kadji! Don't you just want to hug it and squeeze it to death? Nope?"
 	icon_state = "kadjiplushie"
 	phrase = "Meow!"
 
