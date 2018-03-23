@@ -1901,4 +1901,5 @@
 #include "maps\exodus\derelict.dmm"
 #include "maps\exodus\finds.dmm"
 #include "maps\exodus\Olivia.dmm"
+#include "maps\exodus\way.dmm"
 // END_INCLUDE
