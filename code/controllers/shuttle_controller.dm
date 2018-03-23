@@ -255,31 +255,31 @@ var/global/datum/shuttle_controller/shuttle_controller
 	shuttles["Mercenary"] = MS
 
 //Alekto shuttle.
-	var/datum/shuttle/alekto/MS = new/datum/shuttle/alekto()
-	MS.origin = locate(/area/alekto/start)
-	MS.start_location = "Alekto orbit"
+	var/datum/shuttle/multi_shuttle/alecto = new()
+	alecto.origin = locate(/area/alekto_post/space)
+	alecto.start_location = "Alekto orbit"
 
-	MS.destinations = list(
-		"Disaster - docks" = locate(/area/alekto_derel/docks),
-		"Disaster - rear" = locate(/area/alekto_derel/rear),
-		"Telecomms Satellite" = locate(/area/alekto_post/commssat),
-		"Space bar" = locate(/area/alekto_derel/bar),
-		"???" = locate(/area/alekto_derel/ivent),
+	alecto.destinations = list(
+		"Disaster - docks"          = locate(/area/alekto_derel/docks),
+		"Disaster - rear"           = locate(/area/alekto_derel/rear),
+		"Space bar"                 = locate(/area/alekto_derel/bar),
+		"???"                       = locate(/area/alekto_derel/ivent),
 		"Nebulosity Arrivals docks" = locate(/area/alekto_post/dock),
-		"Nebulosity Satellite" = locate(/area/alekto_derel/satellite),
-		"Alekto orbit" = locate(/area/alekto_post/space),
+		"Nebulosity Satellite"      = locate(/area/alekto_derel/satellite),
+		"Telecomms Satellite"       = locate(/area/alekto_post/commssat),
+		"Alekto orbit"              = locate(/area/alekto_post/space),
 		)
 
-	MS.docking_controller_tag = "merc_shuttle"
-	MS.destination_dock_targets = list(
+	/*alecto.docking_controller_tag = "merc_shuttle"
+	alecto.destination_dock_targets = list(
 		"Mercenary Base" = "merc_base",
 		"Arrivals dock" = "nuke_shuttle_dock_airlock",
-		)
+		)*/
 
-	/*MS.announcer = "NDV Icarus"
-	MS.arrival_message = "Attention, Exodus, you have a large signature approaching the station - looks unarmed to surface scans. We're too far out to intercept - brace for visitors."
-	MS.departure_message = "Your visitors are on their way out of the system, Nebulosity, burning delta-v like it's nothing. Good riddance."?*/
-	MS.interim = locate(/area/alekto/transit)
+	alecto.announcer = "NDV Meteor"
+	alecto.arrival_message = "Attention, Nebulosity, Alekto arrived at the docks."
+	alecto.departure_message = "Attention, Nebulosity, Alekto leaves the docks. Good luck?"
+	alecto.interim = locate(/area/alekto_post/space)
 
-	MS.warmup_time = 0
-	shuttles["Alekto"] = MS
+	alecto.warmup_time = 20
+	shuttles["Alekto"] = alecto
