@@ -886,12 +886,6 @@
 	icon_state = "beepskyplushie"
 	phrase = "Ping!"
 
-/obj/item/plushie/kadji
-	name = "plush Kadji"
-	desc = "A plushie of a popular industrious  Kadji! Don't you just want to hug it and squeeze it to death? Nope?"
-	icon_state = "kadjiplushie"
-	phrase = "Meow!"
-
 //Small plushies.
 /obj/item/toy/plushie
 	name = "generic small plush"
@@ -939,6 +933,11 @@
 	name = "mouse plush"
 	desc = "A plushie of a delightful mouse! What was once considered a vile rodent is now your very best friend."
 	icon_state = "mouseplushie"
+
+/obj/item/toy/plushie/kadji
+	name = "plush Kadji"
+	desc = "A plushie of a popular industrious  Kadji! Don't you just want to hug it and squeeze it to death? Nope?"
+	icon_state = "kadjiplushie"
 
 /obj/item/toy/plushie/kitten
 	name = "kitten plush"
