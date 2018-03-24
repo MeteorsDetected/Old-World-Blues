@@ -344,18 +344,6 @@ ADMIN_VERB_ADD(/client/proc/togglebuildmodeself, R_BUILDMODE)
 	if(src.mob)
 		togglebuildmode(src.mob)
 
-ADMIN_VERB_ADD(/client/proc/object_talk, R_FUN)
-/client/proc/object_talk(var/msg as text)
-	set category = "Special Verbs"
-	set name = "oSay"
-	set desc = "Display a message to everyone who can hear the target"
-	if(mob.control_object)
-		if(!msg)
-			return
-		//todo hearable message
-		for (var/mob/V in hearers(mob.control_object))
-			V.show_message("<b>[mob.control_object.name]</b> says: \"" + msg + "\"", 2)
-
 ADMIN_VERB_ADD(/client/proc/kill_air, R_DEBUG)
 /client/proc/kill_air() // -- TLE
 	set category = "Debug"
