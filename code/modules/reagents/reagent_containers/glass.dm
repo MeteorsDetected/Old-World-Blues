@@ -214,6 +214,7 @@ var/global/list/broken_bottle_icon_cache = list()
 	attack_verb = list("stabbed", "slashed", "attacked")
 	sharp = 1
 	icon = get_broken_icon()
+	center_of_mass["y"] = 16
 
 	playsound(src, "shatter", 70, 1)
 

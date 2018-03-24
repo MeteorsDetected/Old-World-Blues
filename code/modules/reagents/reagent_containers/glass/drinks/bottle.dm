@@ -11,27 +11,6 @@
 	var/const/duration = 13 //Directly relates to the 'weaken' duration. Lowered by armor (i.e. helmets)
 	isGlass = 1
 
-/obj/item/weapon/reagent_containers/glass/drinks/bottle/smash(mob/living/target as mob, mob/living/user as mob)
-
-	//Creates a shattering noise and replaces the bottle with a broken_bottle
-	user.drop_from_inventory(src)
-	var/obj/item/weapon/broken_bottle/B = new(user.loc)
-	user.put_in_active_hand(B)
-	if(prob(33))
-		new/obj/item/weapon/material/shard(target.loc) // Create a glass shard at the target's location!
-	B.icon_state = src.icon_state
-
-	var/icon/I = new('icons/obj/drinks.dmi', src.icon_state)
-	I.Blend(B.broken_outline, ICON_OVERLAY, rand(5), 1)
-	I.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
-	B.icon = I
-
-	playsound(src, "shatter", 70, 1)
-	user.put_in_active_hand(B)
-	src.transfer_fingerprints_to(B)
-
-	qdel(src)
-
 /obj/item/weapon/reagent_containers/glass/drinks/bottle/attack(mob/living/target as mob, mob/living/user as mob)
 
 	if(!target)
