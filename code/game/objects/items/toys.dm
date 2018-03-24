@@ -934,6 +934,11 @@
 	desc = "A plushie of a delightful mouse! What was once considered a vile rodent is now your very best friend."
 	icon_state = "mouseplushie"
 
+/obj/item/toy/plushie/great_wizard
+	name = "great wizard"
+	desc = "A plushie of a delightful wizard! What was once considered a vile rodent is now a very great and powerful magician!"
+	icon_state = "great_wizard"
+
 /obj/item/toy/plushie/kadji
 	name = "plush Kadji"
 	desc = "A plushie of a popular industrious  Kadji! Don't you just want to hug it and squeeze it to death? Nope?"
