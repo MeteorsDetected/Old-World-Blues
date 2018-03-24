@@ -64,7 +64,7 @@
 /obj/item/clothing/suit/space/void/atmos_special
 	name = "dark brown voidsuit"
 	desc = "Military modification of the ordinary atmos voidsiut. This one seems to be refitted for tajaran."
-	icon_state = "rig-atmos_specail"
+	icon_state = "rig-atmos_special"
 	armor = list(melee = 45, bullet = 10, laser = 25,energy = 5, bomb = 35, bio = 100, rad = 50)
 	species_restricted = list(SPECIES_TAJARA)
 	allowed = list(

@@ -525,6 +525,9 @@ area/space/atmosalert()
 	name = "Disaster ivent"
 	icon_state = "green"
 
+/area/alekto_post/start
+	name = "Disaster ivent"
+	icon_state = "green"
 
 //ENEMY
 
