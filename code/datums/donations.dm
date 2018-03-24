@@ -11,7 +11,7 @@ var/datum/donations/donations = new()
 
 /hook/roundstart/proc/load_donators()
 	donations.load_donators()
-	return donations.donators.len
+	return TRUE
 
 /datum/donations
 	var/list/donat_categoryes = list()
