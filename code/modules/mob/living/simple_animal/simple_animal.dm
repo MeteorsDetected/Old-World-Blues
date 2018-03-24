@@ -222,10 +222,10 @@
 		..(act, type, desc)
 
 /mob/living/simple_animal/proc/visible_emote(var/act_desc)
-	custom_emote(1, act_desc)
+	src.visible_message("<B>[src]</B> [act_desc]")
 
 /mob/living/simple_animal/proc/audible_emote(var/act_desc)
-	custom_emote(2, act_desc)
+	src.audible_message("<B>[src]</B> [act_desc]")
 
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj || Proj.nodamage)
@@ -268,8 +268,6 @@
 			adjustBruteLoss(harm_intent_damage)
 			M.visible_message("\red [M] [response_harm] \the [src]")
 			M.do_attack_animation(src)
-
-	return
 
 /mob/living/simple_animal/attackby(var/obj/item/O, var/mob/user)
 	if(istype(O, /obj/item/stack/medical))

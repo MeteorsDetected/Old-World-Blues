@@ -33,6 +33,15 @@
 	access_scanner.req_access = req_access.Copy()
 	access_scanner.req_one_access = req_one_access.Copy()
 
+/mob/living/bot/custom_emote(type, message)
+	if(usr)
+		return ..()
+	message = "<B>[src]</B> [message]"
+	if(type == MESSAGE_VISIBLE)
+		src.visible_message(message)
+	else
+		src.audible_message(message)
+
 /mob/living/bot/Life()
 	..()
 	if(health <= 0)
