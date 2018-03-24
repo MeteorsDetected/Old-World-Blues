@@ -64,12 +64,17 @@
 /obj/item/clothing/suit/space/void/atmos_special
 	name = "dark brown voidsuit"
 	desc = "Military modification of the ordinary atmos voidsiut. This one seems to be refitted for tajaran."
-	icon_state = "rig-atmos_special"
+	icon_state = "rig-atmos_specail"
 	armor = list(melee = 45, bullet = 10, laser = 25,energy = 5, bomb = 35, bio = 100, rad = 50)
 	species_restricted = list(SPECIES_TAJARA)
 	allowed = list(
-		/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,
-		/obj/item/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd
+		/obj/item/device/flashlight,
+		/obj/item/weapon/tank,
+		/obj/item/device/suit_cooling_unit,
+		/obj/item/storage/bag/ore,
+		/obj/item/device/t_scanner,
+		/obj/item/weapon/pickaxe,
+		/obj/item/weapon/rcd
 	)
 
 // Vox space gear (vaccuum suit, low pressure armour)
