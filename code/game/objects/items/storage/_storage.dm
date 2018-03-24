@@ -446,9 +446,12 @@
 		storage_slots = max(storage_slots, contents.len)
 	var/total_storage_space = 0
 	for(var/obj/item/I in contents)
-		total_storage_space += I.get_storage_cost()
-		can_hold |= I.type
-		max_w_class = max(I.w_class, max_w_class)
+		if(total_storage_space)
+			total_storage_space += I.get_storage_cost()
+		if(can_hold && can_hold.len)
+			can_hold |= I.type
+		if(max_w_class)
+			max_w_class = max(I.w_class, max_w_class)
 	max_storage_space = max(total_storage_space,max_storage_space)
 
 
