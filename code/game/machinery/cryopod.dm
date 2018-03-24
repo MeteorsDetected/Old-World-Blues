@@ -13,7 +13,7 @@
 	name = "cryogenic oversight console"
 	desc = "An interface between crew and the cryogenic storage oversight systems."
 	icon = 'icons/obj/Cryogenic2.dmi'
-	icon_state = "cellconsole"
+	icon_state = "dorm"
 	circuit = /obj/item/weapon/circuitboard/cryopodcontrol
 	density = 0
 	interact_offline = 1
@@ -30,9 +30,9 @@
 
 /obj/machinery/computer/cryopod/update_icon()
 	if(stat&(BROKEN|NOPOWER))
-		icon_state = "cellconsole-p"
+		icon_state = "dorm_off"
 	else
-		icon_state = "cellconsole"
+		icon_state = "dorm"
 
 /obj/machinery/computer/cryopod/robot
 	name = "robotic storage console"
