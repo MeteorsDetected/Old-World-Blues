@@ -11,9 +11,9 @@
 		return 0
 
 	if(!usr || src == usr)
-		log_emote("[name]/[key] : [message]")
+		log_emote("[key]/[name]: [message]")
 	else
-		log_emote("[name]/[key] forced by ([key_name(usr)]) : [message]")
+		log_emote("[key]/[name] (usr: [key_name(usr)]) : [message]")
 	message = "<B>[src]</B> [message]"
 	. = 1
 

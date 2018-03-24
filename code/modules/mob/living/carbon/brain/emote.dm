@@ -65,7 +65,7 @@
 			src << SPAN_NOTE("Unusable emote '[act]'. Say *help for a list.")
 
 	if (message)
-		log_emote("[name]/[key] : [message]")
+		log_emote("[key]/[name] : [message]")
 
 		for(var/mob/M in dead_mob_list)
 			if (!M.client || isnewplayer(M))
