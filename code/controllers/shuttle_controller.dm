@@ -256,7 +256,7 @@ var/global/datum/shuttle_controller/shuttle_controller
 
 //Alekto shuttle.
 	var/datum/shuttle/multi_shuttle/alecto = new()
-	alecto.origin = locate(/area/alekto_post/space)
+	alecto.origin = locate(/area/alekto_post)
 	alecto.start_location = "Alekto orbit"
 
 	alecto.destinations = list(
@@ -264,8 +264,8 @@ var/global/datum/shuttle_controller/shuttle_controller
 		"Disaster - rear"           = locate(/area/alekto_derel/rear),
 		"Space bar"                 = locate(/area/alekto_derel/bar),
 		"???"                       = locate(/area/alekto_derel/ivent),
-		"Nebulosity Arrivals docks" = locate(/area/alekto_post/dock),
 		"Nebulosity Satellite"      = locate(/area/alekto_derel/satellite),
+		"Nebulosity Arrivals docks" = locate(/area/alekto_post/dock),
 		"Telecomms Satellite"       = locate(/area/alekto_post/commssat),
 		"Alekto orbit"              = locate(/area/alekto_post/space),
 		)
@@ -281,5 +281,5 @@ var/global/datum/shuttle_controller/shuttle_controller
 	alecto.departure_message = "Attention, Nebulosity, Alekto leaves the docks. Good luck?"
 	alecto.interim = locate(/area/alekto_post/space)
 
-	alecto.warmup_time = 20
+	alecto.warmup_time = 0
 	shuttles["Alekto"] = alecto

@@ -511,6 +511,7 @@ area/space/atmosalert()
 /area/alekto_post
 	name = "Disaster ivent"
 	icon_state = "green"
+	requires_power = 0
 
 /area/alekto_post/space
 	name = "Disaster space"
