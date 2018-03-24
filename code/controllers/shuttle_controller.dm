@@ -256,7 +256,7 @@ var/global/datum/shuttle_controller/shuttle_controller
 
 //Alekto shuttle.
 	var/datum/shuttle/multi_shuttle/alecto = new()
-	alecto.origin = locate(/area/alekto_post)
+	alecto.origin = locate(/area/alekto_post/start)
 	alecto.start_location = "Alekto orbit"
 
 	alecto.destinations = list(
