@@ -287,13 +287,6 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 	  /* --- Loop through the receivers and categorize them --- */
 
-		if (R.client)
-			if(R.client.prefs)
-				if(check_rights(0, 0) && !(R.client.prefs.chat_toggles & CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
-					continue
-			else
-				log_debug("Client prefs found to be null in /proc/Broadcast_Message() for mob [R] and client [R.ckey], this should be investigated.")
-
 		if(isnewplayer(R)) // we don't want new players to hear messages. rare but generates runtimes.
 			continue
 
@@ -493,14 +486,6 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	for (var/mob/R in receive)
 
 	  /* --- Loop through the receivers and categorize them --- */
-
-		if (R.client)
-			if(R.client.prefs)
-				if(check_rights(0, 0) && !(R.client.prefs.chat_toggles & CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
-					continue
-			else
-				log_debug("Client prefs found to be null in /proc/Broadcast_SimpleMessage() for mob [R] and client [R.ckey], this should be investigated.")
-
 
 		// --- Check for compression ---
 		if(compression > 0)
