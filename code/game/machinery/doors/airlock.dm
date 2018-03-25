@@ -94,6 +94,16 @@
 	opacity = 0
 	glass = 1
 
+/obj/machinery/door/airlock/glassmono
+	name = "Glass Airlock"
+	icon = 'icons/obj/doors/Doorglassone.dmi'
+	hitsound = 'sound/effects/Glasshit.ogg'
+	open_sound_powered = 'sound/machines/windowdoor.ogg'
+	maxhealth = 200
+	explosion_resistance = 4
+	opacity = 0
+	glass = 2
+
 /obj/machinery/door/airlock/centcom
 	name = "Airlock"
 	icon = 'icons/obj/doors/Doorele.dmi'
@@ -238,6 +248,7 @@
 	icon = 'icons/obj/doors/Dooruranium.dmi'
 	mineral = MATERIAL_URANIUM
 	var/last_event = 0
+
 
 /obj/machinery/door/airlock/process()
 	// Deliberate no call to parent.
