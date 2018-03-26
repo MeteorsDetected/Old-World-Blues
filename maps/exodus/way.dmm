@@ -392,7 +392,7 @@
 "hB" = (/obj/machinery/door/airlock/external{frequency = 1379; icon_state = "door_locked"; id_tag = "robotics_solar_inner"; locked = 1; name = "Engineering External Access"; req_access = list(11,13)},/obj/machinery/atmospherics/pipe/simple/visible{dir = 4},/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating,/area/derelict/storage/engine_storage)
 "hC" = (/obj/machinery/access_button{command = "cycle_interior"; frequency = 1379; layer = 3.3; master_tag = "robotics_solar_airlock"; name = "interior access button"; pixel_x = -25; pixel_y = -25; req_access = list(11,13)},/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 8},/area/derelict/storage/engine_storage)
 "hD" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating,/area/derelict/storage/engine_storage)
-"hE" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plating,/area/derelict/storage/engine_storage)
+"hE" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plating,/area/derelict/storage/engine_storage)
 "hF" = (/obj/machinery/door/airlock/engineering{name = "Aft Port Solar Access"; req_access = list(11)},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating,/area/derelict/storage/engine_storage)
 "hG" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plating,/area/derelict/storage/engine_storage)
 "hH" = (/obj/item/rig_module/vision/nvg,/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 10},/area/derelict/storage)
@@ -415,7 +415,7 @@
 "hY" = (/obj/effect/decal/cleanable/blood/drip,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/derelict/bridge)
 "hZ" = (/turf/simulated/floor/plating{dir = 4; icon_state = "warnplatecorner"},/area/derelict/storage/engine_storage)
 "ia" = (/obj/machinery/constructable_frame,/turf/simulated/floor/plating,/area/derelict/storage/engine_storage)
-"ib" = (/obj/structure/cable,/turf/simulated/floor/plating,/area/derelict/storage/engine_storage)
+"ib" = (/obj/machinery/power/solar_control{id = "portsolar"; name = "Aft Port Solar Control"; track = 0},/obj/structure/cable/yellow,/obj/structure/cable,/turf/simulated/floor/plating{dir = 4; icon_state = "warnplatecorner"},/area/derelict/storage/engine_storage)
 "ic" = (/obj/machinery/power/apc{dir = 8},/turf/simulated/wall/r_wall,/area/derelict/storage/engine_storage)
 "id" = (/obj/machinery/light/small{dir = 4; pixel_y = 8},/turf/simulated/floor/plating,/area/derelict/storage/engine_storage)
 "ie" = (/obj/structure/door_assembly/door_assembly_highsecurity,/obj/structure/barricade,/obj/effect/decal/cleanable/blood/writing,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor,/area/derelict/storage)
@@ -476,48 +476,48 @@
 "jh" = (/obj/structure/material/bed,/obj/item/weapon/grenade/empgrenade,/turf/simulated/floor/plating,/area/derelict/storage)
 "ji" = (/obj/structure/boulder,/turf/simulated/floor/plating,/area/derelict/storage)
 "jj" = (/obj/machinery/light/small{brightness_color = "#DA0205"; brightness_power = 1; brightness_range = 5},/turf/simulated/floor,/area/derelict/bridge/access)
-"jk" = (/obj/machinery/porta_turret,/turf/simulated/floor,/area/derelict/bridge/access)
-"jl" = (/obj/machinery/light/small{brightness_color = "#DA0205"; brightness_power = 1; brightness_range = 5},/turf/simulated/floor/plating{icon_state = "platingdmg1"},/area/derelict/bridge/access)
-"jm" = (/obj/machinery/photocopier/faxmachine,/obj/structure/table/steel,/turf/simulated/floor/plating,/area/derelict/bridge)
-"jn" = (/obj/structure/table/steel,/obj/item/device/radio,/turf/simulated/floor/plating,/area/derelict/bridge)
-"jo" = (/obj/effect/decal/cleanable/blood/drip,/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/derelict/bridge)
-"jp" = (/obj/structure/table/steel,/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/item/device/megaphone,/turf/simulated/floor/plating,/area/derelict/bridge)
-"jq" = (/obj/structure/table/steel,/obj/item/device/taperecorder,/turf/simulated/floor/plating,/area/derelict/bridge)
-"jr" = (/obj/structure/grille/broken,/obj/structure/lattice,/turf/space,/area/space)
-"js" = (/obj/structure/cable/yellow{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plating/airless,/area/space)
-"jt" = (/obj/item/stack/material/phoron,/turf/simulated/floor/plating,/area/derelict/storage)
-"ju" = (/obj/machinery/power/port_gen/pacman,/turf/simulated/floor/plating,/area/derelict/storage)
-"jv" = (/obj/item/weapon/secbot_assembly/ed209_assembly,/turf/simulated/floor/plating,/area/derelict/storage)
-"jw" = (/obj/structure/material/chair/office/dark{dir = 8},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating{icon_state = "platingdmg3"},/area/derelict/storage)
-"jx" = (/obj/structure/extinguisher_cabinet,/turf/simulated/wall/r_wall,/area/derelict/bridge/access)
-"jy" = (/obj/structure/firedoor_assembly,/obj/item/tape/engineering{icon_state = "engineering_h"},/turf/simulated/floor,/area/derelict/bridge/access)
-"jz" = (/obj/structure/barricade,/obj/item/tape/engineering{icon_state = "engineering_h"},/turf/simulated/floor,/area/derelict/bridge/access)
-"jA" = (/obj/item/tape/engineering{icon_state = "engineering_h"},/turf/simulated/floor,/area/derelict/bridge/access)
-"jB" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/wall/r_wall,/area/derelict/bridge/access)
-"jC" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/wall/r_wall,/area/derelict/bridge/access)
-"jD" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/wall/r_wall,/area/derelict/bridge)
-"jE" = (/obj/structure/table/steel,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating,/area/derelict/bridge)
-"jF" = (/obj/machinery/embedded_controller/radio/airlock/docking_port{frequency = 1380; id_tag = "edock_airlock"; pixel_x = 30; req_access = list(10); tag_airpump = "edock_pump"; tag_chamber_sensor = "edock_sensor"; tag_exterior_door = "edock_outer"; tag_interior_door = "edock_inner"},/turf/simulated/floor/plating,/area/derelict/bridge)
-"jG" = (/obj/item/storage/toolbox/syndicate,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/derelict/storage)
-"jH" = (/obj/machinery/portable_atmospherics/canister/oxygen,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor,/area/derelict/storage)
-"jI" = (/obj/effect/decal/cleanable/blood/writing,/turf/simulated/floor,/area/derelict/bridge/access)
-"jJ" = (/obj/item/clothing/shoes/jackboots/combat,/turf/simulated/floor,/area/derelict/bridge/access)
-"jK" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/wall/r_wall,/area/derelict/bridge/access)
-"jL" = (/obj/machinery/computer/med_data,/turf/simulated/floor/plating,/area/derelict/bridge)
-"jM" = (/obj/effect/decal/cleanable/blood/drip,/obj/structure/material/chair/office/dark{dir = 8},/turf/simulated/floor/plating,/area/derelict/bridge)
-"jN" = (/obj/structure/material/chair/office/dark{dir = 4},/turf/simulated/floor/plating,/area/derelict/bridge)
-"jO" = (/obj/item/clothing/shoes/magboots/toggleable/syndie,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plating,/area/derelict/storage)
-"jP" = (/obj/machinery/power/terminal{dir = 4},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plating,/area/derelict/storage)
-"jQ" = (/obj/machinery/power/smes/buildable{charge = 0; RCon_tag = "Solar - Aft Port"},/obj/structure/cable,/turf/simulated/floor/plating,/area/derelict/storage)
-"jR" = (/obj/item/tape/engineering{icon_state = "engineering_h"},/turf/simulated/floor/plating{icon_state = "platingdmg3"},/area/derelict/bridge/access)
-"jS" = (/obj/machinery/light/small{brightness_color = "#DA0205"; brightness_power = 1; brightness_range = 5},/obj/item/tape/engineering{icon_state = "engineering_h"},/turf/simulated/floor,/area/derelict/bridge/access)
-"jT" = (/obj/item/weapon/ectoplasm,/obj/item/tape/engineering{icon_state = "engineering_h"},/turf/simulated/floor,/area/derelict/bridge/access)
-"jU" = (/obj/effect/decal/cleanable/blood/writing,/obj/item/tape/engineering{icon_state = "engineering_h"},/turf/simulated/floor,/area/derelict/bridge/access)
-"jV" = (/obj/machinery/computer/card,/turf/simulated/floor/plating,/area/derelict/bridge)
-"jW" = (/obj/effect/decal/cleanable/blood/drip,/obj/structure/material/chair/office/dark{dir = 4},/turf/simulated/floor/plating,/area/derelict/bridge)
-"jX" = (/obj/machinery/computer/atmos_alert,/turf/simulated/floor/plating,/area/derelict/bridge)
-"jY" = (/obj/machinery/portable_atmospherics/canister/oxygen,/turf/simulated/floor,/area/derelict/storage)
-"jZ" = (/obj/machinery/power/solar_control{id = "portsolar"; name = "Aft Port Solar Control"; track = 0},/obj/structure/cable/yellow,/obj/structure/cable,/turf/simulated/floor/plating{dir = 4; icon_state = "warnplatecorner"},/area/derelict/storage)
+"jk" = (/obj/structure/boulder,/turf/simulated/floor,/area/derelict/bridge/access)
+"jl" = (/obj/machinery/porta_turret,/turf/simulated/floor,/area/derelict/bridge/access)
+"jm" = (/obj/machinery/light/small{brightness_color = "#DA0205"; brightness_power = 1; brightness_range = 5},/turf/simulated/floor/plating{icon_state = "platingdmg1"},/area/derelict/bridge/access)
+"jn" = (/obj/machinery/photocopier/faxmachine,/obj/structure/table/steel,/turf/simulated/floor/plating,/area/derelict/bridge)
+"jo" = (/obj/structure/table/steel,/obj/item/device/radio,/turf/simulated/floor/plating,/area/derelict/bridge)
+"jp" = (/obj/effect/decal/cleanable/blood/drip,/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/derelict/bridge)
+"jq" = (/obj/structure/table/steel,/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/item/device/megaphone,/turf/simulated/floor/plating,/area/derelict/bridge)
+"jr" = (/obj/structure/table/steel,/obj/item/device/taperecorder,/turf/simulated/floor/plating,/area/derelict/bridge)
+"js" = (/obj/structure/grille/broken,/obj/structure/lattice,/turf/space,/area/space)
+"jt" = (/obj/structure/cable/yellow{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plating/airless,/area/space)
+"ju" = (/obj/item/stack/material/phoron,/turf/simulated/floor/plating,/area/derelict/storage)
+"jv" = (/obj/machinery/power/port_gen/pacman,/turf/simulated/floor/plating,/area/derelict/storage)
+"jw" = (/obj/item/weapon/secbot_assembly/ed209_assembly,/turf/simulated/floor/plating,/area/derelict/storage)
+"jx" = (/obj/structure/material/chair/office/dark{dir = 8},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating{icon_state = "platingdmg3"},/area/derelict/storage)
+"jy" = (/obj/structure/extinguisher_cabinet,/turf/simulated/wall/r_wall,/area/derelict/bridge/access)
+"jz" = (/obj/structure/firedoor_assembly,/obj/item/tape/engineering{icon_state = "engineering_h"},/turf/simulated/floor,/area/derelict/bridge/access)
+"jA" = (/obj/structure/barricade,/obj/item/tape/engineering{icon_state = "engineering_h"},/turf/simulated/floor,/area/derelict/bridge/access)
+"jB" = (/obj/item/tape/engineering{icon_state = "engineering_h"},/turf/simulated/floor,/area/derelict/bridge/access)
+"jC" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/wall/r_wall,/area/derelict/bridge/access)
+"jD" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/wall/r_wall,/area/derelict/bridge/access)
+"jE" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/wall/r_wall,/area/derelict/bridge)
+"jF" = (/obj/structure/table/steel,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating,/area/derelict/bridge)
+"jG" = (/obj/machinery/embedded_controller/radio/airlock/docking_port{frequency = 1380; id_tag = "edock_airlock"; pixel_x = 30; req_access = list(10); tag_airpump = "edock_pump"; tag_chamber_sensor = "edock_sensor"; tag_exterior_door = "edock_outer"; tag_interior_door = "edock_inner"},/turf/simulated/floor/plating,/area/derelict/bridge)
+"jH" = (/obj/item/storage/toolbox/syndicate,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/derelict/storage)
+"jI" = (/obj/machinery/portable_atmospherics/canister/oxygen,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor,/area/derelict/storage)
+"jJ" = (/obj/effect/decal/cleanable/blood/writing,/turf/simulated/floor,/area/derelict/bridge/access)
+"jK" = (/obj/item/clothing/shoes/jackboots/combat,/turf/simulated/floor,/area/derelict/bridge/access)
+"jL" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/wall/r_wall,/area/derelict/bridge/access)
+"jM" = (/obj/machinery/computer/med_data,/turf/simulated/floor/plating,/area/derelict/bridge)
+"jN" = (/obj/effect/decal/cleanable/blood/drip,/obj/structure/material/chair/office/dark{dir = 8},/turf/simulated/floor/plating,/area/derelict/bridge)
+"jO" = (/obj/structure/material/chair/office/dark{dir = 4},/turf/simulated/floor/plating,/area/derelict/bridge)
+"jP" = (/obj/item/clothing/shoes/magboots/toggleable/syndie,/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plating,/area/derelict/storage)
+"jQ" = (/obj/machinery/power/terminal{dir = 4},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plating,/area/derelict/storage)
+"jR" = (/obj/machinery/power/smes/buildable{charge = 0; RCon_tag = "Solar - Aft Port"},/obj/structure/cable,/turf/simulated/floor/plating,/area/derelict/storage)
+"jS" = (/obj/item/tape/engineering{icon_state = "engineering_h"},/turf/simulated/floor/plating{icon_state = "platingdmg3"},/area/derelict/bridge/access)
+"jT" = (/obj/machinery/light/small{brightness_color = "#DA0205"; brightness_power = 1; brightness_range = 5},/obj/item/tape/engineering{icon_state = "engineering_h"},/turf/simulated/floor,/area/derelict/bridge/access)
+"jU" = (/obj/item/weapon/ectoplasm,/obj/item/tape/engineering{icon_state = "engineering_h"},/turf/simulated/floor,/area/derelict/bridge/access)
+"jV" = (/obj/effect/decal/cleanable/blood/writing,/obj/item/tape/engineering{icon_state = "engineering_h"},/turf/simulated/floor,/area/derelict/bridge/access)
+"jW" = (/obj/machinery/computer/card,/turf/simulated/floor/plating,/area/derelict/bridge)
+"jX" = (/obj/effect/decal/cleanable/blood/drip,/obj/structure/material/chair/office/dark{dir = 4},/turf/simulated/floor/plating,/area/derelict/bridge)
+"jY" = (/obj/machinery/computer/atmos_alert,/turf/simulated/floor/plating,/area/derelict/bridge)
+"jZ" = (/obj/machinery/portable_atmospherics/canister/oxygen,/turf/simulated/floor,/area/derelict/storage)
 "ka" = (/obj/machinery/portable_atmospherics/canister/phoron,/turf/simulated/floor,/area/derelict/storage)
 "kb" = (/obj/machinery/door/blast/regular{id = "hell"},/turf/simulated/floor,/area/derelict/bridge/access)
 "kc" = (/obj/effect/decal/cleanable/blood/writing,/obj/machinery/door/blast/regular{id = "hell"},/turf/simulated/floor,/area/derelict/bridge/access)
@@ -535,136 +535,175 @@
 "ko" = (/obj/effect/decal/cleanable/blood/writing,/obj/structure/door_assembly/door_assembly_research,/turf/simulated/floor,/area/derelict/medical)
 "kp" = (/obj/item/weapon/gun/energy/staff/animate,/turf/simulated/floor/plating/airless/asteroid,/area/derelict)
 "kq" = (/turf/simulated/mineral,/area/derelict/medical/chapel)
-"kr" = (/turf/simulated/floor,/area/derelict/medical)
-"ks" = (/obj/structure/girder,/turf/simulated/floor,/area/derelict/medical)
-"kt" = (/obj/effect/decal/cleanable/blood/writing,/turf/simulated/floor,/area/derelict/medical)
-"ku" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor,/area/derelict/medical)
-"kv" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/item/storage/firstaid/toxin,/turf/simulated/floor,/area/derelict/medical)
-"kw" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/wall/r_wall,/area/derelict/medical)
-"kx" = (/obj/item/weapon/moneybag/vault,/turf/simulated/floor/plating/airless/asteroid,/area/derelict)
-"ky" = (/obj/structure/girder/reinforced,/turf/simulated/floor/plating,/area/derelict/medical/chapel)
-"kz" = (/obj/structure/closet/medical_wall,/turf/simulated/wall/r_wall,/area/derelict/medical)
-"kA" = (/obj/effect/gibspawner/human,/obj/item/trash/liquidfood,/obj/item/clothing/shoes/zone,/turf/simulated/floor,/area/derelict/medical)
-"kB" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/random/technology_scanner,/turf/simulated/floor,/area/derelict/medical)
-"kC" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/light/small{brightness_color = "#DA0205"; brightness_power = 1; brightness_range = 5},/turf/simulated/floor,/area/derelict/medical)
-"kD" = (/obj/machinery/power/apc/high{dir = 8},/turf/simulated/wall/r_wall,/area/derelict/medical)
-"kE" = (/turf/simulated/floor,/area/derelict/medical/chapel)
-"kF" = (/obj/item/weapon/stock_parts/matter_bin/adv,/turf/simulated/floor,/area/derelict/medical/chapel)
-"kG" = (/obj/structure/safe,/turf/simulated/floor,/area/derelict/medical/chapel)
-"kH" = (/obj/structure/filingcabinet,/turf/simulated/floor,/area/derelict/medical/chapel)
-"kI" = (/obj/structure/closet/l3closet/scientist,/turf/simulated/floor,/area/derelict/medical/chapel)
-"kJ" = (/obj/structure/extinguisher_cabinet,/turf/simulated/wall/r_wall,/area/derelict/medical)
-"kK" = (/turf/simulated/floor/plating,/area/derelict/medical)
-"kL" = (/obj/structure/material/chair/plastic,/turf/simulated/floor,/area/derelict/medical/chapel)
-"kM" = (/obj/item/weapon/stock_parts/manipulator/pico,/obj/structure/material/chair/plastic,/turf/simulated/floor,/area/derelict/medical/chapel)
+"kr" = (/obj/structure/table/rack,/turf/simulated/floor{icon_state = "red"; dir = 9},/area/derelict)
+"ks" = (/turf/simulated/floor{icon_state = "red"; dir = 1},/area/derelict)
+"kt" = (/turf/simulated/floor{icon_state = "red"; dir = 5},/area/derelict)
+"ku" = (/obj/machinery/door/airlock/security,/turf/simulated/floor{dir = 8; icon_state = "warning"},/area/derelict/medical)
+"kv" = (/turf/simulated/floor,/area/derelict/medical)
+"kw" = (/obj/structure/girder,/turf/simulated/floor,/area/derelict/medical)
+"kx" = (/obj/effect/decal/cleanable/blood/writing,/turf/simulated/floor,/area/derelict/medical)
+"ky" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor,/area/derelict/medical)
+"kz" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/item/storage/firstaid/toxin,/turf/simulated/floor,/area/derelict/medical)
+"kA" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/wall/r_wall,/area/derelict/medical)
+"kB" = (/obj/item/weapon/moneybag/vault,/turf/simulated/floor/plating/airless/asteroid,/area/derelict)
+"kC" = (/obj/structure/girder/reinforced,/turf/simulated/floor/plating,/area/derelict/medical/chapel)
+"kD" = (/obj/structure/table/rack,/turf/simulated/floor{icon_state = "red"; dir = 8},/area/derelict)
+"kE" = (/turf/simulated/floor,/area/derelict)
+"kF" = (/turf/simulated/floor{icon_state = "red"; dir = 4},/area/derelict/medical)
+"kG" = (/obj/structure/closet/medical_wall,/turf/simulated/wall/r_wall,/area/derelict/medical)
+"kH" = (/obj/effect/gibspawner/human,/obj/item/trash/liquidfood,/obj/item/clothing/shoes/zone,/turf/simulated/floor,/area/derelict/medical)
+"kI" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/random/technology_scanner,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor,/area/derelict/medical)
+"kJ" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/light/small{brightness_color = "#DA0205"; brightness_power = 1; brightness_range = 5},/turf/simulated/floor,/area/derelict/medical)
+"kK" = (/obj/machinery/power/apc/high{dir = 8},/turf/simulated/wall/r_wall,/area/derelict/medical)
+"kL" = (/obj/structure/closet/l3closet/scientist,/turf/simulated/floor{icon_state = "delivery"; name = "floor"},/area/derelict/medical/chapel)
+"kM" = (/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 8},/area/derelict/medical/chapel)
 "kN" = (/turf/simulated/floor/plating,/area/derelict/medical/chapel)
-"kO" = (/obj/item/weapon/stock_parts/capacitor/adv,/obj/structure/material/chair/plastic,/turf/simulated/floor,/area/derelict/medical/chapel)
-"kP" = (/obj/structure/computerframe/deconstruct,/turf/simulated/floor,/area/derelict/medical/chapel)
-"kQ" = (/obj/structure/janitorialcart,/turf/simulated/floor,/area/derelict/medical)
-"kR" = (/obj/item/trash/liquidfood,/turf/simulated/floor,/area/derelict/medical)
-"kS" = (/obj/machinery/portable_atmospherics/canister/sleeping_agent,/obj/item/weapon/ectoplasm,/turf/simulated/floor,/area/derelict/medical)
-"kT" = (/obj/item/weapon/stock_parts/scanning_module/phasic,/turf/simulated/floor,/area/derelict/medical/chapel)
-"kU" = (/obj/effect/gibspawner/human,/turf/simulated/floor,/area/derelict/medical/chapel)
-"kV" = (/obj/item/rig_module/vision/nvg,/turf/simulated/floor,/area/derelict/medical/chapel)
-"kW" = (/obj/structure/curtain/black,/turf/simulated/floor,/area/derelict/medical/chapel)
-"kX" = (/obj/structure/curtain/black,/obj/structure/girder/reinforced,/turf/simulated/floor,/area/derelict/medical/chapel)
-"kY" = (/obj/structure/grille,/turf/simulated/floor,/area/derelict/medical)
-"kZ" = (/obj/structure/barricade,/turf/simulated/floor,/area/derelict/medical)
-"la" = (/obj/random/armory,/turf/simulated/floor,/area/derelict/medical)
-"lb" = (/obj/item/weapon/broken_bottle,/turf/simulated/floor,/area/derelict/medical)
-"lc" = (/obj/item/weapon/reagent_containers/pill/inaprovaline,/turf/simulated/floor,/area/derelict/medical)
-"ld" = (/obj/item/weapon/stock_parts/micro_laser/high,/turf/simulated/floor,/area/derelict/medical/chapel)
-"le" = (/obj/item/weapon/reagent_containers/pill/inaprovaline,/turf/simulated/floor,/area/derelict/medical/chapel)
-"lf" = (/obj/item/trash/liquidfood,/turf/simulated/floor,/area/derelict/medical/chapel)
-"lg" = (/obj/item/weapon/flamethrower/full,/turf/simulated/floor,/area/derelict/medical/chapel)
-"lh" = (/obj/structure/barricade,/obj/structure/barricade,/turf/simulated/floor,/area/derelict/medical)
-"li" = (/obj/structure/material/chair/plastic,/obj/effect/gibspawner/human,/turf/simulated/floor,/area/derelict/medical/chapel)
-"lj" = (/obj/item/device/flashlight/flare,/turf/simulated/floor,/area/derelict/medical/chapel)
-"lk" = (/turf/simulated/wall/r_wall,/area/derelict/storage/equipment)
-"ll" = (/obj/machinery/power/apc/disalarmed,/turf/simulated/wall/r_wall,/area/derelict/storage/equipment)
-"lm" = (/obj/structure/morgue,/turf/simulated/floor/plating,/area/derelict/medical)
-"ln" = (/obj/item/device/megaphone,/turf/simulated/floor,/area/derelict/medical)
-"lo" = (/obj/structure/kitchenspike,/obj/effect/gibspawner/human,/turf/simulated/floor,/area/derelict/medical)
-"lp" = (/obj/machinery/portable_atmospherics/canister/nitrogen,/turf/simulated/floor/plating{icon_state = "platebot"},/area/derelict/storage/equipment)
-"lq" = (/obj/item/device/pda/cargo,/turf/simulated/floor,/area/derelict/storage/equipment)
-"lr" = (/turf/simulated/floor,/area/derelict/storage/equipment)
-"ls" = (/obj/machinery/portable_atmospherics/canister/phoron,/turf/simulated/floor/plating{icon_state = "platebot"},/area/derelict/storage/equipment)
-"lt" = (/turf/simulated/mineral,/area/derelict/secret)
-"lu" = (/obj/structure/closet/body_bag,/obj/item/storage/wallet/random,/turf/simulated/floor/plating,/area/derelict/medical)
-"lv" = (/obj/machinery/light/small{dir = 4; pixel_y = 8},/turf/simulated/floor,/area/derelict/medical)
-"lw" = (/obj/machinery/floodlight,/turf/simulated/floor/plating,/area/derelict/secret)
-"lx" = (/obj/item/device/flashlight/seclite,/turf/simulated/floor,/area/derelict/medical)
-"ly" = (/obj/effect/gibspawner/human,/turf/simulated/floor,/area/derelict/medical)
-"lz" = (/obj/item/trash/liquidfood,/turf/simulated/floor,/area/derelict/storage/equipment)
-"lA" = (/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 4},/area/derelict/storage/equipment)
-"lB" = (/turf/simulated/floor/plating,/area/derelict/secret)
-"lC" = (/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
-"lD" = (/obj/structure/ore_box,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
-"lE" = (/obj/structure/morgue,/turf/simulated/floor,/area/derelict/medical)
-"lF" = (/obj/machinery/light/small{brightness_color = "#DA0205"; brightness_power = 1; brightness_range = 5},/turf/simulated/floor,/area/derelict/medical)
-"lG" = (/obj/random/armory,/turf/simulated/floor,/area/derelict/storage/equipment)
-"lH" = (/obj/item/storage/belt/champion,/turf/simulated/floor,/area/derelict/storage/equipment)
-"lI" = (/obj/effect/gibspawner/human,/turf/simulated/floor/plating,/area/derelict/storage/equipment)
-"lJ" = (/obj/structure/trophy/alien,/turf/simulated/wall/r_wall,/area/derelict/medical)
-"lK" = (/obj/structure/noticeboard,/turf/simulated/wall/r_wall,/area/derelict/medical)
-"lL" = (/obj/structure/grille,/obj/structure/door_assembly/door_assembly_research,/turf/simulated/floor,/area/derelict/medical)
-"lM" = (/obj/machinery/power/apc/disalarmed,/turf/simulated/wall/r_wall,/area/derelict/medical)
-"lN" = (/obj/skeleton,/turf/simulated/floor/plating{icon_state = "platebot"},/area/derelict/storage/equipment)
-"lO" = (/obj/item/device/flashlight/flare,/turf/simulated/floor/plating{icon_state = "platebot"},/area/derelict/storage/equipment)
-"lP" = (/obj/structure/table/standard,/turf/simulated/floor/plating,/area/derelict/medical)
-"lQ" = (/obj/machinery/atmospherics/unary/cryo_cell,/turf/simulated/floor/plating,/area/derelict/medical)
-"lR" = (/obj/structure/table/standard,/obj/item/weapon/reagent_containers/hypospray,/turf/simulated/floor/plating,/area/derelict/medical)
-"lS" = (/obj/structure/table/standard,/obj/item/device/healthanalyzer,/turf/simulated/floor/plating,/area/derelict/medical)
-"lT" = (/obj/structure/table/standard,/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plating,/area/derelict/medical)
-"lU" = (/turf/simulated/floor/plating{icon_state = "platingdmg1"},/area/derelict/medical)
-"lV" = (/obj/structure/closet/l3closet/general,/turf/simulated/floor,/area/derelict/medical)
-"lW" = (/obj/item/trash/pistachios,/turf/simulated/floor/plating{icon_state = "platingdmg1"},/area/derelict/medical)
-"lX" = (/obj/structure/closet/body_bag,/turf/simulated/floor,/area/derelict/medical)
-"lY" = (/obj/structure/computerframe/deconstruct,/turf/simulated/floor,/area/derelict/medical)
-"lZ" = (/obj/item/weapon/stock_parts/scanning_module/phasic,/turf/simulated/floor,/area/derelict/medical)
-"ma" = (/obj/item/weapon/reagent_containers/pill/dexalin,/turf/simulated/floor,/area/derelict/medical)
-"mb" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/filingcabinet,/turf/simulated/floor,/area/derelict/medical)
-"mc" = (/obj/item/weapon/stock_parts/matter_bin/adv,/turf/simulated/floor,/area/derelict/medical)
-"md" = (/obj/machinery/optable,/turf/simulated/floor,/area/derelict/medical)
-"me" = (/obj/item/weapon/reagent_containers/pill/dexalin,/turf/simulated/floor/plating,/area/derelict/medical)
-"mf" = (/obj/item/weapon/reagent_containers/pill/dexalin_plus,/turf/simulated/floor/plating{icon_state = "platingdmg1"},/area/derelict/medical)
-"mg" = (/obj/machinery/portable_atmospherics/canister/oxygen,/turf/simulated/floor/plating{icon_state = "platebot"},/area/derelict/storage/equipment)
-"mh" = (/obj/machinery/portable_atmospherics/canister/carbon_dioxide,/turf/simulated/floor/plating{icon_state = "platebot"},/area/derelict/storage/equipment)
-"mi" = (/obj/machinery/bioprinter,/turf/simulated/floor,/area/derelict/medical)
-"mj" = (/obj/structure/material/chair/office/dark{dir = 1},/turf/simulated/floor,/area/derelict/medical)
-"mk" = (/obj/item/weapon/stock_parts/scanning_module/phasic,/obj/structure/material/chair/office/dark{dir = 1},/turf/simulated/floor,/area/derelict/medical)
-"ml" = (/obj/structure/closet/body_bag,/obj/effect/gibspawner/human,/turf/simulated/floor,/area/derelict/medical)
-"mm" = (/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor,/area/derelict/medical)
-"mn" = (/obj/item/weapon/surgicaldrill,/turf/simulated/floor,/area/derelict/medical)
-"mo" = (/obj/item/storage/firstaid/surgery,/turf/simulated/floor/plating,/area/derelict/medical)
-"mp" = (/obj/item/storage/firstaid/o2,/turf/simulated/floor/plating,/area/derelict/medical)
-"mq" = (/obj/item/device/pda/medical,/turf/simulated/floor,/area/derelict/medical)
-"mr" = (/obj/item/roller,/obj/item/roller,/obj/item/roller,/obj/machinery/light/small{dir = 4; pixel_y = 8},/obj/item/weapon/reagent_containers/pill/dexalin,/turf/simulated/floor,/area/derelict/medical)
-"ms" = (/obj/structure/material/chair/office/dark,/turf/simulated/floor,/area/derelict/medical)
-"mt" = (/obj/structure/curtain/black,/turf/simulated/floor,/area/derelict/medical)
-"mu" = (/obj/item/trash/syndi_cakes,/turf/simulated/floor,/area/derelict/medical)
-"mv" = (/obj/machinery/optable,/obj/item/weapon/reagent_containers/pill/dexalin,/turf/simulated/floor/plating,/area/derelict/medical)
-"mw" = (/obj/item/weapon/stock_parts/capacitor/adv,/turf/simulated/floor,/area/derelict/medical)
-"mx" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/obj/structure/table/standard,/obj/item/device/laptop,/turf/simulated/floor,/area/derelict/medical)
-"my" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/table/standard,/obj/item/weapon/reagent_containers/pill/tramadol,/obj/item/trash/candle,/turf/simulated/floor,/area/derelict/medical)
-"mz" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/table/standard,/obj/item/weapon/reagent_containers/pill/tox,/obj/item/weapon/reagent_containers/pill/tox,/obj/item/weapon/reagent_containers/pill/tox,/obj/item/weapon/reagent_containers/pill/tox,/turf/simulated/floor,/area/derelict/medical)
-"mA" = (/obj/item/weapon/stock_parts/matter_bin/adv,/turf/simulated/floor/plating,/area/derelict/medical)
-"mB" = (/obj/structure/computerframe/deconstruct,/turf/simulated/floor/plating,/area/derelict/medical)
-"mC" = (/obj/item/device/healthanalyzer,/turf/simulated/floor/plating{icon_state = "platingdmg1"},/area/derelict/medical)
-"mD" = (/obj/item/trash/pistachios,/turf/simulated/floor,/area/derelict/medical)
-"mE" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/filingcabinet,/turf/simulated/floor,/area/derelict/medical)
-"mF" = (/obj/machinery/floodlight,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
-"mG" = (/obj/structure/table/standard,/obj/item/weapon/reagent_containers/pill/adminordrazine,/turf/simulated/floor/plating,/area/derelict/medical)
-"mH" = (/obj/structure/table/standard,/obj/structure/window/reinforced{dir = 4},/obj/item/weapon/form_printer,/turf/simulated/floor/plating,/area/derelict/medical)
-"mI" = (/obj/structure/filingcabinet,/turf/simulated/floor/plating,/area/derelict/medical)
-"mJ" = (/obj/machinery/computer/cloning,/turf/simulated/floor,/area/derelict/medical)
-"mK" = (/obj/structure/AIcore/deactivated,/turf/simulated/wall/r_wall,/area/derelict/medical)
-"mL" = (/obj/item/device/ano_scanner,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
-"mM" = (/obj/structure/simple_door/iron,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
-"mN" = (/obj/item/weapon/melee/cultblade,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
-"mO" = (/obj/item/device/analyzer,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
-"mP" = (/obj/machinery/artifact,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
-"mQ" = (/obj/map_data/finds{is_accessable_level = 2},/turf/space,/area/space)
+"kO" = (/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 4},/area/derelict/medical/chapel)
+"kP" = (/turf/simulated/floor{icon_state = "red"; dir = 10},/area/derelict)
+"kQ" = (/turf/simulated/floor{icon_state = "red"},/area/derelict)
+"kR" = (/turf/simulated/floor{icon_state = "red"},/area/derelict/medical)
+"kS" = (/turf/simulated/floor{icon_state = "red"; dir = 6},/area/derelict/medical)
+"kT" = (/obj/structure/extinguisher_cabinet,/turf/simulated/wall/r_wall,/area/derelict/medical)
+"kU" = (/turf/simulated/floor/plating,/area/derelict/medical)
+"kV" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/derelict/medical)
+"kW" = (/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 10},/area/derelict/medical/chapel)
+"kX" = (/obj/machinery/atmospherics/unary/cryo_cell,/turf/simulated/floor/plating{dir = 2; icon_state = "warnplate"},/area/derelict/medical/chapel)
+"kY" = (/obj/structure/table/steel,/turf/simulated/floor/plating{dir = 2; icon_state = "warnplate"},/area/derelict/medical/chapel)
+"kZ" = (/obj/machinery/bioprinter,/turf/simulated/floor/plating{dir = 2; icon_state = "warnplate"},/area/derelict/medical/chapel)
+"la" = (/turf/simulated/floor/plating{dir = 2; icon_state = "warnplate"},/area/derelict/medical/chapel)
+"lb" = (/turf/simulated/floor/plating{icon_state = "platingdmg3"},/area/derelict/medical/chapel)
+"lc" = (/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 6},/area/derelict/medical/chapel)
+"ld" = (/obj/structure/table/standard,/obj/machinery/door/window/brigdoor/southright,/turf/simulated/floor{icon_state = "warning"},/area/derelict/medical/chapel)
+"le" = (/obj/structure/window/reinforced,/obj/structure/table/standard,/turf/simulated/floor{icon_state = "warning"},/area/derelict/medical)
+"lf" = (/obj/structure/janitorialcart,/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor,/area/derelict/medical)
+"lg" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor,/area/derelict/medical)
+"lh" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating,/area/derelict/medical)
+"li" = (/obj/item/trash/liquidfood,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor,/area/derelict/medical)
+"lj" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor,/area/derelict/medical)
+"lk" = (/obj/machinery/portable_atmospherics/canister/sleeping_agent,/obj/item/weapon/ectoplasm,/turf/simulated/floor,/area/derelict/medical)
+"ll" = (/turf/simulated/floor,/area/derelict/medical/chapel)
+"lm" = (/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 1},/area/derelict/medical/chapel)
+"ln" = (/obj/structure/curtain/black,/obj/structure/girder/reinforced,/obj/machinery/door/airlock/highsecurity,/turf/simulated/floor,/area/derelict/medical/chapel)
+"lo" = (/turf/simulated/floor{icon_state = "delivery"},/area/derelict/medical/chapel)
+"lp" = (/obj/structure/grille,/turf/simulated/floor,/area/derelict/medical)
+"lq" = (/obj/structure/barricade,/turf/simulated/floor,/area/derelict/medical)
+"lr" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor,/area/derelict/medical)
+"ls" = (/obj/random/armory,/turf/simulated/floor,/area/derelict/medical)
+"lt" = (/obj/item/weapon/broken_bottle,/turf/simulated/floor,/area/derelict/medical)
+"lu" = (/obj/item/weapon/reagent_containers/pill/inaprovaline,/turf/simulated/floor,/area/derelict/medical)
+"lv" = (/obj/structure/closet/firecloset,/turf/simulated/floor,/area/derelict/medical)
+"lw" = (/obj/structure/table/steel,/turf/simulated/floor,/area/derelict/medical/chapel)
+"lx" = (/obj/machinery/optable,/obj/item/weapon/reagent_containers/pill/dexalin,/turf/simulated/floor/plating,/area/derelict/medical/chapel)
+"ly" = (/turf/simulated/floor/plating{icon_state = "platingdmg1"},/area/derelict/medical/chapel)
+"lz" = (/obj/structure/curtain/black,/obj/structure/girder/reinforced,/obj/machinery/door/airlock/highsecurity,/turf/simulated/floor/plating{icon_state = "platingdmg3"},/area/derelict/medical/chapel)
+"lA" = (/obj/item/trash/liquidfood,/turf/simulated/floor{icon_state = "delivery"},/area/derelict/medical/chapel)
+"lB" = (/obj/machinery/light/small{brightness_color = "#DA0205"; brightness_power = 1; brightness_range = 5},/turf/simulated/floor,/area/derelict/medical/chapel)
+"lC" = (/obj/structure/barricade,/obj/structure/barricade,/turf/simulated/floor,/area/derelict/medical)
+"lD" = (/obj/structure/barricade,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor,/area/derelict/medical)
+"lE" = (/obj/structure/computerframe/deconstruct,/turf/simulated/floor,/area/derelict/medical/chapel)
+"lF" = (/obj/machinery/shieldwallgen,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor{icon_state = "bot"},/area/teleporter)
+"lG" = (/obj/item/weapon/stock_parts/scanning_module/phasic,/obj/structure/material/chair/office/dark{dir = 1},/turf/simulated/floor,/area/derelict/medical/chapel)
+"lH" = (/obj/machinery/shieldwallgen,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor{icon_state = "bot"},/area/derelict/medical/chapel)
+"lI" = (/turf/simulated/wall/r_wall,/area/derelict/medical/morgue)
+"lJ" = (/obj/machinery/power/apc/disalarmed,/turf/simulated/wall/r_wall,/area/derelict/medical/morgue)
+"lK" = (/obj/machinery/door/firedoor,/turf/simulated/floor/plating/with_grille/reinforced,/area/derelict/medical)
+"lL" = (/obj/structure/morgue,/turf/simulated/floor/plating,/area/derelict/medical)
+"lM" = (/obj/item/device/megaphone,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor,/area/derelict/medical)
+"lN" = (/obj/structure/kitchenspike,/obj/effect/gibspawner/human,/turf/simulated/floor,/area/derelict/medical)
+"lO" = (/obj/machinery/portable_atmospherics/canister/nitrogen,/turf/simulated/floor/plating{icon_state = "platebot"},/area/derelict/medical/morgue)
+"lP" = (/obj/item/device/pda/cargo,/turf/simulated/floor,/area/derelict/medical/morgue)
+"lQ" = (/obj/structure/cable{d2 = 2; icon_state = "0-2"},/turf/simulated/floor,/area/derelict/medical/morgue)
+"lR" = (/obj/machinery/portable_atmospherics/canister/phoron,/turf/simulated/floor/plating{icon_state = "platebot"},/area/derelict/medical/morgue)
+"lS" = (/turf/simulated/mineral,/area/derelict/secret)
+"lT" = (/turf/simulated/floor/plating{icon_state = "platingdmg1"},/area/derelict/medical)
+"lU" = (/obj/item/trash/liquidfood,/turf/simulated/floor,/area/derelict/medical)
+"lV" = (/obj/structure/closet/body_bag,/obj/item/storage/wallet/random,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/derelict/medical)
+"lW" = (/obj/machinery/light/small{dir = 4; pixel_y = 8},/turf/simulated/floor,/area/derelict/medical)
+"lX" = (/turf/simulated/floor,/area/derelict/medical/morgue)
+"lY" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor,/area/derelict/medical/morgue)
+"lZ" = (/obj/machinery/floodlight,/turf/simulated/floor/plating,/area/derelict/secret)
+"ma" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/obj/structure/table/standard,/turf/simulated/floor,/area/derelict/medical)
+"mb" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/computerframe/deconstruct,/turf/simulated/floor,/area/derelict/medical)
+"mc" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/computerframe/deconstruct,/turf/simulated/floor/plating{icon_state = "platingdmg3"},/area/derelict/medical)
+"md" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/obj/structure/table/standard,/turf/simulated/floor,/area/derelict/medical)
+"me" = (/turf/simulated/floor/plating{icon_state = "platingdmg3"},/area/derelict/medical)
+"mf" = (/obj/item/device/flashlight/seclite,/turf/simulated/floor,/area/derelict/medical)
+"mg" = (/obj/effect/gibspawner/human,/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor,/area/derelict/medical)
+"mh" = (/obj/structure/door_assembly/door_assembly_research,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor,/area/derelict/medical/morgue)
+"mi" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor,/area/derelict/medical/morgue)
+"mj" = (/obj/item/trash/liquidfood,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor,/area/derelict/medical/morgue)
+"mk" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor,/area/derelict/medical/morgue)
+"ml" = (/turf/simulated/floor/plating{icon_state = "warnplate"; dir = 4},/area/derelict/medical/morgue)
+"mm" = (/turf/simulated/floor/plating,/area/derelict/secret)
+"mn" = (/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
+"mo" = (/obj/structure/boulder,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
+"mp" = (/obj/structure/ore_box,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
+"mq" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/filingcabinet,/turf/simulated/floor,/area/derelict/medical)
+"mr" = (/obj/item/weapon/stock_parts/scanning_module/phasic,/obj/structure/material/chair/office/dark{dir = 1},/turf/simulated/floor,/area/derelict/medical)
+"ms" = (/obj/structure/material/chair/office/dark{dir = 1},/turf/simulated/floor,/area/derelict/medical)
+"mt" = (/obj/structure/table/standard,/obj/structure/window/reinforced{dir = 4},/obj/item/weapon/form_printer,/turf/simulated/floor/plating,/area/derelict/medical)
+"mu" = (/obj/item/weapon/flamethrower/full,/turf/simulated/floor/plating{icon_state = "platingdmg1"},/area/derelict/medical)
+"mv" = (/obj/structure/morgue,/turf/simulated/floor,/area/derelict/medical)
+"mw" = (/obj/machinery/light/small{brightness_color = "#DA0205"; brightness_power = 1; brightness_range = 5},/turf/simulated/floor,/area/derelict/medical)
+"mx" = (/obj/random/armory,/turf/simulated/floor,/area/derelict/medical/morgue)
+"my" = (/obj/item/storage/belt/champion,/turf/simulated/floor,/area/derelict/medical/morgue)
+"mz" = (/obj/effect/gibspawner/human,/turf/simulated/floor/plating,/area/derelict/medical/morgue)
+"mA" = (/obj/structure/trophy/alien,/turf/simulated/wall/r_wall,/area/derelict/medical)
+"mB" = (/obj/structure/noticeboard,/turf/simulated/wall/r_wall,/area/derelict/medical)
+"mC" = (/obj/structure/grille,/obj/structure/door_assembly/door_assembly_research,/turf/simulated/floor,/area/derelict/medical)
+"mD" = (/obj/machinery/power/apc/disalarmed,/turf/simulated/wall/r_wall,/area/derelict/medical)
+"mE" = (/obj/skeleton,/turf/simulated/floor/plating{icon_state = "platebot"},/area/derelict/medical/morgue)
+"mF" = (/obj/item/device/flashlight/flare,/turf/simulated/floor/plating{icon_state = "platebot"},/area/derelict/medical/morgue)
+"mG" = (/obj/structure/curtain/black,/obj/structure/girder/reinforced,/obj/machinery/door/airlock/highsecurity,/turf/simulated/floor/plating{icon_state = "platingdmg3"},/area/derelict/medical)
+"mH" = (/obj/machinery/atmospherics/unary/cryo_cell,/turf/simulated/floor/plating,/area/derelict/medical)
+"mI" = (/obj/structure/table/standard,/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plating,/area/derelict/medical)
+"mJ" = (/obj/structure/closet/l3closet/general,/turf/simulated/floor,/area/derelict/medical)
+"mK" = (/obj/item/trash/pistachios,/turf/simulated/floor/plating{icon_state = "platingdmg1"},/area/derelict/medical)
+"mL" = (/obj/item/trash/liquidfood,/turf/simulated/floor,/area/derelict/medical/morgue)
+"mM" = (/obj/structure/closet/body_bag,/turf/simulated/floor,/area/derelict/medical)
+"mN" = (/obj/item/weapon/stock_parts/scanning_module/phasic,/turf/simulated/floor,/area/derelict/medical)
+"mO" = (/obj/item/weapon/reagent_containers/pill/dexalin,/turf/simulated/floor,/area/derelict/medical)
+"mP" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/filingcabinet,/turf/simulated/floor,/area/derelict/medical)
+"mQ" = (/obj/item/weapon/stock_parts/matter_bin/adv,/turf/simulated/floor,/area/derelict/medical)
+"mR" = (/obj/machinery/optable,/turf/simulated/floor,/area/derelict/medical)
+"mS" = (/obj/item/weapon/reagent_containers/pill/dexalin,/turf/simulated/floor/plating,/area/derelict/medical)
+"mT" = (/obj/item/weapon/reagent_containers/pill/dexalin_plus,/turf/simulated/floor/plating{icon_state = "platingdmg1"},/area/derelict/medical)
+"mU" = (/obj/machinery/portable_atmospherics/canister/oxygen,/turf/simulated/floor/plating{icon_state = "platebot"},/area/derelict/medical/morgue)
+"mV" = (/obj/machinery/light/small{brightness_color = "#DA0205"; brightness_power = 1; brightness_range = 5},/turf/simulated/floor,/area/derelict/medical/morgue)
+"mW" = (/obj/machinery/portable_atmospherics/canister/carbon_dioxide,/turf/simulated/floor/plating{icon_state = "platebot"},/area/derelict/medical/morgue)
+"mX" = (/obj/structure/closet/body_bag,/obj/effect/gibspawner/human,/turf/simulated/floor,/area/derelict/medical)
+"mY" = (/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor,/area/derelict/medical)
+"mZ" = (/obj/item/weapon/surgicaldrill,/turf/simulated/floor,/area/derelict/medical)
+"na" = (/obj/item/storage/firstaid/surgery,/turf/simulated/floor/plating,/area/derelict/medical)
+"nb" = (/obj/item/storage/firstaid/o2,/turf/simulated/floor/plating,/area/derelict/medical)
+"nc" = (/obj/item/device/pda/medical,/turf/simulated/floor,/area/derelict/medical)
+"nd" = (/obj/item/roller,/obj/item/roller,/obj/item/roller,/obj/machinery/light/small{dir = 4; pixel_y = 8},/obj/item/weapon/reagent_containers/pill/dexalin,/turf/simulated/floor,/area/derelict/medical)
+"ne" = (/turf/simulated/wall/r_wall,/area/derelict/storage/equipment)
+"nf" = (/obj/structure/material/chair/office/dark,/turf/simulated/floor,/area/derelict/medical)
+"ng" = (/obj/structure/curtain/black,/turf/simulated/floor,/area/derelict/medical)
+"nh" = (/obj/item/trash/syndi_cakes,/turf/simulated/floor,/area/derelict/medical)
+"ni" = (/obj/machinery/optable,/obj/item/weapon/reagent_containers/pill/dexalin,/turf/simulated/floor/plating,/area/derelict/medical)
+"nj" = (/obj/item/weapon/stock_parts/capacitor/adv,/turf/simulated/floor,/area/derelict/medical)
+"nk" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/obj/structure/table/standard,/obj/item/device/laptop,/turf/simulated/floor,/area/derelict/medical)
+"nl" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/table/standard,/obj/item/weapon/reagent_containers/pill/tramadol,/obj/item/trash/candle,/turf/simulated/floor,/area/derelict/medical)
+"nm" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/table/standard,/obj/item/weapon/reagent_containers/pill/tox,/obj/item/weapon/reagent_containers/pill/tox,/obj/item/weapon/reagent_containers/pill/tox,/obj/item/weapon/reagent_containers/pill/tox,/turf/simulated/floor,/area/derelict/medical)
+"nn" = (/obj/structure/computerframe/deconstruct,/turf/simulated/floor,/area/derelict/medical)
+"no" = (/obj/item/weapon/stock_parts/matter_bin/adv,/turf/simulated/floor/plating,/area/derelict/medical)
+"np" = (/obj/structure/computerframe/deconstruct,/turf/simulated/floor/plating,/area/derelict/medical)
+"nq" = (/obj/item/device/healthanalyzer,/turf/simulated/floor/plating{icon_state = "platingdmg1"},/area/derelict/medical)
+"nr" = (/obj/item/trash/pistachios,/turf/simulated/floor,/area/derelict/medical)
+"ns" = (/obj/machinery/floodlight,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
+"nt" = (/obj/structure/table/standard,/turf/simulated/floor/plating,/area/derelict/medical)
+"nu" = (/obj/structure/table/standard,/obj/item/weapon/reagent_containers/pill/adminordrazine,/turf/simulated/floor/plating,/area/derelict/medical)
+"nv" = (/obj/structure/filingcabinet,/turf/simulated/floor/plating,/area/derelict/medical)
+"nw" = (/obj/machinery/computer/cloning,/turf/simulated/floor,/area/derelict/medical)
+"nx" = (/obj/structure/AIcore/deactivated,/turf/simulated/wall/r_wall,/area/derelict/medical)
+"ny" = (/obj/item/device/ano_scanner,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
+"nz" = (/obj/structure/simple_door/iron,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
+"nA" = (/obj/item/weapon/melee/cultblade,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
+"nB" = (/obj/item/device/analyzer,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
+"nC" = (/obj/machinery/artifact,/turf/simulated/floor/plating/airless/asteroid,/area/derelict/secret)
+"nD" = (/obj/map_data/finds{is_accessable_level = 2},/turf/space,/area/space)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -785,54 +824,54 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeYeYeZaeaefAiofCaafAiofCaafAiofCaeaeaaaaaaaaaaaaaaaeaedcgtgtgtgtipdbgtaaaeaaabababababexexexiqiriqisiqisitishMiueHiveOeOiwiweOeOeOeOeOeOeOeOixixeOeOeOiyixeOeOeOeOeOfPfPfPiziAfPfPfPiBiChYgFfPfPababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafAiofCaefAiofCaafAiofCaaaaaaaaaaaaaaaaaaaeaeaaaaaaaadcdbdbgtaaaeaaabababababexexexisisisisisisisisfMiueFeMeOeWeWeWeWiDiEeWeWeXeWiFeWeWiDeWeWfOeXeWeWiFeWeWiGiHiIiJhugFiKfPiLgmhuiMfPfPfPabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeZaefAiofCaafAiofCaafAiofCaeaaaaaaaaaaaaaaaaaeaeaaaaaaaadcdbiNgtaaaeababababababexexexeNeReNiOeNhMeFeFeFiPeNeMeOiQeWiRiSeXeWeXeXeWiThTiUhreXeWeWiVfyiWfyiXiYfyiZjajbiZjcjdhcfPfPfPjejffPfPfPabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeZaefAiofCaafAiofCaefAiofCaeaeaaaaaaaaaaaaaeaeaaaaaaaaaagtgtgtgtaaabababababababexexexiteFitgPjgeFjheNeNeDjigyeOeWiQjjeXeWeWeWgleWeWeWiEeWhUjkeWeWjlhVeWiFhUeWgFiJiHiJgFgFiKfPjmjnjojpjqfPfPabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajraefAjsfCaafAjsfCaafAjsfCaeeZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababexexexeIeFeFeNjteNjueNjvjweNeMeOeOeOeOeOjxeOjyjzeOeOjzjAjBjCjCjCjCjCjCjCjCjCjCjDjDjDjDjDjDjDjDjEgYjcgFjFfPfPabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeZaaaeaaaaaaaeaeaeaaaaaeaeaaeZaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababexexexeIeIeFeReNeNiqeNeNjGeNjHexexeweweOeOeOiQeWiDjIjJiQjKeOeOeOeOeOeOeOeOeOeOfPfPfPfPfPfPfPfPjLjMgFjNiMfPfPababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeYeYeZeYeYjreZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababexexexeIeIeIeFitgPeFeFfRjOjPjQexexabababeOeOjRjSjTjUjSjAjKeOabababababababababababababababfPfPjViCgFjWjXfPfPababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababexexexeFeIeIeIeIeIeFjYeFjZeNkaexexabababeOeOeOeOkbkceOeOjKeOababababababbMbMbMababababababfPfPgFkdiMkegFfPfPababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeZaefAiofCaafAiofCaefAiofCaeaeaaaaaaaaaaaaaeaeaaaaaaaaaagtgtgtgtaaabababababababexexexiteFitgPjgeFjheNeNeDjigyeOeWiQjjeXeWeWeWgleWjkeWiEeWhUjleWeWjmhVeWiFhUeWgFiJiHiJgFgFiKfPjnjojpjqjrfPfPabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajsaefAjtfCaafAjtfCaafAjtfCaeeZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababexexexeIeFeFeNjueNjveNjwjxeNeMeOeOeOeOeOjyeOjzjAeOeOjAjBjCjDjDjDjDjDjDjDjDjDjDjEjEjEjEjEjEjEjEjFgYjcgFjGfPfPabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeZaaaeaaaaaaaeaeaeaaaaaeaeaaeZaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababexexexeIeIeFeReNeNiqeNeNjHeNjIexexeweweOeOeOiQeWiDjJjKiQjLeOeOeOeOeOeOeOeOeOeOfPfPfPfPfPfPfPfPjMjNgFjOiMfPfPababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeYeYeZeYeYjseZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababexexexeIeIeIeFitgPeFeFfRjPjQjRexexabababeOeOjSjTjUjVjTjBjLeOabababababababababababababababfPfPjWiCgFjXjYfPfPababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababexexexeFeIeIeIeIeIeFjZeFeNeNkaexexabababeOeOeOeOkbkceOeOjLeOababababababbMbMbMababababababfPfPgFkdiMkegFfPfPababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababexexexexexexexexexexexexexexexexexababababkfkfkfkgkhkfkfkikjababababbMbMbMbMbMbMbMbMbMababfPfPfPfPfPfPfPfPfPababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababababababababababababababkjkfkfkkklkfkfkikjabababbMbMbMbMbMbMbMbMbMbMababfPfPfPfPfPfPfPfPababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababkmabababababababababababababababababababkfkfkfknkokfkfkikfabababbMbMbMbMkpabbMbMbMbMbMbMabababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababkmkmkmkmkqkmkmkmkqkmkqkmkmkmkmkmababababkfkrkskrktkukvkwkfababbMbMbMkxbMabababbMbMbMbMbMabababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababkmkqkmkmkmkmkykmkmkmkykmkmkmkmkmewewkfkfkzkskskrkAkBkCkDkfababbMbMbMbMbMbMabbMbMbMbMbMbMbMbMabababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababkmkmkqkEkEkEkEkEkEkEkEkFkGkHkIkmewewkfkfkfkJkKkrkrkKkfkfkfabbMbMbMbMbMbMbMbMbMbMbMbMbMbMbMbMbMbMbMabababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababkmkmkqkEkLkLkMkNkOkLkLkLkEkEkPkmkmkmkfkfkjkQkrkKkRkrkSkfkfabababbMababbMbMbMbMbMbMbMbMababbMbMbMbMababababaaabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababkmkmkykTkEkEkEkEkEkEkUkVkPkEkWkXkEkqkYkrkZkrlalblckrkrkfkfababababababababbMbMbMbMbMabababababbMbMababaaaaaaabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababkmkqkqkEkEkEkEldkNkEkEkFkElekEkXlflgknkYlhkZkjkZkZkZkjkfkfababababababababababbMbMbMabababababbMaaabaaaaaaaaaaaaababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababkmkqkmkqkLkLkLkLkLkLlikLljkEkEkmkmkmkfkfkKkrkrkrkrkjkjkfkfababababababababababababbMabababababaaaaaaaaaaaaaaaaaaaaababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababaaaaabababababababababababababababkmkqkmkqkqkTkEkIkEkEkEkEkEkPkEkmabkfkfkfkrkKkfkfkflklklllklkabababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababaaaaaaababababababababababababababkmkmkmkmkmkmkmkmkmkmkmkmkmkmkmkmabkflmkKkrlnlolokflplqlrlslkltltltltltltltltltltltababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababababababababababababababkflmkrkRlukrlvkflrlrlrlrlklwltltltltltltltltltltabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababababababababababababababkflmkrlxlykKkrknlrlzlrlrlAlBlClCltlDltltltltltltabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababababababababababababababkflElFkYlalolokflGlHlIlrlAlBlBlClClClClCltltltltababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababababababababkfkfkfkfkfkfkfkflJkflKkslLlMkfkflrlNlOlrlklwlClClBlClClBlCltltltababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababababababababkflPlQlRlQlSlQlTlUlVlVlWkrlVlVkflrlrlzlrlkltltlClClClClBlClCltltabababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababababababababkflXlYlZkrlYmambmckrmdkRmemfmakfmglrlrmhlkltltltlClCltlClClCltltltabababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababababababkfmimjlUkrmkmlmmmnmokKlcmpmqmrkflklklklklkltltltlClCltltlClCltltltababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababababababkfmskrkKkKmskKmtmumvkrmwmxmymzkfabababababltltltltlBlClClClCltltltababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababababababkflYlUmAkKmBkKmtmckKmCmDmEmjkrkfabababababltltltltmFlClClClCltltltabababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababababkflPlQmGlQlPlQmHmIlFkrkrkKlFmJkfabababababltltltltltlClClClClCltltababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababkfkfkfkfkfkfkfkfkfkfmKkfkfkfkfkfabababababltltltltltlClClClClCltltababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababababababababababababababkfkfkfabababababababababltltltltltlClClCltlCltltababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababababababababababababababababababababababababababltltltltltlClCltltlCltltababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababababababababababababababababababababababababababltltltltltlClClCltlCltltabababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababltltltltltltltltltltltltltltltltltltltltltltltltltmFlClClClClCmFlCltltabababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababltltltltltltltltltltltlCltltltltltltltltltltltltlClClClClClClClClCltltabababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababltltltltltltltlClClClClCltltltltltltltltltltltlClClClCltltlClCltltltltababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababltltltltltlClClClClCltltltltltltltltltltltlClClClClCltltltlClCltltltltababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababltltltltlClClClClClClClCltlCltltltlClClClCmFmLlClClClClClClClCltltltltababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababltltltltlClClClClClClClClClClCltlClClClClClClCltlClClClClCltltltltltltabababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababltltltltlClClCmFlClClClClClClCmMlClCltlClClClClClClClDltltltltltltltltabababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababltltltlClClClClClCmNlClClClClCmMlClCltltlClClClClCltltabababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababltltltlClClClClClClClClClClClCltltlClClCltmFlClCltltltababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababltltltlClClClClClClClClClClClCltltltlCmOlClCltltltltltababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababltltltltlClClCmPlClClClCmFlClClCltltltltltltltltltltltababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababltltltltlClClClClClClClClClClCltltltltltltltltltltltltabababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababltltltltlClClClClClClClClClClCltltltltltltltltltltltltabababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababltltltltlClClClClCltltltlClCltltltltltltltltltltltltltabababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababltltltltltlClClCltltltltltlCltltltltltltltltltltltltltababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababltltltltltltltltltltltltltltltltltltltltltltltltltltltababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababltltltltltltltltltltltltltltltltltltltltltltltltltltltabababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababewababababababababababababababababababababkjkfkfkkklkfkfkikjabababbMbMbMbMbMbMbMbMbMbMababfPfPfPfPfPfPfPfPababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababewkmababababababababababewewewewewewewewewkfkfkfknkokfkfkikfabababbMbMbMbMkpabbMbMbMbMbMbMabababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababkmkqkmkmkqkmkmkmkqkmkqkmkmkmkmkmkrksksktkukvkwkvkxkykzkAkfababbMbMbMkBbMabababbMbMbMbMbMabababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababkmkqkmkmkmkmkCkmkmkmkCkmkmkmkmkmkDkEkvkFkGkwkwkvkHkIkJkKkfababbMbMbMbMbMbMabbMbMbMbMbMbMbMbMabababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababkmkLkMkNkNkNkNkNkNkNkNkNkNkOkLkmkPkQkRkSkfkTkUkvkvkVkfkfkfabbMbMbMbMbMbMbMbMbMbMbMbMbMbMbMbMbMbMbMabababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababkmkLkWkXkYkXkZlalbkZkXkYkXlckLkmkmldlekfkflflglhliljlkkfkfabababbMababbMbMbMbMbMbMbMbMababbMbMbMbMababababaaabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababkmlllmlmlmlmlmlmlmlmlmlmlmlmlllnlolllpkvlqlrlsltlukvlvkfkfababababababababbMbMbMbMbMabababababbMbMababaaaaaaabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababkmkNlllwlxlwlllllylllwlxlwlllllzlAlBknlplClDkjlqlqlqkjkfkfababababababababababbMbMbMabababababbMaaabaaaaaaaaaaaaababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababkmlllllblElllllllllllllEkNllllkmkmkmkfkfkUlrkvkvkvkjkjkfkfababababababababababababbMabababababaaaaaaaaaaaaaaaaaaaaababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababaaaaabababababababababababababababkmlFlllllGllkNlllllllylGlllllHkmabkfkfkfkvkVkfkflIlIlIlJlIlIabababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababaaaaaaababababababababababababababkmkflKlKlKlKlKlKlKlKlKlKlKlKkfkmabkflLkUkvlMlNlNlIlOlPlQlRlIlSlSlSlSlSlSlSlSlSlSlSababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababkfkvkvlTkvkvkvkvkvkvkvkvkvkfababkflLkvlUlVkvlWlIlXlXlYlXlIlZlSlSlSlSlSlSlSlSlSlSabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababkfkvkvkvkvmambmcmdmekvkvkvkfababkflLkvmfmglhlgmhmimjmklXmlmmmnmolSmplSlSlSlSlSlSabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababkfkvkvkvkvmqmrmsmtkvmukvkvkfababkfmvmwlplslNlNlImxmymzlXmlmmmmmnmnmnmnmnlSlSlSlSababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababkflTkvkvkvkvkvkvkvkvkvkvkvkfkfkfmAkfmBkwmCmDkflIlXmEmFlXlIlZmnmnmmmnmnmmmnlSlSlSababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababkfkfkfkfkfkfkfkfkfkfmGkfkfkfmHmIlTmJmJmKkvmJmJlIlXlXmLlXlIlSlSmnmnmnmnmmmnmnlSlSabababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababababababababkfmMkUmNkvkUmOmPmQkvmRlUmSmTmOlImUmVlXmWlIlSlSlSmnmolSmnmnmnlSlSlSabababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababababababkfkUmslTkvkUmXmYmZnakUlunbncndkfnenenenenelSlSlSmnmnlSlSmnmnlSlSlSababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababababababkfnfkvkUkUnfkUngnhnikvnjnknlnmkfababababablSlSlSlSmmmnmnmnmnlSlSlSababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababababababkfnnlTnokUnpkUngmQkUnqnrmqmskvkfababababablSlSlSlSnsmnmnmnmnlSlSlSabababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababababkfntmHnumHntmHkUnvmwkvkvkUmwnwkfababababablSlSlSlSlSmnmnmnmnmnlSlSababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababkfkfkfkfkfkfkfkfkfkfnxkfkfkfkfkfababababablSlSlSlSlSmnmnmnmnmnlSlSababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababababababababababababababkfkfkfababababababababablSlSlSlSlSmnmnmnlSmnlSlSababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababababababababababababababababababababababablSlSlSlSlSmnmnlSlSmnlSlSababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababababababababababababababababababababababablSlSlSlSlSmnmnmnlSmnlSlSabababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababablSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSnsmnmnmnmnmnnsmnlSlSabababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababablSlSlSlSlSlSlSlSlSlSlSmnlSlSlSlSlSlSlSlSlSlSlSlSmnmnmnmnmnmnmnmnmnlSlSabababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababablSlSlSlSlSlSlSmnmnmnmnmnlSlSlSlSlSlSlSlSlSlSlSmnmnmnmnlSlSmnmnlSlSlSlSababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababablSlSlSlSlSmnmnmnmomnlSlSlSlSlSlSlSlSlSlSlSmnmnmnmnmnlSlSlSmnmnlSlSlSlSababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababablSlSlSlSmnmnmnmnmnmnmnmnlSmolSlSlSmnmnmnmnnsnymnmnmnmnmnmnmnmnlSlSlSlSababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababablSlSlSlSmnmnmnmnmnmnmnmnmnmnmnlSmnmnmnmomnmnmnlSmnmnmomnmnlSlSlSlSlSlSabababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababablSlSlSlSmnmnmnnsmnmnmnmnmnmnmnnzmnmnlSmnmnmnmnmnmnmnmplSlSlSlSlSlSlSlSabababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababablSlSlSmnmnmnmnmnmnnAmnmnmnmnmnnzmnmnlSlSmnmnmnmnmnlSlSabababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababablSlSlSmnmnmnmnmnmnmnmnmnmnmnmnlSlSmnmnmnlSnsmnmnlSlSlSababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababablSlSlSmnmnmnmnmnmnmnmnmnmnmnmnlSlSlSmnnBmnmnlSlSlSlSlSababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababablSlSlSlSmnmnmnnCmnmnmnmnnsmnmnmnlSlSlSlSlSlSlSlSlSlSlSababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababablSlSlSlSmnmnmnmnmnmnmnmnmnmnmnlSlSlSlSlSlSlSlSlSlSlSlSabababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababablSlSlSlSmnmnmomnmnmnmnmomnmnmnlSlSlSlSlSlSlSlSlSlSlSlSabababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababablSlSlSlSmnmnmnmnmnlSlSlSmnmnlSlSlSlSlSlSlSlSlSlSlSlSlSabababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababablSlSlSlSlSmnmnmnlSlSlSlSlSmnlSlSlSlSlSlSlSlSlSlSlSlSlSababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababablSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababablSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSlSabababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababababababababababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -866,6 +905,5 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-mQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+nDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
-
