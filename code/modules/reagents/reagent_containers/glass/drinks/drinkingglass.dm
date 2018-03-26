@@ -6,7 +6,7 @@
 	icon_state = "glass_empty"
 	amount_per_transfer_from_this = 5
 	volume = 30
-	unacidable = 1 //glass
+	isGlass = TRUE
 	center_of_mass = list("x"=16, "y"=10)
 
 	on_reagent_change()
