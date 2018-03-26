@@ -1896,7 +1896,6 @@
 #include "code\ZAS\Zone.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
-#include "maps\255.dmm"
-#include "maps\asterodstation.dmm"
+#include "maps\CentComm.dmm"
 #include "maps\Xfiles.dmm"
 // END_INCLUDE
