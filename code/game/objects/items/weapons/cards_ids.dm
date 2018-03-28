@@ -165,6 +165,7 @@
 
 /obj/item/weapon/card/id/syndicate
 	name = "agent card"
+	icon_state = "syndicate"
 	access = list(access_maint_tunnels, access_syndicate, access_external_airlocks)
 	origin_tech = list(TECH_ILLEGAL = 2)
 	var/registered_user=null
@@ -234,6 +235,7 @@
 
 /obj/item/weapon/card/id/syndicate_command
 	name = "syndicate ID card"
+	icon_state = "syndie"
 	desc = "An ID straight from the Syndicate."
 	registered_name = "Syndicate"
 	assignment = "Syndicate Overlord"
@@ -255,7 +257,7 @@
 /obj/item/weapon/card/id/centcom
 	name = "\improper CentCom. ID"
 	desc = "An ID straight from Cent. Com."
-	icon_state = "centcom"
+	icon_state = "centcomGold"
 	registered_name = "Central Command"
 	assignment = "General"
 
@@ -267,7 +269,7 @@
 /obj/item/weapon/card/id/army
 	name = "\improper Army Identification Card"
 	desc = "An AID straight from NTCI"
-	icon_state = "centcom_old"
+	icon_state = "corporate"
 	assignment = "NT Colonial Infantry"
 
 /obj/item/weapon/card/id/army/initialize()
@@ -277,6 +279,7 @@
 
 /obj/item/weapon/card/id/centcom/ERT
 	name = "\improper Emergency Response Team ID"
+	icon_state = "centcomNew"
 	assignment = "Emergency Response Team"
 
 /obj/item/weapon/card/id/centcom/ERT/initialize()
