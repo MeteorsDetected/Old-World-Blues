@@ -39,6 +39,9 @@
 		"Judge"				= list('sound/jukebox/Judge_Bitch.ogg'),
 		"Hishmaliin"		= list('sound/jukebox/dvar_hishmaliin.ogg'),
 		"Mystyrious Song"	= list('sound/jukebox/gay_bar.ogg'),
+		"Nightcall"			= list('sound/jukebox/Nightcall.ogg'),
+		"Mind"				= list('sound/jukebox/Mind.ogg'),
+		"Busted and Blue"	= list('sound/jukebox/Busted_and_Blue.ogg'),
 		"Keep"				= list('sound/jukebox/aritus-keep.ogg')
 	)
 
