@@ -639,7 +639,7 @@
 "mo" = (/obj/machinery/sleeper{dir = 4},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/alekto_post/start)
 "mp" = (/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/alekto_post/start)
 "mq" = (/obj/structure/material/chair/plastic/shuttle{icon_state = "schair"; dir = 1},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/alekto_post/start)
-"mr" = (/obj/effect/landmark/start{name = "Chief Medical Officer"},/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/alekto_post/start)
+"mr" = (/obj/item/roller,/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/alekto_post/start)
 "ms" = (/obj/machinery/door/airlock/glass_medical{name = "Escape Shuttle Infirmary"; req_access = list(5)},/obj/machinery/door/firedoor,/turf/simulated/shuttle/floor{icon_state = "floor3"},/area/alekto_post/start)
 "mt" = (/obj/machinery/light{icon_state = "tube1"; dir = 1},/turf/simulated/shuttle/floor,/area/alekto_post/start)
 "mu" = (/obj/machinery/door/airlock/glass_science,/obj/machinery/door/firedoor,/turf/simulated/shuttle/floor,/area/alekto_post/start)
