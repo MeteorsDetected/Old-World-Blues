@@ -101,12 +101,9 @@
 
 /obj/item/storage/box/syndie_kit/imp_uplink
 	name = "boxed uplink implant (with injector)"
-
-/obj/item/storage/box/syndie_kit/imp_uplink/populateContents()
-	..()
-	var/obj/item/weapon/implanter/O = new(src)
-	O.imp = PoolOrNew(/obj/item/weapon/implant/uplink, O)
-	O.update_icon()
+	preloaded = list(
+		/obj/item/weapon/implanter/uplink
+	)
 
 
 /obj/item/storage/box/syndie_kit/space
