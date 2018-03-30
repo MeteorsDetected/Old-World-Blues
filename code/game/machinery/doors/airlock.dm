@@ -59,6 +59,11 @@
 	icon = 'icons/obj/doors/Doorcom.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_com
 
+/obj/machinery/door/airlock/metalmono
+	name = "Airlock"
+	icon = 'icons/obj/doors/Doormetalone.dmi'
+	assembly_type = /obj/structure/door_assembly/door_assembly_com
+
 /obj/machinery/door/airlock/security
 	name = "Airlock"
 	icon = 'icons/obj/doors/Doorsec.dmi'
@@ -93,6 +98,16 @@
 	explosion_resistance = 5
 	opacity = 0
 	glass = 1
+
+/obj/machinery/door/airlock/glassmono
+	name = "Monoglass Airlock"
+	icon = 'icons/obj/doors/doorglassmono.dmi'
+	hitsound = 'sound/effects/Glasshit.ogg'
+	open_sound_powered = 'sound/machines/windowdoor.ogg'
+	maxhealth = 200
+	explosion_resistance = 4
+	opacity = 0
+	glass = 2
 
 /obj/machinery/door/airlock/centcom
 	name = "Airlock"
