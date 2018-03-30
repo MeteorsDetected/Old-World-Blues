@@ -62,6 +62,7 @@
 
 /obj/machinery/door/airlock/external/cultify()
 	new /obj/structure/simple_door/wood(loc)
+	opacity = 0
 	..()
 
 /obj/machinery/door/cultify()
