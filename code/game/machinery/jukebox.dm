@@ -29,7 +29,7 @@
 		"Sad Song"			= list('sound/jukebox/Look_On_Down_From_The_Bridge.ogg'),
 		"Detective Blues"	= list('sound/jukebox/Blade_Runner_Blues.ogg'),
 		"Space Oddity"		= list('sound/music/david_bowie-space_oddity_original.ogg'),
-		"Lotsa Luck"		= list('sound/jukebox/Who_Do_You_Love.ogg'),
+		"Lotsa Luck!"		= list('sound/jukebox/Who_Do_You_Love.ogg'),
 		"Resist"			= list('sound/jukebox/Old_Friends.ogg'),
 		"Turf"				= list('sound/jukebox/Turf.ogg'),
 		"Don't You Want?"	= list('sound/jukebox/Somebody_to_Love.ogg'),
