@@ -15,7 +15,7 @@
 	var/current_track = ""
 	var/list/tracks = list(
 		"Beyond"			= list('sound/ambience/ambispace.ogg'),
-		"Edith Piaf"		= list('sound/music/Edith_Piaf.ogg'),
+		"Edith Piaf"		= list('sound/jukebox/Edith_Piaf.ogg'),
 		"D`Bert"			= list('sound/music/title2.ogg'),
 		"D`Fort"			= list('sound/ambience/song_game.ogg'),
 		"Floating"			= list('sound/music/main.ogg'),
@@ -26,7 +26,7 @@
 		"Sweet Jane"		= list('sound/jukebox/Sweet_Jane.ogg'),
 		"Funnel of Love"	= list('sound/jukebox/FunnelofLove.ogg'),
 		"Nowhere to Run"	= list('sound/jukebox/Nowhere_to_Run.ogg'),
-		"Sad Song"			= list('sound/music/Look_On_Down_From_The_Bridge.ogg'),
+		"Sad Song"			= list('sound/jukebox/Look_On_Down_From_The_Bridge.ogg'),
 		"Detective Blues"	= list('sound/jukebox/Blade_Runner_Blues.ogg'),
 		"Space Oddity"		= list('sound/music/david_bowie-space_oddity_original.ogg'),
 		"Lotsa Luck"		= list('sound/jukebox/Who_Do_You_Love.ogg'),
