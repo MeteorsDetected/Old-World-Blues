@@ -60,7 +60,7 @@
 
 	var/dat
 
-	if (!( ticker ))
+	if (!ticker)
 		return
 
 	dat += "<hr/><br/><b>[storage_name]</b><br/>"
@@ -227,12 +227,14 @@
 /obj/machinery/cryopod/initialize()
 	announce = new /obj/item/device/radio/intercom(src)
 	find_control_computer()
+	latejoin_alecto += src
 	return ..()
 
 /obj/machinery/cryopod/Destroy()
 	if(occupant)
 		occupant.forceMove(loc)
 		occupant.resting = 1
+	latejoin_alecto -= src
 	..()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)

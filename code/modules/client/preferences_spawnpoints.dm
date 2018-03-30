@@ -8,7 +8,7 @@ var/list/spawntypes = list()
 
 /datum/spawnpoint
 	var/msg          //Message to display on the arrivals computer.
-	var/list/turfs   //List of turfs to spawn on.
+	var/list/targets //List of turfs to spawn on.
 	var/display_name //Name used in preference setup.
 	var/list/restrict_job = null
 	var/list/disallow_job = null
@@ -22,36 +22,23 @@ var/list/spawntypes = list()
 
 		return 1
 
-/datum/spawnpoint/arrivals
-	display_name = "Arrivals Shuttle"
-	msg = "has arrived on the station"
+/datum/spawnpoint/proc/pickPoint()
+	return pick(getPoints())
 
-/datum/spawnpoint/arrivals/New()
-	..()
-	turfs = latejoin
+/datum/spawnpoint/proc/getPoints()
+	return src.targets
 
-/datum/spawnpoint/gateway
-	display_name = "Gateway"
-	msg = "has completed translation from offsite gateway"
 
-/datum/spawnpoint/gateway/New()
-	..()
-	turfs = latejoin_gateway
+/*Subtypes*/
 
-/datum/spawnpoint/cryo
-	display_name = "Cryogenic Storage"
+/datum/spawnpoint/alecto
+	display_name = "Alekto Shuttle"
 	msg = "has completed cryogenic revival"
-	disallow_job = list("Cyborg")
 
-/datum/spawnpoint/cryo/New()
-	..()
-	turfs = latejoin_cryo
+/datum/spawnpoint/alecto/getPoints()
+	. = list()
+	for(var/elem in latejoin_alecto)
+		var/obj/machinery/cryopod/C = elem
+		. += get_step(C, C.dir)
+	return .
 
-/datum/spawnpoint/cyborg
-	display_name = "Cyborg Storage"
-	msg = "has been activated from storage"
-	restrict_job = list("Cyborg")
-
-/datum/spawnpoint/cyborg/New()
-	..()
-	turfs = latejoin_cyborg

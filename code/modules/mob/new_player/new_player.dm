@@ -255,18 +255,20 @@
 		var/datum/spawnpoint/S
 
 		if(spawning_at)
+			if(!spawntypes[spawning_at])
+				spawning_at = spawntypes[1]
 			S = spawntypes[spawning_at]
 
 		if(S && istype(S))
 			if(S.check_job_spawning(rank))
-				character.loc = pick(S.turfs)
+				character.loc = S.pickPoint()
 				join_message = S.msg
 			else
 				character << "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead."
-				character.loc = pick(latejoin)
+				character.forceMove(pick(latejoin_alecto))
 				join_message = "has arrived on the station"
 		else
-			character.loc = pick(latejoin)
+			character.loc = pick(latejoin_alecto)
 			join_message = "has arrived on the station"
 
 		character.lastarea = get_area(loc)
