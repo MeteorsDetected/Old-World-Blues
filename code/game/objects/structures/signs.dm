@@ -205,3 +205,7 @@
 	name = "\improper Escape Arm"
 	desc = "A direction sign, pointing out which way the escape shuttle dock is."
 	icon_state = "direction_evac"
+
+/obj/structure/sign/chinese/restricted
+	name = "\improper Restricted area"
+	icon_state = "CH_restricted_area"
