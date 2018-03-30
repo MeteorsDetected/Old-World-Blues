@@ -115,7 +115,7 @@
 "ck" = (/obj/structure/window/reinforced,/turf/simulated/floor/airless{icon_state = "damaged5"},/area/derelict/singularity_engine)
 "cl" = (/obj/structure/window/reinforced,/turf/simulated/floor/airless{icon_state = "damaged4"},/area/derelict/singularity_engine)
 "cm" = (/obj/machinery/light/small{dir = 8},/turf/simulated/floor/airless{icon_state = "damaged2"},/area/derelict/singularity_engine)
-"cn" = (/obj/structure/safe/floor,/obj/item/weapon/moneybag/vault,/obj/item/clothing/mask/gas/voice,/obj/item/weapon/gun/projectile/shotgun/doublebarrel/sawn,/turf/simulated/floor/plating/airless,/area/derelict/secret)
+"cn" = (/obj/structure/safe/floor,/obj/item/weapon/moneybag/vault,/obj/item/clothing/mask/gas/voice,/obj/item/weapon/gun/projectile/shotgun/doublebarrel/sawn,/obj/item/weapon/gun/energy/wasp,/turf/simulated/floor/plating/airless,/area/derelict/secret)
 "co" = (/turf/simulated/floor/plating/airless,/area/derelict/secret)
 "cp" = (/obj/structure/window/reinforced{icon_state = "rwindow"; dir = 5},/turf/simulated/floor/airless,/area/derelict/bridge/access)
 "cq" = (/obj/structure/window/reinforced{icon_state = "rwindow"; dir = 8},/obj/item/stack/rods{amount = 2},/turf/simulated/floor/plating/airless,/area/space)
@@ -468,7 +468,7 @@
 "iZ" = (/obj/structure/cable{icon_state = "0-2"; d2 = 2},/obj/structure/cable,/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plating/airless,/area/space)
 "ja" = (/obj/structure/cable,/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor/plating/airless,/area/space)
 "jb" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plating/airless,/area/space)
-"jc" = (/obj/map_data/finds{is_accessable_level = 2},/turf/space,/area/space)
+"jc" = (/obj/map_data/finds{is_accessable_level = 2; is_player_level = 1},/turf/space,/area/space)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -727,4 +727,3 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 jcaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
-
