@@ -11,3 +11,5 @@
 /obj/machinery/computer/shuttle_control/multi/alekto
 	name = "Alekto shuttle control console"
 	shuttle_tag = "Alekto"
+	icon = 'icons/obj/computer.dmi'
+	screen_icon = "shuttle"
