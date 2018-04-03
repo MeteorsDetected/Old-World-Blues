@@ -36,7 +36,7 @@
 		"Heroes"			= list('sound/jukebox/Heroes.ogg'),
 		"See You Tomorrow?"	= list('sound/jukebox/See_You_Tomorrow.ogg'),
 		"Lovesong"			= list('sound/jukebox/lovesong.ogg'),
-		"Judge"				= list('sound/jukebox/Judge_Bitch.ogg'),
+		"Crystals"			= list('sound/jukebox/Crystals.ogg'),
 		"Drive"				= list('sound/jukebox/Real_Hero.ogg'),
 		"Mystyrious Song"	= list('sound/jukebox/Pumpit.ogg'),
 		"Bob"				= list('sound/jukebox/TheTimesTheyArAChangin.ogg')
