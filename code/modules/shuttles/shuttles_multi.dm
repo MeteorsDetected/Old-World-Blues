@@ -223,17 +223,14 @@
 			MS.last_departed = MS.origin
 			MS.at_origin = 0
 
-
-			MS.long_jump(MS.last_departed, MS.destinations[choice], MS.interim, MS.move_time)
-			MS.last_departed = MS.destinations[choice]
-			MS.last_location = choice
-			return
-
 		else if(choice == MS.origin)
 
 			MS.announce_departure()
 
-		MS.short_jump(MS.last_departed, MS.destinations[choice])
+		if(MS.interim)
+			MS.long_jump(MS.last_departed, MS.destinations[choice], MS.interim, MS.move_time)
+		else
+			MS.short_jump(MS.last_departed, MS.destinations[choice])
 		MS.last_departed = MS.destinations[choice]
 		MS.last_location = choice
 
