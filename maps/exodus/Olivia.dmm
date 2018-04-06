@@ -3748,7 +3748,7 @@
 "bud" = (/turf/simulated/floor/plating,/area/crew_quarters/sleep/bedrooms/rooms/three)
 "bue" = (/obj/structure/table/standard,/obj/item/storage/pill_bottle/zoom,/obj/item/storage/pill_bottle/happy,/obj/item/weapon/lipstick/black,/turf/simulated/floor/plating,/area/maintenance/locker)
 "buf" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/maintenance/locker)
-"bug" = (/obj/structure/reagent_dispensers/watertank,/obj/machinery/light/small{dir = 1; light_sources = "#DA0205"},/turf/simulated/floor/plating,/area/maintenance/locker)
+"bug" = (/obj/structure/reagent_dispensers/watertank,/obj/machinery/light/small{dir = 1;},/turf/simulated/floor/plating,/area/maintenance/locker)
 "buh" = (/obj/structure/closet/emcloset,/obj/item/storage/backpack/messenger/com,/turf/simulated/floor/plating,/area/maintenance/locker)
 "bui" = (/obj/structure/reagent_dispensers/beerkeg,/turf/simulated/floor/wood,/area/crew_quarters/sleep/bedrooms/rooms/six)
 "buj" = (/obj/item/trash/pistachios,/turf/simulated/floor/wood{icon_state = "wood-broken"},/area/crew_quarters/sleep/bedrooms/rooms/six)
