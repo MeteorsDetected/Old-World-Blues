@@ -1901,6 +1901,7 @@
 #include "maps\exodus\3.satelite.dmm"
 #include "maps\exodus\derelict.dmm"
 #include "maps\exodus\derelict1.dmm"
+#include "maps\exodus\derelict2.dmm"
 #include "maps\exodus\finds.dmm"
 #include "maps\exodus\oldfriend.dmm"
 #include "maps\exodus\Olivia.dmm"
