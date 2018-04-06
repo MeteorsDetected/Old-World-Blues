@@ -1792,6 +1792,58 @@ area/crew_quarters/barman
 	name = "\improper Derelict Singularity Engine"
 	icon_state = "engine"
 
+//new derelict
+
+/area/derelict/away
+	name = "some place away"
+	icon_state = "yellow"
+
+/area/derelict/away/piratship
+	name = "pirat shuttle"
+	icon_state = "bridge"
+	requires_power = 0
+
+/area/derelict/away/mining
+	name = "away mining post"
+	icon_state = "storage"
+
+/area/derelict/away/sindipost
+	name = "sleep agent"
+	icon_state = "Tactical"
+
+/area/derelict/away/tele
+	name = "away teleport"
+	icon_state = "teleporter"
+
+/area/derelict/away/ship
+	name = "sindi ship"
+	icon_state = "Tactical"
+
+/area/derelict/away/laba
+	name = "laboratory"
+	icon_state = "medbay"
+
+/area/derelict/away/laba/one
+	name = "laboratory one lvl"
+	icon_state = "toxlab"
+
+/area/derelict/away/laba/two
+	name = "laboratory two lvl"
+	icon_state = "maint_medbay"
+
+/area/derelict/away/naki
+	name = "naki post"
+	icon_state = "red"
+	requires_power = 0
+
+/area/derelict/away/naki/one
+	name = "naki post shuttle"
+	icon_state = "purple"
+
+/area/derelict/away/naki/two
+	name = "naki post and shuttle, huh"
+	icon_state = "green"
+
 //SHIPWRECK
 /area/shipwreck
 	name = "\improper Shipwreck"
