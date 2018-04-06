@@ -188,7 +188,7 @@
 "dF" = (/obj/structure/sink{pixel_y = 20},/turf/simulated/floor{icon_state = "freezerfloor"},/area/derelict/away/sindipost)
 "dG" = (/obj/machinery/door/airlock,/turf/simulated/floor{icon_state = "freezerfloor"},/area/derelict/away/sindipost)
 "dH" = (/obj/item/storage/secure/safe{pixel_y = 25},/turf/simulated/floor{icon_state = "grimy"},/area/derelict/away/sindipost)
-"dI" = (/obj/machinery/cryopod/syndie{dir = 2},/turf/simulated/floor{icon_state = "grimy"},/area/derelict/away/sindipost)
+"dI" = (/obj/structure/material/bed/psych,/turf/simulated/floor{icon_state = "grimy"},/area/derelict/away/sindipost)
 "dJ" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/door/airlock/glass,/obj/machinery/door/firedoor,/obj/structure/disposalpipe/segment,/turf/simulated/floor,/area/derelict/away/sindipost)
 "dK" = (/obj/machinery/power/apc/high,/turf/simulated/wall/r_wall,/area/derelict/away/sindipost)
 "dL" = (/obj/item/weapon/ectoplasm,/turf/simulated/floor{dir = 1; icon_state = "chapel"},/area/derelict/away)
