@@ -337,7 +337,7 @@
 "gy" = (/turf/unsimulated/mask,/area/space)
 "gz" = (/obj/machinery/computer/shuttle_control/research,/obj/machinery/atmospherics/unary/vent_scrubber/on,/turf/simulated/floor,/area/outpost/research/dock)
 "gA" = (/turf/simulated/floor,/area/outpost/research/dock)
-"gB" = (/obj/machinery/embedded_controller/radio/simple_docking_controller{frequency = 1380; id_tag = "research_outpost_dock"; pixel_y = 30; req_one_access = list(13,65); tag_door = "research_outpost_hatch"},/turf/simulated/floor{icon_state = "warningcorner"; dir = 8},/area/outpost/research/dock)
+"gB" = (/obj/machinery/embedded_controller/radio/simple_docking_controller{frequency = 1380; id_tag = "research_outpost_dock"; pixel_y = -30; req_one_access = list(13,65); tag_door = "research_outpost_hatch"},/turf/simulated/floor{icon_state = "warningcorner"; dir = 8},/area/outpost/research/dock)
 "gC" = (/turf/simulated/floor{dir = 1; icon_state = "warning"},/area/outpost/research/dock)
 "gD" = (/obj/structure/sign/securearea{desc = "A warning sign which reads 'VACUUM'"; icon_state = "space"; layer = 4; name = "VACUUM"; pixel_y = 32},/turf/simulated/floor{icon_state = "warningcorner"; dir = 4},/area/outpost/research/dock)
 "gE" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4},/turf/simulated/floor,/area/outpost/research/dock)
