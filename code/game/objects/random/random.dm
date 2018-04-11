@@ -1159,7 +1159,7 @@ obj/random/hostile/spawn_choices()
 	Selects one spawn point out of a group of points with the same ID and asks it to generate its items
 */
 var/list/multi_point_spawns
-/*
+
 /obj/random_multi
 	name = "random object spawn point"
 	desc = "This item type is used to spawn random objects at round-start. Only one spawn point for a given group id is selected."
@@ -1169,7 +1169,7 @@ var/list/multi_point_spawns
 	var/id     // Group id
 	var/weight // Probability weight for this spawn point
 
-/obj/random_multi/ønitialize()
+/obj/random_multi/initialize()
 	. = ..()
 	weight = max(1, round(weight))
 
@@ -1221,9 +1221,9 @@ var/list/random_useful_
 		random_useful_ += /obj/item/weapon/pen/blue
 		random_useful_ += /obj/item/weapon/pen/red
 		random_useful_ += /obj/item/weapon/pen/multi
-		random_useful_ += /obj/item/weapon/storage/box/matches
+		random_useful_ += /obj/item/storage/box/matches
 		random_useful_ += /obj/item/stack/material/cardboard
-		random_useful_ += /obj/item/weapon/storage/fancy/cigarettes
+		random_useful_ += /obj/item/storage/fancy/cigarettes
 		random_useful_ += /obj/item/weapon/deck/cards
 	return pick(random_useful_)
 
@@ -1237,13 +1237,15 @@ var/list/random_useful_
 			random_junk_ = subtypesof(/obj/item/trash)
 			random_junk_ += typesof(/obj/item/weapon/cigbutt)
 			random_junk_ += /obj/effect/decal/cleanable/spiderling_remains
+/*
 			random_junk_ += /obj/item/remains/mouse
 			random_junk_ += /obj/item/remains/robot
+*/
 			random_junk_ += /obj/item/weapon/paper/crumpled
 			random_junk_ += /obj/item/inflatable/torn
 			random_junk_ += /obj/effect/decal/cleanable/molten_item
 			random_junk_ += /obj/item/weapon/material/shard
-			random_junk_ += /obj/item/weapon/hand/missing_card
+//			random_junk_ += /obj/item/weapon/hand/missing_card
 
 			random_junk_ -= /obj/item/trash/plate
 			random_junk_ -= /obj/item/trash/snack_bowl
@@ -1255,7 +1257,8 @@ var/list/random_useful_
 	// 4% chance that we reach here
 	if(prob(75))
 		return get_random_useful_type()
-
+/*
 	// 1% chance that we reach here
 	var/lunches = lunchables_lunches()
-	return lunches[pick(lunches)]*/
+	return lunches[pick(lunches)]
+*/

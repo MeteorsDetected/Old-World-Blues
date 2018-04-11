@@ -65,6 +65,14 @@
 	shadeColour = input(user, "Please select the shade colour.", "Crayon colour") as color
 	return
 
+/obj/item/weapon/pen/crayon/random/initialize()
+	var/obj/item/weapon/pen/crayon/new_type = pick(subtypesof(/obj/item/weapon/pen/crayon) - /obj/item/weapon/pen/crayon/random)
+	colour = initial(new_type.colour)
+	shadeColour = initial(new_type.shadeColour)
+	colourName = initial(new_type.colourName)
+	icon_state = initial(new_type.icon_state)
+	. = ..()
+
 /obj/item/weapon/pen/crayon/afterattack(atom/target, mob/user as mob, proximity)
 	if(!proximity) return
 	if(istype(target,/turf/simulated/floor))
