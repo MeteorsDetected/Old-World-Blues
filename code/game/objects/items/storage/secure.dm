@@ -164,6 +164,22 @@
 				src.close(M)
 	src.add_fingerprint(user)
 
+
+/obj/item/storage/secure/briefcase/money
+
+/obj/item/storage/secure/briefcase/money/New()
+	..()
+	new /obj/item/weapon/spacecash/c1000( src )
+	new /obj/item/weapon/spacecash/c1000( src )
+	new /obj/item/weapon/spacecash/c1000( src )
+	new /obj/item/weapon/spacecash/c1000( src )
+	new /obj/item/weapon/spacecash/c1000( src )
+	new /obj/item/weapon/spacecash/c1000( src )
+	new /obj/item/weapon/spacecash/c1000( src )
+	new /obj/item/weapon/spacecash/c1000( src )
+	new /obj/item/weapon/spacecash/c1000( src )
+	new /obj/item/weapon/spacecash/c1000( src )
+
 // -----------------------------
 //        Secure Safe
 // -----------------------------
