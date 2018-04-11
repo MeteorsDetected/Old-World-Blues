@@ -106,6 +106,8 @@
 /obj/item/storage/firstaid/surgery
 	name = "surgery kit"
 	desc = "Contains tools for surgery."
+	icon_state = "surgerykit"
+	item_state = "surgerykit"
 	max_storage_space = 21
 	max_w_class = ITEM_SIZE_NORMAL
 	preloaded = list(

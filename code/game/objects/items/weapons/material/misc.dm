@@ -38,6 +38,17 @@
 	attack_verb = list("stabbed", "chopped", "cut")
 	applies_material_colour = 0
 
+/obj/item/weapon/material/hatchet/tacknife/boot //As tactical, but slightly worse and more accessible
+	name = "small knife"
+	desc = "A small, easily concealed knife."
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "pocketknife_open"
+	item_state = "knife"
+	applies_material_colour = 0
+	unbreakable = 1
+	force_divisor = -0.5
+	thrown_force_divisor = -0.6
+
 /obj/item/weapon/material/hatchet/tacknife/thunder
 	force_divisor = 0.5
 	thrown_force_divisor = 0.6

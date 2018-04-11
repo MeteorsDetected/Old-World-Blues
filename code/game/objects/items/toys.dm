@@ -1005,6 +1005,43 @@
 	desc = "Common white pillow. Useful for pillow-fight"
 	icon_state = "pillow"
 
+//Therapy toys. Maybe make painting code?
+/obj/item/toy/therapy_purple
+	name = "purple therapy doll"
+	desc = "A toy for therapeutic and recreational purposes. This one is purple."
+	icon_state = "therapypurple"
+	item_state = "egg1" // It's the magenta egg in items_left/righthand
+
+/obj/item/toy/therapy_blue
+	name = "blue therapy doll"
+	desc = "A toy for therapeutic and recreational purposes. This one is blue."
+	icon_state = "therapyblue"
+	item_state = "egg2" // It's the blue egg in items_left/righthand
+
+/obj/item/toy/therapy_yellow
+	name = "yellow therapy doll"
+	desc = "A toy for therapeutic and recreational purposes. This one is yellow."
+	icon_state = "therapyyellow"
+	item_state = "egg5" // It's the yellow egg in items_left/righthand
+
+/obj/item/toy/therapy_orange
+	name = "orange therapy doll"
+	desc = "A toy for therapeutic and recreational purposes. This one is orange."
+	icon_state = "therapyorange"
+	item_state = "egg4" // It's the red one again, lacking an orange item_state and making a new one is pointless
+
+/obj/item/toy/therapy_green
+	name = "green therapy doll"
+	desc = "A toy for therapeutic and recreational purposes. This one is green."
+	icon_state = "therapygreen"
+	item_state = "egg3" // It's the green egg in items_left/righthand
+
+/obj/item/toy/therapy_red
+	name = "red therapy doll"
+	desc = "A toy for therapeutic and recreational purposes. This one is red."
+	icon_state = "therapyred"
+	item_state = "egg4" // It's the red egg in items_left/righthand
+
 //Toy cult sword
 /obj/item/toy/cultsword
 	name = "foam sword"
@@ -1015,6 +1052,16 @@
 	w_class = ITEM_SIZE_HUGE
 	sprite_group = SPRITE_MELEE
 	attack_verb = list("attacked", "slashed", "stabbed", "poked")
+
+/obj/item/weapon/marshalling_wand
+	name = "marshalling wand"
+	desc = "An illuminated, hand-held baton used by hangar personnel to visually signal shuttle pilots. The signal changes depending on your intent."
+	icon_state = "marshallingwand"
+	item_state = "marshallingwand"
+	icon = 'icons/obj/toy.dmi'
+	slot_flags = SLOT_BELT
+	force = 1
+	attack_verb = list("attacked", "whacked", "jabbed", "poked", "marshalled")
 
 /* NYET.
 /obj/item/weapon/toddler
@@ -1040,3 +1087,4 @@
 	desc = "It seems like there is no power button. No power switch, too. Duh."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "tv"
+

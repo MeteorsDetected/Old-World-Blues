@@ -194,8 +194,8 @@
 /obj/random/contraband
 	name = "Random Illegal Item"
 	desc = "Hot Stuff."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "purplecomb"
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "pwinebottle"
 	spawn_nothing_percentage = 50
 
 /obj/random/contraband/spawn_choices()
@@ -203,6 +203,7 @@
 				/obj/item/storage/pill_bottle/tramadol = 3,
 				/obj/item/storage/pill_bottle/happy = 4,
 				/obj/item/storage/pill_bottle/zoom = 4,
+				/obj/item/weapon/reagent_containers/glass/drinks/bottle/pwine = 3,
 				/obj/item/weapon/reagent_containers/glass/beaker/vial/random/toxin = 3,
 				/obj/item/weapon/reagent_containers/glass/beaker/sulphuric = 3,
 				/obj/item/weapon/contraband/poster = 1,
@@ -237,7 +238,6 @@
 				/obj/item/weapon/reagent_containers/glass/drinks/bottle/gin,
 				/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/beer,
 				/obj/item/weapon/reagent_containers/glass/drinks/bottle/kahlua,
-				/obj/item/weapon/reagent_containers/glass/drinks/bottle/pwine,
 				/obj/item/weapon/reagent_containers/glass/drinks/bottle/tequilla)
 
 
@@ -423,6 +423,7 @@
 				/obj/effect/decal/cleanable/vomit,
 				/obj/effect/decal/cleanable/blood/splatter,
 				/obj/effect/decal/cleanable/ash,
+				/obj/item/weapon/material/shard,
 				/obj/effect/decal/cleanable/generic,
 				/obj/effect/decal/cleanable/flour,
 				/obj/effect/decal/cleanable/dirt)
