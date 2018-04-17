@@ -31,7 +31,7 @@
 "aE" = (/obj/structure/table/standard,/obj/item/storage/secure/briefcase,/turf/simulated/floor{icon_state = "dark"},/area/derelict/away/piratship)
 "aF" = (/obj/structure/computerframe,/turf/simulated/floor{icon_state = "dark"},/area/derelict/away/piratship)
 "aG" = (/turf/space,/area/derelict/away/piratship)
-"aH" = (/mob/living/simple_animal/hostile/pirate{step_y = 1},/turf/simulated/floor/plating,/area/derelict/away/piratship)
+"aH" = (/mob/living/simple_animal/hostile/pirate,/turf/simulated/floor/plating,/area/derelict/away/piratship)
 "aI" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 5; health = 1e+007},/turf/simulated/floor/plating,/area/derelict/away/piratship)
 "aJ" = (/obj/structure/closet/crate/secure/weapon,/turf/simulated/floor{icon_state = "dark"},/area/derelict/away/piratship)
 "aK" = (/obj/structure/reagent_dispensers/beerkeg,/turf/simulated/floor{icon_state = "dark"},/area/derelict/away/piratship)
