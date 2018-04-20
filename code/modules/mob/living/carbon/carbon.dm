@@ -317,7 +317,7 @@
 				admin_attack_log(usr, M,
 					"Has thrown [M.name] ([M.ckey]) from [start_T_descriptor] with the target [end_T_descriptor]",
 					"Has been thrown by [usr.name] ([usr.ckey]) from [start_T_descriptor] with the target [end_T_descriptor]",
-					"[key_name(usr)] has thrown [key_name(M)] from ([start_T.x],[start_T.y],[start_T.z]) to [end_T.x], [end_T.y], [end_T.z]"
+					"thrown mob from ([start_T.x],[start_T.y],[start_T.z]) to [end_T.x], [end_T.y], [end_T.z]. Target:"
 				)
 
 				M.Weaken(1)
