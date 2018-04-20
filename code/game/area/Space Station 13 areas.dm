@@ -1844,6 +1844,24 @@ area/crew_quarters/barman
 	name = "naki post and shuttle, huh"
 	icon_state = "green"
 
+//TEAM
+
+/area/derelict/away/team
+	name = "Team start"
+	icon_state = "red"
+
+/area/derelict/away/team/one
+	name = "team 1 zone"
+	icon_state = "maint_medbay"
+
+/area/derelict/away/team/two
+	name = "team 2 zone"
+	icon_state = "purple"
+
+/area/derelict/away/team/dock
+	name = "team dock"
+	icon_state = "green"
+
 //SHIPWRECK
 /area/shipwreck
 	name = "\improper Shipwreck"
