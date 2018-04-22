@@ -1,4 +1,4 @@
-/datum/hud/proc/monkey_hud(var/ui_style='icons/mob/screen1_old.dmi')
+/datum/hud/proc/monkey_hud(var/ui_style='icons/screen/old.dmi')
 
 	src.adding = list()
 	src.other = list()
@@ -202,7 +202,7 @@
 	mymob.pullin.screen_loc = ui_pull_resist
 
 	mymob.blind = new /obj/screen()
-	mymob.blind.icon = 'icons/mob/screen1_full.dmi'
+	mymob.blind.icon = 'icons/screen/full.dmi'
 	mymob.blind.icon_state = "blackimageoverlay"
 	mymob.blind.name = " "
 	mymob.blind.screen_loc = "1,1"
