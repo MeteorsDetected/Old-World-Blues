@@ -10,7 +10,7 @@
 
 /obj/item/weapon/grab
 	name = "reinforce grab"
-	icon = 'icons/mob/screen1.dmi'
+	icon = 'icons/screen/main.dmi'
 	icon_state = "reinforce"
 	flags = NOBLUDGEON
 	var/mob/living/affecting = null
