@@ -103,7 +103,8 @@
 
 /*
  * Energy Sword
- */
+*/
+
 /obj/item/weapon/melee/energy/sword
 	color
 	name = "energy sword"
@@ -150,8 +151,8 @@
 
 	..()
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	playsound(user.loc, 'sound/weapons/blade1.ogg', 50, 1)
 	icon_state = "sword[blade_color]"
-
 
 /obj/item/weapon/melee/energy/sword/deactivate(mob/living/user)
 	if(active)
