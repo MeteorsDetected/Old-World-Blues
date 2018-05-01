@@ -62,6 +62,11 @@
 	path = /obj/item/device/t_scanner
 	category = "Tools"
 
+/datum/autolathe/recipe/analyzer
+	name = "analyzer air"
+	path = /obj/item/device/analyzer
+	category = "Tools"
+
 /datum/autolathe/recipe/weldertool
 	name = "welding tool"
 	path = /obj/item/weapon/weldingtool
@@ -160,6 +165,11 @@
 /datum/autolathe/recipe/retractor
 	name = "retractor"
 	path = /obj/item/weapon/retractor
+	category = "Medical"
+
+/datum/autolathe/recipe/healthanalyzer
+	name = "health analyzer"
+	path = /obj/item/device/healthanalyzer
 	category = "Medical"
 
 /datum/autolathe/recipe/cautery
