@@ -11,7 +11,7 @@
 	throw_speed = 2
 	throw_range = 10
 	force = 10.0
-	matter = list(DEFAULT_WALL_MATERIAL = 90)
+	matter = list(MATERIAL_STEEL = 90)
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
 
 	var/spray_particles = 6
@@ -34,9 +34,10 @@
 	spray_particles = 5
 	sprite_name = "miniFE"
 
-/obj/item/weapon/extinguisher/New()
+/obj/item/weapon/extinguisher/initialize()
 	create_reagents(max_water)
 	reagents.add_reagent("water", max_water)
+	return ..()
 
 /obj/item/weapon/extinguisher/examine(mob/user, return_dist = 1)
 	. = ..()
@@ -54,8 +55,8 @@
 /obj/item/weapon/extinguisher/proc/propel_object(var/obj/O, mob/user, movementdirection)
 	if(O.anchored) return
 
-	var/obj/structure/bed/chair/C
-	if(istype(O, /obj/structure/bed/chair))
+	var/obj/structure/material/chair/C
+	if(istype(O, /obj/structure/material/chair))
 		C = O
 
 	var/list/move_speed = list(1, 1, 1, 2, 2, 3)
@@ -75,13 +76,13 @@
 	if( istype(target, /obj/structure/reagent_dispensers/watertank) && flag)
 		var/obj/o = target
 		var/amount = o.reagents.trans_to_obj(src, 50)
-		user << "<span class='notice'>You fill [src] with [amount] units of the contents of [target].</span>"
+		user << SPAN_NOTE("You fill [src] with [amount] units of the contents of [target].")
 		playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
 		return
 
 	if (!safety)
 		if (src.reagents.total_volume < 1)
-			usr << "<span class='notice'>\The [src] is empty.</span>"
+			usr << SPAN_NOTE("\The [src] is empty.")
 			return
 
 		if (world.time < src.last_use + 20)

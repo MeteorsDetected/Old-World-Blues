@@ -76,7 +76,7 @@
 	if (src.destroyed)
 		return
 	else
-		usr << text("\blue You kick the lab cage.")
+		usr << SPAN_NOTE("You kick the lab cage.")
 		for(var/mob/O in oviewers())
 			if ((O.client && !( O.blinded )))
 				O << text("\red [] kicks the lab cage.", usr)
@@ -89,7 +89,6 @@
 		new /obj/item/clothing/mask/facehugger/lamarr(src.loc)
 		occupied = 0
 	update_icon()
-	return
 
 /obj/item/clothing/mask/facehugger/lamarr
 	name = "Lamarr"
@@ -97,5 +96,3 @@
 	sterile = 1
 	gender = FEMALE
 
-/obj/item/clothing/mask/facehugger/lamarr/New()//to prevent deleting it if aliums are disabled
-	return

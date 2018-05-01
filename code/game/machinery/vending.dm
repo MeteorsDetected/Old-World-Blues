@@ -60,21 +60,14 @@
 	var/obj/item/weapon/coin/coin
 	var/datum/wires/vending/wires = null
 
-/obj/machinery/vending/New()
-	..()
+/obj/machinery/vending/initialize()
 	wires = new(src)
-	spawn(4)
-		// So not all machines speak at the exact same time.
-		// The first time this machine says something will be at slogantime + this random value,
-		// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is crated.
-		src.last_slogan = world.time + rand(0, slogan_delay)
-
-		src.build_inventory()
-		power_change()
-
-		return
-
-	return
+	// So not all machines speak at the exact same time.
+	// The first time this machine says something will be at slogantime + this random value,
+	// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is crated.
+	src.last_slogan = world.time + rand(0, slogan_delay)
+	src.build_inventory()
+	. = ..()
 
 /**
  *  Build src.produdct_records from the products lists
@@ -191,7 +184,7 @@
 		user.drop_from_inventory(W, src)
 		coin = W
 		categories |= CAT_COIN
-		user << "<span class='notice'>You insert \the [W] into \the [src].</span>"
+		user << SPAN_NOTE("You insert \the [W] into \the [src].")
 		nanomanager.update_uis(src)
 		return
 	else if(istype(W, /obj/item/weapon/wrench))
@@ -203,7 +196,7 @@
 
 		if(do_after(user, 20, src))
 			if(!src) return
-			user << "<span class='notice'>You [anchored? "un" : ""]secured \the [src]!</span>"
+			user << SPAN_NOTE("You [anchored? "un" : ""]secured \the [src]!")
 			anchored = !anchored
 		return
 
@@ -401,16 +394,16 @@
 /obj/machinery/vending/Topic(href, href_list)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	if(usr.stat || usr.restrained())
+	if(usr.incapacitated())
 		return
 
-	if(href_list["remove_coin"] && !istype(usr,/mob/living/silicon))
+	if(href_list["remove_coin"] && !issilicon(usr))
 		if(!coin)
 			usr << "There is no coin in this machine."
 			return
 
 		usr.put_in_hands(coin)
-		usr << "\blue You remove the [coin] from the [src]"
+		usr << SPAN_NOTE("You remove the [coin] from the [src]")
 		coin = null
 		categories &= ~CAT_COIN
 
@@ -430,7 +423,7 @@
 
 			if(R.price <= 0)
 				src.vend(R, usr)
-			else if(istype(usr,/mob/living/silicon)) //If the item is not free, provide feedback if a synth is trying to buy something.
+			else if(issilicon(usr)) //If the item is not free, provide feedback if a synth is trying to buy something.
 				usr << "<span class='danger'>Artificial unit recognized.  Artificial units cannot complete this transaction.  Purchase canceled.</span>"
 				return
 			else
@@ -463,13 +456,13 @@
 
 	if (R.category & CAT_COIN)
 		if(!coin)
-			user << "\blue You need to insert a coin to get this item."
+			user << SPAN_NOTE("You need to insert a coin to get this item.")
 			return
 		if(coin.string_attached)
 			if(prob(50))
-				user << "\blue You successfully pull the coin out before \the [src] could swallow it."
+				user << SPAN_NOTE("You successfully pull the coin out before \the [src] could swallow it.")
 			else
-				user << "\blue You weren't able to pull the coin out fast enough, the machine ate it, string and all."
+				user << SPAN_NOTE("You weren't able to pull the coin out fast enough, the machine ate it, string and all.")
 				qdel(coin)
 				coin = null
 				categories &= ~CAT_COIN
@@ -491,7 +484,7 @@
 		if(prob(1))
 			sleep(3)
 			if(R.get_product(get_turf(src)))
-				src.visible_message("<span class='notice'>\The [src] clunks as it vends an additional item.</span>")
+				src.visible_message(SPAN_NOTE("\The [src] clunks as it vends an additional item."))
 
 		src.status_message = ""
 		src.status_error = 0
@@ -509,7 +502,7 @@
 	if(!user.unEquip(W))
 		return
 
-	user << "\blue You stock \the [src] with \a [R.item_name]"
+	user << SPAN_NOTE("You stock \the [src] with \a [R.item_name]")
 	R.add_product(W)
 
 	nanomanager.update_uis(src)
@@ -873,7 +866,7 @@
 		/obj/item/weapon/flame/lighter/random = 4,
 	)
 	contraband = list(/obj/item/weapon/flame/lighter/zippo = 4)
-	premium = list(/obj/item/storage/fancy/cigar = 5)
+	premium = list(/obj/item/storage/fancy/cigarettes/cigar = 5)
 	prices = list(
 		/obj/item/storage/fancy/cigarettes = 150,
 		/obj/item/weapon/flame/lighter/random = 20,
@@ -1232,7 +1225,7 @@
 	req_one_access = list(access_atmospherics,access_engine_equip)
 	products = list(
 		/obj/item/weapon/airalarm_electronics = 10,
-		/obj/item/weapon/power_control = 10,
+		/obj/item/weapon/circuitboard/apc = 10,
 		/obj/item/weapon/airlock_electronics = 10,
 		/obj/item/device/flashlight/heavy = 6,
 		/obj/item/clothing/glasses/meson = 2,

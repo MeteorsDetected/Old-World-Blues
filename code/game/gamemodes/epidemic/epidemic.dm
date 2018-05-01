@@ -156,8 +156,10 @@
 	var/alive = 0
 	var/sick = 0
 	for(var/mob/living/carbon/human/H in mob_list)
-		if(H.key && H.stat != DEAD) alive++
-		if(H.virus2.len && H.stat != DEAD) sick++
+		if(H.key && H.stat != DEAD)
+			alive++
+		if(H.virus2.len && H.stat != DEAD)
+			sick++
 
 	if(alive == 0)
 		finished = 2
@@ -182,10 +184,10 @@
 	for(var/mob/M in mob_list)
 		if(M.client)
 			M << 'sound/machines/Alarm.ogg'
-	world << "\blue<b>Incoming missile detected.. Impact in 10..</b>"
+	world << SPAN_NOTE("<b>Incoming missile detected.. Impact in 10..</b>")
 	for (var/i=9 to 1 step -1)
 		sleep(10)
-		world << "\blue<b>[i]..</b>"
+		world << SPAN_NOTE("<b>[i]..</b>")
 	sleep(10)
 	enter_allowed = 0
 	if(ticker)

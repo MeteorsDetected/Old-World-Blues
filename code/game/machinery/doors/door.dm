@@ -42,10 +42,10 @@
 		visible_message("<span class='danger'>\The [user] smashes into the [src]!</span>")
 		take_damage(damage)
 	else
-		visible_message("<span class='notice'>\The [user] bonks \the [src] harmlessly.</span>")
+		visible_message(SPAN_NOTE("\The [user] bonks \the [src] harmlessly."))
 	user.do_attack_animation(src)
 
-/obj/machinery/door/New()
+/obj/machinery/door/initialize()
 	. = ..()
 	if(density)
 		layer = closed_layer
@@ -68,13 +68,11 @@
 	update_icon()
 
 	update_nearby_tiles(need_rebuild=1)
-	return
 
 /obj/machinery/door/Destroy()
 	density = 0
 	update_nearby_tiles()
-	..()
-	return
+	return ..()
 
 /obj/machinery/door/process()
 	if(close_door_at && world.time >= close_door_at)
@@ -97,7 +95,7 @@
 
 /obj/machinery/door/Bumped(atom/AM)
 	if(p_open || operating) return
-	if(istype(AM, /mob/living))
+	if(isliving(AM))
 		var/mob/living/M = AM
 		if(world.time - M.last_bumped <= 10) return	//Can bump-open one airlock per second. This is to prevent shock spam.
 		M.last_bumped = world.time
@@ -127,8 +125,8 @@
 			else
 				do_animate("deny")
 		return
-	if(istype(AM, /obj/structure/bed/chair/wheelchair))
-		var/obj/structure/bed/chair/wheelchair/wheel = AM
+	if(istype(AM, /obj/structure/material/chair/wheelchair))
+		var/obj/structure/material/chair/wheelchair/wheel = AM
 		if(density)
 			if(wheel.pulling && (src.allowed(wheel.pulling)))
 				open()
@@ -214,12 +212,12 @@
 /obj/machinery/door/attackby(obj/item/I as obj, mob/user as mob)
 	src.add_fingerprint(user)
 
-	if(istype(I, /obj/item/stack/material) && I.get_material_name() == src.get_material_name())
+	if(ismaterial(I) && I.get_material_name() == src.get_material_name())
 		if(stat & BROKEN)
-			user << "<span class='notice'>It looks like \the [src] is pretty busted. It's going to need more than just patching up now.</span>"
+			user << SPAN_NOTE("It looks like \the [src] is pretty busted. It's going to need more than just patching up now.")
 			return
 		if(health >= maxhealth)
-			user << "<span class='notice'>Nothing to fix!</span>"
+			user << SPAN_NOTE("Nothing to fix!")
 			return
 		if(!density)
 			user << "<span class='warning'>\The [src] must be closed before you can repair it.</span>"
@@ -242,7 +240,7 @@
 				transfer = repairing.amount
 
 		if (transfer)
-			user << "<span class='notice'>You fit [transfer] [stack.singular_name]\s to damaged and broken parts on \the [src].</span>"
+			user << SPAN_NOTE("You fit [transfer] [stack.singular_name]\s to damaged and broken parts on \the [src].")
 
 		return
 
@@ -253,10 +251,10 @@
 
 		var/obj/item/weapon/weldingtool/welder = I
 		if(welder.remove_fuel(0,user))
-			user << "<span class='notice'>You start to fix dents and weld \the [repairing] into place.</span>"
+			user << SPAN_NOTE("You start to fix dents and weld \the [repairing] into place.")
 			playsound(src, 'sound/items/Welder.ogg', 100, 1)
 			if(do_after(user, 5 * repairing.amount) && welder && welder.isOn())
-				user << "<span class='notice'>You finish repairing the damage to \the [src].</span>"
+				user << SPAN_NOTE("You finish repairing the damage to \the [src].")
 				health = between(health, health + repairing.amount*DOOR_REPAIR_AMOUNT, maxhealth)
 				update_icon()
 				qdel(repairing)
@@ -264,7 +262,7 @@
 		return
 
 	if(repairing && istype(I, /obj/item/weapon/crowbar))
-		user << "<span class='notice'>You remove \the [repairing].</span>"
+		user << SPAN_NOTE("You remove \the [repairing].")
 		playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
 		repairing.loc = user.loc
 		repairing = null

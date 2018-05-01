@@ -81,7 +81,6 @@
 	name = "pirate coat"
 	desc = "Yarr."
 	icon_state = "pirate"
-	item_state = "pirate"
 	w_class = ITEM_SIZE_NORMAL
 	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/weapon/tank/emergency_oxygen)
 	slowdown = 0
@@ -99,7 +98,6 @@
 
 /obj/item/clothing/suit/space/emergency
 	name = "Emergency Softsuit"
-	icon_state = "syndicate-orange"
-	item_state = "syndicate-orange"
+	icon_state = "emergency"
 	desc = "A thin, ungainly softsuit colored in blaze orange for rescuers to easily locate, looks pretty fragile."
 	slowdown = 4

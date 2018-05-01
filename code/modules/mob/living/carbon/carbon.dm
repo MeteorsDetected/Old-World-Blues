@@ -34,7 +34,7 @@
 /mob/living/carbon/Move(NewLoc, direct)
 	. = ..()
 	if(.)
-		if(src.nutrition && src.stat != 2)
+		if(src.nutrition && src.stat != DEAD)
 			src.nutrition -= DEFAULT_HUNGER_FACTOR/10
 			if(src.m_intent == "run")
 				src.nutrition -= DEFAULT_HUNGER_FACTOR/10
@@ -80,7 +80,7 @@
 	..()
 
 /mob/living/carbon/attack_hand(mob/M as mob)
-	if(!istype(M, /mob/living/carbon)) return
+	if(!iscarbon(M)) return
 	if (ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/temp = H.get_organ(H.hand ? BP_L_HAND : BP_R_HAND)
@@ -158,10 +158,10 @@
 	if (src.health >= config.health_threshold_crit)
 		if(src == M && ishuman(src))
 			var/mob/living/carbon/human/H = src
-			src.visible_message( \
-				text("\blue [src] examines [].",src.gender==MALE?"himself":"herself"), \
-				"\blue You check yourself for injuries." \
-				)
+			src.visible_message(
+				SPAN_NOTE("[src] examines [gender==MALE?"himself":"herself"]."),
+				SPAN_NOTE("You check yourself for injuries.")
+			)
 
 			for(var/obj/item/organ/external/org in H.organs)
 				var/list/status = list()
@@ -188,7 +188,7 @@
 					if(40 to INFINITY)
 						status += "peeling away"
 
-				if(org.status & ORGAN_DESTROYED)
+				if(org.is_stump())
 					status += "MISSING"
 				if(org.status & ORGAN_MUTATED)
 					status += "weirdly shapen"
@@ -201,9 +201,9 @@
 				if(!org.is_usable())
 					status += "dangling uselessly"
 				if(status.len)
-					src.show_message("My [org.name] is <span class='warning'> [english_list(status)].",1)
+					src.show_message("My [org.name] is <span class='warning'> [english_list(status)].</span>",1)
 				else
-					src.show_message("My [org.name] is <span class='notice'> OK.",1)
+					src.show_message("My [org.name] is <span class='notice'> OK.</span>",1)
 
 			if((SKELETON & H.status_flags) && (!H.w_uniform) && (!H.wear_suit))
 				H.play_xylophone()
@@ -244,21 +244,25 @@
 			var/mob/living/carbon/human/H = src
 			if(istype(H)) show_ssd = H.species.show_ssd
 			if(show_ssd && !client && !teleop)
-				M.visible_message("<span class='notice'>[M] shakes [src] trying to wake [t_him] up!</span>", \
-				"<span class='notice'>You shake [src], but they do not respond... Maybe they have S.S.D?</span>")
+				M.visible_message(
+					SPAN_NOTE("[M] shakes [src] trying to wake [t_him] up!"),
+					SPAN_NOTE("You shake [src], but they do not respond... Maybe they have S.S.D?")
+				)
 			else if(lying || src.sleeping)
 				src.sleeping = max(0,src.sleeping-5)
 				if(src.sleeping == 0)
 					src.resting = 0
-				M.visible_message("<span class='notice'>[M] shakes [src] trying to wake [t_him] up!</span>", \
-									"<span class='notice'>You shake [src] trying to wake [t_him] up!</span>")
+				M.visible_message(
+					SPAN_NOTE("[M] shakes [src] trying to wake [t_him] up!"),
+					SPAN_NOTE("You shake [src] trying to wake [t_him] up!")
+				)
 			else
 				var/mob/living/carbon/human/hugger = M
 				if(istype(hugger))
 					hugger.species.hug(hugger,src)
 				else
-					M.visible_message("<span class='notice'>[M] hugs [src] to make [t_him] feel better!</span>", \
-								"<span class='notice'>You hug [src] to make [t_him] feel better!</span>")
+					M.visible_message(SPAN_NOTE("[M] hugs [src] to make [t_him] feel better!"), \
+								SPAN_NOTE("You hug [src] to make [t_him] feel better!"))
 				if(M.fire_stacks >= (src.fire_stacks + 3))
 					src.fire_stacks += 1
 					M.fire_stacks -= 1
@@ -290,7 +294,7 @@
 
 /mob/living/carbon/throw_item(atom/target)
 	src.throw_mode_off()
-	if(usr.stat || !target)
+	if(usr.incapacitated() || !target)
 		return
 	if(target.type == /obj/screen) return
 
@@ -306,14 +310,14 @@
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
 			if(start_T && end_T)
-				var/mob/M = item
+				var/mob/living/M = item
 				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
 				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
 
 				admin_attack_log(usr, M,
 					"Has thrown [M.name] ([M.ckey]) from [start_T_descriptor] with the target [end_T_descriptor]",
 					"Has been thrown by [usr.name] ([usr.ckey]) from [start_T_descriptor] with the target [end_T_descriptor]",
-					"[key_name(usr)] has thrown [key_name(M)] from ([start_T.x],[start_T.y],[start_T.z]) to [end_T.x], [end_T.y], [end_T.z]"
+					"thrown mob from ([start_T.x],[start_T.y],[start_T.z]) to [end_T.x], [end_T.y], [end_T.z]. Target:"
 				)
 
 				M.Weaken(1)
@@ -348,20 +352,12 @@
 	var/temp_inc = max(min(BODYTEMP_HEATING_MAX*(1-get_heat_protection()), exposed_temperature - bodytemperature), 0)
 	bodytemperature += temp_inc
 
-/mob/living/carbon/can_use_hands()
-	if(handcuffed)
-		return 0
-	if(buckled && ! istype(buckled, /obj/structure/bed/chair)) // buckling does not restrict hands
-		return 0
-	return 1
-
 /mob/living/carbon/restrained()
-	if (handcuffed)
-		return 1
-	return
+	return handcuffed
 
 /mob/living/carbon/u_equip(obj/item/W as obj)
-	if(!W)	return 0
+	if(!W)
+		return 0
 
 	else if (W == handcuffed)
 		handcuffed = null
@@ -403,17 +399,17 @@
 	set name = "Sleep"
 	set category = "IC"
 
-	if(usr.sleeping)
-		usr << "\red You are already sleeping"
+	if(src.sleeping)
+		src << "\red You are already sleeping"
 		return
 	if(alert(src,"You sure you want to sleep for a while?","Sleep","Yes","No") == "Yes")
-		usr.sleeping = 20 //Short nap
+		src.sleeping = 20 //Short nap
 
 /mob/living/carbon/Bump(var/atom/movable/AM, yes)
 	if(now_pushing || !yes)
 		return
 	..()
-	if(istype(AM, /mob/living/carbon) && prob(10))
+	if(iscarbon(AM) && prob(10))
 		src.spread_disease_to(AM, "Contact")
 
 /mob/living/carbon/cannot_use_vents()

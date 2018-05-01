@@ -38,7 +38,7 @@
 	item_state = "gun"
 	flags =  CONDUCT
 	slot_flags = SLOT_BELT|SLOT_HOLSTER
-	matter = list(DEFAULT_WALL_MATERIAL = 2000)
+	matter = list(MATERIAL_STEEL = 2000)
 	w_class = ITEM_SIZE_NORMAL
 	throwforce = 5
 	throw_speed = 4
@@ -91,7 +91,7 @@
 //Any checks that shouldn't result in handle_click_empty() being called if they fail should go here.
 //Otherwise, if you want handle_click_empty() to be called, check in consume_next_projectile() and return null there.
 /obj/item/weapon/gun/proc/special_check(var/mob/user)
-	if(!istype(user, /mob/living))
+	if(!isliving(user))
 		return 0
 	if(!user.IsAdvancedToolUser())
 		return 0
@@ -271,8 +271,8 @@
 	var/damage_mult = 1.3
 
 	//determine multiplier due to the target being grabbed
-	if(ismob(target))
-		var/mob/M = target
+	if(isliving(target))
+		var/mob/living/M = target
 		if(M.grabbed_by.len)
 			var/grabstate = 0
 			for(var/obj/item/weapon/grab/G in M.grabbed_by)
@@ -311,7 +311,7 @@
 	//shooting while in shock
 	var/x_offset = 0
 	var/y_offset = 0
-	if(istype(user, /mob/living/carbon))
+	if(iscarbon(user))
 		var/mob/living/carbon/mob = user
 		if(mob.shock_stage > 120)
 			y_offset = rand(-2,2)
@@ -332,7 +332,7 @@
 	mouthshoot = 1
 	M.visible_message("\red [user] sticks their gun in their mouth, ready to pull the trigger...")
 	if(!do_after(user, 40))
-		M.visible_message("\blue [user] decided life was worth living")
+		M.visible_message(SPAN_NOTE("[user] decided life was worth living"))
 		mouthshoot = 0
 		return
 	var/obj/item/projectile/in_chamber = consume_next_projectile()
@@ -352,7 +352,7 @@
 			user.apply_damage(in_chamber.damage*2.5, in_chamber.damage_type, BP_HEAD, used_weapon = "Point blank shot in the mouth with \a [in_chamber]", sharp=1)
 			user.death()
 		else
-			user << "<span class = 'notice'>Ow...</span>"
+			user << SPAN_NOTE("Ow...")
 			user.apply_effect(110,AGONY,0)
 		qdel(in_chamber)
 		mouthshoot = 0
@@ -393,7 +393,7 @@
 	if(sel_mode > firemodes.len)
 		sel_mode = 1
 	var/datum/firemode/new_mode = firemodes[sel_mode]
-	user << "<span class='notice'>\The [src] is now set to [new_mode.name].</span>"
+	user << SPAN_NOTE("\The [src] is now set to [new_mode.name].")
 
 /obj/item/weapon/gun/attack_self(mob/user)
 	if(firemodes.len > 1)

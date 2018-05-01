@@ -1,11 +1,5 @@
 #define DEBUG
 
-#define subtypesof(type) (typesof(type) - type)
-
-#define SPAN_NOTE(text) "<span class='notice'>[text]</span>"
-#define SPAN_WARN(text) "<span class='warning'>[text]</span>"
-#define SPAN_DANG(text) "<span class='danger'>[text]</span>"
-
 #define T_BOARD(name)	"circuit board (" + (name) + ")"
 
 // Turf-only flags.
@@ -77,6 +71,15 @@
 #define COLOR_PALE_PURPLE_GRAY	"#BDA2BA"
 #define COLOR_PURPLE_GRAY		"#A2819E"
 
+//	Backpacks
+#define BACKPACK_COMMON      1
+#define BACKPACK_MEDICAL     2
+#define BACKPACK_PARAMEDIC   3
+#define BACKPACK_SECURITY    4
+#define BACKPACK_ENGINEERING 5
+#define BACKPACK_SCIENCE     6
+#define BACKPACK_CAPTAIN     7
+
 //	Shuttles.
 
 // These define the time taken for the shuttle to get to the space station, and the time before it leaves again.
@@ -123,21 +126,6 @@
 #define OBFUSCATION_LAYER 21	//Where images covering the view for eyes are put
 #define SCREEN_LAYER 22			//Mob HUD/effects layer
 
-#define DEFAULT_TABLE_MATERIAL "plastic"
-#define DEFAULT_WALL_MATERIAL "steel"
-
-#define SHARD_SHARD "shard"
-#define SHARD_SHRAPNEL "shrapnel"
-#define SHARD_STONE_PIECE "piece"
-#define SHARD_SPLINTER "splinters"
-#define SHARD_NONE ""
-
-#define MATERIAL_UNMELTABLE 0x1
-#define MATERIAL_BRITTLE    0x2
-#define MATERIAL_PADDING    0x4
-
-#define TABLE_BRITTLE_MATERIAL_MULTIPLIER 4 // Amount table damage is multiplied by if it is made of a brittle material (e.g. glass)
-
 #define BOMBCAP_DVSTN_RADIUS (max_explosion_range/4)
 #define BOMBCAP_HEAVY_RADIUS (max_explosion_range/2)
 #define BOMBCAP_LIGHT_RADIUS max_explosion_range
@@ -149,8 +137,18 @@
     locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
 )
 
-#define LIST_OF_CONSONANT list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z","á","â","ã","ä","æ","ç","é","ê","ë","ì","í","ï","ð","ñ","ò","ô","õ","ö","÷","ø","ù")
+#define LIST_OF_CONSONANT list(\
+	"b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z",\
+	"á","â","ã","ä","æ","ç","é","ê","ë","ì","í","ï","ð","ñ","ò","ô","õ","ö","÷","ø","ù"\
+)
 
 //Grid for Item Placement
 #define CELLS 8								//Amount of cells per row/column in grid
 #define CELLSIZE (world.icon_size/CELLS)	//Size of a cell in pixels
+
+#define WIZARD_KNOWLEDGE 1
+#define WIZARD_CLOTHINGS 2
+
+#define CELL_FULLCHARGED -1
+
+#define SURGERY_FAILURE -1

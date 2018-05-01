@@ -3,7 +3,6 @@
 	name = "void helmet"
 	desc = "A high-tech dark red space suit helmet. Used for AI satellite maintenance."
 	icon_state = "void"
-	item_state = "void"
 
 	heat_protection = HEAD
 	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 20)
@@ -27,7 +26,6 @@
 /obj/item/clothing/suit/space/void
 	name = "voidsuit"
 	icon_state = "void"
-	item_state = "void"
 	w_class = ITEM_SIZE_HUGE//bulky item
 	desc = "A high-tech dark red space suit. Used for AI satellite maintenance."
 	slowdown = 1
@@ -65,7 +63,7 @@
 		part_list += "\a [I]"
 	user << "\The [src] has [english_list(part_list)] installed."
 	if(tank && .<=1)
-		user << "<span class='notice'>The wrist-mounted pressure gauge reads [max(round(tank.air_contents.return_pressure()),0)] kPa remaining in \the [tank].</span>"
+		user << SPAN_NOTE("The wrist-mounted pressure gauge reads [max(round(tank.air_contents.return_pressure()),0)] kPa remaining in \the [tank].")
 
 /obj/item/clothing/suit/space/void/refit_for_species(var/target_species)
 	..()
@@ -128,13 +126,19 @@
 		tank.canremove = 1
 		tank.forceMove(src)
 
+/obj/item/clothing/suit/space/void/AltClick(mob/living/user)
+	if(loc == user)
+		toggle_helmet()
+	else
+		..()
+
 /obj/item/clothing/suit/space/void/verb/toggle_helmet()
 
 	set name = "Toggle Helmet"
 	set category = "Voidsuit"
 	set src in usr
 
-	if(!istype(src.loc,/mob/living)) return
+	if(!isliving(src.loc)) return
 
 	if(!helmet)
 		usr << "There is no helmet installed."
@@ -142,12 +146,15 @@
 
 	var/mob/living/carbon/human/H = usr
 
-	if(!istype(H)) return
-	if(H.stat) return
-	if(H.wear_suit != src) return
+	if(!istype(H))
+		return
+	if(H.incapacitated())
+		return
+	if(H.wear_suit != src)
+		return
 
 	if(H.head == helmet)
-		H << "<span class='notice'>You retract your suit helmet.</span>"
+		H << SPAN_NOTE("You retract your suit helmet.")
 		helmet.canremove = 1
 		H.drop_from_inventory(helmet)
 		helmet.forceMove(src)
@@ -170,7 +177,7 @@
 	set category = "Voidsuit"
 	set src in usr
 
-	if(!istype(src.loc,/mob/living)) return
+	if(!isliving(src.loc)) return
 
 	if(!boots)
 		usr << "There is no magboots installed."
@@ -178,12 +185,15 @@
 
 	var/mob/living/carbon/human/H = usr
 
-	if(!istype(H)) return
-	if(H.stat) return
-	if(H.wear_suit != src) return
+	if(!istype(H))
+		return
+	if(H.incapacitated())
+		return
+	if(H.wear_suit != src)
+		return
 
 	if(H.shoes == boots)
-		H << "<span class='notice'>You retract your suit helmet.</span>"
+		H << SPAN_NOTE("You retract your suit helmet.")
 		boots.canremove = 1
 		H.drop_from_inventory(boots)
 		boots.loc = src
@@ -199,7 +209,7 @@
 	set category = "Voidsuit"
 	set src in usr
 
-	if(!istype(src.loc,/mob/living)) return
+	if(!isliving(src.loc)) return
 
 	if(!tank)
 		usr << "There is no tank inserted."
@@ -207,9 +217,12 @@
 
 	var/mob/living/carbon/human/H = usr
 
-	if(!istype(H)) return
-	if(H.stat) return
-	if(H.wear_suit != src) return
+	if(!istype(H))
+		return
+	if(H.incapacitated())
+		return
+	if(H.wear_suit != src)
+		return
 
 	H << "<span class='info'>You press the emergency release, ejecting \the [tank] from your suit.</span>"
 	tank.canremove = 1
@@ -218,12 +231,12 @@
 
 /obj/item/clothing/suit/space/void/attackby(obj/item/W as obj, mob/user as mob)
 
-	if(!istype(user,/mob/living)) return
+	if(!isliving(user)) return
 
 	if(istype(W,/obj/item/clothing/accessory) || istype(W, /obj/item/weapon/hand_labeler))
 		return ..()
 
-	if(istype(src.loc,/mob/living))
+	if(isliving(src.loc))
 		user << "<span class='danger'>How do you propose to modify a voidsuit while it is being worn?</span>"
 		return
 

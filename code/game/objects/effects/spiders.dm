@@ -64,10 +64,7 @@
 	if(air_group || (height==0)) return 1
 	if(istype(mover, /mob/living/simple_animal/hostile/giant_spider))
 		return 1
-	else if(istype(mover, /mob/living))
-		var/mob/living/carbon/human/H = mover
-		if(istype(H) && H.species.name == "Arachna")
-			return 1
+	else if(isliving(mover))
 		if(prob(50))
 			mover << "<span class='warning'>You get stuck in \the [src] for a moment.</span>"
 			return 0
@@ -153,7 +150,7 @@
 							return
 
 						if(prob(50))
-							src.visible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>",2)
+							src.visible_message(SPAN_NOTE("You hear something squeezing through the ventilation ducts."),2)
 						sleep(travel_time)
 
 						if(!exit_vent || exit_vent.welded)
@@ -176,7 +173,7 @@
 				var/target_atom = pick(nearby)
 				walk_to(src, target_atom, 5)
 				if(prob(25))
-					src.visible_message("<span class='notice'>\The [src] skitters[pick(" away"," around","")].</span>")
+					src.visible_message(SPAN_NOTE("\The [src] skitters[pick(" away"," around","")]."))
 		else if(prob(5))
 			//vent crawl!
 			for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
@@ -190,7 +187,7 @@
 			new spawn_type(src.loc)
 			qdel(src)
 	else if(prob(1))
-		src.visible_message("<span class='notice'>\The [src] skitters.</span>")
+		src.visible_message(SPAN_NOTE("\The [src] skitters."))
 
 	if(amount_grown)
 		amount_grown += rand(0,2)

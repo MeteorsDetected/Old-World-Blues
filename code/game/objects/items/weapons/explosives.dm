@@ -14,10 +14,10 @@
 	var/open_panel = 0
 	var/image_overlay = null
 
-/obj/item/weapon/plastique/New()
+/obj/item/weapon/plastique/initialize()
 	wires = new(src)
 	image_overlay = image('icons/obj/assemblies.dmi', "plastic-explosive2")
-	..()
+	. = ..()
 
 /obj/item/weapon/plastique/Destroy()
 	qdel(wires)
@@ -27,7 +27,7 @@
 /obj/item/weapon/plastique/attackby(var/obj/item/I, var/mob/user)
 	if(istype(I, /obj/item/weapon/screwdriver))
 		open_panel = !open_panel
-		user << "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>"
+		user << SPAN_NOTE("You [open_panel ? "open" : "close"] the wire panel.")
 	else if(istype(I, /obj/item/weapon/wirecutters) || istype(I, /obj/item/device/multitool) || istype(I, /obj/item/device/assembly/signaler ))
 		wires.Interact(user)
 	else
@@ -79,7 +79,7 @@
 		if (istype(target, /turf/simulated/wall))
 			var/turf/simulated/wall/W = target
 			W.dismantle_wall(1)
-		else if(istype(target, /mob/living))
+		else if(isliving(target))
 			target.ex_act(2) // c4 can't gib mobs anymore.
 		else
 			target.ex_act(1)

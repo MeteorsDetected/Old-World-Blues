@@ -3,7 +3,7 @@
 /obj/machinery/computer/aiupload
 	name = "\improper AI upload console"
 	desc = "Used to upload laws to the AI."
-	icon_state = "command"
+	screen_icon = "command"
 	circuit = /obj/item/weapon/circuitboard/aiupload
 	var/mob/living/silicon/ai/current = null
 	var/opened = 0
@@ -13,14 +13,14 @@
 		set category = "Object"
 		set name = "Access Computer's Internals"
 		set src in oview(1)
-		if(get_dist(src, usr) > 1 || usr.restrained() || usr.lying || usr.stat || issilicon(usr))
+		if(get_dist(src, usr) > 1 || usr.incapacitated() || issilicon(usr))
 			return
 
 		opened = !opened
 		if(opened)
-			usr << "\blue The access panel is now open."
+			usr << SPAN_NOTE("The access panel is now open.")
 		else
-			usr << "\blue The access panel is now closed."
+			usr << SPAN_NOTE("The access panel is now closed.")
 		return
 
 
@@ -58,7 +58,7 @@
 /obj/machinery/computer/borgupload
 	name = "cyborg upload console"
 	desc = "Used to upload laws to Cyborgs."
-	icon_state = "command"
+	screen_icon = "command"
 	circuit = /obj/item/weapon/circuitboard/borgupload
 	var/mob/living/silicon/robot/current = null
 

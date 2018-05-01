@@ -11,9 +11,9 @@
 	throw_speed = 1
 	throw_range = 2
 
-	matter = list(DEFAULT_WALL_MATERIAL = 750,"waste" = 750)
-
+	matter = list(MATERIAL_STEEL = 750)
 	origin_tech = list(TECH_POWER = 3, TECH_ILLEGAL = 5)
+
 	var/drain_rate = 1500000		// amount of power to drain per tick
 	var/apc_drain_rate = 5000 		// Max. amount drained from single APC. In Watts.
 	var/dissipation_rate = 20000	// Passive dissipation of drained power. In Watts.
@@ -42,7 +42,7 @@
 				else
 					anchored = 1
 					mode = 1
-					src.visible_message("<span class='notice'>[user] attaches [src] to the cable!</span>")
+					src.visible_message(SPAN_NOTE("[user] attaches [src] to the cable!"))
 					return
 			else
 				user << "Device must be placed over an exposed cable to attach to it."
@@ -53,7 +53,7 @@
 				processing_power_items.Remove(src)
 			anchored = 0
 			mode = 0
-			src.visible_message("<span class='notice'>[user] detaches [src] from the cable!</span>")
+			src.visible_message(SPAN_NOTE("[user] detaches [src] from the cable!"))
 			set_light(0)
 			icon_state = "powersink0"
 
@@ -69,13 +69,13 @@
 		if(0)
 			..()
 		if(1)
-			src.visible_message("<span class='notice'>[user] activates [src]!</span>")
+			src.visible_message(SPAN_NOTE("[user] activates [src]!"))
 			mode = 2
 			icon_state = "powersink1"
 			processing_objects.Add(src)
 			processing_power_items.Add(src)
 		if(2)  //This switch option wasn't originally included. It exists now. --NeoFite
-			src.visible_message("<span class='notice'>[user] deactivates [src]!</span>")
+			src.visible_message(SPAN_NOTE("[user] deactivates [src]!"))
 			mode = 1
 			set_light(0)
 			icon_state = "powersink0"

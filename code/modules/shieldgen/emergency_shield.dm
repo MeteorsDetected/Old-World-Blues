@@ -23,18 +23,16 @@
 
 /obj/machinery/shield/proc/check_failure()
 	if (src.health <= 0)
-		visible_message("<span class='notice'>\The [src] dissipates!</span>")
+		visible_message(SPAN_NOTE("\The [src] dissipates!"))
 		qdel(src)
 		return
 
-/obj/machinery/shield/New()
+/obj/machinery/shield/initialize()
 	src.set_dir(pick(1,2,3,4))
-	..()
+	. = ..()
 	update_nearby_tiles(need_rebuild=1)
 
 /obj/machinery/shield/Destroy()
-	opacity = 0
-	density = 0
 	update_nearby_tiles()
 	..()
 
@@ -100,7 +98,7 @@
 
 /obj/machinery/shield/hitby(AM as mob|obj)
 	//Let everyone know we've been hit!
-	visible_message("<span class='notice'><B>\[src] was hit by [AM].</B></span>")
+	visible_message(SPAN_NOTE("<B>[src] was hit by [AM].</B>"))
 
 	//Super realistic, resource-intensive, real-time damage calculations.
 	var/tforce = 0
@@ -130,7 +128,6 @@
 	density = 1
 	opacity = 0
 	anchored = 0
-	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(access_engine)
 	var/const/max_health = 100
 	var/health = max_health
@@ -190,7 +187,6 @@
 		collapse_shields()
 	else
 		create_shields()
-	update_icon()
 
 /obj/machinery/shieldgen/process()
 	if (!active || (stat & NOPOWER))
@@ -268,14 +264,16 @@
 		return
 
 	if (src.active)
-		user.visible_message("\blue \icon[src] [user] deactivated the shield generator.", \
-			"\blue \icon[src] You deactivate the shield generator.", \
+		user.visible_message(
+			SPAN_NOTE("\icon[src] [user] deactivated the shield generator."), \
+			SPAN_NOTE("\icon[src] You deactivate the shield generator."), \
 			"You hear heavy droning fade out.")
 		src.shields_down()
 	else
 		if(anchored)
-			user.visible_message("\blue \icon[src] [user] activated the shield generator.", \
-				"\blue \icon[src] You activate the shield generator.", \
+			user.visible_message(
+				SPAN_NOTE("\icon[src] [user] activated the shield generator."), \
+				SPAN_NOTE("\icon[src] You activate the shield generator."), \
 				"You hear heavy droning.")
 			src.shields_up()
 		else
@@ -292,21 +290,21 @@
 	if(istype(W, /obj/item/weapon/screwdriver))
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
 		if(is_open)
-			user << "\blue You close the panel."
+			user << SPAN_NOTE("You close the panel.")
 			is_open = 0
 		else
-			user << "\blue You open the panel and expose the wiring."
+			user << SPAN_NOTE("You open the panel and expose the wiring.")
 			is_open = 1
 
 	else if(istype(W, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = W
-		user << "<span class='notice'>You begin to replace the wires.</span>"
+		user << SPAN_NOTE("You begin to replace the wires.")
 		//if(do_after(user, min(60, round( ((maxhealth/health)*10)+(malfunction*10) ))) //Take longer to repair heavier damage
 		if(do_after(user, 30))
 			if (coil.use(1))
 				health = max_health
 				malfunction = 0
-				user << "<span class='notice'>You repair the [src]!</span>"
+				user << SPAN_NOTE("You repair the [src]!")
 				update_icon()
 
 	else if(istype(W, /obj/item/weapon/wrench))
@@ -315,15 +313,15 @@
 			return
 		if(anchored)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-			user << "\blue You unsecure the [src] from the floor!"
+			user << SPAN_NOTE("You unsecure the [src] from the floor!")
 			if(active)
-				user << "\blue The [src] shuts off!"
+				user << SPAN_NOTE("The [src] shuts off!")
 				src.shields_down()
 			anchored = 0
 		else
 			if(istype(get_turf(src), /turf/space)) return //No wrenching these in space!
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-			user << "\blue You secure the [src] to the floor!"
+			user << SPAN_NOTE("You secure the [src] to the floor!")
 			anchored = 1
 
 

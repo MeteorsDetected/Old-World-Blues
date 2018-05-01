@@ -20,9 +20,8 @@
 	w_class = ITEM_SIZE_TINY
 	throw_speed = 7
 	throw_range = 15
-	matter = list(DEFAULT_WALL_MATERIAL = 10)
+	matter = list(MATERIAL_STEEL = 10)
 	var/colour = "black"	//what colour the ink is!
-	pressure_resistance = 2
 
 
 /obj/item/weapon/pen/blue
@@ -51,7 +50,7 @@
 	else
 		icon_state = "pen_[colour]"
 
-	user << "<span class='notice'>Changed color to '[colour].'</span>"
+	user << SPAN_NOTE("Changed color to '[colour].'")
 
 /obj/item/weapon/pen/invisible
 	desc = "It's an invisble pen marker."
@@ -80,9 +79,9 @@
 	slot_flags = SLOT_BELT
 	origin_tech = list(TECH_MATERIAL = 2, TECH_ILLEGAL = 5)
 
-/obj/item/weapon/pen/reagent/New()
-	..()
+/obj/item/weapon/pen/reagent/initialize()
 	create_reagents(30)
+	return ..()
 
 /obj/item/weapon/pen/reagent/attack(mob/living/M as mob, mob/user as mob)
 
@@ -105,9 +104,10 @@
 	desc = "It's a black ink pen with a sharp point and a carefully engraved \"Waffle Co.\""
 	origin_tech = list(TECH_MATERIAL = 2, TECH_ILLEGAL = 5)
 
-/obj/item/weapon/pen/reagent/sleepy/New()
-	..()
-	reagents.add_reagent("chloralhydrate", 22)	//Used to be 100 sleep toxin//30 Chloral seems to be fatal, reducing it to 22./N
+/obj/item/weapon/pen/reagent/sleepy/initialize()
+	. = ..()
+	//Used to be 100 sleep toxin//30 Chloral seems to be fatal, reducing it to 22./N
+	reagents.add_reagent("chloralhydrate", 22)
 
 
 /*
@@ -116,8 +116,8 @@
 /obj/item/weapon/pen/reagent/paralysis
 	origin_tech = list(TECH_MATERIAL = 2, TECH_ILLEGAL = 5)
 
-/obj/item/weapon/pen/reagent/paralysis/New()
-	..()
+/obj/item/weapon/pen/reagent/paralysis/initialize()
+	. = ..()
 	reagents.add_reagent("zombiepowder", 10)
 	reagents.add_reagent("cryptobiolin", 15)
 
@@ -198,6 +198,6 @@
 		viewers(user) << "\red <b>[user] is jamming the [src.name] up \his nose and into \his brain. It looks like \he's trying to commit suicide.</b>"
 		return (BRUTELOSS|OXYLOSS)
 
-	New()
+	initialize()
 		name = "[colourName] crayon"
-		..()
+		. = ..()

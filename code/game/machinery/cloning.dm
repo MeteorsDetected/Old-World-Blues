@@ -45,23 +45,19 @@
 	var/eject_wait = 0 //Don't eject them as soon as they are created fuckkk
 	var/biomass = 0
 
-/obj/machinery/clonepod/New()
-	..()
-	if(!(ticker && ticker.current_state == GAME_STATE_PLAYING))
-		biomass = CLONE_BIOMASS * 3
+/obj/machinery/clonepod/preset
+	biomass = CLONE_BIOMASS * 3
 
-/obj/machinery/clonepod/attack_ai(mob/user as mob)
-
+/obj/machinery/clonepod/attack_ai(mob/living/user)
 	add_hiddenprint(user)
 	return attack_hand(user)
 
-/obj/machinery/clonepod/attack_hand(mob/user as mob)
+/obj/machinery/clonepod/attack_hand(mob/living/user)
 	if(isnull(occupant) || (stat & NOPOWER))
 		return
 	if(occupant.stat != DEAD)
 		var/completion = (100 * ((occupant.health + 50) / (heal_level + 100))) // Clones start at -150 health
 		user << "Current clone cycle is [round(completion)]% complete."
-	return
 
 //Clonepod
 
@@ -110,7 +106,7 @@
 
 	clonemind.transfer_to(H)
 	H.ckey = R.ckey
-	H << "<span class='notice'><b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i></span>"
+	H << SPAN_NOTE("<b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i>")
 
 	// -- Mode/mind specific stuff goes here
 	callHook("clone", list(H))
@@ -169,7 +165,7 @@
 			occupant.adjustCloneLoss(-2 * heal_rate)
 
 			//Premature clones may have brain damage.
-			occupant.adjustBrainLoss(-0.5*heal_rate)
+			occupant.adjustBrainLoss(-0.5 * heal_rate)
 
 			//So clones don't die of oxyloss in a running pod.
 			if(occupant.reagents.get_reagent_amount("inaprovaline") < 30)
@@ -193,9 +189,6 @@
 		occupant = null
 		if(locked)
 			locked = 0
-		return
-
-	return
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -219,7 +212,7 @@
 			locked = 0
 			user << "System unlocked."
 	else if(istype(W, /obj/item/weapon/reagent_containers/food/snacks/meat))
-		user << "<span class='notice'>\The [src] processes \the [W].</span>"
+		user << SPAN_NOTE("\The [src] processes \the [W].")
 		biomass += 50
 		user.drop_from_inventory(W)
 		qdel(W)
@@ -240,7 +233,7 @@
 	else if(istype(W, /obj/item/device/multitool))
 		var/obj/item/device/multitool/M = W
 		M.connecting = src
-		user << "<span class='notice'>You load connection data from [src] to [M].</span>"
+		user << SPAN_NOTE("You load connection data from [src] to [M].")
 		return
 	else
 		..()
@@ -283,11 +276,10 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat)
+	if(usr.incapacitated(INCAPACITATION_DISABLED))
 		return
 	go_out()
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/clonepod/proc/go_out()
 	if(locked)
@@ -302,17 +294,15 @@
 	if(!occupant)
 		return
 
-	if(occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
-	occupant.loc = loc
+	occupant.forceMove(loc)
+	occupant.reset_view()
+
 	eject_wait = 0 //If it's still set somehow.
 	//TODO: DNA3 update_mutations
 	occupant = null
 
 	biomass -= CLONE_BIOMASS
 	update_icon()
-	return
 
 /obj/machinery/clonepod/proc/malfunction()
 	if(occupant)
@@ -324,11 +314,10 @@
 			qdel(occupant)
 	return
 
-/obj/machinery/clonepod/relaymove(mob/user as mob)
-	if(user.stat)
+/obj/machinery/clonepod/relaymove(mob/living/user)
+	if(user.incapacitated(INCAPACITATION_DISABLED))
 		return
 	go_out()
-	return
 
 /obj/machinery/clonepod/emp_act(severity)
 	if(prob(100/severity))
@@ -342,23 +331,18 @@
 				A.loc = loc
 				ex_act(severity)
 			qdel(src)
-			return
 		if(2.0)
 			if(prob(50))
 				for(var/atom/movable/A in src)
 					A.loc = loc
 					ex_act(severity)
 				qdel(src)
-				return
 		if(3.0)
 			if(prob(25))
 				for(var/atom/movable/A in src)
 					A.loc = loc
 					ex_act(severity)
 				qdel(src)
-				return
-		else
-	return
 
 /obj/machinery/clonepod/update_icon()
 	..()
@@ -367,23 +351,6 @@
 		icon_state = "pod_1"
 	else if (mess)
 		icon_state = "pod_g"
-
-//Health Tracker Implant
-
-/obj/item/weapon/implant/health
-	name = "health implant"
-	var/healthstring = ""
-
-/obj/item/weapon/implant/health/proc/sensehealth()
-	if(!implanted)
-		return "ERROR"
-	else
-		if(isliving(implanted))
-			var/mob/living/L = implanted
-			healthstring = "[round(L.getOxyLoss())] - [round(L.getFireLoss())] - [round(L.getToxLoss())] - [round(L.getBruteLoss())]"
-		if(!healthstring)
-			healthstring = "ERROR"
-		return healthstring
 
 //Disk stuff.
 //The return of data disks?? Just for transferring between genetics machine/cloning machine.
@@ -405,7 +372,7 @@
 	name = "data disk - 'God Emperor of Mankind'"
 	read_only = 1
 
-	New()
+	initialize()
 		initializeDisk()
 		buf.types=DNA2_BUF_UE|DNA2_BUF_UI
 		//data = "066000033000000000AF00330660FF4DB002690"
@@ -415,6 +382,7 @@
 		buf.dna.UI=list(0x066,0x000,0x033,0x000,0x000,0x000,0xAF0,0x033,0x066,0x0FF,0x4DB,0x002,0x690)
 		//buf.dna.UI=list(0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x000,0x000,0x000,0x000,0x161,0xFBD,0xDEF) // Farmer Jeff
 		buf.dna.UpdateUI()
+		return ..()
 
 /*
 TODO: DNA3 monkey disk
@@ -434,10 +402,10 @@ TODO: DNA3 monkey disk
 		buf.dna.SetSEValueRange(MONKEYBLOCK,0xDAC, 0xFFF)
 */
 
-/obj/item/weapon/disk/data/New()
-	..()
+/obj/item/weapon/disk/data/initialize()
 	var/diskcolor = pick(0,1,2)
 	icon_state = "datadisk[diskcolor]"
+	return ..()
 
 /obj/item/weapon/disk/data/attack_self(mob/user as mob)
 	read_only = !read_only
@@ -455,16 +423,9 @@ TODO: DNA3 monkey disk
 /obj/item/storage/box/disks
 	name = "Diskette Box"
 	icon_state = "disk_kit"
-
-/obj/item/storage/box/disks/New()
-	..()
-	new /obj/item/weapon/disk/data(src)
-	new /obj/item/weapon/disk/data(src)
-	new /obj/item/weapon/disk/data(src)
-	new /obj/item/weapon/disk/data(src)
-	new /obj/item/weapon/disk/data(src)
-	new /obj/item/weapon/disk/data(src)
-	new /obj/item/weapon/disk/data(src)
+	preloaded = list(
+		/obj/item/weapon/disk/data = 7
+	)
 
 /*
  *	Manual -- A big ol' manual.

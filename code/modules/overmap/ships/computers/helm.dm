@@ -1,6 +1,6 @@
 /obj/machinery/computer/helm
 	name = "helm control console"
-	icon_state = "id"
+	screen_icon = "id"
 	var/state = "status"
 	var/obj/effect/map/ship/linked			//connected overmap object
 	var/autopilot = 0
@@ -10,6 +10,7 @@
 	var/dy		//coordinates
 
 /obj/machinery/computer/helm/initialize()
+	. = ..()
 	linked = map_sectors["[z]"]
 	if (linked)
 		if(!linked.nav_control)

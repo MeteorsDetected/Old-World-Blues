@@ -35,7 +35,7 @@
 
 
 	on_hit(var/atom/target, var/blocked = 0)//These two could likely check temp protection on the mob
-		if(istype(target, /mob/living))
+		if(isliving(target))
 			var/mob/M = target
 			M.bodytemperature = temperature
 		return 1
@@ -103,7 +103,7 @@
 		else if(istype(target, /mob/living/carbon/))
 		//	for (var/mob/V in viewers(src))
 		//		V.show_message("The radiation beam dissipates harmlessly through [M]", 3)
-			M.show_message("\blue The radiation beam dissipates harmlessly through your body.")
+			M.show_message(SPAN_NOTE("The radiation beam dissipates harmlessly through your body."))
 		else
 			return 1
 
@@ -122,7 +122,7 @@
 			if((H.species.flags & IS_PLANT) && (M.nutrition < 500))
 				M.nutrition += 30
 		else if (istype(target, /mob/living/carbon/))
-			M.show_message("\blue The radiation beam dissipates harmlessly through your body.")
+			M.show_message(SPAN_NOTE("The radiation beam dissipates harmlessly through your body."))
 		else
 			return 1
 

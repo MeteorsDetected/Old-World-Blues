@@ -11,21 +11,22 @@
 	icon_state = "beaker"
 	item_state = "beaker"
 	center_of_mass = list("x"=16, "y"=11)
-	matter = list("glass" = 500)
+	matter = list(MATERIAL_GLASS = 500)
 	var/lid_type = ""
 
-/obj/item/weapon/reagent_containers/glass/beaker/New()
-	..()
-	if(!lid_type) lid_type = icon_state
+/obj/item/weapon/reagent_containers/glass/beaker/initialize()
+	if(!lid_type)
+		lid_type = icon_state
 	desc += " Can hold up to [volume] units."
+	. = ..()
 
 /obj/item/weapon/reagent_containers/glass/beaker/attack_self()
 	..()
 	if(is_open_container())
-		usr << "<span class = 'notice'>You put the lid on \the [src].</span>"
+		usr << SPAN_NOTE("You put the lid on \the [src].")
 		flags ^= OPENCONTAINER
 	else
-		usr << "<span class = 'notice'>You take the lid off \the [src].</span>"
+		usr << SPAN_NOTE("You take the lid off \the [src].")
 		flags |= OPENCONTAINER
 	update_icon()
 
@@ -33,11 +34,11 @@
 	.=..()
 	if(.<=2)
 		if(reagents && reagents.reagent_list.len)
-			user << "<span class='notice'>It contains [reagents.total_volume] units of liquid.</span>"
+			user << SPAN_NOTE("It contains [reagents.total_volume] units of liquid.")
 		else
-			user << "<span class='notice'>It is empty.</span>"
+			user << SPAN_NOTE("It is empty.")
 		if(!is_open_container())
-			user << "<span class='notice'>Airtight lid seals it completely.</span>"
+			user << SPAN_NOTE("Airtight lid seals it completely.")
 
 /obj/item/weapon/reagent_containers/glass/beaker/on_reagent_change()
 	update_icon()
@@ -72,7 +73,7 @@
 	desc = "A large beaker."
 	icon_state = "beakerlarge"
 	center_of_mass = list("x"=16, "y"=10)
-	matter = list("glass" = 5000)
+	matter = list(MATERIAL_GLASS = 5000)
 	volume = 120
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,60,120)
@@ -83,30 +84,30 @@
 	desc = "A cryostasis beaker that allows for chemical storage without reactions."
 	icon_state = "beakernoreact"
 	center_of_mass = list("x"=16, "y"=9)
-	matter = list("glass" = 500)
+	matter = list(MATERIAL_GLASS = 500)
 	volume = 60
 	amount_per_transfer_from_this = 10
 	flags = OPENCONTAINER | NOREACT
-	isGlass = 0
+	isGlass = FALSE
 
 /obj/item/weapon/reagent_containers/glass/beaker/bluespace
 	name = "bluespace beaker"
 	desc = "A bluespace beaker, powered by experimental bluespace technology."
 	icon_state = "beakerbluespace"
 	center_of_mass = list("x"=16, "y"=10)
-	matter = list("glass" = 5000)
+	matter = list(MATERIAL_GLASS = 5000)
 	volume = 300
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,60,120,300)
 	flags = OPENCONTAINER
-	isGlass = 0
+	isGlass = FALSE
 
 /obj/item/weapon/reagent_containers/glass/beaker/vial
 	name = "vial"
 	desc = "A small glass vial."
 	icon_state = "vial"
 	center_of_mass = list("x"=16, "y"=9)
-	matter = list("glass" = 250)
+	matter = list(MATERIAL_GLASS = 250)
 	volume = 30
 	w_class = ITEM_SIZE_TINY
 	amount_per_transfer_from_this = 10
@@ -127,19 +128,19 @@
 	icon_state = "bucket"
 	item_state = "bucket"
 	center_of_mass = list("x"=16, "y"=9)
-	matter = list(DEFAULT_WALL_MATERIAL = 200)
+	matter = list(MATERIAL_STEEL = 200)
 	w_class = ITEM_SIZE_NORMAL
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(10,20,30,60,120)
 	volume = 120
 	flags = OPENCONTAINER
 	unacidable = 0
-	isGlass = 0
+	isGlass = FALSE
 	var/obj/item/device/assembly/prox_sensor/sensor = null
 
 /obj/item/weapon/reagent_containers/glass/beaker/bucket/attackby(var/obj/D, mob/user as mob)
 	if(isprox(D))
-		user << "<span class='notice'>You add [D] to [src].</span>"
+		user << SPAN_NOTE("You add [D] to [src].")
 		user.drop_from_inventory(D, src)
 		sensor = D
 		desc += " With a sensor attached."
@@ -148,7 +149,7 @@
 	else if(isscrewdriver(D))
 		if(sensor)
 			user.put_in_hands(sensor)
-			user << "<span class='notice'>You remove [sensor] from [src].</span>"
+			user << SPAN_NOTE("You remove [sensor] from [src].")
 			sensor = null
 			desc = initial(desc)
 			update_icon()
@@ -160,7 +161,7 @@
 			var/turf/T = get_turf(loc)
 			var/mob/living/bot/cleanbot/A = new (T)
 			A.name = label_text ? label_text : "Cleanbot"
-			user << "<span class='notice'>You add the robot arm to the bucket and sensor assembly. Beep boop!</span>"
+			user << SPAN_NOTE("You add the robot arm to the bucket and sensor assembly. Beep boop!")
 			user.drop_from_inventory(src)
 			qdel(src)
 	else if(istype(D, /obj/item/weapon/mop))
@@ -168,7 +169,7 @@
 			user << "<span class='warning'>\The [src] is empty!</span>"
 		else
 			reagents.trans_to_obj(D, 5)
-			user << "<span class='notice'>You wet \the [D] in \the [src].</span>"
+			user << SPAN_NOTE("You wet \the [D] in \the [src].")
 			playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 		return
 	else

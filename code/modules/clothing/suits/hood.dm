@@ -12,7 +12,7 @@
 		set name = "Toggle Hood"
 		set category = "Object"
 		set src in usr
-		if(usr.stat || usr.restrained())
+		if(usr.incapacitated())
 			return 0
 
 		if(!hood)
@@ -29,8 +29,8 @@
 		else
 			usr << "Your head is busy right now."
 
-/obj/item/clothing/suit/storage/toggleable_hood/New()
-	..()
+/obj/item/clothing/suit/storage/toggleable_hood/initialize()
+	. = ..()
 	if(!hood_type)
 		return
 	var/obj/item/clothing/head/toggleable_hood/H = new hood_type

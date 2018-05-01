@@ -22,7 +22,7 @@
 /obj/structure/simple_door/New(var/newloc, var/material_name)
 	..()
 	if(!material_name)
-		material_name = DEFAULT_WALL_MATERIAL
+		material_name = MATERIAL_STEEL
 	material = get_material_by_name(material_name)
 	if(!material)
 		qdel(src)
@@ -51,7 +51,6 @@
 	..()
 	if(!state)
 		return TryToSwitchState(user)
-	return
 
 /obj/structure/simple_door/attack_ai(mob/user as mob) //those aren't machinery, they're just big fucking slabs of a mineral
 	if(isAI(user)) //so the AI can't open it
@@ -64,18 +63,20 @@
 	return TryToSwitchState(user)
 
 /obj/structure/simple_door/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group) return 0
+	if(air_group)
+		return 0
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 	return !density
 
 /obj/structure/simple_door/proc/TryToSwitchState(atom/user)
-	if(isSwitchingStates) return
+	if(isSwitchingStates)
+		return
 	if(ismob(user))
 		var/mob/M = user
 		if(!material.can_open_material_door(user))
 			return
-		if(world.time - user.last_bumped <= 60)
+		if(world.time - user.last_bumped <= 10)
 			return
 		if(M.client)
 			if(iscarbon(M))
@@ -172,28 +173,28 @@
 		L.apply_effect(round(material.radioactivity/3),IRRADIATE,0)
 
 /obj/structure/simple_door/iron/New(var/newloc,var/material_name)
-	..(newloc, "iron")
+	..(newloc, MATERIAL_IRON)
 
 /obj/structure/simple_door/silver/New(var/newloc,var/material_name)
-	..(newloc, "silver")
+	..(newloc, MATERIAL_SILVER)
 
 /obj/structure/simple_door/gold/New(var/newloc,var/material_name)
-	..(newloc, "gold")
+	..(newloc, MATERIAL_GOLD)
 
 /obj/structure/simple_door/uranium/New(var/newloc,var/material_name)
-	..(newloc, "uranium")
+	..(newloc, MATERIAL_URANIUM)
 
 /obj/structure/simple_door/sandstone/New(var/newloc,var/material_name)
-	..(newloc, "sandstone")
+	..(newloc, MATERIAL_SANDSTONE)
 
 /obj/structure/simple_door/phoron/New(var/newloc,var/material_name)
-	..(newloc, "phoron")
+	..(newloc, MATERIAL_PHORON)
 
 /obj/structure/simple_door/diamond/New(var/newloc,var/material_name)
-	..(newloc, "diamond")
+	..(newloc, MATERIAL_DIAMOND)
 
 /obj/structure/simple_door/wood/New(var/newloc,var/material_name)
-	..(newloc, "wood")
+	..(newloc, MATERIAL_WOOD)
 
 /obj/structure/simple_door/resin/New(var/newloc,var/material_name)
 	..(newloc, "resin")

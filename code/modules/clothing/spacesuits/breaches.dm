@@ -19,8 +19,8 @@
 	var/burn_damage = 0                     // Specifically burn damage.
 	var/base_name                           // Used to keep the original name safe while we apply modifiers.
 
-/obj/item/clothing/suit/space/New()
-	..()
+/obj/item/clothing/suit/space/initialize()
+	. = ..()
 	base_name = "[name]"
 
 //Some simple descriptors for breaches. Global because lazy, TODO: work out a better way to do this.
@@ -178,18 +178,18 @@ var/global/list/breach_burn_descriptors = list(
 //Handles repairs (and also upgrades).
 
 /obj/item/clothing/suit/space/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W,/obj/item/stack/material))
+	if(ismaterial(W))
 		var/repair_power = 0
 		switch(W.get_material_name())
-			if(DEFAULT_WALL_MATERIAL)
+			if(MATERIAL_STEEL)
 				repair_power = 2
-			if("plastic")
+			if(MATERIAL_PLASTIC)
 				repair_power = 1
 
 		if(!repair_power)
 			return
 
-		if(istype(src.loc,/mob/living))
+		if(isliving(src.loc))
 			user << "<span class='warning'>How do you intend to patch a hardsuit while someone is wearing it?</span>"
 			return
 
@@ -205,7 +205,7 @@ var/global/list/breach_burn_descriptors = list(
 
 	else if(istype(W, /obj/item/weapon/weldingtool))
 
-		if(istype(src.loc,/mob/living))
+		if(isliving(src.loc))
 			user << "<span class = 'warning'>How do you intend to patch a hardsuit while someone is wearing it?</span>"
 			return
 

@@ -48,7 +48,7 @@
 	if(src.loc != H)
 		return
 
-	if(H.restrained() || H.stat)
+	if(H.incapacitated())
 		return
 
 	switch(over_object.name)
@@ -90,9 +90,14 @@
 	set name = "Remove Accessory"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
-	if(!accessories.len) return
+
+	if(!isliving(usr))
+		return
+	if(usr.incapacitated())
+		return
+	if(!accessories.len)
+		return
+
 	var/obj/item/clothing/accessory/A
 	if(accessories.len > 1)
 		A = input("Select an accessory to remove from [src]") as null|anything in accessories

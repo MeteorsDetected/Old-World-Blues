@@ -23,12 +23,18 @@
 
 	var/const/default_mob_size = 15
 
-/obj/structure/closet/New()
-	if(!icon_closed) icon_closed = icon_state
-	..()
+	var/autoload = TRUE
 
 /obj/structure/closet/initialize()
+	. = ..()
+	if(!icon_closed)
+		icon_closed = icon_state
+
 	if(!opened)		// if closed, any item at the crate's loc is put in the contents
+
+		if(autoload)
+			PopulateContents()
+
 		var/obj/item/I
 		for(I in src.loc)
 			if(I.density || I.anchored || I == src) continue
@@ -40,6 +46,16 @@
 		if(content_size > storage_capacity-5)
 			storage_capacity = content_size + 5
 
+/obj/structure/closet/proc/willContatin()
+
+/obj/structure/closet/proc/PopulateContents()
+	var/list/preloaded = willContatin()
+	for(var/path in preloaded)
+		var/amount = preloaded[path]
+		if(!amount)
+			amount = 1
+		for(var/i in 1 to amount)
+			new path (src)
 
 /obj/structure/closet/examine(mob/user, return_dist=1)
 	.=..()
@@ -84,9 +100,7 @@
 
 	for(var/mob/M in src)
 		M.forceMove(src.loc)
-		if(M.client)
-			M.client.eye = M.client.mob
-			M.client.perspective = MOB_PERSPECTIVE
+		M.reset_view()
 
 /obj/structure/closet/proc/open()
 	if(src.opened)
@@ -153,16 +167,14 @@
 		var/current_mob_size = (M.mob_size ? M.mob_size : default_mob_size)
 		if(stored_units + added_units + current_mob_size > storage_capacity)
 			break
-		if(M.client)
-			M.client.perspective = EYE_PERSPECTIVE
-			M.client.eye = src
+		M.reset_view(src)
 		M.forceMove(src)
 		added_units += current_mob_size
 	return added_units
 
 /obj/structure/closet/proc/toggle(mob/user as mob)
 	if(!(src.opened ? src.close() : src.open()))
-		user << "<span class='notice'>It won't budge!</span>"
+		user << SPAN_NOTE("It won't budge!")
 		return
 	update_icon()
 
@@ -252,7 +264,7 @@
 			if(!WT.isOn())
 				return
 			else
-				user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
+				user << SPAN_NOTE("You need more welding fuel to complete this task.")
 				return
 		src.welded = !src.welded
 		src.update_icon()
@@ -266,7 +278,7 @@
 				user.visible_message("\The [user] begins securing \the [src] to the floor.", "You start securing \the [src] to the floor.")
 			if(do_after(user, 20))
 				if(!src) return
-				user << "<span class='notice'>You [anchored? "un" : ""]secured \the [src]!</span>"
+				user << SPAN_NOTE("You [anchored? "un" : ""]secured \the [src]!")
 				anchored = !anchored
 	else
 		src.attack_hand(user)
@@ -277,7 +289,7 @@
 		return
 	if(O.loc == user)
 		return
-	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis)
+	if(user.incapacitated())
 		return
 	if((!(istype(O, /atom/movable) ) || O.anchored || !Adjacent(user) || !Adjacent(O) || !user.Adjacent(O) || user.contents.Find(src)))
 		return
@@ -294,15 +306,15 @@
 	return
 
 /obj/structure/closet/attack_ai(mob/user)
-	if(istype(user, /mob/living/silicon/robot) && Adjacent(user)) // Robots can open/close it, but not the AI.
+	if(isrobot(user) && Adjacent(user)) // Robots can open/close it, but not the AI.
 		attack_hand(user)
 
 /obj/structure/closet/relaymove(mob/user as mob)
-	if(user.stat || !isturf(src.loc))
+	if(user.incapacitated(INCAPACITATION_DISABLED) || !isturf(src.loc))
 		return
 
 	if(!src.open())
-		user << "<span class='notice'>It won't budge!</span>"
+		user << SPAN_NOTE("It won't budge!")
 
 /obj/structure/closet/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)
@@ -312,16 +324,17 @@
 /obj/structure/closet/attack_self_tk(mob/user as mob)
 	src.add_fingerprint(user)
 	if(!src.toggle())
-		usr << "<span class='notice'>It won't budge!</span>"
+		usr << SPAN_NOTE("It won't budge!")
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)
 	set category = "Object"
 	set name = "Toggle Open"
 
-	if(!usr.canmove || usr.stat || usr.restrained())
+	if(usr.incapacitated())
 		return
 
+	//TODO: LETHALGHOST - replace with isAdvToolUser
 	if(ishuman(usr) || isrobot(usr))
 		src.add_fingerprint(usr)
 		src.toggle(usr)
@@ -378,7 +391,7 @@
 		if(!do_after(escapee, 50)) //5 seconds
 			breakout = 0
 			return
-		if(!escapee || escapee.stat || escapee.loc != src)
+		if(!escapee || escapee.incapacitated(INCAPACITATION_DISABLED) || escapee.loc != src)
 			breakout = 0
 			return //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 		//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...

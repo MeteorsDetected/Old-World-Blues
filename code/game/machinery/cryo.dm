@@ -32,7 +32,9 @@
 	..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/initialize()
-	if(node) return
+	..()
+	if(node)
+		return
 	var/node_connect = dir
 	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
 		if(target.initialize_directions & get_dir(target,src))
@@ -41,13 +43,11 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()
-	if(!node)
-		return
-	if(!on)
+	if(!node || !on)
 		return
 
 	if(occupant)
-		if(occupant.stat != 2)
+		if(occupant.stat != DEAD)
 			process_occupant()
 
 	if(air_contents)
@@ -61,10 +61,9 @@
 	return 1
 
 /obj/machinery/atmospherics/unary/cryo_cell/relaymove(mob/user as mob)
-	if(user.stat)
+	if(user.incapacitated(INCAPACITATION_DISABLED))
 		return
 	go_out()
-	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)
 	ui_interact(user)
@@ -82,7 +81,7 @@
   */
 /obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 
-	if(user == occupant || user.stat)
+	if(user == occupant || user.incapacitated())
 		return
 
 	// this is the data which will be sent to the ui
@@ -170,8 +169,8 @@
 	add_fingerprint(usr)
 	return 1 // update UIs attached to this object
 
-/obj/machinery/atmospherics/unary/cryo_cell/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
-	for(var/mob/living/carbon/slime/M in range(1,target))
+/obj/machinery/atmospherics/unary/cryo_cell/affect_grab(var/mob/user, var/mob/target)
+	for(var/mob/living/carbon/slime/M in range(1, target))
 		if(M.Victim == target)
 			user << "[target] will not fit into the cryo because they have a slime latched onto their head."
 			return
@@ -180,7 +179,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	if(istype(W, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
-			user << "\red A beaker is already loaded into the machine."
+			user << SPAN_WARN("A beaker is already loaded into the machine.")
 			return
 		if(user.unEquip(W, src))
 			beaker = W
@@ -208,7 +207,7 @@
 			return
 		occupant.bodytemperature += 2*(air_contents.temperature - occupant.bodytemperature)*current_heat_capacity/(current_heat_capacity + air_contents.heat_capacity())
 		occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
-		occupant.stat = 1
+		occupant.stat = UNCONSCIOUS
 		if(occupant.bodytemperature < T0C)
 			occupant.sleeping = max(5, (1/occupant.bodytemperature)*2000)
 			occupant.Paralyse(max(5, (1/occupant.bodytemperature)*3000))
@@ -250,16 +249,14 @@
 	//loc.assume_air(expel_gas)
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
-	if(!( occupant ))
+	if(!occupant)
 		return
-	//for(var/obj/O in src)
-	//	O.loc = loc
-	if (occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
 	occupant.loc = get_step(loc, SOUTH)	//this doesn't account for walls or anything, but i don't forsee that being a problem.
-	if (occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
-		occupant.bodytemperature = 261									  // Changed to 70 from 140 by Zuhayr due to reoccurance of bug.
+	occupant.reset_view()
+	//Patch by Aranclanos to stop people from taking burn damage after being ejected
+	if (occupant.bodytemperature < 261 && occupant.bodytemperature >= 70)
+		// Changed to 70 from 140 by Zuhayr due to reoccurance of bug.
+		occupant.bodytemperature = 261
 //	occupant.metabslow = 0
 	occupant = null
 	current_heat_capacity = initial(current_heat_capacity)
@@ -267,7 +264,7 @@
 	update_icon()
 	return
 
-/obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M as mob)
+/obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M)
 	if (stat & (NOPOWER|BROKEN))
 		usr << SPAN_WARN("The cryo cell is not functioning.")
 		return
@@ -283,14 +280,12 @@
 	if(!node)
 		usr << SPAN_WARN("The cell is not correctly connected to its pipe network!")
 		return
-	if (M.client)
-		M.client.perspective = EYE_PERSPECTIVE
-		M.client.eye = src
 	M.stop_pulling()
-	M.loc = src
+	M.forceMove(src)
+	M.reset_view(src)
 	M.ExtinguishMob()
 	if(M.health > -100 && (M.health < 0 || M.sleeping))
-		M << "\blue <b>You feel a cold liquid surround you. Your skin starts to freeze up.</b>"
+		M << SPAN_NOTE("<b>You feel a cold liquid surround you. Your skin starts to freeze up.</b>")
 	occupant = M
 	current_heat_capacity = HEAT_CAPACITY_HUMAN
 	update_use_power(2)
@@ -312,7 +307,6 @@
 	if(!do_after(user, 30, src) || !Adjacent(target))
 		return
 	put_mob(target)
-	return
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
@@ -322,17 +316,16 @@
 	if(usr == occupant)//If the user is inside the tube...
 		if(usr.stat == DEAD)//and he's not dead....
 			return
-		usr << "\blue Release sequence activated. This will take two minutes."
+		usr << SPAN_NOTE("Release sequence activated. This will take two minutes.")
 		sleep(1200)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return
 		go_out()//and release him from the eternal prison.
 	else
-		if(usr.stat)
+		if(usr.incapacitated())
 			return
 		go_out()
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
 	set name = "Move Inside"
@@ -342,10 +335,9 @@
 		if(M.Victim == usr)
 			usr << "You're too busy getting your life sucked out of you."
 			return
-	if (usr.stat != 0)
+	if (usr.incapacitated(INCAPACITATION_DISABLED))
 		return
 	put_mob(usr)
-	return
 
 /atom/proc/return_air_for_internal_lifeform()
 	return return_air()

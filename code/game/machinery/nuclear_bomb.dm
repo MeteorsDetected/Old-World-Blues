@@ -33,8 +33,8 @@ var/bomb_set
 	w_class = ITEM_SIZE_TINY
 
 
-/obj/machinery/nuclearbomb/New()
-	..()
+/obj/machinery/nuclearbomb/initialize()
+	. = ..()
 	r_code = "[rand(10000, 99999.0)]"//Creates a random code upon object spawn.
 
 	src.wires["Red"] = 0
@@ -207,7 +207,7 @@ var/bomb_set
 		src.extended = 1
 	return
 
-obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
+/obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 	var/dat as text
 	dat += "<TT><B>Nuclear Fission Explosive</B><BR>\nNuclear Device Wires:</A><HR>"
 	for(var/wire in src.wires)
@@ -223,7 +223,7 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 	set name = "Make Deployable"
 	set src in oview(1)
 
-	if (!usr.canmove || usr.stat || usr.restrained())
+	if (usr.incapacitated())
 		return
 	if (!ishuman(usr))
 		usr << "\red You don't have the dexterity to do this!"
@@ -240,7 +240,7 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 
 /obj/machinery/nuclearbomb/Topic(href, href_list)
 	..()
-	if (!usr.canmove || usr.stat || usr.restrained())
+	if (usr.incapacitated())
 		return
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
 		usr.set_machine(src)
@@ -263,12 +263,12 @@ obj/machinery/nuclearbomb/proc/nukehack_win(mob/user as mob)
 							src.safety = !src.safety
 							spawn(100) src.safety = !src.safety
 							if(src.safety == 1)
-								visible_message("\blue The [src] quiets down.")
+								visible_message(SPAN_NOTE("The [src] quiets down."))
 								if(!src.lighthack)
 									if (src.icon_state == "nuclearbomb2")
 										src.icon_state = "nuclearbomb1"
 							else
-								visible_message("\blue The [src] emits a quiet whirling noise!")
+								visible_message(SPAN_NOTE("The [src] emits a quiet whirling noise!"))
 			if(href_list["act"] == "wire")
 				if (!istype(usr.get_active_hand(), /obj/item/weapon/wirecutters))
 					usr << "You need wirecutters!"

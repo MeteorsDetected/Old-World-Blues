@@ -30,21 +30,20 @@
 	var/energy_conversion_rate = 0.0002	//how many renwicks per watt?
 	use_power = 0	//doesn't use APC power
 
-/obj/machinery/shield_gen/New()
-	spawn(10)
-		for(var/obj/machinery/shield_capacitor/possible_cap in range(1, src))
-			if(get_dir(possible_cap, src) == possible_cap.dir)
-				owned_capacitor = possible_cap
-				break
+/obj/machinery/shield_gen/initialize()
+	for(var/obj/machinery/shield_capacitor/possible_cap in range(1, src))
+		if(get_dir(possible_cap, src) == possible_cap.dir)
+			owned_capacitor = possible_cap
+			break
 	field = new/list()
-	..()
+	. = ..()
 
 /obj/machinery/shield_gen/Destroy()
 	for(var/obj/effect/energy_field/D in field)
 		field.Remove(D)
 		D.loc = null
 	..()
-	
+
 /obj/machinery/shield_gen/emag_act(var/remaining_charges, var/mob/user)
 	if(prob(75))
 		src.locked = !src.locked
@@ -66,7 +65,10 @@
 			user << "\red Access denied."
 	else if(istype(W, /obj/item/weapon/wrench))
 		src.anchored = !src.anchored
-		src.visible_message("\blue \icon[src] [src] has been [anchored?"bolted to the floor":"unbolted from the floor"] by [user].")
+		if(anchored)
+			src.visible_message(SPAN_NOTE("\icon[src] [src] has been bolted to the floor by [user]."))
+		else
+			src.visible_message(SPAN_NOTE("\icon[src] [src] has been unbolted from the floor by [user]."))
 
 		if(active)
 			toggle()

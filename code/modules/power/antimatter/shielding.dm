@@ -26,11 +26,9 @@ proc/cardinalrange(var/center)
 	var/efficiency = 1//How many cores this core counts for when doing power processing, phoron in the air and stability could affect this
 
 
-/obj/machinery/am_shielding/New(loc)
-	..(loc)
-	spawn(10)
-		controllerscan()
-	return
+/obj/machinery/am_shielding/initialize()
+	. = ..()
+	controllerscan()
 
 
 /obj/machinery/am_shielding/proc/controllerscan(var/priorscan = 0)
@@ -210,7 +208,7 @@ proc/cardinalrange(var/center)
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 2
-	matter = list(DEFAULT_WALL_MATERIAL = 100, "waste" = 2000)
+	matter = list(MATERIAL_STEEL = 100)
 
 /obj/item/device/am_shielding_container/attackby(var/obj/item/I, var/mob/user)
 	if(istype(I, /obj/item/device/multitool) && istype(src.loc,/turf))

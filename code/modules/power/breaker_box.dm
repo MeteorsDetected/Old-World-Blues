@@ -30,6 +30,7 @@
 
 	// Enabled on server startup. Used in substations to keep them in bypass mode.
 /obj/machinery/power/breakerbox/activated/initialize()
+	. = ..()
 	set_state(1)
 
 /obj/machinery/power/breakerbox/examine(mob/user)
@@ -75,8 +76,10 @@
 	if(do_after(user, 50))
 		set_state(!on)
 		user.visible_message(\
-		"<span class='notice'>[user.name] [on ? "enabled" : "disabled"] the breaker box!</span>",\
-		"<span class='notice'>You [on ? "enabled" : "disabled"] the breaker box!</span>")
+		SPAN_NOTE(
+			"[user.name] [on ? "enabled" : "disabled"] the breaker box!"),\
+			SPAN_NOTE("You [on ? "enabled" : "disabled"] the breaker box!")
+		)
 		update_locked = 1
 		spawn(600)
 			update_locked = 0
@@ -87,7 +90,7 @@
 		var/newtag = input(user, "Enter new RCON tag. Use \"NO_TAG\" to disable RCON or leave empty to cancel.", "SMES RCON system") as text
 		if(newtag)
 			RCon_tag = newtag
-			user << "<span class='notice'>You changed the RCON tag to: [newtag]</span>"
+			user << SPAN_NOTE("You changed the RCON tag to: [newtag]")
 
 
 

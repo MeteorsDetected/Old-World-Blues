@@ -44,13 +44,13 @@
 	for(var/stage = 1, stage<=3, stage++)
 		switch(stage)
 			if(1)
-				src << "<span class='notice'>This creature is compatible. We must hold still...</span>"
+				src << SPAN_NOTE("This creature is compatible. We must hold still...")
 			if(2)
 				src.visible_message("<span class='warning'>[src] extends a proboscis!</span>",\
-				"<span class='notice'>We extend a proboscis.</span>")
+				SPAN_NOTE("We extend a proboscis."))
 			if(3)
 				src.visible_message("<span class='danger'>[src] stabs [T] with the proboscis!</span>",\
-				"<span class='notice'>We stab [T] with the proboscis.</span>")
+				SPAN_NOTE("We stab [T] with the proboscis."))
 				T << "<span class='danger'>You feel a sharp stabbing pain!</span>"
 				T.attack_log += text("\[[time_stamp()]\] <font color='red'>Was absorbed by [key_name(src)]</font>")
 				src.attack_log += text("\[[time_stamp()]\] <font color='orange'> Absorbed [key_name(T)]</font>")
@@ -65,13 +65,13 @@
 			return
 
 	src.visible_message("<span class='danger'>[src] sucks the fluids from [T]!</span>",\
-	 "<span class='notice'>We have absorbed [T]!</span>")
+	 SPAN_NOTE("We have absorbed [T]!"))
 	T << "<span class='danger'>You have been absorbed by the changeling!</span>"
 	if(src.nutrition < 400)
 		src.nutrition = min((src.nutrition + T.nutrition), 400)
 	changeling.chem_charges += 10
 	src.verbs += /mob/living/proc/changeling_respec
-	src << "<span class='notice'>We can now re-adapt, reverting our evolution so that we may start anew, if needed.</span>"
+	src << SPAN_NOTE("We can now re-adapt, reverting our evolution so that we may start anew, if needed.")
 
 	var/datum/absorbed_dna/newDNA = new(T.real_name, T.dna, T.species.name, T.languages, T.flavor_texts)
 	absorbDNA(newDNA)
@@ -87,7 +87,7 @@
 
 		changeling.geneticpoints += 5
 		changeling.max_geneticpoints += 5
-		src << "<span class='notice'>We absorbed another changeling, and we grow stronger.  Our genomes increase.</span>"
+		src << SPAN_NOTE("We absorbed another changeling, and we grow stronger.  Our genomes increase.")
 
 		T.mind.changeling.chem_charges = 0
 		T.mind.changeling.geneticpoints = -1

@@ -83,7 +83,7 @@
 		var/list/robots = list()
 		var/list/robot_names = list()
 		for(var/mob/living/silicon/robot/R in mob_list)
-			if(istype(R, /mob/living/silicon/robot/drone))	// No drones.
+			if(isdrone(R))	// No drones.
 				continue
 			if(R.connected_ai != user)						// No robots linked to other AIs
 				continue
@@ -114,8 +114,8 @@
 			target << "Unlock signal received.."
 			target.SetLockdown(0)
 			if(target.lockcharge)
-				user << "<span class='notice'>Unlock Failed, lockdown wire cut.</span>"
-				target << "<span class='notice'>Unlock Failed, lockdown wire cut.</span>"
+				user << SPAN_NOTE("Unlock Failed, lockdown wire cut.")
+				target << SPAN_NOTE("Unlock Failed, lockdown wire cut.")
 			else
 				user << "Cyborg unlocked."
 				target << "You have been unlocked."
@@ -135,7 +135,7 @@
 
 	var/list/L = get_unlinked_cyborgs(user)
 	if(!L.len)
-		user << "<span class='notice'>ERROR: No unlinked cyborgs detected!</span>"
+		user << SPAN_NOTE("ERROR: No unlinked cyborgs detected!")
 
 
 	if(target && !istype(target))
@@ -200,7 +200,7 @@
 
 	var/list/L = get_other_ais(user)
 	if(!L.len)
-		user << "<span class='notice'>ERROR: No other AIs detected!</span>"
+		user << SPAN_NOTE("ERROR: No other AIs detected!")
 
 	if(target && !istype(target))
 		user << "This is not an AI."

@@ -94,7 +94,7 @@
 	else
 
 		stat |= NOPOWER
-	return
+	update_icon()
 
 // connect the machine to a powernet if a node cable is present on the turf
 /obj/machinery/power/proc/connect_to_network()
@@ -231,7 +231,7 @@
 					. += C
 	return .
 
-/hook/startup/proc/buildPowernets()
+/hook/roundstart/proc/buildPowernets()
 	return makepowernets()
 
 // rebuild all power networks from scratch - only called at world creation or by the admin verb
@@ -311,8 +311,9 @@
 //power_source is a source of electricity, can be powercell, area, apc, cable, powernet or null
 //source is an object caused electrocuting (airlock, grille, etc)
 //No animations will be performed by this proc.
-/proc/electrocute_mob(mob/living/carbon/M as mob, var/power_source, var/obj/source, var/siemens_coeff = 1.0)
-	if(istype(M.loc,/obj/mecha))	return 0	//feckin mechs are dumb
+/proc/electrocute_mob(mob/living/carbon/M, var/power_source, var/obj/source, var/siemens_coeff = 1.0)
+	if(istype(M.loc,/obj/mecha))
+		return 0	//feckin mechs are dumb
 	var/area/source_area
 	if(istype(power_source,/area))
 		source_area = power_source
@@ -348,7 +349,9 @@
 			return
 		if(H.gloves)
 			var/obj/item/clothing/gloves/G = H.gloves
-			if(G.siemens_coefficient == 0)	return 0		//to avoid spamming with insulated glvoes on
+			//to avoid spamming with insulated glvoes on
+			if(G.siemens_coefficient == 0)
+				return 0
 
 	//Checks again. If we are still here subject will be shocked, trigger standard 20 tick warning
 	//Since this one is longer it will override the original one.
@@ -370,6 +373,12 @@
 	else
 		power_source = cell
 		shock_damage = cell_damage
+
+	var/datum/effect/effect/system/spark_spread/s = PoolOrNew(/datum/effect/effect/system/spark_spread)
+	s.set_up(5, 1, source)
+	s.attach(source)
+	s.start()
+
 	var/drained_hp = M.electrocute_act(shock_damage, source, siemens_coeff) //zzzzzzap!
 	var/drained_energy = drained_hp*20
 
@@ -380,4 +389,5 @@
 		drained_power = PN.draw_power(drained_power)
 	else if (istype(power_source, /obj/item/weapon/cell))
 		cell.use(drained_energy)
-	return drained_energy
+
+	return M.stunned

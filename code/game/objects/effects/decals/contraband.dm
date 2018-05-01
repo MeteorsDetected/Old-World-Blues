@@ -40,6 +40,7 @@
 						if(SOUTH) pixel_y = 32
 						if(EAST)  pixel_x = 32
 						if(WEST)  pixel_x = -32
+					break
 
 /obj/item/weapon/contraband/poster/attack_hand(mob/user as mob)
 	if(!anchored)
@@ -67,11 +68,11 @@
 	if(istype(W, /obj/item/weapon/wirecutters))
 		playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
 		if(ruined)
-			user << "<span class='notice'>You remove the remnants of the poster.</span>"
+			user << SPAN_NOTE("You remove the remnants of the poster.")
 			qdel(src)
 		else
 			roll_and_drop()
-			user << "<span class='notice'>You carefully remove the poster from the wall.</span>"
+			user << SPAN_NOTE("You carefully remove the poster from the wall.")
 		return
 
 /obj/item/weapon/contraband/poster/proc/roll_and_drop()
@@ -119,7 +120,7 @@
 		user << "<span class='warning'>You can't place poster there</span>"
 
 	//Looks like it's uncluttered enough. Place the poster.
-	user << "<span class='notice'>You start placing the poster on the wall...</span>"
+	user << SPAN_NOTE("You start placing the poster on the wall...")
 
 	if(do_after(user, 17))
 		user.drop_from_inventory(src, new_loc)

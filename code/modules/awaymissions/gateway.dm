@@ -9,6 +9,7 @@
 
 
 /obj/machinery/gateway/initialize()
+	. = ..()
 	update_icon()
 	if(dir == 2)
 		density = 0
@@ -35,6 +36,7 @@
 	var/obj/machinery/gateway/centeraway/awaygate = null
 
 /obj/machinery/gateway/centerstation/initialize()
+	. = ..()
 	update_icon()
 	wait = world.time + config.gateway_delay	//+ thirty minutes default
 	awaygate = locate(/obj/machinery/gateway/centeraway)
@@ -48,7 +50,7 @@
 
 
 
-obj/machinery/gateway/centerstation/process()
+/obj/machinery/gateway/centerstation/process()
 	if(stat & (NOPOWER))
 		if(active) toggleoff()
 		return
@@ -82,10 +84,10 @@ obj/machinery/gateway/centerstation/process()
 	if(linked.len != 8)	return
 	if(!powered())		return
 	if(!awaygate)
-		user << "<span class='notice'>Error: No destination found.</span>"
+		user << SPAN_NOTE("Error: No destination found.")
 		return
 	if(world.time < wait)
-		user << "<span class='notice'>Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes.</span>"
+		user << SPAN_NOTE("Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes.")
 		return
 
 	for(var/obj/machinery/gateway/G in linked)
@@ -150,6 +152,7 @@ obj/machinery/gateway/centerstation/process()
 
 
 /obj/machinery/gateway/centeraway/initialize()
+	. = ..()
 	update_icon()
 	stationgate = locate(/obj/machinery/gateway/centerstation)
 
@@ -185,7 +188,7 @@ obj/machinery/gateway/centerstation/process()
 	if(!ready)			return
 	if(linked.len != 8)	return
 	if(!stationgate)
-		user << "<span class='notice'>Error: No destination found.</span>"
+		user << SPAN_NOTE("Error: No destination found.")
 		return
 
 	for(var/obj/machinery/gateway/G in linked)
@@ -216,7 +219,7 @@ obj/machinery/gateway/centerstation/process()
 /obj/machinery/gateway/centeraway/Bumped(atom/movable/M as mob|obj)
 	if(!ready)	return
 	if(!active)	return
-	if(istype(M, /mob/living/carbon))
+	if(iscarbon(M))
 		for(var/obj/item/weapon/implant/exile/E in M)//Checking that there is an exile implant in the contents
 			if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
 				M << "\black The station gate has detected your exile implant and is blocking your entry."
@@ -231,6 +234,6 @@ obj/machinery/gateway/centerstation/process()
 			user << "\black The gate is already calibrated, there is no work for you to do here."
 			return
 		else
-			user << "\blue <b>Recalibration successful!</b>: \black This gate's systems have been fine tuned.  Travel to this gate will now be on target."
+			user << SPAN_NOTE("<b>Recalibration successful!</b>: \black This gate's systems have been fine tuned.  Travel to this gate will now be on target.")
 			calibrated = 1
 			return

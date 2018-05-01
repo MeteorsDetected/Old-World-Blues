@@ -8,13 +8,13 @@
 	force = 5.0
 	throwforce = 7.0
 	w_class = ITEM_SIZE_SMALL
-	matter = list(DEFAULT_WALL_MATERIAL = 50)
+	matter = list(MATERIAL_STEEL = 50)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
 
 /obj/item/weapon/cane/concealed
 	var/concealed_blade
 
-/obj/item/weapon/cane/concealed/New()
+/obj/item/weapon/cane/concealed/initialize()
 	..()
 	var/obj/item/weapon/material/butterfly/switchblade/temp_blade = new(src)
 	concealed_blade = temp_blade

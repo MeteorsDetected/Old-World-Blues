@@ -43,7 +43,7 @@
 /obj/machinery/computer/teleporter
 	name = "Teleporter Control Console"
 	desc = "Used to control a linked teleportation Hub and Station."
-	icon_state = "teleport"
+	screen_icon = "teleport"
 	circuit = /obj/item/weapon/circuitboard/teleporter
 	dir = 4
 	var/updating = 0
@@ -56,19 +56,18 @@
 	var/one_time_use = 0 //Used for one-time-use teleport cards (such as clown planet coordinates.)
 						 //Setting this to 1 will set src.locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
 
+/obj/machinery/computer/teleporter/update_icon()
+	..()
+	underlays.Cut()
+	underlays += "teleporter-wires"
+
 /* Ghosts can't use this */
 /obj/machinery/computer/teleporter/attack_ghost(user as mob)
 	return 1
 
-/obj/machinery/computer/teleporter/New()
-	src.id = "[rand(1000, 9999)]"
-	..()
-	underlays.Cut()
-	underlays += image('icons/obj/stationobjs.dmi', icon_state = "telecomp-wires")
-	return
-
 /obj/machinery/computer/teleporter/initialize()
-	..()
+	src.id = "[rand(1000, 9999)]"
+	. = ..()
 	var/obj/machinery/teleport/station/station = locate(/obj/machinery/teleport/station) in get_step(src, dir)
 	var/obj/machinery/teleport/hub/hub
 	if(station)
@@ -116,16 +115,13 @@
 						new /mob/living/simple_animal/hostile/carp(get_turf(H))
 
 			else
-				for(var/mob/O in hearers(src, null))
-					O.show_message("\blue Locked In", 2)
+				src.visible_message(SPAN_NOTE("Locked In"))
 				src.locked = L
 				one_time_use = 1
 
 			src.add_fingerprint(usr)
 	else
 		..()
-
-	return
 
 /obj/machinery/teleport/station/attack_ai(mob/user)
 	interact(user)
@@ -224,8 +220,7 @@
 		var/datum/teleport_target/target = locate(href_list["target"])
 		if(target in locations)
 			locked = target
-			for(var/mob/O in hearers(src, null))
-				O.show_message("\blue Locked In", 2)
+			src.visible_message(SPAN_NOTE("Locked In"))
 
 	spawn()
 		interact(usr)
@@ -237,7 +232,7 @@
 	set src in oview(1)
 	set desc = "ID Tag:"
 
-	if(stat & (NOPOWER|BROKEN) || !istype(usr,/mob/living))
+	if(stat & (NOPOWER|BROKEN) || !isliving(usr))
 		return
 	if (t)
 		src.id = t
@@ -263,8 +258,8 @@
 	var/obj/machinery/computer/teleporter/com
 
 
-/obj/machinery/teleport/hub/New()
-	..()
+/obj/machinery/teleport/hub/initialize()
+	. = ..()
 	underlays.Cut()
 	underlays += image('icons/obj/stationobjs.dmi', icon_state = "tele-wires")
 
@@ -273,7 +268,6 @@
 		if (src.icon_state == "tele1")
 			teleport(M)
 			use_power(5000)
-	return
 
 /obj/machinery/teleport/hub/proc/teleport(atom/movable/M as mob|obj)
 	if (!com)
@@ -296,9 +290,9 @@
 		s.set_up(5, 1, src)
 		s.start()
 		accurate = 1
-		spawn(3000)	accurate = 0 //Accurate teleporting for 5 minutes
-		for(var/mob/B in hearers(src, null))
-			B.show_message("\blue Test fire completed.")
+		spawn(3000)
+			accurate = 0 //Accurate teleporting for 5 minutes
+		src.visible_message(SPAN_NOTE("Test fire completed."))
 	return
 /*
 /proc/do_teleport(atom/movable/M as mob|obj, atom/destination, precision)
@@ -309,7 +303,7 @@
 		for(var/mob/O in viewers(M, null))
 			O.show_message(text("\red <B>The [] bounces off of the portal!</B>", M.name), 1)
 		return
-	if (istype(M, /mob/living))
+	if (isliving(M))
 		var/mob/living/MM = M
 		if(MM.check_contents_for(/obj/item/weapon/disk/nuclear))
 			MM << "\red Something you are carrying seems to be unable to pass through the portal. Better drop it if you want to go through."
@@ -326,7 +320,7 @@
 					disky = 1
 		if (istype(O, /obj/item/weapon/disk/nuclear))
 			disky = 1
-		if (istype(O, /mob/living))
+		if (isliving(O))
 			var/mob/living/MM = O
 			if(MM.check_contents_for(/obj/item/weapon/disk/nuclear))
 				disky = 1
@@ -336,7 +330,7 @@
 		return
 
 //Bags of Holding cause bluespace teleportation to go funky. --NeoFite
-	if (istype(M, /mob/living))
+	if (isliving(M))
 		var/mob/living/MM = M
 		if(MM.check_contents_for(/obj/item/storage/backpack/holding))
 			MM << "\red The Bluespace interface on your Bag of Holding interferes with the teleport!"
@@ -354,7 +348,7 @@
 					precision = rand(1,100)
 		if (istype(O, /obj/item/storage/backpack/holding))
 			precision = rand(1,100)
-		if (istype(O, /mob/living))
+		if (isliving(O))
 			var/mob/living/MM = O
 			if(MM.check_contents_for(/obj/item/storage/backpack/holding))
 				precision = rand(1,100)
@@ -399,8 +393,8 @@
 	active_power_usage = 2000
 	var/obj/machinery/teleport/hub/com
 
-/obj/machinery/teleport/station/New()
-	..()
+/obj/machinery/teleport/station/initialize()
+	. = ..()
 	overlays.Cut()
 	overlays += image('icons/obj/stationobjs.dmi', icon_state = "controller-wires")
 
@@ -425,8 +419,7 @@
 		use_power(5000)
 		update_use_power(2)
 		com.update_use_power(2)
-		for(var/mob/O in hearers(src, null))
-			O.show_message("\blue Teleporter engaged!", 2)
+		src.visible_message(SPAN_NOTE("Teleporter engaged!"))
 	src.add_fingerprint(usr)
 	src.engaged = 1
 	return
@@ -440,8 +433,7 @@
 		com.accurate = 0
 		com.update_use_power(1)
 		update_use_power(1)
-		for(var/mob/O in hearers(src, null))
-			O.show_message("\blue Teleporter disengaged!", 2)
+		src.visible_message(SPAN_NOTE("Teleporter disengaged!"))
 	src.add_fingerprint(usr)
 	src.engaged = 0
 	return
@@ -451,13 +443,12 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(stat & (BROKEN|NOPOWER) || !istype(usr,/mob/living))
+	if(stat & (BROKEN|NOPOWER) || !isliving(usr))
 		return
 
 	if (com && !active)
 		active = 1
-		for(var/mob/O in hearers(src, null))
-			O.show_message("\blue Test firing!", 2)
+		src.visible_message(SPAN_NOTE("Test firing!"))
 		com.teleport()
 		use_power(5000)
 
@@ -467,8 +458,7 @@
 	src.add_fingerprint(usr)
 	return
 
-/obj/machinery/teleport/station/power_change()
-	..()
+/obj/machinery/teleport/station/update_icon()
 	if(stat & NOPOWER)
 		icon_state = "controller-p"
 

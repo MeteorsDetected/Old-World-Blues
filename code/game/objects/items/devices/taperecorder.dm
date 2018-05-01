@@ -5,7 +5,7 @@
 	item_state = "analyzer"
 	w_class = ITEM_SIZE_SMALL
 
-	matter = list(DEFAULT_WALL_MATERIAL = 60,"glass" = 30)
+	matter = list(MATERIAL_STEEL = 60,MATERIAL_GLASS = 30)
 
 	var/emagged = 0.0
 	var/recording = 0.0
@@ -54,14 +54,14 @@
 	set name = "Start Recording"
 	set category = "Object"
 
-	if(usr.stat)
+	if(usr.incapacitated())
 		return
 	if(emagged == 1)
 		usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
 		return
 	icon_state = "taperecorderrecording"
 	if(timerecorded < 3600 && playing == 0)
-		usr << "<span class='notice'>Recording started.</span>"
+		usr << SPAN_NOTE("Recording started.")
 		recording = 1
 		timestamp+= timerecorded
 		storedinfo += "\[[time2text(timerecorded*10,"mm:ss")]\] Recording started."
@@ -74,14 +74,14 @@
 		icon_state = "taperecorderidle"
 		return
 	else
-		usr << "<span class='notice'>Either your tape recorder's memory is full, or it is currently playing back its memory.</span>"
+		usr << SPAN_NOTE("Either your tape recorder's memory is full, or it is currently playing back its memory.")
 
 
 /obj/item/device/taperecorder/verb/stop()
 	set name = "Stop"
 	set category = "Object"
 
-	if(usr.stat)
+	if(usr.incapacitated())
 		return
 	if(emagged == 1)
 		usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
@@ -90,7 +90,7 @@
 		recording = 0
 		timestamp+= timerecorded
 		storedinfo += "\[[time2text(timerecorded*10,"mm:ss")]\] Recording stopped."
-		usr << "<span class='notice'>Recording stopped.</span>"
+		usr << SPAN_NOTE("Recording stopped.")
 		icon_state = "taperecorderidle"
 		return
 	else if(playing == 1)
@@ -105,19 +105,19 @@
 	set name = "Clear Memory"
 	set category = "Object"
 
-	if(usr.stat)
+	if(usr.incapacitated())
 		return
 	if(emagged == 1)
 		usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
 		return
 	if(recording == 1 || playing == 1)
-		usr << "<span class='notice'>You can't clear the memory while playing or recording!</span>"
+		usr << SPAN_NOTE("You can't clear the memory while playing or recording!")
 		return
 	else
 		if(storedinfo)	storedinfo.Cut()
 		if(timestamp)	timestamp.Cut()
 		timerecorded = 0
-		usr << "<span class='notice'>Memory cleared.</span>"
+		usr << SPAN_NOTE("Memory cleared.")
 		return
 
 
@@ -125,20 +125,20 @@
 	set name = "Playback Memory"
 	set category = "Object"
 
-	if(usr.stat)
+	if(usr.incapacitated())
 		return
 	if(emagged == 1)
 		usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
 		return
 	if(recording == 1)
-		usr << "<span class='notice'>You can't playback when recording!</span>"
+		usr << SPAN_NOTE("You can't playback when recording!")
 		return
 	if(playing == 1)
-		usr << "<span class='notice'>You're already playing!</span>"
+		usr << SPAN_NOTE("You're already playing!")
 		return
 	playing = 1
 	icon_state = "taperecorderplaying"
-	usr << "<span class='notice'>Playing started.</span>"
+	usr << SPAN_NOTE("Playing started.")
 	for(var/i=1,timerecorded<3600,sleep(10 * (playsleepseconds) ))
 		if(playing == 0)
 			break
@@ -184,18 +184,18 @@
 	set name = "Print Transcript"
 	set category = "Object"
 
-	if(usr.stat)
+	if(usr.incapacitated())
 		return
 	if(emagged == 1)
 		usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
 		return
 	if(!canprint)
-		usr << "<span class='notice'>The recorder can't print that fast!</span>"
+		usr << SPAN_NOTE("The recorder can't print that fast!")
 		return
 	if(recording == 1 || playing == 1)
-		usr << "<span class='notice'>You can't print the transcript while playing or recording!</span>"
+		usr << SPAN_NOTE("You can't print the transcript while playing or recording!")
 		return
-	usr << "<span class='notice'>Transcript printed.</span>"
+	usr << SPAN_NOTE("Transcript printed.")
 	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"
 	for(var/i=1,storedinfo.len >= i,i++)
@@ -209,14 +209,14 @@
 
 /obj/item/device/taperecorder/attack_self(mob/user)
 	if(recording == 0 && playing == 0)
-		if(usr.stat)
+		if(usr.incapacitated())
 			return
 		if(emagged == 1)
 			usr << "<span class='warning'>The tape recorder makes a scratchy noise.</span>"
 			return
 		icon_state = "taperecorderrecording"
 		if(timerecorded < 3600 && playing == 0)
-			usr << "<span class='notice'>Recording started.</span>"
+			usr << SPAN_NOTE("Recording started.")
 			recording = 1
 			timestamp+= timerecorded
 			storedinfo += "\[[time2text(timerecorded*10,"mm:ss")]\] Recording started."
@@ -231,14 +231,14 @@
 		else
 			usr << "<span class='warning'>Either your tape recorder's memory is full, or it is currently playing back its memory.</span>"
 	else
-		if(usr.stat)
+		if(usr.incapacitated())
 			usr << "Not when you're incapacitated."
 			return
 		if(recording == 1)
 			recording = 0
 			timestamp+= timerecorded
 			storedinfo += "\[[time2text(timerecorded*10,"mm:ss")]\] Recording stopped."
-			usr << "<span class='notice'>Recording stopped.</span>"
+			usr << SPAN_NOTE("Recording stopped.")
 			icon_state = "taperecorderidle"
 			return
 		else if(playing == 1)

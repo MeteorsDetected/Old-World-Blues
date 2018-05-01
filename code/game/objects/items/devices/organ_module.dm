@@ -55,11 +55,11 @@
 	var/obj/item/holding = null
 	var/holding_type = null
 
-/obj/item/organ_module/active/simple/New()
-	..()
+/obj/item/organ_module/active/simple/initialize()
+	. = ..()
 	if(holding_type)
 		holding = new holding_type(src)
-		holding.canremove = 0
+		holding.canremove = FALSE
 
 /obj/item/organ_module/active/simple/proc/deploy(mob/living/carbon/human/H, obj/item/organ/external/E)
 	var/slot = null

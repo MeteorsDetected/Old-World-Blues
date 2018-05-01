@@ -1,4 +1,6 @@
 //allows right clicking mobs to send an admin PM to their client, forwards the selected mob's client to cmd_admin_pm
+ADMIN_VERB_ADD(/client/proc/cmd_admin_pm_context, R_ADMIN|R_MOD, TRUE)
+/*right-click adminPM interface*/
 /client/proc/cmd_admin_pm_context(mob/M as mob in mob_list)
 	set category = null
 	set name = "Admin PM Mob"
@@ -9,6 +11,8 @@
 	cmd_admin_pm(M.client,null)
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
+ADMIN_VERB_ADD(/client/proc/cmd_admin_pm_panel, R_ADMIN|R_MOD, TRUE)
+/*admin-pm list*/
 /client/proc/cmd_admin_pm_panel()
 	set category = "Admin"
 	set name = "Admin PM"
@@ -18,7 +22,7 @@
 	var/list/client/targets[0]
 	for(var/client/T)
 		if(T.mob)
-			if(istype(T.mob, /mob/new_player))
+			if(isnewplayer(T.mob))
 				targets["(New Player) - [T]"] = T
 			else if(isobserver(T.mob))
 				targets["[T.mob.name](Ghost) - [T]"] = T
@@ -50,8 +54,10 @@
 
 		if(!msg)	return
 		if(!C)
-			if(holder)	src << "<font color='red'>Error: Admin-PM: Client not found.</font>"
-			else		src << "<font color='red'>Error: Private-Message: Client not found. They may have lost connection, so try using an adminhelp!</font>"
+			if(holder)
+				src << SPAN_WARN("Error: Admin-PM: Client not found.")
+			else
+				src << SPAN_WARN("Error: Private-Message: Client not found. They may have lost connection, so try using an adminhelp!")
 			return
 
 	if (src.handle_spam_prevention(msg,MUTE_ADMINHELP))
@@ -109,7 +115,7 @@
 		//check client/X is an admin and isn't the sender or recipient
 		if(X == C || X == src)
 			continue
-		if(X.key != key && X.key != C.key && (X.holder.rights & R_ADMIN|R_MOD|R_MENTOR))
+		if(X.key != key && X.key != C.key && (X.holder.rights & R_ADMIN|R_MOD))
 			X << "<span class='pm'><span class='other'>" + create_text_tag("pm_other", "PM:", X) + " <span class='name'>[key_name(src, X, 0)]</span> to <span class='name'>[key_name(C, X, 0)]</span>: <span class='message'>[msg]</span></span></span>"
 
 /client/proc/cmd_admin_irc_pm(sender)
@@ -127,7 +133,7 @@
 	// Handled on Bot32's end, unsure about other bots
 //	if(length(msg) > 400) // TODO: if message length is over 400, divide it up into seperate messages, the message length restriction is based on IRC limitations.  Probably easier to do this on the bots ends.
 //		src << "<span class='warning'>Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting</span>"
-//		src << "<span class='notice'>[msg]</span>"
+//		src << SPAN_NOTE(msg)
 //		return
 
 	src << "<span class='pm'><span class='out'>" + create_text_tag("pm_out_alt", "", src) + " to <span class='name'>IRC-[sender]</span>: <span class='message'>[msg]</span></span></span>"

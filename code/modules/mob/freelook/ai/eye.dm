@@ -36,16 +36,17 @@
 	eyeobj.owner = null
 	qdel(eyeobj) // No AI, no Eye
 	eyeobj = null
-	if(client)
-		client.eye = new_eye
+	src.reset_view(new_eye)
 
 /mob/living/silicon/ai/proc/create_eyeobj(var/newloc)
-	if(eyeobj) destroy_eyeobj()
-	if(!newloc) newloc = src.loc
+	if(eyeobj)
+		destroy_eyeobj()
+	if(!newloc)
+		newloc = src.loc
 	eyeobj = PoolOrNew(/mob/observer/eye/aiEye, newloc)
 	eyeobj.owner = src
 	eyeobj.name = "[src.name] (AI Eye)" // Give it a name
-	if(client) client.eye = eyeobj
+	src.reset_view(eyeobj)
 	SetName(src.name)
 
 // Intiliaze the eye by assigning it's "ai" variable to us. Then set it's loc to us.
@@ -80,8 +81,7 @@
 	if(!src.eyeobj)
 		return
 
-	if(client && client.eye)
-		client.eye = src
+	src.reset_view(src)
 	for(var/datum/chunk/c in eyeobj.visibleChunks)
 		c.remove(eyeobj)
 	src.eyeobj.setLoc(src)

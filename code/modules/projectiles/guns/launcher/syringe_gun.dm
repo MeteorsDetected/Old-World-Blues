@@ -1,4 +1,4 @@
-obj/item/weapon/reagent_containers/syringe/throw_impact(atom/hit_atom, var/speed)
+/obj/item/weapon/reagent_containers/syringe/throw_impact(atom/hit_atom, var/speed)
 	..()
 	//check speed to see if we hit hard enough to trigger the rapid injection
 	//incidentally, this means syringe_cartridges can be used with the pneumatic launcher
@@ -20,7 +20,7 @@ obj/item/weapon/reagent_containers/syringe/throw_impact(atom/hit_atom, var/speed
 	item_state = "syringegun"
 	w_class = ITEM_SIZE_LARGE
 	force = 7
-	matter = list(DEFAULT_WALL_MATERIAL = 2000)
+	matter = list(MATERIAL_STEEL = 2000)
 	slot_flags = SLOT_BELT
 
 	fire_sound = 'sound/weapons/empty.ogg'
@@ -64,7 +64,7 @@ obj/item/weapon/reagent_containers/syringe/throw_impact(atom/hit_atom, var/speed
 		var/obj/item/weapon/reagent_containers/syringe/S = darts[1]
 		darts -= S
 		user.put_in_hands(S)
-		user.visible_message("[user] removes \a [S] from [src].", "<span class='notice'>You remove \a [S] from [src].</span>")
+		user.visible_message("[user] removes \a [S] from [src].", SPAN_NOTE("You remove \a [S] from [src]."))
 	else
 		..()
 
@@ -77,7 +77,7 @@ obj/item/weapon/reagent_containers/syringe/throw_impact(atom/hit_atom, var/speed
 		user.remove_from_mob(S)
 		S.loc = src
 		darts += S //add to the end
-		user.visible_message("[user] inserts \a [S] into [src].", "<span class='notice'>You insert \a [S] into [src].</span>")
+		user.visible_message("[user] inserts \a [S] into [src].", SPAN_NOTE("You insert \a [S] into [src]."))
 	else
 		..()
 

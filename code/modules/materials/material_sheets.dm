@@ -1,5 +1,9 @@
-/proc/create_material_stack(var/material, var/amount, var/atom/location)
-	var/units = round(amount/SHEET_MATERIAL_AMOUNT)
+/proc/create_material_stacks_from_unit(var/material, var/amount, var/atom/location)
+	amount = amount/SHEET_MATERIAL_AMOUNT
+	create_material_stacks(material, amount, location)
+
+/proc/create_material_stacks(var/material, var/units, var/atom/location)
+	units = round(units)
 	while(units > 0)
 		var/obj/item/stack/material/S = PoolOrNew(/obj/item/stack/material, location)
 		S.set_material(material)
@@ -17,17 +21,18 @@
 	throw_range = 3
 	max_amount = 50
 
-	var/default_type = DEFAULT_WALL_MATERIAL
+	var/default_type = MATERIAL_STEEL
 	var/material/material
-	var/apply_colour //temp pending icon rewrite
 
-/obj/item/stack/material/New()
-	..()
+/obj/item/stack/material/New(loc, var/amount, var/material)
+	..(loc, amount)
 
-	if(!default_type)
-		default_type = DEFAULT_WALL_MATERIAL
-	set_material(default_type)
-	return 1
+	if(material)
+		set_material(material)
+	else
+		if(!default_type)
+			default_type = MATERIAL_STEEL
+		set_material(default_type)
 
 /obj/item/stack/material/get_material()
 	return material
@@ -37,15 +42,17 @@
 
 	if(!material)
 		qdel(src)
-		return 0
+		return
 
 	icon_state = material.icon_state
 	recipes = material.get_recipes()
-	stacktype = material.stack_type
+	stacktype = material.name
 	origin_tech = material.stack_origin_tech
 
-	if(apply_colour)
+	if(material.flags & MATERIAL_COLORIZE_STACK)
 		color = material.icon_colour
+	else
+		color = null
 
 	if(material.conductive)
 		flags |= CONDUCT
@@ -79,18 +86,33 @@
 	update_strings()
 	return
 
-/obj/item/stack/material/transfer_to(obj/item/stack/S, var/tamount=null, var/type_verified)
+/obj/item/stack/material/can_merge(var/obj/item/stack/material/S)
+	return ismaterial(S) && (material.name == S.material.name)
+
+/obj/item/stack/material/transfer_to(obj/item/stack/S, var/tamount=null)
 	var/obj/item/stack/material/M = S
-	if(!istype(M) || material.name != M.material.name)
-		return 0
-	var/transfer = ..(S,tamount,1)
-	if(src) update_strings()
-	if(M) M.update_strings()
+	var/transfer = ..(S,tamount)
+	if(transfer)
+		if(M) M.update_strings()
 	return transfer
 
 /obj/item/stack/material/attack_self(var/mob/user)
 	if(!material.build_windows(user, src))
 		..()
+
+/obj/item/stack/material/produce_recipe(datum/stack_recipe/recipe, var/quantity, mob/user)
+	var/obj/O = ..()
+	if(istype(O))
+		if(istype(O, /obj/item/))
+			var/obj/item/I = O
+			if(!I.origin_tech)
+				I.origin_tech = list()
+			for(var/T in origin_tech)
+				if(I.origin_tech[T] < origin_tech[T])
+					I.origin_tech[T] = origin_tech[T]
+		var/matter_per_obj = recipe.req_amount/recipe.res_amount*SHEET_MATERIAL_AMOUNT
+		O.matter = list("[get_material_name()]" = matter_per_obj)
+	return O
 
 /obj/item/stack/material/attackby(var/obj/item/W, var/mob/user)
 	if(istype(W,/obj/item/stack/cable_coil))
@@ -102,17 +124,16 @@
 	return ..()
 
 /obj/item/stack/material/iron
-	name = "iron"
-	default_type = "iron"
+	name = MATERIAL_IRON
+	default_type = MATERIAL_IRON
 	icon_state = "sheet-silver"
-	apply_colour = 1
 
 /obj/item/stack/material/iron/full
 	amount = 50
 
 /obj/item/stack/material/sandstone
 	name = "sandstone brick"
-	default_type = "sandstone"
+	default_type = MATERIAL_SANDSTONE
 	icon_state = "sheet-sandstone"
 
 /obj/item/stack/material/sandstone/full
@@ -120,23 +141,23 @@
 
 /obj/item/stack/material/marble
 	name = "marble brick"
-	default_type = "marble"
+	default_type = MATERIAL_MARBLE
 	icon_state = "sheet-marble"
 
 /obj/item/stack/material/marble/full
 	amount = 50
 
 /obj/item/stack/material/diamond
-	name = "diamond"
-	default_type = "diamond"
+	name = MATERIAL_DIAMOND
+	default_type = MATERIAL_DIAMOND
 	icon_state = "sheet-diamond"
 
 /obj/item/stack/material/diamond/full
 	amount = 50
 
 /obj/item/stack/material/uranium
-	name = "uranium"
-	default_type = "uranium"
+	name = MATERIAL_URANIUM
+	default_type = MATERIAL_URANIUM
 	icon_state = "sheet-uranium"
 
 /obj/item/stack/material/uranium/full
@@ -151,24 +172,24 @@
 	amount = 50
 
 /obj/item/stack/material/plastic
-	name = "plastic"
-	default_type = "plastic"
+	name = MATERIAL_PLASTIC
+	default_type = MATERIAL_PLASTIC
 	icon_state = "sheet-plastic"
 
 /obj/item/stack/material/plastic/full
 	amount = 50
 
 /obj/item/stack/material/gold
-	name = "gold"
-	default_type = "gold"
+	name = MATERIAL_GOLD
+	default_type = MATERIAL_GOLD
 	icon_state = "sheet-gold"
 
 /obj/item/stack/material/gold/full
 	amount = 50
 
 /obj/item/stack/material/silver
-	name = "silver"
-	default_type = "silver"
+	name = MATERIAL_SILVER
+	default_type = MATERIAL_SILVER
 	icon_state = "sheet-silver"
 
 /obj/item/stack/material/silver/full
@@ -186,7 +207,7 @@
 //Extremely valuable to Research.
 /obj/item/stack/material/mhydrogen
 	name = "metallic hydrogen"
-	default_type = "mhydrogen"
+	default_type = MATERIAL_MYTHRIL
 	icon_state = "sheet-mythril"
 
 /obj/item/stack/material/mhydrogen/full
@@ -194,34 +215,30 @@
 
 //Fuel for MRSPACMAN generator.
 /obj/item/stack/material/tritium
-	name = "tritium"
-	default_type = "tritium"
+	name = MATERIAL_TRITIUM
+	default_type = MATERIAL_TRITIUM
 	icon_state = "sheet-silver"
-	apply_colour = 1
 
 /obj/item/stack/material/tritium/full
 	amount = 50
 
 /obj/item/stack/material/osmium
-	name = "osmium"
-	default_type = "osmium"
+	name = MATERIAL_OSMIUM
+	default_type = MATERIAL_OSMIUM
 	icon_state = "sheet-silver"
-	apply_colour = 1
-
 /obj/item/stack/material/osmium/full
 	amount = 50
 
 /obj/item/stack/material/steel
-	name = DEFAULT_WALL_MATERIAL
-	default_type = DEFAULT_WALL_MATERIAL
+	name = MATERIAL_STEEL
 	icon_state = "sheet-metal"
 
 /obj/item/stack/material/steel/full
 	amount = 50
 
 /obj/item/stack/material/plasteel
-	name = "plasteel"
-	default_type = "plasteel"
+	name = MATERIAL_PLASTEEL
+	default_type = MATERIAL_PLASTEEL
 	icon_state = "sheet-plasteel"
 
 /obj/item/stack/material/plasteel/full
@@ -229,17 +246,10 @@
 
 /obj/item/stack/material/wood
 	name = "wooden plank"
-	default_type = "wood"
+	default_type = MATERIAL_WOOD
 	icon_state = "sheet-wood"
 
 /obj/item/stack/material/wood/full
-	amount = 50
-
-/obj/item/stack/material/cloth
-	name = "cloth"
-	default_type = "cloth"
-
-/obj/item/stack/material/cloth/full
 	amount = 50
 
 /obj/item/stack/material/cardboard
@@ -259,8 +269,8 @@
 	amount = 50
 
 /obj/item/stack/material/glass
-	name = "glass"
-	default_type = "glass"
+	name = MATERIAL_GLASS
+	default_type = MATERIAL_GLASS
 	icon_state = "sheet-glass"
 
 /obj/item/stack/material/glass/full
@@ -268,7 +278,7 @@
 
 /obj/item/stack/material/glass/reinforced
 	name = "reinforced glass"
-	default_type = "rglass"
+	default_type = MATERIAL_RGLASS
 	icon_state = "sheet-rglass"
 
 /obj/item/stack/material/glass/reinforced/full
@@ -292,4 +302,87 @@
 	icon_state = "sheet-phoronrglass"
 
 /obj/item/stack/material/glass/phoronrglass/full
+	amount = 50
+
+/obj/item/stack/material/cloth
+	icon_state = "sheet-cloth"
+
+/obj/item/stack/material/cloth/cotton
+	name = "cotton"
+	color = "#FFFFFF"
+	default_type = "cotton"
+
+/obj/item/stack/material/cloth/cotton/full
+	amount = 50
+
+/obj/item/stack/material/cloth/teal
+	name = "teal"
+	color = "#00EAFA"
+	default_type = "teal"
+
+/obj/item/stack/material/cloth/teal/full
+	amount = 50
+
+/obj/item/stack/material/cloth/black
+	name = "black"
+	color = "#505050"
+	default_type = "black"
+
+/obj/item/stack/material/cloth/black/full
+	amount = 50
+
+/obj/item/stack/material/cloth/green
+	name = "green"
+	color = "#01C608"
+	default_type = "green"
+
+/obj/item/stack/material/cloth/green/full
+	amount = 50
+
+/obj/item/stack/material/cloth/purple
+	name = "purple"
+	color = "#9C56C4"
+	default_type = "purple"
+
+/obj/item/stack/material/cloth/purple/full
+	amount = 50
+
+/obj/item/stack/material/cloth/blue
+	name = "blue"
+	color = "#6B6FE3"
+	default_type = "blue"
+
+/obj/item/stack/material/cloth/blue/full
+	amount = 50
+
+/obj/item/stack/material/cloth/red
+	name = "red"
+	color = "#DA020A"
+	default_type = "red"
+
+/obj/item/stack/material/cloth/red/full
+	amount = 50
+
+/obj/item/stack/material/cloth/beige
+	name = "beige"
+	color = "#E8E7C8"
+	default_type = "beige"
+
+/obj/item/stack/material/cloth/beige/full
+	amount = 50
+
+/obj/item/stack/material/cloth/lime
+	name = "lime"
+	color = "#62E36C"
+	default_type = "lime"
+
+/obj/item/stack/material/cloth/lime/full
+	amount = 50
+
+/obj/item/stack/material/cloth/leather
+	name = "leather"
+	icon_state = "sheet-leather"
+	default_type = "leather"
+
+/obj/item/stack/material/cloth/leather/full
 	amount = 50

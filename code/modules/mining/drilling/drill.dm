@@ -172,14 +172,14 @@
 		if(use_cell_power())
 			active = !active
 			if(active)
-				visible_message("<span class='notice'>\The [src] lurches downwards, grinding noisily.</span>")
+				visible_message(SPAN_NOTE("\The [src] lurches downwards, grinding noisily."))
 				need_update_field = 1
 			else
-				visible_message("<span class='notice'>\The [src] shudders to a grinding halt.</span>")
+				visible_message(SPAN_NOTE("\The [src] shudders to a grinding halt."))
 		else
-			user << "<span class='notice'>The drill is unpowered.</span>"
+			user << SPAN_NOTE("The drill is unpowered.")
 	else
-		user << "<span class='notice'>Turning on a piece of industrial machinery without sufficient bracing or wires exposed is a bad idea.</span>"
+		user << SPAN_NOTE("Turning on a piece of industrial machinery without sufficient bracing or wires exposed is a bad idea.")
 
 	update_icon()
 
@@ -228,7 +228,7 @@
 /obj/machinery/mining/drill/proc/system_error(var/error)
 
 	if(error)
-		src.visible_message("<span class='notice'>\The [src] flashes a '[error]' warning.</span>")
+		src.visible_message(SPAN_NOTE("\The [src] flashes a '[error]' warning."))
 	need_player_check = 1
 	active = 0
 	update_icon()
@@ -265,15 +265,16 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat) return
+	if(usr.incapacitated())
+		return
 
 	var/obj/structure/ore_box/B = locate() in orange(1)
 	if(B)
 		for(var/obj/item/weapon/ore/O in contents)
 			O.loc = B
-		usr << "<span class='notice'>You unload the drill's storage cache into the ore box.</span>"
+		usr << SPAN_NOTE("You unload the drill's storage cache into the ore box.")
 	else
-		usr << "<span class='notice'>You must move an ore box up to the drill before you can unload it.</span>"
+		usr << SPAN_NOTE("You must move an ore box up to the drill before you can unload it.")
 
 
 /obj/machinery/mining/brace
@@ -286,15 +287,15 @@
 	if(istype(W,/obj/item/weapon/wrench))
 
 		if(istype(get_turf(src), /turf/space))
-			user << "<span class='notice'>You can't anchor something to empty space. Idiot.</span>"
+			user << SPAN_NOTE("You can't anchor something to empty space. Idiot.")
 			return
 
 		if(connected && connected.active)
-			user << "<span class='notice'>You can't unanchor the brace of a running drill!</span>"
+			user << SPAN_NOTE("You can't unanchor the brace of a running drill!")
 			return
 
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
-		user << "<span class='notice'>You [anchored ? "un" : ""]anchor the brace.</span>"
+		user << SPAN_NOTE("You [anchored ? "un" : ""]anchor the brace.")
 
 		anchored = !anchored
 		if(anchored)
@@ -339,7 +340,8 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat) return
+	if(usr.incapacitated())
+		return
 
 	if (src.anchored)
 		usr << "It is anchored in place!"

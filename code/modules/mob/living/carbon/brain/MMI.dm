@@ -1,6 +1,7 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
-/obj/item/device/mmi/digital/New()
+/obj/item/device/mmi/digital/initialize()
+	. = ..()
 	src.brainmob = new(src)
 	src.brainmob.add_language("Robot Talk")
 	src.brainmob.loc = src
@@ -15,7 +16,6 @@
 	brainmob.stat = 0
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
-	return
 
 /obj/item/device/mmi
 	name = "man-machine interface"
@@ -45,7 +45,7 @@
 				user << "<span class='warning'>You aren't sure where this brain came from, but you're pretty sure it's useless.</span>"
 				return
 
-			user.visible_message("<span class='notice'>\The [user] sticks \a [O] into \the [src].</span>")
+			user.visible_message(SPAN_NOTE("\The [user] sticks \a [O] into \the [src]."))
 
 			brainmob = B.brainmob
 			B.brainmob = null
@@ -66,7 +66,7 @@
 		if((istype(O,/obj/item/weapon/card/id)||istype(O,/obj/item/device/pda)) && brainmob)
 			if(allowed(user))
 				locked = !locked
-				user << "<span class='notice'>You [locked ? "lock" : "unlock"] the brain holder.</span>"
+				user << SPAN_NOTE("You [locked ? "lock" : "unlock"] the brain holder.")
 			else
 				user << "<span class='warning'>Access denied.</span>"
 			return
@@ -90,7 +90,7 @@
 		else if(locked)
 			user << "<span class='warning'>You upend the MMI, but the brain is clamped into place.</span>"
 		else
-			user << "<span class='notice'>You upend the MMI, spilling the brain onto the floor.</span>"
+			user << SPAN_NOTE("You upend the MMI, spilling the brain onto the floor.")
 			var/obj/item/organ/internal/brain/brain
 			if (brainobj)	//Pull brain organ out of MMI.
 				brainobj.loc = user.loc
@@ -139,8 +139,8 @@
 
 	var/obj/item/device/radio/radio = null//Let's give it a radio.
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		radio = new(src)//Spawns a radio inside the MMI.
 		radio.broadcasting = 1//So it's broadcasting from the start.
 
@@ -156,7 +156,7 @@
 				brainmob << "Can't do that while incapacitated or dead."
 
 			radio.broadcasting = radio.broadcasting==1 ? 0 : 1
-			brainmob << "<span class='notice'>Radio is [radio.broadcasting==1 ? "now" : "no longer"] broadcasting.</span>"
+			brainmob << SPAN_NOTE("Radio is [radio.broadcasting==1 ? "now" : "no longer"] broadcasting.")
 
 		Toggle_Listening()
 			set name = "Toggle Listening"
@@ -169,7 +169,7 @@
 				brainmob << "Can't do that while incapacitated or dead."
 
 			radio.listening = radio.listening==1 ? 0 : 1
-			brainmob << "<span class='notice'>Radio is [radio.listening==1 ? "now" : "no longer"] receiving broadcast.</span>"
+			brainmob << SPAN_NOTE("Radio is [radio.listening==1 ? "now" : "no longer"] receiving broadcast.")
 
 /obj/item/device/mmi/emp_act(severity)
 	if(!brainmob)

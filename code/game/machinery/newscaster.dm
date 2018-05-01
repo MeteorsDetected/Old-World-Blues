@@ -126,8 +126,6 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster_normal"
-	var/isbroken = 0  //1 if someone banged it with something heavy
-	var/ispowered = 1 //starts powered, changes with power_change()
 	//var/list/datum/feed_channel/channel_list = list() //This list will contain the names of the feed channels. Each name will refer to a data region where the messages of the feed channels are stored.
 	//OBSOLETE: We're now using a global news network
 	var/screen = 0                  //Or maybe I'll make it into a list within a list afterwards... whichever I prefer, go fuck yourselves :3
@@ -172,22 +170,22 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	name = "Security Newscaster"
 	securityCaster = 1
 
-/obj/machinery/newscaster/New()         //Constructor, ho~
+/obj/machinery/newscaster/initialize()  //Constructor, ho~
 	allCasters += src
 	src.paper_remaining = 15            // Will probably change this to something better
 	for(var/obj/machinery/newscaster/NEWSCASTER in allCasters) // Let's give it an appropriate unit number
 		src.unit_no++
 	src.update_icon() //for any custom ones on the map...
-	..()                                //I just realised the newscasters weren't in the global machines list. The superconstructor call will tend to that
+	. = ..()                            //I just realised the newscasters weren't in the global machines list. The superconstructor call will tend to that
 
 /obj/machinery/newscaster/Destroy()
 	allCasters -= src
 	..()
 
 /obj/machinery/newscaster/update_icon()
-	if(!ispowered || isbroken)
+	if(stat&(NOPOWER|BROKEN))
 		icon_state = "newscaster_off"
-		if(isbroken) //If the thing is smashed, add crack overlay on top of the unpowered sprite.
+		if(stat&BROKEN) //If the thing is smashed, add crack overlay on top of the unpowered sprite.
 			src.overlays.Cut()
 			src.overlays += image(src.icon, "crack3")
 		return
@@ -205,20 +203,6 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		src.overlays += image(src.icon, "crack[hitstaken]")
 
 	icon_state = "newscaster_normal"
-	return
-
-/obj/machinery/newscaster/power_change()
-	if(isbroken) //Broken shit can't be powered.
-		return
-	..()
-	if( !(stat & NOPOWER) )
-		src.ispowered = 1
-		src.update_icon()
-	else
-		spawn(rand(0, 15))
-			src.ispowered = 0
-			src.update_icon()
-
 
 /obj/machinery/newscaster/ex_act(severity)
 	switch(severity)
@@ -226,31 +210,28 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			qdel(src)
 			return
 		if(2.0)
-			src.isbroken=1
+			stat |= BROKEN
 			if(prob(50))
 				qdel(src)
 			else
 				src.update_icon() //can't place it above the return and outside the if-else. or we might get runtimes of null.update_icon() if(prob(50)) goes in.
-			return
 		else
 			if(prob(50))
-				src.isbroken=1
+				stat |= BROKEN
 			src.update_icon()
-			return
-	return
 
 /obj/machinery/newscaster/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/newscaster/attack_hand(mob/user as mob)            //########### THE MAIN BEEF IS HERE! And in the proc below this...############
 
-	if(!src.ispowered || src.isbroken)
+	if(stat & (NOPOWER|BROKEN))
 		return
 
 	if(!user.IsAdvancedToolUser())
 		return 0
 
-	if(ishuman(user) || istype(user,/mob/living/silicon) )
+	if(ishuman(user) || issilicon(user))
 		var/mob/living/human_or_robot_user = user
 		var/dat
 		dat = text("<HEAD><TITLE>Newscaster</TITLE></HEAD><H3>Newscaster Unit #[src.unit_no]</H3>")
@@ -742,7 +723,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 
 
 /obj/machinery/newscaster/attackby(obj/item/I as obj, mob/user as mob)
-	if (src.isbroken)
+	if (stat&BROKEN)
 		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 100, 1)
 		for (var/mob/O in hearers(5, src.loc))
 			O.show_message("<EM>[user.name]</EM> further abuses the shattered [src.name].")
@@ -758,7 +739,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				if(src.hitstaken==3)
 					for (var/mob/O in hearers(5, src.loc))
 						O.show_message("[user.name] smashes the [src.name]!" )
-					src.isbroken=1
+					src.stat |= BROKEN
 					playsound(src.loc, 'sound/effects/Glassbr3.ogg', 100, 1)
 				else
 					for (var/mob/O in hearers(5, src.loc))
@@ -791,7 +772,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		var/obj/item/photo = user.get_active_hand()
 		user.drop_from_inventory(photo, src)
 		photo_data = new(photo, 0)
-	else if(istype(user,/mob/living/silicon))
+	else if(issilicon(user))
 		var/mob/living/silicon/tempAI = user
 		var/obj/item/weapon/photo/selection = tempAI.GetPicture()
 		if (!selection)
@@ -819,7 +800,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	var/scribble=""
 	var/scribble_page = null
 
-obj/item/weapon/newspaper/attack_self(mob/user as mob)
+/obj/item/weapon/newspaper/attack_self(mob/user as mob)
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		var/dat
@@ -899,7 +880,7 @@ obj/item/weapon/newspaper/attack_self(mob/user as mob)
 		user << "The paper is full of intelligible symbols!"
 
 
-obj/item/weapon/newspaper/Topic(href, href_list)
+/obj/item/weapon/newspaper/Topic(href, href_list)
 	var/mob/living/U = usr
 	..()
 	if ((src in U.contents) || ( istype(loc, /turf) && in_range(src, U) ))
@@ -927,11 +908,11 @@ obj/item/weapon/newspaper/Topic(href, href_list)
 			src.curr_page--
 			playsound(src.loc, "pageturn", 50, 1)
 
-		if (istype(src.loc, /mob))
+		if (ismob(src.loc))
 			src.attack_self(src.loc)
 
 
-obj/item/weapon/newspaper/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/newspaper/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/pen))
 		if(src.scribble_page == src.curr_page)
 			user << "<FONT COLOR='blue'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</FONT>"

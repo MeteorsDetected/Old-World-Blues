@@ -1,7 +1,7 @@
 /obj/machinery/computer/HolodeckControl
 	name = "holodeck control console"
 	desc = "A computer used to control a nearby holodeck."
-	icon_state = "holocontrol"
+	screen_icon = "holocontrol"
 
 	use_power = 1
 	active_power_usage = 8000 //8kW for the scenery + 500W per holoitem
@@ -23,11 +23,13 @@
 	var/list/supported_programs
 	var/list/restricted_programs
 
-/obj/machinery/computer/HolodeckControl/New()
-	..()
+/obj/machinery/computer/HolodeckControl/initialize()
+	. = ..()
 	linkedholodeck = locate(linkedholodeck_area)
-	supported_programs = list()
-	restricted_programs = list()
+	if(!supported_programs)
+		supported_programs = list()
+	if(!restricted_programs)
+		restricted_programs = list()
 
 /obj/machinery/computer/HolodeckControl/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
@@ -131,7 +133,7 @@
 		emagged = 1
 		safety_disabled = 1
 		update_projections()
-		user << "<span class='notice'>You vastly increase projector power and override the safety and security protocols.</span>"
+		user << SPAN_NOTE("You vastly increase projector power and override the safety and security protocols.")
 		user << "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator."
 		log_game("[key_name(usr)] emagged the Holodeck Control Computer", src)
 		return 1
@@ -177,9 +179,8 @@
 	..()
 
 /obj/machinery/computer/HolodeckControl/power_change()
-	var/oldstat
 	..()
-	if (stat != oldstat && active && (stat & NOPOWER))
+	if(active && (stat&NOPOWER))
 		emergencyShutdown()
 
 /obj/machinery/computer/HolodeckControl/process()
@@ -347,25 +348,22 @@
 
 /obj/machinery/computer/HolodeckControl/Exodus
 	linkedholodeck_area = /area/holodeck/alphadeck
-
-/obj/machinery/computer/HolodeckControl/Exodus/New()
-	..()
 	supported_programs = list(
-	"Empty Court" 		= "emptycourt",
-	"Basketball Court" 	= "basketball",
-	"Thunderdome Court"	= "thunderdomecourt",
-	"Boxing Ring"		= "boxingcourt",
-	"Beach" 			= "beach",
-	"Desert" 			= "desert",
-	"Space" 			= "space",
-	"Picnic Area" 		= "picnicarea",
-	"Snow Field" 		= "snowfield",
-	"Theatre" 			= "theatre",
-	"Meeting Hall" 		= "meetinghall",
-	"Courtroom" 		= "courtroom"
+		"Empty Court" 		= "emptycourt",
+		"Basketball Court" 	= "basketball",
+		"Thunderdome Court"	= "thunderdomecourt",
+		"Boxing Ring"		= "boxingcourt",
+		"Beach" 			= "beach",
+		"Desert" 			= "desert",
+		"Space" 			= "space",
+		"Picnic Area" 		= "picnicarea",
+		"Snow Field" 		= "snowfield",
+		"Theatre" 			= "theatre",
+		"Meeting Hall" 		= "meetinghall",
+		"Courtroom" 		= "courtroom"
 	)
 
 	restricted_programs = list(
-	"Atmospheric Burn Simulation" = "burntest",
-	"Wildlife Simulation" = "wildlifecarp"
+		"Atmospheric Burn Simulation" = "burntest",
+		"Wildlife Simulation" = "wildlifecarp"
 	)

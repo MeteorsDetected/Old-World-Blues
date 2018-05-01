@@ -57,18 +57,12 @@
 /obj/machinery/atmospherics/trinary/mixer/hide(var/i)
 	update_underlays()
 
-/obj/machinery/atmospherics/trinary/mixer/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
-
 /obj/machinery/atmospherics/trinary/mixer/New()
 	..()
 	air1.volume = ATMOS_DEFAULT_VOLUME_MIXER
 	air2.volume = ATMOS_DEFAULT_VOLUME_MIXER
 	air3.volume = ATMOS_DEFAULT_VOLUME_MIXER * 1.5
-	
+
 	if (!mixing_inputs)
 		mixing_inputs = list(src.air1 = node1_concentration, src.air2 = node2_concentration)
 
@@ -113,11 +107,11 @@
 		add_fingerprint(user)
 		return 1
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
-	if (do_after(user, 40))
+	user << SPAN_NOTE("You begin to unfasten \the [src]...")
+	if (do_after(user, 40, src))
 		user.visible_message( \
-			"<span class='notice'>\The [user] unfastens \the [src].</span>", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
+			SPAN_NOTE("\The [user] unfastens \the [src]."), \
+			SPAN_NOTE("You have unfastened \the [src]."), \
 			"You hear ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
 		qdel(src)
@@ -175,7 +169,7 @@
 	src.updateUsrDialog()
 	return
 
-obj/machinery/atmospherics/trinary/mixer/t_mixer
+/obj/machinery/atmospherics/trinary/mixer/t_mixer
 	icon_state = "tmap"
 
 	dir = SOUTH
@@ -183,7 +177,7 @@ obj/machinery/atmospherics/trinary/mixer/t_mixer
 
 	//node 3 is the outlet, nodes 1 & 2 are intakes
 
-obj/machinery/atmospherics/trinary/mixer/t_mixer/New()
+/obj/machinery/atmospherics/trinary/mixer/t_mixer/New()
 	..()
 	switch(dir)
 		if(NORTH)
@@ -195,7 +189,7 @@ obj/machinery/atmospherics/trinary/mixer/t_mixer/New()
 		if(WEST)
 			initialize_directions = WEST|NORTH|SOUTH
 
-obj/machinery/atmospherics/trinary/mixer/t_mixer/initialize()
+/obj/machinery/atmospherics/trinary/mixer/t_mixer/initialize()
 	..()
 	if(node1 && node2 && node3) return
 
@@ -221,7 +215,7 @@ obj/machinery/atmospherics/trinary/mixer/t_mixer/initialize()
 	update_icon()
 	update_underlays()
 
-obj/machinery/atmospherics/trinary/mixer/m_mixer
+/obj/machinery/atmospherics/trinary/mixer/m_mixer
 	icon_state = "mmap"
 
 	dir = SOUTH
@@ -229,7 +223,7 @@ obj/machinery/atmospherics/trinary/mixer/m_mixer
 
 	//node 3 is the outlet, nodes 1 & 2 are intakes
 
-obj/machinery/atmospherics/trinary/mixer/m_mixer/New()
+/obj/machinery/atmospherics/trinary/mixer/m_mixer/New()
 	..()
 	switch(dir)
 		if(NORTH)
@@ -241,7 +235,7 @@ obj/machinery/atmospherics/trinary/mixer/m_mixer/New()
 		if(WEST)
 			initialize_directions = WEST|SOUTH|EAST
 
-obj/machinery/atmospherics/trinary/mixer/m_mixer/initialize()
+/obj/machinery/atmospherics/trinary/mixer/m_mixer/initialize()
 	..()
 	if(node1 && node2 && node3) return
 

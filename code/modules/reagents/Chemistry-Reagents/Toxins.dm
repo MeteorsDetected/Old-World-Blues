@@ -16,13 +16,6 @@
 		if(issmall(M)) removed *= 2 // Small bodymass, more effect from lower volume.
 		M.adjustToxLoss(strength * removed)
 
-/datum/reagent/toxin/luminophore
-	name = "Luminophore"
-	id = "luminophore"
-	color = "#ffffff"
-	metabolism = REM * 1.2
-	strength = 1
-
 /datum/reagent/toxin/plasticide
 	name = "Plasticide"
 	id = "plasticide"
@@ -104,7 +97,7 @@
 	..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.stat != 1)
+		if(H.stat != UNCONSCIOUS)
 			if(H.losebreath >= 10)
 				H.losebreath = max(10, H.losebreath - 10)
 			H.adjustOxyLoss(2)
@@ -126,7 +119,7 @@
 	..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.stat != 1)
+		if(H.stat != UNCONSCIOUS)
 			if(H.losebreath >= 10)
 				H.losebreath = max(10, M.losebreath-10)
 			H.adjustOxyLoss(2)
@@ -197,7 +190,7 @@
 		if(locate(/obj/effect/overlay/wallrot) in W)
 			for(var/obj/effect/overlay/wallrot/E in W)
 				qdel(E)
-			W.visible_message("<span class='notice'>The fungi are completely dissolved by the solution!</span>")
+			W.visible_message(SPAN_NOTE("The fungi are completely dissolved by the solution!"))
 
 /datum/reagent/toxin/plantbgone/touch_obj(var/obj/O, var/volume)
 	if(istype(O, /obj/effect/plant))

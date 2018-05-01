@@ -37,19 +37,19 @@
 	IOCapacity = 1000000
 
 
-
-
 // SMES SUBTYPES - THESE ARE MAPPED IN AND CONTAIN DIFFERENT TYPES OF COILS
 
 // These are used on individual outposts as backup should power line be cut, or engineering outpost lost power.
 // 1M Charge, 150K I/O
 /obj/machinery/power/smes/buildable/outpost_substation/initialize()
+	. = ..()
 	component_parts += new /obj/item/weapon/smes_coil/weak(src)
 	RefreshParts()
 
 // This one is pre-installed on engineering shuttle. Allows rapid charging/discharging for easier transport of power to outpost
 // 11M Charge, 2.5M I/O
 /obj/machinery/power/smes/buildable/power_shuttle/initialize()
+	. = ..()
 	component_parts += new /obj/item/weapon/smes_coil/super_io(src)
 	component_parts += new /obj/item/weapon/smes_coil/super_io(src)
 	component_parts += new /obj/item/weapon/smes_coil(src)
@@ -76,11 +76,11 @@
 	should_be_mapped = 1
 
 /obj/machinery/power/smes/buildable/Destroy()
-	..()
 	qdel(wires)
+	wires = null
 	for(var/obj/nano_module/rcon/R in world)
 		R.FindDevices()
-
+	return ..()
 
 // Proc: process()
 // Parameters: None
@@ -106,24 +106,24 @@
 		usr << "<span class='warning'>Connection error: Destination Unreachable.</span>"
 
 	// Cyborgs standing next to the SMES can play with the wiring.
-	if(istype(usr, /mob/living/silicon/robot) && Adjacent(usr) && open_hatch)
+	if(isrobot(usr) && Adjacent(usr) && open_hatch)
 		wires.Interact(usr)
 
 // Proc: New()
 // Parameters: None
 // Description: Set wires with requed type
-/obj/machinery/power/smes/buildable/New()
-	..()
+/obj/machinery/power/smes/buildable/initialize()
+	. = ..()
 	src.wires = new /datum/wires/smes(src)
 
 // Proc: initialize()
 // Parameters: None
 // Description: Adds standard components for this SMES, and forces recalculation of properties.
 /obj/machinery/power/smes/buildable/initialize()
+	..()
 	for(var/i = 1 to init_coils)
 		component_parts += new /obj/item/weapon/smes_coil(src)
 	RefreshParts()
-	..()
 
 // Proc: attack_hand()
 // Parameters: None
@@ -307,7 +307,7 @@
 			var/newtag = input(user, "Enter new RCON tag. Use \"NO_TAG\" to disable RCON or leave empty to cancel.", "SMES RCON system") as text
 			if(newtag)
 				RCon_tag = newtag
-				user << "<span class='notice'>You changed the RCON tag to: [newtag]</span>"
+				user << SPAN_NOTE("You changed the RCON tag to: [newtag]")
 			return
 		// Charged above 1% and safeties are enabled.
 		if((charge > (capacity/100)) && safeties_enabled)
@@ -333,7 +333,7 @@
 
 			playsound(get_turf(src), 'sound/items/Crowbar.ogg', 50, 1)
 			user << "<span class='warning'>You begin to disassemble the [src]!</span>"
-			if (do_after(usr, 100 * cur_coils)) // More coils = takes longer to disassemble. It's complex so largest one with 5 coils will take 50s
+			if (do_after(usr, 100 * cur_coils, src)) // More coils = takes longer to disassemble. It's complex so largest one with 5 coils will take 50s
 
 				if (failure_probability && prob(failure_probability))
 					total_system_failure(failure_probability, user)

@@ -4,7 +4,7 @@
 	name = "robotics control console"
 	desc = "Used to remotely lockdown or detonate linked cyborgs."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "robot"
+	screen_icon = "robot"
 	light_color = "#a97faa"
 	req_access = list(access_robotics)
 	circuit = /obj/item/weapon/circuitboard/robotics
@@ -37,12 +37,12 @@
 			dat += "<A href='?src=\ref[src];screen=2'>2. Emergency Full Destruct</A><BR>"
 		if(screen == 1)
 			for(var/mob/living/silicon/robot/R in mob_list)
-				if(istype(R, /mob/living/silicon/robot/drone))
+				if(isdrone(R))
 					continue //There's a specific console for drones.
 				if(isAI(user))
 					if (R.connected_ai != user)
 						continue
-				if(istype(user, /mob/living/silicon/robot))
+				if(isrobot(user))
 					if (R != user)
 						continue
 				if(R.scrambledcodes)
@@ -196,7 +196,7 @@
 					var/choice = input("Are you certain you wish to hack [R.name]?") in list("Confirm", "Abort")
 					if(choice == "Confirm")
 						if(R && istype(R))
-//							message_admins("\blue [key_name_admin(usr)] emagged [R.name] using robotic console!")
+//							message_admins(SPAN_NOTE("[key_name_admin(usr)] emagged [R.name] using robotic console!"))
 							log_game("[key_name(usr)] emagged [R.name] using robotic console!", src)
 							R.emagged = 1
 							if(R.mind.special_role)
@@ -217,7 +217,7 @@
 	while(src.timeleft)
 
 	for(var/mob/living/silicon/robot/R in mob_list)
-		if(!R.scrambledcodes && !istype(R, /mob/living/silicon/robot/drone))
+		if(!R.scrambledcodes && !isdrone(R))
 			R.self_destruct()
 
 	return

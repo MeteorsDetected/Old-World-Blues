@@ -5,7 +5,7 @@
 	icon_state = ""
 	flags = CONDUCT
 	w_class = ITEM_SIZE_SMALL
-	matter = list(DEFAULT_WALL_MATERIAL = 100)
+	matter = list(MATERIAL_STEEL = 100)
 	throwforce = 2
 	throw_speed = 3
 	throw_range = 10
@@ -91,7 +91,7 @@
 	attach_assembly(var/obj/item/device/assembly/A, var/mob/user)
 		holder = new/obj/item/device/assembly_holder(get_turf(src))
 		if(holder.attach(A,src,user))
-			user << "\blue You attach \the [A] to \the [src]!"
+			user << SPAN_NOTE("You attach \the [A] to \the [src]!")
 			return 1
 		return 0
 
@@ -104,9 +104,9 @@
 				return
 		if(isscrewdriver(W))
 			if(toggle_secure())
-				user << "\blue \The [src] is ready!"
+				user << SPAN_NOTE("\The [src] is ready!")
 			else
-				user << "\blue \The [src] can now be attached!"
+				user << SPAN_NOTE("\The [src] can now be attached!")
 			return
 		..()
 		return

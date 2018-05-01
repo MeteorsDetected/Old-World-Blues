@@ -4,15 +4,15 @@
 	name = "patient monitoring console"
 	density = 1
 	anchored = 1.0
-	icon_state = "operating"
+	screen_icon = "operating"
 	light_color = "#315ab4"
 	circuit = /obj/item/weapon/circuitboard/operating
 	var/mob/living/carbon/human/victim = null
 	var/obj/machinery/optable/table = null
 
-/obj/machinery/computer/operating/New()
-	..()
-	for(dir in list(NORTH,EAST,SOUTH,WEST))
+/obj/machinery/computer/operating/initialize()
+	. = ..()
+	for(var/dir in list(NORTH,EAST,SOUTH,WEST))
 		table = locate(/obj/machinery/optable, get_step(src, dir))
 		if (table)
 			table.computer = src

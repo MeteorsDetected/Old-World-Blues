@@ -21,11 +21,11 @@
 	var/parts = null
 	var/datum/wires/particle_acc/control_box/wires = null
 
-/obj/machinery/particle_accelerator/control_box/New()
+/obj/machinery/particle_accelerator/control_box/initialize()
 	wires = new(src)
 	connected_parts = list()
 	active_power_usage = initial(active_power_usage) * (strength + 1)
-	..()
+	. = ..()
 
 /obj/machinery/particle_accelerator/control_box/Destroy()
 	if(active)
@@ -140,7 +140,6 @@
 		update_use_power(0)
 	else if(!stat && construction_state == 3)
 		update_use_power(1)
-	return
 
 
 /obj/machinery/particle_accelerator/control_box/process()

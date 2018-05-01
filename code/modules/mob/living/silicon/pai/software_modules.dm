@@ -53,7 +53,7 @@
 			var/count = 0
 
 			// Find the carrier
-			while(!istype(M, /mob/living))
+			while(!isliving(M))
 				if(!M || !M.loc || count > 6)
 					//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
 					src << "You are not being carried by anyone!"
@@ -66,7 +66,7 @@
 			if(answer == "Yes")
 				var/turf/T = get_turf_or_move(P.loc)
 				for (var/mob/v in viewers(T))
-					v.show_message("<span class='notice'>[M] presses \his thumb against [P].</span>", 3, "<span class='notice'>[P] makes a sharp clicking sound as it extracts DNA material from [M].</span>", 2)
+					v.show_message(SPAN_NOTE("[M] presses \his thumb against [P]."), 3, SPAN_NOTE("[P] makes a sharp clicking sound as it extracts DNA material from [M]."), 2)
 				var/datum/dna/dna = M.dna
 				P << "<font color = red><h3>[M]'s UE string : [dna.unique_enzymes]</h3></font>"
 				if(dna.unique_enzymes == P.master_dna)

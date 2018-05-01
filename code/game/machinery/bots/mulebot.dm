@@ -55,26 +55,28 @@
 
 	var/bloodiness = 0		// count of bloodiness
 
-/obj/machinery/bot/mulebot/New()
-	..()
+/obj/machinery/bot/mulebot/initialize()
+	. = ..()
 	wires = new(src)
 	botcard = new(src)
-	botcard.access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mining, access_mining_station)
+	botcard.access = list(
+		access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm,
+		access_mining, access_mining_station
+	)
 	cell = new(src)
 	cell.charge = 2000
 	cell.maxcharge = 2000
 
-	spawn(5)	// must wait for map loading to finish
-		if(radio_controller)
-			radio_controller.add_object(src, control_freq, filter = RADIO_MULEBOT)
-			radio_controller.add_object(src, beacon_freq, filter = RADIO_NAVBEACONS)
+	if(radio_controller)
+		radio_controller.add_object(src, control_freq, filter = RADIO_MULEBOT)
+		radio_controller.add_object(src, beacon_freq, filter = RADIO_NAVBEACONS)
 
-		var/count = 0
-		for(var/obj/machinery/bot/mulebot/other in machines)
-			count++
-		if(!suffix)
-			suffix = "#[count]"
-		name = "Mulebot ([suffix])"
+	var/count = 0
+	for(var/obj/machinery/bot/mulebot/other in machines)
+		count++
+	if(!suffix)
+		suffix = "#[count]"
+	name = "Mulebot ([suffix])"
 
 /obj/machinery/bot/mulebot/Destroy()
 	if(radio_controller)
@@ -90,7 +92,7 @@
 /obj/machinery/bot/mulebot/attackby(var/obj/item/I, var/mob/user)
 	if(istype(I,/obj/item/weapon/card/emag))
 		locked = !locked
-		user << "\blue You [locked ? "lock" : "unlock"] the mulebot's controls!"
+		user << SPAN_NOTE("You [locked ? "lock" : "unlock"] the mulebot's controls!")
 		flick("mulebot-emagged", src)
 		playsound(src.loc, 'sound/effects/sparks1.ogg', 100, 0)
 	else if(istype(I,/obj/item/weapon/cell) && open && !cell)
@@ -105,11 +107,17 @@
 
 		open = !open
 		if(open)
-			src.visible_message("[user] opens the maintenance hatch of [src]", "\blue You open [src]'s maintenance hatch.")
+			src.visible_message(
+				"[user] opens the maintenance hatch of [src]",
+				SPAN_NOTE("You open [src]'s maintenance hatch.")
+			)
 			on = 0
 			icon_state="mulebot-hatch"
 		else
-			src.visible_message("[user] closes the maintenance hatch of [src]", "\blue You close [src]'s maintenance hatch.")
+			src.visible_message(
+				"[user] closes the maintenance hatch of [src]",
+				SPAN_NOTE("You close [src]'s maintenance hatch.")
+			)
 			icon_state = "mulebot0"
 
 		updateDialog()
@@ -118,10 +126,10 @@
 			src.health = min(maxhealth, src.health+25)
 			user.visible_message(
 				"\red [user] repairs [src]!",
-				"\blue You repair [src]!"
+				SPAN_NOTE("You repair [src]!")
 			)
 		else
-			user << "\blue [src] does not need a repair!"
+			user << SPAN_NOTE("[src] does not need a repair!")
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1+I.force * 2))
 			unload(0)
@@ -238,7 +246,7 @@
 /obj/machinery/bot/mulebot/Topic(href, href_list)
 	if(..())
 		return
-	if (usr.stat)
+	if (usr.incapacitated())
 		return
 	if ((in_range(src, usr) && istype(src.loc, /turf)) || (issilicon(usr)))
 		usr.set_machine(src)
@@ -271,7 +279,10 @@
 					cell.add_fingerprint(usr)
 					cell = null
 
-					usr.visible_message("\blue [usr] removes the power cell from [src].", "\blue You remove the power cell from [src].")
+					usr.visible_message(
+						SPAN_NOTE("[usr] removes the power cell from [src]."),
+						SPAN_NOTE("You remove the power cell from [src].")
+					)
 					updateDialog()
 
 			if("cellinsert")
@@ -282,7 +293,10 @@
 						cell = C
 						C.add_fingerprint(usr)
 
-						usr.visible_message("\blue [usr] inserts a power cell into [src].", "\blue You insert the power cell into [src].")
+						usr.visible_message(
+							SPAN_NOTE("[usr] inserts a power cell into [src]."),
+							SPAN_NOTE("You insert the power cell into [src].")
+						)
 						updateDialog()
 
 
@@ -368,7 +382,7 @@
 
 /obj/machinery/bot/mulebot/MouseDrop_T(var/atom/movable/C, mob/user)
 
-	if(user.stat)
+	if(user.incapacitated())
 		return
 
 	if (!on || !istype(C)|| C.anchored || get_dist(user, src) > 1 || get_dist(src,C) > 1 )
@@ -391,7 +405,8 @@
 	//So this is a simple fix that only allows a selection of item types to be considered. Further narrowing-down is below.
 	if(!istype(C,/obj/item) && !istype(C,/obj/machinery) && !istype(C,/obj/structure) && !ismob(C))
 		return
-	if(!isturf(C.loc)) //To prevent the loading from stuff from someone's inventory, which wouldn't get handled properly.
+	//To prevent the loading from stuff from someone's inventory, which wouldn't get handled properly.
+	if(!isturf(C.loc) || C.anchored)
 		return
 
 	if(get_dist(C, src) > 1 || load || !on)
@@ -406,11 +421,7 @@
 	if(istype(crate))
 		crate.close()
 
-	C.loc = src.loc
-	sleep(2)
-	if(C.loc != src.loc) //To prevent you from going onto more thano ne bot.
-		return
-	C.loc = src
+	C.forceMove(src)
 	load = C
 
 	C.pixel_y += 9
@@ -420,9 +431,7 @@
 
 	if(ismob(C))
 		var/mob/M = C
-		if(M.client)
-			M.client.perspective = EYE_PERSPECTIVE
-			M.client.eye = src
+		M.reset_view(src)
 
 	mode = 0
 	send_status()
@@ -437,23 +446,22 @@
 	mode = 1
 	overlays.Cut()
 
-	load.loc = src.loc
+	load.forceMove(src.loc)
 	load.pixel_y -= 9
 	load.layer = initial(load.layer)
 	if(ismob(load))
 		var/mob/M = load
-		if(M.client)
-			M.client.perspective = MOB_PERSPECTIVE
-			M.client.eye = src
-
+		M.reset_view()
 
 	if(dirn)
 		var/turf/T = src.loc
 		T = get_step(T,dirn)
-		if(CanPass(load,T))//Can't get off onto anything that wouldn't let you pass normally
+		//Can't get off onto anything that wouldn't let you pass normally
+		if(CanPass(load,T))
 			step(load, dirn)
 		else
-			load.loc = src.loc//Drops you right there, so you shouldn't be able to get yourself stuck
+			load.forceMove(src.loc)
+			//Drops you right there, so you shouldn't be able to get yourself stuck
 
 	load = null
 
@@ -464,14 +472,12 @@
 	for(var/atom/movable/AM in src)
 		if(AM == cell || AM == botcard) continue
 
-		AM.loc = src.loc
+		AM.forceMove(src.loc)
 		AM.layer = initial(AM.layer)
 		AM.pixel_y = initial(AM.pixel_y)
 		if(ismob(AM))
 			var/mob/M = AM
-			if(M.client)
-				M.client.perspective = MOB_PERSPECTIVE
-				M.client.eye = src
+			M.reset_view()
 	mode = 0
 
 
@@ -697,16 +703,15 @@
 // called when bot bumps into anything
 /obj/machinery/bot/mulebot/Bump(var/atom/obs)
 	if(!wires.MobAvoid())		//usually just bumps, but if avoidance disabled knock over mobs
-		var/mob/M = obs
-		if(ismob(M))
-			if(istype(M,/mob/living/silicon/robot))
-				src.visible_message("\red [src] bumps into [M]!")
+		if(isliving(obs))
+			if(isrobot(obs))
+				src.visible_message(SPAN_WARN("[src] bumps into [obs]!"))
 			else
-				src.visible_message("\red [src] knocks over [M]!")
+				var/mob/living/M = obs
+				src.visible_message(SPAN_WARN("[src] knocks over [M]!"))
 				M.stop_pulling()
 				M.Stun(8)
 				M.Weaken(5)
-				M.lying = 1
 	..()
 
 /obj/machinery/bot/mulebot/alter_health()
@@ -732,11 +737,10 @@
 
 // player on mulebot attempted to move
 /obj/machinery/bot/mulebot/relaymove(var/mob/user)
-	if(user.stat)
+	if(user.incapacitated())
 		return
 	if(load == user)
 		unload(0)
-	return
 
 // receive a radio signal
 // used for control and beacon reception

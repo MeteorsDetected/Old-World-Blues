@@ -13,7 +13,7 @@
 	desc = "It looks pretty sciency."
 	icon = 'icons/obj/rig_modules.dmi'
 	icon_state = "module"
-	matter = list(DEFAULT_WALL_MATERIAL = 20000, "plastic" = 30000, "glass" = 5000)
+	matter = list(MATERIAL_STEEL = 20000, MATERIAL_PLASTIC = 30000, MATERIAL_GLASS = 5000)
 
 	var/damage = 0
 	var/obj/item/weapon/rig/holder
@@ -108,8 +108,8 @@
 		return
 	..()
 
-/obj/item/rig_module/New()
-	..()
+/obj/item/rig_module/initialize()
+	. = ..()
 	if(suit_overlay_inactive)
 		suit_overlay = suit_overlay_inactive
 
@@ -128,11 +128,11 @@
 
 		charges = processed_charges
 
-	stat_modules +=	new/stat_rig_module/activate(src)
-	stat_modules +=	new/stat_rig_module/deactivate(src)
-	stat_modules +=	new/stat_rig_module/engage(src)
-	stat_modules +=	new/stat_rig_module/select(src)
-	stat_modules +=	new/stat_rig_module/charge(src)
+	stat_modules += new/stat_rig_module/activate(src)
+	stat_modules += new/stat_rig_module/deactivate(src)
+	stat_modules += new/stat_rig_module/engage(src)
+	stat_modules += new/stat_rig_module/select(src)
+	stat_modules += new/stat_rig_module/charge(src)
 
 // Called when the module is installed into a suit.
 /obj/item/rig_module/proc/installed(var/obj/item/weapon/rig/new_holder)
@@ -154,7 +154,7 @@
 		usr << "<span class='warning'>The suit is not initialized.</span>"
 		return 0
 
-	if(usr.lying || usr.stat || usr.stunned || usr.paralysis || usr.weakened)
+	if(usr.incapacitated())
 		usr << "<span class='warning'>You cannot use the suit in this state.</span>"
 		return 0
 

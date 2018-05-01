@@ -30,13 +30,12 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "chitin"
 
-/obj/item/organ/internal/brain/New()
-	..()
+/obj/item/organ/internal/brain/initialize()
+	. = ..()
 	health = config.default_brain_health
-	spawn(5)
-		create_reagents(10)
-		if(brainmob && brainmob.client)
-			brainmob.client.screen.len = null //clear the hud
+	create_reagents(10)
+	if(brainmob && brainmob.client)
+		brainmob.client.screen.Cut() //clear the hud
 
 /obj/item/organ/internal/brain/Destroy()
 	if(brainmob)
@@ -54,7 +53,7 @@
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
 
-	brainmob << "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [initial(src.name)].</span>"
+	brainmob << SPAN_NOTE("You feel slightly disoriented. That's normal when you're just a [initial(src.name)].")
 	callHook("debrain", list(brainmob))
 
 	for(var/datum/language/L in H.languages)
@@ -108,7 +107,7 @@
 	clonnig_process = 1
 	attemps--
 
-	visible_message("<span class = 'notice'>It seems [src] start moving!</span>")
+	visible_message(SPAN_NOTE("It seems [src] start moving!"))
 	if(!brainmob || !brainmob.mind)
 		clonnig_process = 0
 		return 0
@@ -121,7 +120,7 @@
 
 		for(var/i = 0; i < 6; i++)
 			sleep(100)
-			visible_message("<span class = 'notice'>[src] moving slightly!</span>")
+			visible_message(SPAN_NOTE("[src] moving slightly!"))
 			if(brainmob.client) break
 
 	if(!brainmob.client)

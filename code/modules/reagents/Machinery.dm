@@ -4,7 +4,6 @@
 
 #define CHEM_DISPENSER_ENERGY_COST	0.1	//How many energy points do we use per unit of chemical?
 #define BOTTLE_SPRITES list("bottle-1", "bottle-2", "bottle-3", "bottle-4") //list of available bottle sprites
-#define REAGENTS_PER_SHEET 20
 
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
@@ -46,8 +45,8 @@
 	else
 		recharged -= 1
 
-/obj/machinery/chem_dispenser/New()
-	..()
+/obj/machinery/chem_dispenser/initialize()
+	. = ..()
 	recharge()
 	dispensable_reagents = sortList(dispensable_reagents)
 
@@ -81,8 +80,10 @@
   * @return nothing
   */
 /obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main",var/datum/nanoui/ui = null, var/force_open = 1)
-	if(stat & (BROKEN|NOPOWER)) return
-	if(user.stat || user.restrained()) return
+	if(stat & (BROKEN|NOPOWER))
+		return
+	if(user.incapacitated())
+		return
 
 	// this is the data which will be sent to the ui
 	var/data[0]
@@ -165,7 +166,7 @@
 		if(!user.unEquip(B, src))
 			return
 		if(!accept_glass && istype(B,/obj/item/weapon/reagent_containers/food))
-			user << "<span class='notice'>This machine only accepts beakers</span>"
+			user << SPAN_NOTE("This machine only accepts beakers")
 			return
 		src.beaker =  B
 		user << "You set [B] on the machine."
@@ -283,11 +284,9 @@
 	var/client/has_sprites = list()
 	var/max_pill_count = 20
 
-/obj/machinery/chem_master/New()
-	..()
-	var/datum/reagents/R = new/datum/reagents(120)
-	reagents = R
-	R.my_atom = src
+/obj/machinery/chem_master/initialize()
+	. = ..()
+	create_reagents(120)
 
 /obj/machinery/chem_master/ex_act(severity)
 	switch(severity)
@@ -595,19 +594,10 @@
 	var/obj/item/weapon/reagent_containers/beaker = null
 	var/limit = 10
 	var/list/holdingitems = list()
-	var/list/sheet_reagents = list(
-		/obj/item/stack/material/iron = "iron",
-		/obj/item/stack/material/uranium = "uranium",
-		/obj/item/stack/material/phoron = "phoron",
-		/obj/item/stack/material/gold = "gold",
-		/obj/item/stack/material/silver = "silver",
-		/obj/item/stack/material/mhydrogen = "hydrogen"
-		)
 
-/obj/machinery/reagentgrinder/New()
-	..()
+/obj/machinery/reagentgrinder/initialize()
+	. = ..()
 	beaker = new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
-	return
 
 /obj/machinery/reagentgrinder/update_icon()
 	icon_state = "juicer"+num2text(!isnull(beaker))
@@ -638,7 +628,7 @@
 				continue
 			failed = 0
 			O.contents -= G
-			G.loc = src
+			G.forceMove(src)
 			holdingitems += G
 			if(holdingitems && holdingitems.len >= limit)
 				break
@@ -655,15 +645,33 @@
 		src.updateUsrDialog()
 		return 0
 
-	if(!sheet_reagents[O.type] && (!O.reagents || !O.reagents.total_volume))
-		user << "\The [O] is not suitable for blending."
+	if(insert_material(O, user))
+		if(!user.unEquip(O, src))
+			return 0
+		holdingitems += O
 		return 1
 
-	user.remove_from_mob(O)
-	O.loc = src
-	holdingitems += O
+	if(O.reagents && O.reagents.total_volume)
+		if(!user.unEquip(O, src))
+			return 0
+		holdingitems += O
+		src.updateUsrDialog()
+		return 1
+
+	user << SPAN_WARN("\The [O] is not suitable for blending.")
+
+
+/obj/machinery/reagentgrinder/proc/insert_material(var/obj/item/I, var/mob/living/user)
+	if(!ismaterial(I))
+		return 0
+	var/material/M = I.get_material()
+	if(!M.grind_to)
+		return 0
+	if(!user.unEquip(I, src))
+		return 0
+	holdingitems += I
 	src.updateUsrDialog()
-	return 0
+	return 1
 
 /obj/machinery/reagentgrinder/attack_ai(mob/user as mob)
 	return 0
@@ -724,40 +732,37 @@
 		return 1
 
 	switch(href_list["action"])
-		if ("grind")
-			grind()
+		if("grind")
+			grind(usr)
 		if("eject")
-			eject()
-		if ("detach")
-			detach()
+			eject(usr)
+		if("detach")
+			detach(usr)
 	src.updateUsrDialog()
 	return 1
 
-/obj/machinery/reagentgrinder/proc/detach()
-
-	if (usr.stat != 0)
+/obj/machinery/reagentgrinder/proc/detach(mob/living/user)
+	if(user.incapacitated())
 		return
-	if (!beaker)
+	if(!beaker)
 		return
-	beaker.loc = src.loc
+	beaker.forceMove(src.loc)
 	beaker = null
 	update_icon()
 
-/obj/machinery/reagentgrinder/proc/eject()
-
-	if (usr.stat != 0)
+/obj/machinery/reagentgrinder/proc/eject(mob/living/user)
+	if(user.incapacitated())
 		return
-	if (!holdingitems || holdingitems.len == 0)
+	if(!holdingitems || holdingitems.len == 0)
 		return
 
 	for(var/obj/item/O in holdingitems)
-		O.loc = src.loc
+		O.forceMove(src.loc)
 		holdingitems -= O
 	holdingitems.Cut()
 
-/obj/machinery/reagentgrinder/proc/grind()
+/obj/machinery/reagentgrinder/proc/grind(mob/living/user)
 
-	power_change()
 	if(stat & (NOPOWER|BROKEN))
 		return
 
@@ -783,23 +788,22 @@
 		if(remaining_volume <= 0)
 			break
 
-		if(sheet_reagents[O.type])
+		if(ismaterial(O))
 			var/obj/item/stack/stack = O
-			if(istype(stack))
-				var/amount_to_take = max(0,min(stack.amount,round(remaining_volume/REAGENTS_PER_SHEET)))
-				if(amount_to_take)
-					stack.use(amount_to_take)
-					if(deleted(stack))
-						holdingitems -= stack
-					beaker.reagents.add_reagent(sheet_reagents[stack.type], (amount_to_take*REAGENTS_PER_SHEET))
-					continue
+			var/amount_to_take = max(0,min(stack.amount,round(remaining_volume/REAGENTS_PER_SHEET)))
+			if(amount_to_take)
+				var/material/M = O.get_material()
+				beaker.reagents.add_reagent(M.grind_to, (amount_to_take*REAGENTS_PER_SHEET))
+				if(amount_to_take >= stack.amount)
+					holdingitems -= stack
+					src.contents -= stack
+				stack.use(amount_to_take)
+				continue
 
-		if(O.reagents)
+		else if(O.reagents)
 			O.reagents.trans_to(beaker, min(O.reagents.total_volume, remaining_volume))
 			if(O.reagents.total_volume == 0)
 				holdingitems -= O
 				qdel(O)
 			if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 				break
-
-#undef REAGENTS_PER_SHEET

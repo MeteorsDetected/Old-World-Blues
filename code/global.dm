@@ -22,8 +22,6 @@ var/global/defer_powernet_rebuild = 0      // True if net rebuild will be called
 
 var/global/datum/universal_state/universe = new
 
-var/global/list/global_map = null
-
 // Noises made when hit while typing.
 var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")
 
@@ -48,7 +46,7 @@ var/blobevent   = 0
 var/diary          = null
 var/href_logfile   = null
 var/station_name   = "NSS Exodus"
-var/game_version   = "Baystation12"
+var/game_version   = "Old World Blues"
 var/changelog_hash = ""
 var/game_year      = (text2num(time2text(world.realtime, "YYYY")) + 544)
 
@@ -85,16 +83,12 @@ var/list/latejoin_gateway = list()
 var/list/latejoin_cryo    = list()
 var/list/latejoin_cyborg  = list()
 
-var/list/prisonwarp         = list() // Prisoners go to these
 var/list/holdingfacility    = list() // Captured people go here
 var/list/xeno_spawn         = list() // Aliens spawn at at these.
-//var/list/mazewarp         = list()
 var/list/tdome1             = list()
 var/list/tdome2             = list()
 var/list/tdomeobserve       = list()
 var/list/tdomeadmin         = list()
-var/list/prisonsecuritywarp = list() // Prison security goes to these.
-var/list/prisonwarped       = list() // List of players already warped.
 var/list/blobstart          = list()
 var/list/ninjastart         = list()
 //var/list/traitors         = list() // Traitor list.

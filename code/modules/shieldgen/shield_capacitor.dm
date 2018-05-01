@@ -19,14 +19,13 @@
 	var/charge_rate = 100000	//100 kW
 	var/obj/machinery/shield_gen/owned_gen
 
-/obj/machinery/shield_capacitor/New()
-	spawn(10)
-		for(var/obj/machinery/shield_gen/possible_gen in range(1, src))
-			if(get_dir(src, possible_gen) == src.dir)
-				possible_gen.owned_capacitor = src
-				break
-	..()
-	
+/obj/machinery/shield_capacitor/initialize()
+	for(var/obj/machinery/shield_gen/possible_gen in range(1, src))
+		if(get_dir(src, possible_gen) == src.dir)
+			possible_gen.owned_capacitor = src
+			break
+	. = ..()
+
 /obj/machinery/shield_capacitor/emag_act(var/remaining_charges, var/mob/user)
 	if(prob(75))
 		src.locked = !src.locked
@@ -49,7 +48,10 @@
 			user << "\red Access denied."
 	else if(istype(W, /obj/item/weapon/wrench))
 		src.anchored = !src.anchored
-		src.visible_message("\blue \icon[src] [src] has been [anchored ? "bolted to the floor" : "unbolted from the floor"] by [user].")
+		if(anchored)
+			src.visible_message(SPAN_NOTE("\icon[src] [src] has been bolted to the floor by [user]."))
+		else
+			src.visible_message(SPAN_NOTE("\icon[src] [src] has been unbolted from the floor by [user]."))
 
 		if(anchored)
 			spawn(0)
@@ -136,11 +138,9 @@
 
 	updateDialog()
 
-/obj/machinery/shield_capacitor/power_change()
+/obj/machinery/shield_capacitor/update_icon()
 	if(stat & BROKEN)
 		icon_state = "broke"
-	else
-		..()
 
 /obj/machinery/shield_capacitor/verb/rotate()
 	set name = "Rotate capacitor clockwise"

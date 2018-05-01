@@ -21,19 +21,19 @@
 
 /obj/structure/closet/walllocker/emerglocker/toggle(mob/user as mob)
 	src.attack_hand(user)
-	return
 
 /obj/structure/closet/walllocker/emerglocker/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	return
 
 /obj/structure/closet/walllocker/emerglocker/attack_hand(mob/user as mob)
 	if (isAI(user))	//Added by Strumpetplaya - AI shouldn't be able to
-		return		//activate emergency lockers.  This fixes that.  (Does this make sense, the AI can't call attack_hand, can it? --Mloc)
+		return		//activate emergency lockers. This fixes that.
+					//(Does this make sense, the AI can't call attack_hand, can it? --Mloc)
 	if(!amount)
-		usr << "<spawn class='notice'>It's empty.."
+		usr << SPAN_NOTE("It's empty.")
 		return
 	if(amount)
-		usr << "<spawn class='notice'>You take out some items from \the [src]."
+		usr << SPAN_NOTE("You take out some items from \the [src].")
 		for(var/path in spawnitems)
 			new path(src.loc)
 		amount--

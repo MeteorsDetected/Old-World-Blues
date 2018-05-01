@@ -29,7 +29,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole
 	name = "R&D control console"
-	icon_state = "rdcomp"
+	screen_icon = "rdcomp"
 	light_color = "#a97faa"
 	circuit = /obj/item/weapon/circuitboard/rdconsole
 	var/datum/research/files							//Stores all the collected research data.
@@ -90,13 +90,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			C.files.AddDesign2Known(D)
 		C.files.RefreshResearch()
 
-/obj/machinery/computer/rdconsole/New()
-	..()
+/obj/machinery/computer/rdconsole/initialize()
+	. = ..()
 	files = new /datum/research(src) //Setup the research data holder.
-	if(!id)
-		for(var/obj/machinery/r_n_d/server/centcom/S in machines)
-			S.initialize()
-			break
+
+	if(!id && . != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/rdconsole/lateInitialize()
+	..()
+	for(var/obj/machinery/r_n_d/server/centcom/S in machines)
+		S.initialize()
+		break
 
 /obj/machinery/computer/rdconsole/initialize()
 	SyncRDevices()
@@ -117,7 +122,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			user << "\red Machine cannot accept disks in that format."
 			return
 		user.drop_from_inventory(D, src)
-		user << "\blue You add the disk to the machine!"
+		user << SPAN_NOTE("You add the disk to the machine!")
 	else
 		//The construction/deconstruction of the console code.
 		..()
@@ -129,7 +134,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		user << "<span class='notice'>You you disable the security protocols.</span>"
+		user << SPAN_NOTE("You you disable the security protocols.")
 		return 1
 
 /obj/machinery/computer/rdconsole/Topic(href, href_list)
@@ -224,22 +229,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					if(linked_destroy)
 						linked_destroy.busy = 0
 						if(!linked_destroy.loaded_item)
-							usr <<"<span class='notice'>The destructive analyzer appears to be empty.</span>"
+							usr <<SPAN_NOTE("The destructive analyzer appears to be empty.")
 							screen = 1.0
 							return
 
 						for(var/T in linked_destroy.loaded_item.origin_tech)
 							files.UpdateTech(T, linked_destroy.loaded_item.origin_tech[T])
-/*
-						if(linked_lathe && linked_destroy.loaded_item.matter) // Also sends salvaged materials to a linked protolathe, if any.
-							linked_lathe.m_amount += min((linked_lathe.max_material_storage - linked_lathe.TotalMaterials()), (linked_destroy.loaded_item.matter[DEFAULT_WALL_MATERIAL]*linked_destroy.decon_mod))
-							linked_lathe.g_amount += min((linked_lathe.max_material_storage - linked_lathe.TotalMaterials()), (linked_destroy.loaded_item.matter["glass"]*linked_destroy.decon_mod))
-*/
 						linked_destroy.loaded_item = null
 						for(var/obj/I in linked_destroy.contents)
 							for(var/mob/M in I.contents)
 								M.death()
-							if(istype(I,/obj/item/stack/material))//Only deconsturcts one sheet at a time instead of the entire stack
+							//Only deconsturcts one sheet at a time instead of the entire stack
+							if(ismaterial(I))
 								var/obj/item/stack/material/S = I
 								if(S.get_amount() > 1)
 									S.use(1)
@@ -300,7 +301,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else if(href_list["build_categeory"])
 		if(linked_lathe)
 			var/new_pc = input("Select category for displaying") as null|anything in linked_lathe.categories
-			if(Adjacent(usr) && !usr.stat)
+			if(Adjacent(usr) && !usr.incapacitated())
 				if(new_pc == "None")
 					linked_lathe.category = null
 				else
@@ -326,7 +327,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else if(href_list["imprint_categeory"])
 		if(linked_imprinter)
 			var/new_cc = input("Select category for displaying") as null|anything in linked_imprinter.categories
-			if(Adjacent(usr) && !usr.stat)
+			if(Adjacent(usr) && !usr.incapacitated())
 				if(new_cc == "None")
 					linked_imprinter.category = null
 				else

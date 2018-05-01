@@ -39,35 +39,22 @@
 	if(!..())
 		return
 
-	var/datum/objective/meme_attune/attune = new
-	attune.gen_amount_goal()
-	attune.owner = meme
-	meme.objectives += attune
+	new /datum/objective/meme_attune (meme)
 
 	for(var/i=rand(2,3);i;i--)
 		switch(rand(1,100))
 			if(1 to 49)
-				var/datum/objective/assassinate/kill_objective = new
-				kill_objective.owner = meme
-				kill_objective.find_target()
-				meme.objectives += kill_objective
+				new /datum/objective/assassinate (meme)
 			else
-				var/datum/objective/steal/steal_objective = new
-				steal_objective.owner = meme
-				steal_objective.find_target()
-				meme.objectives += steal_objective
+				new /datum/objective/steal (meme)
 
 	switch(rand(1,100))
 		if(1 to 80)
 			if (!(locate(/datum/objective/escape) in meme.objectives))
-				var/datum/objective/escape/escape_objective = new
-				escape_objective.owner = meme
-				meme.objectives += escape_objective
+				new /datum/objective/escape (meme)
 		else
 			if (!(locate(/datum/objective/survive) in meme.objectives))
-				var/datum/objective/survive/survive_objective = new
-				survive_objective.owner = meme
-				meme.objectives += survive_objective
+				new /datum/objective/survive (meme)
 	return
 
 /datum/antagonist/meme/update_antag_mob(var/datum/mind/player)
@@ -85,19 +72,3 @@
 			var/mob/living/parasite/meme/M = new(pick(allowed_mob))
 			log_admin("[key_name_admin(usr)] transform [key_name(player.current)] into meme.")
 			player.transfer_to(M)
-
-
-//OBJECTIVES
-
-datum/objective/meme_attune
-	proc/gen_amount_goal(var/lowbound = 4, var/highbound = 6)
-		target_amount = rand (lowbound,highbound)
-
-		explanation_text = "Attune [target_amount] humanoid brains."
-		return target_amount
-
-	check_completion()
-		if(owner && owner.current && istype(owner.current,/mob/living/parasite/meme) && (owner.current:indoctrinated.len >= target_amount))
-			return 1
-		else
-			return 0

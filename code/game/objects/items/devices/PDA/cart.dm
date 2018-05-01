@@ -60,7 +60,7 @@
 
 /obj/item/weapon/cartridge/security/initialize()
 	radio = new /obj/item/radio/integrated/beepsky(src)
-	..()
+	. = ..()
 
 /obj/item/weapon/cartridge/detective
 	name = "\improper D.E.T.E.C.T. cartridge"
@@ -112,11 +112,11 @@
 
 /obj/item/weapon/cartridge/signal/initialize()
 	radio = new /obj/item/radio/integrated/signal(src)
-	..()
+	. = ..()
 
 /obj/item/weapon/cartridge/signal/Destroy()
 	qdel(radio)
-	..()
+	return ..()
 
 /obj/item/weapon/cartridge/quartermaster
 	name = "\improper Space Parts & Space Vendors cartridge"
@@ -126,7 +126,7 @@
 
 /obj/item/weapon/cartridge/quartermaster/initialize()
 	radio = new /obj/item/radio/integrated/mule(src)
-	..()
+	. = ..()
 
 /obj/item/weapon/cartridge/head
 	name = "\improper Easy-Record DELUXE"
@@ -142,6 +142,7 @@
 	access_security = 1
 
 /obj/item/weapon/cartridge/hop/initialize()
+	. = ..()
 	radio = new /obj/item/radio/integrated/mule(src)
 
 /obj/item/weapon/cartridge/hos
@@ -152,7 +153,7 @@
 
 /obj/item/weapon/cartridge/hos/initialize()
 	radio = new /obj/item/radio/integrated/beepsky(src)
-	..()
+	. = ..()
 
 /obj/item/weapon/cartridge/ce
 	name = "\improper Power-On DELUXE"
@@ -177,7 +178,7 @@
 
 /obj/item/weapon/cartridge/rd/initialize()
 	radio = new /obj/item/radio/integrated/signal(src)
-	..()
+	. = ..()
 
 /obj/item/weapon/cartridge/captain
 	name = "\improper Value-PAK cartridge"
@@ -217,7 +218,7 @@
 			if(loc)
 				var/obj/item/PDA = loc
 				var/mob/user = PDA.fingerprintslast
-				if(istype(PDA.loc,/mob/living))
+				if(isliving(PDA.loc))
 					name = PDA.loc
 				log_game("STATUS: [key_name(user)] set status screen with [PDA]. Message: [data1] [data2]", src)
 
@@ -500,7 +501,7 @@
 /obj/item/weapon/cartridge/Topic(href, href_list)
 	..()
 
-	if (!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+	if(usr.incapacitated() || !in_range(loc, usr))
 		usr.unset_machine()
 		usr << browse(null, "window=pda")
 		return

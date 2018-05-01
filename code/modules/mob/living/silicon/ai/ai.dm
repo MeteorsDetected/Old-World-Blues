@@ -52,6 +52,7 @@ var/list/ai_verbs_default = list(
 	var/aiRestorePowerRoutine = 0
 	var/viewalerts = 0
 	var/icon/holo_icon//Default is assigned when AI is created.
+	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
 	var/obj/item/device/pda/ai/aiPDA = null
 	var/obj/item/device/multitool/aiMulti = null
 	var/obj/item/device/radio/headset/heads/ai_integrated/aiRadio = null
@@ -95,6 +96,8 @@ var/list/ai_verbs_default = list(
 
 
 
+
+
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	src.verbs |= ai_verbs_default
 	src.verbs |= silicon_subsystems
@@ -102,6 +105,39 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/proc/remove_ai_verbs()
 	src.verbs -= ai_verbs_default
 	src.verbs -= silicon_subsystems
+
+/mob/living/silicon/ai/proc/add_mecha_verbs()
+	verbs += /mob/living/silicon/ai/proc/view_mecha_stats
+	verbs += /mob/living/silicon/ai/proc/AIeject
+
+
+/mob/living/silicon/ai/proc/remove_mecha_verbs()
+	verbs -= /mob/living/silicon/ai/proc/view_mecha_stats
+	verbs -= /mob/living/silicon/ai/proc/AIeject
+
+/mob/living/silicon/ai/proc/view_mecha_stats()
+	set name = "View Stats"
+	set category = "Exosuit Interface"
+	set popup_menu = 0
+	if(controlled_mech)
+		controlled_mech.view_stats()
+
+
+/mob/living/silicon/ai/proc/AIeject()
+	set name = "AI Eject"
+	set category = "Exosuit Interface"
+	set popup_menu = 0
+	if(controlled_mech)
+		controlled_mech.AIeject()
+
+
+/mob/living/silicon/ai/MiddleClickOn(var/atom/A)
+    if(!control_disabled && A.AIMiddleClick(src))
+        return
+    if(controlled_mech) //Are we piloting a mech? Placed here so the modifiers are not overridden.
+        controlled_mech.click_action(A, src) //Override AI normal click behavior.  , params
+        return
+    ..()
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/device/mmi/B, var/safety = 0)
 	announcement = new()
@@ -363,7 +399,7 @@ var/list/ai_verbs_default = list(
 	if(!input)
 		return
 	Centcomm_announce(input, usr)
-	usr << "<span class='notice'>Message transmitted.</span>"
+	usr << SPAN_NOTE("Message transmitted.")
 	log_say("[key_name(usr)] has made an IA Centcomm announcement: [input]")
 	emergency_message_cooldown = 1
 	spawn(300)
@@ -405,7 +441,7 @@ var/list/ai_verbs_default = list(
 			if(H)
 				H.attack_ai(src) //may as well recycle
 			else
-				src << "<span class='notice'>Unable to locate the holopad.</span>"
+				src << SPAN_NOTE("Unable to locate the holopad.")
 
 	if (href_list["track"])
 		var/mob/target = locate(href_list["track"]) in mob_list
@@ -430,14 +466,18 @@ var/list/ai_verbs_default = list(
 	return
 
 /mob/living/silicon/ai/reset_view(atom/A)
+	if(controlled_mech)
+		return ..(controlled_mech)
 	if(camera)
 		camera.set_light(0)
 	if(istype(A,/obj/machinery/camera))
 		camera = A
 	..()
 	if(istype(A,/obj/machinery/camera))
-		if(camera_light_on)	A.set_light(AI_CAMERA_LUMINOSITY)
-		else				A.set_light(0)
+		if(camera_light_on)
+			A.set_light(AI_CAMERA_LUMINOSITY)
+		else
+			A.set_light(0)
 
 
 /mob/living/silicon/ai/proc/switchCamera(var/obj/machinery/camera/C)
@@ -498,7 +538,7 @@ var/list/ai_verbs_default = list(
 		if(network in C.network)
 			eyeobj.setLoc(get_turf(C))
 			break
-	src << "\blue Switched to [network] camera network."
+	src << SPAN_NOTE("Switched to [network] camera network.")
 //End of code by Mord_Sith
 
 /mob/living/silicon/ai/proc/ai_statuschange()
@@ -609,19 +649,19 @@ var/list/ai_verbs_default = list(
 
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(anchored)
-			user.visible_message("\blue \The [user] starts to unbolt \the [src] from the plating...")
+			user.visible_message(SPAN_NOTE("\The [user] starts to unbolt \the [src] from the plating..."))
 			if(!do_after(user,40))
-				user.visible_message("\blue \The [user] decides not to unbolt \the [src].")
+				user.visible_message(SPAN_NOTE("\The [user] decides not to unbolt \the [src]."))
 				return
-			user.visible_message("\blue \The [user] finishes unfastening \the [src]!")
+			user.visible_message(SPAN_NOTE("\The [user] finishes unfastening \the [src]!"))
 			anchored = 0
 			return
 		else
-			user.visible_message("\blue \The [user] starts to bolt \the [src] to the plating...")
+			user.visible_message(SPAN_NOTE("\The [user] starts to bolt \the [src] to the plating..."))
 			if(!do_after(user,40))
-				user.visible_message("\blue \The [user] decides not to bolt \the [src].")
+				user.visible_message(SPAN_NOTE("\The [user] decides not to bolt \the [src]."))
 				return
-			user.visible_message("\blue \The [user] finishes fastening down \the [src]!")
+			user.visible_message(SPAN_NOTE("\The [user] finishes fastening down \the [src]!"))
 			anchored = 1
 			return
 	else
@@ -757,7 +797,7 @@ var/list/ai_verbs_default = list(
 		return
 	if(hardware_integrity() < 50)
 		if(!shutup)
-			src << "<span class='notice'>Starting APU... <b>FAULT</b>(System Damaged)</span>"
+			src << SPAN_NOTE("Starting APU... <b>FAULT</b>(System Damaged)")
 		return
 	if(!shutup)
 		src << "Starting APU... ONLINE"

@@ -27,7 +27,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!istype(usr, /mob/living)) //ew ew ew usr, but it's the only way to check.
+	if(!isliving(usr)) //ew ew ew usr, but it's the only way to check.
 		return
 
 	if( state != 4 )
@@ -87,7 +87,7 @@
 /obj/machinery/washing_machine/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	/*if(istype(W,/obj/item/weapon/screwdriver))
 		panel = !panel
-		user << "\blue you [panel ? "open" : "close"] the [src]'s maintenance panel"*/
+		user << SPAN_NOTE("you [panel ? "open" : "close"] the [src]'s maintenance panel")*/
 	if(istype(W,/obj/item/weapon/pen/crayon) || istype(W,/obj/item/weapon/stamp))
 		if( state in list(	1, 3, 6 ) )
 			if(!crayon)
@@ -152,9 +152,9 @@
 				user.drop_from_inventory(W, src)
 				state = 3
 			else
-				user << "\blue You can't put the item in right now."
+				user << SPAN_NOTE("You can't put the item in right now.")
 		else
-			user << "\blue The washing machine is full."
+			user << SPAN_NOTE("The washing machine is full.")
 	else
 		..()
 	update_icon()

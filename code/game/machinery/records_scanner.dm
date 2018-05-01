@@ -1,5 +1,5 @@
 //not a computer
-obj/machinery/scanner
+/obj/machinery/scanner
 	name = "Identity Analyser"
 	var/outputdir = 0
 	icon = 'icons/obj/stationobjs.dmi'
@@ -8,7 +8,7 @@ obj/machinery/scanner
 	anchored = 1
 	var/lastuser = null
 
-obj/machinery/scanner/New()
+/obj/machinery/scanner/New()
 	if(!outputdir)
 		switch(dir)
 			if(1)
@@ -27,15 +27,13 @@ obj/machinery/scanner/New()
 		return
 	use_power(50)
 
-/obj/machinery/scanner/power_change()
-	..()
+/obj/machinery/scanner/update_icon()
 	if(stat & NOPOWER)
-		spawn(rand(0, 15))
-			icon_state = "scanner_off"
+		icon_state = "scanner_off"
 	else
 		icon_state = "scanner_idle"
 
-obj/machinery/scanner/attack_hand(mob/living/carbon/human/user)
+/obj/machinery/scanner/attack_hand(mob/living/carbon/human/user)
 	if(stat & NOPOWER)
 		return
 	if(!ishuman(user) || lastuser == user.real_name)
@@ -70,7 +68,7 @@ obj/machinery/scanner/attack_hand(mob/living/carbon/human/user)
 	<b><u>Black Marks</u></b>:<br> "}
 	for(var/A in marks)
 		text += "\red[A]<br>"
-	user << "\blue You feel a sting as the scanner extracts some of your blood."
+	user << SPAN_NOTE("You feel a sting as the scanner extracts some of your blood.")
 	var/turf/T = get_step(src,outputdir)
 	var/obj/item/weapon/paper/print = new(T)
 	print.name = "[mname] Report"

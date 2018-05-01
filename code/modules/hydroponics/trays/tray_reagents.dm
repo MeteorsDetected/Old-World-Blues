@@ -57,8 +57,8 @@
 	flags = CONDUCT | NOBLUDGEON
 	force = 5.0
 	throwforce = 7.0
-	w_class = 2.0
-	matter = list(DEFAULT_WALL_MATERIAL = 50)
+	w_class = ITEM_SIZE_SMALL
+	matter = list(MATERIAL_STEEL = 50)
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
 
 
@@ -105,32 +105,24 @@
 	icon_state = "bottle16"
 	flags = OPENCONTAINER
 	possible_transfer_amounts = null
-	w_class = 2.0
+	w_class = ITEM_SIZE_SMALL
 	randpixel = 5
-
-	var/fertilizer //Reagent contained, if any.
 
 	//Like a shot glass!
 	amount_per_transfer_from_this = 10
 	volume = 10
 
-/obj/item/weapon/reagent_containers/glass/fertilizer/New()
-	..()
-
-	if(fertilizer)
-		reagents.add_reagent(fertilizer,10)
-
 /obj/item/weapon/reagent_containers/glass/fertilizer/ez
 	name = "bottle of E-Z-Nutrient"
 	icon_state = "bottle16"
-	fertilizer = "eznutrient"
+	preloaded = list("eznutrient" = 10)
 
 /obj/item/weapon/reagent_containers/glass/fertilizer/l4z
 	name = "bottle of Left 4 Zed"
 	icon_state = "bottle18"
-	fertilizer = "left4zed"
+	preloaded = list("left4zed" = 10)
 
 /obj/item/weapon/reagent_containers/glass/fertilizer/rh
 	name = "bottle of Robust Harvest"
 	icon_state = "bottle15"
-	fertilizer = "robustharvest"
+	preloaded = list("robustharvest" = 10)

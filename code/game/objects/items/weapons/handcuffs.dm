@@ -11,7 +11,7 @@
 	throw_speed = 2
 	throw_range = 5
 	origin_tech = list(TECH_MATERIAL = 1)
-	matter = list(DEFAULT_WALL_MATERIAL = 500)
+	matter = list(MATERIAL_STEEL = 500)
 	var/dispensed_type = 0
 	var/breakouttime = 1200 //Deciseconds = 120s = 2 minutes
 	var/cuff_sound = 'sound/weapons/handcuffs.ogg'
@@ -58,7 +58,7 @@
 
 		//check for an aggressive grab (or robutts)
 		var/can_place
-		if(istype(user, /mob/living/silicon/robot))
+		if(isrobot(user))
 			can_place = 1
 		else
 			for (var/obj/item/weapon/grab/G in C.grabbed_by)
@@ -211,7 +211,7 @@
 /*
 /obj/item/weapon/handcuffs/tape_dispenser
 	name = "tape restraints"
-	cuff_sound = 'sound/weapons/tapecuff.wav'
+	cuff_sound = 'sound/weapons/tapecuff.ogg'
 	desc = "A few pieces of tape glued together. It looks unreliable."
 	icon_state = "tapecuffs"
 	dispensed_type = /obj/item/weapon/handcuffs/tape

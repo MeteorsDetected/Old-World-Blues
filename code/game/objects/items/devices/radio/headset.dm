@@ -4,7 +4,7 @@
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
-	matter = list(DEFAULT_WALL_MATERIAL = 75)
+	matter = list(MATERIAL_STEEL = 75)
 	subspace_transmission = 1
 	canhear_range = 0 // can't hear headsets from very far away
 
@@ -19,8 +19,8 @@
 	var/ks1type = /obj/item/device/encryptionkey
 	var/ks2type = null
 
-/obj/item/device/radio/headset/New()
-	..()
+/obj/item/device/radio/headset/initialize()
+	. = ..()
 	if(ks1type)
 		keyslot1 = new ks1type(src)
 	if(ks2type)

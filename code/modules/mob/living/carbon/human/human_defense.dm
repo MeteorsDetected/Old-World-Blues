@@ -159,10 +159,10 @@ emp_act
 		if(!O)	continue
 		O.emp_act(severity)
 	for(var/obj/item/organ/external/O  in organs)
-		if(O.status & ORGAN_DESTROYED)	continue
 		O.emp_act(severity)
 		for(var/obj/item/organ/internal/I  in O.internal_organs)
-			if(I.robotic == 0)	continue
+			if(!I.robotic)
+				continue
 			I.emp_act(severity)
 	..()
 
@@ -181,7 +181,7 @@ emp_act
 
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 
-	if (!affecting || (affecting.status & ORGAN_DESTROYED) || affecting.is_stump())
+	if (!affecting || affecting.is_stump())
 		user << "<span class='danger'>They are missing that limb!</span>"
 		return
 
@@ -286,7 +286,7 @@ emp_act
 		var/throw_damage = O.throwforce*(speed/THROWFORCE_SPEED_DIVISOR)
 
 		var/zone
-		if (istype(O.thrower, /mob/living))
+		if (isliving(O.thrower))
 			var/mob/living/L = O.thrower
 			zone = check_zone(L.zone_sel.selecting)
 		else
@@ -300,7 +300,7 @@ emp_act
 		zone = get_zone_with_miss_chance(zone, src, miss_chance, ranged_attack=1)
 
 		if(!zone)
-			visible_message("\blue \The [O] misses [src] narrowly!")
+			visible_message(SPAN_NOTE("\The [O] misses [src] narrowly!"))
 			return
 
 		O.throwing = 0		//it hit, so stop moving

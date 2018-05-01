@@ -65,7 +65,7 @@ for reference:
 /obj/structure/barricade/New(var/newloc, var/material_name)
 	..(newloc)
 	if(!material_name)
-		material_name = "wood"
+		material_name = MATERIAL_WOOD
 	material = get_material_by_name("[material_name]")
 	if(!material)
 		qdel(src)
@@ -82,17 +82,19 @@ for reference:
 /obj/structure/barricade/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/stack))
 		var/obj/item/stack/D = W
+		//hitting things with the wrong type of stack usually doesn't produce messages,
+		// and probably doesn't need to.
 		if(D.get_material_name() != material.name)
-			return //hitting things with the wrong type of stack usually doesn't produce messages, and probably doesn't need to.
+			return
 		if(health < maxhealth)
 			if(D.get_amount() < 1)
-				user << "<span class='warning'>You need one sheet of [material.display_name] to repair \the [src].</span>"
+				user << SPAN_WARN("You need one sheet of [material.display_name] to repair \the [src].")
 				return
-			visible_message("<span class='notice'>[user] begins to repair \the [src].</span>")
-			if(do_after(user,20) && health < maxhealth)
+			visible_message(SPAN_NOTE("[user] begins to repair \the [src]."))
+			if(do_after(user,20,src) && health < maxhealth)
 				if(D.use(1))
 					health = maxhealth
-					visible_message("<span class='notice'>[user] repairs \the [src].</span>")
+					visible_message(SPAN_NOTE("[user] repairs \the [src]."))
 				return
 		return
 	else
@@ -140,7 +142,8 @@ for reference:
 		qdel(src)
 	return
 
-/obj/structure/barricade/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)//So bullets will fly over and stuff.
+//So bullets will fly over and stuff.
+/obj/structure/barricade/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(air_group || (height==0))
 		return 1
 	if(istype(mover) && mover.checkpass(PASSTABLE))
@@ -167,9 +170,8 @@ for reference:
 	var/locked = 0.0
 //	req_access = list(access_maint_tunnels)
 
-/obj/machinery/deployable/barrier/New()
-	..()
-
+/obj/machinery/deployable/barrier/initialize()
+	. = ..()
 	icon_state = "barrier[locked]"
 
 /obj/machinery/deployable/barrier/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -245,7 +247,8 @@ for reference:
 		src.explode()
 	return
 
-/obj/machinery/deployable/barrier/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)//So bullets will fly over and stuff.
+//So bullets will fly over and stuff.
+/obj/machinery/deployable/barrier/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(air_group || (height==0))
 		return 1
 	if(istype(mover) && mover.checkpass(PASSTABLE))

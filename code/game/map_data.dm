@@ -30,6 +30,7 @@ var/datum/maps_data/maps_data = new
 /proc/max_default_z_level()
 	return maps_data.all_levels.len
 
+ADMIN_VERB_ADD(/client/proc/test_MD, R_DEBUG)
 /client/proc/test_MD()
 	set name = "Test Map Markers"
 	set category = "Debug"
@@ -111,6 +112,11 @@ var/datum/maps_data/maps_data = new
 	is_admin_level = 1
 	is_accessable_level = 0
 
+/obj/map_data/telecomm
+	name = "Telecomm level"
+	is_player_level = 1
+	is_accessable_level = 1
+
 /obj/map_data/asteroid
 	name = "Asteroid Level"
 	is_player_level = 1
@@ -120,7 +126,6 @@ var/datum/maps_data/maps_data = new
 /obj/map_data/finds
 	name = "Overmap finds Level"
 	is_overmap_finds = 1
-	is_player_level = 1
 	is_accessable_level = 1
 
 /obj/map_data/New()

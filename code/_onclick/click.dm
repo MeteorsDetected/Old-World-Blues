@@ -82,7 +82,7 @@
 		CtrlClickOn(A)
 		return 1
 
-	if(stat || paralysis || stunned || weakened)
+	if(incapacitated(INCAPACITATION_DISABLED))
 		return
 
 	face_atom(A) // change direction to face what you clicked on

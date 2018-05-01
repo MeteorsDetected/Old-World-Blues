@@ -41,7 +41,7 @@ var/datum/admin_secrets/admin_secrets = new()
 	var/name = ""
 	var/category = null
 	var/log = 1
-	var/permissions = R_HOST
+	var/permissions = R_ADMIN
 
 /datum/admin_secret_item/proc/name()
 	return name
@@ -423,45 +423,6 @@ var/datum/admin_secrets/admin_secrets = new()
 	log_and_message_admins("[key_name_admin(usr)] moved the [shuttle_tag] shuttle", user)
 
 
-/datum/admin_secret_item/admin_secret/prison_warp
-	name = "Prison Warp"
-
-/datum/admin_secret_item/admin_secret/prison_warp/can_execute(var/mob/user)
-	if(!ticker) return 0
-	return ..()
-
-/datum/admin_secret_item/admin_secret/prison_warp/execute(var/mob/user)
-	. = ..()
-	if(!.)
-		return
-	for(var/mob/living/carbon/human/H in mob_list)
-		var/security = 0
-		if(isOnAdminLevel(H) || prisonwarped.Find(H))
-		//don't warp them if they aren't ready or are already there
-			continue
-		H.Paralyse(5)
-		if(H.wear_id)
-			var/obj/item/weapon/card/id/id = H.get_idcard()
-			for(var/A in id.access)
-				if(A == access_security)
-					security++
-		if(!security)
-			//strip their stuff before they teleport into a cell :downs:
-			for(var/obj/item/weapon/W in H)
-				if(istype(W, /obj/item/organ/external))
-					continue
-					//don't strip organs
-				H.drop_from_inventory(W)
-			//teleport person to cell
-			H.loc = pick(prisonwarp)
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), slot_w_uniform)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), slot_shoes)
-		else
-			//teleport security person
-			H.loc = pick(prisonsecuritywarp)
-		prisonwarped += H
-
-
 /datum/admin_secret_item/fun_secret/break_all_lights
 	name = "Break All Lights"
 
@@ -509,16 +470,6 @@ var/datum/admin_secrets/admin_secrets = new()
 	. = ..()
 	if(.)
 		power_failure()
-
-
-/datum/admin_secret_item/fun_secret/only_one
-	name = "There Can Be Only One"
-
-/datum/admin_secret_item/fun_secret/only_one/execute(var/mob/user)
-	. = ..()
-	if(.)
-		only_one()
-
 
 
 /datum/admin_secret_item/fun_secret/power_all_smes

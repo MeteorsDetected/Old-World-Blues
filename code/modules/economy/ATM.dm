@@ -34,8 +34,8 @@ log transactions
 	var/view_screen = NO_SCREEN
 	var/datum/effect/effect/system/spark_spread/spark_system
 
-/obj/machinery/atm/New()
-	..()
+/obj/machinery/atm/initialize()
+	. = ..()
 	machine_id = "[station_name()] RT #[num_financial_terminals++]"
 	spark_system = new /datum/effect/effect/system/spark_spread
 	spark_system.set_up(5, 0, src)
@@ -304,7 +304,7 @@ log transactions
 						T.time = worldtime2text()
 						authenticated_account.transaction_log.Add(T)
 
-						usr << "\blue \icon[src] Access granted. Welcome user '[authenticated_account.owner_name].'"
+						usr << SPAN_NOTE("\icon[src] Access granted. Welcome user '[authenticated_account.owner_name].'")
 
 					previous_account_number = tried_account_num
 			if("e_withdrawal")
@@ -456,7 +456,7 @@ log transactions
 			if(I)
 				authenticated_account = attempt_account_access(I.associated_account_number)
 				if(authenticated_account)
-					human_user << "\blue \icon[src] Access granted. Welcome user '[authenticated_account.owner_name].'"
+					human_user << SPAN_NOTE("\icon[src] Access granted. Welcome user '[authenticated_account.owner_name].'")
 
 					//create a transaction log entry
 					var/datum/transaction/T = new()

@@ -81,8 +81,8 @@
 	var/showing_ids = 0
 	var/coding_help = 1
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		for (var/type in typesof(/datum/instrument))
 			var/datum/instrument/new_instrument = new type
 			if (!new_instrument.id) continue
@@ -94,20 +94,20 @@
 		if (istype(O, /obj/item/weapon/wrench))
 			if (!anchored && !isinspace())
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-				user << "<span class='notice'> You begin to tighten \the [src] to the floor...</span>"
+				user << SPAN_NOTE(" You begin to tighten \the [src] to the floor...")
 				if (do_after(user, 20))
 					user.visible_message( \
 						"[user] tightens \the [src]'s casters.", \
-						"<span class='notice'> You tighten \the [src]'s casters. Now it can be played again.</span>", \
+						SPAN_NOTE(" You tighten \the [src]'s casters. Now it can be played again."), \
 						"<span class='italics'>You hear ratchet.</span>")
 					anchored = 1
 			else if(anchored)
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-				user << "<span class='notice'> You begin to loosen \the [src]'s casters...</span>"
+				user << SPAN_NOTE(" You begin to loosen \the [src]'s casters...")
 				if (do_after(user, 40))
 					user.visible_message( \
 						"[user] loosens \the [src]'s casters.", \
-						"<span class='notice'> You loosen \the [src]. Now it can be pulled somewhere else.</span>", \
+						SPAN_NOTE(" You loosen \the [src]. Now it can be pulled somewhere else."), \
 						"<span class='italics'>You hear ratchet.</span>")
 					anchored = 0
 		else

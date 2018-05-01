@@ -96,7 +96,7 @@
 	allowed = list( /obj/item/weapon/gun,/obj/item/ammo_magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton, \
 					/obj/item/weapon/handcuffs,/obj/item/weapon/tank/emergency_oxygen)
 	slowdown = 1
-	w_class = 5
+	w_class = ITEM_SIZE_HUGE
 	armor = list(melee = 80, bullet = 60, laser = 50,energy = 25, bomb = 50, bio = 100, rad = 100)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
@@ -160,10 +160,10 @@
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user as mob)
 	src.active = !( src.active )
 	if (src.active)
-		user << "\blue The reactive armor is now active."
+		user << SPAN_NOTE("The reactive armor is now active.")
 		src.icon_state = "reactive"
 	else
-		user << "\blue The reactive armor is now inactive."
+		user << SPAN_NOTE("The reactive armor is now inactive.")
 		src.icon_state = "reactiveoff"
 		src.add_fingerprint(user)
 	return
@@ -193,8 +193,11 @@
 	set name = "Holster"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat) return
+
+	if(!isliving(usr))
+		return
+	if(usr.incapacitated())
+		return
 
 	if(!holster.holstered)
 		var/obj/item/W = usr.get_active_hand()
@@ -368,7 +371,7 @@
 	icon_nobadge = "secheavyvest_nobadge"
 	armor = list(melee = 65, bullet = 55, laser = 65, energy = 50, bomb = 55, bio = 0, rad = 0)
 	slowdown = 2
-	w_class = 4
+	w_class = ITEM_SIZE_LARGE
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
 /obj/item/clothing/suit/storage/vest/heavy/securitymedium
@@ -380,7 +383,7 @@
 	icon_nobadge = "secmediumvest_nobadge"
 	armor = list(melee = 60, bullet = 45, laser = 50, energy = 40, bomb = 40, bio = 0, rad = 0)
 	slowdown = 1
-	w_class = 4
+	w_class = ITEM_SIZE_LARGE
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/suit/storage/vest/heavy/warden

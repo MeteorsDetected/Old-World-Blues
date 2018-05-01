@@ -11,8 +11,9 @@
 	var/obj/item/weapon/toppaper	//The topmost piece of paper.
 	slot_flags = SLOT_BELT
 
-/obj/item/weapon/clipboard/New()
+/obj/item/weapon/clipboard/initialize()
 	update_icon()
+	return ..()
 
 /obj/item/weapon/clipboard/MouseDrop(obj/over_object as obj) //Quick clipboard fix. -Agouri
 	if(src.loc != over_object && !Adjacent(over_object) ) return 0
@@ -36,7 +37,7 @@
 		user.drop_from_inventory(W, src)
 		if(istype(W, /obj/item/weapon/paper))
 			toppaper = W
-		user << "<span class='notice'>You clip the [W] onto \the [src].</span>"
+		user << SPAN_NOTE("You clip the [W] onto \the [src].")
 		update_icon()
 
 	else if(istype(W, /obj/item/weapon/pen))
@@ -44,7 +45,7 @@
 			usr.drop_from_inventory(W, src)
 			W.loc = src
 			haspen = W
-			usr << "<span class='notice'>You slot the pen into \the [src].</span>"
+			usr << SPAN_NOTE("You slot the pen into \the [src].")
 
 	else if(istype(toppaper) && istype(W, /obj/item/weapon/pen))
 		toppaper.attackby(W, usr)
@@ -78,7 +79,7 @@
 
 /obj/item/weapon/clipboard/Topic(href, href_list)
 	..()
-	if((usr.stat || usr.restrained()))
+	if(usr.incapacitated())
 		return
 
 	if( (src.loc == usr) || (src.loc.Adjacent(usr)) )
@@ -152,7 +153,7 @@
 			var/obj/item/P = locate(href_list["top"])
 			if(P && (P.loc == src) && istype(P, /obj/item/weapon/paper) )
 				toppaper = P
-				usr << "<span class='notice'>You move [P.name] to the top.</span>"
+				usr << SPAN_NOTE("You move [P.name] to the top.")
 
 		//Update everything
 		attack_self(usr)

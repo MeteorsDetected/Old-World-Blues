@@ -3,7 +3,7 @@
 /obj/machinery/computer/message_monitor
 	name = "messaging monitor console"
 	desc = "Used to access and maintain data on messaging servers. Allows you to view PDA and request console messages."
-	icon_state = "comm_logs"
+	screen_icon = "comm_logs"
 	light_color = "#00b000"
 	var/hack_icon = "comm_logsc"
 	var/normal_icon = "comm_logs"
@@ -15,13 +15,13 @@
 	//Messages - Saves me time if I want to change something.
 	var/noserver = "<span class='alert'>ALERT: No server detected.</span>"
 	var/incorrectkey = "<span class='warning'>ALERT: Incorrect decryption key!</span>"
-	var/defaultmsg = "<span class='notice'>Welcome. Please select an option.</span>"
+	var/defaultmsg = "Welcome. Please select an option."
 	var/rebootmsg = "<span class='warning'>%$&(£: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!</span>"
 	//Computer properties
 	var/screen = 0 		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
 	var/hacking = 0		// Is it being hacked into by the AI/Cyborg
 	var/emag = 0		// When it is emagged.
-	var/message = "<span class='notice'>System bootup complete. Please select an option.</span>"	// The message that shows on the main menu.
+	var/message = "System bootup complete. Please select an option."	// The message that shows on the main menu.
 	var/auth = 0 // Are they authenticated?
 	var/optioncount = 8
 	// Custom Message Properties
@@ -63,23 +63,26 @@
 			update_icon()
 			return 1
 		else
-			user << "<span class='notice'>A no server error appears on the screen.</span>"
+			user << SPAN_NOTE("A no server error appears on the screen.")
 
 /obj/machinery/computer/message_monitor/update_icon()
+	if( !(stat & (NOPOWER|BROKEN)) )
+		if(emag || hacking)
+			screen_icon = hack_icon
+		else
+			screen_icon = normal_icon
 	..()
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(emag || hacking)
-		icon_state = hack_icon
-	else
-		icon_state = normal_icon
 
 /obj/machinery/computer/message_monitor/initialize()
+	. = ..()
+	if(. != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/message_monitor/lateInitialize()
 	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
 	if(!linkedServer)
 		if(message_servers && message_servers.len > 0)
 			linkedServer = message_servers[1]
-	return
 
 /obj/machinery/computer/message_monitor/attack_hand(var/mob/living/user as mob)
 	if(stat & (NOPOWER|BROKEN))
@@ -91,7 +94,7 @@
 		message = rebootmsg
 	var/dat = "<head><title>Message Monitor Console</title></head><body>"
 	dat += "<center><h2>Message Monitor Console</h2></center><hr>"
-	dat += "<center><h4><font color='blue'[message]</h5></center>"
+	dat += "<center><h4>[SPAN_NOTE(message)]</h4></center>"
 
 	if(auth)
 		dat += "<h4><dd><A href='?src=\ref[src];auth=1'>&#09;<font color='green'>\[Authenticated\]</font></a>&#09;/"
@@ -126,17 +129,18 @@
 			else
 				for(var/n = ++i; n <= optioncount; n++)
 					dat += "<dd><font color='blue'>&#09;[n]. ---------------</font><br></dd>"
-			if((isAI(user) || istype(user, /mob/living/silicon/robot)) && (user.mind.special_role && user.mind.original == user))
+			if((isAI(user) || isrobot(user)) && (user.mind.special_role && user.mind.original == user))
 				//Malf/Traitor AIs can bruteforce into the system to gain the Key.
 				dat += "<dd><A href='?src=\ref[src];hack=1'><i><font color='Red'>*&@#. Bruteforce Key</font></i></font></a><br></dd>"
 			else
 				dat += "<br>"
 
 			//Bottom message
+			dat += "<br><hr><dd>"
 			if(!auth)
-				dat += "<br><hr><dd><span class='notice'>Please authenticate with the server in order to show additional options.</span>"
+				dat += SPAN_NOTE("Please authenticate with the server in order to show additional options.")
 			else
-				dat += "<br><hr><dd><span class='warning'>Reg, #514 forbids sending messages to a Head of Staff containing Erotic Rendering Properties.</span>"
+				dat += "<span class='warning'>Reg, #514 forbids sending messages to a Head of Staff containing Erotic Rendering Properties.</span>"
 
 		//Message Logs
 		if(1)
@@ -156,7 +160,7 @@
 			dat += "</table>"
 		//Hacking screen.
 		if(2)
-			if(isAI(user) || istype(user, /mob/living/silicon/robot))
+			if(isAI(user) || isrobot(user))
 				dat += "Brute-forcing for server key.<br> It will take 20 seconds for every character that the password has."
 				dat += "In the meantime, this console can reveal your true intentions if you let someone access it. Make sure no humans enter the room during that time."
 			else
@@ -256,7 +260,7 @@
 
 
 	dat += "</body>"
-	message = defaultmsg
+	message = SPAN_NOTE(defaultmsg)
 	user << browse(dat, "window=message;size=700x700")
 	onclose(user, "message")
 	return
@@ -289,7 +293,7 @@
 		return 1
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if(!istype(usr, /mob/living))
+	if(!isliving(usr))
 		return
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
 		//Authenticate
@@ -315,7 +319,7 @@
 				message = "<span class='alert'>NOTICE: Server selected.</span>"
 			else if(message_servers && message_servers.len > 0)
 				linkedServer = message_servers[1]
-				message =  "<span class='notice'>NOTICE: Only Single Server Detected - Server selected.</span>"
+				message =  SPAN_NOTE("NOTICE: Only Single Server Detected - Server selected.")
 			else
 				message = noserver
 
@@ -334,7 +338,7 @@
 			else
 				if(auth)
 					src.linkedServer.pda_msgs = list()
-					message = "<span class='notice'>NOTICE: Logs cleared.</span>"
+					message = SPAN_NOTE("NOTICE: Logs cleared.")
 		//Clears the request console logs - KEY REQUIRED
 		if (href_list["clearr"])
 			if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
@@ -342,7 +346,7 @@
 			else
 				if(auth)
 					src.linkedServer.rc_msgs = list()
-					message = "<span class='notice'>NOTICE: Logs cleared.</span>"
+					message = SPAN_NOTE("NOTICE: Logs cleared.")
 		//Change the password - KEY REQUIRED
 		if (href_list["pass"])
 			if(!linkedServer || (src.linkedServer.stat & (NOPOWER|BROKEN)))
@@ -354,18 +358,18 @@
 						if(src.linkedServer.decryptkey == dkey)
 							var/newkey = trim(input(usr,"Please enter the new key (3 - 16 characters max):"))
 							if(length(newkey) <= 3)
-								message = "<span class='notice'>NOTICE: Decryption key too short!</span>"
+								message = SPAN_NOTE("NOTICE: Decryption key too short!")
 							else if(length(newkey) > 16)
-								message = "<span class='notice'>NOTICE: Decryption key too long!</span>"
+								message = SPAN_NOTE("NOTICE: Decryption key too long!")
 							else if(newkey && newkey != "")
 								src.linkedServer.decryptkey = newkey
-							message = "<span class='notice'>NOTICE: Decryption key set.</span>"
+							message = SPAN_NOTE("NOTICE: Decryption key set.")
 						else
 							message = incorrectkey
 
 		//Hack the Console to get the password
 		if (href_list["hack"])
-			if((isAI(usr) || istype(usr, /mob/living/silicon/robot)) && (usr.mind.special_role && usr.mind.original == usr))
+			if((isAI(usr) || isrobot(usr)) && (usr.mind.special_role && usr.mind.original == usr))
 				src.hacking = 1
 				src.screen = 2
 				src.icon_state = hack_icon
@@ -381,7 +385,7 @@
 					message = noserver
 				else //if(istype(href_list["delete"], /datum/data_pda_msg))
 					src.linkedServer.pda_msgs -= locate(href_list["delete"])
-					message = "<span class='notice'>NOTICE: Log Deleted!</span>"
+					message = SPAN_NOTE("NOTICE: Log Deleted!")
 		//Delete the request console log.
 		if (href_list["deleter"])
 			//Are they on the view logs screen?
@@ -390,7 +394,7 @@
 					message = noserver
 				else //if(istype(href_list["delete"], /datum/data_pda_msg))
 					src.linkedServer.rc_msgs -= locate(href_list["deleter"])
-					message = "<span class='notice'>NOTICE: Log Deleted!</span>"
+					message = SPAN_NOTE("NOTICE: Log Deleted!")
 		//Create a custom message
 		if (href_list["msg"])
 			if(src.linkedServer == null || (src.linkedServer.stat & (NOPOWER|BROKEN)))
@@ -442,11 +446,11 @@
 							customsender = "UNKNOWN"
 
 						if(isnull(customrecepient))
-							message = "<span class='notice'>NOTICE: No recepient selected!</span>"
+							message = SPAN_NOTE("NOTICE: No recepient selected!")
 							return src.attack_hand(usr)
 
 						if(isnull(custommessage) || custommessage == "")
-							message = "<span class='notice'>NOTICE: No message entered!</span>"
+							message = SPAN_NOTE("NOTICE: No message entered!")
 							return src.attack_hand(usr)
 
 						var/obj/item/device/pda/PDARec = null
@@ -510,16 +514,18 @@
 /obj/item/weapon/paper/monitorkey
 	//..()
 	name = "Monitor Decryption Key"
-	var/obj/machinery/message_server/server = null
 
-/obj/item/weapon/paper/monitorkey/New()
-	..()
-	spawn(10)
-		if(message_servers)
-			for(var/obj/machinery/message_server/server in message_servers)
-				if(!isnull(server))
-					if(!isnull(server.decryptkey))
-						info = "<center><h2>Daily Key Reset</h2></center><br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
-						info_links = info
-						icon_state = "paper_words"
-						break
+/obj/item/weapon/paper/monitorkey/initialize()
+	. = ..()
+	if(. != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/item/weapon/paper/monitorkey/lateInitialize()
+	if(message_servers)
+		for(var/obj/machinery/message_server/server in message_servers)
+			if(!isnull(server))
+				if(!isnull(server.decryptkey))
+					info = "<center><h2>Daily Key Reset</h2></center><br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
+					info_links = info
+					icon_state = "paper_words"
+					break

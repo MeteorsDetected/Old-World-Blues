@@ -413,7 +413,7 @@ var/global/datum/controller/occupations/job_master
 					if(G.slot in list(slot_wear_mask,  slot_wear_suit, slot_head))
 						custom_equip_leftovers.Add(I)
 					else if(H.equip_to_slot_if_possible(I, G.slot))
-						H << "<span class='notice'>Equipping you with [I]!</span>"
+						H << SPAN_NOTE("Equipping you with [I]!")
 						custom_equip_slots.Add(G.slot)
 					else
 						custom_equip_leftovers.Add(I)
@@ -428,7 +428,7 @@ var/global/datum/controller/occupations/job_master
 		//If some custom items could not be equipped before, try again now.
 		for(var/obj/item/I in custom_equip_leftovers)
 			if(H.equip_to_appropriate_slot(I))
-				H << "<span class='notice'>Equipping you with \the [I]!</span>"
+				H << SPAN_NOTE("Equipping you with \the [I]!")
 			else
 				put_in_storage.Add(I)
 
@@ -461,13 +461,13 @@ var/global/datum/controller/occupations/job_master
 				H << "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no arms and no backpack or this is a bug.</span>"
 			else
 				for(var/obj/item/I in put_in_storage)
-					H << "<span class='notice'>Placing \the [I] in your [B.name]!</span>"
+					H << SPAN_NOTE("Placing \the [I] in your [B.name]!")
 					B.handle_item_insertion(I, 1)
 					I.forceMove(B)
 
 		if(istype(H) && !H.buckled) //give humans wheelchairs, if they need them.
 			if(!H.get_organ(BP_L_FOOT) && !H.get_organ(BP_R_FOOT))
-				var/obj/structure/bed/chair/wheelchair/W = new (H.loc)
+				var/obj/structure/material/chair/wheelchair/W = new (H.loc)
 				W.set_dir(H.dir)
 				W.buckle_mob(H)
 				W.add_fingerprint(H)
@@ -513,7 +513,7 @@ var/global/datum/controller/occupations/job_master
 		if(istype(S, /obj/effect/landmark/start) && istype(S.loc, /turf))
 			H.loc = S.loc
 		// Moving wheelchair if they have one
-		if(H.buckled && istype(H.buckled, /obj/structure/bed/chair/wheelchair))
+		if(H.buckled && istype(H.buckled, /obj/structure/material/chair/wheelchair))
 			H.buckled.loc = H.loc
 			H.buckled.set_dir(H.dir)
 

@@ -35,8 +35,8 @@
 		qdel(src)
 
 /obj/effect/mine/proc/triggerstun(obj)
-	if(ismob(obj))
-		var/mob/M = obj
+	if(isliving(obj))
+		var/mob/living/M = obj
 		M.Stun(30)
 	var/datum/effect/effect/system/spark_spread/s = PoolOrNew(/datum/effect/effect/system/spark_spread)
 	s.set_up(3, 1, src)

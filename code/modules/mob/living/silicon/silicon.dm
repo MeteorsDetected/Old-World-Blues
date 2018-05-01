@@ -91,7 +91,7 @@
 	return 0
 
 /mob/living/silicon/blob_act()
-	if (src.stat != 2)
+	if (src.stat != DEAD)
 		src.adjustBruteLoss(60)
 		src.updatehealth()
 		return 1
@@ -241,10 +241,10 @@
 	switch(sensor_type)
 		if ("Security")
 			sensor_mode = SEC_HUD
-			src << "<span class='notice'>Security records overlay enabled.</span>"
+			src << SPAN_NOTE("Security records overlay enabled.")
 		if ("Medical")
 			sensor_mode = MED_HUD
-			src << "<span class='notice'>Life signs monitor overlay enabled.</span>"
+			src << SPAN_NOTE("Life signs monitor overlay enabled.")
 		if ("Disable")
 			sensor_mode = 0
 			src << "Sensor augmentations disabled."
@@ -272,17 +272,17 @@
 
 	switch(severity)
 		if(1.0)
-			if (stat != 2)
+			if (stat != DEAD)
 				adjustBruteLoss(100)
 				adjustFireLoss(100)
 				if(!anchored)
 					gib()
 		if(2.0)
-			if (stat != 2)
+			if (stat != DEAD)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
 		if(3.0)
-			if (stat != 2)
+			if (stat != DEAD)
 				adjustBruteLoss(30)
 
 	updatehealth()
@@ -326,7 +326,7 @@
 				if(alarms[A] == -1)
 					if(!reported)
 						reported = 1
-						src << "<span class='notice'>--- [AH.category] Cleared ---</span>"
+						src << SPAN_NOTE("--- [AH.category] Cleared ---")
 					src << "\The [A.alarm_name()]."
 
 		if(alarm_raised)

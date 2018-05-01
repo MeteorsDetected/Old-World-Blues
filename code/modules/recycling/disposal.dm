@@ -29,18 +29,17 @@
 
 // create a new disposal
 // find the attached trunk (if present) and init gas resvr.
-/obj/machinery/disposal/New()
-	..()
-	spawn(5)
-		trunk = locate() in src.loc
-		if(!trunk)
-			mode = 0
-			flush = 0
-		else
-			trunk.linked = src	// link the pipe trunk to self
+/obj/machinery/disposal/initialize()
+	. = ..()
+	trunk = locate() in src.loc
+	if(!trunk)
+		mode = 0
+		flush = 0
+	else
+		trunk.linked = src	// link the pipe trunk to self
 
-		air_contents = new/datum/gas_mixture(PRESSURE_TANK_VOLUME)
-		update()
+	air_contents = new/datum/gas_mixture(PRESSURE_TANK_VOLUME)
+	update_icon()
 
 /obj/machinery/disposal/Destroy()
 	eject()
@@ -48,7 +47,7 @@
 		trunk.linked = null
 	return ..()
 
-/obj/machinery/disposal/affect_grab(var/mob/living/user, var/mob/living/target, var/grab_state)
+/obj/machinery/disposal/affect_grab(var/mob/living/user, var/mob/living/target)
 	user.visible_message("[user] starts putting [target] into the disposal.")
 	if(do_after(user, 20, src) && Adjacent(target))
 		target.forceMove(src)
@@ -111,11 +110,11 @@
 
 	if(istype(I, /obj/item/storage/bag/trash))
 		var/obj/item/storage/bag/trash/T = I
-		user << "\blue You empty the bag."
+		user << SPAN_NOTE("You empty the bag.")
 		for(var/obj/item/O in T.contents)
 			T.remove_from_storage(O,src)
 		T.update_icon()
-		update()
+		update_icon()
 		return
 
 	if(!I || !user.unEquip(I, src))
@@ -127,54 +126,55 @@
 			continue
 		M.show_message("[user.name] places \the [I] into the [src].", 3)
 
-	update()
+	update_icon()
 
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/target, mob/user)
-	if (!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || isAI(user))
+	if (!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || isAI(user))
 		return
-	if(isanimal(user) && target != user) return //animals cannot put mobs other than themselves into disposal
+	if(isanimal(user) && target != user)
+		return //animals cannot put mobs other than themselves into disposal
 	src.add_fingerprint(user)
+
+	var/check_flags = INCAPACITATION_DEFAULT
+	if(target == user)
+		check_flags = INCAPACITATION_DISABLED
+	if(user.incapacitated(check_flags))
+		return
+
 	var/target_loc = target.loc
-	var/msg
-	for (var/mob/V in viewers(usr))
-		if(target == user && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
-			V.show_message("[usr] starts climbing into the disposal.", 3)
-		if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
-			if(target.anchored) return
-			V.show_message("[usr] starts stuffing [target.name] into the disposal.", 3)
-	if(!do_after(usr, 20))
+	if(target == user)
+		user.visible_message("[user] starts climbing into the disposal.")
+	else
+		user.visible_message("[user] starts stuffing [target.name] into the disposal.")
+
+	if(!do_after(usr, 20, src, incapacitation_flags = check_flags))
 		return
-	if(target_loc != target.loc)
+	if(target_loc != target.loc || target.buckled)
 		return
-	if(target == user && !user.stat && !user.weakened && !user.stunned && !user.paralysis)	// if drop self, then climbed in
-											// must be awake, not stunned or whatever
-		msg = "[user.name] climbs into the [src]."
-		user << "You climb into the [src]."
-	else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
-		msg = "[user.name] stuffs [target.name] into the [src]!"
-		user << "You stuff [target.name] into the [src]!"
+
+	if(target == user)
+		user.visible_message(
+			"[user.name] climbs into the [src].",
+			"You climb into the [src]."
+		)
+	else
+		user.visible_message(
+			"[user] stuffs [target] into the [src]!",
+			"You stuff [target] into the [src]!"
+		)
 
 		admin_attack_log(user, target,
 			"Has placed [key_name(target)] in disposals.",
 			"Has been placed in disposals by [key_name(user)].",
 			"placed in a disposals unit "
 		)
-	else
-		return
-	if (target.client)
-		target.client.perspective = EYE_PERSPECTIVE
-		target.client.eye = src
-	target.loc = src
 
-	for (var/mob/C in viewers(src))
-		if(C == user)
-			continue
-		C.show_message(msg, 3)
+	target.reset_view(src)
+	target.forceMove(src)
 
-	update()
-	return
+	update_icon()
 
 // can breath normally in the disposal
 /obj/machinery/disposal/alter_health()
@@ -182,21 +182,17 @@
 
 // attempt to move while inside
 /obj/machinery/disposal/relaymove(mob/user as mob)
-	if(user.stat || src.flushing)
+	if(user.incapacitated() || src.flushing)
 		return
 	if(user.loc == src)
 		src.go_out(user)
-	return
 
 // leave the disposal
 /obj/machinery/disposal/proc/go_out(mob/user)
 
-	if (user.client)
-		user.client.eye = user.client.mob
-		user.client.perspective = MOB_PERSPECTIVE
-	user.loc = src.loc
-	update()
-	return
+	user.forceMove(src.loc)
+	user.reset_view()
+	update_icon()
 
 // ai as human but can't flush
 /obj/machinery/disposal/attack_ai(mob/user as mob)
@@ -217,8 +213,7 @@
 		interact(user, 0)
 	else
 		flush = !flush
-		update()
-	return
+		update_icon()
 
 // user interaction
 /obj/machinery/disposal/interact(mob/user, var/ai=0)
@@ -269,7 +264,7 @@
 
 	if(stat & BROKEN)
 		return
-	if(usr.stat || usr.restrained() || src.flushing)
+	if(usr.incapacitated() || src.flushing)
 		return
 
 	if(istype(src.loc, /turf))
@@ -285,12 +280,12 @@
 				mode = 1
 			else
 				mode = 0
-			update()
+			update_icon()
 
 		if(!isAI(usr))
 			if(href_list["handle"])
 				flush = text2num(href_list["handle"])
-				update()
+				update_icon()
 
 			if(href_list["eject"])
 				eject()
@@ -305,10 +300,10 @@
 	for(var/atom/movable/AM in src)
 		AM.loc = src.loc
 		AM.pipe_eject(0)
-	update()
+	update_icon()
 
 // update the icon & overlays to reflect mode & status
-/obj/machinery/disposal/proc/update()
+/obj/machinery/disposal/update_icon()
 	overlays.Cut()
 	if(stat & BROKEN)
 		icon_state = "disposal-broken"
@@ -358,7 +353,7 @@
 		update_use_power(1)
 	else if(air_contents.return_pressure() >= SEND_PRESSURE)
 		mode = 2 //if full enough, switch to ready mode
-		update()
+		update_icon()
 	else
 		src.pressurize() //otherwise charge
 
@@ -414,15 +409,7 @@
 	flush = 0
 	if(mode == 2)	// if was ready,
 		mode = 1	// switch to charging
-	update()
-	return
-
-
-// called when area power changes
-/obj/machinery/disposal/power_change()
-	..()	// do default setting/reset of stat NOPOWER bit
-	update()	// update icon
-	return
+	update_icon()
 
 
 // called when holder is expelled from a disposal
@@ -437,7 +424,7 @@
 
 			AM.loc = src.loc
 			AM.pipe_eject(0)
-			if(!istype(AM,/mob/living/silicon/robot/drone)) //Poor drones kept smashing windows and taking system damage being fired out of disposals. ~Z
+			if(!isdrone(AM)) //Poor drones kept smashing windows and taking system damage being fired out of disposals. ~Z
 				spawn(1)
 					if(AM)
 						AM.throw_at(target, 5, 1)
@@ -486,7 +473,7 @@
 		//Check for any living mobs trigger hasmob.
 		//hasmob effects whether the package goes to cargo or its tagged destination.
 		for(var/mob/living/M in D)
-			if(M && M.stat != 2 && !istype(M,/mob/living/silicon/robot/drone))
+			if(M && M.stat != DEAD && !isdrone(M))
 				hasmob = 1
 
 		//Checks 1 contents level deep. This means that players can be sent through disposals...
@@ -494,7 +481,7 @@
 		for(var/obj/O in D)
 			if(O.contents)
 				for(var/mob/living/M in O.contents)
-					if(M && M.stat != 2 && !istype(M,/mob/living/silicon/robot/drone))
+					if(M && M.stat != DEAD && !isdrone(M))
 						hasmob = 1
 
 		// now everything inside the disposal gets put into the holder
@@ -508,7 +495,7 @@
 				var/obj/item/smallDelivery/T = AM
 				src.destinationTag = T.sortTag
 			//Drones can mail themselves through maint.
-			if(istype(AM, /mob/living/silicon/robot/drone))
+			if(isdrone(AM))
 				var/mob/living/silicon/robot/drone/drone = AM
 				src.destinationTag = drone.mail_destination
 
@@ -537,7 +524,7 @@
 
 			if(hasmob && prob(3))
 				for(var/mob/living/H in src)
-					if(!istype(H,/mob/living/silicon/robot/drone)) //Drones use the mailing code to move through the disposal system,
+					if(!isdrone(H)) //Drones use the mailing code to move through the disposal system,
 						H.take_overall_damage(20, 0, "Blunt Trauma")//horribly maim any living creature jumping down disposals.  c'est la vie
 
 			var/obj/structure/disposalpipe/curr = loc
@@ -577,11 +564,11 @@
 	// used when a a holder meets a stuck holder
 	proc/merge(var/obj/structure/disposalholder/other)
 		for(var/atom/movable/AM in other)
-			AM.loc = src		// move everything in other holder to this one
+			AM.forceMove(src)
+			// move everything in other holder to this one
 			if(ismob(AM))
 				var/mob/M = AM
-				if(M.client)	// if a client mob, update eye to follow this holder
-					M.client.eye = src
+				M.reset_view(src)
 
 		qdel(other)
 
@@ -600,12 +587,12 @@
 	// called when player tries to move while in a pipe
 	relaymove(mob/user as mob)
 
-		if(!istype(user,/mob/living))
+		if(!isliving(user))
 			return
 
 		var/mob/living/U = user
 
-		if (U.stat || U.last_special <= world.time)
+		if (U.incapacitated() || U.last_special <= world.time)
 			return
 
 		U.last_special = world.time+100
@@ -644,11 +631,10 @@
 	var/list/sortTypes = list()
 	var/subtype = 0
 	// new pipe, set the icon_state as on map
-	New()
-		..()
-		base_icon_state = icon_state
-		return
 
+	initialize()
+		. = ..()
+		base_icon_state = icon_state
 
 	// pipe is deleted
 	// ensure if holder is present, it is expelled
@@ -945,25 +931,23 @@
 /obj/structure/disposalpipe/segment
 	icon_state = "pipe-s"
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		if(icon_state == "pipe-s")
 			dpdir = dir | turn(dir, 180)
 		else
 			dpdir = dir | turn(dir, -90)
 
 		update()
-		return
 
 ///// Z-Level stuff
 /obj/structure/disposalpipe/up
 	icon_state = "pipe-u"
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		dpdir = dir
 		update()
-		return
 
 	nextdir(var/fromdir)
 		var/nextdir
@@ -1012,11 +996,10 @@
 /obj/structure/disposalpipe/down
 	icon_state = "pipe-d"
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		dpdir = dir
 		update()
-		return
 
 	nextdir(var/fromdir)
 		var/nextdir
@@ -1069,8 +1052,8 @@
 /obj/structure/disposalpipe/junction
 	icon_state = "pipe-j1"
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		if(icon_state == "pipe-j1")
 			dpdir = dir | turn(dir, -90) | turn(dir,180)
 		else if(icon_state == "pipe-j2")
@@ -1078,7 +1061,6 @@
 		else // pipe-y
 			dpdir = dir | turn(dir,90) | turn(dir, -90)
 		update()
-		return
 
 
 	// next direction to move
@@ -1127,7 +1109,7 @@
 		else
 			name = initial(name)
 
-	New()
+	initialize()
 		. = ..()
 		dpdir = dir | turn(dir, 180)
 		if(sort_tag) tagger_locations |= sort_tag
@@ -1145,7 +1127,7 @@
 			if(O.currTag)// Tag set
 				sort_tag = O.currTag
 				playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
-				user << "\blue Changed tag to '[sort_tag]'."
+				user << SPAN_NOTE("Changed tag to '[sort_tag]'.")
 				updatename()
 				updatedesc()
 
@@ -1196,7 +1178,7 @@
 
 		dpdir = sortdir | posdir | negdir
 
-	New()
+	initialize()
 		. = ..()
 		for(var/location in sortTypes)
 			tagger_locations |= location
@@ -1317,14 +1299,11 @@
 	icon_state = "pipe-t"
 	var/obj/linked 	// the linked obj/machinery/disposal or obj/disposaloutlet
 
-/obj/structure/disposalpipe/trunk/New()
-	..()
+/obj/structure/disposalpipe/trunk/initialize()
+	. = ..()
 	dpdir = dir
-	spawn(1)
-		getlinked()
-
+	getlinked()
 	update()
-	return
 
 /obj/structure/disposalpipe/trunk/proc/getlinked()
 	linked = null
@@ -1422,10 +1401,9 @@
 					// i.e. will be treated as an empty turf
 	desc = "A broken piece of disposal pipe."
 
-	New()
+	initialize()
 		..()
 		update()
-		return
 
 	// called when welded
 	// for broken pipe, remove and turn into scrap
@@ -1448,16 +1426,12 @@
 	var/turf/target	// this will be where the output objects are 'thrown' to.
 	var/mode = 0
 
-	New()
-		..()
-
-		spawn(1)
-			target = get_ranged_target_turf(src, dir, 10)
-
-
-			var/obj/structure/disposalpipe/trunk/trunk = locate() in src.loc
-			if(trunk)
-				trunk.linked = src	// link the pipe trunk to self
+	initialize()
+		. = ..()
+		target = get_ranged_target_turf(src, dir, 10)
+		var/obj/structure/disposalpipe/trunk/trunk = locate() in src.loc
+		if(trunk)
+			trunk.linked = src	// link the pipe trunk to self
 
 	// expel the contents of the holder object, then delete it
 	// called when the holder exits the outlet
@@ -1472,7 +1446,7 @@
 			for(var/atom/movable/AM in H)
 				AM.loc = src.loc
 				AM.pipe_eject(dir)
-				if(!istype(AM,/mob/living/silicon/robot/drone)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
+				if(!isdrone(AM)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 					spawn(5)
 						AM.throw_at(target, 3, 1)
 			H.vent_gas(src.loc)
@@ -1523,11 +1497,7 @@
 
 // check if mob has client, if so restore client view on eject
 /mob/pipe_eject(var/direction)
-	if (src.client)
-		src.client.perspective = MOB_PERSPECTIVE
-		src.client.eye = src
-
-	return
+	src.reset_view(src)
 
 /obj/effect/decal/cleanable/blood/gibs/pipe_eject(var/direction)
 	var/list/dirs

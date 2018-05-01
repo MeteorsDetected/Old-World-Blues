@@ -41,10 +41,6 @@
 //-------------------------------------------
 // Standard procs
 //-------------------------------------------
-/obj/vehicle/New()
-	..()
-	//spawn the cell you want in each vehicle
-
 /obj/vehicle/Move()
 	if(world.time > l_move_time + move_delay)
 		var/old_loc = get_turf(src)
@@ -80,7 +76,7 @@
 		if(!locked)
 			open = !open
 			update_icon()
-			user << "<span class='notice'>Maintenance panel is now [open ? "opened" : "closed"].</span>"
+			user << SPAN_NOTE("Maintenance panel is now [open ? "opened" : "closed"].")
 	else if(istype(W, /obj/item/weapon/crowbar) && cell && open)
 		remove_cell(user)
 
@@ -93,13 +89,13 @@
 				if(open)
 					health = min(maxhealth, health+10)
 					user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
-					user.visible_message("\red [user] repairs [src]!","\blue You repair [src]!")
+					user.visible_message("\red [user] repairs [src]!",SPAN_NOTE("You repair [src]!"))
 				else
-					user << "<span class='notice'>Unable to repair with the maintenance panel closed.</span>"
+					user << SPAN_NOTE("Unable to repair with the maintenance panel closed.")
 			else
-				user << "<span class='notice'>[src] does not need a repair.</span>"
+				user << SPAN_NOTE("[src] does not need a repair.")
 		else
-			user << "<span class='notice'>Unable to repair while [src] is off.</span>"
+			user << SPAN_NOTE("Unable to repair while [src] is off.")
 	else if(hasvar(W,"force") && hasvar(W,"damtype"))
 		user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 		switch(W.damtype)
@@ -211,7 +207,7 @@
 		cell = null
 
 	//stuns people who are thrown off a train that has been blown up
-	if(istype(load, /mob/living))
+	if(isliving(load))
 		var/mob/living/M = load
 		M.apply_effects(5, 5)
 
@@ -252,13 +248,13 @@
 	C.forceMove(src)
 	cell = C
 	powercheck()
-	usr << "<span class='notice'>You install [C] in [src].</span>"
+	usr << SPAN_NOTE("You install [C] in [src].")
 
 /obj/vehicle/proc/remove_cell(var/mob/living/carbon/human/H)
 	if(!cell)
 		return
 
-	usr << "<span class='notice'>You remove [cell] from [src].</span>"
+	usr << SPAN_NOTE("You remove [cell] from [src].")
 	cell.forceMove(get_turf(H))
 	H.put_in_hands(cell)
 	cell = null

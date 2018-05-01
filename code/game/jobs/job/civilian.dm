@@ -195,7 +195,7 @@
 	minimal_access = list(access_library)
 	alt_titles = list("Journalist")
 
-	uniform = /obj/item/clothing/under/suit_jacket/red
+	uniform = /obj/item/clothing/under/librarian
 	pda = /obj/item/device/pda/librarian
 	hand = /obj/item/weapon/barcodescanner
 

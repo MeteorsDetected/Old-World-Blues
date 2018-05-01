@@ -8,15 +8,15 @@
 	name = "\improper RCON console"
 	desc = "Console used to remotely control machinery on the station."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "ai-fixer"
+	screen_icon = "ai-fixer"
 	light_color = "#a97faa"
 	circuit = /obj/item/weapon/circuitboard/rcon_console
 	req_one_access = list(access_engine)
 	var/current_tag = null
 	var/obj/nano_module/rcon/rcon
 
-/obj/machinery/computer/rcon/New()
-	..()
+/obj/machinery/computer/rcon/initialize()
+	. = ..()
 	rcon = new(src)
 
 // Proc: attack_hand()

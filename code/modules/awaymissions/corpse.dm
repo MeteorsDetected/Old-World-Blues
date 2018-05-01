@@ -26,6 +26,7 @@
 	var/species = SPECIES_HUMAN
 
 /obj/effect/landmark/corpse/initialize()
+	. = ..()
 	createCorpse()
 
 /obj/effect/landmark/corpse/proc/createCorpse() //Creates a mob and checks for gear in each slot before attempting to equip it.
@@ -209,7 +210,7 @@
 /obj/effect/landmark/corpse/bridgeofficer
 	name = "Bridge Officer"
 	corpseradio = /obj/item/device/radio/headset/heads/hop
-	corpseuniform = /obj/item/clothing/under/rank/centcom_officer
+	corpseuniform = /obj/item/clothing/under/rank/centcom/officer
 	corpsesuit = /obj/item/clothing/suit/armor/bulletproof
 	corpseshoes = /obj/item/clothing/shoes/black
 	corpseglasses = /obj/item/clothing/glasses/sunglasses
@@ -219,7 +220,7 @@
 
 /obj/effect/landmark/corpse/commander
 	name = "Commander"
-	corpseuniform = /obj/item/clothing/under/rank/centcom_captain
+	corpseuniform = /obj/item/clothing/under/rank/centcom/captain
 	corpsesuit = /obj/item/clothing/suit/armor/bulletproof
 	corpseradio = /obj/item/device/radio/headset/heads/captain
 	corpseglasses = /obj/item/clothing/glasses/eyepatch

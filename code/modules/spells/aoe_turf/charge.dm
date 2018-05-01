@@ -27,15 +27,15 @@
 		for(var/spell/S in M.spell_list)
 			if(!istype(S, /spell/aoe_turf/charge))
 				S.charge_counter = S.charge_max
-		M <<"<span class='notice'>You feel raw magic flowing through you, it feels good!</span>"
+		M <<SPAN_NOTE("You feel raw magic flowing through you, it feels good!")
 	else
-		M <<"<span class='notice'>You feel very strange for a moment, but then it passes.</span>"
+		M <<SPAN_NOTE("You feel very strange for a moment, but then it passes.")
 	return M
 
 /spell/aoe_turf/charge/proc/cast_charge(var/atom/target)
 	var/atom/charged_item
 
-	if(istype(target, /mob/living))
+	if(isliving(target))
 		charged_item = mob_charge(target)
 
 	if(istype(target, /obj/item/weapon/grab))
@@ -65,5 +65,5 @@
 	if(!charged_item)
 		return 0
 	else
-		charged_item.visible_message("<span class='notice'>[charged_item] suddenly sparks with energy!</span>")
+		charged_item.visible_message(SPAN_NOTE("[charged_item] suddenly sparks with energy!"))
 		return 1

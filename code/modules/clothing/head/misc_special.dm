@@ -16,7 +16,7 @@
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
 	item_state = "welding"
-	matter = list(DEFAULT_WALL_MATERIAL = 3000, "glass" = 1000)
+	matter = list(MATERIAL_STEEL = 3000, MATERIAL_GLASS = 1000)
 	var/up = 0
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
@@ -33,19 +33,18 @@
 	set name = "Adjust welding mask"
 	set src in usr
 
-	if(usr.canmove && !usr.stat && !usr.restrained())
+	if(!usr.incapacitated())
+		src.up = !src.up
 		if(src.up)
-			src.up = !src.up
-			body_parts_covered |= (EYES|FACE)
-			flags_inv |= (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
-			icon_state = initial(icon_state)
-			usr << "You flip the [src] down to protect your eyes."
-		else
-			src.up = !src.up
 			body_parts_covered &= ~(EYES|FACE)
 			flags_inv &= ~(HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 			icon_state = "[initial(icon_state)]up"
 			usr << "You push the [src] up out of your face."
+		else
+			body_parts_covered |= (EYES|FACE)
+			flags_inv |= (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
+			icon_state = initial(icon_state)
+			usr << "You flip the [src] down to protect your eyes."
 		update_clothing_icon()	//so our mob-overlays update
 
 /obj/item/clothing/head/welding/flame
@@ -60,7 +59,7 @@
 	icon_state = "welding_white"
 	item_state = "welding_white"
 
-obj/item/clothing/head/welding/blue
+/obj/item/clothing/head/welding/blue
 	name = "blue welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye with style."
 	icon_state = "welding_blue"

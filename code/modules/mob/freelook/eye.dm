@@ -31,7 +31,7 @@
 	updateallghostimages()
 	..()
 
-mob/observer/eye/Destroy()
+/mob/observer/eye/Destroy()
 	if (ghostimage)
 		ghost_darkness_images -= ghostimage
 		ghost_sightless_images -= ghostimage
@@ -67,11 +67,9 @@ mob/observer/eye/Destroy()
 	if(owner)
 		T = get_turf(T)
 		if(T != loc)
-			loc = T
+			src.forceMove(T)
 
-			if(owner.client)
-				owner.client.eye = src
-
+			owner.reset_view(src)
 			if(owner_follows_eye)
 				visualnet.updateVisibility(owner, 0)
 				owner.loc = loc

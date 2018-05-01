@@ -29,7 +29,7 @@
 	name = "Gas turbine control computer"
 	desc = "A computer to remotely control a gas turbine"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "turbinecomp"
+	screen_icon = "turbinecomp"
 	circuit = /obj/item/weapon/circuitboard/turbine_control
 	anchored = 1
 	density = 1
@@ -40,19 +40,18 @@
 
 // the inlet stage of the gas turbine electricity generator
 
-/obj/machinery/compressor/New()
-	..()
+/obj/machinery/compressor/initialize()
+	. = ..()
 
 	gas_contained = new
 	inturf = get_step(src, dir)
 
-	spawn(5)
-		turbine = locate() in get_step(src, get_dir(inturf, src))
-		if(!turbine)
-			stat |= BROKEN
-		else
-			turbine.stat &= !BROKEN
-			turbine.compressor = src
+	turbine = locate() in get_step(src, get_dir(inturf, src))
+	if(!turbine)
+		stat |= BROKEN
+	else
+		turbine.stat &= !BROKEN
+		turbine.compressor = src
 
 
 #define COMPFRICTION 5e5
@@ -97,19 +96,15 @@
 		overlays += image('icons/obj/pipes.dmi', "comp-o1", FLY_LAYER)
 	 //TODO: DEFERRED
 
-/obj/machinery/power/turbine/New()
-	..()
-
+/obj/machinery/power/turbine/initialize()
+	. = ..()
 	outturf = get_step(src, dir)
-
-	spawn(5)
-
-		compressor = locate() in get_step(src, get_dir(outturf, src))
-		if(!compressor)
-			stat |= BROKEN
-		else
-			compressor.stat &= !BROKEN
-			compressor.turbine = src
+	compressor = locate() in get_step(src, get_dir(outturf, src))
+	if(!compressor)
+		stat |= BROKEN
+	else
+		compressor.stat &= !BROKEN
+		compressor.turbine = src
 
 
 #define TURBPRES 9000000
@@ -177,7 +172,7 @@
 	..()
 	if(stat & BROKEN)
 		return
-	if (usr.stat || usr.restrained() || !usr.IsAdvancedToolUser())
+	if (usr.incapacitated() || !usr.IsAdvancedToolUser())
 		return
 
 	if ((istype(src.loc, /turf) && Adjacent(usr)) || isAI(usr))
@@ -209,16 +204,20 @@
 
 
 
-/obj/machinery/computer/turbine_computer/New()
+/obj/machinery/computer/turbine_computer/initialize()
+	. = ..()
+	if(. != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/turbine_computer/lateInitialize()
 	..()
-	spawn(5)
-		for(var/obj/machinery/compressor/C in machines)
-			if(id == C.comp_id)
-				compressor = C
-		doors = new /list()
-		for(var/obj/machinery/door/blast/P in machines)
-			if(P.id == id)
-				doors += P
+	for(var/obj/machinery/compressor/C in machines)
+		if(id == C.comp_id)
+			compressor = C
+	doors = list()
+	for(var/obj/machinery/door/blast/P in machines)
+		if(P.id == id)
+			doors += P
 
 /*
 /obj/machinery/computer/turbine_computer/attackby(I as obj, user as mob)
@@ -226,7 +225,7 @@
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20))
 			if (src.stat & BROKEN)
-				user << "\blue The broken glass falls out."
+				user << SPAN_NOTE("The broken glass falls out.")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				new /obj/item/weapon/material/shard( src.loc )
 				var/obj/item/weapon/circuitboard/turbine_control/M = new /obj/item/weapon/circuitboard/turbine_control( A )
@@ -239,7 +238,7 @@
 				A.anchored = 1
 				qdel(src)
 			else
-				user << "\blue You disconnect the monitor."
+				user << SPAN_NOTE("You disconnect the monitor.")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				var/obj/item/weapon/circuitboard/turbine_control/M = new /obj/item/weapon/circuitboard/turbine_control( A )
 				for (var/obj/C in src)
@@ -285,7 +284,7 @@
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
 		usr.machine = src
 
-		if( href_list["view"] )
+		if(href_list["view"] )
 			usr.client.eye = src.compressor
 		else if( href_list["str"] )
 			src.compressor.starter = !src.compressor.starter

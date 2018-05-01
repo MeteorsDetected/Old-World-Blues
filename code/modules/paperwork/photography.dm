@@ -36,8 +36,9 @@ var/global/photo_count = 0
 	var/icon/tiny
 	var/photo_size = 3
 
-/obj/item/weapon/photo/New()
+/obj/item/weapon/photo/initialize()
 	id = photo_count++
+	. = ..()
 
 /obj/item/weapon/photo/attack_self(mob/user as mob)
 	user.examinate(src)
@@ -45,7 +46,7 @@ var/global/photo_count = 0
 /obj/item/weapon/photo/attackby(obj/item/weapon/P as obj, mob/user as mob)
 	if(istype(P, /obj/item/weapon/pen))
 		var/txt = sanitize(input_utf8(user, "What would you like to write on the back?", "Photo Writing", null, "text"), 128)
-		if(!user.stat && Adjacent(user))
+		if(!user.incapacitated() && Adjacent(user))
 			scribble = txt
 	..()
 
@@ -54,12 +55,12 @@ var/global/photo_count = 0
 	if(.<=1)
 		show(user)
 	else
-		user << "<span class='notice'>It is too far away.</span>"
+		user << SPAN_NOTE("It is too far away.")
 
 /obj/item/weapon/photo/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(user.zone_sel.selecting == O_EYES)
-		user.visible_message("<span class='notice'> [user] holds up a paper and shows it to [M]. </span>",\
-			"<span class='notice'>You show the paper to [M]. </span>")
+		user.visible_message(SPAN_NOTE(" [user] holds up a paper and shows it to [M]. "),\
+			SPAN_NOTE("You show the paper to [M]. "))
 		M.examinate(src)
 
 /obj/item/weapon/photo/proc/show(mob/user as mob)
@@ -79,10 +80,9 @@ var/global/photo_count = 0
 
 	var/n_name = sanitizeSafe(input(usr, "What would you like to label the photo?", "Photo Labelling", null)  as text, MAX_NAME_LEN)
 	//loc.loc check is for making possible renaming photos in clipboards
-	if(( (loc == usr || (loc.loc && loc.loc == usr)) && !usr.stat))
+	if(( (loc == usr || (loc.loc && loc.loc == usr)) && !usr.incapacitated()))
 		name = "[(n_name ? text("[n_name]") : "photo")]"
 	add_fingerprint(usr)
-	return
 
 
 /obj/item/weapon/photo/custom/show(mob/user)
@@ -120,7 +120,7 @@ var/global/photo_count = 0
 		return ..()
 
 	playsound(loc, "rustle", 50, 1, -5)
-	if(!H.restrained() && !H.stat && H.back == src)
+	if(!H.incapacitated() && H.back == src)
 		switch(over_object.name)
 			if(BP_R_HAND)
 				if(H.unEquip(src))
@@ -150,7 +150,7 @@ var/global/photo_count = 0
 	randpixel = 5
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	matter = list(DEFAULT_WALL_MATERIAL = 2000)
+	matter = list(MATERIAL_STEEL = 2000)
 	var/pictures_max = 10
 	var/pictures_left = 10
 	var/on = 1
@@ -164,7 +164,7 @@ var/global/photo_count = 0
 	var/nsize = input("Photo Size","Pick a size of resulting photo.") as null|anything in list(1,3,5,7)
 	if(nsize)
 		size = nsize
-		usr << "<span class='notice'>Camera will now take [size]x[size] photos.</span>"
+		usr << SPAN_NOTE("Camera will now take [size]x[size] photos.")
 
 /obj/item/device/camera/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
@@ -181,9 +181,9 @@ var/global/photo_count = 0
 /obj/item/device/camera/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/device/camera_film))
 		if(pictures_left)
-			user << "<span class='notice'>[src] still has some film in it!</span>"
+			user << SPAN_NOTE("[src] still has some film in it!")
 			return
-		user << "<span class='notice'>You insert [I] into [src].</span>"
+		user << SPAN_NOTE("You insert [I] into [src].")
 		user.drop_from_inventory(I)
 		qdel(I)
 		pictures_left = pictures_max
@@ -222,7 +222,7 @@ var/global/photo_count = 0
 		// If what we got back is actually a picture, draw it.
 		if(istype(img, /icon))
 			// Check if we're looking at a mob that's lying down
-			if(istype(A, /mob/living) && A:lying)
+			if(isliving(A) && A:lying)
 				// If they are, apply that effect to their picture.
 				img.BecomeLying()
 			// Calculate where we are relative to the center of the photo
@@ -271,7 +271,7 @@ var/global/photo_count = 0
 
 	pictures_left--
 	desc = "A polaroid camera. It has [pictures_left] photos left."
-	user << "<span class='notice'>[pictures_left] photos left.</span>"
+	user << SPAN_NOTE("[pictures_left] photos left.")
 	icon_state = icon_off
 	on = 0
 	spawn(64)
@@ -316,7 +316,7 @@ var/global/photo_count = 0
 	var/icon/pc = icon('icons/obj/bureaucracy.dmi', "photo")
 	small_img.Scale(8, 8)
 	tiny_img.Scale(4, 4)
-	ic.Blend(small_img,ICON_OVERLAY, 10, 13)
+	ic.Blend(small_img,ICON_OVERLAY, 13, 13)
 	pc.Blend(tiny_img,ICON_OVERLAY, 12, 19)
 
 	var/obj/item/weapon/photo/p = new()

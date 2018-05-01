@@ -81,8 +81,8 @@
 
 	return cell.drain_power(drain_check)
 
-/obj/mecha/New()
-	..()
+/obj/mecha/initialize()
+	. = ..()
 	events = new
 
 	update_icon()
@@ -99,7 +99,6 @@
 	log_message("[src.name] created.")
 	loc.Entered(src)
 	mechas_list += src //global mech list
-	return
 
 /obj/mecha/Destroy()
 	src.go_out()
@@ -308,7 +307,7 @@
 
 /obj/mecha/proc/click_action(atom/target,mob/user)
 	if(!src.occupant || src.occupant != user ) return
-	if(user.stat) return
+	if(user.incapacitated()) return
 	if(state)
 		occupant_message("<font color='red'>Maintenance protocols in effect</font>")
 		return
@@ -335,7 +334,7 @@
 
 /obj/mecha/proc/interface_action(obj/machinery/target)
 	if(istype(target, /obj/machinery/access_button))
-		src.occupant_message("<span class='notice'>Interfacing with [target].</span>")
+		src.occupant_message(SPAN_NOTE("Interfacing with [target]."))
 		src.log_message("Interfaced with [target].")
 		target.attack_hand(src.occupant)
 		return 1
@@ -351,7 +350,7 @@
 		if(src_object == src || (src_object in src))
 			return STATUS_INTERACTIVE
 		if(src.Adjacent(src_object))
-			src.occupant_message("<span class='notice'>Interfacing with [src_object]...</span>")
+			src.occupant_message(SPAN_NOTE("Interfacing with [src_object]..."))
 			src.log_message("Interfaced with [src_object].")
 			return STATUS_INTERACTIVE
 		if(src_object in view(2, src))
@@ -420,25 +419,25 @@
 
 /obj/mecha/proc/mechturn(direction)
 	set_dir(direction)
-	playsound(src,'sound/mecha/Mech_Rotation.wav',40,1)
+	playsound(src,'sound/mecha/Mech_Rotation.ogg',40,1)
 	return 1
 
 /obj/mecha/proc/mechstep(direction)
 	var/result = step(src,direction)
 	if(result)
-		playsound(src,'sound/mecha/Mech_Step.wav',100,1)
+		playsound(src,'sound/mecha/Mech_Step.ogg',100,1)
 	return result
 
 
 /obj/mecha/proc/mechsteprand()
 	var/result = step_rand(src)
 	if(result)
-		playsound(src,'sound/mecha/Mech_Step.wav',100,1)
+		playsound(src,'sound/mecha/Mech_Step.ogg',100,1)
 	return result
 
 /obj/mecha/Bump(var/atom/obstacle)
 //	src.inertia_dir = null
-	if(istype(obstacle, /obj))
+	if(isobj(obstacle))
 		var/obj/O = obstacle
 		if(istype(O, /obj/effect/portal)) //derpfix
 			src.anchored = 0
@@ -449,7 +448,7 @@
 			step(obstacle,src.dir)
 		else //I have no idea why I disabled this
 			obstacle.Bumped(src)
-	else if(istype(obstacle, /mob))
+	else if(ismob(obstacle))
 		step(obstacle,src.dir)
 	else
 		obstacle.Bumped(src)
@@ -550,8 +549,8 @@
 				src.log_append_to_last("Armor saved.")
 				playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
 				user << "\green Your claws had no effect!"
-				src.occupant_message("\blue The [user]'s claws are stopped by the armor.")
-				visible_message("\blue The [user] rebounds off [src.name]'s armor!")
+				src.occupant_message(SPAN_NOTE("The [user]'s claws are stopped by the armor."))
+				visible_message(SPAN_NOTE("The [user] rebounds off [src.name]'s armor!"))
 		else
 			user.visible_message(
 				"<font color='red'><b>[user] hits [src.name]. Nothing happens</b></font>",
@@ -588,14 +587,14 @@
 		A.forceMove(src)
 		src.visible_message("The [A] fastens firmly to [src].")
 		return
-	if(prob(src.deflect_chance) || istype(A, /mob))
-		src.occupant_message("\blue The [A] bounces off the armor.")
+	if(prob(src.deflect_chance) || ismob(A))
+		src.occupant_message(SPAN_NOTE("The [A] bounces off the armor."))
 		src.visible_message("The [A] bounces off the [src.name] armor")
 		src.log_append_to_last("Armor saved.")
-		if(istype(A, /mob/living))
+		if(isliving(A))
 			var/mob/living/M = A
 			M.take_organ_damage(10)
-	else if(istype(A, /obj))
+	else if(isobj(A))
 		var/obj/O = A
 		if(O.throwforce)
 			src.take_damage(O.throwforce)
@@ -611,7 +610,7 @@
 
 /obj/mecha/proc/dynbulletdamage(var/obj/item/projectile/Proj)
 	if(prob(src.deflect_chance))
-		src.occupant_message("\blue The armor deflects incoming projectile.")
+		src.occupant_message(SPAN_NOTE("The armor deflects incoming projectile."))
 		src.visible_message("The [src.name] armor deflects the projectile")
 		src.log_append_to_last("Armor saved.")
 		return
@@ -683,10 +682,10 @@
 		src.log_append_to_last("Armor saved.")
 		playsound(src.loc, 'sound/effects/blobattack.ogg', 50, 1, -1)
 		user << "\green Your attack had no effect!"
-		src.occupant_message("\blue The [user]'s attack is stopped by the armor.")
+		src.occupant_message(SPAN_NOTE("The [user]'s attack is stopped by the armor."))
 		for (var/mob/V in viewers(src))
 			if(V.client && !(V.blinded))
-				V.show_message("\blue The [user] rebounds off the [src.name] armor!", 1)
+				V.show_message(SPAN_NOTE("The [user] rebounds off the [src.name] armor!"), 1)
 	return
 */
 
@@ -859,11 +858,11 @@
 		if (WT.remove_fuel(0,user))
 			if (hasInternalDamage(MECHA_INT_TANK_BREACH))
 				clearInternalDamage(MECHA_INT_TANK_BREACH)
-				user << "\blue You repair the damaged gas tank."
+				user << SPAN_NOTE("You repair the damaged gas tank.")
 		else
 			return
 		if(src.health<initial(src.health))
-			user << "\blue You repair some damage to [src.name]."
+			user << SPAN_NOTE("You repair some damage to [src.name].")
 			src.health += min(10, initial(src.health)-src.health)
 		else
 			user << "The [src.name] is at full integrity"
@@ -1004,7 +1003,7 @@
 	var/obj/machinery/atmospherics/portables_connector/possible_port = locate(/obj/machinery/atmospherics/portables_connector/) in loc
 	if(possible_port)
 		if(connect(possible_port))
-			src.occupant_message("\blue [name] connects to the port.")
+			src.occupant_message(SPAN_NOTE("[name] connects to the port."))
 			src.verbs += /obj/mecha/verb/disconnect_from_port
 			src.verbs -= /obj/mecha/verb/connect_to_port
 			return
@@ -1024,7 +1023,7 @@
 	if(usr!=src.occupant)
 		return
 	if(disconnect())
-		src.occupant_message("\blue [name] disconnects from the port.")
+		src.occupant_message(SPAN_NOTE("[name] disconnects from the port."))
 		src.verbs -= /obj/mecha/verb/disconnect_from_port
 		src.verbs += /obj/mecha/verb/connect_to_port
 	else
@@ -1062,21 +1061,17 @@
 	set name = "Enter Exosuit"
 	set src in oview(1)
 
-	if (usr.stat || !ishuman(usr))
+	if (usr.incapacitated() || !ishuman(usr))
 		return
 	src.log_message("[usr] tries to move in.")
-	if(iscarbon(usr))
-		var/mob/living/carbon/C = usr
-		if(C.handcuffed)
-			usr << "\red Kinda hard to climb in while handcuffed don't you think?"
-			return
 	if (src.occupant)
-		usr << "\blue <B>The [src.name] is already occupied!</B>"
+		usr << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_15_stereo_error.ogg',channel = 4, volume = 100)
+		usr << SPAN_NOTE("<B>The [src.name] is already occupied!</B>")
 		src.log_append_to_last("Permission denied.")
 		return
 /*
 	if (usr.abiotic())
-		usr << "\blue <B>Subject cannot have abiotic items on.</B>"
+		usr << SPAN_NOTE("<B>Subject cannot have abiotic items on.</B>")
 		return
 */
 	var/passed
@@ -1086,6 +1081,7 @@
 	else if(src.operation_allowed(usr))
 		passed = 1
 	if(!passed)
+		usr << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_15_stereo_error.ogg',channel = 4, volume = 100)
 		usr << "\red Access denied"
 		src.log_append_to_last("Permission denied.")
 		return
@@ -1095,7 +1091,7 @@
 			return
 //	usr << "You start climbing into [src.name]"
 
-	visible_message("\blue [usr] starts to climb into [src.name]")
+	visible_message(SPAN_NOTE("[usr] starts to climb into [src.name]"))
 
 	if(enter_after(40,usr))
 		if(!src.occupant)
@@ -1108,13 +1104,9 @@
 
 /obj/mecha/proc/moved_inside(var/mob/living/carbon/human/H as mob)
 	if(H && H.client && H in range(1))
-		H.reset_view(src)
-		/*
-		H.client.perspective = EYE_PERSPECTIVE
-		H.client.eye = src
-		*/
 		H.stop_pulling()
 		H.forceMove(src)
+		H.reset_view(src)
 		src.occupant = H
 		src.add_fingerprint(H)
 		src.forceMove(src.loc)
@@ -1145,7 +1137,7 @@
 //	user << "Installing MMI, please stand by."
 
 	user.visible_message(
-		"\blue [usr] starts to insert an MMI into [src.name]"
+		SPAN_NOTE("[usr] starts to insert an MMI into [src.name]")
 	)
 
 	if(do_after(user, 40, src))
@@ -1168,10 +1160,6 @@
 		user.drop_from_inventory(mmi_as_oc)
 		var/mob/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_view(src)
-	/*
-		brainmob.client.eye = src
-		brainmob.client.perspective = EYE_PERSPECTIVE
-	*/
 		occupant = brainmob
 		brainmob.loc = src //should allow relaymove
 		brainmob.canmove = 1
@@ -1221,16 +1209,56 @@
 	return
 
 
+/obj/mecha/verb/AIeject()
+	set name = "AI Eject"
+	set category = "Exosuit Interface"
+	set popup_menu = 0
+
+	var/atom/movable/mob_container
+	if(ishuman(occupant) || isAI(occupant))
+		mob_container = src.occupant
+
+	if(usr!=src.occupant)
+		return
+
+	if(isAI(mob_container))
+		var/obj/item/mecha_parts/mecha_equipment/tool/ai_holder/AH = locate() in src
+		if(AH)
+			AH.go_out()
+
+
 /obj/mecha/proc/go_out()
 	if(!src.occupant) return
 	var/atom/movable/mob_container
-	if(ishuman(occupant))
+	if(ishuman(occupant) || isAI(occupant))
 		mob_container = src.occupant
-	else if(istype(occupant, /mob/living/carbon/brain))
+	else if(isbrain(occupant))
 		var/mob/living/carbon/brain/brain = occupant
 		mob_container = brain.container
 	else
 		return
+
+	if(isAI(mob_container))
+		AIeject()
+		return
+
+	//Eject for AI in mecha
+	if(mob_container.forceMove(src.loc))//ejecting mob container
+
+		src.log_message("[mob_container] moved out.")
+		occupant.reset_view()
+		src.occupant << browse(null, "window=exosuit")
+		if(istype(mob_container, /obj/item/device/mmi))
+			var/obj/item/device/mmi/mmi = mob_container
+			if(mmi.brainmob)
+				occupant.loc = mmi
+			mmi.mecha = null
+			src.occupant.canmove = 0
+			src.verbs += /obj/mecha/verb/eject
+		src.occupant = null
+		src.update_icon()
+		src.set_dir(dir_in)
+
 	if(mob_container.forceMove(src.loc))//ejecting mob container
 	/*
 		if(ishuman(occupant) && (return_pressure() > HAZARD_HIGH_PRESSURE))
@@ -1255,11 +1283,6 @@
 	*/
 		src.log_message("[mob_container] moved out.")
 		occupant.reset_view()
-		/*
-		if(src.occupant.client)
-			src.occupant.client.eye = src.occupant.client.mob
-			src.occupant.client.perspective = MOB_PERSPECTIVE
-		*/
 		src.occupant << browse(null, "window=exosuit")
 		if(istype(mob_container, /obj/item/device/mmi))
 			var/obj/item/device/mmi/mmi = mob_container
@@ -1516,7 +1539,7 @@
 	if(!id_card || !user) return
 
 	var/maint_options = "<a href='?src=\ref[src];set_internal_tank_valve=1;user=\ref[user]'>Set Cabin Air Pressure</a>"
-	if(istype(occupant, /mob/living/carbon/brain))
+	if(isbrain(occupant))
 		maint_options += "<a href='?src=\ref[src];remove_MMI=1'>Remove MMI-occupant.</a>"
 	if (locate(/obj/item/mecha_parts/mecha_equipment/tool/passenger) in contents)
 		maint_options += "<a href='?src=\ref[src];remove_passenger=1;user=\ref[user]'>Remove Passenger</a>"
@@ -1569,14 +1592,14 @@
 		send_byjax(src.occupant,"exosuit.browser","content",src.get_stats_part())
 		return
 	if(href_list["close"])
-		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.wav',channel=4, volume=100);
+		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.ogg',channel=4, volume=100)
 		return
-	if(usr.stat > 0)
+	if(usr.incapacitated())
 		return
 	var/datum/topic_input/filter = new /datum/topic_input(href,href_list)
 	if(href_list["select_equip"])
 		if(usr != src.occupant)	return
-		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.wav',channel=4, volume=100);
+		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.ogg',channel=4, volume=100)
 		var/obj/item/mecha_parts/mecha_equipment/equip = filter.getObj("select_equip")
 		if(equip)
 			src.selected = equip
@@ -1588,28 +1611,28 @@
 		detach(filter.getObj("detach"))
 	if(href_list["eject"])
 		if(usr != src.occupant)	return
-		playsound(src,'sound/mecha/ROBOTIC_Servo_Large_Dual_Servos_Open_mono.wav',100,1)
+		playsound(src,'sound/mecha/ROBOTIC_Servo_Large_Dual_Servos_Open_mono.ogg',100,1)
 		src.eject()
 		return
 	if(href_list["toggle_lights"])
 		if(usr != src.occupant)	return
-		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.wav',channel=4, volume=100);
+		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.ogg',channel=4, volume=100)
 		src.toggle_lights()
 		return
 	if(href_list["toggle_airtank"])
 		if(usr != src.occupant)	return
-		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.wav',channel=4, volume=100);
+		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.ogg',channel=4, volume=100)
 		src.toggle_internal_tank()
 		return
 	if(href_list["rmictoggle"])
 		if(usr != src.occupant)	return
-		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.wav',channel=4, volume=100);
+		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.ogg',channel=4, volume=100)
 		radio.broadcasting = !radio.broadcasting
 		send_byjax(src.occupant,"exosuit.browser","rmicstate",(radio.broadcasting?"Engaged":"Disengaged"))
 		return
 	if(href_list["rspktoggle"])
 		if(usr != src.occupant)	return
-		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.wav',channel=4, volume=100);
+		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.ogg',channel=4, volume=100)
 		radio.listening = !radio.listening
 		send_byjax(src.occupant,"exosuit.browser","rspkstate",(radio.listening?"Engaged":"Disengaged"))
 		return
@@ -1623,17 +1646,17 @@
 		return
 	if(href_list["port_disconnect"])
 		if(usr != src.occupant)	return
-		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.wav',channel=4, volume=100);
+		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.ogg',channel=4, volume=100)
 		src.disconnect_from_port()
 		return
 	if (href_list["port_connect"])
 		if(usr != src.occupant)	return
-		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.wav',channel=4, volume=100);
+		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.ogg',channel=4, volume=100)
 		src.connect_to_port()
 		return
 	if (href_list["view_log"])
 		if(usr != src.occupant)	return
-		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.wav',channel=4, volume=100);
+		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.ogg',channel=4, volume=100)
 		src.occupant << browse(src.get_log_html(), "window=exosuit_log")
 		onclose(occupant, "exosuit_log")
 		return
@@ -1641,7 +1664,7 @@
 		if(usr != src.occupant)	return
 		var/newname = sanitizeSafe(input(occupant,"Choose new exosuit name","Rename exosuit",initial(name)) as text, MAX_NAME_LEN)
 		if(newname)
-			usr << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_22_stereo_complite.wav',channel=4, volume=100);
+			usr << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_22_stereo_complite.ogg',channel=4, volume=100)
 			name = newname
 		else
 			alert(occupant, "nope.avi")
@@ -1683,7 +1706,7 @@
 			if(new_pressure)
 				internal_tank_valve = new_pressure
 				user << "The internal pressure valve has been set to [internal_tank_valve]kPa."
-	if(href_list["remove_MMI"] && state>= 1 && istype(occupant, /mob/living/carbon/brain))
+	if(href_list["remove_MMI"] && state>= 1 && isbrain(occupant))
 		var/mob/user = usr
 		var/mob/living/carbon/brain/brainmob = occupant
 		user.visible_message(
@@ -1749,37 +1772,37 @@
 		add_req_access = 0
 		var/mob/user = filter.getMob("user")
 		user << browse(null,"window=exosuit_add_access")
-		user << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_22_stereo_complite.wav',channel=4, volume=100);
+		user << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_22_stereo_complite.ogg',channel=4, volume=100)
 		return
 	if(href_list["dna_lock"])
 		if(usr != src.occupant)	return
-		if(istype(occupant, /mob/living/carbon/brain))
+		if(isbrain(occupant))
 			occupant_message("You are a brain. No.")
-			usr << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_15_stereo_error.wav',channel=4, volume=100);
+			usr << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_15_stereo_error.ogg',channel=4, volume=100)
 			return
 		if(src.occupant)
 			src.dna = src.occupant.dna.unique_enzymes
 			src.occupant_message("You feel a prick as the needle takes your DNA sample.")
-			usr << sound('sound/mecha/UI_SCI-FI_Compute_01_Wet_stereo.wav',channel=4, volume=100);
+			usr << sound('sound/mecha/UI_SCI-FI_Compute_01_Wet_stereo.ogg',channel=4, volume=100)
 		return
 	if(href_list["reset_dna"])
 		if(usr != src.occupant)	return
 		src.dna = null
-		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.wav',channel=4, volume=100);
+		usr << sound('sound/mecha/UI_SCI-FI_Tone_10_stereo.ogg',channel=4, volume=100)
 	if(href_list["repair_int_control_lost"])
 		if(usr != src.occupant)	return
 		src.occupant_message("Recalibrating coordination system.")
 		src.log_message("Recalibration of coordination system started.")
-		usr << sound('sound/mecha/UI_SCI-FI_Compute_01_Wet_stereo.wav',channel=4, volume=100);
+		usr << sound('sound/mecha/UI_SCI-FI_Compute_01_Wet_stereo.ogg',channel=4, volume=100)
 		var/T = src.loc
 		if(do_after(100))
 			if(T == src.loc)
 				src.clearInternalDamage(MECHA_INT_CONTROL_LOST)
-				usr << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_22_stereo_complite.wav',channel=4, volume=100);
+				usr << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_22_stereo_complite.ogg',channel=4, volume=100)
 				src.occupant_message("<font color='blue'>Recalibration successful.</font>")
 				src.log_message("Recalibration of coordination system finished with 0 errors.")
 			else
-				usr << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_15_stereo_error.wav',channel=4, volume=100);
+				usr << sound('sound/mecha/UI_SCI-FI_Tone_Deep_Wet_15_stereo_error.ogg',channel=4, volume=100)
 				src.occupant_message("<font color='red'>Recalibration failed.</font>")
 				src.log_message("Recalibration of coordination system failed with 1 error.",1)
 
@@ -1888,8 +1911,8 @@
 	else
 		src.log_append_to_last("Armor saved.")
 		playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
-		src.occupant_message("\blue The [user]'s attack is stopped by the armor.")
-		visible_message("\blue The [user] rebounds off [src.name]'s armor!")
+		src.occupant_message(SPAN_NOTE("The [user]'s attack is stopped by the armor."))
+		visible_message(SPAN_NOTE("The [user] rebounds off [src.name]'s armor!"))
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
 	return 1
 

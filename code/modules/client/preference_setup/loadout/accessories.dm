@@ -21,31 +21,31 @@
 		"science"     = /obj/item/clothing/accessory/armband/science
 	)
 
-/datum/gear/suspenders
+/datum/gear/accessory/suspenders
 	display_name = "suspenders"
 	path = /obj/item/clothing/accessory/suspenders
 	slot = slot_tie
 
 /datum/gear/accessory/holster
-	display_name = "holster, armpit"
+	display_name = "holster"
 	path = /obj/item/clothing/accessory/holster/gun/armpit
-	allowed_roles = list("Captain", "Head of Personnel", "Security Officer", "Warden", "Head of Security","Detective","Forensic Technician")
-
-/datum/gear/accessory/holster/hip
-	display_name = "holster, hip"
-	path = /obj/item/clothing/accessory/holster/gun/hip
-
-/datum/gear/accessory/holster/waist
-	display_name = "holster, waist"
-	path = /obj/item/clothing/accessory/holster/gun/waist
+	allowed_roles = list(
+		"Captain", "Head of Personnel", "Head of Security",
+		"Security Officer", "Warden", "Detective", "Forensic Technician"
+	)
+	options = list(
+		"armpit" = /obj/item/clothing/accessory/holster/gun/armpit,
+		"hip"    = /obj/item/clothing/accessory/holster/gun/hip,
+		"waist"  = /obj/item/clothing/accessory/holster/gun/waist
+	)
 
 /datum/gear/accessory/holster/knife
-	display_name = "holster (knifeholder)"
+	display_name = "holster (knife)"
 	path = /obj/item/clothing/accessory/holster/knife
-
-/datum/gear/accessory/holster/knife/hip
-	display_name = "holster (knifeholder), hip"
-	path = /obj/item/clothing/accessory/holster/knife/hip
+	options = list(
+		"common" = /obj/item/clothing/accessory/holster/knife,
+		"hip"    = /obj/item/clothing/accessory/holster/knife/hip
+	)
 
 /datum/gear/accessory/tie
 	display_name = "tie"
@@ -80,41 +80,29 @@
 	)
 
 /datum/gear/accessory/suitjacket
-	display_name = "suit jacket, tan"
-	path = /obj/item/clothing/accessory/tan_jacket
-
-/datum/gear/accessory/suitjacket/charcoal
-	display_name = "suit jacket, charcoal"
+	display_name = "suit jacket"
 	path = /obj/item/clothing/accessory/charcoal_jacket
-
-/datum/gear/accessory/suitjacket/navy
-	display_name = "suit jacket, navy blue"
-	path = /obj/item/clothing/accessory/navy_jacket
-
-/datum/gear/accessory/suitjacket/burgundy
-	display_name = "suit jacket, burgundy"
-	path = /obj/item/clothing/accessory/burgundy_jacket
-
-/datum/gear/accessory/suitjacket/checkered
-	display_name = "suit jacket, checkered"
-	path = /obj/item/clothing/accessory/checkered_jacket
+	options = list(
+		"charocoal" = /obj/item/clothing/accessory/charcoal_jacket,
+		"tan"       = /obj/item/clothing/accessory/tan_jacket,
+		"navy blue" = /obj/item/clothing/accessory/navy_jacket,
+		"burgundy"  = /obj/item/clothing/accessory/burgundy_jacket,
+		"checkered" = /obj/item/clothing/accessory/checkered_jacket
+	)
 
 /datum/gear/accessory/vest
-	display_name = "webbing, engineering"
+	display_name = "webbing vest"
 	path = /obj/item/clothing/accessory/storage/brown_vest
 	allowed_roles = list(
 		"Chief Engineer","Station Engineer","Atmospheric Technician",
 		"Head of Security","Warden","Security Officer","Detective","Forensic Technician",
 		"Chief Medical Officer","Paramedic","Medical Doctor","Chemist"
 	)
-
-/datum/gear/accessory/vest/black
-	display_name = "webbing, security"
-	path = /obj/item/clothing/accessory/storage/black_vest
-
-/datum/gear/accessory/vest/white
-	display_name = "webbing, medical"
-	path = /obj/item/clothing/accessory/storage/white_vest
+	options = list(
+		"security"    = /obj/item/clothing/accessory/storage/black_vest,
+		"engineering" = /obj/item/clothing/accessory/storage/brown_vest,
+		"medical"     = /obj/item/clothing/accessory/storage/white_vest
+	)
 
 /datum/gear/accessory/vest/drop_pouches
 	display_name = "drop pouches"

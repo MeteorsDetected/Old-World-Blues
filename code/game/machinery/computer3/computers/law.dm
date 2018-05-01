@@ -13,14 +13,14 @@
 		set category = "Object"
 		set name = "Access Computer's Internals"
 		set src in oview(1)
-		if(!Adjacent(usr) || usr.restrained() || usr.lying || usr.stat || issilicon(usr) || !istype(usr, /mob/living))
+		if(!Adjacent(usr) || usr.incapacitated() || issilicon(usr) || !isliving(usr))
 			return
 
 		opened = !opened
 		if(opened)
-			usr << "\blue The access panel is now open."
+			usr << SPAN_NOTE("The access panel is now open.")
 		else
-			usr << "\blue The access panel is now closed."
+			usr << SPAN_NOTE("The access panel is now closed.")
 		return
 
 

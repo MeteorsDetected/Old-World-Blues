@@ -8,7 +8,7 @@
 */
 /obj/screen
 	name = ""
-	icon = 'icons/mob/screen1.dmi'
+	icon = 'icons/screen/main.dmi'
 	layer = 20.0
 	unacidable = 1
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
@@ -55,7 +55,7 @@
 	if(!usr.canClick())
 		return 1
 
-	if(usr.stat || usr.restrained() || usr.stunned || usr.lying)
+	if(usr.incapacitated())
 		return 1
 
 	if(!(owner in usr))
@@ -90,7 +90,7 @@
 /obj/screen/storage/Click()
 	if(!usr.canClick())
 		return 1
-	if(usr.stat || usr.paralysis || usr.stunned || usr.weakened)
+	if(usr.incapacitated())
 		return 1
 	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
@@ -102,7 +102,7 @@
 
 /obj/screen/gun
 	name = "gun"
-	icon = 'icons/mob/screen1.dmi'
+	icon = 'icons/screen/main.dmi'
 	master = null
 	dir = 2
 
@@ -233,7 +233,7 @@
 			if(iscarbon(usr))
 				var/mob/living/carbon/C = usr
 				if(C.legcuffed)
-					C << "<span class='notice'>You are legcuffed! You cannot run until you get [C.legcuffed] removed!</span>"
+					C << SPAN_NOTE("You are legcuffed! You cannot run until you get [C.legcuffed] removed!")
 					C.m_intent = "walk"	//Just incase
 					C.hud_used.move_intent.icon_state = "walking"
 					return 1
@@ -269,10 +269,10 @@
 		if("internal")
 			if(iscarbon(usr))
 				var/mob/living/carbon/C = usr
-				if(!C.stat && !C.stunned && !C.paralysis && !C.restrained())
+				if(!C.incapacitated())
 					if(C.internal)
 						C.internal = null
-						C << "<span class='notice'>No longer running on internals.</span>"
+						C << SPAN_NOTE("No longer running on internals.")
 						if(C.internals)
 							C.internals.icon_state = "internal0"
 					else
@@ -284,7 +284,7 @@
 								no_mask = 1
 
 						if(no_mask)
-							C << "<span class='notice'>You are not wearing a suitable mask or helmet.</span>"
+							C << SPAN_NOTE("You are not wearing a suitable mask or helmet.")
 							return 1
 						else
 							var/list/nicename = null
@@ -358,7 +358,7 @@
 							//We've determined the best container now we set it as our internals
 
 							if(best)
-								C << "<span class='notice'>You are now running on internals from [tankcheck[best]] [from] your [nicename[best]].</span>"
+								C << SPAN_NOTE("You are now running on internals from [tankcheck[best]] [from] your [nicename[best]].")
 								C.internal = tankcheck[best]
 
 
@@ -366,7 +366,7 @@
 								if(C.internals)
 									C.internals.icon_state = "internal1"
 							else
-								C << "<span class='notice'>You don't have a[breathes=="oxygen" ? "n oxygen" : addtext(" ",breathes)] tank.</span>"
+								C << SPAN_NOTE("You don't have a[breathes=="oxygen" ? "n oxygen" : addtext(" ",breathes)] tank.")
 		if("act_intent")
 			usr.a_intent_change("right")
 		if(I_HELP)
@@ -385,7 +385,7 @@
 		if("pull")
 			usr.stop_pulling()
 		if("throw")
-			if(!usr.stat && isturf(usr.loc) && !usr.restrained())
+			if(!usr.incapacitated() && isturf(usr.loc))
 				usr:toggle_throw_mode()
 		if("drop")
 			if(usr.client)
@@ -425,15 +425,15 @@
 					R << "You haven't selected a module yet."
 
 		if("module1")
-			if(istype(usr, /mob/living/silicon/robot))
+			if(isrobot(usr))
 				usr:toggle_module(1)
 
 		if("module2")
-			if(istype(usr, /mob/living/silicon/robot))
+			if(isrobot(usr))
 				usr:toggle_module(2)
 
 		if("module3")
-			if(istype(usr, /mob/living/silicon/robot))
+			if(isrobot(usr))
 				usr:toggle_module(3)
 
 		if("toggle_lights")
@@ -501,7 +501,7 @@
 	// We don't even know if it's a middle click
 	if(!usr.canClick())
 		return 1
-	if(usr.stat || usr.paralysis || usr.stunned || usr.weakened)
+	if(usr.incapacitated())
 		return 1
 	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1

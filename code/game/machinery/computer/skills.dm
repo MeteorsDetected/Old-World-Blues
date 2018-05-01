@@ -3,10 +3,12 @@
 /obj/machinery/computer/skills//TODO:SANITY
 	name = "employment records console"
 	desc = "Used to view, edit and maintain employment records."
-	icon_state = "medlaptop"
+	screen_icon = "medlaptop"
 	light_color = "#00b000"
 	req_one_access = list(access_heads)
 	circuit = /obj/item/weapon/circuitboard/skills
+	frame = FRAME_LAPTOP
+	icon = 'icons/obj/computer_laptop.dmi'
 	var/obj/item/weapon/card/id/scan = null
 	var/authenticated = null
 	var/rank = null
@@ -49,8 +51,7 @@
 		if (authenticated)
 			switch(screen)
 				if(1.0)
-					dat += {"
-<p style='text-align:center;'>"}
+					dat += "<p style='text-align:center;'>"
 					dat += text("<A href='?src=\ref[];choice=Search Records'>Search Records</A><BR>", src)
 					dat += text("<A href='?src=\ref[];choice=New Record (General)'>New Record</A><BR>", src)
 					dat += {"
@@ -195,7 +196,7 @@ What a mess.*/
 					src.authenticated = usr.name
 					src.rank = "AI"
 					src.screen = 1
-				else if (istype(usr, /mob/living/silicon/robot))
+				else if (isrobot(usr))
 					src.active1 = null
 					src.authenticated = usr.name
 					var/mob/living/silicon/robot/R = usr
@@ -210,7 +211,7 @@ What a mess.*/
 //RECORD FUNCTIONS
 			if("Search Records")
 				var/t1 = input("Search String: (Partial Name or ID or Fingerprints or Rank)", "Secure. records", null, null)  as text
-				if ((!( t1 ) || usr.stat || !( authenticated ) || usr.restrained() || !in_range(src, usr)))
+				if ((!t1 || usr.incapacitated() || !authenticated || !in_range(src, usr)))
 					return
 				Perp = new/list()
 				t1 = rlowertext(t1)
@@ -247,7 +248,7 @@ What a mess.*/
 
 /*			if ("Search Fingerprints")
 				var/t1 = input("Search String: (Fingerprint)", "Secure. records", null, null)  as text
-				if ((!( t1 ) || usr.stat || !( authenticated ) || usr.restrained() || (!in_range(src, usr)) && (!issilicon(usr))))
+				if ((!t1 || usr.incapacitated() || !authenticated || (!in_range(src, usr)) && (!issilicon(usr))))
 					return
 				active1 = null
 				t1 = rlowertext(t1)
@@ -310,19 +311,19 @@ What a mess.*/
 					if("name")
 						if (istype(active1, /datum/data/record))
 							var/t1 = sanitizeName(input("Please input name:", "Secure. records", active1.fields["name"], null)  as text)
-							if ((!( t1 ) || !length(trim(t1)) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!issilicon(usr)))) || active1 != a1)
+							if ((!( t1 ) || !length(trim(t1)) || !( authenticated ) || usr.incapacitated() || (!in_range(src, usr) && (!issilicon(usr)))) || active1 != a1)
 								return
 							active1.fields["name"] = t1
 					if("id")
 						if (istype(active1, /datum/data/record))
 							var/t1 = sanitize(input("Please input id:", "Secure. records", active1.fields["id"], null)  as text)
-							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!issilicon(usr))) || active1 != a1))
+							if ((!( t1 ) || !( authenticated ) || usr.incapacitated() || (!in_range(src, usr) && (!issilicon(usr))) || active1 != a1))
 								return
 							active1.fields["id"] = t1
 					if("fingerprint")
 						if (istype(active1, /datum/data/record))
 							var/t1 = sanitize(input("Please input fingerprint hash:", "Secure. records", active1.fields["fingerprint"], null)  as text)
-							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!issilicon(usr))) || active1 != a1))
+							if ((!( t1 ) || !( authenticated ) || usr.incapacitated() || (!in_range(src, usr) && (!issilicon(usr))) || active1 != a1))
 								return
 							active1.fields["fingerprint"] = t1
 					if("sex")
@@ -334,7 +335,7 @@ What a mess.*/
 					if("age")
 						if (istype(active1, /datum/data/record))
 							var/t1 = input("Please input age:", "Secure. records", active1.fields["age"], null)  as num
-							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!issilicon(usr))) || active1 != a1))
+							if ((!( t1 ) || !( authenticated ) || usr.incapacitated() || (!in_range(src, usr) && (!issilicon(usr))) || active1 != a1))
 								return
 							active1.fields["age"] = t1
 					if("rank")
@@ -351,7 +352,7 @@ What a mess.*/
 					if("species")
 						if (istype(active1, /datum/data/record))
 							var/t1 = sanitize(input("Please enter race:", "General records", active1.fields["species"], null)  as message)
-							if ((!( t1 ) || !( authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!issilicon(usr))) || active1 != a1))
+							if ((!( t1 ) || !( authenticated ) || usr.incapacitated() || (!in_range(src, usr) && (!issilicon(usr))) || active1 != a1))
 								return
 							active1.fields["species"] = t1
 

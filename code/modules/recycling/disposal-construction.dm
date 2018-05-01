@@ -9,8 +9,7 @@
 	icon_state = "conpipe-s"
 	anchored = 0
 	density = 0
-	pressure_resistance = 5*ONE_ATMOSPHERE
-	matter = list(DEFAULT_WALL_MATERIAL = 1850)
+	matter = list(MATERIAL_STEEL = 1850)
 	level = 2
 	var/sortTypes = list()
 	var/ptype = 0
@@ -105,7 +104,7 @@
 		set name = "Rotate Pipe"
 		set src in view(1)
 
-		if(usr.stat)
+		if(usr.incapacitated())
 			return
 
 		if(anchored)
@@ -119,7 +118,7 @@
 		set category = "Object"
 		set name = "Flip Pipe"
 		set src in view(1)
-		if(usr.stat)
+		if(usr.incapacitated())
 			return
 
 		if(anchored)

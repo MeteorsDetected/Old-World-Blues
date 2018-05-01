@@ -73,7 +73,7 @@
 
 //Processes the occupant, drawing from the internal power cell if needed.
 /obj/machinery/recharge_station/proc/process_occupant()
-	if(istype(occupant, /mob/living/silicon/robot))
+	if(isrobot(occupant))
 		var/mob/living/silicon/robot/R = occupant
 
 		if(R.module)
@@ -99,10 +99,9 @@
 	return cell.percent()
 
 /obj/machinery/recharge_station/relaymove(mob/user as mob)
-	if(user.stat)
+	if(user.incapacitated(INCAPACITATION_DISABLED))
 		return
 	go_out()
-	return
 
 /obj/machinery/recharge_station/emp_act(severity)
 	if(occupant)
@@ -190,15 +189,14 @@
 	if(occupant)
 		return
 
-	// TODO :  Change to incapacitated() on merge.
-	if(R.stat || R.lying || R.resting || R.buckled)
+	if(R.incapacitated(INCAPACITATION_MOVE))
 		return
 	if(!R.cell)
 		return
 
 	add_fingerprint(R)
-	R.reset_view(src)
 	R.forceMove(src)
+	R.reset_view(src)
 	occupant = R
 	update_icon()
 	return 1
@@ -217,13 +215,15 @@
 	set name = "Eject Recharger"
 	set src in oview(1)
 
-	// TODO :  Change to incapacitated() on merge.
-	if(usr.stat || usr.lying || usr.resting || usr.buckled)
-		return
+	if(usr == occupant)
+		if(usr.incapacitated(INCAPACITATION_DISABLED))
+			return
+	else
+		if(usr.incapacitated())
+			return
 
 	go_out()
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/recharge_station/verb/move_inside()
 	set category = "Object"

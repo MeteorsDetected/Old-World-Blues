@@ -72,12 +72,6 @@
 		return 0
 	return 1
 
-/obj/machinery/atmospherics/omni/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
-
 /obj/machinery/atmospherics/omni/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	if(!istype(W, /obj/item/weapon/wrench))
 		return ..()
@@ -90,12 +84,12 @@
 		user << "<span class='warning'>You cannot unwrench \the [src], it is too exerted due to internal pressure.</span>"
 		add_fingerprint(user)
 		return 1
-	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
+	user << SPAN_NOTE("You begin to unfasten \the [src]...")
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	if(do_after(user, 40))
+	if(do_after(user, 40, src))
 		user.visible_message( \
-			"<span class='notice'>\The [user] unfastens \the [src].</span>", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
+			SPAN_NOTE("\The [user] unfastens \the [src]."), \
+			SPAN_NOTE("You have unfastened \the [src]."), \
 			"You hear a ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
 		qdel(src)

@@ -20,9 +20,10 @@
 	opacity = 1
 
 /obj/structure/bookcase/initialize()
+	. = ..()
 	for(var/obj/item/I in loc)
 		if(istype(I, /obj/item/weapon/book))
-			I.loc = src
+			I.forceMove(src)
 	update_icon()
 
 /obj/structure/bookcase/attackby(obj/O as obj, mob/user as mob)
@@ -42,7 +43,7 @@
 	if(contents.len)
 		var/obj/item/weapon/book/choice = input("Which book would you like to remove from the shelf?") as null|obj in contents
 		if(choice)
-			if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+			if(usr.incapacitated() || !in_range(loc, usr))
 				return
 			if(!user.put_in_hands(choice))
 				choice.forceMove(get_turf(src))
@@ -54,21 +55,18 @@
 			for(var/obj/item/weapon/book/b in contents)
 				qdel(b)
 			qdel(src)
-			return
 		if(2.0)
 			for(var/obj/item/weapon/book/b in contents)
-				if (prob(50)) b.loc = (get_turf(src))
-				else qdel(b)
+				if (prob(50))
+					b.forceMove(src.loc)
+				else
+					qdel(b)
 			qdel(src)
-			return
 		if(3.0)
 			if (prob(50))
 				for(var/obj/item/weapon/book/b in contents)
-					b.loc = (get_turf(src))
+					b.forceMove(src.loc)
 				qdel(src)
-			return
-		else
-	return
 
 /obj/structure/bookcase/update_icon()
 	if(contents.len < 5)
@@ -80,8 +78,8 @@
 /obj/structure/bookcase/manuals/medical
 	name = "Medical Manuals bookcase"
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		new /obj/item/weapon/book/manual/medical_cloning(src)
 		new /obj/item/weapon/book/manual/medical_diagnostics_manual(src)
 		new /obj/item/weapon/book/manual/medical_diagnostics_manual(src)
@@ -92,8 +90,8 @@
 /obj/structure/bookcase/manuals/engineering
 	name = "Engineering Manuals bookcase"
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		new /obj/item/weapon/book/manual/engineering_construction(src)
 		new /obj/item/weapon/book/manual/engineering_particle_accelerator(src)
 		new /obj/item/weapon/book/manual/engineering_hacking(src)
@@ -106,8 +104,8 @@
 /obj/structure/bookcase/manuals/research_and_development
 	name = "R&D Manuals bookcase"
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		new /obj/item/weapon/book/manual/research_and_development(src)
 		update_icon()
 
@@ -134,12 +132,12 @@
 /obj/item/weapon/book/attack_self(var/mob/user as mob)
 	if(carved)
 		if(store)
-			user << "<span class='notice'>[store] falls out of [title]!</span>"
+			user << SPAN_NOTE("[store] falls out of [title]!")
 			store.loc = get_turf(src.loc)
 			store = null
 			return
 		else
-			user << "<span class='notice'>The pages of [title] have been cut out!</span>"
+			user << SPAN_NOTE("The pages of [title] have been cut out!")
 			return
 	if(src.dat)
 		user << browse("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", "window=book")
@@ -153,13 +151,13 @@
 		if(!store)
 			if(W.w_class < ITEM_SIZE_NORMAL && user.unEquip(W, src))
 				store = W
-				user << "<span class='notice'>You put [W] in [title].</span>"
+				user << SPAN_NOTE("You put [W] in [title].")
 				return
 			else
-				user << "<span class='notice'>[W] won't fit in [title].</span>"
+				user << SPAN_NOTE("[W] won't fit in [title].")
 				return
 		else
-			user << "<span class='notice'>There's already something in [title]!</span>"
+			user << SPAN_NOTE("There's already something in [title]!")
 			return
 	if(istype(W, /obj/item/weapon/pen))
 		if(unique)
@@ -222,9 +220,9 @@
 					user << "[W]'s screen flashes: 'Book stored in buffer. Title added to general inventory.'"
 	else if(istype(W, /obj/item/weapon/material/knife) || istype(W, /obj/item/weapon/wirecutters))
 		if(carved)	return
-		user << "<span class='notice'>You begin to carve out [title].</span>"
+		user << SPAN_NOTE("You begin to carve out [title].")
 		if(do_after(user, 30))
-			user << "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>"
+			user << SPAN_NOTE("You carve out the pages from [title]! You didn't want to read it anyway.")
 			carved = 1
 			return
 	else
@@ -232,8 +230,8 @@
 
 /obj/item/weapon/book/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(user.zone_sel.selecting == O_EYES)
-		user.visible_message("<span class='notice'>You open up the book and show it to [M]. </span>", \
-			"<span class='notice'> [user] opens up a book and shows it to [M]. </span>")
+		user.visible_message(SPAN_NOTE("You open up the book and show it to [M]. "), \
+			SPAN_NOTE(" [user] opens up a book and shows it to [M]. "))
 		M << browse("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", "window=book")
 		user.setClickCooldown(DEFAULT_QUICK_COOLDOWN) //to prevent spam
 

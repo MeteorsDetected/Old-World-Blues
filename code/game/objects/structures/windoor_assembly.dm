@@ -79,13 +79,13 @@
 
 					if(do_after(user, 40, src))
 						if(!src || !WT.isOn()) return
-						user << "\blue You dissasembled the windoor assembly!"
+						user << SPAN_NOTE("You dissasembled the windoor assembly!")
 						new /obj/item/stack/material/glass/reinforced(get_turf(src), 5)
 						if(secure)
 							PoolOrNew(/obj/item/stack/rods, list(get_turf(src), 4))
 						qdel(src)
 				else
-					user << "\blue You need more welding fuel to dissassemble the windoor assembly."
+					user << SPAN_NOTE("You need more welding fuel to dissassemble the windoor assembly.")
 					return
 
 			//Wrenching an unsecure assembly anchors it in place. Step 4 complete
@@ -95,7 +95,7 @@
 
 				if(do_after(user, 40,src))
 					if(!src) return
-					user << "\blue You've secured the windoor assembly!"
+					user << SPAN_NOTE("You've secured the windoor assembly!")
 					src.anchored = 1
 					if(src.secure)
 						src.name = "Secure Anchored Windoor Assembly"
@@ -109,7 +109,7 @@
 
 				if(do_after(user, 40,src))
 					if(!src) return
-					user << "\blue You've unsecured the windoor assembly!"
+					user << SPAN_NOTE("You've unsecured the windoor assembly!")
 					src.anchored = 0
 					if(src.secure)
 						src.name = "Secure Windoor Assembly"
@@ -122,11 +122,11 @@
 				if(R.get_amount() < 4)
 					user << "<span class='warning'>You need more rods to do this.</span>"
 					return
-				user << "<span class='notice'>You start to reinforce the windoor with rods.</span>"
+				user << SPAN_NOTE("You start to reinforce the windoor with rods.")
 
 				if(do_after(user,40,src) && !secure)
 					if (R.use(4))
-						user << "<span class='notice'>You reinforce the windoor.</span>"
+						user << SPAN_NOTE("You reinforce the windoor.")
 						src.secure = "secure_"
 						if(src.anchored)
 							src.name = "Secure Anchored Windoor Assembly"
@@ -140,7 +140,7 @@
 				var/obj/item/stack/cable_coil/CC = W
 				if(do_after(user, 40,src) && state == "01")
 					if (CC.use(1))
-						user << "<span class='notice'>You wire the windoor!</span>"
+						user << SPAN_NOTE("You wire the windoor!")
 						src.state = "02"
 						if(src.secure)
 							src.name = "Secure Wired Windoor Assembly"
@@ -159,7 +159,7 @@
 				if(do_after(user, 40, src))
 					if(!src) return
 
-					user << "\blue You cut the windoor wires.!"
+					user << SPAN_NOTE("You cut the windoor wires.!")
 					new/obj/item/stack/cable_coil(get_turf(user), 1)
 					src.state = "01"
 					if(src.secure)
@@ -176,7 +176,7 @@
 					if(!src) return
 
 					user.drop_from_inventory(W, src)
-					user << "\blue You've installed the airlock electronics!"
+					user << SPAN_NOTE("You've installed the airlock electronics!")
 					src.name = "Near finished Windoor Assembly"
 					src.electronics = W
 				else
@@ -189,7 +189,7 @@
 
 				if(do_after(user, 40, src) && electronics)
 					if(!src || !src.electronics) return
-					user << "\blue You've removed the airlock electronics!"
+					user << SPAN_NOTE("You've removed the airlock electronics!")
 					if(src.secure)
 						src.name = "Secure Wired Windoor Assembly"
 					else
@@ -212,7 +212,7 @@
 					if(!src) return
 
 					density = 1 //Shouldn't matter but just incase
-					user << "\blue You finish the windoor!"
+					user << SPAN_NOTE("You finish the windoor!")
 
 					if(secure)
 						var/obj/machinery/door/window/brigdoor/windoor = new /obj/machinery/door/window/brigdoor(src.loc)

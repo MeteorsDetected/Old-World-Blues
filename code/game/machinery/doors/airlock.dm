@@ -45,14 +45,14 @@
 				visible_message("<span class='danger'>\The [user] forces \the [src] closed!</span>")
 				close(1)
 		else
-			visible_message("<span class='notice'>\The [user] strains fruitlessly to force \the [src] [density ? "open" : "closed"].</span>")
+			visible_message(SPAN_NOTE("\The [user] strains fruitlessly to force \the [src] [density ? "open" : "closed"]."))
 		return
 	..()
 
 /obj/machinery/door/airlock/get_material()
 	if(mineral)
 		return get_material_by_name(mineral)
-	return get_material_by_name(DEFAULT_WALL_MATERIAL)
+	return get_material_by_name(MATERIAL_STEEL)
 
 /obj/machinery/door/airlock/command
 	name = "Airlock"
@@ -220,23 +220,23 @@
 /obj/machinery/door/airlock/gold
 	name = "Gold Airlock"
 	icon = 'icons/obj/doors/Doorgold.dmi'
-	mineral = "gold"
+	mineral = MATERIAL_GOLD
 
 /obj/machinery/door/airlock/silver
 	name = "Silver Airlock"
 	icon = 'icons/obj/doors/Doorsilver.dmi'
-	mineral = "silver"
+	mineral = MATERIAL_SILVER
 
 /obj/machinery/door/airlock/diamond
 	name = "Diamond Airlock"
 	icon = 'icons/obj/doors/Doordiamond.dmi'
-	mineral = "diamond"
+	mineral = MATERIAL_DIAMOND
 
 /obj/machinery/door/airlock/uranium
 	name = "Uranium Airlock"
 	desc = "And they said I was crazy."
 	icon = 'icons/obj/doors/Dooruranium.dmi'
-	mineral = "uranium"
+	mineral = MATERIAL_URANIUM
 	var/last_event = 0
 
 /obj/machinery/door/airlock/process()
@@ -268,7 +268,7 @@
 	name = "Phoron Airlock"
 	desc = "No way this can end badly."
 	icon = 'icons/obj/doors/Doorphoron.dmi'
-	mineral = "phoron"
+	mineral = MATERIAL_PHORON
 
 /obj/machinery/door/airlock/phoron/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
@@ -292,7 +292,7 @@
 /obj/machinery/door/airlock/sandstone
 	name = "Sandstone Airlock"
 	icon = 'icons/obj/doors/Doorsand.dmi'
-	mineral = "sandstone"
+	mineral = MATERIAL_SANDSTONE
 
 /obj/machinery/door/airlock/science
 	name = "Airlock"
@@ -622,10 +622,10 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if (src.isElectrified())
-		if (istype(mover, /obj/item))
+		if(istype(mover, /obj/item))
 			var/obj/item/i = mover
-			if (i.matter && (DEFAULT_WALL_MATERIAL in i.matter) && i.matter[DEFAULT_WALL_MATERIAL] > 0)
-				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			if (i.matter && (MATERIAL_STEEL in i.matter) && i.matter[MATERIAL_STEEL] > 0)
+				var/datum/effect/effect/system/spark_spread/s = new
 				s.set_up(5, 1, src)
 				s.start()
 	return ..()
@@ -746,10 +746,10 @@ About the new airlock wires panel:
 			if (stat & BROKEN)
 				usr << "<span class='warning'>The panel is broken and cannot be closed.</span>"
 			else
-				usr << "<span class='notice'>You close '[name]' airlock panel.</span>"
+				usr << SPAN_NOTE("You close '[name]' airlock panel.")
 				src.p_open = 0
 		else
-			usr << "<span class='notice'>You open '[name]' airlock panel.</span>"
+			usr << SPAN_NOTE("You open '[name]' airlock panel.")
 			src.p_open = 1
 		src.update_icon()
 	else if(istype(C, /obj/item/weapon/wirecutters))
@@ -766,7 +766,7 @@ About the new airlock wires panel:
 			playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
 			user.visible_message("[user] removes the electronics from the airlock assembly.", "You start to remove electronics from the airlock assembly.")
 			if(do_after(user,40))
-				user << "<span class='notice'>You removed the airlock electronics!</span>"
+				user << SPAN_NOTE("You removed the airlock electronics!")
 
 				var/obj/structure/door_assembly/da = new assembly_type(src.loc)
 				if (istype(da, /obj/structure/door_assembly/multi_tile))
@@ -794,9 +794,9 @@ About the new airlock wires panel:
 				qdel(src)
 				return
 		else if(arePowerSystemsOn())
-			user << "<span class='notice'>The airlock's motors resist your efforts to force it.</span>"
+			user << SPAN_NOTE("The airlock's motors resist your efforts to force it.")
 		else if(locked)
-			user << "<span class='notice'>The airlock's bolts prevent it from being forced.</span>"
+			user << SPAN_NOTE("The airlock's bolts prevent it from being forced.")
 		else
 			if(density)
 				spawn(0)	open(1)
@@ -808,7 +808,7 @@ About the new airlock wires panel:
 		var/obj/item/weapon/W = C
 		if((W.pry == 1) && !arePowerSystemsOn())
 			if(locked)
-				user << "<span class='notice'>The airlock's bolts prevent it from being forced.</span>"
+				user << SPAN_NOTE("The airlock's bolts prevent it from being forced.")
 			else if( !welded && !operating )
 				if(istype(C, /obj/item/weapon/material/twohanded/fireaxe)) // If this is a fireaxe, make sure it's held in two hands.
 					var/obj/item/weapon/material/twohanded/fireaxe/F = C
@@ -1027,11 +1027,16 @@ About the new airlock wires panel:
 		wires = new/datum/wires/airlock(src)
 
 /obj/machinery/door/airlock/initialize()
-	if(src.closeOtherId != null)
-		for (var/obj/machinery/door/airlock/A in machines)
-			if(A.closeOtherId == src.closeOtherId && A != src)
-				src.closeOther = A
-				break
+	. = ..()
+	if(src.closeOtherId != null && . != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/door/airlock/lateInitialize()
+	..()
+	for (var/obj/machinery/door/airlock/A in machines)
+		if(A.closeOtherId == src.closeOtherId && A != src)
+			src.closeOther = A
+			break
 
 /obj/machinery/door/airlock/Destroy()
 	if(wires)
@@ -1071,7 +1076,6 @@ About the new airlock wires panel:
 		// If we lost power, disable electrification
 		// Keeping door lights on, runs on internal battery or something.
 		electrified_until = 0
-	update_icon()
 
 /obj/machinery/door/airlock/proc/prison_open()
 	if(arePowerSystemsOn())

@@ -16,7 +16,7 @@
 	throw_range = 5
 	w_class = ITEM_SIZE_NORMAL
 	origin_tech = list(TECH_ENGINEERING = 4, TECH_MATERIAL = 2)
-	matter = list(DEFAULT_WALL_MATERIAL = 50000)
+	matter = list(MATERIAL_STEEL = 50000)
 	var/datum/effect/effect/system/spark_spread/spark_system
 	var/stored_matter = 0
 	var/working = 0
@@ -29,18 +29,18 @@
 	return 0
 
 /obj/item/weapon/rcd/proc/can_use(var/mob/user,var/turf/T)
-	return (user.Adjacent(T) && user.get_active_hand() == src && !user.stat && !user.restrained())
+	return (user.Adjacent(T) && user.get_active_hand() == src && !user.incapacitated())
 
 /obj/item/weapon/rcd/examine()
 	. = ..()
 	if(src.type == /obj/item/weapon/rcd && loc == usr)
 		usr << "It currently holds [stored_matter]/100 matter-units."
 
-/obj/item/weapon/rcd/New()
-	..()
+/obj/item/weapon/rcd/initialize()
 	src.spark_system = new /datum/effect/effect/system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
+	return ..()
 
 /obj/item/weapon/rcd/Destroy()
 	qdel(spark_system)
@@ -51,20 +51,20 @@
 
 	if(istype(W, /obj/item/weapon/rcd_ammo))
 		if((stored_matter + 20) > 100)
-			user << "<span class='notice'>The RCD can't hold any more matter-units.</span>"
+			user << SPAN_NOTE("The RCD can't hold any more matter-units.")
 			return
 		user.drop_from_inventory(W)
 		qdel(W)
 		stored_matter += 20
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-		user << "<span class='notice'>The RCD now holds [stored_matter]/100 matter-units.</span>"
+		user << SPAN_NOTE("The RCD now holds [stored_matter]/100 matter-units.")
 		return
 	..()
 
 /obj/item/weapon/rcd/attack_self(mob/user)
 	//Change the mode
 	if(++mode > 3) mode = 1
-	user << "<span class='notice'>Changed mode to '[modes[mode]]'</span>"
+	user << SPAN_NOTE("Changed mode to '[modes[mode]]'")
 	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
 	if(prob(20)) src.spark_system.start()
 
@@ -159,7 +159,7 @@
 	item_state = "rcdammo"
 	w_class = ITEM_SIZE_SMALL
 	origin_tech = list(TECH_MATERIAL = 2)
-	matter = list(DEFAULT_WALL_MATERIAL = 30000,"glass" = 15000)
+	matter = list(MATERIAL_STEEL = 30000,MATERIAL_GLASS = 15000)
 
 /obj/item/weapon/rcd/borg
 	canRwall = 1
@@ -178,7 +178,7 @@
 	return
 
 /obj/item/weapon/rcd/borg/can_use(var/mob/user,var/turf/T)
-	return (user.Adjacent(T) && !user.stat)
+	return (user.Adjacent(T) && !user.incapacitated())
 
 
 /obj/item/weapon/rcd/mounted/useResource(var/amount, var/mob/user)
@@ -195,4 +195,4 @@
 	return
 
 /obj/item/weapon/rcd/mounted/can_use(var/mob/user,var/turf/T)
-	return (user.Adjacent(T) && !user.stat && !user.restrained())
+	return (user.Adjacent(T) && !user.incapacitated())

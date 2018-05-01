@@ -17,15 +17,9 @@
 	name = "body bags"
 	desc = "This box contains body bags."
 	icon_state = "bodybags"
-	New()
-		..()
-		new /obj/item/bodybag(src)
-		new /obj/item/bodybag(src)
-		new /obj/item/bodybag(src)
-		new /obj/item/bodybag(src)
-		new /obj/item/bodybag(src)
-		new /obj/item/bodybag(src)
-		new /obj/item/bodybag(src)
+	preloaded = list(
+		/obj/item/bodybag = 7
+	)
 
 
 /obj/structure/closet/body_bag
@@ -130,9 +124,9 @@
 	var/used = 0
 	var/obj/item/weapon/tank/tank = null
 
-/obj/structure/closet/body_bag/cryobag/New()
+/obj/structure/closet/body_bag/cryobag/initialize()
 	tank = new /obj/item/weapon/tank/emergency_oxygen(null) //It's in nullspace to prevent ejection when the bag is opened.
-	..()
+	. = ..()
 
 /obj/structure/closet/body_bag/cryobag/Destroy()
 	qdel(tank)

@@ -30,6 +30,7 @@
 	idle_power_usage /= max(1, tot_rating)
 
 /obj/machinery/r_n_d/server/initialize()
+	. = ..()
 	if(!files)
 		files = new /datum/research(src)
 	var/list/temp_list
@@ -119,7 +120,7 @@
 	server_id = -1
 
 /obj/machinery/r_n_d/server/centcom/initialize()
-	..()
+	. = ..()
 	var/list/no_id_servers = list()
 	var/list/server_ids = list()
 	for(var/obj/machinery/r_n_d/server/S in machines)
@@ -146,7 +147,7 @@
 
 /obj/machinery/computer/rdservercontrol
 	name = "R&D Server Controller"
-	icon_state = "rdcomp"
+	screen_icon = "rdcomp"
 	light_color = "#a97faa"
 	circuit = /obj/item/weapon/circuitboard/rdservercontrol
 	var/screen = 0
@@ -291,7 +292,7 @@
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		user << "<span class='notice'>You you disable the security protocols.</span>"
+		user << SPAN_NOTE("You you disable the security protocols.")
 		src.updateUsrDialog()
 		return 1
 

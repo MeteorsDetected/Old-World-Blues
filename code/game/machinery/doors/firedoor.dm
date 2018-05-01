@@ -51,14 +51,8 @@
 		"cold"
 	)
 
-/obj/machinery/door/firedoor/New()
+/obj/machinery/door/firedoor/initialize()
 	. = ..()
-	for(var/obj/machinery/door/firedoor/F in loc)
-		if(F != src)
-			spawn(1)
-				world.log << "Multiple firedoor at ([x],[y],[z])."
-				qdel(src)
-			return .
 	var/area/A = get_area(src)
 	ASSERT(istype(A))
 
@@ -80,7 +74,7 @@
 	. = ..()
 
 /obj/machinery/door/firedoor/get_material()
-	return get_material_by_name(DEFAULT_WALL_MATERIAL)
+	return get_material_by_name(MATERIAL_STEEL)
 
 /obj/machinery/door/firedoor/examine(mob/user, return_dist = 1)
 	. = ..()
@@ -156,7 +150,7 @@
 	"\The [src]", "Yes, [density ? "open" : "close"]", "No")
 	if(answer == "No")
 		return
-	if(user.stat || user.stunned || user.weakened || user.paralysis || (get_dist(src, user) > 1 && !issilicon(user)))
+	if(user.incapacitated() || (get_dist(src, user) > 1 && !issilicon(user)))
 		user << "Sorry, you must remain able bodied and close to \the [src] in order to use it."
 		return
 	if(density && (stat & (BROKEN|NOPOWER))) //can still close without power
@@ -167,7 +161,7 @@
 		user << "<span class='warning'>Access denied.  Please wait for authorities to arrive, or for the alert to clear.</span>"
 		return
 	else
-		user.visible_message("<span class='notice'>\The [src] [density ? "open" : "close"]s for \the [user].</span>",\
+		user.visible_message(SPAN_NOTE("\The [src] [density ? "open" : "close"]s for \the [user]."),\
 		"\The [src] [density ? "open" : "close"]s.",\
 		"You hear a beep, and a door opening.")
 

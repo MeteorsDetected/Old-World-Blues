@@ -1,7 +1,7 @@
 /obj/machinery/computer/mecha
 	name = "Exosuit Control"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "mecha"
+	screen_icon = "mecha"
 	light_color = "#a97faa"
 	req_access = list(access_robotics)
 	circuit = /obj/item/weapon/circuitboard/mecha_control
@@ -116,12 +116,7 @@
 
 /obj/item/storage/box/mechabeacons
 	name = "Exosuit Tracking Beacons"
-	New()
-		..()
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
+	preloaded = list(
+		/obj/item/mecha_parts/mecha_tracking = 7
+	)
+

@@ -17,8 +17,8 @@ var/global/list/rad_collectors = list()
 	var/locked = 0
 	var/drainratio = 1
 
-/obj/machinery/power/rad_collector/New()
-	..()
+/obj/machinery/power/rad_collector/initialize()
+	. = ..()
 	rad_collectors += src
 
 /obj/machinery/power/rad_collector/Destroy()
@@ -72,7 +72,7 @@ var/global/list/rad_collectors = list()
 			return 1
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(P)
-			user << "\blue Remove the phoron tank first."
+			user << SPAN_NOTE("Remove the phoron tank first.")
 			return 1
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 		src.anchored = !src.anchored

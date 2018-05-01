@@ -1,7 +1,7 @@
 /obj/machinery/computer/order
 	name = "supply ordering console"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "request"
+	screen_icon = "request"
 	circuit = /obj/item/weapon/circuitboard/order
 	var/datum/shuttle/ferry/supply/shuttle
 	var/temp = null
@@ -12,7 +12,7 @@
 /obj/machinery/computer/order/supply
 	name = "supply control console"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "supply"
+	screen_icon = "supply"
 	light_color = "#b88b2e"
 	req_access = list(access_cargo)
 	circuit = /obj/item/weapon/circuitboard/order/supply
@@ -283,7 +283,7 @@
 
 /obj/machinery/computer/order/supply/emag_act(var/remaining_charges, var/mob/user)
 	if(!hacked)
-		user << "<span class='notice'>Special supplies unlocked.</span>"
+		user << SPAN_NOTE("Special supplies unlocked.")
 		hacked = 1
 		return 1
 

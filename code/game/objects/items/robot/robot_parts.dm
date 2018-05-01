@@ -19,32 +19,32 @@
 	name = "left arm"
 	icon_state = "l_arm"
 	body_part = "l_arm"
-	matter = list(DEFAULT_WALL_MATERIAL = 12000)
+	matter = list(MATERIAL_STEEL = 12000)
 
 /obj/item/robot_parts/r_arm
 	name = "right arm"
 	icon_state = "r_arm"
 	body_part = "r_arm"
-	matter = list(DEFAULT_WALL_MATERIAL = 12000)
+	matter = list(MATERIAL_STEEL = 12000)
 
 /obj/item/robot_parts/l_leg
 	name = "left leg"
 	icon_state = "l_leg"
 	body_part = "l_leg"
-	matter = list(DEFAULT_WALL_MATERIAL = 10000)
+	matter = list(MATERIAL_STEEL = 10000)
 
 /obj/item/robot_parts/r_leg
 	name = "right leg"
 	icon_state = "r_leg"
 	body_part = "r_leg"
-	matter = list(DEFAULT_WALL_MATERIAL = 10000)
+	matter = list(MATERIAL_STEEL = 10000)
 
 /obj/item/robot_parts/chest
 	name = "torso"
 	desc = "A heavily reinforced case containing cyborg logic boards, with space for a standard power cell."
 	icon_state = "chest"
 	body_part = "chest"
-	matter = list(DEFAULT_WALL_MATERIAL = 32000)
+	matter = list(MATERIAL_STEEL = 32000)
 	var/wires = 0.0
 	var/obj/item/weapon/cell/cell = null
 
@@ -62,7 +62,7 @@
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
 	icon_state = "head"
 	body_part = "head"
-	matter = list(DEFAULT_WALL_MATERIAL = 20000)
+	matter = list(MATERIAL_STEEL = 20000)
 	var/obj/item/device/flash/flash1 = null
 	var/obj/item/device/flash/flash2 = null
 
@@ -76,7 +76,7 @@
 	name = "endoskeleton"
 	desc = "A complex metal backbone with standard limb sockets and pseudomuscle anchors."
 	icon_state = "robo_suit"
-	matter = list(DEFAULT_WALL_MATERIAL = 42000)
+	matter = list(MATERIAL_STEEL = 42000)
 	var/list/req_parts = list(
 		"chest",
 		"head",
@@ -88,8 +88,8 @@
 	var/list/parts = list()
 	var/created_name = ""
 
-/obj/item/robot_parts/robot_suit/with_limbs/New()
-	..()
+/obj/item/robot_parts/robot_suit/with_limbs/initialize()
+	. = ..()
 	var/list/preinstalled = list(
 		/obj/item/robot_parts/r_arm,
 		/obj/item/robot_parts/l_arm,
@@ -113,7 +113,7 @@
 
 /obj/item/robot_parts/robot_suit/attackby(obj/item/W as obj, mob/user as mob)
 	..()
-	if(istype(W, /obj/item/stack/material) && W.get_material_name() == DEFAULT_WALL_MATERIAL && !parts.len)
+	if(ismaterial(W) && W.get_material_name() == MATERIAL_STEEL && !parts.len)
 		var/obj/item/stack/material/M = W
 		if (M.use(1))
 			var/obj/item/weapon/secbot_assembly/ed209_assembly/B = new(loc)
@@ -260,7 +260,7 @@
 		else
 			user.drop_from_inventory(W, src)
 			src.cell = W
-			user << "<span class='notice'>You insert the cell!</span>"
+			user << SPAN_NOTE("You insert the cell!")
 		return
 	else if(iswirecutter(W))
 		if(wires)
@@ -279,13 +279,13 @@
 			var/obj/item/stack/cable_coil/coil = W
 			coil.use(1)
 			src.wires = W.color
-			user << "<span class='notice'>You insert the wire!</span>"
+			user << SPAN_NOTE("You insert the wire!")
 	return
 
 /obj/item/robot_parts/head/attackby(obj/item/W as obj, mob/user as mob)
 	..()
 	if(istype(W, /obj/item/device/flash))
-		if(istype(user,/mob/living/silicon/robot))
+		if(isrobot(user))
 			var/current_module = user.get_active_hand()
 			if(current_module == W)
 				user << "<span class='warning'>How do you propose to do that?</span>"
@@ -297,17 +297,17 @@
 	else if(isscrewdriver(W) && (flash1 || flash2))
 		if(flash2)
 			user.put_in_hands(flash2)
-			user.visible_message("<span class='notice'>[user] eject [flash2] from [src].</span>")
+			user.visible_message(SPAN_NOTE("[user] eject [flash2] from [src]."))
 			flash2 = null
 		else if(flash1)
 			user.put_in_hands(flash1)
-			user.visible_message("<span class='notice'>[user] eject [flash1] from [src].</span>")
+			user.visible_message(SPAN_NOTE("[user] eject [flash1] from [src]."))
 			flash1 = null
 		else
 			user << "<span class='warning'There is nothing to eject.</span>"
 			return
 	else if(istype(W, /obj/item/weapon/stock_parts/manipulator))
-		user << "<span class='notice'>You install some manipulators and modify the head, creating a functional spider-bot!</span>"
+		user << SPAN_NOTE("You install some manipulators and modify the head, creating a functional spider-bot!")
 		new /mob/living/simple_animal/spiderbot(get_turf(loc))
 		user.drop_from_inventory(W)
 		qdel(W)
@@ -318,11 +318,11 @@
 //Made into a seperate proc to avoid copypasta
 /obj/item/robot_parts/head/proc/add_flashes(obj/item/W as obj, mob/user as mob)
 	if(src.flash1 && src.flash2)
-		user << "<span class='notice'>You have already inserted the eyes!</span>"
+		user << SPAN_NOTE("You have already inserted the eyes!")
 		return
 	else if(src.flash1)
 		src.flash2 = W
 	else
 		src.flash1 = W
 	user.drop_from_inventory(W, src)
-	user << "<span class='notice'>You insert the flash into the eye socket!</span>"
+	user << SPAN_NOTE("You insert the flash into the eye socket!")

@@ -10,7 +10,6 @@
 	throw_range = 2
 	throw_speed = 1
 	layer = 4
-	pressure_resistance = 1
 	attack_verb = list("bapped")
 	var/page = 1    // current page
 	var/list/pages = list()  // Ordered list of pages as they are to be displayed. Can be different order than src.contents.
@@ -22,7 +21,7 @@
 	if (istype(W, /obj/item/weapon/paper/carbon))
 		var/obj/item/weapon/paper/carbon/C = W
 		if (!C.iscopy && !C.copied)
-			user << "<span class='notice'>Take off the carbon copy first.</span>"
+			user << SPAN_NOTE("Take off the carbon copy first.")
 			add_fingerprint(user)
 			return
 	// adding sheets
@@ -41,7 +40,7 @@
 			O.add_fingerprint(usr)
 			pages.Add(O)
 
-		user << "<span class='notice'>You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>"
+		user << SPAN_NOTE("You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].")
 		qdel(W)
 	else
 		if(istype(W, /obj/item/weapon/tape_roll))
@@ -58,9 +57,9 @@
 
 /obj/item/weapon/paper_bundle/proc/insert_sheet_at(mob/user, var/index, obj/item/weapon/sheet)
 	if(istype(sheet, /obj/item/weapon/paper))
-		user << "<span class='notice'>You add [(sheet.name == "paper") ? "the paper" : sheet.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>"
+		user << SPAN_NOTE("You add [(sheet.name == "paper") ? "the paper" : sheet.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].")
 	else if(istype(sheet, /obj/item/weapon/photo))
-		user << "<span class='notice'>You add [(sheet.name == "photo") ? "the photo" : sheet.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>"
+		user << SPAN_NOTE("You add [(sheet.name == "photo") ? "the photo" : sheet.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].")
 
 	user.drop_from_inventory(sheet)
 	sheet.loc = src
@@ -99,7 +98,7 @@
 	if(.<=1)
 		src.show_content(user)
 	else
-		user << "<span class='notice'>It is too far away.</span>"
+		user << SPAN_NOTE("It is too far away.")
 	return
 
 /obj/item/weapon/paper_bundle/proc/show_content(mob/user as mob)
@@ -166,7 +165,7 @@
 			usr.put_in_hands(W)
 			pages.Remove(pages[page])
 
-			usr << "<span class='notice'>You remove the [W.name] from the bundle.</span>"
+			usr << SPAN_NOTE("You remove the [W.name] from the bundle.")
 
 			if(pages.len <= 1)
 				var/obj/item/weapon/paper/P = src[1]
@@ -181,8 +180,8 @@
 
 			update_icon()
 	else
-		usr << "<span class='notice'>You need to hold it in hands!</span>"
-	if (istype(src.loc, /mob) ||istype(src.loc.loc, /mob))
+		usr << SPAN_NOTE("You need to hold it in hands!")
+	if(ismob(src.loc) || ismob(src.loc.loc))
 		src.attack_self(usr)
 		updateUsrDialog()
 
@@ -192,7 +191,7 @@
 	set src in usr
 
 	var/n_name = sanitizeSafe(input(usr, "What would you like to label the bundle?", "Bundle Labelling", null)  as text, MAX_NAME_LEN)
-	if((loc == usr || loc.loc && loc.loc == usr) && !usr.stat)
+	if((loc == usr || loc.loc && loc.loc == usr) && !usr.incapacitated())
 		name = "[(n_name ? text("[n_name]") : "paper")]"
 	add_fingerprint(usr)
 	return
@@ -203,7 +202,7 @@
 	set category = "Object"
 	set src in usr
 
-	usr << "<span class='notice'>You loosen the bundle.</span>"
+	usr << SPAN_NOTE("You loosen the bundle.")
 	for(var/obj/O in src)
 		O.loc = usr.loc
 		O.layer = initial(O.layer)

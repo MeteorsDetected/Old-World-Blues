@@ -32,7 +32,6 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/produces_heat = 1	//whether the machine will produce heat when on.
 	var/delay = 10 // how many process() ticks to delay per heat
 	var/long_range_link = 0	// Can you link it across Z levels or on the otherside of the map? (Relay & Hub)
-	var/circuitboard = null // string pointing to a circuitboard type
 	var/hide = 0				// Is it a hidden machine?
 	var/listening_level = 0	// 0 = auto set in New() - this is the z level that the machine is listening to.
 
@@ -112,17 +111,20 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 		return 0
 
 
-/obj/machinery/telecomms/New()
+/obj/machinery/telecomms/initialize()
 	telecomms_list += src
-	..()
+	. = ..()
 
 	//Set the listening_level if there's none.
 	if(!listening_level)
 		//Defaults to our Z level!
 		var/turf/position = get_turf(src)
 		listening_level = position.z
+	if(. != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/telecomms/initialize()
+/obj/machinery/telecomms/lateInitialize()
+	..()
 	if(autolinkers.len)
 		// Links nearby machines
 		if(!long_range_link)
@@ -255,7 +257,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	idle_power_usage = 600
 	machinetype = 1
 	produces_heat = 0
-	circuitboard = /obj/item/weapon/circuitboard/telecomms/receiver
+	circuit = /obj/item/weapon/circuitboard/telecomms/receiver
 
 /obj/machinery/telecomms/receiver/receive_signal(datum/signal/signal)
 
@@ -311,7 +313,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 1600
 	machinetype = 7
-	circuitboard = /obj/item/weapon/circuitboard/telecomms/hub
+	circuit = /obj/item/weapon/circuitboard/telecomms/hub
 	long_range_link = 1
 	netspeed = 40
 
@@ -346,7 +348,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	idle_power_usage = 600
 	machinetype = 8
 	produces_heat = 0
-	circuitboard = /obj/item/weapon/circuitboard/telecomms/relay
+	circuit = /obj/item/weapon/circuitboard/telecomms/relay
 	netspeed = 5
 	long_range_link = 1
 	var/broadcasting = 1
@@ -397,7 +399,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 1000
 	machinetype = 2
-	circuitboard = /obj/item/weapon/circuitboard/telecomms/bus
+	circuit = /obj/item/weapon/circuitboard/telecomms/bus
 	netspeed = 40
 	var/change_frequency = 0
 
@@ -450,7 +452,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	idle_power_usage = 600
 	machinetype = 3
 	delay = 5
-	circuitboard = /obj/item/weapon/circuitboard/telecomms/processor
+	circuit = /obj/item/weapon/circuitboard/telecomms/processor
 	var/process_mode = 1 // 1 = Uncompress Signals, 0 = Compress Signals
 
 	receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
@@ -487,7 +489,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	use_power = 1
 	idle_power_usage = 300
 	machinetype = 4
-	circuitboard = /obj/item/weapon/circuitboard/telecomms/server
+	circuit = /obj/item/weapon/circuitboard/telecomms/server
 	var/list/log_entries = list()
 	var/list/stored_names = list()
 	var/list/TrafficActions = list()
@@ -505,8 +507,8 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/language = "human"
 	var/obj/item/device/radio/headset/server_radio = null
 
-/obj/machinery/telecomms/server/New()
-	..()
+/obj/machinery/telecomms/server/initialize()
+	. = ..()
 	Compiler = new()
 	Compiler.Holder = src
 	server_radio = new()
@@ -550,8 +552,6 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 					var/mob/living/carbon/brain/B = M
 					race = "[B.species.name]"
 					log.parameters["intelligible"] = 1
-				else if(M.isMonkey())
-					race = "Monkey"
 				else if(issilicon(M))
 					race = "Artificial Life"
 					log.parameters["intelligible"] = 1
@@ -562,7 +562,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 
 				log.parameters["race"] = race
 
-				if(!istype(M, /mob/new_player) && M)
+				if(!isnewplayer(M) && M)
 					log.parameters["uspeech"] = M.universal_speak
 				else
 					log.parameters["uspeech"] = 0

@@ -267,7 +267,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		usr << "You can't do that because you are dead!"
 		return
 	toff = !toff
-	usr << "<span class='notice'>PDA sender/receiver toggled [(toff ? "Off" : "On")]!</span>"
+	usr << SPAN_NOTE("PDA sender/receiver toggled [(toff ? "Off" : "On")]!")
 
 
 /obj/item/device/pda/ai/verb/cmd_toggle_pda_silent()
@@ -278,7 +278,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		usr << "You can't do that because you are dead!"
 		return
 	message_silent=!message_silent
-	usr << "<span class='notice'>PDA ringer toggled [(message_silent ? "Off" : "On")]!</span>"
+	usr << SPAN_NOTE("PDA ringer toggled [(message_silent ? "Off" : "On")]!")
 
 
 /obj/item/device/pda/ai/verb/cmd_show_message_log()
@@ -317,8 +317,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
  *	The Actual PDA
  */
 
-/obj/item/device/pda/New()
-	..()
+/obj/item/device/pda/initialize()
+	. = ..()
 	PDAs += src
 	PDAs = sortAtom(PDAs)
 	if(default_cartridge)
@@ -331,7 +331,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		return 0
 
 	var/mob/M = loc
-	if(M.stat || M.restrained() || M.paralysis || M.stunned || M.weakened)
+	if(M.incapacitated())
 		return 0
 	if((src in M.contents) || ( istype(loc, /turf) && in_range(src, M) ))
 		return 1
@@ -608,7 +608,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				else if(mode >= 40 && mode <= 49)//Fix for cartridges. Redirects to refresh the menu.
 					cartridge.mode = mode
 		if ("Authenticate")//Checks for ID
-			id_check(U, 1)
+			if (id)
+				remove_id()
+			else
+				var/obj/item/I = user.get_active_hand()
+				if (istype(I, /obj/item/weapon/card/id))
+					src.attackby(I, src)
 		if("UpdateInfo")
 			ownjob = id.assignment
 			ownrank = id.rank
@@ -639,12 +644,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 //MAIN FUNCTIONS===================================
 
 		if("Light")
-			if(fon)
-				fon = 0
+			fon = !fon
+			if(!fon)
 				set_light(0)
 			else
-				fon = 1
 				set_light(f_lum)
+			update_icon()
 		if("Medical Scan")
 			if(scanmode == 1)
 				scanmode = 0
@@ -729,7 +734,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		if("Message")
 
 			var/obj/item/device/pda/P = locate(href_list["target"])
-			var/tap = istype(U, /mob/living/carbon)
+			var/tap = iscarbon(U)
 			src.create_message(U, P, tap)
 			if(mode == 2)
 				if(href_list["target"] in conversations)            // Need to make sure the message went through, if not welp.
@@ -754,7 +759,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				if(!isnull(P))
 					if (!P.toff && cartridge.charges > 0)
 						cartridge.charges--
-						U.show_message("<span class='notice'>Virus sent!</span>", 1)
+						U.show_message(SPAN_NOTE("Virus sent!"), 1)
 						P.honkamt = (rand(15,20))
 				else
 					U << "PDA not found."
@@ -767,7 +772,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				if(!isnull(P))
 					if (!P.toff && cartridge.charges > 0)
 						cartridge.charges--
-						U.show_message("<span class='notice'>Virus sent!</span>", 1)
+						U.show_message(SPAN_NOTE("Virus sent!"), 1)
 						P.message_silent = 1
 						P.news_silent = 1
 						P.ttone = "silence"
@@ -823,7 +828,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 							detonate_act(src)
 							log_mode("[key_name(U)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up", P)
 						else
-							U.show_message("<span class='notice'>Success!</span>", 1)
+							U.show_message(SPAN_NOTE("Success!"), 1)
 							log_mode("[key_name(U)] just attempted to blow up [P] with the Detomatix cartridge and succeeded", U)
 							detonate_act(P)
 					else
@@ -873,8 +878,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	..()
 
 	overlays.Cut()
+	if(fon)
+		overlays += "light_on"
 	if(new_message || new_news)
-		overlays += image('icons/obj/pda.dmi', "pda-r")
+		overlays += "pda-r"
+	if(id)
+		overlays += id.icon_state
 
 /obj/item/device/pda/proc/detonate_act(var/obj/item/device/pda/P)
 	//TODO: sometimes these attacks show up on the message server
@@ -948,17 +957,18 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda/proc/remove_id()
 	if(id)
-		if (ismob(loc))
+		if(ismob(loc))
 			var/mob/M = loc
 			M.put_in_hands(id)
-			usr << "<span class='notice'>You remove the ID from the [name].</span>"
+			usr << SPAN_NOTE("You remove the ID from the [name].")
 		else
-			id.loc = get_turf(src)
+			id.forceMove(get_turf(src))
 		id = null
+		update_icon()
 
 /obj/item/device/pda/proc/create_message(var/mob/living/U = usr, var/obj/item/device/pda/P, var/tap = 1)
 	if(tap)
-		U.visible_message("<span class='notice'>\The [U] taps on \his PDA's screen.</span>")
+		U.visible_message(SPAN_NOTE("\The [U] taps on \his PDA's screen."))
 	U.last_target_click = world.time
 	var/t = input(U, "Please enter message", P.name, null) as text
 	t = sanitize(t)
@@ -995,7 +1005,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		P.tnote.Add(list(list("sent" = 0, "owner" = "[owner]", "job" = "[ownjob]", "message" = "[t]", "target" = "\ref[src]")))
 		for(var/mob/M in player_list)
 			if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTEARS)) // src.client is so that ghosts don't have to listen to mice
-				if(istype(M, /mob/new_player))
+				if(isnewplayer(M))
 					continue
 				M.show_message("<span class='game say'>PDA Message - <span class='name'>[owner]</span> -> <span class='name'>[P.owner]</span>: <span class='message'>[reception.message]</span></span>")
 
@@ -1017,7 +1027,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		P.new_message_from_pda(src, t)
 		nanomanager.update_user_uis(U, src) // Update the sending user's PDA UI so that they can see the new message
 	else
-		U << "<span class='notice'>ERROR: Messaging server is not responding.</span>"
+		U << SPAN_NOTE("ERROR: Messaging server is not responding.")
 
 /obj/item/device/pda/proc/new_info(var/beep_silent, var/message_tone, var/reception_message)
 	if (!beep_silent)
@@ -1080,9 +1090,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if(can_use(usr))
 		mode = 0
 		nanomanager.update_uis(src)
-		usr << "<span class='notice'>You press the reset button on \the [src].</span>"
+		usr << SPAN_NOTE("You press the reset button on \the [src].")
 	else
-		usr << "<span class='notice'>You cannot do this while restrained.</span>"
+		usr << SPAN_NOTE("You cannot do this while restrained.")
 
 /obj/item/device/pda/verb/verb_remove_id()
 	set category = "Object"
@@ -1096,9 +1106,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		if(id)
 			remove_id()
 		else
-			usr << "<span class='notice'>This PDA does not have an ID in it.</span>"
+			usr << SPAN_NOTE("This PDA does not have an ID in it.")
 	else
-		usr << "<span class='notice'>You cannot do this while restrained.</span>"
+		usr << SPAN_NOTE("You cannot do this while restrained.")
 
 
 /obj/item/device/pda/verb/verb_remove_pen()
@@ -1112,14 +1122,14 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if ( can_use(usr) )
 		var/obj/item/weapon/pen/O = locate() in src
 		if(O)
-			if (istype(loc, /mob))
+			if (ismob(loc))
 				loc:put_in_hands(O)
-				usr << "<span class='notice'>You remove \the [O] from \the [src].</span>"
+				usr << SPAN_NOTE("You remove \the [O] from \the [src].")
 				return
 		else
-			usr << "<span class='notice'>This PDA does not have a pen in it.</span>"
+			usr << SPAN_NOTE("This PDA does not have a pen in it.")
 	else
-		usr << "<span class='notice'>You cannot do this while restrained.</span>"
+		usr << SPAN_NOTE("You cannot do this while restrained.")
 
 /obj/item/device/pda/verb/verb_remove_cartridge()
 	set category = "Object"
@@ -1134,41 +1144,23 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			var/mob/M = loc
 			M.put_in_hands(cartridge)
 		else
-			cartridge.loc = get_turf(src)
+			cartridge.forceMove(get_turf(src))
 		mode = 0
 		scanmode = 0
 		if (cartridge.radio)
 			cartridge.radio.hostpda = null
 		cartridge = null
-		usr << "<span class='notice'>You remove \the [cartridge] from the [name].</span>"
+		usr << SPAN_NOTE("You remove \the [cartridge] from the [name].")
 	else
-		usr << "<span class='notice'>You cannot do this while restrained.</span>"
-
-/obj/item/device/pda/proc/id_check(mob/user as mob, choice as num)//To check for IDs; 1 for in-pda use, 2 for out of pda use.
-	if(choice == 1)
-		if (id)
-			remove_id()
-		else
-			var/obj/item/I = user.get_active_hand()
-			if (istype(I, /obj/item/weapon/card/id))
-				user.drop_from_inventory(I, src)
-				id = I
-	else
-		var/obj/item/weapon/card/id/I = user.get_active_hand()
-		if (istype(I, /obj/item/weapon/card/id) && I.registered_name)
-			var/obj/old_id = id
-			user.drop_from_inventory(I, src)
-			id = I
-			user.put_in_hands(old_id)
-	return
+		usr << SPAN_NOTE("You cannot do this while restrained.")
 
 // access to status display signals
-/obj/item/device/pda/attackby(obj/item/C as obj, mob/user as mob)
+/obj/item/device/pda/attackby(obj/item/C, mob/living/user)
 	..()
 	if(istype(C, /obj/item/weapon/cartridge) && !cartridge)
 		cartridge = C
 		user.drop_from_inventory(cartridge, src)
-		user << "<span class='notice'>You insert [cartridge] into [src].</span>"
+		user << SPAN_NOTE("You insert [cartridge] into [src].")
 		nanomanager.update_uis(src) // update all UIs attached to src
 		if(cartridge.radio)
 			cartridge.radio.hostpda = src
@@ -1176,90 +1168,89 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	else if(istype(C, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/idcard = C
 		if(!idcard.registered_name)
-			user << "<span class='notice'>\The [src] rejects the ID.</span>"
+			user << SPAN_NOTE("\The [src] rejects the ID.")
 			return
 		if(!owner)
 			owner = idcard.registered_name
 			ownjob = idcard.assignment
 			ownrank = idcard.rank
 			name = "PDA-[owner] ([ownjob])"
-			user << "<span class='notice'>Card scanned.</span>"
+			user << SPAN_NOTE("Card scanned.")
 		else
-			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
-			if(((src in user.contents) && (C in user.contents)) || (istype(loc, /turf) && in_range(src, user) && (C in user.contents)) )
-				id_check(user, 2)
-				user << "<span class='notice'>You put the ID into \the [src]'s slot.</span>"
-				updateSelfDialog()//Update self dialog on success.
-			return	//Return in case of failed check or when successful.
+			var/obj/old_id = id
+			if(user.unEquip(idcard, src))
+				id = idcard
+				update_icon()
+				user.put_in_hands(old_id)
+				user << SPAN_NOTE("You put the ID into \the [src]'s slot.")
 		updateSelfDialog()//For the non-input related code.
 	else if(istype(C, /obj/item/device/paicard) && !src.pai)
 		user.drop_from_inventory(C, src)
 		pai = C
-		user << "<span class='notice'>You slot \the [C] into [src].</span>"
+		user << SPAN_NOTE("You slot \the [C] into [src].")
 		nanomanager.update_uis(src) // update all UIs attached to src
 	else if(istype(C, /obj/item/weapon/pen))
 		var/obj/item/weapon/pen/O = locate() in src
 		if(O)
-			user << "<span class='notice'>There is already a pen in \the [src].</span>"
+			user << SPAN_NOTE("There is already a pen in \the [src].")
 		else if(user.unEquip(C, src))
-			user << "<span class='notice'>You slide \the [C] into \the [src].</span>"
-	return
+			user << SPAN_NOTE("You slide \the [C] into \the [src].")
 
-/obj/item/device/pda/attack(mob/living/C as mob, mob/living/user as mob)
-	if (istype(C, /mob/living/carbon))
+/obj/item/device/pda/attack(mob/living/C, mob/living/user)
+	if (iscarbon(C))
 		switch(scanmode)
 			if(1)
 
 				for (var/mob/O in viewers(C, null))
 					O.show_message("<span class='warning'>\The [user] has analyzed [C]'s vitals!</span>", 1)
 
-				user.show_message("<span class='notice'>Analyzing Results for [C]:</span>")
-				user.show_message("<span class='notice'>    Overall Status: [C.stat > 1 ? "dead" : "[C.health - C.halloss]% healthy"]</span>", 1)
-				user.show_message(text("<span class='notice'>    Damage Specifics:</span> <span class='[]'>[]</span>-<span class='[]'>[]</span>-<span class='[]'>[]</span>-<span class='[]'>[]</span>",
-						(C.getOxyLoss() > 50) ? "warning" : "", C.getOxyLoss(),
-						(C.getToxLoss() > 50) ? "warning" : "", C.getToxLoss(),
-						(C.getFireLoss() > 50) ? "warning" : "", C.getFireLoss(),
-						(C.getBruteLoss() > 50) ? "warning" : "", C.getBruteLoss()
-						), 1)
-				user.show_message("<span class='notice'>    Key: Suffocation/Toxin/Burns/Brute</span>", 1)
-				user.show_message("<span class='notice'>    Body Temperature: [C.bodytemperature-T0C]&deg;C ([C.bodytemperature*1.8-459.67]&deg;F)</span>", 1)
+				user.show_message(SPAN_NOTE("Analyzing Results for [C]:"))
+				user.show_message(SPAN_NOTE("    Overall Status: [C.stat == DEAD ? "dead" : "[C.health - C.halloss]% healthy"]"), 1)
+				var/OX = "<span class='[(C.getOxyLoss() > 50) ? "warning" : "" ]'>[C.getOxyLoss()]</span>"
+				var/TX = "<span class='[(C.getToxLoss() > 50) ? "warning" : ""]'>[C.getToxLoss()]</span>"
+				var/FR = "<span class='[(C.getFireLoss() > 50) ? "warning" : ""]'>[C.getFireLoss()]</span>"
+				var/BR = "<span class='[(C.getBruteLoss() > 50) ? "warning" : ""]'>[C.getBruteLoss()]</span>"
+				user.show_message(SPAN_NOTE("    Damage Specifics:</span> [OX]-[TX]-[FR]-[BR]"),1)
+				user.show_message(SPAN_NOTE("    Key: Suffocation/Toxin/Burns/Brute"), 1)
+				user.show_message(SPAN_NOTE("    Body Temperature: [C.bodytemperature-T0C]&deg;C ([C.bodytemperature*1.8-459.67]&deg;F)"), 1)
 				if(C.tod && (C.stat == DEAD || (C.status_flags & FAKEDEATH)))
-					user.show_message("<span class='notice'>    Time of Death: [C.tod]</span>")
+					user.show_message(SPAN_NOTE("    Time of Death: [C.tod]"))
 				if(ishuman(C))
 					var/mob/living/carbon/human/H = C
 					var/list/damaged = H.get_damaged_organs(1,1)
-					user.show_message("<span class='notice'>Localized Damage, Brute/Burn:</span>",1)
+					user.show_message(SPAN_NOTE("Localized Damage, Brute/Burn:"),1)
 					if(length(damaged)>0)
 						for(var/obj/item/organ/external/org in damaged)
-							user.show_message(text("<span class='notice'>     []: <span class='[]'>[]</span>-<span class='[]'>[]</span></span>",
-									capitalize(org.name), (org.brute_dam > 0) ? "warning" : "notice", org.brute_dam, (org.burn_dam > 0) ? "warning" : "notice", org.burn_dam),1)
+							var/brute = "<span class='[(org.brute_dam > 0) ? "warning" : "notice"]'>[org.brute_dam]</span>"
+							var/burn = "<span class='[(org.burn_dam > 0) ? "warning" : "notice"]'>[org.burn_dam]</span>"
+							user.show_message(SPAN_NOTE("     [capitalize(org.name)]: [brute]-[burn]"),1)
 					else
-						user.show_message("<span class='notice'>    Limbs are OK.</span>",1)
+						user.show_message(SPAN_NOTE("    Limbs are OK."),1)
 
 			if(2)
 				if (!istype(C:dna, /datum/dna))
-					user << "<span class='notice'>No fingerprints found on [C]</span>"
+					user << SPAN_NOTE("No fingerprints found on [C]")
 				else
-					user << text("<span class='notice'>\The [C]'s Fingerprints: [md5(C:dna.uni_identity)]</span>")
+					user << text(SPAN_NOTE("\The [C]'s Fingerprints: [md5(C:dna.uni_identity)]"))
 				if ( !(C:blood_DNA) )
-					user << "<span class='notice'>No blood found on [C]</span>"
+					user << SPAN_NOTE("No blood found on [C]")
 					if(C:blood_DNA)
 						qdel(C:blood_DNA)
 				else
-					user << "<span class='notice'>Blood found on [C]. Analysing...</span>"
+					user << SPAN_NOTE("Blood found on [C]. Analysing...")
 					spawn(15)
 						for(var/blood in C:blood_DNA)
-							user << "<span class='notice'>Blood type: [C:blood_DNA[blood]]\nDNA: [blood]</span>"
+							user << SPAN_NOTE("Blood type: [C:blood_DNA[blood]]\nDNA: [blood]")
 
 			if(4)
 				for (var/mob/O in viewers(C, null))
 					O.show_message("<span class='warning'>\The [user] has analyzed [C]'s radiation levels!</span>", 1)
 
-				user.show_message("<span class='notice'>Analyzing Results for [C]:</span>")
+				user.show_message(SPAN_NOTE("Analyzing Results for [C]:"))
 				if(C.radiation)
-					user.show_message("<span class='notice'>Radiation Level: [C.radiation]</span>")
+					user.show_message(SPAN_NOTE("Radiation Level: [C.radiation]"))
 				else
-					user.show_message("<span class='notice'>No radiation detected.</span>")
+					user.show_message(SPAN_NOTE("No radiation detected."))
 
 /obj/item/device/pda/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
 	if(!proximity) return
@@ -1271,13 +1262,13 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			if(!isnull(A.reagents))
 				if(A.reagents.reagent_list.len > 0)
 					var/reagents_length = A.reagents.reagent_list.len
-					user << "<span class='notice'>[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.</span>"
+					user << SPAN_NOTE("[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.")
 					for (var/re in A.reagents.reagent_list)
-						user << "<span class='notice'>    [re]</span>"
+						user << SPAN_NOTE("    [re]")
 				else
-					user << "<span class='notice'>No active chemical agents found in [A].</span>"
+					user << SPAN_NOTE("No active chemical agents found in [A].")
 			else
-				user << "<span class='notice'>No significant chemical agents found in [A].</span>"
+				user << SPAN_NOTE("No significant chemical agents found in [A].")
 
 		if(5)
 			analyze_gases(A, user)
@@ -1329,7 +1320,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		// feature to the PDA, which would better convey the availability of the feature, but this will work for now.
 
 		// Inform the user
-		user << "<span class='notice'>Paper scanned and OCRed to notekeeper.</span>" //concept of scanning paper copyright brainoblivion 2009
+		user << SPAN_NOTE("Paper scanned and OCRed to notekeeper.") //concept of scanning paper copyright brainoblivion 2009
 
 
 
@@ -1348,7 +1339,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	..()
 
 /obj/item/device/pda/clown/Crossed(AM as mob|obj) //Clown PDA is slippery.
-	if (istype(AM, /mob/living))
+	if (isliving(AM))
 		var/mob/living/M = AM
 
 		if(M.slip("the PDA",8) && M.real_name != src.owner && istype(src.cartridge, /obj/item/weapon/cartridge/clown))
@@ -1392,21 +1383,22 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	desc = "A box of spare PDA microcomputers."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pdabox"
+	preloaded = list(
+		/obj/item/device/pda = 4
+	)
 
-	New()
-		..()
-		new /obj/item/device/pda(src)
-		new /obj/item/device/pda(src)
-		new /obj/item/device/pda(src)
-		new /obj/item/device/pda(src)
-		new /obj/item/weapon/cartridge/head(src)
+/obj/item/storage/box/PDAs/populateContents()
+	..()
+	new /obj/item/weapon/cartridge/head(src)
 
-		var/newcart = pick(	/obj/item/weapon/cartridge/engineering,
-							/obj/item/weapon/cartridge/security,
-							/obj/item/weapon/cartridge/medical,
-							/obj/item/weapon/cartridge/signal/science,
-							/obj/item/weapon/cartridge/quartermaster)
-		new newcart(src)
+	var/newcart = pick(\
+		/obj/item/weapon/cartridge/engineering,
+		/obj/item/weapon/cartridge/security,
+		/obj/item/weapon/cartridge/medical,
+		/obj/item/weapon/cartridge/signal/science,
+		/obj/item/weapon/cartridge/quartermaster,
+	)
+	new newcart(src)
 
 // Pass along the pulse to atoms in contents, largely added so pAIs are vulnerable to EMP
 /obj/item/device/pda/emp_act(severity)

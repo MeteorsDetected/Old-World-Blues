@@ -1,11 +1,11 @@
 /obj/item/clothing/suit/storage
 	var/obj/item/storage/internal/pockets
 
-/obj/item/clothing/suit/storage/New()
-	..()
+/obj/item/clothing/suit/storage/initialize()
+	. = ..()
 	pockets = new/obj/item/storage/internal(src)
 	pockets.storage_slots = 2	//two slots
-	pockets.max_w_class = 2		//fit only pocket sized items
+	pockets.max_w_class = ITEM_SIZE_SMALL		//fit only pocket sized items
 	pockets.max_storage_space = 4
 
 /obj/item/clothing/suit/storage/Destroy()
@@ -34,11 +34,11 @@
 	..()
 
 //New Vest 4 pocket storage and badge toggles, until suit accessories are a thing.
-/obj/item/clothing/suit/storage/vest/heavy/New()
-	..()
+/obj/item/clothing/suit/storage/vest/heavy/initialize()
+	. = ..()
 	pockets = new/obj/item/storage/internal(src)
 	pockets.storage_slots = 4
-	pockets.max_w_class = 2
+	pockets.max_w_class = ITEM_SIZE_SMALL
 	pockets.max_storage_space = 8
 
 /obj/item/clothing/suit/storage/vest
@@ -48,7 +48,8 @@
 		set name ="Adjust Badge"
 		set category = "Object"
 		set src in usr
-		if(!usr.canmove || usr.stat || usr.restrained())
+
+		if(usr.incapacitated())
 			return 0
 
 		if(icon_state == icon_badge)

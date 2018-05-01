@@ -101,6 +101,12 @@
 	icon_state = "hop_dress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/clothing/under/rank/hop/dress/hr
+	name = "human resources director uniform"
+	desc = "Superior class for the nosy H.R. Director."
+	icon_state = "huresource"
+	item_state = "y_suit"
+
 /obj/item/clothing/under/rank/hop/whimsy
 	desc = "A blue jacket and red tie, with matching red cuffs! Snazzy. Wearing this makes you feel more important than your job title does."
 	name = "head of personnel's suit"

@@ -21,8 +21,8 @@
 	var/force_divisor = 400                             // Force equates to speed. Speed/5 equates to a damage multiplier for whoever you hit.
 	                                                    // For reference, a fully pressurized oxy tank at 50% gas release firing a health
 	                                                    // analyzer with a force_divisor of 10 hit with a damage multiplier of 3000+.
-/obj/item/weapon/gun/launcher/pneumatic/New()
-	..()
+/obj/item/weapon/gun/launcher/pneumatic/initialize()
+	. = ..()
 	item_storage = new(src)
 	item_storage.name = "hopper"
 	item_storage.max_w_class = max_w_class
@@ -163,25 +163,25 @@
 		if(buildstate == 0)
 			user.drop_from_inventory(W)
 			qdel(W)
-			user << "<span class='notice'>You secure the piping inside the frame.</span>"
+			user << SPAN_NOTE("You secure the piping inside the frame.")
 			buildstate++
 			update_icon()
 			return
-	else if(istype(W,/obj/item/stack/material) && W.get_material_name() == DEFAULT_WALL_MATERIAL)
+	else if(ismaterial(W) && W.get_material_name() == MATERIAL_STEEL)
 		if(buildstate == 2)
 			var/obj/item/stack/material/M = W
 			if(M.use(5))
-				user << "<span class='notice'>You assemble a chassis around the cannon frame.</span>"
+				user << SPAN_NOTE("You assemble a chassis around the cannon frame.")
 				buildstate++
 				update_icon()
 			else
-				user << "<span class='notice'>You need at least five metal sheets to complete this task.</span>"
+				user << SPAN_NOTE("You need at least five metal sheets to complete this task.")
 			return
 	else if(istype(W,/obj/item/device/transfer_valve))
 		if(buildstate == 4)
 			user.drop_from_inventory(W)
 			qdel(W)
-			user << "<span class='notice'>You install the transfer valve and connect it to the piping.</span>"
+			user << SPAN_NOTE("You install the transfer valve and connect it to the piping.")
 			buildstate++
 			update_icon()
 			return
@@ -191,7 +191,7 @@
 			if(T.remove_fuel(0,user))
 				if(!src || !T.isOn()) return
 				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
-				user << "<span class='notice'>You weld the pipe into place.</span>"
+				user << SPAN_NOTE("You weld the pipe into place.")
 				buildstate++
 				update_icon()
 		if(buildstate == 3)
@@ -199,7 +199,7 @@
 			if(T.remove_fuel(0,user))
 				if(!src || !T.isOn()) return
 				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
-				user << "<span class='notice'>You weld the metal chassis together.</span>"
+				user << SPAN_NOTE("You weld the metal chassis together.")
 				buildstate++
 				update_icon()
 		if(buildstate == 5)
@@ -207,7 +207,7 @@
 			if(T.remove_fuel(0,user))
 				if(!src || !T.isOn()) return
 				playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
-				user << "<span class='notice'>You weld the valve into place.</span>"
+				user << SPAN_NOTE("You weld the valve into place.")
 				new /obj/item/weapon/gun/launcher/pneumatic(get_turf(src))
 				qdel(src)
 		return

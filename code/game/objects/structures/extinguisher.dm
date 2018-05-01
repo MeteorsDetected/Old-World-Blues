@@ -8,8 +8,8 @@
 	var/obj/item/weapon/extinguisher/has_extinguisher
 	var/opened = 0
 
-/obj/structure/extinguisher_cabinet/New()
-	..()
+/obj/structure/extinguisher_cabinet/initialize()
+	. = ..()
 	has_extinguisher = new/obj/item/weapon/extinguisher(src)
 
 /obj/structure/extinguisher_cabinet/attackby(obj/item/O, mob/user)
@@ -20,7 +20,7 @@
 			user.remove_from_mob(O)
 			contents += O
 			has_extinguisher = O
-			user << "<span class='notice'>You place [O] in [src].</span>"
+			user << SPAN_NOTE("You place [O] in [src].")
 		else
 			opened = !opened
 	else
@@ -35,11 +35,11 @@
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.get_organ(H.hand ? BP_L_HAND : BP_R_HAND)
 		if(temp && !temp.is_usable())
-			user << "<span class='notice'>You try to move your [temp.name], but cannot!"
+			user << SPAN_NOTE("You try to move your [temp.name], but cannot!")
 			return
 	if(has_extinguisher)
 		user.put_in_hands(has_extinguisher)
-		user << "<span class='notice'>You take [has_extinguisher] from [src].</span>"
+		user << SPAN_NOTE("You take [has_extinguisher] from [src].")
 		has_extinguisher = null
 		opened = 1
 	else
@@ -49,7 +49,7 @@
 /obj/structure/extinguisher_cabinet/attack_tk(mob/user)
 	if(has_extinguisher)
 		has_extinguisher.loc = loc
-		user << "<span class='notice'>You telekinetically remove [has_extinguisher] from [src].</span>"
+		user << SPAN_NOTE("You telekinetically remove [has_extinguisher] from [src].")
 		has_extinguisher = null
 		opened = 1
 	else

@@ -48,11 +48,6 @@
 	desc = "It's a machine that prints prosthetic organs."
 	prints_prosthetics = 1
 
-/obj/machinery/bioprinter/New()
-	..()
-	if(!(ticker && ticker.current_state == GAME_STATE_PLAYING))
-		stored_matter = 200
-
 
 /obj/machinery/bioprinter/attack_hand(mob/user)
 
@@ -104,17 +99,17 @@
 		qdel(W)
 		return
 	// Steel for matter.
-	if(prints_prosthetics && istype(W, /obj/item/stack/material) && W.get_material_name() == DEFAULT_WALL_MATERIAL)
+	if(prints_prosthetics && ismaterial(W) && W.get_material_name() == MATERIAL_STEEL)
 		var/obj/item/stack/S = W
 		var/loaded = round((max_matter - stored_matter)/10)
 		loaded = min(loaded, S.amount)
 		stored_matter += loaded * 10
-		user << "<span class='info'>\The [src] processes \the [W]. Levels of stored matter now: [stored_matter]</span>"
+		user << SPAN_NOTE("\The [src] processes \the [W]. Levels of stored matter now: [stored_matter].")
 		S.use(loaded)
 		return
 	return..()
 
 /obj/machinery/bioprinter/dismantle()
 	if(prints_prosthetics)
-		create_material_stack(DEFAULT_WALL_MATERIAL, stored_matter/10*SHEET_MATERIAL_AMOUNT, loc)
+		create_material_stacks(MATERIAL_STEEL, stored_matter/10, loc)
 	return ..()

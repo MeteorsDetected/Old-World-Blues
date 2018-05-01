@@ -83,10 +83,9 @@
 	icon_state = "healthhud"
 	icon = 'icons/inv_slots/glasses/icon.dmi'
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		hud = new /obj/item/clothing/glasses/hud/health(src)
-		return
 
 
 /obj/item/borg/sight/hud/sec
@@ -94,7 +93,6 @@
 	icon_state = "securityhud"
 	icon = 'icons/inv_slots/glasses/icon.dmi'
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		hud = new /obj/item/clothing/glasses/hud/security(src)
-		return

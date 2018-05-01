@@ -18,8 +18,8 @@
 
 /atom/movable/New()
 	..()
-	if(auto_init && ticker && ticker.current_state == GAME_STATE_PLAYING)
-		initialize()
+	if(auto_init && atomInstantInitialize)
+		master_controller.initAtom(src, FALSE)
 
 /*
 /atom/movable/Del()
@@ -43,7 +43,10 @@
 			pulledby.pulling = null
 		pulledby = null
 
-/atom/movable/proc/initialize()
+/atom/movable/proc/initialize(maploaded = FALSE)
+	return INITIALIZE_HINT_NORMAL
+
+/atom/movable/proc/lateInitialize()
 	return
 
 /atom/movable/Bump(var/atom/A, yes)
@@ -57,20 +60,79 @@
 			A.Bumped(src)
 		return
 	..()
-	return
 
-/atom/movable/proc/forceMove(atom/destination)
-	if(destination)
-		if(loc)
-			loc.Exited(src)
-		loc = destination
-		loc.Entered(src)
-		return 1
-	return 0
+/atom/movable/proc/forceMove(atom/NewLoc, Dir = 0)
+	var/OldLoc = loc
+	if(!Dir)
+		Dir = dir
+	if(loc == NewLoc)
+		if(dir != Dir)
+			dir = Dir
+			return TRUE
+		else
+			return FALSE
+	else if(isturf(NewLoc) && isturf(loc))
+		if(z == NewLoc.z)
+			var/dx = (x - NewLoc.x)
+			var/dy = (y - NewLoc.y)
+			if(!dx && !dy)
+				if(dir != Dir)
+					dir = Dir
+					return TRUE
+				else
+					return FALSE
+
+	var/list/olocs, list/nlocs
+	var/list/oareas = list(), list/nareas = list()
+	var/list/oobjs, list/nobjs
+
+	olocs = locs
+
+	if(isturf(loc))
+		for(var/turf/t in olocs)
+			oareas |= t.loc
+		oobjs = obounds(src) || list()
+		oobjs -= locs
+	else
+		oobjs = list()
+
+	loc = NewLoc
+	dir = Dir
+
+	nlocs = locs
+	if(isturf(loc))
+		nlocs = locs
+		for(var/turf/t in nlocs)
+			nareas |= t.loc
+		nobjs = obounds(src) || list()
+		nobjs -= locs
+	else
+		nobjs = list()
+
+	var/list/xareas = oareas-nareas, list/eareas = nareas-oareas
+	var/list/xlocs = olocs-nlocs, list/elocs = nlocs-olocs
+	var/list/xobjs = oobjs-nobjs, list/eobjs = nobjs-oobjs
+
+	for(var/area/a in xareas)
+		a.Exited(src,loc)
+	for(var/turf/t in xlocs)
+		t.Exited(src,loc)
+	for(var/atom/movable/o in xobjs)
+		o.Uncrossed(src)
+
+	for(var/area/a in eareas)
+		a.Entered(src, OldLoc)
+	for(var/turf/t in elocs)
+		t.Entered(src, OldLoc)
+	for(var/atom/movable/o in eobjs)
+		o.Crossed(src)
+
+	return TRUE
+
 
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, var/speed)
-	if(istype(hit_atom,/mob/living))
+	if(isliving(hit_atom))
 		var/mob/living/M = hit_atom
 		M.hitby(src,speed)
 
@@ -86,7 +148,7 @@
 		if(T.density)
 			spawn(2)
 				step(src, turn(src.dir, 180))
-			if(istype(src,/mob/living))
+			if(isliving(src))
 				var/mob/living/M = src
 				M.turf_collision(T, speed)
 
@@ -95,7 +157,7 @@
 	if(src.throwing)
 		for(var/atom/A in get_turf(src))
 			if(A == src) continue
-			if(istype(A,/mob/living))
+			if(isliving(A))
 				if(A:lying) continue
 				src.throw_impact(A,speed)
 			if(isobj(A))

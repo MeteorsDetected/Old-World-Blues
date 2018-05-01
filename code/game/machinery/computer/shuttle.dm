@@ -1,7 +1,7 @@
 /obj/machinery/computer/shuttle
 	name = "Shuttle"
 	desc = "For shuttle control."
-	icon_state = "shuttle"
+	screen_icon = "shuttle"
 	light_color = "#00ffff"
 	var/auth_need = 3.0
 	var/list/authorized = list(  )
@@ -31,10 +31,10 @@
 					src.authorized += ID.registered_name
 					if (src.auth_need - src.authorized.len > 0)
 						log_game("[user.ckey] has authorized early shuttle launch", src)
-						world << text("<span class='notice'><b>Alert: [] authorizations needed until shuttle is launched early</b></span>", src.auth_need - src.authorized.len)
+						world << SPAN_NOTE("<b>Alert: [src.auth_need - src.authorized.len] authorizations needed until shuttle is launched early</b>")
 					else
 						log_game("[user.ckey] has launched the shuttle early")
-						world << "<span class='notice'><b>Alert: Shuttle launch time shortened to 10 seconds!</b></span>"
+						world << SPAN_NOTE("<b>Alert: Shuttle launch time shortened to 10 seconds!</b>")
 						emergency_shuttle.set_launch_countdown(10)
 						//src.authorized = null
 						qdel(src.authorized)
@@ -42,10 +42,10 @@
 
 				if("Repeal")
 					src.authorized -= ID.registered_name
-					world << text("<span class='notice'><b>Alert: [] authorizations needed until shuttle is launched early</b></span>", src.auth_need - src.authorized.len)
+					world << SPAN_NOTE("<b>Alert: [src.auth_need - src.authorized.len] authorizations needed until shuttle is launched early</b>")
 
 				if("Abort")
-					world << "<span class='notice'><b>All authorizations to shortening time for shuttle launch have been revoked!</b></span>"
+					world << SPAN_NOTE("<b>All authorizations to shortening time for shuttle launch have been revoked!</b>")
 					src.authorized.len = 0
 					src.authorized = list(  )
 
@@ -55,7 +55,7 @@
 			if(!emagged && !emergency_shuttle.location() && user.get_active_hand() == W)
 				switch(choice)
 					if("Launch")
-						world << "<span class='notice'><b>Alert: Shuttle launch time shortened to 10 seconds!</b></span>"
+						world << SPAN_NOTE("<b>Alert: Shuttle launch time shortened to 10 seconds!</b>")
 						emergency_shuttle.set_launch_countdown(10)
 						emagged = 1
 					if("Cancel")

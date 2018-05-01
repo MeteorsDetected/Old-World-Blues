@@ -9,9 +9,10 @@
 	throwforce = 15.0
 	throw_speed = 5
 	throw_range = 20
-	matter = list(DEFAULT_WALL_MATERIAL = 1875)
+	matter = list(MATERIAL_STEEL = 1875)
 	max_amount = 60
 	attack_verb = list("hit", "bludgeoned", "whacked")
+
 
 /obj/item/stack/rods/cyborg
 	name = "metal rod synthesizer"
@@ -21,6 +22,16 @@
 	uses_charge = 1
 	charge_costs = list(500)
 	stacktype = /obj/item/stack/rods
+
+
+/obj/item/stack/rods/update_icon()
+	if(!synths)
+		switch(amount)
+			if(1 to 4)
+				icon_state = "rods-[amount]"
+			else
+				icon_state = "rods"
+
 
 /obj/item/stack/rods/attackby(obj/item/W as obj, mob/user as mob)
 	..()
@@ -64,16 +75,15 @@
 
 	else if(!in_use)
 		if(get_amount() < 2)
-			user << "\blue You need at least two rods to do this."
+			user << SPAN_NOTE("You need at least two rods to do this.")
 			return
-		usr << "\blue Assembling grille..."
+		usr << SPAN_NOTE("Assembling grille...")
 		in_use = 1
 		if (!do_after(usr, 10))
 			in_use = 0
 			return
 		var/obj/structure/grille/F = new /obj/structure/grille/ ( usr.loc )
-		usr << "\blue You assemble a grille"
+		usr << SPAN_NOTE("You assemble a grille")
 		in_use = 0
 		F.add_fingerprint(usr)
 		use(2)
-	return

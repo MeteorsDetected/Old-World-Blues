@@ -5,9 +5,9 @@
 /obj/item/weapon/reagent_containers/glass/replenishing
 	var/spawning_id
 
-/obj/item/weapon/reagent_containers/glass/replenishing/New()
-	..()
-	processing_objects.Add(src)
+/obj/item/weapon/reagent_containers/glass/replenishing/initialize()
+	. = ..()
+	processing_objects |= src
 	spawning_id = pick("blood","holywater","lube","stoxin","ethanol","ice","glycerol","fuel","cleaner")
 
 /obj/item/weapon/reagent_containers/glass/replenishing/process()
@@ -21,11 +21,12 @@
 	var/last_twitch = 0
 	var/max_stored_messages = 100
 
-/obj/item/clothing/mask/gas/poltergeist/New()
-	processing_objects.Add(src)
+/obj/item/clothing/mask/gas/poltergeist/initialize()
+	. = ..()
+	processing_objects |= src
 
 /obj/item/clothing/mask/gas/poltergeist/process()
-	if(heard_talk.len && istype(src.loc, /mob/living) && prob(10))
+	if(heard_talk.len && isliving(src.loc) && prob(10))
 		var/mob/living/M = src.loc
 		M.say(pick(heard_talk))
 
@@ -34,7 +35,7 @@
 	if(heard_talk.len > max_stored_messages)
 		heard_talk.Remove(pick(heard_talk))
 	heard_talk.Add(text)
-	if(istype(src.loc, /mob/living) && world.time - last_twitch > 50)
+	if(isliving(src.loc) && world.time - last_twitch > 50)
 		last_twitch = world.time
 
 
@@ -54,8 +55,8 @@
 	var/wight_check_index = 1
 	var/list/shadow_wights = list()
 
-/obj/item/weapon/vampiric/New()
-	..()
+/obj/item/weapon/vampiric/initialize()
+	. = ..()
 	processing_objects.Add(src)
 
 /obj/item/weapon/vampiric/process()

@@ -11,7 +11,7 @@
 	throw_range = 5
 	w_class = ITEM_SIZE_LARGE
 	origin_tech = list(TECH_COMBAT = 1, TECH_PHORON = 1)
-	matter = list(DEFAULT_WALL_MATERIAL = 500)
+	matter = list(MATERIAL_STEEL = 500)
 	var/status = 0
 	var/throw_amount = 100
 	var/lit = 0	//on or off
@@ -70,7 +70,8 @@
 			flame_turf(turflist)
 
 /obj/item/weapon/flamethrower/attackby(obj/item/W as obj, mob/user as mob)
-	if(user.stat || user.restrained() || user.lying)	return
+	if(user.incapacitated())
+		return
 	if(iswrench(W) && !status)//Taking this apart
 		var/turf/T = get_turf(src)
 		if(weldtool)
@@ -88,7 +89,7 @@
 
 	if(isscrewdriver(W) && igniter && !lit)
 		status = !status
-		user << "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>"
+		user << SPAN_NOTE("[igniter] is now [status ? "secured" : "unsecured"]!")
 		update_icon()
 		return
 
@@ -103,7 +104,7 @@
 
 	if(istype(W,/obj/item/weapon/tank/phoron))
 		if(ptank)
-			user << "<span class='notice'>There appears to already be a phoron tank loaded in [src]!</span>"
+			user << SPAN_NOTE("There appears to already be a phoron tank loaded in [src]!")
 			return
 		user.unEquip(W, src)
 		ptank = W
@@ -119,10 +120,11 @@
 
 
 /obj/item/weapon/flamethrower/attack_self(mob/user as mob)
-	if(user.stat || user.restrained() || user.lying)	return
+	if(user.incapacitated())
+		return
 	user.set_machine(src)
 	if(!ptank)
-		user << "<span class='notice'>Attach a phoron tank first!</span>"
+		user << SPAN_NOTE("Attach a phoron tank first!")
 		return
 	var/dat = text("<TT><B>Flamethrower (<A HREF='?src=\ref[src];light=1'>[lit ? "<font color='red'>Lit</font>" : "Unlit"]</a>)</B><BR>\n Tank Pressure: [ptank.air_contents.return_pressure()]<BR>\nAmount to throw: <A HREF='?src=\ref[src];amount=-100'>-</A> <A HREF='?src=\ref[src];amount=-10'>-</A> <A HREF='?src=\ref[src];amount=-1'>-</A> [throw_amount] <A HREF='?src=\ref[src];amount=1'>+</A> <A HREF='?src=\ref[src];amount=10'>+</A> <A HREF='?src=\ref[src];amount=100'>+</A><BR>\n<A HREF='?src=\ref[src];remove=1'>Remove phorontank</A> - <A HREF='?src=\ref[src];close=1'>Close</A></TT>")
 	user << browse(dat, "window=flamethrower;size=600x300")
@@ -135,7 +137,8 @@
 		usr.unset_machine()
 		usr << browse(null, "window=flamethrower")
 		return
-	if(usr.stat || usr.restrained() || usr.lying)	return
+	if(usr.incapacitated())
+		return
 	usr.set_machine(src)
 	if(href_list["light"])
 		if(!ptank)	return
@@ -197,12 +200,11 @@
 	//location.hotspot_expose(1000,500,1)
 	return
 
-/obj/item/weapon/flamethrower/full/New(var/loc)
-	..()
+/obj/item/weapon/flamethrower/full/initialize()
+	. = ..()
 	weldtool = new /obj/item/weapon/weldingtool(src)
 	weldtool.status = 0
 	igniter = new /obj/item/device/assembly/igniter(src)
 	igniter.secured = 0
 	status = 1
 	update_icon()
-	return

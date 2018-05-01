@@ -15,8 +15,6 @@
 	var/tmp/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	var/no_attack_log = 0			//If it's an item we don't want to log attack_logs with, set this to 1
 	pass_flags = PASSTABLE
-	pressure_resistance = 5
-//	causeerrorheresoifixthis
 	var/obj/item/master = null
 	var/list/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/list/attack_verb = null //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
@@ -27,7 +25,7 @@
 	var/max_heat_protection_temperature //Set this variable to determine up to which temperature (IN KELVIN) the item protects against heat damage. Keep at null to disable protection. Only protects areas set by heat_protection flags
 	var/min_cold_protection_temperature //Set this variable to determine down to which temperature (IN KELVIN) the item protects against cold damage. 0 is NOT an acceptable number due to if(varname) tests!! Keep at null to disable protection. Only protects areas set by cold_protection flags
 
-	var/icon_action_button //If this is set, The item will make an action button on the player's HUD when picked up. The button will have the icon_action_button sprite from the screen1_action.dmi file.
+	var/icon_action_button //If this is set, The item will make an action button on the player's HUD when picked up.
 	var/action_button_name //This is the text which gets displayed on the action button. If not set it defaults to 'Use [name]'. Note that icon_action_button needs to be set in order for the action button to appear.
 
 	//This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
@@ -53,7 +51,6 @@
 
 	var/wear_state = ""   // If set used instead icon_state for on-mob clothing overlays.
 	var/item_state = null // Used to specify the item state for the on-mob overlays.
-	var/item_state_slots = null //overrides the default item_state for particular slots.
 
 	// Specify the icon file to be used when the item is holding.
 	// If not set the default icon for that slot will be used.
@@ -66,8 +63,8 @@
 	*/
 	var/tmp/list/sprite_sheets_obj = null
 
-/obj/item/New()
-	..()
+/obj/item/initialize()
+	. = ..()
 	if(randpixel && (!pixel_x && !pixel_y)) //hopefully this will prevent us from messing with mapper-set pixel_x/y
 		pixel_x = rand(-randpixel, randpixel)
 		pixel_y = rand(-randpixel, randpixel)
@@ -129,7 +126,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!istype(src.loc, /turf) || usr.stat || usr.restrained() )
+	if(!istype(src.loc, /turf) || usr.incapacitated() )
 		return
 
 	var/turf/T = src.loc
@@ -245,11 +242,11 @@
 						success = 1
 						S.handle_item_insertion(I, 1)	//The 1 stops the "You put the [src] into [S]" insertion message from being displayed.
 					if(success && !failure)
-						user << "<span class='notice'>You put everything in [S].</span>"
+						user << SPAN_NOTE("You put everything in [S].")
 					else if(success)
-						user << "<span class='notice'>You put some things in [S].</span>"
+						user << SPAN_NOTE("You put some things in [S].")
 					else
-						user << "<span class='notice'>You fail to pick anything up with \the [S].</span>"
+						user << SPAN_NOTE("You fail to pick anything up with \the [S].")
 
 			else if(S.can_be_inserted(src))
 				S.handle_item_insertion(src)
@@ -418,18 +415,18 @@ var/list/global/slot_flags_enumeration = list(
 
 	if(!usr) //BS12 EDIT
 		return
-	if(!usr.canmove || usr.stat || usr.restrained() || !Adjacent(usr))
+	if(!Adjacent(usr))
 		return
-	if((!istype(usr, /mob/living/carbon)) || (istype(usr, /mob/living/carbon/brain)))//Is humanoid, and is not a brain
+	if((!iscarbon(usr)) || (isbrain(usr)))//Is humanoid, and is not a brain
 		usr << "<span class='warning'>You can't pick things up!</span>"
 		return
-	var/mob/living/carbon/C = usr
-	if( usr.stat || usr.restrained() )//Is not asleep/dead and is not restrained
+	if(usr.incapacitated())//Is not asleep/dead and is not restrained
 		usr << "<span class='warning'>You can't pick things up!</span>"
 		return
 	if(src.anchored) //Object isn't anchored
 		usr << "<span class='warning'>You can't pick that up!</span>"
 		return
+	var/mob/living/carbon/C = usr
 	if(C.get_active_hand()) //Hand is not full
 		usr << "<span class='warning'>Your hand is full.</span>"
 		return
@@ -441,7 +438,7 @@ var/list/global/slot_flags_enumeration = list(
 	return
 
 
-//This proc is executed when someone clicks the on-screen UI button. To make the UI button show, set the 'icon_action_button' to the icon_state of the image of the button in screen1_action.dmi
+//This proc is executed when someone clicks the on-screen UI button.
 //The default action is attack_self().
 //Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
 /obj/item/proc/ui_action_click()
@@ -507,7 +504,7 @@ var/list/global/slot_flags_enumeration = list(
 
 		eyes.damage += rand(3,4)
 		if(eyes.damage >= eyes.min_bruised_damage)
-			if(M.stat != 2)
+			if(M.stat != DEAD)
 				if(eyes.robotic <= 1) //robot eyes bleeding might be a bit silly
 					M << "<span class='danger'>Your eyes start to bleed profusely!</span>"
 			if(prob(50))
@@ -518,7 +515,7 @@ var/list/global/slot_flags_enumeration = list(
 				M.Paralyse(1)
 				M.Weaken(4)
 			if (eyes.damage >= eyes.min_broken_damage)
-				if(M.stat != 2)
+				if(M.stat != DEAD)
 					M << "<span class='warning'>You go blind!</span>"
 		var/obj/item/organ/external/affecting = H.get_organ(BP_HEAD)
 		if(affecting.take_damage(7))
@@ -608,7 +605,7 @@ modules/mob/living/carbon/human/life.dm if you die, you will be zoomed out.
 
 	var/cannotzoom
 
-	if(usr.stat || !(ishuman(usr)))
+	if(usr.incapacitated() || !(ishuman(usr)))
 		usr << "You are unable to focus through the [devicename]"
 		cannotzoom = 1
 	else if(!zoom && global_hud.darkMask[1] in usr.client.screen)

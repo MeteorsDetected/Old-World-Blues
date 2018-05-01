@@ -19,8 +19,8 @@
 
 	var/list/scrubbing_gas = list("phoron", "carbon_dioxide", "sleeping_agent", "oxygen_agent_b")
 
-/obj/machinery/portable_atmospherics/powered/scrubber/New()
-	..()
+/obj/machinery/portable_atmospherics/powered/scrubber/initialize()
+	. = ..()
 	cell = new/obj/item/weapon/cell/apc(src)
 
 /obj/machinery/portable_atmospherics/powered/scrubber/emp_act(severity)
@@ -156,8 +156,8 @@
 	var/global/gid = 1
 	var/id = 0
 
-/obj/machinery/portable_atmospherics/powered/scrubber/huge/New()
-	..()
+/obj/machinery/portable_atmospherics/powered/scrubber/huge/initialize()
+	. = ..()
 	cell = null
 
 	id = gid
@@ -166,21 +166,15 @@
 	name = "[name] (ID [id])"
 
 /obj/machinery/portable_atmospherics/powered/scrubber/huge/attack_hand(var/mob/user as mob)
-		usr << "<span class='notice'>You can't directly interact with this machine. Use the scrubber control console.</span>"
+		usr << SPAN_NOTE("You can't directly interact with this machine. Use the scrubber control console.")
 
 /obj/machinery/portable_atmospherics/powered/scrubber/huge/update_icon()
-	src.overlays = 0
+	src.overlays.Cut()
 
 	if(on && !(stat & (NOPOWER|BROKEN)))
 		icon_state = "scrubber:1"
 	else
 		icon_state = "scrubber:0"
-
-/obj/machinery/portable_atmospherics/powered/scrubber/huge/power_change()
-	var/old_stat = stat
-	..()
-	if (old_stat != stat)
-		update_icon()
 
 /obj/machinery/portable_atmospherics/powered/scrubber/huge/process()
 	if(!on || (stat & (NOPOWER|BROKEN)))
@@ -212,7 +206,7 @@
 
 		anchored = !anchored
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		user << "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>"
+		user << SPAN_NOTE("You [anchored ? "wrench" : "unwrench"] \the [src].")
 
 		return
 

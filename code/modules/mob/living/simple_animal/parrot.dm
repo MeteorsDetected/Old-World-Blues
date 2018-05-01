@@ -117,7 +117,7 @@
  */
 /mob/living/simple_animal/parrot/show_inv(mob/user as mob)
 	user.set_machine(src)
-	if(user.stat) return
+	if(user.incapacitated()) return
 
 	var/dat = 	"<div align='center'><b>Inventory of [name]</b></div><p>"
 	if(ears)
@@ -132,7 +132,7 @@
 /mob/living/simple_animal/parrot/Topic(href, href_list)
 
 	//Can the usr physically do this?
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+	if(usr.incapacitated() || !in_range(loc, usr))
 		return
 
 	//Is the usr's mob type able to do this?
@@ -404,7 +404,11 @@
 				if(!parrot_perch || parrot_interest.loc != parrot_perch.loc)
 					held_item = parrot_interest
 					parrot_interest.loc = src
-					visible_message("[src] grabs the [held_item]!", "\blue You grab the [held_item]!", "You hear the sounds of wings flapping furiously.")
+					visible_message(
+						"[src] grabs the [held_item]!",
+						SPAN_NOTE("You grab the [held_item]!"),
+						"You hear the sounds of wings flapping furiously."
+					)
 
 			parrot_interest = null
 			parrot_state = PARROT_SWOOP | PARROT_RETURN
@@ -577,7 +581,11 @@
 
 			held_item = I
 			I.loc = src
-			visible_message("[src] grabs the [held_item]!", "\blue You grab the [held_item]!", "You hear the sounds of wings flapping furiously.")
+			visible_message(
+				"[src] grabs the [held_item]!",
+				SPAN_NOTE("You grab the [held_item]!"),
+				"You hear the sounds of wings flapping furiously."
+			)
 			return held_item
 
 	src << "\red There is nothing of interest to take."
@@ -608,8 +616,8 @@
 			held_item = stolen_item
 			stolen_item.loc = src
 			visible_message(\
-				"<span class = 'notice'>[src] grabs the [held_item] out of [C]'s hand!</span>",
-				"<span class = 'notice'>You snag the [held_item] out of [C]'s hand!</span>",
+				SPAN_NOTE("[src] grabs the [held_item] out of [C]'s hand!"),
+				SPAN_NOTE("You snag the [held_item] out of [C]'s hand!"),
 				"You hear the sounds of wings flapping furiously."
 			)
 			return held_item

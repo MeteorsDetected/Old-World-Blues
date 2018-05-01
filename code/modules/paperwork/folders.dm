@@ -4,7 +4,6 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "folder"
 	w_class = ITEM_SIZE_SMALL
-	pressure_resistance = 2
 
 /obj/item/weapon/folder/blue
 	desc = "A blue folder."
@@ -26,18 +25,16 @@
 	overlays.Cut()
 	if(contents.len)
 		overlays += "folder_paper"
-	return
 
 /obj/item/weapon/folder/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/weapon/photo) || istype(W, /obj/item/weapon/paper_bundle))
 		user.unEquip(W, src)
-		user << "<span class='notice'>You put the [W] into \the [src].</span>"
+		user << SPAN_NOTE("You put the [W] into \the [src].")
 		update_icon()
 	else if(istype(W, /obj/item/weapon/pen))
 		var/n_name = sanitizeSafe(input(usr, "What would you like to label the folder?", "Folder Labelling", null)  as text, MAX_NAME_LEN)
-		if(loc == usr && !usr.stat)
+		if(loc == usr && !usr.incapacitated())
 			name = "folder[(n_name ? text("- '[n_name]'") : null)]"
-	return
 
 /obj/item/weapon/folder/attack_self(mob/user as mob)
 	var/dat = "<title>[name]</title>"
@@ -51,11 +48,10 @@
 	user << browse(dat, "window=folder")
 	onclose(user, "folder")
 	add_fingerprint(usr)
-	return
 
 /obj/item/weapon/folder/Topic(href, href_list)
 	..()
-	if((usr.stat || usr.restrained()))
+	if(usr.incapacitated())
 		return
 
 	if(src.loc == usr)

@@ -9,13 +9,13 @@
 	siemens_coefficient = 0.3
 	sprite_sheets_refit = null
 	sprite_sheets_obj = null
+	origin_tech = list(TECH_ARCANE = 2)
 	wizard_garb = 1
 
 /obj/item/clothing/suit/space/void/wizard
-	icon_state = "rig-wiz"
+	icon_state = "wizard-void"
 	name = "gem-encrusted voidsuit"
 	desc = "A bizarre gem-encrusted suit that radiates magical energies."
-	item_state = "wiz_voidsuit"
 	slowdown = 1
 	w_class = ITEM_SIZE_LARGE //normally voidsuits are bulky but this one is magic I suppose
 	unacidable = 1
@@ -23,4 +23,5 @@
 	siemens_coefficient = 0.3
 	sprite_sheets_refit = null
 	sprite_sheets_obj = null
+	origin_tech = list(TECH_ARCANE = 2)
 	wizard_garb = 1

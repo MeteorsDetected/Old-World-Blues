@@ -146,78 +146,6 @@
 			if(I && I.damage > 0)
 				I.take_damage(dam_amt,0)
 
-/datum/surgery_step/internal/fix_organ_robotic //For artificial organs
-	allowed_tools = list(
-		/obj/item/stack/nanopaste = 100,
-		/obj/item/weapon/bonegel = 30,
-		/obj/item/weapon/screwdriver = 70,
-	)
-
-	min_duration = 70
-	max_duration = 90
-
-	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-
-		if (!hasorgans(target))
-			return
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if(!affected) return
-		var/is_organ_damaged = 0
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I.damage > 0 && I.robotic >= ORGAN_ROBOT)
-				is_organ_damaged = 1
-				break
-		return ..() && is_organ_damaged
-
-	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-
-		if (!hasorgans(target))
-			return
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage > 0 && I.robotic >= ORGAN_ROBOT)
-				user.visible_message(
-					"[user] starts mending the damage to [target]'s [I.name]'s mechanisms.",
-					"You start mending the damage to [target]'s [I.name]'s mechanisms."
-				)
-
-		target.custom_pain("The pain in your [affected.name] is living hell!",1)
-		..()
-
-	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-		if (!hasorgans(target))
-			return
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-
-			if(I && I.damage > 0 && I.robotic >= ORGAN_ROBOT)
-				user.visible_message(
-					SPAN_NOTE("[user] repairs [target]'s [I.name] with [tool]."),
-					SPAN_NOTE("You repair [target]'s [I.name] with [tool].")
-				)
-				I.damage = 0
-
-	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-
-		if (!hasorgans(target))
-			return
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-
-		user.visible_message(
-			SPAN_WARN("[user]'s hand slips, gumming up the mechanisms inside of [target]'s [affected.name] with \the [tool]!"),
-			SPAN_WARN("Your hand slips, gumming up the mechanisms inside of [target]'s [affected.name] with \the [tool]!")
-		)
-
-		target.adjustToxLoss(5)
-		affected.createwound(CUT, 5)
-
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I)
-				I.take_damage(rand(3,5),0)
-
-
 /datum/surgery_step/internal/detatch_organ
 
 	allowed_tools = list(
@@ -234,9 +162,13 @@
 		if (!..())
 			return 0
 
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
+		if(!affected || affected.robotic >= ORGAN_ROBOT)
+			return 0
+
 		target.op_stage.current_organ = null
 
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		var/list/attached_organs = list()
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(!(I.status&ORGAN_CUT_AWAY))
@@ -357,9 +289,13 @@
 		if(!istype(O))
 			return 0
 
+		if((affected.robotic >= ORGAN_ROBOT) && (O.robotic < ORGAN_ROBOT))
+			user << SPAN_WARN("You cannot install a naked organ into a robotic body.")
+			return SURGERY_FAILURE
+
 		if(!target.species)
 			user << SPAN_WARN("You have no idea what species this person is. Report this on the bug tracker.")
-			return 2
+			return SURGERY_FAILURE
 
 		var/o_is = (O.gender == PLURAL) ? "are" : "is"
 		var/o_a =  (O.gender == PLURAL) ? "" : "a "
@@ -371,13 +307,13 @@
 
 			if(O.damage > (O.max_damage * 0.75))
 				user << SPAN_WARN("\The [O.organ_tag] [o_is] in no state to be transplanted.")
-				return 2
+				return SURGERY_FAILURE
 
 			if(!target.internal_organs_by_name[O.organ_tag])
 				organ_missing = 1
 			else
 				user << SPAN_WARN("\The [target] already has [o_a][O.organ_tag].")
-				return 2
+				return SURGERY_FAILURE
 
 			if(O && affected.organ_tag == O.parent_organ)
 				organ_compatible = 1
@@ -386,7 +322,7 @@
 				return 2
 		else
 			user << SPAN_WARN("You're pretty sure [target.species.name_plural] don't normally have [o_a][O.organ_tag].")
-			return 2
+			return SURGERY_FAILURE
 
 		return ..() && organ_missing && organ_compatible
 

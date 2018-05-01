@@ -44,24 +44,13 @@ var/datum/antagonist/wizard/wizards
 			hijack = 1
 
 	if(kill)
-		var/datum/objective/assassinate/kill_objective = new
-		kill_objective.owner = wizard
-		kill_objective.find_target()
-		wizard.objectives |= kill_objective
+		new /datum/objective/assassinate (wizard)
 	if(steal)
-		var/datum/objective/steal/steal_objective = new
-		steal_objective.owner = wizard
-		steal_objective.find_target()
-		wizard.objectives |= steal_objective
+		new /datum/objective/steal (wizard)
 	if(escape)
-		var/datum/objective/survive/survive_objective = new
-		survive_objective.owner = wizard
-		wizard.objectives |= survive_objective
+		new /datum/objective/survive (wizard)
 	if(hijack)
-		var/datum/objective/hijack/hijack_objective = new
-		hijack_objective.owner = wizard
-		wizard.objectives |= hijack_objective
-	return
+		new /datum/objective/hijack(wizard)
 
 /datum/antagonist/wizard/update_antag_mob(var/datum/mind/wizard)
 	..()
@@ -107,7 +96,7 @@ var/datum/antagonist/wizard/wizards
 	for(var/spell/spell_to_remove in src.spell_list)
 		remove_spell(spell_to_remove)
 
-obj/item/clothing
+/obj/item/clothing
 	var/wizard_garb = 0
 
 // Does this clothing slot count as wizard garb? (Combines a few checks)
@@ -116,30 +105,32 @@ obj/item/clothing
 
 /*Checks if the wizard is wearing the proper attire.
 Made a proc so this is not repeated 14 (or more) times.*/
-/mob/proc/wearing_wiz_garb()
-	src << "Silly creature, you're not a human. Only humans can cast this spell."
+/mob/proc/is_like_wizard(flags)
+	src << SPAN_WARN("Silly creature, you're not a human. Only humans can cast this spell.")
 	return 0
 
 // Humans can wear clothes.
-/mob/living/carbon/human/wearing_wiz_garb()
-	if(!is_wiz_garb(src.wear_suit))
-		src << "<span class='warning'>I don't feel strong enough without my robe.</span>"
-		return 0
-	if(!is_wiz_garb(src.shoes))
-		src << "<span class='warning'>I don't feel strong enough without my sandals.</span>"
-		return 0
-	if(!is_wiz_garb(src.head))
-		src << "<span class='warning'>I don't feel strong enough without my hat.</span>"
-		return 0
-	return 1
+/mob/living/carbon/human/is_like_wizard(flags)
+	if(flags & WIZARD_CLOTHINGS)
+		if(!is_wiz_garb(src.wear_suit))
+			src << SPAN_WARN("I don't feel strong enough without my robe.")
+			return FALSE
+		if(!is_wiz_garb(src.shoes))
+			src << SPAN_WARN("I don't feel strong enough without my sandals.")
+			return FALSE
+		if(!is_wiz_garb(src.head))
+			src << SPAN_WARN("I don't feel strong enough without my hat.")
+			return FALSE
+	if(flags & WIZARD_KNOWLEDGE)
+		if(wizards && wizards.is_antagonist(mind))
+			return TRUE
+		else
+			for(var/obj/item/weapon/implant/wizard/I in src)
+				if(I.imp_in == src)
+					return TRUE
+			return FALSE
+	return TRUE
 
-/datum/antagonist/wizard/remove_antagonist(var/datum/mind/player, var/mob/M)
-	switch(input("What to remove?") in list ("Spells", "Mob", "Role (without spells)"))
-		if("Spells")
-			player.current.spellremove()
-		if("Mob")
-			M = player.current
-			..()
-			qdel(M)
-		if ("Role")
-			..()
+/datum/antagonist/wizard/remove_antagonist(var/datum/mind/player, var/show_message, var/implanted)
+	player.current.spellremove()
+	..()

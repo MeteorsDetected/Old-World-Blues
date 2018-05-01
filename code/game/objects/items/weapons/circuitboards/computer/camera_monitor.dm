@@ -10,8 +10,8 @@
 	var/locked = 1
 	var/emagged = 0
 
-/obj/item/weapon/circuitboard/security/New()
-	..()
+/obj/item/weapon/circuitboard/security/initialize()
+	. = ..()
 	network = station_networks
 
 /obj/item/weapon/circuitboard/security/engineering
@@ -19,8 +19,8 @@
 	build_path = /obj/machinery/computer/security/engineering
 	req_access = list()
 
-/obj/item/weapon/circuitboard/security/engineering/New()
-	..()
+/obj/item/weapon/circuitboard/security/engineering/initialize()
+	. = ..()
 	network = engineering_networks
 
 /obj/item/weapon/circuitboard/security/mining
@@ -41,7 +41,7 @@
 	if(emagged)
 		user << "Circuit lock is already removed."
 		return
-	user << "<span class='notice'>You override the circuit lock and open controls.</span>"
+	user << SPAN_NOTE("You override the circuit lock and open controls.")
 	emagged = 1
 	locked = 0
 	return 1
@@ -53,7 +53,7 @@
 			return
 		if(check_access(I))
 			locked = !locked
-			user << "<span class='notice'>You [locked ? "" : "un"]lock the circuit controls.</span>"
+			user << SPAN_NOTE("You [locked ? "" : "un"]lock the circuit controls.")
 		else
 			user << "<span class='warning'>Access denied.</span>"
 	else if(istype(I,/obj/item/device/multitool))

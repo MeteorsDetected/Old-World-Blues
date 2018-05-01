@@ -10,7 +10,7 @@
 	if(!deploy_path)
 		return
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
-	user << "<span class='notice'>You inflate \the [src].</span>"
+	user << SPAN_NOTE("You inflate \the [src].")
 	var/obj/structure/inflatable/R = new deploy_path(user.loc)
 	src.transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
@@ -35,8 +35,8 @@
 	var/undeploy_path = /obj/item/inflatable
 	var/health = 50.0
 
-/obj/structure/inflatable/New(location)
-	..()
+/obj/structure/inflatable/initialize()
+	. = ..()
 	update_nearby_tiles(need_rebuild=1)
 
 /obj/structure/inflatable/Destroy()
@@ -125,7 +125,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || !usr.IsAdvancedToolUser()) //to stop ghosts from deflating
+	if(usr.incapacitated() || !usr.IsAdvancedToolUser()) //to stop ghosts from deflating
 		return
 
 	verbs -= /obj/structure/inflatable/verb/hand_deflate
@@ -239,7 +239,7 @@
 	icon_state = "folded_wall_torn"
 
 	attack_self(mob/user)
-		user << "\blue The inflatable wall is too torn to be inflated!"
+		user << SPAN_NOTE("The inflatable wall is too torn to be inflated!")
 		add_fingerprint(user)
 
 /obj/item/inflatable/door/torn
@@ -249,7 +249,7 @@
 	icon_state = "folded_door_torn"
 
 	attack_self(mob/user)
-		user << "\blue The inflatable door is too torn to be inflated!"
+		user << SPAN_NOTE("The inflatable door is too torn to be inflated!")
 		add_fingerprint(user)
 
 /obj/item/storage/briefcase/inflatable
@@ -260,13 +260,8 @@
 	w_class = ITEM_SIZE_LARGE
 	max_storage_space = DEFAULT_LARGEBOX_STORAGE
 	can_hold = list(/obj/item/inflatable)
+	preloaded = list(
+		/obj/item/inflatable/door = 3,
+		/obj/item/inflatable = 4
+	)
 
-	New()
-		..()
-		new /obj/item/inflatable/door(src)
-		new /obj/item/inflatable/door(src)
-		new /obj/item/inflatable/door(src)
-		new /obj/item/inflatable(src)
-		new /obj/item/inflatable(src)
-		new /obj/item/inflatable(src)
-		new /obj/item/inflatable(src)

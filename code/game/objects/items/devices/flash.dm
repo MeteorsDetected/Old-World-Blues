@@ -124,10 +124,10 @@
 			user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
 		else
 
-			user.visible_message("<span class='notice'>[user] overloads [M]'s sensors with the flash!</span>")
+			user.visible_message(SPAN_NOTE("[user] overloads [M]'s sensors with the flash!"))
 	else
 
-		user.visible_message("<span class='notice'>[user] fails to blind [M] with the flash!</span>")
+		user.visible_message(SPAN_NOTE("[user] fails to blind [M] with the flash!"))
 
 	return
 
@@ -194,7 +194,7 @@
 				icon_state = "flashburnt"
 				return
 			times_used++
-			if(istype(loc, /mob/living/carbon))
+			if(iscarbon(loc))
 				var/mob/living/carbon/M = loc
 				var/safety = M.eyecheck()
 				if(safety <= 0)

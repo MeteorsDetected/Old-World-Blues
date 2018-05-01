@@ -13,16 +13,21 @@
  *		Cigarette Box
  */
 
-/obj/item/storage/fancy/
+/obj/item/storage/fancy
 	icon = 'icons/obj/food.dmi'
 	icon_state = "donutbox6"
 	name = "donut box"
 	var/icon_type = "donut"
+	var/fill_type = null
 
-/obj/item/storage/fancy/update_icon(var/itemremoved = 0)
+/obj/item/storage/fancy/update_icon()
 	..()
 	src.icon_state = "[src.icon_type]box[src.contents.len]"
-	return
+
+/obj/item/storage/fancy/populateContents()
+	..()
+	for(var/i in 1 to storage_slots - contents.len)
+		PoolOrNew(fill_type, src)
 
 /obj/item/storage/fancy/examine(mob/user, return_dist = 1)
 	.=..()
@@ -43,8 +48,9 @@
 /obj/item/storage/fancy/egg_box
 	icon = 'icons/obj/food.dmi'
 	icon_state = "eggbox"
-	icon_type = "egg"
 	name = "egg box"
+	icon_type = "egg"
+	fill_type = /obj/item/weapon/reagent_containers/food/snacks/egg
 	storage_slots = 12
 	max_w_class = ITEM_SIZE_SMALL
 	w_class = ITEM_SIZE_NORMAL
@@ -54,11 +60,6 @@
 		/obj/item/weapon/reagent_containers/food/snacks/boiledegg
 		)
 
-/obj/item/storage/fancy/egg_box/New()
-	..()
-	for(var/i=1 to storage_slots)
-		new /obj/item/weapon/reagent_containers/food/snacks/egg(src)
-	return
 
 /*
  * Candle Box
@@ -70,6 +71,7 @@
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candlebox5"
 	icon_type = "candle"
+	fill_type = /obj/item/weapon/flame/candle
 	item_state = "candlebox5"
 	storage_slots = 5
 	throwforce = 2
@@ -77,13 +79,6 @@
 	max_w_class = ITEM_SIZE_TINY
 	max_storage_space = 5
 	slot_flags = SLOT_BELT
-
-
-/obj/item/storage/fancy/candle_box/New()
-	..()
-	for(var/i=1 to storage_slots)
-		new /obj/item/weapon/flame/candle(src)
-	return
 
 /*
  * Crayon Box
@@ -102,20 +97,22 @@
 	can_hold = list(
 		/obj/item/weapon/pen/crayon
 	)
+	preloaded = list(
+		/obj/item/weapon/pen/crayon/red,
+		/obj/item/weapon/pen/crayon/orange,
+		/obj/item/weapon/pen/crayon/yellow,
+		/obj/item/weapon/pen/crayon/green,
+		/obj/item/weapon/pen/crayon/blue,
+		/obj/item/weapon/pen/crayon/purple,
+	)
 
-/obj/item/storage/fancy/crayons/New()
-	..()
-	new /obj/item/weapon/pen/crayon/red(src)
-	new /obj/item/weapon/pen/crayon/orange(src)
-	new /obj/item/weapon/pen/crayon/yellow(src)
-	new /obj/item/weapon/pen/crayon/green(src)
-	new /obj/item/weapon/pen/crayon/blue(src)
-	new /obj/item/weapon/pen/crayon/purple(src)
+/obj/item/storage/fancy/crayons/initialize()
+	. = ..()
 	update_icon()
 
 /obj/item/storage/fancy/crayons/update_icon()
 	overlays = list() //resets list
-	overlays += image('icons/obj/crayons.dmi',"crayonbox")
+	overlays += "crayonbox"
 	for(var/obj/item/weapon/pen/crayon/crayon in contents)
 		overlays += image('icons/obj/crayons.dmi',crayon.colourName)
 
@@ -147,26 +144,26 @@
 	storage_slots = 6
 	can_hold = list(/obj/item/clothing/mask/smokable/cigarette, /obj/item/weapon/flame/lighter)
 	icon_type = "cigarette"
+	fill_type = /obj/item/clothing/mask/smokable/cigarette
 
-/obj/item/storage/fancy/cigarettes/New()
+/obj/item/storage/fancy/cigarettes/populateContents()
 	..()
+	//Allow people inject cigarettes without opening a packet
 	flags |= NOREACT
-	for(var/i = 1 to storage_slots)
-		new /obj/item/clothing/mask/smokable/cigarette(src)
-	create_reagents(15 * storage_slots)//so people can inject cigarettes without opening a packet, now with being able to inject the whole one
+	create_reagents(15 * storage_slots)
 
 /obj/item/storage/fancy/cigarettes/update_icon()
 	icon_state = "[initial(icon_state)][contents.len]"
-	return
 
 /obj/item/storage/fancy/cigarettes/remove_from_storage(obj/item/W as obj, atom/new_location)
-		var/obj/item/clothing/mask/smokable/cigarette/C = W
-		if(!istype(C)) return // what
-		reagents.trans_to_obj(C, (reagents.total_volume/contents.len))
-		..()
+	var/obj/item/clothing/mask/smokable/cigarette/C = W
+	if(!istype(C))
+		return
+	reagents.trans_to_obj(C, (reagents.total_volume/contents.len))
+	..()
 
-/obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(!istype(M, /mob))
+/obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/M, mob/living/carbon/user)
+	if(!ismob(M))
 		return
 
 	if(M == user && user.zone_sel.selecting == O_MOUTH && contents.len > 0 && !user.wear_mask)
@@ -175,7 +172,7 @@
 		user.equip_to_slot_if_possible(W, slot_wear_mask)
 		reagents.maximum_volume = 15 * contents.len
 		contents.len--
-		user << "<span class='notice'>You take a cigarette out of the pack.</span>"
+		user << SPAN_NOTE("You take a cigarette out of the pack.")
 		update_icon()
 	else
 		..()
@@ -186,7 +183,7 @@
 	icon_state = "Dpacket"
 	item_state = "Dpacket"
 
-/obj/item/storage/fancy/cigar
+/obj/item/storage/fancy/cigarettes/cigar
 	name = "cigar case"
 	desc = "A case for holding your cigars when you are not smoking them."
 	icon_state = "cigarcase"
@@ -200,38 +197,7 @@
 	storage_slots = 7
 	can_hold = list(/obj/item/clothing/mask/smokable/cigarette/cigar)
 	icon_type = "cigar"
-
-/obj/item/storage/fancy/cigar/New()
-	..()
-	flags |= NOREACT
-	for(var/i = 1 to storage_slots)
-		new /obj/item/clothing/mask/smokable/cigarette/cigar(src)
-	create_reagents(15 * storage_slots)
-
-/obj/item/storage/fancy/cigar/update_icon()
-	icon_state = "[initial(icon_state)][contents.len]"
-	return
-
-/obj/item/storage/fancy/cigar/remove_from_storage(obj/item/W as obj, atom/new_location)
-		var/obj/item/clothing/mask/smokable/cigarette/cigar/C = W
-		if(!istype(C)) return
-		reagents.trans_to_obj(C, (reagents.total_volume/contents.len))
-		..()
-
-/obj/item/storage/fancy/cigar/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(!istype(M, /mob))
-		return
-
-	if(M == user && user.zone_sel.selecting == O_MOUTH && contents.len > 0 && !user.wear_mask)
-		var/obj/item/clothing/mask/smokable/cigarette/cigar/W = new (user)
-		reagents.trans_to_obj(W, (reagents.total_volume/contents.len))
-		user.equip_to_slot_if_possible(W, slot_wear_mask)
-		reagents.maximum_volume = 15 * contents.len
-		contents.len--
-		user << "<span class='notice'>You take a cigar out of the case.</span>"
-		update_icon()
-	else
-		..()
+	fill_type = /obj/item/clothing/mask/smokable/cigarette/cigar
 
 /*
  * Vial Box
@@ -246,13 +212,8 @@
 	max_w_class = ITEM_SIZE_TINY
 	storage_slots = 6
 	can_hold = list(/obj/item/weapon/reagent_containers/glass/beaker/vial)
+	fill_type = /obj/item/weapon/reagent_containers/glass/beaker/vial
 
-
-/obj/item/storage/fancy/vials/New()
-	..()
-	for(var/i=1 to storage_slots)
-		new /obj/item/weapon/reagent_containers/glass/beaker/vial(src)
-	return
 
 /obj/item/storage/lockbox/vials
 	name = "secure vial storage box"
@@ -267,13 +228,12 @@
 	storage_slots = 6
 	req_access = list(access_virology)
 
-/obj/item/storage/lockbox/vials/New()
-	..()
+/obj/item/storage/lockbox/vials/initialize()
+	. = ..()
 	update_icon()
 
-/obj/item/storage/lockbox/vials/update_icon(var/itemremoved = 0)
-	var/total_contents = src.contents.len - itemremoved
-	src.icon_state = "vialbox[total_contents]"
+/obj/item/storage/lockbox/vials/update_icon()
+	src.icon_state = "vialbox[src.contents.len]"
 	src.overlays.Cut()
 	if (!broken)
 		overlays += image(icon, src, "led[locked]")
@@ -281,8 +241,4 @@
 			overlays += image(icon, src, "cover")
 	else
 		overlays += image(icon, src, "ledb")
-	return
 
-/obj/item/storage/lockbox/vials/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	..()
-	update_icon()

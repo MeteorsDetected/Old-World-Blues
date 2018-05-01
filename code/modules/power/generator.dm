@@ -23,11 +23,10 @@
 	var/effective_gen = 0
 	var/lastgenlev = 0
 
-/obj/machinery/power/generator/New()
-	..()
+/obj/machinery/power/generator/initialize()
+	. = ..()
 	desc = initial(desc) + " Rated for [round(max_power/1000)] kW."
-	spawn(1)
-		reconnect()
+	reconnect()
 
 //generators connect in dir and reverse_dir(dir) directions
 //mnemonic to determine circulator/generator directions: the cirulators orbit clockwise around the generator
@@ -210,17 +209,12 @@
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/machinery/power/generator/power_change()
-	..()
-	updateicon()
-
-
 /obj/machinery/power/generator/verb/rotate_clock()
 	set category = "Object"
 	set name = "Rotate Generator (Clockwise)"
 	set src in view(1)
 
-	if (usr.stat || usr.restrained()  || anchored)
+	if (usr.incapacitated() || anchored)
 		return
 
 	src.set_dir(turn(src.dir, 90))
@@ -230,7 +224,7 @@
 	set name = "Rotate Generator (Counterclockwise)"
 	set src in view(1)
 
-	if (usr.stat || usr.restrained()  || anchored)
+	if (usr.incapacitated() || anchored)
 		return
 
 	src.set_dir(turn(src.dir, -90))

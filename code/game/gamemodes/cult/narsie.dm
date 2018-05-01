@@ -16,8 +16,8 @@ var/global/list/narsie_list = list()
 	consume_range = 3 //How many tiles out do we eat
 
 
-/obj/singularity/narsie/New()
-	..()
+/obj/singularity/narsie/initialize()
+	. = ..()
 	narsie_list.Add(src)
 
 /obj/singularity/narsie/Destroy()
@@ -40,8 +40,8 @@ var/global/list/narsie_list = list()
 	var/announce=1
 	var/cause_hell = 1
 
-/obj/singularity/narsie/large/New()
-	..()
+/obj/singularity/narsie/large/initialize()
+	. = ..()
 	if(announce)
 		world << "<font size='15' color='red'><b>[uppertext(name)] HAS RISEN</b></font>"
 		world << sound('sound/effects/wind/wind_5_1.ogg')
@@ -314,7 +314,7 @@ var/global/list/narsie_list = list()
 /obj/singularity/narsie/proc/acquire(const/mob/food)
 	var/capname = uppertext(name)
 
-	target << "<span class='notice'><b>[capname] HAS LOST INTEREST IN YOU.</b></span>"
+	target << SPAN_NOTE("<b>[capname] HAS LOST INTEREST IN YOU.</b>")
 	target = food
 
 	if (ishuman(target))

@@ -15,7 +15,8 @@
 	var/list/allowed_containers = list(/obj/item/weapon/reagent_containers/glass/beaker)
 	var/affected_area = 3
 
-	New()
+	initialize()
+		. = ..()
 		create_reagents(1000)
 
 	attack_self(mob/user as mob)
@@ -56,7 +57,7 @@
 				user << "<span class='warning'>Assembly must be secured with screwdriver.</span>"
 				return
 			path = 1
-			user << "<span class='notice'>You add [W] to the metal casing.</span>"
+			user << SPAN_NOTE("You add [W] to the metal casing.")
 			playsound(src.loc, 'sound/items/Screwdriver2.ogg', 25, -3)
 			user.remove_from_mob(det)
 			det.loc = src
@@ -74,11 +75,11 @@
 			if(stage == 1)
 				path = 1
 				if(beakers.len)
-					user << "<span class='notice'>You lock the assembly.</span>"
+					user << SPAN_NOTE("You lock the assembly.")
 					name = "grenade"
 				else
 //					user << "<span class='warning'>You need to add at least one beaker before locking the assembly.</span>"
-					user << "<span class='notice'>You lock the empty assembly.</span>"
+					user << SPAN_NOTE("You lock the empty assembly.")
 					name = "fake grenade"
 				playsound(src.loc, 'sound/items/Screwdriver.ogg', 25, -3)
 				icon_state = initial(icon_state) +"_locked"
@@ -89,7 +90,7 @@
 					prime()
 					return
 				else
-					user << "<span class='notice'>You unlock the assembly.</span>"
+					user << SPAN_NOTE("You unlock the assembly.")
 					playsound(src.loc, 'sound/items/Screwdriver.ogg', 25, -3)
 					name = "unsecured grenade with [beakers.len] containers[detonator?" and detonator":""]"
 					icon_state = initial(icon_state) + (detonator?"_ass":"")
@@ -104,7 +105,7 @@
 				if(W.reagents.total_volume)
 					if(!user.unEquip(W, src))
 						return
-					user << "<span class='notice'>You add \the [W] to the assembly.</span>"
+					user << SPAN_NOTE("You add \the [W] to the assembly.")
 					beakers += W
 					stage = 1
 					name = "unsecured grenade with [beakers.len] containers[detonator?" and detonator":""]"
@@ -173,7 +174,7 @@
 				if( A == src ) continue
 				src.reagents.touch(A)
 
-		if(istype(loc, /mob/living/carbon))		//drop dat grenade if it goes off in your hand
+		if(iscarbon(loc))		//drop dat grenade if it goes off in your hand
 			var/mob/living/carbon/C = loc
 			C.drop_from_inventory(src)
 			C.throw_mode_off()
@@ -197,8 +198,8 @@
 	path = 1
 	stage = 2
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
 
@@ -218,8 +219,8 @@
 	path = 1
 	stage = 2
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
 
@@ -241,8 +242,8 @@
 	path = 1
 	stage = 2
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
 
@@ -263,8 +264,8 @@
 	stage = 2
 	path = 1
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
 
@@ -285,8 +286,8 @@
 	path = 1
 	stage = 2
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
 		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
 
@@ -295,7 +296,7 @@
 		B2.reagents.add_reagent("phosphorus", 25)
 		B2.reagents.add_reagent("sugar", 25)
 
-		detonator = new/obj/item/device/assembly_holder/timer_igniter(src)
+		detonator = new /obj/item/device/assembly_holder/timer_igniter(src)
 
 		beakers += B1
 		beakers += B2

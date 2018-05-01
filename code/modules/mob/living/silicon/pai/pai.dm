@@ -106,10 +106,6 @@
 		pda.toff = 1
 	..()
 
-/mob/living/silicon/pai/Login()
-	..()
-
-
 // this function shows the information about being silenced as a pAI in the Status panel
 /mob/living/silicon/pai/proc/show_silenced()
 	if(src.silence_time)
@@ -129,7 +125,7 @@
 	return 0
 
 /mob/living/silicon/pai/blob_act()
-	if (src.stat != 2)
+	if (src.stat != DEAD)
 		src.adjustBruteLoss(60)
 		src.updatehealth()
 		return 1
@@ -210,7 +206,7 @@
 	medicalActive2 = null
 	medical_cannotfind = 0
 	nanomanager.update_uis(src)
-	usr << "<span class='notice'>You reset your record-viewing software.</span>"
+	usr << SPAN_NOTE("You reset your record-viewing software.")
 
 /mob/living/silicon/pai/cancel_camera()
 	set category = "pAI Commands"
@@ -241,7 +237,7 @@
 				cameralist[C.network] = C.network
 
 	src.network = input(usr, "Which network would you like to view?") as null|anything in cameralist
-	src << "\blue Switched to [src.network] camera network."
+	src << SPAN_NOTE("Switched to [src.network] camera network.")
 //End of code by Mord_Sith
 */
 
@@ -279,7 +275,7 @@
 	if(istype(card.loc,/obj/item/rig_module))
 		src << "There is no room to unfold inside this rig module. You're good and stuck."
 		return 0
-	else if(istype(card.loc,/mob))
+	else if(ismob(card.loc))
 		var/mob/holder = card.loc
 		if(ishuman(holder))
 			var/mob/living/carbon/human/H = holder
@@ -296,8 +292,7 @@
 
 	canmove = 1
 
-	src.client.perspective = EYE_PERSPECTIVE
-	src.client.eye = src
+	src.reset_view()
 	src.forceMove(get_turf(card))
 
 	card.forceMove(src)
@@ -362,7 +357,7 @@
 	else
 		resting = !resting
 		icon_state = resting ? "[chassis]_rest" : "[chassis]"
-		src << "\blue You are now [resting ? "resting" : "getting up"]"
+		src << SPAN_NOTE("You are now [resting ? "resting" : "getting up"]")
 
 	canmove = !resting
 
@@ -375,8 +370,8 @@
 	else
 		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
 	spawn(1)
-		if(stat != 2) close_up()
-	return
+		if(stat != DEAD)
+			close_up()
 
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
 	visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
@@ -394,8 +389,7 @@
 	if(istype(T)) T.visible_message("<b>[src]</b> neatly folds inwards, compacting down to a rectangular card.")
 
 	src.stop_pulling()
-	src.client.perspective = EYE_PERSPECTIVE
-	src.client.eye = card
+	src.reset_view(card)
 
 	//stop resting
 	resting = 0

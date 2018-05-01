@@ -6,19 +6,23 @@
 	w_class = ITEM_SIZE_SMALL
 	anchored = 0
 
-	matter = list(DEFAULT_WALL_MATERIAL = 700,"glass" = 300)
+	matter = list(MATERIAL_STEEL = 700,MATERIAL_GLASS = 300)
 
 	//	Motion, EMP-Proof, X-Ray
-	var/list/obj/item/possible_upgrades = list(/obj/item/device/assembly/prox_sensor, /obj/item/stack/material/osmium, /obj/item/weapon/stock_parts/scanning_module)
+	var/list/obj/item/possible_upgrades = list(
+		/obj/item/device/assembly/prox_sensor,
+		/obj/item/stack/material,
+		/obj/item/weapon/stock_parts/scanning_module
+	)
 	var/list/upgrades = list()
 	var/state = 0
 	var/busy = 0
 	/*
-				0 = Nothing done to it
-				1 = Wrenched in place
-				2 = Welded in place
-				3 = Wires attached to it (you can now attach/dettach upgrades)
-				4 = Screwdriver panel closed and is fully built (you cannot attach upgrades)
+		0 = Nothing done to it
+		1 = Wrenched in place
+		2 = Welded in place
+		3 = Wires attached to it (you can now attach/dettach upgrades)
+		4 = Screwdriver panel closed and is fully built (you cannot attach upgrades)
 	*/
 
 /obj/item/weapon/camera_assembly/attackby(obj/item/W as obj, mob/living/user as mob)
@@ -58,14 +62,13 @@
 			if(iscoil(W))
 				var/obj/item/stack/cable_coil/C = W
 				if(C.use(2))
-					user << "<span class='notice'>You add wires to the assembly.</span>"
+					user << SPAN_NOTE("You add wires to the assembly.")
 					state = 3
 				else
 					user << "<span class='warning'>You need 2 coils of wire to wire the assembly.</span>"
 				return
 
 			else if(iswelder(W))
-
 				if(weld(W, user))
 					user << "You unweld the assembly from its place."
 					state = 1
@@ -122,7 +125,12 @@
 				return
 
 	// Upgrades!
-	if(is_type_in_list(W, possible_upgrades) && !is_type_in_list(W, upgrades)) // Is a possible upgrade and isn't in the camera already.
+	// Is a possible upgrade and isn't in the camera already.
+	if(is_type_in_list(W, possible_upgrades) && !is_type_in_list(W, upgrades))
+		if(ismaterial(W))
+			var/obj/item/stack/material/M = W
+			if(M.get_material_name() != MATERIAL_OSMIUM)
+				return
 		user << "You attach \the [W] into the assembly inner circuits."
 		upgrades += W
 		user.remove_from_mob(W)
@@ -158,7 +166,7 @@
 	if(!WT.isOn())
 		return 0
 
-	user << "<span class='notice'>You start to weld the [src]..</span>"
+	user << SPAN_NOTE("You start to weld the [src]..")
 	playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 	WT.eyecheck(user)
 	busy = 1

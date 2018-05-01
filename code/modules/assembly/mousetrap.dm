@@ -3,7 +3,7 @@
 	desc = "A handy little spring-loaded trap for catching pesty rodents."
 	icon_state = "mousetrap"
 	origin_tech = list(TECH_COMBAT = 1)
-	matter = list(DEFAULT_WALL_MATERIAL = 100, "waste" = 10)
+	matter = list(MATERIAL_STEEL = 100)
 	var/armed = 0
 
 
@@ -52,7 +52,7 @@
 
 	attack_self(mob/living/user as mob)
 		if(!armed)
-			user << "<span class='notice'>You arm [src].</span>"
+			user << SPAN_NOTE("You arm [src].")
 		else
 			//TODO: DNA3 clown_block
 			//TODO: BrainLoss >= 60 mean dead
@@ -63,7 +63,7 @@
 					"<span class='warning'>You accidentally trigger [src]!</span>"
 				)
 				return
-			user << "<span class='notice'>You disarm [src].</span>"
+			user << SPAN_NOTE("You disarm [src].")
 		armed = !armed
 		update_icon()
 		playsound(user.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -3)
@@ -126,8 +126,8 @@
 	set name = "Hide"
 	set category = "Object"
 
-	if(usr.stat)
+	if(usr.incapacitated())
 		return
 
 	layer = TURF_LAYER+0.2
-	usr << "<span class='notice'>You hide [src].</span>"
+	usr << SPAN_NOTE("You hide [src].")

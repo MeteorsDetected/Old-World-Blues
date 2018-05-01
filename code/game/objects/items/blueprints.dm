@@ -28,7 +28,7 @@
 
 /obj/item/blueprints/Topic(href, href_list)
 	..()
-	if ((usr.restrained() || usr.stat || usr.get_active_hand() != src))
+	if ((usr.incapacitated() || usr.get_active_hand() != src))
 		return
 	if (!href_list["action"])
 		return
@@ -157,7 +157,7 @@ move an amendment</a> to the drawing.</p>
 		return
 	set_area_machinery_title(A,str,prevname)
 	A.name = str
-	usr << "\blue You set the area '[prevname]' title to '[str]'."
+	usr << SPAN_NOTE("You set the area '[prevname]' title to '[str]'.")
 	interact()
 	return
 

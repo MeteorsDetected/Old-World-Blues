@@ -473,7 +473,7 @@ var/global/list/additional_antag_types = list()
 		for(var/mob/player in player_list)
 			if(!player.client)
 				continue
-			if(istype(player, /mob/new_player))
+			if(isnewplayer(player))
 				continue
 			if(isobserver(player) && !ghosts_only)
 				continue
@@ -548,7 +548,7 @@ var/global/list/additional_antag_types = list()
 //Reports player logouts//
 //////////////////////////
 proc/display_roundstart_logout_report()
-	var/msg = "<span class='notice'><b>Roundstart logout report</b>\n\n"
+	var/msg = "<b>Roundstart logout report</b>\n\n"
 	for(var/mob/living/L in mob_list)
 
 		if(L.ckey)
@@ -594,7 +594,7 @@ proc/display_roundstart_logout_report()
 						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>Ghosted</b></font>)\n"
 						continue //Ghosted while alive
 
-	msg += "</span>" // close the span from right at the top
+	msg = SPAN_NOTE(msg)
 
 	for(var/mob/M in mob_list)
 		if(M.client && M.client.holder)
@@ -624,14 +624,15 @@ proc/get_nt_opposed()
 
 /proc/show_objectives(var/datum/mind/player)
 
-	if(!player || !player.current) return
+	if(!player || !player.current)
+		return
 
 	if(config.objectives_disabled)
 		show_generic_antag_text(player)
 		return
 
 	var/obj_count = 1
-	player.current << "<span class='notice'>Your current objectives:</span>"
+	player.current << SPAN_NOTE("Your current objectives:")
 	for(var/datum/objective/objective in player.objectives)
 		player.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 		obj_count++

@@ -17,11 +17,11 @@
 /mob/living/carbon/slime/proc/invalidFeedTarget(var/mob/living/M)
 	if (!M || !istype(M))
 		return "This subject is incomparable..."
-	if (istype(M, /mob/living/carbon/slime)) // No cannibalism... yet
+	if (isslime(M)) // No cannibalism... yet
 		return "I cannot feed on other slimes..."
 	if (!Adjacent(M))
 		return "This subject is too far away..."
-	if (istype(M, /mob/living/carbon) && M.getCloneLoss() >= M.maxHealth * 1.5 || istype(M, /mob/living/simple_animal) && M.stat == DEAD)
+	if (iscarbon(M) && M.getCloneLoss() >= M.maxHealth * 1.5 || isanimal(M) && M.stat == DEAD)
 		return "This subject does not have an edible life energy..."
 	for(var/mob/living/carbon/slime/met in view())
 		if(met.Victim == M && met != src)
@@ -36,19 +36,19 @@
 
 	regenerate_icons()
 
-	while(Victim && !invalidFeedTarget(M) && stat != 2)
+	while(Victim && !invalidFeedTarget(M) && stat != DEAD)
 		canmove = 0
 
 		if(Adjacent(M))
 			UpdateFeed(M)
 
-			if(istype(M, /mob/living/carbon))
+			if(iscarbon(M))
 				Victim.adjustCloneLoss(rand(5,6))
 				Victim.adjustToxLoss(rand(1,2))
 				if(Victim.health <= 0)
 					Victim.adjustToxLoss(rand(2,4))
 
-			else if(istype(M, /mob/living/simple_animal))
+			else if(isanimal(M))
 				Victim.adjustBruteLoss(is_adult ? rand(7, 15) : rand(4, 12))
 
 			else
@@ -56,12 +56,12 @@
 				Feedstop()
 				break
 
-			if(prob(15) && M.client && istype(M, /mob/living/carbon))
+			if(prob(15) && M.client && iscarbon(M))
 				var/painMes = pick("You can feel your body becoming weak!", "You feel like you're about to die!", "You feel every part of your body screaming in agony!", "A low, rolling pain passes through your body!", "Your body feels as if it's falling apart!", "You feel extremely weak!", "A sharp, deep pain bathes every inch of your body!")
 				if (ishuman(M))
 					var/mob/living/carbon/human/H = M
 					H.custom_pain(painMes)
-				else if (istype(M, /mob/living/carbon))
+				else if (iscarbon(M))
 					var/mob/living/carbon/C = M
 					if (!(C.species && (C.species.flags & NO_PAIN)))
 						M << "<span class='danger'>[painMes]</span>"
@@ -92,7 +92,7 @@
 					++Friends[Victim.LAssailant]
 
 		else
-			src << "<span class='notice'>This subject does not have a strong enough life energy anymore...</span>"
+			src << SPAN_NOTE("This subject does not have a strong enough life energy anymore...")
 
 	Victim = null
 
@@ -111,7 +111,7 @@
 	set desc = "This will let you evolve from baby to adult slime."
 
 	if(stat)
-		src << "<span class='notice'>I must be conscious to do this...</span>"
+		src << SPAN_NOTE("I must be conscious to do this...")
 		return
 
 	if(!is_adult)
@@ -123,9 +123,9 @@
 			real_name = text("[colour] [is_adult ? "adult" : "baby"] slime ([number])")
 			name = real_name
 		else
-			src << "<span class='notice'>I am not ready to evolve yet...</span>"
+			src << SPAN_NOTE("I am not ready to evolve yet...")
 	else if(!dna)
-		src << "<span class='notice'>I have already evolved...</span>"
+		src << SPAN_NOTE("I have already evolved...")
 	else
 		if(amount_grown >= 15)
 			var/mob/living/carbon/human/H = new /mob/living/carbon/human(src.loc, dna.species)
@@ -141,24 +141,24 @@
 				H.add_language(L.name)
 			del(src)
 		else
-			src << "<span class='notice'>I am not ready to evolve yet...</span>"
+			src << SPAN_NOTE("I am not ready to evolve yet...")
 
 /mob/living/carbon/slime/verb/Reproduce()
 	set category = "Slime"
 	set desc = "This will make you split into four Slimes."
 
 	if(stat)
-		src << "<span class='notice'>I must be conscious to do this...</span>"
+		src << SPAN_NOTE("I must be conscious to do this...")
 		return
 
 	if(dna)
-		src << "<span class='notice'>I can't reproduce... </span>"
+		src << SPAN_NOTE("I can't reproduce... ")
 		return
 
 	if(is_adult)
 		if(amount_grown >= 10)
 			if(stat)
-				src << "<span class='notice'>I must be conscious to do this...</span>"
+				src << SPAN_NOTE("I must be conscious to do this...")
 				return
 
 			var/list/babies = list()
@@ -183,6 +183,6 @@
 				new_slime.key = src.key
 			qdel(src)
 		else
-			src << "<span class='notice'>I am not ready to reproduce yet...</span>"
+			src << SPAN_NOTE("I am not ready to reproduce yet...")
 	else
-		src << "<span class='notice'>I am not old enough to reproduce yet...</span>"
+		src << SPAN_NOTE("I am not old enough to reproduce yet...")

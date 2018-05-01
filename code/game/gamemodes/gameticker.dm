@@ -159,8 +159,6 @@ var/list/donator_icons
 
 	processScheduler.start()
 
-	for(var/obj/multiz/ladder/L in world) L.connect() //Lazy hackfix for ladders. TODO: move this to an actual controller. ~ Z
-
 	return 1
 
 /datum/controller/gameticker
@@ -180,7 +178,7 @@ var/list/donator_icons
 		cinematic.mouse_opacity = 0
 		cinematic.screen_loc = "1,0"
 
-		var/obj/structure/bed/temp_buckle = new(src)
+		var/obj/structure/material/bed/temp_buckle = new(src)
 		//Incredibly hackish. It creates a bed within the gameticker (lol) to stop mobs running around
 		if(station_missed)
 			for(var/mob/living/M in living_mob_list)
@@ -256,9 +254,10 @@ var/list/donator_icons
 		//Otherwise if its a verb it will continue on afterwards.
 		sleep(300)
 
-		if(cinematic)	qdel(cinematic)		//end the cinematic
-		if(temp_buckle)	qdel(temp_buckle)	//release everybody
-		return
+		if(cinematic)
+			qdel(cinematic)		//end the cinematic
+		if(temp_buckle)
+			qdel(temp_buckle)	//release everybody
 
 
 	proc/create_characters()
@@ -297,7 +296,7 @@ var/list/donator_icons
 						UpdateFactionList(player)
 		if(captainless)
 			for(var/mob/M in player_list)
-				if(!istype(M,/mob/new_player))
+				if(!isnewplayer(M))
 					M << "Captainship not forced on anyone."
 
 	proc/check_queue()
@@ -355,19 +354,19 @@ var/list/donator_icons
 
 				if (mode.station_was_nuked)
 					if(!delay_end)
-						world << "\blue <B>Rebooting due to destruction of station in [restart_timeout/10] seconds</B>"
+						world << SPAN_NOTE("<B>Rebooting due to destruction of station in [restart_timeout/10] seconds</B>")
 				else
 					if(!delay_end)
-						world << "\blue <B>Restarting in [restart_timeout/10] seconds</B>"
+						world << SPAN_NOTE("<B>Restarting in [restart_timeout/10] seconds</B>")
 
 				if(!delay_end)
 					sleep(restart_timeout)
 					if(!delay_end)
 						world.Reboot()
 					else
-						world << "\blue <B>An admin has delayed the round end</B>"
+						world << SPAN_NOTE("<B>An admin has delayed the round end</B>")
 				else
-					world << "\blue <B>An admin has delayed the round end</B>"
+					world << SPAN_NOTE("<B>An admin has delayed the round end</B>")
 
 		else if (mode_finished)
 			post_game = 1
@@ -410,7 +409,7 @@ var/list/donator_icons
 	world << "<br>"
 
 	for (var/mob/living/silicon/ai/aiPlayer in mob_list)
-		if (aiPlayer.stat != 2)
+		if (aiPlayer.stat != DEAD)
 			world << "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the round were:</b>"
 		else
 			world << "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws when it was deactivated were:</b>"
@@ -426,12 +425,12 @@ var/list/donator_icons
 
 	for (var/mob/living/silicon/robot/robo in mob_list)
 
-		if(istype(robo,/mob/living/silicon/robot/drone))
+		if(isdrone(robo))
 			dronecount++
 			continue
 
 		if (!robo.connected_ai)
-			if (robo.stat != 2)
+			if (robo.stat != DEAD)
 				world << "<b>[robo.name] (Played by: [robo.key]) survived as an AI-less borg! Its laws were:</b>"
 			else
 				world << "<b>[robo.name] (Played by: [robo.key]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>"

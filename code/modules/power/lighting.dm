@@ -22,8 +22,8 @@
 	var/sheets_refunded = 2
 	var/obj/machinery/light/newlight = null
 
-/obj/machinery/light_construct/New()
-	..()
+/obj/machinery/light_construct/initialize()
+	. = ..()
 	if (fixture_type == "bulb")
 		icon_state = "bulb-construct-stage1"
 
@@ -51,8 +51,11 @@
 			if (!do_after(usr, 30))
 				return
 			new /obj/item/stack/material/steel( get_turf(src.loc), sheets_refunded )
-			user.visible_message("[user.name] deconstructs [src].", \
-				"You deconstruct [src].", "You hear a noise.")
+			user.visible_message(
+				"[user.name] deconstructs [src].",
+				"You deconstruct [src].",
+				"You hear a noise."
+			)
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 75, 1)
 			qdel(src)
 		if (src.stage == 2)
@@ -72,8 +75,11 @@
 			if("bulb")
 				src.icon_state = "bulb-construct-stage1"
 		new /obj/item/stack/cable_coil(get_turf(src.loc), 1, "red")
-		user.visible_message("[user.name] removes the wiring from [src].", \
-			"You remove the wiring from [src].", "You hear a noise.")
+		user.visible_message(
+			"[user.name] removes the wiring from [src].",
+			"You remove the wiring from [src].",
+			"You hear a noise."
+		)
 		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
 		return
 
@@ -87,8 +93,10 @@
 				if("bulb")
 					src.icon_state = "bulb-construct-stage2"
 			src.stage = 2
-			user.visible_message("[user.name] adds wires to [src].", \
-				"You add wires to [src].")
+			user.visible_message(
+				"[user.name] adds wires to [src].",
+				"You add wires to [src]."
+			)
 		return
 
 	if(istype(W, /obj/item/weapon/screwdriver))
@@ -99,8 +107,11 @@
 				if("bulb")
 					src.icon_state = "bulb-empty"
 			src.stage = 3
-			user.visible_message("[user.name] closes [src]'s casing.", \
-				"You close [src]'s casing.", "You hear a noise.")
+			user.visible_message(
+				"[user.name] closes [src]'s casing.",
+				"You close [src]'s casing.",
+				"You hear a noise."
+			)
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 75, 1)
 
 			switch(fixture_type)
@@ -178,32 +189,29 @@
 	brightness_range = 12
 	brightness_power = 4
 
-/obj/machinery/light/built/New()
+/obj/machinery/light/built/initialize()
 	status = LIGHT_EMPTY
 	update(0)
-	..()
+	. = ..()
 
-/obj/machinery/light/small/built/New()
+/obj/machinery/light/small/built/initialize()
 	status = LIGHT_EMPTY
 	update(0)
-	..()
+	. = ..()
 
 // create a new lighting fixture
-/obj/machinery/light/New()
-	..()
-
-	spawn(2)
-		on = has_power()
-
-		switch(fitting)
-			if("tube")
-				if(prob(2))
-					broken(1)
-			if("bulb")
-				if(prob(5))
-					broken(1)
-		spawn(1)
-			update(0)
+/obj/machinery/light/initialize()
+	. = ..()
+	on = has_power()
+	switch(fitting)
+		if("tube")
+			if(prob(2))
+				broken(1)
+		if("bulb")
+			if(prob(5))
+				broken(1)
+	spawn(1)
+		update(0)
 
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
@@ -226,7 +234,6 @@
 		if(LIGHT_BROKEN)
 			icon_state = "[base_state]-broken"
 			on = 0
-	return
 
 // update the icon_state and luminosity of the light depending on its state
 /obj/machinery/light/proc/update(var/trigger = 1)
@@ -341,19 +348,17 @@
 	else if(status != LIGHT_BROKEN && status != LIGHT_EMPTY)
 
 
-		if(prob(1+W.force * 5))
-
-			user << "You hit the light, and it smashes!"
-			for(var/mob/M in viewers(src))
-				if(M == user)
-					continue
-				M.show_message("[user.name] smashed the light!", 3, "You hear a tinkle of breaking glass", 2)
+		if(prob(1 + W.force * 5))
+			user.visible_message(
+				SPAN_WARN("[user.name] smashed the light!"),
+				"You hit the light, and it smashes!",
+				SPAN_WARN("You hear a tinkle of breaking glass")
+			)
 			if(on && (W.flags & CONDUCT))
 				//if(!user.mutations & COLD_RESISTANCE)
 				if (prob(12))
 					electrocute_mob(user, get_area(src), src, 0.3)
 			broken()
-
 		else
 			user << "You hit the light!"
 
@@ -382,9 +387,6 @@
 
 		user << "You stick \the [W] into the light socket!"
 		if(has_power() && (W.flags & CONDUCT))
-			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-			s.set_up(3, 1, src)
-			s.start()
 			//if(!user.mutations & COLD_RESISTANCE)
 			if (prob(75))
 				electrocute_mob(user, get_area(src), src, rand(0.7,1.0))
@@ -600,7 +602,7 @@
 	var/status = 0		// LIGHT_OK, LIGHT_BURNED or LIGHT_BROKEN
 	var/base_state
 	var/switchcount = 0	// number of times switched
-	matter = list(DEFAULT_WALL_MATERIAL = 60)
+	matter = list(MATERIAL_STEEL = 60)
 	var/rigged = 0		// true if rigged to explode
 	var/brightness_range = 2 //how much light it gives off
 	var/brightness_power = 1
@@ -612,7 +614,7 @@
 	icon_state = "ltube"
 	base_state = "ltube"
 	item_state = "c_tube"
-	matter = list("glass" = 100)
+	matter = list(MATERIAL_GLASS = 100)
 	brightness_range = 8
 	brightness_power = 3
 
@@ -628,7 +630,7 @@
 	icon_state = "lbulb"
 	base_state = "lbulb"
 	item_state = "contvapour"
-	matter = list("glass" = 100)
+	matter = list(MATERIAL_GLASS = 100)
 	brightness_range = 5
 	brightness_power = 2
 	brightness_color = "#a0a080"
@@ -643,7 +645,7 @@
 	icon_state = "fbulb"
 	base_state = "fbulb"
 	item_state = "egg4"
-	matter = list("glass" = 100)
+	matter = list(MATERIAL_GLASS = 100)
 	brightness_range = 5
 	brightness_power = 2
 
@@ -662,8 +664,8 @@
 			desc = "A broken [name]."
 
 
-/obj/item/weapon/light/New()
-	..()
+/obj/item/weapon/light/initialize()
+	. = ..()
 	switch(name)
 		if("light tube")
 			brightness_range = rand(6,9)

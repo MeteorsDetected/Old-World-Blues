@@ -23,15 +23,8 @@
 	src << "As a ghost, you will now [(prefs.chat_toggles & CHAT_GHOSTRADIO) ? "hear all radio chat in the world" : "only hear from nearby speakers"]."
 	prefs.save_preferences()
 
-/client/proc/toggle_hear_radio()
-	set name = "Show/Hide RadioChatter"
-	set category = "Preferences"
-	set desc = "Toggle seeing radiochatter from radios and speakers"
-	if(!holder && !(prefs.chat_toggles & CHAT_RADIO)) return
-	prefs.chat_toggles ^= CHAT_RADIO
-	prefs.save_preferences()
-	usr << "You will [(prefs.chat_toggles & CHAT_RADIO) ? "now" : "no longer"] see radio chatter from radios or speakers"
-
+ADMIN_VERB_ADD(/client/proc/toggleadminhelpsound, null, TRUE)
+/*toggles whether we hear a sound when adminhelps/PMs are used*/
 /client/proc/toggleadminhelpsound()
 	set name = "Hear/Silence Adminhelps"
 	set category = "Preferences"
@@ -54,6 +47,8 @@
 		src << "As a ghost, you will [(prefs.chat_toggles & CHAT_DEAD) ? "now" : "no longer"] see deadchat."
 
 
+ADMIN_VERB_ADD(/client/proc/toggleprayers, null, TRUE)
+/*toggles prayers on/off*/
 /client/proc/toggleprayers()
 	set name = "Show/Hide Prayers"
 	set category = "Preferences"
@@ -70,11 +65,11 @@
 	prefs.save_preferences()
 	if(prefs.toggles & SOUND_LOBBY)
 		src << "You will now hear music in the game lobby."
-		if(istype(mob, /mob/new_player))
+		if(isnewplayer(mob))
 			playtitlemusic()
 	else
 		src << "You will no longer hear music in the game lobby."
-		if(istype(mob, /mob/new_player))
+		if(isnewplayer(mob))
 			src << sound(null, repeat = 0, wait = 0, volume = 85, channel = 1) // stop the jamsz
 
 /client/verb/togglemidis()

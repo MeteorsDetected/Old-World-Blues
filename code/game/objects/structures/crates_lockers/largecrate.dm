@@ -6,14 +6,14 @@
 	density = 1
 
 /obj/structure/largecrate/initialize()
-	..()
+	. = ..()
 	for(var/obj/I in src.loc)
 		if(I.density || I.anchored || I == src || !I.simulated)
 			continue
 		I.forceMove(src)
 
 /obj/structure/largecrate/attack_hand(mob/user as mob)
-	user << "<span class='notice'>You need a crowbar to pry this open!</span>"
+	user << SPAN_NOTE("You need a crowbar to pry this open!")
 	return
 
 /obj/structure/largecrate/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -23,9 +23,9 @@
 		for(var/atom/movable/M in contents)
 			M.forceMove(T)
 		user.visible_message(
-			"<span class='notice'>[user] pries \the [src] open.</span>",
-			"<span class='notice'>You pry open \the [src].</span>",
-			"<span class='notice'>You hear splitting wood.</span>"
+			SPAN_NOTE("[user] pries \the [src] open."),
+			SPAN_NOTE("You pry open \the [src]."),
+			SPAN_NOTE("You hear splitting wood.")
 		)
 		qdel(src)
 	else
@@ -39,7 +39,8 @@
 	desc = "It comes in a box for the fabricator's sake. Where does the wood come from? ... And why is it lighter?"
 	icon_state = "mulecrate"
 
-/obj/structure/largecrate/hoverpod/New()
+/obj/structure/largecrate/hoverpod/initialize()
+	. = ..()
 	new /obj/mecha/working/hoverpod/cargo (src)
 
 /obj/structure/largecrate/animal
@@ -47,8 +48,8 @@
 	var/held_count = 1
 	var/held_type
 
-/obj/structure/largecrate/animal/New()
-	..()
+/obj/structure/largecrate/animal/initialize()
+	. = ..()
 	for(var/i = 1;i<=held_count;i++)
 		new held_type(src)
 

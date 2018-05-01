@@ -1,3 +1,6 @@
+/mob/proc/movement_delay()
+	return 0
+
 /mob/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(air_group || (height==0)) return 1
 
@@ -13,22 +16,6 @@
 /mob/proc/setMoveCooldown(var/timeout)
 	if(client)
 		client.move_delay = max(world.time + timeout, client.move_delay)
-
-/client/North()
-	..()
-
-
-/client/South()
-	..()
-
-
-/client/West()
-	..()
-
-
-/client/East()
-	..()
-
 
 /client/Northeast()
 	swap_hand()
@@ -57,15 +44,15 @@
 	set hidden = 1
 
 	if(!usr.pulling)
-		usr << "\blue You are not pulling anything."
+		usr << SPAN_NOTE("You are not pulling anything.")
 		return
 	usr.stop_pulling()
 
 /client/verb/swap_hand()
 	set hidden = 1
-	if(istype(mob, /mob/living/carbon))
+	if(iscarbon(mob))
 		mob:swap_hand()
-	if(istype(mob,/mob/living/silicon/robot))
+	if(isrobot(mob))
 		var/mob/living/silicon/robot/R = mob
 		R.cycle_modules()
 	return
@@ -81,19 +68,16 @@
 
 /client/verb/toggle_throw_mode()
 	set hidden = 1
-	if(!istype(mob, /mob/living/carbon))
+	if(!iscarbon(mob))
 		return
-	if (!mob.stat && isturf(mob.loc) && !mob.restrained())
-		mob:toggle_throw_mode()
-	else
-		return
+	if (!mob.incapacitated() && isturf(mob.loc))
+		mob.toggle_throw_mode()
 
 
 /client/verb/drop_item()
 	set hidden = 1
 	if(!isrobot(mob) && mob.stat == CONSCIOUS && isturf(mob.loc))
 		return mob.drop_active_hand()
-	return
 
 
 /client/Center()
@@ -188,6 +172,11 @@
 		mob.ghostize()
 		return
 
+	if(isAI(mob))
+		var/mob/living/silicon/ai/AI = mob
+		if(AI.controlled_mech)
+			return AI.controlled_mech.relaymove(mob, direct)
+
 	// handle possible Eye movement
 	if(mob.eyeobj)
 		return mob.EyeMove(n,direct)
@@ -240,14 +229,14 @@
 		if(mob.restrained())//Why being pulled while cuffed prevents you from moving
 			for(var/mob/M in range(1,mob))
 				if(M.pulling == mob)
-					if(!M.restrained() && !M.stat && M.canmove && mob.Adjacent(M))
-						src << "\blue You're restrained! You can't move!"
+					if(!M.incapacitated() && mob.Adjacent(M))
+						src << SPAN_NOTE("You're restrained! You can't move!")
 						return 0
 					else
 						M.stop_pulling()
 
 		if(mob.pinned.len)
-			src << "\blue You're pinned to a wall by [mob.pinned[1]]!"
+			src << SPAN_NOTE("You're pinned to a wall by [mob.pinned[1]]!")
 			return 0
 
 		move_delay = world.time//set move delay
@@ -267,7 +256,7 @@
 			tickcomp = ((1/(world.tick_lag))*1.3) - 1.3
 			move_delay = move_delay + tickcomp
 
-		if(istype(mob.buckled, /obj/vehicle))
+		if(istype(mob.buckled, /obj/vehicle) || istype(mob.buckled, /obj/motorcycle))
 			//manually set move_delay for vehicles so we don't inherit any mob movement penalties
 			//specific vehicle move delays are set in code\modules\vehicles\vehicle.dm
 			move_delay = world.time + tickcomp
@@ -283,14 +272,14 @@
 		if(mob.pulledby || mob.buckled) // Wheelchair driving!
 			if(istype(mob.loc, /turf/space))
 				return // No wheelchair driving in space
-			if(istype(mob.pulledby, /obj/structure/bed/chair/wheelchair))
+			if(istype(mob.pulledby, /obj/structure/material/chair/wheelchair))
 				return mob.pulledby.relaymove(mob, direct)
-			else if(istype(mob.buckled, /obj/structure/bed/chair/wheelchair))
-				if(ishuman(mob.buckled))
-					var/mob/living/carbon/human/driver = mob.buckled
+			else if(istype(mob.buckled, /obj/structure/material/chair/wheelchair))
+				if(ishuman(mob))
+					var/mob/living/carbon/human/driver = mob
 					var/obj/item/organ/external/l_hand = driver.get_organ(BP_L_HAND)
 					var/obj/item/organ/external/r_hand = driver.get_organ(BP_R_HAND)
-					if((!l_hand || (l_hand.status & ORGAN_DESTROYED)) && (!r_hand || (r_hand.status & ORGAN_DESTROYED)))
+					if((!l_hand || l_hand.is_stump()) && (!r_hand || r_hand.is_stump()))
 						return // No hands to drive your chair? Tough luck!
 				//drunk wheelchair driving
 				if(mob.confused)
@@ -338,12 +327,14 @@
 		else
 			. = mob.SelfMove(n, direct)
 
-		for (var/obj/item/weapon/grab/G in mob)
-			if (G.state == GRAB_NECK)
-				mob.set_dir(reverse_dir[direct])
-			G.adjust_position()
-		for (var/obj/item/weapon/grab/G in mob.grabbed_by)
-			G.adjust_position()
+		if(isliving(mob))
+			var/mob/living/L = mob
+			for (var/obj/item/weapon/grab/G in L)
+				if (G.state == GRAB_NECK)
+					mob.set_dir(reverse_dir[direct])
+				G.adjust_position()
+			for (var/obj/item/weapon/grab/G in L.grabbed_by)
+				G.adjust_position()
 
 		moving = 0
 
@@ -444,7 +435,7 @@
 
 	//Check to see if we slipped
 	if(prob(Process_Spaceslipping(5)))
-		src << "\blue <B>You slipped!</B>"
+		src << SPAN_NOTE("<B>You slipped!</B>")
 		src.inertia_dir = src.last_move
 		step(src, src.inertia_dir)
 		return 0

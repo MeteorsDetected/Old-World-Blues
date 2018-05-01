@@ -3,7 +3,7 @@
 /obj/machinery/computer/pod
 	name = "pod launch control console"
 	desc = "A control console for launching pods. Some people prefer firing Mechas."
-	icon_state = "computer_generic"
+	screen_icon = "computer_generic"
 	light_color = "#00b000"
 	circuit = /obj/item/weapon/circuitboard/pod
 	var/id = 1.0
@@ -13,15 +13,15 @@
 	var/title = "Mass Driver Controls"
 
 
-/obj/machinery/computer/pod/New()
-	..()
-	spawn( 5 )
-		for(var/obj/machinery/mass_driver/M in machines)
-			if(M.id == id)
-				connected = M
-			else
-		return
-	return
+/obj/machinery/computer/pod/initialize()
+	. = ..()
+	if(. != INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/pod/lateInitialize()
+	for(var/obj/machinery/mass_driver/M in machines)
+		if(M.id == id)
+			connected = M
 
 
 /obj/machinery/computer/pod/proc/alarm()
@@ -56,7 +56,7 @@
 		playsound(loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20))
 			if(stat & BROKEN)
-				user << "\blue The broken glass falls out."
+				user << SPAN_NOTE("The broken glass falls out.")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( loc )
 				new /obj/item/weapon/material/shard( loc )
 
@@ -80,7 +80,7 @@
 				A.anchored = 1
 				qdel(src)
 			else
-				user << "\blue You disconnect the monitor."
+				user << SPAN_NOTE("You disconnect the monitor.")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( loc )
 
 				//generate appropriate circuitboard. Accounts for /pod/old computer types
@@ -192,12 +192,18 @@
 	return
 
 
-
 /obj/machinery/computer/pod/old
 	icon_state = "old"
 	name = "DoorMex Control Computer"
 	title = "Door Controls"
 
+/obj/machinery/computer/pod/old/update_icon()
+	if(stat&BROKEN)
+		icon_state = "old_broken"
+	else if(stat&NOPOWER)
+		icon_state = "old_nopower"
+	else
+		icon_state = "old"
 
 
 /obj/machinery/computer/pod/old/syndicate

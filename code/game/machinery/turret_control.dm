@@ -44,7 +44,10 @@
 			A.turret_controls -= src
 	..()
 
+
+//TODO: CHEK is all_area list already complete
 /obj/machinery/turretid/initialize()
+	. = ..()
 	if(!control_area)
 		control_area = get_area(src)
 	else if(istext(control_area))
@@ -61,15 +64,14 @@
 			control_area = null
 
 	power_change() //Checks power and initial settings
-	return
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
 	if(ailock && issilicon(user))
-		user << "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>"
+		user << SPAN_NOTE("There seems to be a firewall preventing you from accessing this device.")
 		return 1
 
 	if(locked && !issilicon(user))
-		user << "<span class='notice'>Access denied.</span>"
+		user << SPAN_NOTE("Access denied.")
 		return 1
 
 	return 0
@@ -87,10 +89,10 @@
 	if(W.GetID())
 		if(allowed(usr))
 			if(emagged)
-				user << "<span class='notice'>The turret control is unresponsive.</span>"
+				user << SPAN_NOTE("The turret control is unresponsive.")
 			else
 				locked = !locked
-				user << "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>"
+				user << SPAN_NOTE("You [ locked ? "lock" : "unlock"] the panel.")
 		return
 	return ..()
 

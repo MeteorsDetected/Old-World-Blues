@@ -1,6 +1,6 @@
 /obj/effect/landmark
 	name = "landmark"
-	icon = 'icons/mob/screen1.dmi'
+	icon = 'icons/screen/main.dmi'
 	icon_state = "x2"
 	anchored = 1.0
 	unacidable = 1
@@ -29,10 +29,6 @@
 			latejoin_cyborg += loc
 			qdel(src)
 			return
-		if("prisonwarp")
-			prisonwarp += loc
-			qdel(src)
-			return
 		if("Holding Facility")
 			holdingfacility += loc
 		if("tdome1")
@@ -43,10 +39,6 @@
 			tdomeadmin += loc
 		if("tdomeobserve")
 			tdomeobserve += loc
-		if("prisonsecuritywarp")
-			prisonsecuritywarp += loc
-			qdel(src)
-			return
 		if("blobstart")
 			blobstart += loc
 			qdel(src)
@@ -76,7 +68,7 @@
 
 /obj/effect/landmark/start
 	name = "start"
-	icon = 'icons/mob/screen1.dmi'
+	icon = 'icons/screen/main.dmi'
 	icon_state = "x"
 	anchored = 1.0
 
@@ -202,7 +194,7 @@
 	qdel(src)
 
 /obj/effect/landmark/costume/cutewitch/New()
-	new /obj/item/clothing/under/sundress(src.loc)
+	new /obj/item/clothing/under/dress/sundress(src.loc)
 	new /obj/item/clothing/head/witchwig(src.loc)
 	new /obj/item/weapon/staff/broom(src.loc)
 	qdel(src)

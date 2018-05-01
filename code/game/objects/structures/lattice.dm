@@ -9,8 +9,8 @@
 	layer = 2.3 //under pipes
 	//	flags = CONDUCT
 
-/obj/structure/lattice/New()
-	..()
+/obj/structure/lattice/initialize()
+	. = ..()
 ///// Z-Level Stuff
 	if(!(istype(src.loc, /turf/space) || istype(src.loc, /turf/simulated/floor/open)))
 ///// Z-Level Stuff
@@ -61,7 +61,7 @@
 	if (istype(C, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = C
 		if(WT.remove_fuel(1, user))
-			user << "\blue Slicing lattice joints ..."
+			user << SPAN_NOTE("Slicing lattice joints ...")
 		PoolOrNew(/obj/item/stack/rods, src.loc)
 		qdel(src)
 

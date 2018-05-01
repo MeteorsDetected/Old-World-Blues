@@ -14,7 +14,6 @@
 	var/canister_color = "yellow"
 	var/can_label = 1
 	start_pressure = 45 * ONE_ATMOSPHERE
-	pressure_resistance = 7 * ONE_ATMOSPHERE
 	var/temperature_resistance = 1000 + T0C
 	volume = 1000
 	use_power = 0
@@ -260,12 +259,11 @@ update_flag
 			return 0
 		if(WT.remove_fuel(5) && do_after(user, 30))
 			WT.remove_fuel(5)
-			var/obj/item/stack/material/G = new(loc, 5)
-			G.set_material(DEFAULT_WALL_MATERIAL)
+			create_material_stacks(MATERIAL_STEEL, 5, loc)
 			qdel(src)
 		return
 
-	if(istype(user, /mob/living/silicon/robot) && istype(W, /obj/item/weapon/tank/jetpack))
+	if(isrobot(user) && istype(W, /obj/item/weapon/tank/jetpack))
 		var/datum/gas_mixture/thejetpack = W:air_contents
 		var/env_pressure = thejetpack.return_pressure()
 		var/pressure_delta = min(10*ONE_ATMOSPHERE - env_pressure, (air_contents.return_pressure() - env_pressure)/2)
@@ -327,7 +325,7 @@ update_flag
 	if (!istype(src.loc, /turf))
 		return 0
 
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr)) // exploit protection -walter0o
+	if(usr.incapacitated() || !in_range(loc, usr)) // exploit protection -walter0o
 		usr << browse(null, "window=canister")
 		onclose(usr, "canister")
 		return
@@ -385,67 +383,52 @@ update_flag
 
 	return 1
 
-/obj/machinery/portable_atmospherics/canister/phoron/New()
-	..()
-
+/obj/machinery/portable_atmospherics/canister/phoron/initialize()
+	. = ..()
 	src.air_contents.adjust_gas("phoron", MolesForPressure())
 	src.update_icon()
-	return 1
 
-/obj/machinery/portable_atmospherics/canister/oxygen/New()
-	..()
-
+/obj/machinery/portable_atmospherics/canister/oxygen/initialize()
+	. = ..()
 	src.air_contents.adjust_gas("oxygen", MolesForPressure())
 	src.update_icon()
-	return 1
 
-/obj/machinery/portable_atmospherics/canister/oxygen/prechilled/New()
-	..()
-
+/obj/machinery/portable_atmospherics/canister/oxygen/prechilled/initialize()
+	. = ..()
 	src.air_contents.adjust_gas("oxygen", MolesForPressure())
 	src.air_contents.temperature = 80
 	src.update_icon()
-	return 1
 
-/obj/machinery/portable_atmospherics/canister/sleeping_agent/New()
-	..()
-
+/obj/machinery/portable_atmospherics/canister/sleeping_agent/initialize()
+	. = ..()
 	air_contents.adjust_gas("sleeping_agent", MolesForPressure())
 	src.update_icon()
-	return 1
 
 //Dirty way to fill room with gas. However it is a bit easier to do than creating some floor/engine/n2o -rastaf0
-/obj/machinery/portable_atmospherics/canister/sleeping_agent/roomfiller/New()
-	..()
+/obj/machinery/portable_atmospherics/canister/sleeping_agent/roomfiller/initialize()
+	. = ..()
 	air_contents.gas["sleeping_agent"] = 9*4000
-	spawn(10)
-		var/turf/simulated/location = src.loc
-		if (istype(src.loc))
-			while (!location.air)
-				sleep(10)
-			location.assume_air(air_contents)
-			air_contents = new
-	return 1
+	var/turf/simulated/location = src.loc
+	if (istype(src.loc))
+		while (!location.air)
+			sleep(10)
+		location.assume_air(air_contents)
+		air_contents = new
 
-/obj/machinery/portable_atmospherics/canister/nitrogen/New()
-
-	..()
-
+/obj/machinery/portable_atmospherics/canister/nitrogen/initialize()
+	. = ..()
 	src.air_contents.adjust_gas("nitrogen", MolesForPressure())
 	src.update_icon()
-	return 1
 
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide/New()
-	..()
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide/initialize()
+	. = ..()
 	src.air_contents.adjust_gas("carbon_dioxide", MolesForPressure())
 	src.update_icon()
-	return 1
 
 
-/obj/machinery/portable_atmospherics/canister/air/New()
-	..()
+/obj/machinery/portable_atmospherics/canister/air/initialize()
+	. = ..()
 	var/list/air_mix = StandardAirMix()
 	src.air_contents.adjust_multi("oxygen", air_mix["oxygen"], "nitrogen", air_mix["nitrogen"])
 
 	src.update_icon()
-	return 1

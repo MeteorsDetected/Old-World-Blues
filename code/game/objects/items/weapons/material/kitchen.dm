@@ -9,18 +9,16 @@
 	thrown_force_divisor = 1
 	origin_tech = list(TECH_MATERIAL = 1)
 	attack_verb = list("attacked", "stabbed", "poked")
+	randpixel = 4
 	sharp = 1
 	edge = 1
 	force_divisor = 0.1 // 6 when wielded with hardness 60 (steel)
 	thrown_force_divisor = 0.25 // 5 when thrown with weight 20 (steel)
 	var/loaded      //Descriptive string for currently loaded food object.
 
-/obj/item/weapon/material/kitchen/utensil/New()
-	..()
-	if (prob(60))
-		src.pixel_y = rand(0, 4)
+/obj/item/weapon/material/kitchen/utensil/initialize()
 	create_reagents(5)
-	return
+	return ..()
 
 /obj/item/weapon/material/kitchen/utensil/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!istype(M))
@@ -40,9 +38,9 @@
 	if (reagents.total_volume > 0)
 		reagents.trans_to_mob(M, reagents.total_volume, CHEM_INGEST)
 		if(M == user)
-			M.visible_message("<span class='notice'>\The [user] eats some [loaded] from \the [src].</span>")
+			M.visible_message(SPAN_NOTE("\The [user] eats some [loaded] from \the [src]."))
 		else
-			M.visible_message("<span class='notice'>\The [user] feeds some [loaded] to \the [M] with \the [src].</span>")
+			M.visible_message(SPAN_NOTE("\The [user] feeds some [loaded] to \the [M] with \the [src]."))
 		playsound(M.loc,'sound/items/eatfood.ogg', rand(10,40), 1)
 		overlays.Cut()
 		return
@@ -55,7 +53,7 @@
 	icon_state = "fork"
 
 /obj/item/weapon/material/kitchen/utensil/fork/plastic
-	default_material = "plastic"
+	default_material = MATERIAL_PLASTIC
 
 /obj/item/weapon/material/kitchen/utensil/spoon
 	name = "spoon"
@@ -67,7 +65,7 @@
 	force_divisor = 0.1 //2 when wielded with weight 20 (steel)
 
 /obj/item/weapon/material/kitchen/utensil/spoon/plastic
-	default_material = "plastic"
+	default_material = MATERIAL_PLASTIC
 
 /*
  * Knives
@@ -89,7 +87,7 @@
 */
 
 /obj/item/weapon/material/kitchen/utensil/knife/plastic
-	default_material = "plastic"
+	default_material = MATERIAL_PLASTIC
 
 /*
  * Rolling Pins
@@ -100,7 +98,7 @@
 	desc = "Used to knock out the Bartender."
 	icon_state = "rolling_pin"
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
-	default_material = "wood"
+	default_material = MATERIAL_WOOD
 	force_divisor = 0.7 // 10 when wielded with weight 15 (wood)
 	thrown_force_divisor = 1 // as above
 

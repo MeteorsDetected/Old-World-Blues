@@ -6,6 +6,8 @@ var/global/send_emergency_team = 0 // Used for automagic response teams
 var/ert_base_chance = 10 // Default base chance. Will be incremented by increment ERT chance.
 var/can_call_ert
 
+ADMIN_VERB_ADD(/client/proc/response_team, R_ADMIN)
+// Response Teams admin verb
 /client/proc/response_team()
 	set name = "Dispatch Emergency Response Team"
 	set category = "Special Verbs"
@@ -46,7 +48,7 @@ client/verb/JoinResponseTeam()
 		usr << "<span class='warning'>You cannot join the response team at this time.</span>"
 		return
 
-	if(isobserver(usr) || istype(usr,/mob/new_player))
+	if(isobserver(usr) || isnewplayer(usr))
 		if(!send_emergency_team)
 			usr << "No emergency response team is currently being sent."
 			return

@@ -247,16 +247,11 @@
 	open = 1
 	icon_state = "map_valve1"
 
-/obj/machinery/atmospherics/valve/digital/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
-
 /obj/machinery/atmospherics/valve/digital/update_icon()
-	..()
 	if(!powered())
 		icon_state = "valve[open]nopower"
+	else
+		..()
 
 /obj/machinery/atmospherics/valve/digital/proc/set_frequency(new_frequency)
 	radio_controller.remove_object(src, frequency)
@@ -301,11 +296,11 @@
 		add_fingerprint(user)
 		return 1
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
-	if (do_after(user, 40))
+	user << SPAN_NOTE("You begin to unfasten \the [src]...")
+	if (do_after(user, 40, src))
 		user.visible_message( \
-			"<span class='notice'>\The [user] unfastens \the [src].</span>", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
+			SPAN_NOTE("\The [user] unfastens \the [src]."), \
+			SPAN_NOTE("You have unfastened \the [src]."), \
 			"You hear a ratchet.")
 		new /obj/item/pipe(loc, make_from=src)
 		qdel(src)

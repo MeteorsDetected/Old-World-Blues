@@ -7,8 +7,9 @@
 	var/sides = 6
 	attack_verb = list("diced")
 
-/obj/item/weapon/dice/New()
+/obj/item/weapon/dice/initialize()
 	icon_state = "[name][rand(1,sides)]"
+	return ..()
 
 /obj/item/weapon/dice/d4
 	name = "d4"
@@ -65,9 +66,9 @@
 	var/comment = roll_result[2]
 	icon_state = "[name][result]"
 	user.visible_message(
-		"<span class='notice'>[user] has thrown [src]. It lands on [result]. [comment]</span>", \
-		"<span class='notice'>You throw [src]. It lands on a [result]. [comment]</span>", \
-		"<span class='notice'>You hear [src] landing on a [result]. [comment]</span>"
+		SPAN_NOTE("[user] has thrown [src]. It lands on [result]. [comment]"), \
+		SPAN_NOTE("You throw [src]. It lands on a [result]. [comment]"), \
+		SPAN_NOTE("You hear [src] landing on a [result]. [comment]")
 	)
 
 /obj/item/weapon/dice/throw_impact(atom/hit_atom, var/speed)
@@ -76,4 +77,4 @@
 	var/result = roll_result[1]
 	var/comment = roll_result[2]
 	icon_state = "[name][result]"
-	src.visible_message("<span class='notice'>\The [src] lands on [result]. [comment]</span>")
+	src.visible_message(SPAN_NOTE("\The [src] lands on [result]. [comment]"))

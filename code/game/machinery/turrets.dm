@@ -19,7 +19,7 @@
 		var/obj/mecha/Mech = O
 		if( Mech.occupant )
 			turretTargets |= Mech
-	else if(istype(O,/mob/living/simple_animal))
+	else if(isanimal(O))
 		turretTargets |= O
 	return 1
 
@@ -89,21 +89,17 @@
 		return
 	take_damage(Proj.damage)
 	..()
-	return
 
-/obj/machinery/turret/New()
+/obj/machinery/turret/initialize()
 	maxhealth = health
 	spark_system = new /datum/effect/effect/system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
-//	targets = new
-	..()
-	return
+	. = ..()
 
 /obj/machinery/turret/proc/update_health()
 	if(src.health<=0)
 		qdel(src)
-	return
 
 /obj/machinery/turretcover
 	name = "pop-up turret cover"
@@ -146,7 +142,6 @@
 	var/area/turret_protected/TP = get_area(src)
 	if(istype(TP))
 		return TP
-	return
 
 /obj/machinery/turret/proc/check_target(var/atom/movable/T as mob|obj)
 	if( T && T in protected_area.turretTargets )
@@ -163,7 +158,7 @@
 			var/obj/mecha/ME = T
 			if( ME.occupant )
 				return 1
-		else if(istype(T,/mob/living/simple_animal))
+		else if(isanimal(T))
 			var/mob/living/simple_animal/A = T
 			if( !A.stat )
 				if(lasers)
@@ -217,9 +212,9 @@
 
 		if(prob(15))
 			if(prob(50))
-				playsound(src.loc, 'sound/effects/turret/move1.wav', 60, 1)
+				playsound(src.loc, 'sound/effects/turret/move1.ogg', 60, 1)
 			else
-				playsound(src.loc, 'sound/effects/turret/move2.wav', 60, 1)
+				playsound(src.loc, 'sound/effects/turret/move2.ogg', 60, 1)
 	else if(!isPopping())//else, pop down
 		if(!isDown())
 			popDown()
@@ -291,7 +286,7 @@
 	if ((!isPopping()) || src.popping==-1)
 		invisibility = 0
 		popping = 1
-		playsound(src.loc, 'sound/effects/turret/open.wav', 60, 1)
+		playsound(src.loc, 'sound/effects/turret/open.ogg', 60, 1)
 		if (src.cover!=null)
 			flick("popup", src.cover)
 			src.cover.icon_state = "openTurretCover"
@@ -301,7 +296,7 @@
 /obj/machinery/turret/proc/popDown()
 	if ((!isPopping()) || src.popping==1)
 		popping = -1
-		playsound(src.loc, 'sound/effects/turret/open.wav', 60, 1)
+		playsound(src.loc, 'sound/effects/turret/open.ogg', 60, 1)
 		if (src.cover!=null)
 			flick("popdown", src.cover)
 			src.cover.icon_state = "turretCover"
@@ -452,7 +447,7 @@
 	proc/validate_target(atom/target)
 		if(get_dist(target, src)>scan_range)
 			return 0
-		if(istype(target, /mob))
+		if(ismob(target))
 			var/mob/M = target
 			if(!M.stat && !M.lying)//ninjas can't catch you if you're lying
 				return 1

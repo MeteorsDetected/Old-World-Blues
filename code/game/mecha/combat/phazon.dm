@@ -21,11 +21,10 @@
 	max_equip = 4
 
 
-/obj/mecha/combat/phazon/preloaded/New()
-	..()
+/obj/mecha/combat/phazon/preloaded/initialize()
+	. = ..()
 	attach(new /obj/item/mecha_parts/mecha_equipment/tool/rcd)
 	attach(new /obj/item/mecha_parts/mecha_equipment/gravcatapult)
-	return
 
 /obj/mecha/combat/phazon/Bump(var/atom/obstacle)
 	if(phasing && get_charge()>=phasing_energy_drain)
@@ -39,7 +38,6 @@
 				can_move = 1
 	else
 		. = ..()
-	return
 
 /obj/mecha/combat/phazon/click_action(atom/target,mob/user)
 	if(phasing)

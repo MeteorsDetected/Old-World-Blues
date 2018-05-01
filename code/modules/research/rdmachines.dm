@@ -34,22 +34,22 @@
 	if(O.is_open_container())
 		return 0
 	if(panel_open)
-		user << "<span class='notice'>You can't load \the [src] while it's opened.</span>"
+		user << SPAN_NOTE("You can't load \the [src] while it's opened.")
 		return 1
 	if(!linked_console)
-		user << "<span class='notice'>\The [src] must be linked to an R&D console first!</span>"
+		user << SPAN_NOTE("\The [src] must be linked to an R&D console first!")
 		return 1
 	if(stat)
 		return 1
 	if(busy)
-		user << "<span class='notice'>\The [src] is busy. Please wait for completion of previous operation.</span>"
+		user << SPAN_NOTE("\The [src] is busy. Please wait for completion of previous operation.")
 		return 1
 
-	if(istype(O, /obj/item/stack/material) && O.get_material_name() in materials)
+	if(ismaterial(O) && O.get_material_name() in materials)
 		var/obj/item/stack/material/stack = O
 		var/free_space = (max_material_storage - TotalMaterials())/SHEET_MATERIAL_AMOUNT
 		if(free_space < 1)
-			user << "<span class='notice'>\The [src] is full. Please remove some material from \the [src] in order to insert more.</span>"
+			user << SPAN_NOTE("\The [src] is full. Please remove some material from \the [src] in order to insert more.")
 			return 1
 
 		var/amount = round(input("How many sheets do you want to add?") as num)
@@ -65,7 +65,7 @@
 
 		var/material = stack.get_material_name()
 		if(do_after(usr, 16) && stack.use(amount))
-			user << "<span class='notice'>You add [amount] sheets to \the [src].</span>"
+			user << SPAN_NOTE("You add [amount] sheets to \the [src].")
 			use_power(max(1000, (SHEET_MATERIAL_AMOUNT * amount / 10)))
 			materials[material] += amount * SHEET_MATERIAL_AMOUNT
 		busy = 0
@@ -76,7 +76,7 @@
 	for(var/obj/item/weapon/reagent_containers/glass/beaker/I in component_parts)
 		reagents.trans_to_obj(I, reagents.total_volume)
 	for(var/M in materials)
-		create_material_stack(M, materials[M], src.loc)
+		create_material_stacks_from_unit(M, materials[M], src.loc)
 	..()
 
 /obj/machinery/r_n_d/proc/eject_matter(var/M, var/amount)
@@ -85,26 +85,10 @@
 	var/eject_amount = min(round(amount)*SHEET_MATERIAL_AMOUNT, materials[M])
 	if(eject_amount >= SHEET_MATERIAL_AMOUNT)
 		materials[M] = materials[M] - eject_amount
-		create_material_stack(M, eject_amount, src.loc)
+		create_material_stacks_from_unit(M, eject_amount, src.loc)
 
 /obj/machinery/r_n_d/proc/CallMaterialName(var/ID)
-	var/return_name = ID
-	switch(return_name)
-		if("metal")
-			return_name = "Metal"
-		if("glass")
-			return_name = "Glass"
-		if("gold")
-			return_name = "Gold"
-		if("silver")
-			return_name = "Silver"
-		if("phoron")
-			return_name = "Solid Phoron"
-		if("uranium")
-			return_name = "Uranium"
-		if("diamond")
-			return_name = "Diamond"
-	return capitalize(return_name)
+	return capitalize(ID)
 
 /obj/machinery/r_n_d/proc/CallReagentName(var/ID)
 	var/return_name = ID

@@ -10,6 +10,10 @@
 	listening_level = 1
 	autolinkers = list("s_relay")
 
+/obj/machinery/telecomms/relay/preset/station/initialize()
+	. = ..()
+	listening_level = maps_data.station_levels[1]
+
 /obj/machinery/telecomms/relay/preset/telecomms
 	id = "Telecomms Relay"
 	autolinkers = list("relay")
@@ -59,10 +63,10 @@
 	freq_listening = list(AI_FREQ, SCI_FREQ, MED_FREQ, SUP_FREQ, SRV_FREQ, COMM_FREQ, ENG_FREQ, SEC_FREQ)
 
 	//Common and other radio frequencies for people to freely use
-	New()
+	initialize()
 		for(var/i = 1441, i < 1489, i += 2)
 			freq_listening |= i
-		..()
+		. = ..()
 
 /obj/machinery/telecomms/receiver/preset_cent
 	id = "CentComm Receiver"
@@ -86,12 +90,12 @@
 	freq_listening = list(SUP_FREQ, SRV_FREQ)
 	autolinkers = list("processor2", "supply", "service", "unused")
 
-/obj/machinery/telecomms/bus/preset_two/New()
+/obj/machinery/telecomms/bus/preset_two/initialize()
 	for(var/i = 1441, i < 1489, i += 2)
 		if(i == PUB_FREQ)
 			continue
 		freq_listening |= i
-	..()
+	. = ..()
 
 /obj/machinery/telecomms/bus/preset_three
 	id = "Bus 3"
@@ -177,12 +181,12 @@
 	freq_listening = list()
 	autolinkers = list("unused")
 
-/obj/machinery/telecomms/server/presets/unused/New()
+/obj/machinery/telecomms/server/presets/unused/initialize()
 	for(var/i = 1441, i < 1489, i += 2)
 		if(i == AI_FREQ || i == PUB_FREQ)
 			continue
 		freq_listening |= i
-	..()
+	. = ..()
 
 /obj/machinery/telecomms/server/presets/command
 	id = "Command Server"

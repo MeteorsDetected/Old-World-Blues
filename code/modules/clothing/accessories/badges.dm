@@ -31,9 +31,9 @@
 
 	if(isliving(user))
 		if(stored_name)
-			user.visible_message("<span class='notice'>[user] displays their [src.name].\nIt reads: [stored_name], [badge_string].</span>","<span class='notice'>You display your [src.name].\nIt reads: [stored_name], [badge_string].</span>")
+			user.visible_message(SPAN_NOTE("[user] displays their [src.name].\nIt reads: [stored_name], [badge_string]."),SPAN_NOTE("You display your [src.name].\nIt reads: [stored_name], [badge_string]."))
 		else
-			user.visible_message("<span class='notice'>[user] displays their [src.name].\nIt reads: [badge_string].</span>","<span class='notice'>You display your [src.name]. It reads: [badge_string].</span>")
+			user.visible_message(SPAN_NOTE("[user] displays their [src.name].\nIt reads: [badge_string]."),SPAN_NOTE("You display your [src.name]. It reads: [badge_string]."))
 
 /obj/item/clothing/accessory/badge/attack(mob/living/carbon/human/M, mob/living/user)
 	if(isliving(user))
@@ -89,15 +89,10 @@
 /obj/item/storage/box/holobadge
 	name = "holobadge box"
 	desc = "A box claiming to contain holobadges."
-	New()
-		new /obj/item/clothing/accessory/badge/holo(src)
-		new /obj/item/clothing/accessory/badge/holo(src)
-		new /obj/item/clothing/accessory/badge/holo(src)
-		new /obj/item/clothing/accessory/badge/holo(src)
-		new /obj/item/clothing/accessory/badge/holo/cord(src)
-		new /obj/item/clothing/accessory/badge/holo/cord(src)
-		..()
-		return
+	preloaded = list(
+		/obj/item/clothing/accessory/badge/holo = 4,
+		/obj/item/clothing/accessory/badge/holo/cord = 2,
+	)
 
 /obj/item/clothing/accessory/badge/sec/detective
 	name = "investigator's badge"
@@ -126,13 +121,12 @@
 /obj/item/storage/box/holobadge/hos
 	name = "holobadge box"
 	desc = "A box claiming to contain holobadges."
-	New()
-		new /obj/item/clothing/accessory/badge/holo(src)
-		new /obj/item/clothing/accessory/badge/holo(src)
-		new /obj/item/clothing/accessory/badge/holo/warden(src)
-		new /obj/item/clothing/accessory/badge/holo/detective(src)
-		new /obj/item/clothing/accessory/badge/holo/detective(src)
-		new /obj/item/clothing/accessory/badge/holo/hos(src)
-		new /obj/item/clothing/accessory/badge/holo/cord(src)
-		..()
-		return
+	preloaded = list(
+		/obj/item/clothing/accessory/badge/holo = 2,
+		/obj/item/clothing/accessory/badge/holo/warden,
+		/obj/item/clothing/accessory/badge/holo/detective = 2,
+		/obj/item/clothing/accessory/badge/holo/hos,
+		/obj/item/clothing/accessory/badge/holo/cord,
+	)
+
+

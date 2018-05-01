@@ -17,7 +17,6 @@ var/global/list/ashtray_cache = list()
 		return
 	max_butts = round(material.hardness/10) //This is arbitrary but whatever.
 	update_icon()
-	return
 
 /obj/item/weapon/material/ashtray/update_icon()
 	color = null
@@ -101,10 +100,10 @@ var/global/list/ashtray_cache = list()
 		user << "<span class='danger'>\The [src] is empty!</span>"
 
 /obj/item/weapon/material/ashtray/plastic/New(var/newloc)
-	..(newloc, "plastic")
+	..(newloc, MATERIAL_PLASTIC)
 
 /obj/item/weapon/material/ashtray/bronze/New(var/newloc)
-	..(newloc, "bronze")
+	..(newloc, MATERIAL_BRONZE)
 
 /obj/item/weapon/material/ashtray/glass/New(var/newloc)
-	..(newloc, "glass")
+	..(newloc, MATERIAL_GLASS)

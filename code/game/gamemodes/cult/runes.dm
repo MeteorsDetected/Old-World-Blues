@@ -30,7 +30,7 @@ var/list/sacrificed = list()
 					allrunesloc[index] = R.loc
 			if(index >= 5)
 				user << "<span class='danger'>You feel pain, as rune disappears in reality shift caused by too much wear of space-time fabric.</span>"
-				if (istype(user, /mob/living))
+				if (isliving(user))
 					user.take_overall_damage(5, 0)
 				qdel(src)
 			if(allrunesloc && index != 0)
@@ -67,13 +67,13 @@ var/list/sacrificed = list()
 					runecount++
 			if(runecount >= 2)
 				user << "<span class='danger'>You feel pain, as rune disappears in reality shift caused by too much wear of space-time fabric.</span>"
-				if (istype(user, /mob/living))
+				if (isliving(user))
 					user.take_overall_damage(5, 0)
 				qdel(src)
 			for(var/mob/living/carbon/C in orange(1,src))
 				if(iscultist(C) && !C.stat)
 					culcount++
-			if(culcount>=3)
+			if(culcount >= 3)
 				user.say("Sas[pick("'","`")]so c'arta forbici tarem!")
 				user.visible_message("<span class='warning'>You feel air moving from the rune - like as it was swapped with somewhere else.</span>", \
 				"<span class='warning'>You feel air moving from the rune - like as it was swapped with somewhere else.</span>", \
@@ -255,7 +255,7 @@ var/list/sacrificed = list()
 			for(var/obj/effect/rune/R in world)
 				if(R.word1==cultwords["travel"] && R.word2==cultwords["blood"] && R.word3==cultwords["self"])
 					for(var/mob/living/carbon/D in R.loc)
-						if(D.stat!=2)
+						if(D.stat!=DEAD)
 							admin_attack_log(usr, D, "Used a blood drain rune.", "Was victim of a blood drain rune.", "used a blood drain rune on")
 							var/bdrain = rand(1,25)
 							D << "<span class='warning'>You feel weakened.</span>"
@@ -594,7 +594,7 @@ var/list/sacrificed = list()
 			user.visible_message("<span class='danger'>\The [user] keels over dead, \his blood glowing blue as it escapes \his body and dissipates into thin air.</span>", \
 			"<span class='danger'>In the last moment of your humble life, you feel an immense pain as fabric of reality mends... with your blood.</span>", \
 			"<span class='warning'>You hear faint rustle.</span>")
-			for(,user.stat==2)
+			for(,user.stat==DEAD)
 				sleep(600)
 				if (!user)
 					return
@@ -675,7 +675,7 @@ var/list/sacrificed = list()
 							usr << "<span class='warning'>Your target's earthly bonds are too strong. You need more cultists to succeed in this ritual.</span>"
 					else
 						if(cultsinrange.len >= 3)
-							if(H.stat !=2)
+							if(H.stat !=DEAD)
 								if(prob(80) || worth)
 									usr << "<span class='cult'>The Geometer of Blood accepts this [worth ? "exotic " : ""]sacrifice.</span>"
 									cult.grant_runeword(usr)
@@ -698,7 +698,7 @@ var/list/sacrificed = list()
 								else
 									H.gib()
 						else
-							if(H.stat !=2)
+							if(H.stat !=DEAD)
 								usr << "<span class='warning'>The victim is still alive, you will need more cultists chanting for the sacrifice to succeed.</span>"
 							else
 								if(prob(40))
@@ -714,7 +714,7 @@ var/list/sacrificed = list()
 									H.gib()
 				else
 					if(cultsinrange.len >= 3)
-						if(H.stat !=2)
+						if(H.stat !=DEAD)
 							if(prob(80))
 								usr << "<span class='cult'>The Geometer of Blood accepts this sacrifice.</span>"
 								cult.grant_runeword(usr)
@@ -737,7 +737,7 @@ var/list/sacrificed = list()
 							else
 								H.gib()
 					else
-						if(H.stat !=2)
+						if(H.stat !=DEAD)
 							usr << "<span class='warning'>The victim is still alive, you will need more cultists chanting for the sacrifice to succeed.</span>"
 						else
 							if(prob(40))
@@ -814,7 +814,7 @@ var/list/sacrificed = list()
 			var/mob/living/user = usr
 			var/list/mob/living/carbon/cultists = new
 			for(var/datum/mind/H in cult.current_antagonists)
-				if (istype(H.current,/mob/living/carbon))
+				if (iscarbon(H.current))
 					cultists+=H.current
 			var/list/mob/living/carbon/users = new
 			for(var/mob/living/carbon/C in orange(1,src))
@@ -829,7 +829,7 @@ var/list/sacrificed = list()
 					return
 				if(!(cultist.buckled || \
 					cultist.handcuffed || \
-					istype(cultist.wear_mask, /obj/item/clothing/mask/muzzle) || \
+					cultist.is_muzzled() || \
 					(istype(cultist.loc, /obj/structure/closet)&&cultist.loc:welded) || \
 					(istype(cultist.loc, /obj/structure/closet/secure_closet)&&cultist.loc:locked) || \
 					(istype(cultist.loc, /obj/machinery/dna_scannernew)&&cultist.loc:locked) \
@@ -837,11 +837,11 @@ var/list/sacrificed = list()
 					user << "<span class='warning'>The [cultist] is already free.</span>"
 					return
 				cultist.buckled = null
-				if (cultist.handcuffed)
+				if(cultist.handcuffed)
 					cultist.drop_from_inventory(cultist.handcuffed)
-				if (cultist.legcuffed)
+				if(cultist.legcuffed)
 					cultist.drop_from_inventory(cultist.legcuffed)
-				if (istype(cultist.wear_mask, /obj/item/clothing/mask/muzzle))
+				if(cultist.is_muzzled())
 					cultist.drop_from_inventory(cultist.wear_mask)
 				if(istype(cultist.loc, /obj/structure/closet)&&cultist.loc:welded)
 					cultist.loc:welded = 0
@@ -861,7 +861,7 @@ var/list/sacrificed = list()
 			var/mob/living/user = usr
 			var/list/mob/living/carbon/cultists = new
 			for(var/datum/mind/H in cult.current_antagonists)
-				if (istype(H.current,/mob/living/carbon))
+				if (iscarbon(H.current))
 					cultists+=H.current
 			var/list/mob/living/carbon/users = new
 			for(var/mob/living/carbon/C in orange(1,src))
@@ -987,7 +987,7 @@ var/list/sacrificed = list()
 /*
 			var/list/mob/living/carbon/cultists = new
 			for(var/datum/mind/H in ticker.mode.cult)
-				if (istype(H.current,/mob/living/carbon))
+				if (iscarbon(H.current))
 					cultists+=H.current
 */
 			var/list/cultists = new //also, wording for it is old wording for obscure rune, which is now hide-see-blood.

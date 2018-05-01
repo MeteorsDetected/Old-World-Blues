@@ -20,15 +20,15 @@
 /obj/item/weapon/gun/launcher/rocket/examine(mob/user, return_dist=1)
 	.=..()
 	if(.<=2)
-		user << "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>"
+		user << SPAN_NOTE("[rockets.len] / [max_rockets] rockets.")
 
 /obj/item/weapon/gun/launcher/rocket/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/ammo_casing/rocket))
 		if(rockets.len < max_rockets)
 			user.drop_from_inventory(I, src)
 			rockets += I
-			user << "\blue You put the rocket in [src]."
-			user << "\blue [rockets.len] / [max_rockets] rockets."
+			user << SPAN_NOTE("You put the rocket in [src].")
+			user << SPAN_NOTE("[rockets.len] / [max_rockets] rockets.")
 		else
 			usr << "\red [src] cannot hold more rockets."
 

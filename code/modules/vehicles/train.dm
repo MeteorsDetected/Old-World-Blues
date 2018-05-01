@@ -22,6 +22,7 @@
 // Standard procs
 //-------------------------------------------
 /obj/vehicle/train/initialize()
+	. = ..()
 	for(var/obj/vehicle/train/T in orange(1, src))
 		latch(T)
 
@@ -47,7 +48,7 @@
 			A.Move(T)	//bump things away when hit
 
 	if(emagged)
-		if(istype(A, /mob/living))
+		if(isliving(A))
 			var/mob/living/M = A
 			visible_message("\red [src] knocks over [M]!")
 			M.apply_effects(5, 5)				//knock people down if you hit them
@@ -85,12 +86,12 @@
 
 	unload(user, direction)
 
-	user << "\blue You climb down from [src]."
+	user << SPAN_NOTE("You climb down from [src].")
 
 	return 1
 
 /obj/vehicle/train/MouseDrop_T(var/atom/movable/C, mob/user as mob)
-	if(user.buckled || user.stat || user.restrained() || !Adjacent(user) || !user.Adjacent(C) || !istype(C) || (user == C && !user.canmove))
+	if(user.incapacitated(INCAPACITATION_ALL) || !Adjacent(user) || !user.Adjacent(C) || !istype(C) || (user == C && !user.canmove))
 		return
 	if(istype(C,/obj/vehicle/train))
 		latch(C, user)
@@ -99,7 +100,7 @@
 			user << "\red You were unable to load [C] on [src]."
 
 /obj/vehicle/train/attack_hand(mob/user as mob)
-	if(user.stat || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user))
 		return 0
 
 	if(user != load && (user in src))
@@ -120,7 +121,7 @@
 	if(!ishuman(usr))
 		return
 
-	if(!usr.canmove || usr.stat || usr.restrained() || !Adjacent(usr))
+	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
 	unattach(usr)
@@ -159,7 +160,7 @@
 	set_dir(lead.dir)
 
 	if(user)
-		user << "\blue You hitch [src] to [T]."
+		user << SPAN_NOTE("You hitch [src] to [T].")
 
 	update_stats()
 
@@ -173,7 +174,7 @@
 	lead.tow = null
 	lead.update_stats()
 
-	user << "\blue You unhitch [src] from [lead]."
+	user << SPAN_NOTE("You unhitch [src] from [lead].")
 	lead = null
 
 	update_stats()

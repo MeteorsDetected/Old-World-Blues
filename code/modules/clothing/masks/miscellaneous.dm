@@ -24,10 +24,10 @@
 	desc = "It's a robust DIY muzzle!"
 	icon_state = "tape"
 	item_state = null
-	w_class = 1
+	w_class = ITEM_SIZE_TINY
 
-/obj/item/clothing/mask/muzzle/tape/New()
-	..()
+/obj/item/clothing/mask/muzzle/tape/initialize()
+	. = ..()
 	if(prob(50))
 		icon_state = "tape_alt"
 
@@ -51,7 +51,7 @@
 	var/hanging = 0
 
 /obj/item/clothing/mask/surgical/proc/adjust_mask(mob_user)
-	if(usr.canmove && !usr.stat)
+	if(!usr.incapacitated())
 		src.hanging = !src.hanging
 		if (src.hanging)
 			gas_transfer_coefficient = 1
@@ -180,7 +180,7 @@
 	name = "tuskmask"
 	desc = "Standart Boars mask."
 	icon_state = "tuskmask"
-	w_class = 1
+	w_class = ITEM_SIZE_TINY
 	item_flags = FLEXIBLEMATERIAL
 	gas_transfer_coefficient = 0.90
 	siemens_coefficient = 0
@@ -193,7 +193,8 @@
 	body_parts_covered = 0
 	var/mob/observer/eye/aiEye/eye
 
-/obj/item/clothing/mask/ai/New()
+/obj/item/clothing/mask/ai/initialize()
+	. = ..()
 	eye = new(src)
 
 /obj/item/clothing/mask/ai/equipped(var/mob/user, var/slot)
@@ -218,7 +219,7 @@
 /obj/item/clothing/mask/bandana
 	name = "black bandana"
 	desc = "A fine black bandana with nanotech lining."
-	w_class = 1
+	w_class = ITEM_SIZE_TINY
 	body_parts_covered = FACE
 	slot_flags = SLOT_MASK
 	flags_inv = HIDEFACE
@@ -227,7 +228,7 @@
 	var/tied = 0
 
 /obj/item/clothing/mask/bandana/proc/adjust_bandana(mob/user)
-	if(usr.canmove && !usr.stat)
+	if(!usr.incapacitated())
 		src.tied = !src.tied
 		if (src.tied)
 			flags_inv = flags_inv & ~HIDEFACE

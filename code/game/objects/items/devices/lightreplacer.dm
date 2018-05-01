@@ -57,9 +57,9 @@
 	var/failmsg = ""
 	var/charge = 0
 
-/obj/item/device/lightreplacer/New()
+/obj/item/device/lightreplacer/initialize()
 	failmsg = "The [name]'s refill light blinks red."
-	..()
+	. = ..()
 
 /obj/item/device/lightreplacer/examine(mob/user, return_dist = 1)
 	. = ..()
@@ -67,14 +67,14 @@
 		user << "It has [uses] lights remaining."
 
 /obj/item/device/lightreplacer/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/stack/material) && W.get_material_name() == "glass")
+	if(ismaterial(W) && W.get_material_name() == MATERIAL_GLASS)
 		var/obj/item/stack/G = W
 		if(uses >= max_uses)
 			user << "<span class='warning'>[src.name] is full.</span>"
 			return
 		else if(G.use(1))
 			AddUses(16) //Autolathe converts 1 sheet into 16 lights.
-			user << "<span class='notice'>You insert a piece of glass into \the [src.name]. You have [uses] light\s remaining.</span>"
+			user << SPAN_NOTE("You insert a piece of glass into \the [src.name]. You have [uses] light\s remaining.")
 			return
 		else
 			user << "<span class='warning'>You need one sheet of glass to replace lights.</span>"
@@ -128,7 +128,7 @@
 	if(target.status != LIGHT_OK)
 		if(CanUse(U))
 			if(!Use(U)) return
-			U << "<span class='notice'>You replace the [target.fitting] with the [src].</span>"
+			U << SPAN_NOTE("You replace the [target.fitting] with the [src].")
 
 			if(target.status != LIGHT_EMPTY)
 

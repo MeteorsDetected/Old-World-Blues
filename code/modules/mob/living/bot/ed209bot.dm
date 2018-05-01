@@ -104,7 +104,7 @@
 				user.drop_from_inventory(W)
 				qdel(W)
 				build_step++
-				user << "<span class='notice'>You add the robot leg to [src].</span>"
+				user << SPAN_NOTE("You add the robot leg to [src].")
 				name = "legs/frame assembly"
 				if(build_step == 1)
 					item_state = "ed209_leg"
@@ -118,7 +118,7 @@
 				user.drop_from_inventory(W)
 				qdel(W)
 				build_step++
-				user << "<span class='notice'>You add the armor to [src].</span>"
+				user << SPAN_NOTE("You add the armor to [src].")
 				name = "vest/legs/frame assembly"
 				item_state = "ed209_shell"
 				icon_state = "ed209_shell"
@@ -129,13 +129,13 @@
 				if(WT.remove_fuel(0, user))
 					build_step++
 					name = "shielded frame assembly"
-					user << "<span class='notice'>You welded the vest to [src].</span>"
+					user << SPAN_NOTE("You welded the vest to [src].")
 		if(4)
 			if(istype(W, /obj/item/clothing/head/helmet/security))
 				user.drop_from_inventory(W)
 				qdel(W)
 				build_step++
-				user << "<span class='notice'>You add the helmet to [src].</span>"
+				user << SPAN_NOTE("You add the helmet to [src].")
 				name = "covered and shielded frame assembly"
 				item_state = "ed209_hat"
 				icon_state = "ed209_hat"
@@ -145,7 +145,7 @@
 				user.drop_from_inventory(W)
 				qdel(W)
 				build_step++
-				user << "<span class='notice'>You add the prox sensor to [src].</span>"
+				user << SPAN_NOTE("You add the prox sensor to [src].")
 				name = "covered, shielded and sensored frame assembly"
 				item_state = "ed209_prox"
 				icon_state = "ed209_prox"
@@ -156,11 +156,11 @@
 				if (C.get_amount() < 1)
 					user << "<span class='warning'>You need one coil of wire to wire [src].</span>"
 					return
-				user << "<span class='notice'>You start to wire [src].</span>"
+				user << SPAN_NOTE("You start to wire [src].")
 				if(do_after(user, 40) && build_step == 6)
 					if(C.use(1))
 						build_step++
-						user << "<span class='notice'>You wire the ED-209 assembly.</span>"
+						user << SPAN_NOTE("You wire the ED-209 assembly.")
 						name = "wired ED-209 assembly"
 				return
 
@@ -169,7 +169,7 @@
 				if(user.unEquip(W)) // Stop dropping mouned guns
 					name = "taser ED-209 assembly"
 					build_step++
-					user << "<span class='notice'>You add [W] to [src].</span>"
+					user << SPAN_NOTE("You add [W] to [src].")
 					item_state = "ed209_taser"
 					icon_state = "ed209_taser"
 					qdel(W)
@@ -178,17 +178,17 @@
 			if(istype(W, /obj/item/weapon/screwdriver))
 				playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
 				var/turf/T = get_turf(user)
-				user << "<span class='notice'>Now attaching the gun to the frame...</span>"
+				user << SPAN_NOTE("Now attaching the gun to the frame...")
 				sleep(40)
 				if(get_turf(user) == T && build_step == 8)
 					build_step++
 					name = "armed [name]"
-					user << "<span class='notice'>Taser gun attached.</span>"
+					user << SPAN_NOTE("Taser gun attached.")
 
 		if(9)
 			if(istype(W, /obj/item/weapon/cell))
 				build_step++
-				user << "<span class='notice'>You complete the ED-209.</span>"
+				user << SPAN_NOTE("You complete the ED-209.")
 				var/turf/T = get_turf(src)
 				new /mob/living/bot/secbot/ed209(T,created_name,lasercolor)
 				user.drop_from_inventory(W)

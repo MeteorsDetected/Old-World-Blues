@@ -19,7 +19,7 @@
 		S.hide_from(usr)
 		for(var/obj/item/weapon/ore/O in S.contents)
 			S.remove_from_storage(O, src) //This will move the item to this item's contents
-		user << "\blue You empty the satchel into the box."
+		user << SPAN_NOTE("You empty the satchel into the box.")
 
 	update_ore_count()
 
@@ -40,7 +40,7 @@
 	. = ..()
 
 	// Borgs can now check contents too.
-	if(!ishuman(user) && !istype(user, /mob/living/silicon/robot))
+	if(!ishuman(user) && !isrobot(user))
 		return
 
 	if(!Adjacent(user)) //Can only check the contents of ore boxes if you can physically reach them.
@@ -71,7 +71,7 @@
 		usr << "\red You are physically incapable of emptying the ore box."
 		return
 
-	if( usr.stat || usr.restrained() )
+	if(usr.incapacitated())
 		return
 
 	if(!Adjacent(usr)) //You can only empty the box if you can physically reach it
@@ -87,7 +87,7 @@
 	for (var/obj/item/weapon/ore/O in contents)
 		contents -= O
 		O.loc = src.loc
-	usr << "\blue You empty the ore box"
+	usr << SPAN_NOTE("You empty the ore box")
 
 	return
 

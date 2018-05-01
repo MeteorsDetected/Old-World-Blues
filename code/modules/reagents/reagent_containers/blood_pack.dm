@@ -2,16 +2,10 @@
 	name = "blood packs bags"
 	desc = "This box contains blood packs."
 	icon_state = "sterile"
+	preloaded = list(
+		/obj/item/weapon/reagent_containers/blood/empty = 7
+	)
 
-/obj/item/storage/box/bloodpacks/New()
-		..()
-		new /obj/item/weapon/reagent_containers/blood/empty(src)
-		new /obj/item/weapon/reagent_containers/blood/empty(src)
-		new /obj/item/weapon/reagent_containers/blood/empty(src)
-		new /obj/item/weapon/reagent_containers/blood/empty(src)
-		new /obj/item/weapon/reagent_containers/blood/empty(src)
-		new /obj/item/weapon/reagent_containers/blood/empty(src)
-		new /obj/item/weapon/reagent_containers/blood/empty(src)
 
 /obj/item/weapon/reagent_containers/blood
 	name = "BloodPack"
@@ -23,8 +17,8 @@
 
 	var/blood_type = null
 
-/obj/item/weapon/reagent_containers/blood/New()
-	..()
+/obj/item/weapon/reagent_containers/blood/initialize()
+	. = ..()
 	if(blood_type != null)
 		name = "BloodPack [blood_type]"
 		reagents.add_reagent("blood", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"resistances"=null,"trace_chem"=null))
@@ -34,11 +28,25 @@
 	update_icon()
 
 /obj/item/weapon/reagent_containers/blood/update_icon()
+	update_name()
 	var/percent = round((reagents.total_volume / volume) * 100)
 	switch(percent)
-		if(0 to 9)			icon_state = "empty"
-		if(10 to 50) 		icon_state = "half"
-		if(51 to INFINITY)	icon_state = "full"
+		if(0 to 9)
+			icon_state = "empty"
+		if(10 to 50)
+			icon_state = "half"
+		if(51 to INFINITY)
+			icon_state = "full"
+
+/obj/item/weapon/reagent_containers/blood/proc/update_name()
+	var/list/data = reagents.get_data("blood")
+	if(data)
+		blood_type = data["blood_type"]
+		name = "BloodPack [blood_type]"
+		desc = "Contains blood used for transfusion."
+		return
+	name = "Empty BloodPack"
+	desc = "Seems pretty useless... Maybe if there were a way to fill it?"
 
 /obj/item/weapon/reagent_containers/blood/afterattack(var/obj/target, var/mob/user, var/flag)
 	if(!flag)

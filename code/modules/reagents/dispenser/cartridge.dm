@@ -14,8 +14,8 @@
 	var/spawn_reagent = null
 	var/label = ""
 
-/obj/item/weapon/reagent_containers/chem_disp_cartridge/New()
-	..()
+/obj/item/weapon/reagent_containers/chem_disp_cartridge/initialize()
+	. = ..()
 	if(spawn_reagent)
 		reagents.add_reagent(spawn_reagent, volume)
 		var/datum/reagent/R = chemical_reagents_list[spawn_reagent]
@@ -41,23 +41,23 @@
 /obj/item/weapon/reagent_containers/chem_disp_cartridge/proc/setLabel(L, mob/user = null)
 	if(L)
 		if(user)
-			user << "<span class='notice'>You set the label on \the [src] to '[L]'.</span>"
+			user << SPAN_NOTE("You set the label on \the [src] to '[L]'.")
 
 		label = L
 		name = "[initial(name)] - '[L]'"
 	else
 		if(user)
-			user << "<span class='notice'>You clear the label on \the [src].</span>"
+			user << SPAN_NOTE("You clear the label on \the [src].")
 		label = ""
 		name = initial(name)
 
 /obj/item/weapon/reagent_containers/chem_disp_cartridge/attack_self()
 	..()
 	if (is_open_container())
-		usr << "<span class = 'notice'>You put the cap on \the [src].</span>"
+		usr << SPAN_NOTE("You put the cap on \the [src].")
 		flags ^= OPENCONTAINER
 	else
-		usr << "<span class = 'notice'>You take the cap off \the [src].</span>"
+		usr << SPAN_NOTE("You take the cap off \the [src].")
 		flags |= OPENCONTAINER
 
 /obj/item/weapon/reagent_containers/chem_disp_cartridge/afterattack(obj/target, mob/user , flag)
@@ -76,7 +76,7 @@
 			return
 
 		var/trans = target.reagents.trans_to(src, target:amount_per_transfer_from_this)
-		user << "<span class='notice'>You fill \the [src] with [trans] units of the contents of \the [target].</span>"
+		user << SPAN_NOTE("You fill \the [src] with [trans] units of the contents of \the [target].")
 
 	else if(target.is_open_container() && target.reagents) //Something like a glass. Player probably wants to transfer TO it.
 
@@ -89,7 +89,7 @@
 			return
 
 		var/trans = src.reagents.trans_to(target, amount_per_transfer_from_this)
-		user << "<span class='notice'>You transfer [trans] units of the solution to \the [target].</span>"
+		user << SPAN_NOTE("You transfer [trans] units of the solution to \the [target].")
 
 	else
 		return ..()

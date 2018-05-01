@@ -20,12 +20,12 @@
 	var/mob/M = usr
 	if(!M.mind)	return 0
 	if(!M.mind.assigned_role == "Detective")
-		M << "<span class='notice'>You don't feel cool enough to name this gun, chump.</span>"
+		M << SPAN_NOTE("You don't feel cool enough to name this gun, chump.")
 		return 0
 
 	var/input = sanitizeSafe(input("What do you want to name the gun?", ,""), MAX_NAME_LEN)
 
-	if(src && input && !M.stat && in_range(M,src))
+	if(src && input && !M.incapacitated() && in_range(M,src))
 		name = input
 		M << "You name the gun [input]. Say hello to your new friend."
 		return 1
@@ -85,7 +85,7 @@
 	recoil = 1
 	fire_delay = 2
 	accuracy = 0
-	w_class = 2
+	w_class = ITEM_SIZE_SMALL
 
 /obj/item/weapon/gun/projectile/sec/shortbarrel/update_icon()
 	..()
@@ -185,7 +185,7 @@
 			if(user.l_hand != src && user.r_hand != src)
 				..()
 				return
-			user << "<span class='notice'>You unscrew [silenced] from [src].</span>"
+			user << SPAN_NOTE("You unscrew [silenced] from [src].")
 			user.put_in_hands(silenced)
 			silenced = initial(silenced)
 			w_class = initial(w_class)
@@ -196,10 +196,10 @@
 /obj/item/weapon/gun/projectile/pistol/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/weapon/silencer))
 		if(user.l_hand != src && user.r_hand != src)	//if we're not in his hands
-			user << "<span class='notice'>You'll need [src] in your hands to do that.</span>"
+			user << SPAN_NOTE("You'll need [src] in your hands to do that.")
 			return
 		user.drop_from_inventory(I, src) //put the silencer into the gun
-		user << "<span class='notice'>You screw [I] onto [src].</span>"
+		user << SPAN_NOTE("You screw [I] onto [src].")
 		silenced = I	//dodgy?
 		w_class = ITEM_SIZE_NORMAL
 		update_icon()
@@ -246,13 +246,13 @@
 		/obj/item/ammo_casing/a556              = "5.56mm"
 		)
 
-/obj/item/weapon/gun/projectile/pirate/New()
+/obj/item/weapon/gun/projectile/pirate/initialize()
 	ammo_type = pick(ammo_types)
 	desc += " Uses [ammo_types[ammo_type]] rounds."
 
 	var/obj/item/ammo_casing/ammo = ammo_type
 	caliber = initial(ammo.caliber)
-	..()
+	. = ..()
 
 /obj/item/weapon/gun/projectile/legalist
 	name = "Legalist MKI"
@@ -278,7 +278,7 @@
 	desc = "That's the Mk.15, standard-issue secondary weapon of NT colonial infantry. Uses 9mm rounds."
 	icon_state = "mk15"
 	item_state = "mk15"
-	w_class = 3
+	w_class = ITEM_SIZE_NORMAL
 	caliber = "9mm"
 	fire_sound = 'sound/weapons/eventpistol.ogg'
 	load_method = MAGAZINE

@@ -22,11 +22,9 @@
 /obj/item/storage/box/botanydisk
 	name = "flora disk box"
 	desc = "A box of flora data disks, apparently."
-
-/obj/item/storage/box/botanydisk/New()
-	..()
-	for(var/i = 0;i<7;i++)
-		new /obj/item/weapon/disk/botany(src)
+	preloaded = list(
+		/obj/item/weapon/disk/botany = 7
+	)
 
 /obj/machinery/botany
 	icon = 'icons/obj/hydroponics_machines.dmi'
@@ -92,7 +90,7 @@
 
 	if(istype(W,/obj/item/weapon/screwdriver))
 		open = !open
-		user << "<span class='notice'>You [open ? "open" : "close"] the maintenance panel.</span>"
+		user << SPAN_NOTE("You [open ? "open" : "close"] the maintenance panel.")
 		return
 
 	if(open)

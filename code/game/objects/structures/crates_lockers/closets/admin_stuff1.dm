@@ -4,33 +4,34 @@
 	icon_state = "black"
 	icon_closed = "black"
 
-/obj/structure/closet/code_blue_equipment/New()
-	..()
-	new/obj/item/device/flashlight/flare(src)
-	new/obj/item/clothing/under/syndicate/PMC(src)
-	new/obj/item/clothing/accessory/storage/black_vest(src)
-	new/obj/item/clothing/shoes/jackboots(src)
-	new/obj/item/storage/belt/security/tactical(src)
-	new/obj/item/device/flash(src)
-	new/obj/item/weapon/tank/emergency_oxygen/double(src)
-	new/obj/item/storage/backpack/satchel/sec(src)
-	new/obj/item/device/flashlight/seclite(src)
-	new/obj/item/weapon/handcuffs(src)
-	new/obj/item/weapon/handcuffs(src)
-	new/obj/item/storage/box/shotgunammo(src)
-	new/obj/item/weapon/grenade/flashbang(src)
-	new/obj/item/weapon/material/hatchet/tacknife(src)
-	new/obj/item/weapon/crowbar/red(src)
-	new/obj/item/device/radio/off(src)
-	new/obj/item/clothing/suit/armor/riot(src)
-	new/obj/item/weapon/gun/projectile/shotgun/pump/combat(src)
-	new/obj/item/clothing/gloves/black(src)
-	new/obj/item/clothing/mask/gas(src)
-	new/obj/item/clothing/head/helmet/riot(src)
-	new/obj/item/clothing/accessory/armband(src)
-	new/obj/item/weapon/shield/riot(src)
-	new/obj/item/weapon/melee/baton/loaded(src)
-	new/obj/item/weapon/card/id/syndicate(src)
+/obj/structure/closet/code_blue_equipment/willContatin()
+	return list(
+		/obj/item/device/flashlight/flare,
+		/obj/item/clothing/under/syndicate/PMC,
+		/obj/item/clothing/accessory/storage/black_vest,
+		/obj/item/clothing/shoes/jackboots,
+		/obj/item/storage/belt/security/tactical,
+		/obj/item/device/flash,
+		/obj/item/weapon/tank/emergency_oxygen/double,
+		/obj/item/storage/backpack/satchel/sec,
+		/obj/item/device/flashlight/seclite,
+		/obj/item/weapon/handcuffs,
+		/obj/item/weapon/handcuffs,
+		/obj/item/storage/box/shotgunammo,
+		/obj/item/weapon/grenade/flashbang,
+		/obj/item/weapon/material/hatchet/tacknife,
+		/obj/item/weapon/crowbar/red,
+		/obj/item/device/radio/off,
+		/obj/item/clothing/suit/armor/riot,
+		/obj/item/weapon/gun/projectile/shotgun/pump/combat,
+		/obj/item/clothing/gloves/black,
+		/obj/item/clothing/mask/gas,
+		/obj/item/clothing/head/helmet/riot,
+		/obj/item/clothing/accessory/armband,
+		/obj/item/weapon/shield/riot,
+		/obj/item/weapon/melee/baton/loaded,
+		/obj/item/weapon/card/id/syndicate,
+	)
 
 /obj/structure/closet/code_red_equipment
 	name = "Red Code Equipment"
@@ -38,32 +39,33 @@
 	icon_state = "black"
 	icon_closed = "black"
 
-/obj/structure/closet/code_red_equipment/New()
-	..()
-	new/obj/item/storage/backpack/satchel/sec(src)
-	new/obj/item/clothing/head/beret/sec/alt(src)
-	new/obj/item/device/flashlight/seclite(src)
-	new/obj/item/weapon/gun/projectile/sec(src)
-	new/obj/item/clothing/suit/armor/vest(src)
-	new/obj/item/clothing/accessory/storage/black_vest(src)
-	new/obj/item/clothing/under/syndicate/PMC(src)
-	new/obj/item/clothing/shoes/jackboots(src)
-	new/obj/item/clothing/gloves/black(src)
-	new/obj/item/storage/belt/security/tactical(src)
-	new/obj/item/weapon/melee/classic_baton(src)
-	new/obj/item/weapon/handcuffs(src)
-	new/obj/item/ammo_magazine/c45m(src)
-	new/obj/item/ammo_magazine/c45m(src)
-	new/obj/item/ammo_magazine/c45m(src)
-	new/obj/item/ammo_magazine/c45m(src)
-	new/obj/item/ammo_magazine/c45m/flash(src)
-	new/obj/item/ammo_magazine/c45m/rubber(src)
-	new/obj/item/weapon/material/hatchet/tacknife(src)
-	new/obj/item/clothing/mask/gas/voice(src)
-	new/obj/item/weapon/tank/emergency_oxygen/double(src)
-	new/obj/item/weapon/card/id/syndicate(src)
-	new/obj/item/storage/firstaid/regular(src)
-	new/obj/item/weapon/reagent_containers/food/snacks/liquidfood(src)
-	new/obj/item/device/flashlight/flare(src)
-	new/obj/item/weapon/crowbar/red(src)
-	new/obj/item/device/radio/off(src)
+/obj/structure/closet/code_red_equipment/willContatin()
+	return list(
+		/obj/item/storage/backpack/satchel/sec,
+		/obj/item/clothing/head/beret/sec/alt,
+		/obj/item/device/flashlight/seclite,
+		/obj/item/weapon/gun/projectile/sec,
+		/obj/item/clothing/suit/armor/vest,
+		/obj/item/clothing/accessory/storage/black_vest,
+		/obj/item/clothing/under/syndicate/PMC,
+		/obj/item/clothing/shoes/jackboots,
+		/obj/item/clothing/gloves/black,
+		/obj/item/storage/belt/security/tactical,
+		/obj/item/weapon/melee/classic_baton,
+		/obj/item/weapon/handcuffs,
+		/obj/item/ammo_magazine/c45m,
+		/obj/item/ammo_magazine/c45m,
+		/obj/item/ammo_magazine/c45m,
+		/obj/item/ammo_magazine/c45m,
+		/obj/item/ammo_magazine/c45m/flash,
+		/obj/item/ammo_magazine/c45m/rubber,
+		/obj/item/weapon/material/hatchet/tacknife,
+		/obj/item/clothing/mask/gas/voice,
+		/obj/item/weapon/tank/emergency_oxygen/double,
+		/obj/item/weapon/card/id/syndicate,
+		/obj/item/storage/firstaid/regular,
+		/obj/item/weapon/reagent_containers/food/snacks/liquidfood,
+		/obj/item/device/flashlight/flare,
+		/obj/item/weapon/crowbar/red,
+		/obj/item/device/radio/off,
+	)

@@ -14,8 +14,10 @@
 	new /obj/structure/cult/pylon(loc)
 	..()
 
-/obj/item/stack/material/wood/cultify()
-	return
+/obj/item/stack/material/cultify()
+	if(get_material_name() == MATERIAL_WOOD)
+		return
+	return ..()
 
 /obj/item/weapon/book/cultify()
 	new /obj/item/weapon/book/tome(loc)
@@ -84,12 +86,12 @@
 	new /obj/structure/cult/forge(loc)
 	qdel(src)
 
-/obj/structure/bed/chair/cultify()
-	var/obj/structure/bed/chair/wood/wings/I = new(loc)
+/obj/structure/material/chair/cultify()
+	var/obj/structure/material/chair/wood/wings/I = new(loc)
 	I.dir = dir
 	..()
 
-/obj/structure/bed/chair/wood/cultify()
+/obj/structure/material/chair/wood/cultify()
 	return
 
 /obj/structure/bookcase/cultify()
@@ -125,7 +127,7 @@
 	..()
 
 /obj/structure/stool/cultify()
-	var/obj/structure/bed/chair/wood/wings/I = new(loc)
+	var/obj/structure/material/chair/wood/wings/I = new(loc)
 	I.dir = dir
 	..()
 
@@ -133,9 +135,8 @@
 	// Make it a wood-reinforced wooden table.
 	// There are cult materials available, but it'd make the table non-deconstructable with how holotables work.
 	// Could possibly use a new material var for holographic-ness?
-	material = get_material_by_name("wood")
-	reinforced = get_material_by_name("wood")
-	update_desc()
+	material = get_material_by_name(MATERIAL_WOOD)
+	reinforced = get_material_by_name(MATERIAL_WOOD)
 	update_connections(1)
 	update_icon()
 	update_material()

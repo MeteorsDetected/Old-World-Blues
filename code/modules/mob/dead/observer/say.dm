@@ -33,7 +33,7 @@
 		message = sanitize(input(src, "Choose an emote to display.") as text|null)
 
 	if(message)
-		log_emote("Ghost/[src.key] : [message]")
+		log_emote("[src.key]/Ghost : [message]")
 		say_dead_direct(message, src)
 
 	return

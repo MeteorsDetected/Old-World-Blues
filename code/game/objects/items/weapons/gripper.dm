@@ -15,7 +15,6 @@
 		/obj/item/weapon/airalarm_electronics,
 		/obj/item/weapon/airlock_electronics,
 		/obj/item/weapon/tracker_electronics,
-		/obj/item/weapon/power_control,
 		/obj/item/weapon/stock_parts,
 		/obj/item/frame,
 		/obj/item/weapon/camera_assembly,
@@ -146,9 +145,7 @@
 	desc = "A specialized loading device, designed to pick up and insert sheets of materials inside machines."
 	icon_state = "gripper-sheet"
 
-	can_hold = list(
-		/obj/item/stack/material
-		)
+	can_hold = list(/obj/item/stack/material)
 
 /obj/item/weapon/gripper/attack_self(mob/user as mob)
 	if(wrapped)
@@ -264,7 +261,7 @@
 
 				user.visible_message("<span class='danger'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")
 
-	else if(istype(target,/mob/living/silicon/robot))
+	else if(isrobot(target))
 		var/mob/living/silicon/robot/A = target
 		if(A.opened)
 			if(A.cell)

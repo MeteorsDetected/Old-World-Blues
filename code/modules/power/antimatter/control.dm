@@ -29,8 +29,8 @@
 	var/stored_power = 0//Power to deploy per tick
 
 
-/obj/machinery/power/am_control_unit/New()
-	..()
+/obj/machinery/power/am_control_unit/initialize()
+	. = ..()
 	linked_shielding = list()
 	linked_cores = list()
 
@@ -134,14 +134,15 @@
 
 /obj/machinery/power/am_control_unit/power_change()
 	..()
-	if(stat & NOPOWER && active)
+	if(active && stat&NOPOWER)
 		toggle_power()
-	return
 
 
 /obj/machinery/power/am_control_unit/update_icon()
-	if(active) icon_state = "control_on"
-	else icon_state = "control"
+	if(active)
+		icon_state = "control_on"
+	else
+		icon_state = "control"
 	//No other icons for it atm
 
 

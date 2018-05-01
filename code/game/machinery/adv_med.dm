@@ -16,34 +16,36 @@
 	active_power_usage = 10000	//10 kW. It's a big all-body scanner.
 
 /obj/machinery/bodyscanner/relaymove(mob/user as mob)
-	if (user.stat)
+	if (user.incapacitated(INCAPACITATION_DISABLED))
 		return
 	src.go_out()
-	return
 
 /obj/machinery/bodyscanner/verb/eject()
 	set src in oview(1)
 	set category = "Object"
 	set name = "Eject Body Scanner"
 
-	if (usr.stat != 0)
-		return
+	if(usr == occupant)
+		if(usr.incapacitated(INCAPACITATION_DISABLED))
+			return
+	else
+		if(usr.incapacitated())
+			return
 	src.go_out()
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/bodyscanner/verb/move_inside()
 	set src in oview(1)
 	set category = "Object"
 	set name = "Enter Body Scanner"
 
-	if (usr.stat)
+	if(usr.incapacitated(INCAPACITATION_MOVE))
 		return
-	if (src.occupant)
-		usr << "\blue <B>The scanner is already occupied!</B>"
+	if(src.occupant)
+		usr << SPAN_NOTE("<B>The scanner is already occupied!</B>")
 		return
-	if (usr.abiotic())
-		usr << "\blue <B>Subject cannot have abiotic items on.</B>"
+	if(usr.abiotic())
+		usr << SPAN_NOTE("<B>Subject cannot have abiotic items on.</B>")
 		return
 	set_occupant(usr)
 	src.add_fingerprint(usr)
@@ -59,7 +61,6 @@
 	src.occupant = null
 	update_use_power(1)
 	src.icon_state = "body_scanner_0"
-	return
 
 /obj/machinery/bodyscanner/proc/set_occupant(var/mob/living/L)
 	L.forceMove(src)
@@ -69,7 +70,7 @@
 	src.add_fingerprint(usr)
 
 
-/obj/machinery/bodyscanner/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/machinery/bodyscanner/affect_grab(var/mob/user, var/mob/target)
 	if (src.occupant)
 		user << SPAN_NOTE("The scanner is already occupied!")
 		return
@@ -111,17 +112,19 @@
 			for(var/atom/movable/A in src)
 				A.forceMove(loc)
 				A.ex_act(severity)
+			qdel(src)
 		if(2.0)
 			if (prob(50))
 				for(var/atom/movable/A in src)
 					A.forceMove(loc)
 					A.ex_act(severity)
+				qdel(src)
 		if(3.0)
 			if (prob(25))
 				for(var/atom/movable/A in src)
 					A.forceMove(loc)
 					A.ex_act(severity)
-	qdel(src)
+				qdel(src)
 
 /obj/machinery/bodyscanner/blob_act()
 	if(prob(50))
@@ -138,14 +141,12 @@
 			if (prob(50))
 				qdel(src)
 				return
-	return
 
 /obj/machinery/body_scanconsole/blob_act()
 	if(prob(50))
 		qdel(src)
 
-/obj/machinery/body_scanconsole/power_change()
-	..()
+/obj/machinery/body_scanconsole/update_icon()
 	if(stat & BROKEN)
 		icon_state = "body_scannerconsole-p"
 	else
@@ -173,13 +174,12 @@
 	anchored = 1
 
 
-/obj/machinery/body_scanconsole/New()
-	..()
-	spawn(5)
-		for(var/dir in cardinal)
-			connected = locate(/obj/machinery/bodyscanner) in get_step(src, dir)
-			if(connected)
-				return
+/obj/machinery/body_scanconsole/initialize()
+	. = ..()
+	for(var/dir in cardinal)
+		connected = locate(/obj/machinery/bodyscanner) in get_step(src, dir)
+		if(connected)
+			return
 
 /obj/machinery/body_scanconsole/attack_ai(user as mob)
 	return src.attack_hand(user)
@@ -359,7 +359,8 @@
 				infected = "Acute Infection++:"
 			if (INFECTION_LEVEL_THREE to INFINITY)
 				infected = "Septic:"
-
+		if(e.rejecting)
+			infected += "(being rejected)"
 		if (e.implants.len)
 			var/unknown_body = 0
 			for(var/I in e.implants)
@@ -372,7 +373,7 @@
 
 		if(!AN && !open && !infected & !imp)
 			AN = "None:"
-		if(!(e.status & ORGAN_DESTROYED))
+		if(!e.is_stump())
 			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
 		else
 			dat += "<td>[e.name]</td><td>-</td><td>-</td><td>Not Found</td>"
@@ -400,6 +401,8 @@
 				infection = "Acute Infection+:"
 			if (INFECTION_LEVEL_TWO + 300 to INFINITY)
 				infection = "Acute Infection++:"
+		if(i.rejecting)
+			infection += "(being rejected)"
 
 		dat += "<tr>"
 		dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech]</td><td></td>"

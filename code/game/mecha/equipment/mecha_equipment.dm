@@ -24,11 +24,6 @@
 		return 1
 	return 0
 
-
-/obj/item/mecha_parts/mecha_equipment/New()
-	..()
-	return
-
 /obj/item/mecha_parts/mecha_equipment/proc/update_equip_info()
 	if(chassis)
 		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())

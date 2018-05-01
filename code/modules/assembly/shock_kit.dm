@@ -29,7 +29,7 @@
 		return
 	if(istype(W, /obj/item/weapon/screwdriver))
 		status = !status
-		user << "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>"
+		user << SPAN_NOTE("[src] is now [status ? "secured" : "unsecured"]!")
 	add_fingerprint(user)
 	return
 
@@ -40,7 +40,7 @@
 	return
 
 /obj/item/assembly/shock_kit/receive_signal()
-	if(istype(loc, /obj/structure/bed/chair/e_chair))
-		var/obj/structure/bed/chair/e_chair/C = loc
+	if(istype(loc, /obj/structure/material/chair/e_chair))
+		var/obj/structure/material/chair/e_chair/C = loc
 		C.shock()
 	return

@@ -32,7 +32,7 @@
 	report("Antibodies detected: [antigens2string(C.antibodies)]", user)
 
 /obj/item/device/antibody_scanner/proc/report(var/text, mob/user as mob)
-	user << "\blue \icon[src] \The [src] beeps, \"[text]\""
+	user << SPAN_NOTE("\icon[src] \The [src] beeps, \"[text]\"")
 
 ///////////////VIRUS DISH///////////////
 
@@ -49,8 +49,8 @@
 /obj/item/weapon/virusdish/random
 	name = "virus sample"
 
-/obj/item/weapon/virusdish/random/New()
-	..()
+/obj/item/weapon/virusdish/random/initialize()
+	. = ..()
 	src.virus2 = new /datum/disease2/disease
 	src.virus2.makerandom()
 	growth = rand(5, 50)
@@ -106,8 +106,9 @@
 	var/stage = 1
 	var/analysed = 1
 
-/obj/item/weapon/diseasedisk/premade/New()
+/obj/item/weapon/diseasedisk/premade/initialize()
 	name = "blank GNA disk (stage: [stage])"
 	effect = new /datum/disease2/effectholder
 	effect.effect = new /datum/disease2/effect/invisible
 	effect.stage = stage
+	return ..()

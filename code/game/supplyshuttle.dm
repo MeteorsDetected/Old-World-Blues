@@ -56,11 +56,11 @@ var/list/mechtoys = list(
 /obj/structure/plasticflaps/attackby(obj/item/P, mob/user)
 	if(istype(P, /obj/item/weapon/wirecutters))
 		playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
-		user << "<span class='notice'>You start to cut the plastic flaps.</span>"
-		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		user << SPAN_NOTE("You start to cut the plastic flaps.")
 		if(do_after(user, 10))
-			user << "<span class='notice'>You cut the plastic flaps.</span>"
-			new /obj/item/stack/material/plastic( src.loc, 4)
+			playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
+			user << SPAN_NOTE("You cut the plastic flaps.")
+			new /obj/item/stack/material/plastic(src.loc, 4)
 			qdel(src)
 		return
 	else
@@ -70,9 +70,9 @@ var/list/mechtoys = list(
 	if(istype(A) && A.checkpass(PASSGLASS))
 		return prob(60)
 
-	var/obj/structure/bed/B = A
+	var/obj/structure/material/bed/B = A
 	//if it's a bed/chair and someone is buckled, it will not pass
-	if (istype(A, /obj/structure/bed) && B.buckled_mob)
+	if (istype(A, /obj/structure/material/bed) && B.buckled_mob)
 		return 0
 
 	if(istype(A, /obj/vehicle))	//no vehicles
@@ -144,8 +144,8 @@ var/list/mechtoys = list(
 	var/points_per_process = 1
 	var/points_per_slip = 5
 	var/material_cost = list(
-		"phoron" = 5,
-		"platinum" = 5,
+		MATERIAL_PHORON = 5,
+		MATERIAL_PLATINUM = 5,
 	)
 	//control
 	var/ordernum
@@ -171,7 +171,7 @@ var/list/mechtoys = list(
 	// To stop things being sent to centcomm which should not be sent to centcomm.
 	// Recursively checks for these types.
 	proc/forbidden_atoms_check(atom/A)
-		if(istype(A,/mob/living))
+		if(isliving(A))
 			return 1
 		if(istype(A,/obj/item/weapon/disk/nuclear))
 			return 1

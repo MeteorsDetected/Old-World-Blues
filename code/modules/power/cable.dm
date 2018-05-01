@@ -67,21 +67,18 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/white
 	color = COLOR_WHITE
 
-/obj/structure/cable/New()
-	..()
-
+/obj/structure/cable/initialize()
+	. = ..()
 
 	// ensure d1 & d2 reflect the icon_state for entering and exiting cable
-
 	var/dash = findtext(icon_state, "-")
-
 	d1 = text2num( copytext( icon_state, 1, dash ) )
-
 	d2 = text2num( copytext( icon_state, dash+1 ) )
 
 	var/turf/T = src.loc			// hide if turf is not intact
+	if(level == 1)
+		hide(T.intact)
 
-	if(level==1) hide(T.intact)
 	cable_list += src //add it to the global cable list
 
 
@@ -189,13 +186,7 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/proc/shock(mob/user, prb, var/siemens_coeff = 1.0)
 	if(!prob(prb))
 		return 0
-	if (electrocute_mob(user, powernet, src, siemens_coeff))
-		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-		s.set_up(5, 1, src)
-		s.start()
-		if(usr.stunned)
-			return 1
-	return 0
+	return electrocute_mob(user, powernet, src, siemens_coeff)
 
 //explosion handling
 /obj/structure/cable/ex_act(severity)
@@ -213,11 +204,8 @@ By design, d1 is the smallest direction and d2 is the highest
 				qdel(src)
 	return
 
-obj/structure/cable/proc/cableColor(var/colorC)
-	var/color_n = "#DD0000"
-	if(colorC)
-		color_n = colorC
-	color = color_n
+/obj/structure/cable/proc/cableColor(var/colorC)
+	color = colorC ? colorC : "#DD0000"
 
 /////////////////////////////////////////////////
 // Cable laying helpers
@@ -476,7 +464,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	w_class = ITEM_SIZE_SMALL
 	throw_speed = 2
 	throw_range = 5
-	matter = list(DEFAULT_WALL_MATERIAL = 50, "glass" = 20)
+	matter = list(MATERIAL_STEEL = 50, MATERIAL_GLASS = 20)
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "coil"
@@ -499,10 +487,12 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	return(OXYLOSS)
 
 /obj/item/stack/cable_coil/New(loc, length = MAXCOIL, var/param_color = null)
-	..()
-	src.amount = length
+	..(loc, length)
 	if (param_color) // It should be red by default, so only recolor it if parameter was specified.
 		color = param_color
+
+/obj/item/stack/cable_coil/initialize()
+	. = ..()
 	update_icon()
 	update_wclass()
 
@@ -511,23 +501,20 @@ obj/structure/cable/proc/cableColor(var/colorC)
 ///////////////////////////////////
 
 //you can use wires to heal robotics
-/obj/item/stack/cable_coil/attack(mob/M as mob, mob/user as mob)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
+/obj/item/stack/cable_coil/attack(mob/living/carbon/human/H, mob/user)
+	if(ishuman(H) && user.a_intent == I_HELP)
 		var/obj/item/organ/external/S = H.get_organ(user.zone_sel.selecting)
 		if(!S)
-			user << "<span class='warning'>[M] miss that body part!</span>"
+			user << SPAN_WARN("[H] miss that body part!")
 			return
 
-		if(S.robotic<ORGAN_ROBOT || user.a_intent != "help")
+		if(S.robotic < ORGAN_ROBOT || S.open == 3)
 			return ..()
 
-		if(S.burn_dam > 0 && use(1))
-			S.heal_damage(0,15,0,1)
-			user.visible_message("\red \The [user] repairs some burn damage on \the [M]'s [S.name] with \the [src].")
-			return
-		else
-			user << "Nothing to fix!"
+		var/use_amt = min(src.amount, ceil(S.burn_dam/3))
+		if(can_use(use_amt))
+			if(S.robo_repair(3*use_amt, BURN, "some damaged wiring", src, user))
+				src.use(use_amt)
 
 	else
 		return ..()
@@ -569,17 +556,17 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	set category = "Object"
 	var/mob/M = usr
 
-	if(ishuman(M) && !M.restrained() && !M.stat && !M.paralysis && ! M.stunned)
+	if(ishuman(M) && !M.incapacitated())
 		if(!istype(usr.loc,/turf)) return
 		if(src.amount <= 14)
 			usr << "\red You need at least 15 lengths to make restraints!"
 			return
 		var/obj/item/weapon/handcuffs/cable/B = new /obj/item/weapon/handcuffs/cable(usr.loc)
 		B.color = color
-		usr << "<span class='notice'>You wind some cable together to make some restraints.</span>"
+		usr << SPAN_NOTE("You wind some cable together to make some restraints.")
 		src.use(15)
 	else
-		usr << "\blue You cannot do that."
+		usr << SPAN_NOTE("You cannot do that.")
 	..()
 
 /obj/item/stack/cable_coil/cyborg/verb/set_colour()
@@ -610,19 +597,11 @@ obj/structure/cable/proc/cableColor(var/colorC)
 // Items usable on a cable coil :
 //   - Wirecutters : cut them duh !
 //   - Cable coil : merge cables
-/obj/item/stack/cable_coil/proc/can_merge(var/obj/item/stack/cable_coil/C)
-	return color == C.color
+/obj/item/stack/cable_coil/can_merge(var/obj/item/stack/cable_coil/C)
+	return istype(C) && color == C.color
 
-/obj/item/stack/cable_coil/cyborg/can_merge()
-	return 1
-
-/obj/item/stack/cable_coil/transfer_to(obj/item/stack/cable_coil/S)
-	if(!istype(S))
-		return
-	if(!can_merge(S))
-		return
-
-	..()
+/obj/item/stack/cable_coil/cyborg/can_merge(var/obj/item/stack/cable_coil/C)
+	return istype(C)
 
 /obj/item/stack/cable_coil/use()
 	. = ..()
@@ -862,10 +841,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	randpixel = 3
 
 /obj/item/stack/cable_coil/cut/New(loc)
-	..()
-	src.amount = rand(1,2)
-	update_icon()
-	update_wclass()
+	..(loc, rand(1,2))
 
 /obj/item/stack/cable_coil/red
 	color = COLOR_RED
@@ -891,6 +867,6 @@ obj/structure/cable/proc/cableColor(var/colorC)
 /obj/item/stack/cable_coil/white
 	color = COLOR_WHITE
 
-/obj/item/stack/cable_coil/random/New()
+/obj/item/stack/cable_coil/random/initialize()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
-	..()
+	. = ..()

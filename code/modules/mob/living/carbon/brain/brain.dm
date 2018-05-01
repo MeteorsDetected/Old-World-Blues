@@ -9,11 +9,9 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "brain1"
 
-	New()
-		var/datum/reagents/R = new/datum/reagents(1000)
-		reagents = R
-		R.my_atom = src
-		..()
+	initialize()
+		create_reagents(1000)
+		. = ..()
 
 	Destroy()
 		if(key)				//If there is a mob connected to this thing. Have to check key twice to avoid false death reporting.
@@ -30,7 +28,7 @@
 				return 1
 		if (ishuman(other))
 			return 1
-		if (istype(other, /mob/living/carbon/slime))
+		if (isslime(other))
 			return 1
 		return ..()
 

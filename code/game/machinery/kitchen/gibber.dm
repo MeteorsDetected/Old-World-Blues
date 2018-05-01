@@ -22,21 +22,20 @@
 /obj/machinery/gibber/autogibber
 	var/turf/input_plate
 
-/obj/machinery/gibber/autogibber/New()
-	..()
-	spawn(5)
-		for(var/i in cardinal)
-			var/obj/machinery/mineral/input/input_obj = locate( /obj/machinery/mineral/input, get_step(src.loc, i) )
-			if(input_obj)
-				if(isturf(input_obj.loc))
-					input_plate = input_obj.loc
-					gib_throw_dir = i
-					qdel(input_obj)
-					break
+/obj/machinery/gibber/autogibber/initialize()
+	. = ..()
+	for(var/i in cardinal)
+		var/obj/machinery/mineral/input/input_obj = locate( /obj/machinery/mineral/input, get_step(src.loc, i) )
+		if(input_obj)
+			if(isturf(input_obj.loc))
+				input_plate = input_obj.loc
+				gib_throw_dir = i
+				qdel(input_obj)
+				break
 
-		if(!input_plate)
-			log_misc("a [src] didn't find an input plate.")
-			return
+	if(!input_plate)
+		log_misc("a [src] didn't find an input plate.")
+		return
 
 /obj/machinery/gibber/autogibber/Bumped(var/atom/A)
 	if(!input_plate) return
@@ -44,15 +43,9 @@
 	if(ismob(A))
 		var/mob/M = A
 
-		if(M.loc == input_plate
-		)
-			M.loc = src
+		if(M.loc == input_plate)
+			M.forceMove(src)
 			M.gib()
-
-
-/obj/machinery/gibber/New()
-	..()
-	src.overlays += image('icons/obj/kitchen.dmi', "grjam")
 
 /obj/machinery/gibber/update_icon()
 	overlays.Cut()
@@ -69,28 +62,27 @@
 
 /obj/machinery/gibber/relaymove(mob/user as mob)
 	src.go_out()
-	return
 
 /obj/machinery/gibber/attack_hand(mob/user as mob)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(operating)
-		user << "<span class='danger'>The gibber is locked and running, wait for it to finish.</span>"
+		user << SPAN_DANG("The gibber is locked and running, wait for it to finish.")
 		return
 	else
 		src.startgibbing(user)
 
 /obj/machinery/gibber/examine()
 	. = ..()
-	usr << "The safety guard is [emagged ? "<span class='danger'>disabled</span>" : "enabled"]."
+	usr << "The safety guard is [emagged ? SPAN_DANG("disabled") : "enabled"]."
 
 /obj/machinery/gibber/emag_act(var/remaining_charges, var/mob/user)
 	emagged = !emagged
-	user << "<span class='danger'>You [emagged ? "disable" : "enable"] the gibber safety guard.</span>"
+	user << SPAN_DANG("You [emagged ? "disable" : "enable"] the gibber safety guard.")
 	return 1
 
-/obj/machinery/gibber/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
-	if(grab.state < GRAB_NECK)
+/obj/machinery/gibber/affect_grab(var/mob/user, var/mob/target, var/state)
+	if(state < GRAB_NECK)
 		user << SPAN_DANG("You need a better grip to do that!")
 		return FALSE
 	move_into_gibber(user, target)
@@ -105,7 +97,7 @@
 		..()
 
 /obj/machinery/gibber/MouseDrop_T(mob/target, mob/user)
-	if(user.stat || user.restrained())
+	if(user.incapacitated())
 		return
 	move_into_gibber(user,target)
 
@@ -119,7 +111,7 @@
 		user << SPAN_DANG("The gibber is locked and running, wait for it to finish.")
 		return
 
-	if(!(istype(victim, /mob/living/carbon)) && !(istype(victim, /mob/living/simple_animal)) )
+	if(!iscarbon(victim) && !isanimal(victim))
 		user << SPAN_DANG("This is not suitable for the gibber!")
 		return
 
@@ -146,24 +138,20 @@
 	set name = "Empty Gibber"
 	set src in oview(1)
 
-	if (usr.stat != 0)
+	if (usr.incapacitated())
 		return
 	src.go_out()
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/gibber/proc/go_out()
 	if(operating || !src.occupant)
 		return
 	for(var/obj/O in src)
 		O.loc = src.loc
-	if (src.occupant.client)
-		src.occupant.client.eye = src.occupant.client.mob
-		src.occupant.client.perspective = MOB_PERSPECTIVE
-	src.occupant.loc = src.loc
+	src.occupant.forceMove(src.loc)
+	src.occupant.reset_view()
 	src.occupant = null
 	update_icon()
-	return
 
 
 /obj/machinery/gibber/proc/startgibbing(mob/user as mob)
@@ -183,7 +171,7 @@
 	var/slab_nutrition = src.occupant.nutrition / 15
 
 	// Some mobs have specific meat item types.
-	if(istype(src.occupant,/mob/living/simple_animal))
+	if(isanimal(src.occupant))
 		var/mob/living/simple_animal/critter = src.occupant
 		if(critter.meat_amount)
 			slab_count = critter.meat_amount

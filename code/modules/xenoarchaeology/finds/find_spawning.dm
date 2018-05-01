@@ -5,11 +5,15 @@
 	var/find_type = 0
 
 /obj/item/weapon/archaeological_find/New(loc, var/new_item_type)
+	..()
 	if(new_item_type)
 		find_type = new_item_type
 	else
 		find_type = rand(1,34)	//update this when you add new find types
 
+
+/obj/item/weapon/archaeological_find/initialize()
+	. = ..()
 	var/item_type = "object"
 	icon_state = "unknown[rand(1,4)]"
 	var/additional_desc = ""
@@ -22,7 +26,7 @@
 
 	if(prob(40))
 		material_descriptor = pick("rusted ","dusty ","archaic ","fragile ")
-	source_material = pick("cordite","quadrinium",DEFAULT_WALL_MATERIAL,"titanium","aluminium","ferritic-alloy","plasteel","duranium")
+	source_material = pick("cordite","quadrinium","steel","titanium","aluminium","ferritic-alloy","plasteel","duranium")
 
 	var/talkative = 0
 	if(prob(5))
@@ -411,7 +415,7 @@
 				new_item = new /obj/item/clothing/mask/gas(src.loc)
 	var/decorations = ""
 	if(apply_material_decorations)
-		source_material = pick("cordite","quadrinium",DEFAULT_WALL_MATERIAL,"titanium","aluminium","ferritic-alloy","plasteel","duranium")
+		source_material = pick("cordite","quadrinium","steel","titanium","aluminium","ferritic-alloy","plasteel","duranium")
 		desc = "A [material_descriptor ? "[material_descriptor] " : ""][item_type] made of [source_material], all craftsmanship is of [pick("the lowest","low","average","high","the highest")] quality."
 
 		var/list/descriptors = list()

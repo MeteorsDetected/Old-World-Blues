@@ -18,15 +18,9 @@
 /mob/living/silicon/isSynthetic()
 	return 1
 
-/mob/proc/isMonkey()
-	return 0
-
-/mob/living/carbon/human/isMonkey()
-	return istype(species, /datum/species/monkey)
-
 proc/isdeaf(A)
-	if(istype(A, /mob))
-		var/mob/M = A
+	if(isliving(A))
+		var/mob/living/M = A
 		return (M.sdisabilities & DEAF) || M.ear_deaf
 	return 0
 
@@ -34,7 +28,7 @@ proc/hasorgans(A) // Fucking really??
 	return ishuman(A)
 
 proc/iscuffed(A)
-	if(istype(A, /mob/living/carbon))
+	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1
@@ -150,7 +144,7 @@ var/list/global/nearest_part = list(
 // Emulates targetting a specific body part, and miss chances
 // May return null if missed
 // miss_chance_mod may be negative.
-/proc/get_zone_with_miss_chance(zone, var/mob/target, var/miss_chance_mod = 0, var/ranged_attack=0)
+/proc/get_zone_with_miss_chance(zone, var/mob/living/target, var/miss_chance_mod = 0, var/ranged_attack=0)
 	zone = check_zone(zone)
 
 	var/miss_chance = 0
@@ -322,15 +316,8 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 			else
 				M.client.eye = locate(dd_range(1,M.loc.x+rand(-strength,strength),world.maxx),dd_range(1,M.loc.y+rand(-strength,strength),world.maxy),M.loc.z)
 			sleep(1)
-		M.client.eye=oldeye
+		M.client.eye = oldeye
 		M.shakecamera = 0
-
-
-/proc/findname(msg)
-	for(var/mob/M in mob_list)
-		if (M.real_name == text("[msg]"))
-			return 1
-	return 0
 
 
 /mob/proc/abiotic(var/full_body = 0)
@@ -389,7 +376,7 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 				hud_used.action_intent.icon_state = I_HELP
 
 proc/is_blind(A)
-	if(istype(A, /mob/living/carbon))
+	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.sdisabilities & BLIND || C.blinded)
 			return 1
@@ -437,7 +424,7 @@ proc/is_blind(A)
 				name = realname
 
 	for(var/mob/M in player_list)
-		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || (M.client.holder && !is_mentor(M.client))) && (M.client.prefs.chat_toggles & CHAT_DEAD))
+		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || M.client.holder) && (M.client.prefs.chat_toggles & CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
@@ -464,7 +451,7 @@ proc/is_blind(A)
 /proc/announce_ghost_joinleave(O, var/joined_ghosts = 1, var/message = "")
 	var/client/C
 	//Accept any type, sort what we want here
-	if(istype(O, /mob))
+	if(ismob(O))
 		var/mob/M = O
 		if(M.client)
 			C = M.client

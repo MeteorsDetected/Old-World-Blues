@@ -2,7 +2,7 @@
 	name = "Maintenance Drone Control"
 	desc = "Used to monitor the station's drone population and the assembler that services them."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "power"
+	screen_icon = "power"
 	req_access = list(access_engine_equip)
 	circuit = /obj/item/weapon/circuitboard/drone_control
 
@@ -63,11 +63,11 @@
 			return
 
 		drone_call_area = t_area
-		usr << "<span class='notice'>You set the area selector to [drone_call_area].</span>"
+		usr << SPAN_NOTE("You set the area selector to [drone_call_area].")
 
 	else if (href_list["ping"])
 
-		usr << "<span class='notice'>You issue a maintenance request for all active drones, highlighting [drone_call_area].</span>"
+		usr << SPAN_NOTE("You issue a maintenance request for all active drones, highlighting [drone_call_area].")
 		for(var/mob/living/silicon/robot/drone/D in mob_list)
 			if(D.client && D.stat == DEAD)
 				D << "-- Maintenance drone presence requested in: [drone_call_area]."
@@ -76,7 +76,7 @@
 
 		var/mob/living/silicon/robot/drone/D = locate(href_list["resync"])
 
-		if(D.stat != 2)
+		if(D.stat != DEAD)
 			usr << "<span class='danger'>You issue a law synchronization directive for the drone.</span>"
 			D.law_resync()
 
@@ -84,7 +84,7 @@
 
 		var/mob/living/silicon/robot/drone/D = locate(href_list["shutdown"])
 
-		if(D.stat != 2)
+		if(D.stat != DEAD)
 			usr << "<span class='danger'>You issue a kill command for the unfortunate drone.</span>"
 			log_game("[key_name(usr)] issued kill order for [key_name(src)] from control console.", src)
 			D.shut_down()
@@ -99,7 +99,7 @@
 				continue
 
 			dronefab = fab
-			usr << "<span class='notice'>Drone fabricator located.</span>"
+			usr << SPAN_NOTE("Drone fabricator located.")
 			return
 
 		usr << "<span class='danger'>Unable to locate drone fabricator.</span>"
@@ -115,6 +115,6 @@
 			return
 
 		dronefab.produce_drones = !dronefab.produce_drones
-		usr << "<span class='notice'>You [dronefab.produce_drones ? "enable" : "disable"] drone production in the nearby fabricator.</span>"
+		usr << SPAN_NOTE("You [dronefab.produce_drones ? "enable" : "disable"] drone production in the nearby fabricator.")
 
 	src.updateUsrDialog()

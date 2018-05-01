@@ -43,7 +43,7 @@
 	anchored = 1.0
 	density = 1
 	var/moving = 0
-	var/datum/gas_mixture/air_contents = new()
+	var/datum/gas_mixture/air_contents
 
 
 
@@ -56,7 +56,7 @@
 
 
 // When destroyed by explosions, properly handle contents.
-obj/structure/ex_act(severity)
+/obj/structure/ex_act(severity)
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/AM in contents)
@@ -78,21 +78,18 @@ obj/structure/ex_act(severity)
 
 
 
-/obj/structure/transit_tube_pod/New(loc)
-	..(loc)
-
+/obj/structure/transit_tube_pod/initialize()
+	. = ..()
+	air_contents = new
 	air_contents.adjust_multi("oxygen", MOLES_O2STANDARD * 2, "nitrogen", MOLES_N2STANDARD)
 	air_contents.temperature = T20C
 
-	// Give auto tubes time to align before trying to start moving
-	spawn(5)
-		follow_tube()
+	follow_tube()
 
 
 
-/obj/structure/transit_tube/New(loc)
-	..(loc)
-
+/obj/structure/transit_tube/initialize()
+	. = ..()
 	if(tube_dirs == null)
 		init_dirs()
 
@@ -108,16 +105,11 @@ obj/structure/ex_act(severity)
 		AM << "<span class='info'>You slip under the tube.</span>"
 
 
-/obj/structure/transit_tube/station/New(loc)
-	..(loc)
-
-
-
 /obj/structure/transit_tube/station/Bumped(mob/AM as mob|obj)
-	if(!pod_moving && icon_state == "open" && istype(AM, /mob))
+	if(!pod_moving && icon_state == "open" && ismob(AM))
 		for(var/obj/structure/transit_tube_pod/pod in loc)
 			if(pod.contents.len)
-				AM << "<span class='notice'>The pod is already occupied.</span>"
+				AM << SPAN_NOTE("The pod is already occupied.")
 				return
 			else if(!pod.moving && pod.dir in directions())
 				AM.loc = pod
@@ -377,7 +369,7 @@ obj/structure/ex_act(severity)
 //  the station, try to exit. If the direction matches one of the station's
 //  tube directions, launch the pod in that direction.
 /obj/structure/transit_tube_pod/relaymove(mob/mob, direction)
-	if(istype(mob, /mob) && mob.client)
+	if(ismob(mob) && mob.client)
 		// If the pod is not in a tube at all, you can get out at any time.
 		if(!(locate(/obj/structure/transit_tube) in loc))
 			mob.loc = loc

@@ -29,6 +29,8 @@
 
 /turf/simulated/mineral/New()
 
+	..()
+
 	spawn(0)
 		MineralSpread()
 
@@ -73,7 +75,7 @@
 		else if((istype(H.r_hand,/obj/item/weapon/pickaxe)) && H.hand)
 			attackby(H.r_hand,H)
 
-	else if(istype(AM,/mob/living/silicon/robot))
+	else if(isrobot(AM))
 		var/mob/living/silicon/robot/R = AM
 		if(istype(R.module_active,/obj/item/weapon/pickaxe))
 			attackby(R.module_active,R)
@@ -118,9 +120,12 @@
 
 	if (istype(W, /obj/item/device/measuring_tape))
 		var/obj/item/device/measuring_tape/P = W
-		user.visible_message("\blue[user] extends [P] towards [src].","\blue You extend [P] towards [src].")
-		if(do_after(user,25))
-			user << "\blue \icon[P] [src] has been excavated to a depth of [2*excavation_level]cm."
+		user.visible_message(
+			SPAN_NOTE("[user] extends [P] towards [src]."),
+			SPAN_NOTE("You extend [P] towards [src].")
+		)
+		if(do_after(user,25,src))
+			user << SPAN_NOTE("\icon[P] [src] has been excavated to a depth of [2*excavation_level]cm.")
 		return
 
 	if (istype(W, /obj/item/weapon/pickaxe))
@@ -154,7 +159,7 @@
 					artifact_debris()
 
 		if(do_after(user,P.digspeed))
-			user << "\blue You finish [P.drill_verb] the rock."
+			user << SPAN_NOTE("You finish [P.drill_verb] the rock.")
 
 			if(finds && finds.len)
 				var/datum/find/F = finds[1]
@@ -291,7 +296,7 @@
 	N.updateMineralOverlays(1)
 
 	if(rand(1,500) == 1)
-		visible_message("<span class='notice'>An old dusty crate was buried within!</span>")
+		visible_message(SPAN_NOTE("An old dusty crate was buried within!"))
 		new /obj/structure/closet/crate/secure/loot(src)
 
 
@@ -319,7 +324,7 @@
 		var/obj/effect/suspension_field/S = locate() in src
 		if(!S || S.field_type != get_responsive_reagent(F.find_type))
 			if(X)
-				visible_message("\red<b>[pick("[display_name] crumbles away into dust","[display_name] breaks apart")].</b>")
+				visible_message(SPAN_DANG("[pick("[display_name] crumbles away into dust","[display_name] breaks apart")]."))
 				qdel(X)
 
 	finds.Remove(F)
@@ -445,7 +450,7 @@
 
 		if(!do_after(user,40)) return
 
-		user << "\blue You dug a hole."
+		user << SPAN_NOTE("You dug a hole.")
 		gets_dug()
 
 	else if(istype(W,/obj/item/storage/bag/ore))
@@ -503,7 +508,7 @@
 
 /turf/simulated/floor/plating/airless/asteroid/Entered(atom/movable/M as mob|obj)
 	..()
-	if(istype(M,/mob/living/silicon/robot))
+	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		if(R.module)
 			if(istype(R.module_state_1,/obj/item/storage/bag/ore))

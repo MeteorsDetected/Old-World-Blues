@@ -18,7 +18,6 @@
 	var/isGlass = 1
 
 	var/label_text = ""
-	var/list/preloaded = null
 
 	var/list/can_be_placed_into = list(
 		/obj/machinery/chem_master,
@@ -39,26 +38,24 @@
 		/obj/machinery/apiary,
 		/mob/living/simple_animal/cow,
 		/mob/living/simple_animal/hostile/retaliate/goat,
-		/obj/machinery/computer/centrifuge,
+		/obj/machinery/centrifuge,
 		/obj/machinery/sleeper,
-		/obj/machinery/smartfridge/,
+		/obj/machinery/smartfridge,
 		/obj/machinery/biogenerator,
 		/obj/machinery/constructable_frame,
 		/obj/machinery/radiocarbon_spectrometer
 		)
 
 // Self procs //
+/obj/item/weapon/reagent_containers/glass/initialize()
+	. = ..()
+	if(isGlass)
+		unacidable = 1
 
-/obj/item/weapon/reagent_containers/glass/New()
-	..()
-	if(isGlass) unacidable = 1
 	if(!base_name)
 		base_name = name
 	else
 		update_name_label()
-	if(preloaded)
-		for(var/reagent in preloaded)
-			reagents.add_reagent(reagent, preloaded[reagent])
 
 /obj/item/weapon/reagent_containers/glass/proc/update_name_label()
 	if(label_text == "")
@@ -71,9 +68,9 @@
 		var/max_label_len = MAX_NAME_LEN - length(base_name)
 		var/tmp_label = sanitizeSafe(input(user, "Enter a label for [name]", "Label", label_text), max_label_len)
 		if(length(tmp_label) > max_label_len)
-			user << "<span class='notice'>The label can be at most [max_label_len] characters long.</span>"
+			user << SPAN_NOTE("The label can be at most [max_label_len] characters long.")
 		else
-			user << "<span class='notice'>You set the label to \"[tmp_label]\".</span>"
+			user << SPAN_NOTE("You set the label to \"[tmp_label]\".")
 			label_text = tmp_label
 			update_name_label()
 
@@ -146,32 +143,32 @@
 		if(reagents && reagents.total_volume)
 			user.visible_message(
 				"<span class='warning'>[user.name] splashed the solution of [src] onto [target]</span>",
-				"<span class='notice'>You splash the solution onto [target].</span>"
+				SPAN_NOTE("You splash the solution onto [target].")
 			)
 			reagents.splash(target, reagents.total_volume)
 			return
 
 /obj/item/weapon/reagent_containers/glass/self_feed_message(var/mob/user)
-	user << "<span class='notice'>You swallow a gulp from \the [src].</span>"
+	user << SPAN_NOTE("You swallow a gulp from \the [src].")
 
 /obj/item/weapon/reagent_containers/glass/feed_sound(var/mob/user)
 	playsound(user.loc, 'sound/items/drink.ogg', rand(10, 50), 1)
 
 /obj/item/weapon/reagent_containers/glass/standard_feed_mob(var/mob/user, var/mob/target)
 	if(!is_open_container())
-		user << "<span class='notice'>You need to open [src] first!</span>"
+		user << SPAN_NOTE("You need to open [src] first!")
 		return 1
 	return ..()
 
 /obj/item/weapon/reagent_containers/glass/standard_dispenser_refill(var/mob/user, var/obj/structure/reagent_dispensers/target)
 	if(!is_open_container())
-		user << "<span class='notice'>You need to open [src] first!</span>"
+		user << SPAN_NOTE("You need to open [src] first!")
 		return 1
 	return ..()
 
 /obj/item/weapon/reagent_containers/glass/standard_pour_into(var/mob/user, var/atom/target)
 	if(!is_open_container())
-		user << "<span class='notice'>You need to open [src] first!</span>"
+		user << SPAN_NOTE("You need to open [src] first!")
 		return 1
 	return ..()
 
@@ -207,7 +204,7 @@ var/global/list/broken_bottle_icon_cache = list()
 		new/obj/item/weapon/material/shard(newloc)
 
 	if(reagents)
-		against.visible_message("<span class='notice'>The contents of \the [src] splash all over [against]!</span>")
+		against.visible_message(SPAN_NOTE("The contents of \the [src] splash all over [against]!"))
 		reagents.splash(against, reagents.total_volume)
 		qdel(reagents)
 
@@ -217,6 +214,7 @@ var/global/list/broken_bottle_icon_cache = list()
 	attack_verb = list("stabbed", "slashed", "attacked")
 	sharp = 1
 	icon = get_broken_icon()
+	center_of_mass["y"] = 16
 
 	playsound(src, "shatter", 70, 1)
 

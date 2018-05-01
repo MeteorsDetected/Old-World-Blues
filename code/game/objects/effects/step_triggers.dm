@@ -134,7 +134,7 @@
 			return
 		var/list/disk_search = A.search_contents_for(/obj/item/weapon/disk/nuclear)
 		if(!isemptylist(disk_search))
-			if(istype(A, /mob/living))
+			if(isliving(A))
 				var/mob/living/MM = A
 				if(MM.client && !MM.stat)
 					MM << "\red Something you are carrying is preventing you from leaving. Don't play stupid; you know exactly what it is."

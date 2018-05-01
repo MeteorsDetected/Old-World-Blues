@@ -19,7 +19,8 @@
 	oxygentanks = 0
 
 
-/obj/structure/dispenser/New()
+/obj/structure/dispenser/initialize()
+	. = ..()
 	update_icon()
 
 
@@ -53,11 +54,11 @@
 			user.drop_from_inventory(I, src)
 			oxytanks.Add(I)
 			oxygentanks++
-			user << "<span class='notice'>You put [I] in [src].</span>"
+			user << SPAN_NOTE("You put [I] in [src].")
 			if(oxygentanks < 5)
 				update_icon()
 		else
-			user << "<span class='notice'>[src] is full.</span>"
+			user << SPAN_NOTE("[src] is full.")
 		updateUsrDialog()
 		return
 	if(istype(I, /obj/item/weapon/tank/phoron))
@@ -65,24 +66,24 @@
 			user.drop_from_inventory(I, src)
 			platanks.Add(I)
 			phorontanks++
-			user << "<span class='notice'>You put [I] in [src].</span>"
+			user << SPAN_NOTE("You put [I] in [src].")
 			if(oxygentanks < 6)
 				update_icon()
 		else
-			user << "<span class='notice'>[src] is full.</span>"
+			user << SPAN_NOTE("[src] is full.")
 		updateUsrDialog()
 		return
 	if(istype(I, /obj/item/weapon/wrench))
 		if(anchored)
-			user << "<span class='notice'>You lean down and unwrench [src].</span>"
+			user << SPAN_NOTE("You lean down and unwrench [src].")
 			anchored = 0
 		else
-			user << "<span class='notice'>You wrench [src] into place.</span>"
+			user << SPAN_NOTE("You wrench [src] into place.")
 			anchored = 1
 		return
 
 /obj/structure/dispenser/Topic(href, href_list)
-	if(usr.stat || usr.restrained())
+	if(usr.incapacitated())
 		return
 	if(Adjacent(usr))
 		usr.set_machine(src)
@@ -95,7 +96,7 @@
 				else
 					O = new /obj/item/weapon/tank/oxygen(loc)
 				O.loc = loc
-				usr << "<span class='notice'>You take [O] out of [src].</span>"
+				usr << SPAN_NOTE("You take [O] out of [src].")
 				oxygentanks--
 				update_icon()
 		if(href_list["phoron"])
@@ -107,7 +108,7 @@
 				else
 					P = new /obj/item/weapon/tank/phoron(loc)
 				P.loc = loc
-				usr << "<span class='notice'>You take [P] out of [src].</span>"
+				usr << SPAN_NOTE("You take [P] out of [src].")
 				phorontanks--
 				update_icon()
 		add_fingerprint(usr)

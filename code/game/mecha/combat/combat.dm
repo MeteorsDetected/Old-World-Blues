@@ -23,7 +23,7 @@
 	if(internal_damage&MECHA_INT_CONTROL_LOST)
 		target = safepick(oview(1,src))
 	if(!melee_can_hit || !istype(target, /atom)) return
-	if(istype(target, /mob/living))
+	if(isliving(target))
 		var/mob/living/M = target
 		if(src.occupant.a_intent == I_HURT)
 			playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
@@ -99,7 +99,7 @@
 						target:attackby(src,src.occupant)
 					else if(prob(5))
 						target:dismantle_wall(1)
-						src.occupant_message("\blue You smash through the wall.")
+						src.occupant_message(SPAN_NOTE("You smash through the wall."))
 						src.visible_message("<b>[src.name] smashes through the wall</b>")
 						playsound(src, 'sound/weapons/smash.ogg', 50, 1)
 					melee_can_hit = 0
@@ -110,8 +110,8 @@
 
 /*
 /obj/mecha/combat/proc/mega_shake(target)
-	if(!istype(target, /obj) && !istype(target, /mob)) return
-	if(istype(target, /mob))
+	if(!isobj(target) && !ismob(target)) return
+	if(ismob(target))
 		var/mob/M = target
 		M.make_dizzy(3)
 		M.adjustBruteLoss(1)
@@ -242,7 +242,7 @@
 /obj/mecha/combat/moved_inside(var/mob/living/carbon/human/H as mob)
 	if(..())
 		if(H.client)
-			H.client.mouse_pointer_icon = file("icons/mecha/mecha_mouse.dmi")
+			H.client.mouse_pointer_icon = 'icons/mecha/mecha_mouse.dmi'
 		return 1
 	else
 		return 0

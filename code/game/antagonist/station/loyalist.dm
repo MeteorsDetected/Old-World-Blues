@@ -36,9 +36,9 @@ var/datum/antagonist/loyalists/loyalists
 		return
 	global_objectives = list()
 	for(var/mob/living/carbon/human/player in mob_list)
-		if(!player.mind || player.stat==2 || !(player.mind.assigned_role in command_positions))
+		if(!player.mind || player.stat == DEAD || !(player.mind.assigned_role in command_positions))
 			continue
 		var/datum/objective/protect/loyal_obj = new
 		loyal_obj.target = player.mind
-		loyal_obj.explanation_text = "Protect [player.real_name], the [player.mind.assigned_role]."
+		loyal_obj.update_explanation()
 		global_objectives += loyal_obj

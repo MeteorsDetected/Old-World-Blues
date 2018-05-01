@@ -15,7 +15,8 @@
 	var/signs = 0	//maximum capacity hardcoded below
 
 
-/obj/structure/janitorialcart/New()
+/obj/structure/janitorialcart/initialize()
+	. = ..()
 	create_reagents(100)
 
 
@@ -32,7 +33,7 @@
 		mybag = I
 		update_icon()
 		updateUsrDialog()
-		user << "<span class='notice'>You put [I] into [src].</span>"
+		user << SPAN_NOTE("You put [I] into [src].")
 
 	else if(istype(I, /obj/item/weapon/mop))
 		if(I.reagents.total_volume < I.reagents.maximum_volume)	//if it's not completely soaked we assume they want to wet it, otherwise store it
@@ -40,7 +41,7 @@
 				user << "[src] is out of water!</span>"
 			else
 				reagents.trans_to_obj(I, 5)	//
-				user << "<span class='notice'>You wet [I] in [src].</span>"
+				user << SPAN_NOTE("You wet [I] in [src].")
 				playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 				return
 		if(!mymop)
@@ -48,21 +49,21 @@
 			mymop = I
 			update_icon()
 			updateUsrDialog()
-			user << "<span class='notice'>You put [I] into [src].</span>"
+			user << SPAN_NOTE("You put [I] into [src].")
 
 	else if(istype(I, /obj/item/weapon/reagent_containers/spray) && !myspray)
 		user.drop_from_inventory(I, src)
 		myspray = I
 		update_icon()
 		updateUsrDialog()
-		user << "<span class='notice'>You put [I] into [src].</span>"
+		user << SPAN_NOTE("You put [I] into [src].")
 
 	else if(istype(I, /obj/item/device/lightreplacer) && !myreplacer)
 		user.drop_from_inventory(I, src)
 		myreplacer = I
 		update_icon()
 		updateUsrDialog()
-		user << "<span class='notice'>You put [I] into [src].</span>"
+		user << SPAN_NOTE("You put [I] into [src].")
 
 	else if(istype(I, /obj/item/weapon/caution))
 		if(signs < 4)
@@ -70,9 +71,9 @@
 			signs++
 			update_icon()
 			updateUsrDialog()
-			user << "<span class='notice'>You put [I] into [src].</span>"
+			user << SPAN_NOTE("You put [I] into [src].")
 		else
-			user << "<span class='notice'>[src] can't hold any more signs.</span>"
+			user << SPAN_NOTE("[src] can't hold any more signs.")
 
 	else if(mybag)
 		mybag.attackby(I, user)
@@ -109,29 +110,29 @@
 			if("garbage")
 				if(mybag)
 					user.put_in_hands(mybag)
-					user << "<span class='notice'>You take [mybag] from [src].</span>"
+					user << SPAN_NOTE("You take [mybag] from [src].")
 					mybag = null
 			if("mop")
 				if(mymop)
 					user.put_in_hands(mymop)
-					user << "<span class='notice'>You take [mymop] from [src].</span>"
+					user << SPAN_NOTE("You take [mymop] from [src].")
 					mymop = null
 			if("spray")
 				if(myspray)
 					user.put_in_hands(myspray)
-					user << "<span class='notice'>You take [myspray] from [src].</span>"
+					user << SPAN_NOTE("You take [myspray] from [src].")
 					myspray = null
 			if("replacer")
 				if(myreplacer)
 					user.put_in_hands(myreplacer)
-					user << "<span class='notice'>You take [myreplacer] from [src].</span>"
+					user << SPAN_NOTE("You take [myreplacer] from [src].")
 					myreplacer = null
 			if("sign")
 				if(signs)
 					var/obj/item/weapon/caution/Sign = locate() in src
 					if(Sign)
 						user.put_in_hands(Sign)
-						user << "<span class='notice'>You take \a [Sign] from [src].</span>"
+						user << SPAN_NOTE("You take \a [Sign] from [src].")
 						signs--
 					else
 						warning("[src] signs ([signs]) didn't match contents")
@@ -156,7 +157,7 @@
 
 
 //old style retardo-cart
-/obj/structure/bed/chair/janicart
+/obj/structure/material/chair/janicart
 	name = "janicart"
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "pussywagon"
@@ -169,12 +170,12 @@
 	var/callme = "pimpin' ride"	//how do people refer to it?
 
 
-/obj/structure/bed/chair/janicart/New()
+/obj/structure/material/chair/janicart/initialize()
+	. = ..()
 	create_reagents(100)
-	update_layer()
 
 
-/obj/structure/bed/chair/janicart/examine(mob/user, return_dist=1)
+/obj/structure/material/chair/janicart/examine(mob/user, return_dist=1)
 	.=..()
 	if(.>1)
 		return
@@ -184,23 +185,23 @@
 		user << "\A [mybag] is hanging on the [callme]."
 
 
-/obj/structure/bed/chair/janicart/attackby(obj/item/I, mob/user)
+/obj/structure/material/chair/janicart/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/weapon/mop))
 		if(reagents.total_volume > 1)
 			reagents.trans_to_obj(I, 2)
-			user << "<span class='notice'>You wet [I] in the [callme].</span>"
+			user << SPAN_NOTE("You wet [I] in the [callme].")
 			playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 		else
-			user << "<span class='notice'>This [callme] is out of water!</span>"
+			user << SPAN_NOTE("This [callme] is out of water!")
 	else if(istype(I, /obj/item/key))
 		user << "Hold [I] in one of your hands while you drive this [callme]."
 	else if(istype(I, /obj/item/storage/bag/trash))
-		user << "<span class='notice'>You hook the trashbag onto the [callme].</span>"
+		user << SPAN_NOTE("You hook the trashbag onto the [callme].")
 		user.drop_from_inventory(I, src)
 		mybag = I
 
 
-/obj/structure/bed/chair/janicart/attack_hand(mob/user)
+/obj/structure/material/chair/janicart/attack_hand(mob/user)
 	if(mybag)
 		user.put_in_hands(mybag)
 		mybag = null
@@ -208,36 +209,36 @@
 		..()
 
 
-/obj/structure/bed/chair/janicart/relaymove(mob/user, direction)
-	if(user.stat || user.stunned || user.weakened || user.paralysis)
+/obj/structure/material/chair/janicart/relaymove(mob/user, direction)
+	if(user.incapacitated())
 		unbuckle_mob()
 	if(istype(user.l_hand, /obj/item/key) || istype(user.r_hand, /obj/item/key))
 		step(src, direction)
 		update_mob()
 	else
-		user << "<span class='notice'>You'll need the keys in one of your hands to drive this [callme].</span>"
+		user << SPAN_NOTE("You'll need the keys in one of your hands to drive this [callme].")
 
 
-/obj/structure/bed/chair/janicart/Move()
+/obj/structure/material/chair/janicart/Move()
 	..()
 	if(buckled_mob)
 		if(buckled_mob.buckled == src)
 			buckled_mob.loc = loc
 
 
-/obj/structure/bed/chair/janicart/post_buckle_mob(mob/living/M)
+/obj/structure/material/chair/janicart/post_buckle_mob(mob/living/M)
 	update_mob()
 	return ..()
 
 
-/obj/structure/bed/chair/janicart/update_layer()
+/obj/structure/material/chair/janicart/update_layer()
 	if(dir == SOUTH)
 		layer = FLY_LAYER
 	else
 		layer = OBJ_LAYER
 
 
-/obj/structure/bed/chair/janicart/unbuckle_mob()
+/obj/structure/material/chair/janicart/unbuckle_mob()
 	var/mob/living/M = ..()
 	if(M)
 		M.pixel_x = 0
@@ -245,18 +246,7 @@
 	return M
 
 
-/obj/structure/bed/chair/janicart/set_dir()
-	..()
-	update_layer()
-	if(buckled_mob)
-		if(buckled_mob.loc != loc)
-			buckled_mob.buckled = null //Temporary, so Move() succeeds.
-			buckled_mob.buckled = src //Restoring
-
-	update_mob()
-
-
-/obj/structure/bed/chair/janicart/proc/update_mob()
+/obj/structure/material/chair/janicart/proc/update_mob()
 	if(buckled_mob)
 		buckled_mob.set_dir(dir)
 		switch(dir)
@@ -274,7 +264,7 @@
 				buckled_mob.pixel_y = 7
 
 
-/obj/structure/bed/chair/janicart/bullet_act(var/obj/item/projectile/Proj)
+/obj/structure/material/chair/janicart/bullet_act(var/obj/item/projectile/Proj)
 	if(buckled_mob)
 		if(prob(85))
 			return buckled_mob.bullet_act(Proj)

@@ -1,27 +1,28 @@
 // PRESETS
 var/global/list/station_networks = list(
-										NETWORK_CIVILIAN_EAST,
-										NETWORK_CIVILIAN_WEST,
-										NETWORK_COMMAND,
-										NETWORK_ENGINE,
-										NETWORK_ENGINEERING,
-										NETWORK_ENGINEERING_OUTPOST,
-										NETWORK_EXODUS,
-										NETWORK_MEDICAL,
-										NETWORK_MINE,
-										NETWORK_RESEARCH,
-										NETWORK_RESEARCH_OUTPOST,
-										NETWORK_ROBOTS,
-										NETWORK_PRISON,
-										NETWORK_SECURITY
-										)
+	NETWORK_CIVILIAN_EAST,
+	NETWORK_CIVILIAN_WEST,
+	NETWORK_COMMAND,
+	NETWORK_ENGINE,
+	NETWORK_ENGINEERING,
+	NETWORK_ENGINEERING_OUTPOST,
+	NETWORK_EXODUS,
+	NETWORK_MEDICAL,
+	NETWORK_MINE,
+	NETWORK_RESEARCH,
+	NETWORK_RESEARCH_OUTPOST,
+	NETWORK_ROBOTS,
+	NETWORK_PRISON,
+	NETWORK_SECURITY
+)
 var/global/list/engineering_networks = list(
-										NETWORK_ENGINE,
-										NETWORK_ENGINEERING,
-										NETWORK_ENGINEERING_OUTPOST,
-										"Atmosphere Alarms",
-										"Fire Alarms",
-										"Power Alarms")
+	NETWORK_ENGINE,
+	NETWORK_ENGINEERING,
+	NETWORK_ENGINEERING_OUTPOST,
+	"Atmosphere Alarms",
+	"Fire Alarms",
+	"Power Alarms"
+)
 /obj/machinery/camera/network/crescent
 	network = list(NETWORK_CRESCENT)
 
@@ -75,8 +76,8 @@ var/global/list/engineering_networks = list(
 
 // EMP
 
-/obj/machinery/camera/emp_proof/New()
-	..()
+/obj/machinery/camera/emp_proof/initialize()
+	. = ..()
 	upgradeEmpProof()
 
 // X-RAY
@@ -93,14 +94,14 @@ var/global/list/engineering_networks = list(
 /obj/machinery/camera/xray/research
 	network = list(NETWORK_RESEARCH)
 
-/obj/machinery/camera/xray/New()
-	..()
+/obj/machinery/camera/xray/initialize()
+	. = ..()
 	upgradeXRay()
 
 // MOTION
 
-/obj/machinery/camera/motion/New()
-	..()
+/obj/machinery/camera/motion/initialize()
+	. = ..()
 	upgradeMotion()
 
 /obj/machinery/camera/motion/engineering_outpost
@@ -115,38 +116,19 @@ var/global/list/engineering_networks = list(
 /obj/machinery/camera/all/command
 	network = list(NETWORK_COMMAND)
 
-/obj/machinery/camera/all/New()
-	..()
+/obj/machinery/camera/all/initialize()
+	. = ..()
 	upgradeEmpProof()
 	upgradeXRay()
 	upgradeMotion()
-
-// AUTONAME
-/obj/machinery/camera/autoname
-	var/number = 0 //camera number in area
-
-//This camera type automatically sets it's name to whatever the area that it's in is called.
-/obj/machinery/camera/autoname/New()
-	..()
-	spawn(10)
-		number = 1
-		var/area/A = get_area(src)
-		if(A)
-			for(var/obj/machinery/camera/autoname/C in machines)
-				if(C == src) continue
-				var/area/CA = get_area(C)
-				if(CA.type == A.type)
-					if(C.number)
-						number = max(number, C.number+1)
-			c_tag = "[A.name] #[number]"
-		invalidateCameraCache()
 
 
 // CHECKS
 
 /obj/machinery/camera/proc/isEmpProof()
-	var/O = locate(/obj/item/stack/material/osmium) in assembly.upgrades
-	return O
+	for(var/obj/item/stack/material/O in assembly.upgrades)
+		if(O.get_material() == MATERIAL_OSMIUM)
+			return O
 
 /obj/machinery/camera/proc/isXRay()
 	if(!assembly)

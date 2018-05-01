@@ -15,15 +15,17 @@
 
 	var/list/choices = list()
 	for(var/mob/living/M in view(1,src))
-		if(!istype(M,/mob/living/silicon) && Adjacent(M))
+		if(!issilicon(M) && Adjacent(M))
 			choices += M
 	choices -= src
 
 	var/mob/living/T = input(src,"Who do you wish to tackle?") as null|anything in choices
 
-	if(!T || !src || src.stat) return
+	if(!T || !src || src.incapacitated())
+		return
 
-	if(!Adjacent(T)) return
+	if(!Adjacent(T))
+		return
 
 	if(last_special > world.time)
 		return
@@ -63,15 +65,17 @@
 
 	var/list/choices = list()
 	for(var/mob/living/M in view(6,src))
-		if(!istype(M,/mob/living/silicon))
+		if(!issilicon(M))
 			choices += M
 	choices -= src
 
 	var/mob/living/T = input(src,"Who do you wish to leap at?") as null|anything in choices
 
-	if(!T || !src || src.stat) return
+	if(!T || !src || src.incapacitated())
+		return
 
-	if(get_dist(get_turf(T), get_turf(src)) > 4) return
+	if(get_dist(get_turf(T), get_turf(src)) > 4)
+		return
 
 	if(last_special > world.time)
 		return
@@ -120,7 +124,6 @@
 
 	G.state = GRAB_PASSIVE
 	G.icon_state = "grabbed1"
-	G.synch()
 
 /mob/living/carbon/human/proc/gut()
 	set category = "Abilities"
@@ -168,6 +171,10 @@
 	var/target = null
 	var/text = null
 
+	if(stat)
+		src << "You're not in right state for doint that"
+		return
+
 	targets += getmobs() //Fill list, prompt user with list
 	target = input("Select a creature!", "Speak to creature", null, null) as null|anything in targets
 
@@ -187,7 +194,7 @@
 
 	log_say("[key_name(src)] communed to [key_name(M)]: [text]")
 
-	M << "\blue Like lead slabs crashing into the ocean, alien thoughts drop into your mind: [text]"
+	M << SPAN_NOTE("Like lead slabs crashing into the ocean, alien thoughts drop into your mind: [text]")
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.species.name == src.species.name)

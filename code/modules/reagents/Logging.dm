@@ -12,6 +12,7 @@
 
 	log_admin(logstr, T, R.log_is_important)
 
+ADMIN_VERB_ADD(/client/proc/view_chemical_reaction_logs, R_ADMIN|R_MOD)
 /client/proc/view_chemical_reaction_logs()
 	set name = "Show Chemical Reactions"
 	set category = "Admin"

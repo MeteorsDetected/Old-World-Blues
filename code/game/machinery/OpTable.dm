@@ -13,8 +13,8 @@
 
 	var/obj/machinery/computer/operating/computer = null
 
-/obj/machinery/optable/New()
-	..()
+/obj/machinery/optable/initialize()
+	. = ..()
 	for(var/dir in list(NORTH,EAST,SOUTH,WEST))
 		computer = locate(/obj/machinery/computer/operating, get_step(src, dir))
 		if(computer)
@@ -25,19 +25,15 @@
 
 	switch(severity)
 		if(1.0)
-			//SN src = null
 			qdel(src)
 			return
 		if(2.0)
 			if (prob(50))
-				//SN src = null
 				qdel(src)
 				return
 		if(3.0)
 			if (prob(25))
 				src.density = 0
-		else
-	return
 
 /obj/machinery/optable/blob_act()
 	if(prob(75))
@@ -47,7 +43,7 @@
 	//TODO: DNA3 hulk
 	/*
 	if (HULK in usr.mutations)
-		usr << text("\blue You destroy the table.")
+		usr << text(SPAN_NOTE("You destroy the table."))
 		visible_message("\red [usr] destroys the operating table!")
 		src.density = 0
 		qdel(src)
@@ -55,8 +51,8 @@
 	return
 
 /obj/machinery/optable/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0)) return 1
-
+	if(air_group || (height==0))
+		return 1
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
 	else
@@ -86,30 +82,27 @@
 /obj/machinery/optable/process()
 	check_victim()
 
-/obj/machinery/optable/proc/take_victim(mob/living/carbon/C, mob/living/carbon/user as mob)
-	if (C == user)
+/obj/machinery/optable/proc/take_victim(mob/living/carbon/target, mob/living/carbon/user as mob)
+	if(!user.IsAdvancedToolUser() || !check_table(user) || !iscarbon(target))
+		return
+	if(target == user)
+		if(user.incapacitated(INCAPACITATION_DISABLED))
+			return
 		user.visible_message(
 			"[user] climbs on the operating table.",
 			"You climb on the operating table."
 		)
 	else
-		visible_message(SPAN_WARN("[C] has been laid on the operating table by [user]."))
-	C.resting = 1
-	C.forceMove(loc)
+		visible_message(SPAN_WARN("[target] has been laid on the operating table by [user]."))
+		if(user.incapacitated())
+			return
+	target.resting = TRUE
+	target.forceMove(loc)
 	src.add_fingerprint(user)
-	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		src.victim = H
-		icon_state = H.pulse ? "table2-active" : "table2-idle"
-	else
-		icon_state = "table2-idle"
+	check_victim()
 
 /obj/machinery/optable/MouseDrop_T(mob/target, mob/user)
-
-	var/mob/living/M = user
-	if(user.stat || user.restrained() || !check_table(user) || !iscarbon(target))
-		return
-	if(istype(M))
+	if(istype(user))
 		take_victim(target,user)
 	else
 		return ..()
@@ -118,9 +111,6 @@
 	set name = "Climb On Table"
 	set category = "Object"
 	set src in oview(1)
-
-	if(usr.stat || !ishuman(usr) || usr.restrained() || !check_table(usr))
-		return
 
 	take_victim(usr,usr)
 

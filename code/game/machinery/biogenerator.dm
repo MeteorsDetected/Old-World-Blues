@@ -9,15 +9,15 @@
 	idle_power_usage = 40
 	circuit = /obj/item/weapon/circuitboard/biogenerator
 	var/processing = 0
-	var/obj/item/weapon/reagent_containers/glass/beaker = null
+	var/obj/item/weapon/reagent_containers/glass/beaker/beaker = null
 	var/points = 0
 	var/menustat = "menu"
 	var/build_eff = 1
 	var/eat_eff = 1
 
 
-/obj/machinery/biogenerator/New()
-	..()
+/obj/machinery/biogenerator/initialize()
+	. = ..()
 	create_reagents(1000)
 	beaker = new(src)
 
@@ -42,43 +42,43 @@
 		return
 	if(istype(O, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
-			user << "<span class='notice'>]The [src] is already loaded.</span>"
+			user << SPAN_NOTE("The [src] is already loaded.")
 		else
 			user.remove_from_mob(O)
 			O.loc = src
 			beaker = O
 			updateUsrDialog()
 	else if(processing)
-		user << "<span class='notice'>\The [src] is currently processing.</span>"
+		user << SPAN_NOTE("\The [src] is currently processing.")
 	else if(istype(O, /obj/item/storage/bag/plants))
 		var/i = 0
 		for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in contents)
 			i++
 		if(i >= 10)
-			user << "<span class='notice'>\The [src] is already full! Activate it.</span>"
+			user << SPAN_NOTE("\The [src] is already full! Activate it.")
 		else
 			for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in O.contents)
 				G.loc = src
 				i++
 				if(i >= 10)
-					user << "<span class='notice'>You fill \the [src] to its capacity.</span>"
+					user << SPAN_NOTE("You fill \the [src] to its capacity.")
 					break
 			if(i < 10)
-				user << "<span class='notice'>You empty \the [O] into \the [src].</span>"
+				user << SPAN_NOTE("You empty \the [O] into \the [src].")
 
 
 	else if(!istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown))
-		user << "<span class='notice'>You cannot put this in \the [src].</span>"
+		user << SPAN_NOTE("You cannot put this in \the [src].")
 	else
 		var/i = 0
 		for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in contents)
 			i++
 		if(i >= 10)
-			user << "<span class='notice'>\The [src] is full! Activate it.</span>"
+			user << SPAN_NOTE("\The [src] is full! Activate it.")
 		else
 			user.remove_from_mob(O)
 			O.loc = src
-			user << "<span class='notice'>You put \the [O] in \the [src]</span>"
+			user << SPAN_NOTE("You put \the [O] in \the [src]")
 	update_icon()
 	return
 
@@ -127,18 +127,17 @@
 				dat += "<A href='?src=\ref[src];action=menu'>Return to menu</A>"
 	user << browse(dat, "window=biogenerator")
 	onclose(user, "biogenerator")
-	return
 
 /obj/machinery/biogenerator/attack_hand(mob/user as mob)
 	interact(user)
 
 /obj/machinery/biogenerator/proc/activate()
-	if (usr.stat)
+	if (usr.incapacitated())
 		return
 	if (stat) //NOPOWER etc
 		return
 	if(processing)
-		usr << "<span class='notice'>The biogenerator is in the process of working.</span>"
+		usr << SPAN_NOTE("The biogenerator is in the process of working.")
 		return
 	var/S = 0
 	for(var/obj/item/weapon/reagent_containers/food/snacks/grown/I in contents)
@@ -158,7 +157,6 @@
 		update_icon()
 	else
 		menustat = "void"
-	return
 
 /obj/machinery/biogenerator/proc/create_product(var/item, var/cost)
 	cost = round(cost/build_eff)
@@ -221,9 +219,7 @@
 	return 1
 
 /obj/machinery/biogenerator/Topic(href, href_list)
-	if(stat & BROKEN) return
-	if(usr.stat || usr.restrained()) return
-	if(!in_range(src, usr)) return
+	if(stat & BROKEN || usr.incapacitated() || !in_range(src, usr)) return
 
 	usr.set_machine(src)
 

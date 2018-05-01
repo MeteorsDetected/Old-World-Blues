@@ -54,7 +54,8 @@
 	var/opened = 0
 
 /obj/machinery/dna_scannernew/relaymove(mob/user as mob)
-	if (user.stat)
+	if (user.incapacitated(INCAPACITATION_DISABLED))
+		user << SPAN_WARN("You can't get up for doing that")
 		return
 	src.go_out()
 	return
@@ -64,17 +65,15 @@
 	set category = "Object"
 	set name = "Eject DNA Scanner"
 
-	if (usr.stat)
+	if(usr.incapacitated(INCAPACITATION_DISABLED))
 		return
 
 	eject_occupant()
-
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/dna_scannernew/proc/eject_occupant()
 	src.go_out()
-	for(var/obj/O in (src.contents - src.component_parts))
+	for(var/obj/O in src)
 		O.loc = get_turf(src)//Ejects items that manage to get in there (exluding the components)
 	if(!occupant)
 		for(var/mob/M in src)//Failsafe so you can get mobs out
@@ -85,10 +84,10 @@
 	set category = "Object"
 	set name = "Enter DNA Scanner"
 
-	if (usr.stat)
+	if (usr.incapacitated(INCAPACITATION_DISABLED))
 		return
 	if (!ishuman(usr) && !issmall(usr)) //Make sure they're a mob that has dna
-		usr << "<span class='notice'>Try as you might, you can not climb up into the scanner.</span>"
+		usr << SPAN_NOTE("Try as you might, you can not climb up into the scanner.")
 		return
 	if (src.occupant)
 		usr << "<span class='warning'>The scanner is already occupied!</span>"
@@ -99,9 +98,8 @@
 	usr.stop_pulling()
 	put_in(usr)
 	src.add_fingerprint(usr)
-	return
 
-/obj/machinery/dna_scannernew/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/machinery/dna_scannernew/affect_grab(var/mob/user, var/mob/target)
 	if (src.occupant)
 		user << SPAN_WARN("The scanner is already occupied!")
 		return
@@ -130,8 +128,8 @@
 		return ..()
 
 /obj/machinery/dna_scannernew/proc/put_in(var/mob/M)
+	M.forceMove(src)
 	M.reset_view(src)
-	M.loc = src
 	src.occupant = M
 	src.icon_state = "scanner_1"
 
@@ -162,7 +160,10 @@
 	if (target.buckled)
 		user << "<span class='warning'>Unbuckle the subject before attempting to move them.</span>"
 		return
-	user.visible_message("<span class='notice'>\The [user] begins placing \the [target] into \the [src].</span>", "<span class='notice'>You start placing \the [target] into \the [src].</span>")
+	user.visible_message(
+		SPAN_NOTE("\The [user] begins placing \the [target] into \the [src]."),
+		SPAN_NOTE("You start placing \the [target] into \the [src].")
+	)
 	if(!do_after(user, 30, src))
 		return
 	put_in(target)
@@ -220,7 +221,7 @@
 	name = "DNA Modifier Access Console"
 	desc = "Scand DNA."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "scanner"
+	screen_icon = "scanner"
 	density = 1
 	circuit = /obj/item/weapon/circuitboard/scan_consolenew
 	var/selected_ui_block = 1.0
@@ -274,30 +275,19 @@
 	if(prob(75))
 		qdel(src)
 
-/obj/machinery/computer/scan_consolenew/power_change()
-	..()
-	if(stat & BROKEN)
-		icon_state = "broken"
-	else
-		if (stat & NOPOWER)
-			spawn(rand(0, 15))
-				src.icon_state = "c_unpowered"
-		else
-			icon_state = initial(icon_state)
-
-/obj/machinery/computer/scan_consolenew/New()
-	..()
+/obj/machinery/computer/scan_consolenew/initialize()
+	. = ..()
 	for(var/i=0;i<3;i++)
-		buffers[i+1]=new /datum/dna2/record
-	spawn(5)
-		for(dir in list(NORTH,EAST,SOUTH,WEST))
-			connected = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
-			if(!isnull(connected))
-				break
-		spawn(250)
-			src.injector_ready = 1
-		return
-	return
+		buffers[i+1] = new /datum/dna2/record
+
+	for(var/dir in list(NORTH,EAST,SOUTH,WEST))
+		connected = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
+		if(!isnull(connected))
+			break
+
+	spawn(250)
+		src.injector_ready = 1
+
 
 /obj/machinery/computer/scan_consolenew/proc/all_dna_blocks(var/list/buffer)
 	var/list/arr = list()
@@ -313,15 +303,6 @@
 	I.block = id
 	I.buf = buffer
 	return 1
-
-/*
-/obj/machinery/computer/scan_consolenew/process() //not really used right now
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if (!( src.status )) //remove this
-		return
-	return
-*/
 
 /obj/machinery/computer/scan_consolenew/attack_ai(user as mob)
 	src.add_hiddenprint(user)
@@ -344,7 +325,7 @@
   */
 /obj/machinery/computer/scan_consolenew/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 
-	if(user == connected.occupant || user.stat)
+	if(user == connected.occupant || user.incapacitated(INCAPACITATION_DISABLED))
 		return
 
 	// this is the data which will be sent to the ui

@@ -35,9 +35,10 @@
 			survivors++
 
 	if(survivors)
-		world << "<span class='notice'><B>The following survived the meteor storm</B></span>:[text]"
+		world << SPAN_NOTE("<B>The following survived the meteor storm</B>")
+		world << text
 	else
-		world << "<span class='notice'><B>Nobody survived the meteor storm!</B></span>"
+		world << SPAN_NOTE("<B>Nobody survived the meteor storm!</B>")
 
 	..()
 	return 1

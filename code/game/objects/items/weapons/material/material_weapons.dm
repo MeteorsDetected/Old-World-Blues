@@ -15,7 +15,7 @@
 	var/unbreakable
 	var/force_divisor = 0.5
 	var/thrown_force_divisor = 0.5
-	var/default_material = DEFAULT_WALL_MATERIAL
+	var/default_material = MATERIAL_STEEL
 	var/material/material
 	var/drops_debris = 1
 
@@ -81,7 +81,7 @@
 /obj/item/weapon/material/proc/shatter(var/consumed)
 	var/turf/T = get_turf(src)
 	T.visible_message("<span class='danger'>\The [src] [material.destruction_desc]!</span>")
-	if(istype(loc, /mob/living))
+	if(isliving(loc))
 		var/mob/living/M = loc
 		M.drop_from_inventory(src)
 	playsound(src, "shatter", 70, 1)

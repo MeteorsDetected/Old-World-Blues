@@ -36,7 +36,8 @@ be able to influence the host through various commands.
 	host.parasites.Add(src)
 	host.status_flags |= PASSEMOTES
 
-	if(client) client.eye = host
+	if(client)
+		client.eye = host
 
 	return 1
 
@@ -69,7 +70,7 @@ be able to influence the host through various commands.
 	set category = "IC"
 
 	if(is_blind(host) || usr.stat)
-		src << "<span class='notice'>Something is there but you can't see it.</span>"
+		src << SPAN_NOTE("Something is there but you can't see it.")
 		return 1
 
 	A.examine(src)
@@ -93,8 +94,10 @@ be able to influence the host through various commands.
 	..()
 
 	if(client)
-		if(blinded) client.eye = null
-		else		client.eye = host
+		if(blinded)
+			client.eye = null
+		else
+			client.eye = host
 
 	if(!host) return
 
@@ -117,19 +120,21 @@ be able to influence the host through various commands.
 		return
 */
 	if(host.stat == DEAD)
-		src << "\red <b>Your host has died.. you fade away..</b>"
+		src << SPAN_DANG("Your host has died.. you fade away..")
 		src.death()
 		return
 
-	if(host.blinded && host.stat != 1) src.blinded = 1
-	else 			 				   src.blinded = 0
+	if(host.blinded && host.stat != UNCONSCIOUS)
+		src.blinded = 1
+	else
+		src.blinded = 0
 
 
 /mob/living/parasite/meme/death()
 	// make sure the mob is on the actual map before gibbing
 	if(host) src.loc = host.loc
 	host.parasites -= src
-	src.stat = 2
+	src.stat = DEAD
 	..()
 	del src
 
@@ -540,7 +545,7 @@ be able to influence the host through various commands.
 		meme_mind.transfer_to(host)
 		host_mind.current.clearHUD()
 
-		dummy << "\blue You feel very drowsy.. Your eyelids become heavy..."
+		dummy << SPAN_NOTE("You feel very drowsy.. Your eyelids become heavy...")
 
 		sleep(600)
 

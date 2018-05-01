@@ -2,11 +2,6 @@
 // charge from 0 to 100%
 // fits in APC to provide backup power
 
-/obj/item/weapon/cell/New()
-	..()
-	charge = maxcharge
-	update_icon()
-
 /obj/item/weapon/cell/drain_power(var/drain_check, var/surge, var/power = 0)
 
 	if(drain_check)

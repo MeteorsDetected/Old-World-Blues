@@ -27,10 +27,12 @@
 
 	return
 
-/obj/machinery/pdapainter/New()
-	..()
-	var/blocked = list(/obj/item/device/pda/ai/pai, /obj/item/device/pda/ai, /obj/item/device/pda/heads,
-						/obj/item/device/pda/clear, /obj/item/device/pda/syndicate)
+/obj/machinery/pdapainter/initialize()
+	. = ..()
+	var/blocked = list(
+		/obj/item/device/pda/ai/pai, /obj/item/device/pda/ai, /obj/item/device/pda/heads,
+		/obj/item/device/pda/clear, /obj/item/device/pda/syndicate
+	)
 
 	for(var/P in typesof(/obj/item/device/pda)-blocked)
 		var/obj/item/device/pda/D = new P
@@ -72,11 +74,15 @@
 		return
 
 	else if(istype(O,/obj/item/weapon/wrench))
-		user << "\blue You begin to [anchored ? "unwrench" : "wrench"] the [src]"
+		user << SPAN_NOTE("You begin to [anchored ? "unwrench" : "wrench"] the [src]")
 		if (do_after(user, 40))
 			anchored = !anchored
 			src.add_fingerprint(usr)
-			user.visible_message("\red [user] is messing with the [src]!", "You [anchored ? "wrenched" : "unwrenched"] the machine.","You hear strange ratched sound.")
+			user.visible_message(
+				"\red [user] is messing with the [src]!",
+				"You [anchored ? "wrenched" : "unwrenched"] the machine.",
+				"You hear strange ratched sound."
+			)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 
 	else ..()
@@ -91,7 +97,7 @@
 		storedpda = null
 		update_icon()
 	else
-		user << "<span class='notice'>The [src] is empty.</span>"
+		user << SPAN_NOTE("The [src] is empty.")
 
 
 /obj/machinery/pdapainter/verb/ejectpda()
@@ -100,16 +106,11 @@
 	set src in oview(1)
 
 	if(working)
-		usr << "<span class='notice'>The [src] is working right now. Wait please.</span>"
+		usr << SPAN_NOTE("The [src] is working right now. Wait please.")
 		return
 	if(storedpda)
 		usr.put_in_hands(storedpda)
 		storedpda = null
 		update_icon()
 	else
-		usr << "<span class='notice'>The [src] is empty.</span>"
-
-
-/obj/machinery/pdapainter/power_change()
-	..()
-	update_icon()
+		usr << SPAN_NOTE("The [src] is empty.")

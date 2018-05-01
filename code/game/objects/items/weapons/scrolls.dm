@@ -8,7 +8,7 @@
 	item_state = "paper"
 	throw_speed = 4
 	throw_range = 20
-	origin_tech = list(TECH_BLUESPACE = 4)
+	origin_tech = list(TECH_BLUESPACE = 4, TECH_ARCANE = 4)
 
 /obj/item/weapon/teleportation_scroll/attack_self(mob/user as mob)
 	user.set_machine(src)
@@ -24,7 +24,7 @@
 
 /obj/item/weapon/teleportation_scroll/Topic(href, href_list)
 	..()
-	if (usr.stat || usr.restrained() || src.loc != usr)
+	if (usr.incapacitated() || src.loc != usr)
 		return
 	if (!ishuman(usr))
 		return 1
@@ -42,7 +42,7 @@
 	var/A = input(user, "Area to jump to", "BOOYEA") in teleportlocs
 	var/area/thearea = teleportlocs[A]
 
-	if (user.stat || user.restrained())
+	if (user.incapacitated())
 		return
 	if(!((user == loc || (in_range(src, user) && istype(src.loc, /turf)))))
 		return
@@ -85,3 +85,5 @@
 
 	smoke.start()
 	src.uses -= 1
+	if(uses <= 0)
+		origin_tech[TECH_ARCANE] = 3

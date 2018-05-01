@@ -1,4 +1,4 @@
-/datum/hud/proc/human_hud(	var/ui_style='icons/mob/screen1_White.dmi', var/ui_color = "#ffffff",
+/datum/hud/proc/human_hud(	var/ui_style='icons/screen/White.dmi', var/ui_color = "#ffffff",
 							var/ui_alpha = 255, var/mob/living/carbon/human/target)
 
 	var/datum/hud_data/hud_data
@@ -304,7 +304,7 @@
 		hud_elements |= mymob.nutrition_icon
 
 	mymob.blind = new /obj/screen()
-	mymob.blind.icon = 'icons/mob/screen1_full.dmi'
+	mymob.blind.icon = 'icons/screen/full.dmi'
 	mymob.blind.icon_state = "blackimageoverlay"
 	mymob.blind.name = " "
 	mymob.blind.screen_loc = "1,1"
@@ -314,7 +314,7 @@
 	hud_elements |= mymob.blind
 
 	mymob.damageoverlay = new /obj/screen()
-	mymob.damageoverlay.icon = 'icons/mob/screen1_full.dmi'
+	mymob.damageoverlay.icon = 'icons/screen/full.dmi'
 	mymob.damageoverlay.icon_state = "oxydamageoverlay0"
 	mymob.damageoverlay.name = "dmg"
 	mymob.damageoverlay.screen_loc = "1,1"
@@ -404,8 +404,6 @@
 		if(I.icon_action_button)
 			var/obj/screen/item_action/A = new(hud_used)
 
-			//A.icon = 'icons/mob/screen1_action.dmi'
-			//A.icon_state = I.icon_action_button
 			A.icon = ui_style2icon(client.prefs.UI_style)
 			A.icon_state = "template"
 			var/image/img = image(I.icon, A, I.icon_state)

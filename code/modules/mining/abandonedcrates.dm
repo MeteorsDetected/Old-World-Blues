@@ -9,8 +9,8 @@
 	var/codelen = 4
 	locked = 1
 
-/obj/structure/closet/crate/secure/loot/New()
-	..()
+/obj/structure/closet/crate/secure/loot/initialize()
+	. = ..()
 	var/list/digits = list("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 
 	for(var/i in 1 to codelen)
@@ -150,15 +150,15 @@
 	if(!locked)
 		return
 
-	user << "<span class='notice'>The crate is locked with a Deca-code lock.</span>"
+	user << SPAN_NOTE("The crate is locked with a Deca-code lock.")
 	var/input = input(user, "Enter [codelen] digits.", "Deca-Code Lock", "") as text
 	if(!Adjacent(user))
 		return
 
 	if(input == null || length(input) != codelen)
-		user << "<span class='notice'>You leave the crate alone.</span>"
+		user << SPAN_NOTE("You leave the crate alone.")
 	else if(check_input(input))
-		user << "<span class='notice'>The crate unlocks!</span>"
+		user << SPAN_NOTE("The crate unlocks!")
 		playsound(user, 'sound/machines/lockreset.ogg', 50, 1)
 		set_locked(0)
 	else
@@ -172,7 +172,7 @@
 
 /obj/structure/closet/crate/secure/loot/emag_act(var/remaining_charges, var/mob/user)
 	if (locked)
-		user << "<span class='notice'>The crate unlocks!</span>"
+		user << SPAN_NOTE("The crate unlocks!")
 		locked = 0
 		return 1
 	else
@@ -193,11 +193,11 @@
 /obj/structure/closet/crate/secure/loot/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(locked)
 		if (istype(W, /obj/item/device/multitool)) // Greetings Urist McProfessor, how about a nice game of cows and bulls?
-			user << "<span class='notice'>DECA-CODE LOCK ANALYSIS:</span>"
+			user << SPAN_NOTE("DECA-CODE LOCK ANALYSIS:")
 			if (attempts == 1)
 				user << "<span class='warning'>* Anti-Tamper system will activate on the next failed access attempt.</span>"
 			else
-				user << "<span class='notice'>* Anti-Tamper system will activate after [src.attempts] failed access attempts.</span>"
+				user << SPAN_NOTE("* Anti-Tamper system will activate after [src.attempts] failed access attempts.")
 			if(lastattempt.len)
 				var/bulls = 0
 				var/cows = 0
@@ -209,6 +209,6 @@
 					else if(lastattempt[i] in code_contents)
 						++cows
 					code_contents -= lastattempt[i]
-				user << "<span class='notice'>Last code attempt had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions.</span>"
+				user << SPAN_NOTE("Last code attempt had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions.")
 			return
 	..()

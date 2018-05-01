@@ -86,7 +86,7 @@ proc/RoundHealth(health)
 
 //checks whether this item is a module of the robot it is located in.
 /proc/is_robot_module(var/obj/item/thing)
-	if (!thing || !istype(thing.loc, /mob/living/silicon/robot))
+	if (!thing || !isrobot(thing.loc))
 		return 0
 	var/mob/living/silicon/robot/R = thing.loc
 	return (thing in R.module.modules)
@@ -115,7 +115,7 @@ proc/RoundHealth(health)
 		if(uninterruptible)
 			continue
 
-		if(!user || user.stat || user.weakened || user.stunned || user.loc != user_loc)
+		if(!user || user.incapacitated() || user.loc != user_loc)
 			. = 0
 			break
 
@@ -134,7 +134,7 @@ proc/RoundHealth(health)
 	if (progbar)
 		qdel(progbar)
 
-/proc/do_after(mob/user, delay, atom/target = null, needhand = 1, progress = 1)
+/proc/do_after(mob/user, delay, atom/target = null, needhand = 1, progress = 1, var/incapacitation_flags = INCAPACITATION_DEFAULT)
 	if(!user)
 		return 0
 	var/atom/target_loc = null
@@ -157,7 +157,7 @@ proc/RoundHealth(health)
 		if (progress)
 			progbar.update(world.time - starttime)
 
-		if(!user || user.stat || user.weakened || user.stunned || user.loc != original_loc)
+		if(!user || user.incapacitated(incapacitation_flags) || user.loc != original_loc)
 			. = 0
 			break
 

@@ -87,7 +87,7 @@
 					user.unEquip(W, src)
 					component_parts += W
 					RefreshParts()
-					user << "<span class='notice'>You upgrade the [src] with [W.name].</span>"
+					user << SPAN_NOTE("You upgrade the [src] with [W.name].")
 				else
 					user << "<span class='warning'>Turn off the [src] before dismantling it.</span>"
 			else
@@ -96,14 +96,12 @@
 			user.set_machine(src)
 			interact(user)
 			return 1
-	return
-
 
 //The shitty one that will blow up.
 /obj/machinery/power/smes/batteryrack/makeshift
 	name = "makeshift PSU"
 	desc = "A rack of batteries connected by a mess of wires posing as a PSU."
-	circuit = /obj/item/weapon/circuitboard/ghettosmes
+	circuit = /obj/item/weapon/circuitboard/apc
 	var/overcharge_percent = 0
 
 /obj/machinery/power/smes/batteryrack/makeshift/update_icon()

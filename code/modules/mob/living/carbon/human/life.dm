@@ -890,7 +890,7 @@
 				qdel(a)
 
 		if(halloss >= species.total_health)
-			src << "<span class='notice'>You're in too much pain to keep going...</span>"
+			src << SPAN_NOTE("You're in too much pain to keep going...")
 			src.visible_message("<B>[src]</B> slumps to the ground, too weak to continue fighting.")
 			Paralyse(10)
 			setHalLoss(species.total_health - 1)
@@ -1004,29 +1004,29 @@
 	if(!overlays_cache)
 		overlays_cache = list()
 		overlays_cache.len = 23
-		overlays_cache[1] = image('icons/mob/screen1_full.dmi', "icon_state" = "passage1")
-		overlays_cache[2] = image('icons/mob/screen1_full.dmi', "icon_state" = "passage2")
-		overlays_cache[3] = image('icons/mob/screen1_full.dmi', "icon_state" = "passage3")
-		overlays_cache[4] = image('icons/mob/screen1_full.dmi', "icon_state" = "passage4")
-		overlays_cache[5] = image('icons/mob/screen1_full.dmi', "icon_state" = "passage5")
-		overlays_cache[6] = image('icons/mob/screen1_full.dmi', "icon_state" = "passage6")
-		overlays_cache[7] = image('icons/mob/screen1_full.dmi', "icon_state" = "passage7")
-		overlays_cache[8] = image('icons/mob/screen1_full.dmi', "icon_state" = "passage8")
-		overlays_cache[9] = image('icons/mob/screen1_full.dmi', "icon_state" = "passage9")
-		overlays_cache[10] = image('icons/mob/screen1_full.dmi', "icon_state" = "passage10")
-		overlays_cache[11] = image('icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay1")
-		overlays_cache[12] = image('icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay2")
-		overlays_cache[13] = image('icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay3")
-		overlays_cache[14] = image('icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay4")
-		overlays_cache[15] = image('icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay5")
-		overlays_cache[16] = image('icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay6")
-		overlays_cache[17] = image('icons/mob/screen1_full.dmi', "icon_state" = "oxydamageoverlay7")
-		overlays_cache[18] = image('icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay1")
-		overlays_cache[19] = image('icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay2")
-		overlays_cache[20] = image('icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay3")
-		overlays_cache[21] = image('icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay4")
-		overlays_cache[22] = image('icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay5")
-		overlays_cache[23] = image('icons/mob/screen1_full.dmi', "icon_state" = "brutedamageoverlay6")
+		overlays_cache[1] = image('icons/screen/full.dmi', "icon_state" = "passage1")
+		overlays_cache[2] = image('icons/screen/full.dmi', "icon_state" = "passage2")
+		overlays_cache[3] = image('icons/screen/full.dmi', "icon_state" = "passage3")
+		overlays_cache[4] = image('icons/screen/full.dmi', "icon_state" = "passage4")
+		overlays_cache[5] = image('icons/screen/full.dmi', "icon_state" = "passage5")
+		overlays_cache[6] = image('icons/screen/full.dmi', "icon_state" = "passage6")
+		overlays_cache[7] = image('icons/screen/full.dmi', "icon_state" = "passage7")
+		overlays_cache[8] = image('icons/screen/full.dmi', "icon_state" = "passage8")
+		overlays_cache[9] = image('icons/screen/full.dmi', "icon_state" = "passage9")
+		overlays_cache[10] = image('icons/screen/full.dmi', "icon_state" = "passage10")
+		overlays_cache[11] = image('icons/screen/full.dmi', "icon_state" = "oxydamageoverlay1")
+		overlays_cache[12] = image('icons/screen/full.dmi', "icon_state" = "oxydamageoverlay2")
+		overlays_cache[13] = image('icons/screen/full.dmi', "icon_state" = "oxydamageoverlay3")
+		overlays_cache[14] = image('icons/screen/full.dmi', "icon_state" = "oxydamageoverlay4")
+		overlays_cache[15] = image('icons/screen/full.dmi', "icon_state" = "oxydamageoverlay5")
+		overlays_cache[16] = image('icons/screen/full.dmi', "icon_state" = "oxydamageoverlay6")
+		overlays_cache[17] = image('icons/screen/full.dmi', "icon_state" = "oxydamageoverlay7")
+		overlays_cache[18] = image('icons/screen/full.dmi', "icon_state" = "brutedamageoverlay1")
+		overlays_cache[19] = image('icons/screen/full.dmi', "icon_state" = "brutedamageoverlay2")
+		overlays_cache[20] = image('icons/screen/full.dmi', "icon_state" = "brutedamageoverlay3")
+		overlays_cache[21] = image('icons/screen/full.dmi', "icon_state" = "brutedamageoverlay4")
+		overlays_cache[22] = image('icons/screen/full.dmi', "icon_state" = "brutedamageoverlay5")
+		overlays_cache[23] = image('icons/screen/full.dmi', "icon_state" = "brutedamageoverlay6")
 
 	if(hud_updateflag) // update our mob's hud overlays, AKA what others see flaoting above our head
 		handle_hud_list()
@@ -1122,7 +1122,7 @@
 			var/list/health_images = list()
 			for(var/obj/item/organ/external/E in organs)
 				health_images += E.get_damage_hud_image("dead")
-			health_images += image('icons/mob/screen1_health.dmi',"dead")
+			health_images += image('icons/screen/health.dmi',"dead")
 
 			healths.icon_state = "blank"
 			healths.overlays.Cut()
@@ -1169,7 +1169,7 @@
 			if (analgesic > 100)
 				for(var/obj/item/organ/external/E in organs)
 					health_images += E.get_damage_hud_image("numb")
-					health_images += image('icons/mob/screen1_health.dmi',"numb")
+					health_images += image('icons/screen/health.dmi',"numb")
 			else
 				var/no_damage = 1
 				var/trauma_val = 0 // Used in calculating softcrit/hardcrit indicators.
@@ -1185,17 +1185,17 @@
 
 				// Apply a fire overlay if we're burning.
 				if(on_fire)
-					health_images += image('icons/mob/screen1_health.dmi',"burning")
+					health_images += image('icons/screen/health.dmi',"burning")
 
 				// Show a general pain/crit indicator if needed.
 				if(trauma_val)
 					if(!(species.flags & NO_PAIN))
 						if(trauma_val > 0.7)
-							health_images += image('icons/mob/screen1_health.dmi',"softcrit")
+							health_images += image('icons/screen/health.dmi',"softcrit")
 						if(trauma_val >= 1)
-							health_images += image('icons/mob/screen1_health.dmi',"hardcrit")
+							health_images += image('icons/screen/health.dmi',"hardcrit")
 				else if(no_damage)
-					health_images += image('icons/mob/screen1_health.dmi',"fullhealth")
+					health_images += image('icons/screen/health.dmi',"fullhealth")
 
 			healths.overlays += health_images
 
@@ -1210,9 +1210,6 @@
 		if(pressure)
 			pressure.icon_state = "pressure[pressure_alert]"
 
-//			if(rest)	//Not used with new UI
-//				if(resting || lying || sleeping)		rest.icon_state = "rest1"
-//				else									rest.icon_state = "rest0"
 		if(toxin)
 			if(hal_screwyhud == 4 || phoron_alert)	toxin.icon_state = "tox1"
 			else									toxin.icon_state = "tox0"
@@ -1265,8 +1262,10 @@
 					else
 						bodytemp.icon_state = "temp0"
 		if(blind)
-			if(blinded)		blind.alpha = 255
-			else			blind.alpha = 0
+			if(blinded)
+				blind.alpha = 255
+			else
+				blind.alpha = 0
 
 		if(disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
 			if(glasses)					//to every /obj/item
@@ -1276,9 +1275,12 @@
 			else
 				client.screen += global_hud.vimpaired
 
-		if(eye_blurry)			client.screen += global_hud.blurry
-		if(druggy)				client.screen += global_hud.druggy
-		if(horny)				client.screen += global_hud.horny //for aphrodisiac
+		if(eye_blurry)
+			client.screen += global_hud.blurry
+		if(druggy)
+			client.screen += global_hud.druggy
+		if(horny)
+			client.screen += global_hud.horny
 
 		if(config.welder_vision)
 			var/found_welder
@@ -1306,7 +1308,6 @@
 				sight = viewflags //when viewing from a machine, use only the sight flags that the machine provides
 		else if(eyeobj)
 			if(eyeobj.owner != src)
-
 				reset_view(null)
 			else
 				src.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
@@ -1314,7 +1315,7 @@
 			var/isRemoteObserve = 0
 			//TODO: DNA3 remote_view
 			if(remoteview_target)
-				if(remoteview_target.stat==CONSCIOUS)
+				if(remoteview_target.stat == CONSCIOUS)
 					isRemoteObserve = 1
 			if(!isRemoteObserve && client && !client.adminobs)
 				remoteview_target = null
@@ -1364,7 +1365,7 @@
 			if(M.loc != src)
 				stomach_contents.Remove(M)
 				continue
-			if(istype(M, /mob/living) && stat != DEAD)
+			if(isliving(M) && stat != DEAD)
 				if(M.stat == DEAD)
 					M.death(1)
 					stomach_contents.Remove(M)

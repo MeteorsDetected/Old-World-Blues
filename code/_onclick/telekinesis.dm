@@ -119,7 +119,7 @@ var/const/tk_maxrange = 15
 			if(8 to tk_maxrange)
 				user.next_move += 10
 			else
-				user << "\blue Your mind won't reach that far."
+				user << SPAN_NOTE("Your mind won't reach that far.")
 				return
 
 		if(!focus)
@@ -149,7 +149,7 @@ var/const/tk_maxrange = 15
 
 
 	proc/focus_object(var/obj/target, var/mob/living/user)
-		if(!istype(target,/obj))	return//Cant throw non objects atm might let it do mobs later
+		if(!isobj(target))	return//Cant throw non objects atm might let it do mobs later
 		if(target.anchored || !isturf(target.loc))
 			qdel(src)
 			return
@@ -196,7 +196,7 @@ var/const/tk_maxrange = 15
 
 //equip_to_slot_or_del(obj/item/W, slot, del_on_fail = 1)
 /*
-		if(istype(user, /mob/living/carbon))
+		if(iscarbon(user))
 			if(user:mutations & TK && get_dist(source, user) <= 7)
 				if(user:get_active_hand())	return 0
 				var/X = source:x

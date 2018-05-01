@@ -48,7 +48,6 @@
 			item.icon_state = item_icon
 			return
 		else
-			item.item_state_slots = null
 			item.sprite_group = null
 
 			item.icon_state = item_icon
@@ -271,19 +270,6 @@
 	custom_items["allahboom"] = L
 
 
-///Egorkor///
-
-	L = list()
-
-	current_data = new()
-	current_data.req_titles = list("Head of Security", "Security Officer", "Warden")
-	current_data.character_name = "Graham Maclagan"
-	current_data.item_path = /obj/item/clothing/accessory/purple_heart/egorkor
-	L |= current_data
-
-	custom_items["egorkor"] = L
-
-
 ///simonmoore///
 
 	L = list()
@@ -295,17 +281,6 @@
 	L |= current_data
 
 	custom_items["elektronika71"] = L
-
-///Wajtswv///
-
-	L = list()
-
-	current_data = new()
-	current_data.character_name = "William Stern"
-	current_data.item_path = /obj/item/clothing/under/russobluecamooutfit
-	L |= current_data
-
-	custom_items["wajtswv"] = L
 
 ///Nikiss2000///
 
@@ -345,20 +320,8 @@
 	L = list()
 	current_data = new()
 	current_data.req_titles = list("Head of Security", "Security Officer", "Warden")
-	current_data.character_name = "Megan Abbott"
-	current_data.item_path = /obj/item/clothing/accessory/purple_heart/madman
-	L |= current_data
-
-	current_data = new()
-	current_data.req_titles = list("Head of Security", "Security Officer", "Warden")
 	current_data.character_name = "Shirley Harris"
 	current_data.item_path = /obj/item/clothing/suit/storage/vest/madman
-	L |= current_data
-
-	current_data = new()
-	current_data.req_titles = list("Head of Security", "Security Officer", "Warden")
-	current_data.character_name = "Shirley Harris"
-	current_data.item_path = /obj/item/clothing/under/rank/security/madman
 	L |= current_data
 
 	current_data = new()

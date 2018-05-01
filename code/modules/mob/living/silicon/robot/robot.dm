@@ -244,11 +244,18 @@
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = robot_modules.Copy()
+	var/list/modules = new
+	for(var/M in robot_modules)
+		var/obj/item/weapon/robot_module/module = robot_modules[M]
+		if(!jobban_isbanned(src, initial(module.ban_type)))
+			modules[M] = robot_modules[M]
 	if((crisis && security_level == SEC_LEVEL_RED) || crisis_override) //Leaving this in until it's balanced appropriately.
-		src << "\red Crisis mode active. Combat module available."
-		for(var/name in redcode_robot_modules)
-			modules[name] = redcode_robot_modules[name]
+		src << SPAN_WARN("Crisis mode active. Combat module available.")
+		for(var/M in redcode_robot_modules)
+			var/obj/item/weapon/robot_module/module = redcode_robot_modules[M]
+			if(!jobban_isbanned(src, initial(module.ban_type)))
+				modules[M] = redcode_robot_modules[M]
+
 	modtype = input("Please, select a module!", "Robot", null, null) in modules
 
 	if(module)
@@ -474,7 +481,7 @@
 					C.brute_damage = WC.brute
 					C.electronics_damage = WC.burn
 
-				usr << "\blue You install the [W.name]."
+				usr << SPAN_NOTE("You install the [W.name].")
 
 				return
 
@@ -498,7 +505,7 @@
 			user << "Need more welding fuel!"
 			return
 
-	else if(istype(W, /obj/item/stack/cable_coil) && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
+	else if(istype(W, /obj/item/stack/cable_coil) && (wiresexposed || isdrone(src)))
 		if (!getFireLoss())
 			user << "Nothing to fix here!"
 			return
@@ -680,7 +687,7 @@
 		//if they are holding or wearing a card that has access, that works
 		if(check_access(H.get_active_hand()) || check_access(H.wear_id))
 			return 1
-	else if(istype(M, /mob/living/silicon/robot))
+	else if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		if(check_access(R.get_active_hand()) || istype(R.get_active_hand(), /obj/item/weapon/card/robot))
 			return 1

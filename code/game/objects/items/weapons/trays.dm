@@ -12,7 +12,7 @@
 	throw_range = 5
 	w_class = ITEM_SIZE_NORMAL
 	flags = CONDUCT
-	matter = list(DEFAULT_WALL_MATERIAL = 3000)
+	matter = list(MATERIAL_STEEL = 3000)
 	var/max_carry = 8
 
 /obj/item/weapon/tray/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
@@ -151,8 +151,8 @@
 		src.update_icon()
 		user.put_in_hands(I)
 		user.visible_message(
-			"<span class='notice'>[user] pick [I] from [src].</span>",
-			"<span class='notice'>You pick [I] from [src].</span>"
+			SPAN_NOTE("[user] pick [I] from [src]."),
+			SPAN_NOTE("You pick [I] from [src].")
 		)
 		return
 

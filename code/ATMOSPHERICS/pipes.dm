@@ -70,6 +70,9 @@
 
 	..()
 
+/obj/machinery/atmospherics/pipe/power_change()
+	return
+
 /obj/machinery/atmospherics/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	if (istype(src, /obj/machinery/atmospherics/pipe/tank))
 		return ..()
@@ -92,12 +95,13 @@
 		add_fingerprint(user)
 		return 1
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
+	user << SPAN_NOTE("You begin to unfasten \the [src]...")
 	if (do_after(user, 40))
-		user.visible_message( \
-			"<span class='notice'>\The [user] unfastens \the [src].</span>", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
-			"You hear a ratchet.")
+		user.visible_message(
+			SPAN_NOTE("\The [user] unfastens \the [src]."),
+			SPAN_NOTE("You have unfastened \the [src]."),
+			"You hear a ratchet."
+		)
 		new /obj/item/pipe(loc, make_from=src)
 		for (var/obj/machinery/meter/meter in T)
 			if (meter.target == src)

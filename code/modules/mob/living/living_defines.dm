@@ -23,6 +23,9 @@
 
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 
+	var/list/grabbed_by = list(  )
+	var/list/requests = list(  )
+
 	var/t_phoron = null
 	var/t_oxygen = null
 	var/t_sl_gas = null

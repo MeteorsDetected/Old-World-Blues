@@ -200,7 +200,7 @@
 		msg += SPAN_WARN("[T.He] [T.is]n't responding to anything around [T.him] and seems to be asleep.")
 		if((stat == DEAD || src.losebreath) && distance <= 3)
 			msg += SPAN_WARN("[T.He] [T.does] not appear to be breathing.")
-		if(ishuman(user) && !usr.stat && Adjacent(user))
+		if(ishuman(user) && !usr.incapacitated() && Adjacent(user))
 			spawn(0)
 				usr.visible_message("<b>[user]</b> checks [src]'s pulse.", "You check [src]'s pulse.")
 				if(do_mob(user, src, 15))
@@ -242,9 +242,6 @@
 	for(var/obj/item/organ/external/temp in organs)
 		if((temp.organ_tag in hidden) && hidden[temp.organ_tag])
 			continue //Organ is hidden, don't talk about it
-		if(temp.status & ORGAN_DESTROYED)
-			wound_flavor_text[temp.name] = SPAN_DANG("[T.He] [T.is] missing [T.his] [temp.name].")
-			continue
 		if(!looks_synth && (temp.robotic >= ORGAN_ROBOT))
 			if(!(temp.brute_dam + temp.burn_dam))
 				wound_flavor_text[temp.name] = "[T.He] [T.has] a [temp.name]."
@@ -351,7 +348,7 @@
 				return istype(H.glasses, /obj/item/clothing/glasses/hud/health)
 			else
 				return 0
-	else if(istype(M, /mob/living/silicon/robot))
+	else if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		switch(hudtype)
 			if("security")
@@ -360,7 +357,7 @@
 				return istype(R.module_state_1, /obj/item/borg/sight/hud/med) || istype(R.module_state_2, /obj/item/borg/sight/hud/med) || istype(R.module_state_3, /obj/item/borg/sight/hud/med)
 			else
 				return 0
-	else if(istype(M, /mob/living/silicon/pai))
+	else if(ispAI(M))
 		var/mob/living/silicon/pai/P = M
 		switch(hudtype)
 			if("security")

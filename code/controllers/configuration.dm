@@ -21,6 +21,8 @@ var/list/gamemode_cache = list()
 	var/log_pda = 0						// log pda messages
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
 	var/log_runtime = 0					// logs world.log to a file
+	var/log_sql = 0						// logs sql queries
+	var/panic_DB_log = FALSE
 	var/sql_enabled = 1					// for sql switching
 	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
 	var/allow_vote_restart = 0 			// allow votes to restart
@@ -37,7 +39,6 @@ var/list/gamemode_cache = list()
 	var/vote_no_default = 0				// vote does not default to nochange/norestart (tbi)
 	var/vote_no_dead = 0				// dead people can't vote (tbi)
 	var/del_new_on_log = 1				// del's new players if they log before they spawn in
-	var/feature_object_spell_system = 0 //spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
 	var/traitor_scaling = 0 			//if amount of traitors scales based on amount of players
 	var/objectives_disabled = 0 			//if objectives are disabled or not
 	var/protect_roles_from_antagonist = 0// If security and such can be traitor/cult/other
@@ -62,7 +63,6 @@ var/list/gamemode_cache = list()
 	var/usewhitelist = 0
 	var/kick_inactive = 0				//force disconnect for inactive players after this many minutes, if non-0
 	var/show_mods = 0
-	var/show_mentors = 0
 	var/mods_can_tempban = 0
 	var/mods_can_job_tempban = 0
 	var/mod_tempban_max = 1440
@@ -314,6 +314,9 @@ var/list/gamemode_cache = list()
 				if ("log_runtime")
 					config.log_runtime = 1
 
+				if ("log_sql")
+					config.log_sql = 1
+
 				if ("generate_asteroid")
 					config.generate_asteroid = 1
 
@@ -423,9 +426,6 @@ var/list/gamemode_cache = list()
 				if ("usewhitelist")
 					config.usewhitelist = 1
 
-				if ("feature_object_spell_system")
-					config.feature_object_spell_system = 1
-
 				if ("traitor_scaling")
 					config.traitor_scaling = 1
 
@@ -464,9 +464,6 @@ var/list/gamemode_cache = list()
 
 				if("show_mods")
 					config.show_mods = 1
-
-				if("show_mentors")
-					config.show_mentors = 1
 
 				if("mods_can_tempban")
 					config.mods_can_tempban = 1

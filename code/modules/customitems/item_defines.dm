@@ -30,16 +30,9 @@
 	icon_state = "bronze_heart"
 	var/owner = ""
 
-/obj/item/clothing/accessory/purple_heart/New()
-	..()
+/obj/item/clothing/accessory/purple_heart/initialize()
+	. = ..()
 	desc += owner
-
-
-/obj/item/clothing/accessory/purple_heart/egorkor
-	owner = "Graham Maclagan"
-
-/obj/item/clothing/accessory/purple_heart/madman
-	owner = "Megan Abbott"
 
 /obj/item/clothing/accessory/purple_heart/solar
 	owner = "Aiden McMurray"
@@ -55,7 +48,6 @@
 /***************************************/
 /*****************Solar&Madman*****************/
 /***************************************/
-//private military contractors 4life <3
 /obj/item/clothing/suit/storage/vest/madman
 	name = "\improper MOLLE plate carrier"
 	desc = "That's the high quality generic plate carrier."
@@ -67,12 +59,6 @@
 	desc = "That's the high quality generic plate carrier."
 	icon_state = "mollesolar"
 	item_state = "jensen"
-
-/obj/item/clothing/under/rank/security/madman
-	name = "\improper generic clothes"
-	desc = "That's some generic black pants with a tan shirt."
-	icon_state = "pmcsuitmadman"
-	item_state = "black"
 
 /obj/item/clothing/under/rank/security/solar
 	name = "\improper generic clothes"
@@ -106,7 +92,8 @@
 		set category = "Object"
 		set name = "Raise glasses up/down"
 		set src in usr
-		if(usr.canmove && !usr.stat && !usr.restrained())
+
+		if(!usr.incapacitated())
 			src.glassesup = !src.glassesup
 			if(src.glassesup)
 				icon_state = "[icon_state]_gogup"
@@ -134,7 +121,7 @@
 /obj/item/clothing/mask/keffiehsolar
 	name = "keffieh"
 	desc = "Yet another tactical thing."
-	w_class = 2
+	w_class = ITEM_SIZE_SMALL
 	body_parts_covered = null
 	slot_flags = SLOT_MASK
 	flags_inv = null
@@ -144,7 +131,7 @@
 	var/tied = 0
 
 /obj/item/clothing/mask/keffiehsolar/proc/adjust_keffieh(mob/user)
-	if(usr.canmove && !usr.stat)
+	if(!usr.incapacitated())
 		src.tied = !src.tied
 		if (src.tied)
 			icon_state = "[icon_state]_up"

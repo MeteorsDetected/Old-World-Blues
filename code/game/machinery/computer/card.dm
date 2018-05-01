@@ -3,7 +3,7 @@
 /obj/machinery/computer/card
 	name = "\improper ID card modification console"
 	desc = "Terminal for programming NanoTrasen employee ID cards to access parts of the station."
-	icon_state = "id"
+	screen_icon = "id"
 	light_color = "#0099ff"
 	req_access = list(access_change_ids)
 	circuit = /obj/item/weapon/circuitboard/card
@@ -36,7 +36,8 @@
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(!usr || usr.stat || usr.lying || !Adjacent(usr)) return
+	if(usr.incapacitated() || !Adjacent(usr))
+		return
 
 	if(scan)
 		usr << "You remove \the [scan] from \the [src]."
@@ -207,7 +208,7 @@
 					if(temp_name)
 						modify.registered_name = temp_name
 					else
-						src.visible_message("<span class='notice'>[src] buzzes rudely.</span>")
+						src.visible_message(SPAN_NOTE("[src] buzzes rudely."))
 			nanomanager.update_uis(src)
 
 		if ("account")

@@ -41,7 +41,7 @@ var/list/wood_icons = list("wood","wood-broken")
 	var/lava = 0
 	var/broken = 0
 	var/burnt = 0
-	var/mineral = DEFAULT_WALL_MATERIAL
+	var/mineral = MATERIAL_STEEL
 	var/floor_type = /obj/item/stack/tile/steel
 	var/lightfloor_state // for light floors, this is the state of the tile. 0-7, 0x4 is on-bit - use the helper procs below
 
@@ -89,7 +89,8 @@ var/list/wood_icons = list("wood","wood-broken")
 				if(2)
 					src.ChangeTurf(/turf/space)
 				if(3)
-					if(prob(33)) new /obj/item/stack/material/steel(src)
+					if(prob(33))
+						new /obj/item/stack/material/steel(src)
 					if(prob(80))
 						src.break_tile_to_plating()
 					else
@@ -102,7 +103,7 @@ var/list/wood_icons = list("wood","wood-broken")
 	return
 
 /turf/simulated/floor/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	
+
 	var/temp_destroy = get_damage_temperature()
 	if(!burnt && prob(5))
 		burn_tile(exposed_temperature)
@@ -309,16 +310,16 @@ turf/simulated/floor/proc/update_icon()
 /turf/simulated/floor/proc/burn_tile(var/exposed_temperature)
 	if(istype(src,/turf/simulated/floor/engine)) return
 	if(istype(src,/turf/simulated/floor/plating/airless/asteroid)) return//Asteroid tiles don't burn
-	
+
 	var/damage_temp = get_damage_temperature()
-	
+
 	if(broken) return
 	if(burnt)
 		if(is_steel_floor() && exposed_temperature >= damage_temp) //allow upgrading from scorched tiles to damaged tiles
 			src.icon_state = "damaged[pick(1,2,3,4,5)]"
 			broken = 1
 		return
-	
+
 	if(is_steel_floor() && exposed_temperature >= T0C+300) //enough to char the floor, but not hot enough to actually burn holes in it
 		src.icon_state = "floorscorched[pick(1,2)]"
 		burnt = 1
@@ -480,9 +481,9 @@ turf/simulated/floor/proc/update_icon()
 				qdel(C)
 				set_lightfloor_state(0) //fixing it by bashing it with a light bulb, fun eh?
 				update_icon()
-				user << "\blue You replace the light bulb."
+				user << SPAN_NOTE("You replace the light bulb.")
 			else
-				user << "\blue The lightbulb seems fine, no need to replace it."
+				user << SPAN_NOTE("The lightbulb seems fine, no need to replace it.")
 
 	if(istype(C, /obj/item/weapon/crowbar) && (!(is_plating())))
 		if(broken || burnt)
@@ -522,7 +523,7 @@ turf/simulated/floor/proc/update_icon()
 			if (R.get_amount() < 2)
 				user << "<span class='warning'>You need more rods.</span>"
 				return
-			user << "\blue Reinforcing the floor..."
+			user << SPAN_NOTE("Reinforcing the floor...")
 			if(do_after(user, 30) && is_plating())
 				if (R.use(2))
 					ChangeTurf(/turf/simulated/floor/engine)
@@ -563,7 +564,7 @@ turf/simulated/floor/proc/update_icon()
 				levelupdate()
 				playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 			else
-				user << "\blue This section is too damaged to support a tile. Use a welder to fix the damage."
+				user << SPAN_NOTE("This section is too damaged to support a tile. Use a welder to fix the damage.")
 
 
 	if(istype(C, /obj/item/stack/cable_coil))
@@ -577,7 +578,7 @@ turf/simulated/floor/proc/update_icon()
 		if(is_grass_floor())
 			new /obj/item/weapon/ore/glass(src)
 			new /obj/item/weapon/ore/glass(src) //Make some sand if you shovel grass
-			user << "\blue You shovel the grass."
+			user << SPAN_NOTE("You shovel the grass.")
 			make_plating()
 		else
 			user << "\red You cannot shovel this."
@@ -593,7 +594,7 @@ turf/simulated/floor/proc/update_icon()
 					burnt = 0
 					broken = 0
 				else
-					user << "\blue You need more welding fuel to complete this task."
+					user << SPAN_NOTE("You need more welding fuel to complete this task.")
 
 #undef LIGHTFLOOR_ON_BIT
 

@@ -349,7 +349,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/select = null
 	var/list/borgs = list()
 	for (var/mob/living/silicon/robot/A in player_list)
-		if (A.stat == DEAD || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone))
+		if (A.stat == DEAD || A.connected_ai || A.scrambledcodes || isdrone(A))
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
@@ -1468,10 +1468,10 @@ proc/GaussRandRound(var/sigma,var/roundto)
 							X.name = "wall"
 							qdel(O) // prevents multiple shuttle corners from stacking
 							continue
-						if(!istype(O,/obj)) continue
+						if(!isobj(O)) continue
 						O.loc = X
 					for(var/mob/M in T)
-						if(!istype(M,/mob) || isEye(M)) continue // If we need to check for more mobs, I'll add a variable
+						if(!ismob(M) || isEye(M)) continue // If we need to check for more mobs, I'll add a variable
 						M.loc = X
 
 //					var/area/AR = X.loc
@@ -1587,7 +1587,7 @@ proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
 
 					for(var/obj/O in T)
 
-						if(!istype(O,/obj))
+						if(!isobj(O))
 							continue
 
 						objs += O
@@ -1602,7 +1602,7 @@ proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
 
 					for(var/mob/M in T)
 
-						if(!istype(M,/mob) || isEye(M)) continue // If we need to check for more mobs, I'll add a variable
+						if(!ismob(M) || isEye(M)) continue // If we need to check for more mobs, I'll add a variable
 						mobs += M
 
 					for(var/mob/M in mobs)
@@ -1785,8 +1785,8 @@ proc/is_hot(obj/item/W as obj)
 /proc/can_operate(mob/living/carbon/M)
 	return M.lying && (\
 		locate(/obj/machinery/optable, M.loc) || \
-		(locate(/obj/structure/bed/roller, M.loc) && prob(75)) || \
-		(locate(/obj/structure/table/, M.loc) && prob(66))\
+		(locate(/obj/structure/roller_bed, M.loc) && prob(75)) || \
+		(locate(/obj/structure/table, M.loc) && prob(66))\
 	)
 
 /proc/reverse_direction(var/dir)
@@ -1816,7 +1816,7 @@ var/list/WALLITEMS = list(
 	/obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers, /obj/machinery/light_switch,
 	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/machinery/embedded_controller,
 	/obj/machinery/newscaster, /obj/machinery/firealarm, /obj/structure/noticeboard, /obj/machinery/button,
-	/obj/machinery/computer/security/telescreen, /obj/machinery/keycard_auth, /obj/structure/closet/fireaxecabinet,
+	/obj/machinery/computer/security/telescreen, /obj/machinery/keycard_auth, /obj/structure/fireaxecabinet,
 	/obj/item/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/structure/mirror,
 	/obj/machinery/computer/security/telescreen/entertainment
 )
@@ -1852,6 +1852,57 @@ var/list/WALLITEMS = list(
 				if(O.pixel_x == 0 && O.pixel_y == 0)
 					return 1
 	return 0
+
+/proc/getBackpackTypes(var/department = BACKPACK_COMMON)
+	switch(department)
+		if(BACKPACK_COMMON)
+			return list(
+				/obj/item/storage/backpack,
+				/obj/item/storage/backpack/satchel/norm,
+				/obj/item/storage/backpack/dufflebag,
+				/obj/item/storage/backpack/messenger,
+			)
+		if(BACKPACK_MEDICAL)
+			return list(
+				/obj/item/storage/backpack/medic,
+				/obj/item/storage/backpack/satchel/med,
+				/obj/item/storage/backpack/dufflebag/med,
+				/obj/item/storage/backpack/messenger/med,
+			)
+		if(BACKPACK_PARAMEDIC)
+			return list(
+				/obj/item/storage/backpack/emt,
+				/obj/item/storage/backpack/satchel/emt,
+				/obj/item/storage/backpack/dufflebag/emt,
+				/obj/item/storage/backpack/messenger/emt,
+			)
+		if(BACKPACK_SECURITY)
+			return list(
+				/obj/item/storage/backpack/security,
+				/obj/item/storage/backpack/satchel/sec,
+				/obj/item/storage/backpack/dufflebag/sec,
+				/obj/item/storage/backpack/messenger/sec
+			)
+		if(BACKPACK_ENGINEERING)
+			return list(
+				/obj/item/storage/backpack/industrial,
+				/obj/item/storage/backpack/satchel/eng,
+				/obj/item/storage/backpack/dufflebag/eng,
+				/obj/item/storage/backpack/messenger/eng
+			)
+		if(BACKPACK_SCIENCE)
+			return list(
+				/obj/item/storage/backpack/toxins,
+				/obj/item/storage/backpack/satchel/tox,
+				/obj/item/storage/backpack/messenger/tox
+			)
+		if(BACKPACK_CAPTAIN)
+			return list(
+				/obj/item/storage/backpack/captain,
+				/obj/item/storage/backpack/satchel/cap,
+				/obj/item/storage/backpack/dufflebag/cap,
+				/obj/item/storage/backpack/messenger/com
+			)
 
 /proc/format_text(text)
 	return replacetext(replacetext(text,"\proper ",""),"\improper ","")
@@ -1911,3 +1962,23 @@ var/mob/dview/dview_mob = new
 		if(mob in living_mob_list)
 			living_player_count += 1
 	return living_player_count
+
+/proc/shiftPixel(atom/movable/A, dir, shift = 32)
+	switch(dir)
+		if(NORTH)
+			A.pixel_x = 0
+			A.pixel_y = shift
+		if(SOUTH)
+			A.pixel_x = 0
+			A.pixel_y = -shift
+		if(EAST)
+			A.pixel_x = shift
+			A.pixel_y = 0
+		if(WEST)
+			A.pixel_x = -shift
+			A.pixel_y = 0
+
+/proc/shiftOnWall(atom/movable/A, dir, shift)
+	A.forceMove(get_step(A, dir))
+	shiftPixel(A, reverse_dir[dir], shift)
+

@@ -8,7 +8,7 @@
 	var/amount = 1.0
 	var/laying = 0.0
 	var/old_lay = null
-	matter = list(DEFAULT_WALL_MATERIAL = 40)
+	matter = list(MATERIAL_STEEL = 40)
 	attack_verb = list("whipped", "lashed", "disciplined", "tickled")
 
 	suicide_act(mob/user)
@@ -27,7 +27,7 @@
 /obj/item/weapon/wire/attack_self(mob/user as mob)
 	if (src.laying)
 		src.laying = 0
-		user << "\blue You're done laying wire!"
+		user << SPAN_NOTE("You're done laying wire!")
 	else
-		user << "\blue You are not using this to lay wire..."
+		user << SPAN_NOTE("You are not using this to lay wire...")
 	return

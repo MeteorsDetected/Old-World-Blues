@@ -29,8 +29,7 @@
 	sleep(4)					//<--- What the fuck are you doing? D=
 	src.sd_SetLuminosity(2)
 */
-/obj/machinery/flasher/power_change()
-	..()
+/obj/machinery/flasher/update_icon()
 	if ( !(stat & NOPOWER) )
 		icon_state = "[base_state]1"
 //		src.sd_SetLuminosity(2)
@@ -67,7 +66,7 @@
 	src.last_flash = world.time
 	use_power(1500)
 
-	for (var/mob/O in viewers(src, null))
+	for (var/mob/living/O in viewers(src, null))
 		if (get_dist(src, O) > src.range)
 			continue
 
@@ -76,12 +75,6 @@
 			if(!H.eyecheck() <= 0)
 				continue
 
-		if (istype(O, /mob/living/carbon/alien))//So aliens don't get flashed (they have no external eyes)/N
-			continue
-
-		O.Weaken(strength)
-		if (ishuman(O))
-			var/mob/living/carbon/human/H = O
 			var/obj/item/organ/internal/eyes/E = H.internal_organs_by_name[O_EYES]
 			if (E && (E.damage > E.min_bruised_damage && prob(E.damage + 50)))
 				flick("e_flash", O:flash)
@@ -89,6 +82,8 @@
 		else
 			if(!O.blinded)
 				flick("flash", O:flash)
+		O.Weaken(strength)
+
 
 
 /obj/machinery/flasher/emp_act(severity)
@@ -103,7 +98,7 @@
 	if ((src.disable) || (src.last_flash && world.time < src.last_flash + 150))
 		return
 
-	if(istype(AM, /mob/living/carbon))
+	if(iscarbon(AM))
 		var/mob/living/carbon/M = AM
 		if ((M.m_intent != "walk") && (src.anchored))
 			src.flash()

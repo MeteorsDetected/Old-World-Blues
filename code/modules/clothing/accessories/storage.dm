@@ -9,8 +9,8 @@
 	var/obj/item/storage/internal/hold
 	w_class = ITEM_SIZE_NORMAL
 
-/obj/item/clothing/accessory/storage/New()
-	..()
+/obj/item/clothing/accessory/storage/initialize()
+	. = ..()
 	hold = new/obj/item/storage/internal(src)
 	hold.max_storage_space = slots * 2
 	hold.storage_slots = slots
@@ -42,7 +42,7 @@
 	..()
 
 /obj/item/clothing/accessory/storage/attack_self(mob/user as mob)
-	user << "<span class='notice'>You empty [src].</span>"
+	user << SPAN_NOTE("You empty [src].")
 	var/turf/T = get_turf(src)
 	hold.hide_from(usr)
 	for(var/obj/item/I in hold.contents)
@@ -93,14 +93,16 @@
 	icon_state = "unathiharness2"
 	slots = 2
 
-/obj/item/clothing/accessory/storage/knifeharness/New()
-	..()
+/obj/item/clothing/accessory/storage/knifeharness/initialize()
+	. = ..()
 	hold.max_storage_space = 4
-	hold.can_hold = list(/obj/item/weapon/material/hatchet/unathiknife,\
-	/obj/item/weapon/material/kitchen/utensil/knife,\
-	/obj/item/weapon/material/kitchen/utensil/knife/plastic,\
-	/obj/item/weapon/material/knife,\
-	/obj/item/weapon/material/knife/ritual)
+	hold.can_hold = list(
+		/obj/item/weapon/material/hatchet/unathiknife,
+		/obj/item/weapon/material/kitchen/utensil/knife,
+		/obj/item/weapon/material/kitchen/utensil/knife/plastic,
+		/obj/item/weapon/material/knife,
+		/obj/item/weapon/material/knife/ritual
+	)
 
 	new /obj/item/weapon/material/hatchet/unathiknife(hold)
 	new /obj/item/weapon/material/hatchet/unathiknife(hold)

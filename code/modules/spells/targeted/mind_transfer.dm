@@ -22,6 +22,8 @@
 /spell/targeted/mind_transfer/cast(list/targets, mob/user)
 	..()
 
+	if(!isliving(user))
+		return
 	for(var/mob/living/target in targets)
 		if(target.stat == DEAD)
 			user << "You didn't study necromancy back at the Space Wizard Federation academy."
@@ -36,7 +38,7 @@
 			continue
 
 		var/mob/living/victim = target//The target of the spell whos body will be transferred to.
-		var/mob/caster = user//The wizard/whomever doing the body transferring.
+		var/mob/living/caster = user//The wizard/whomever doing the body transferring.
 
 		//MIND TRANSFER BEGIN
 		if(caster.mind.special_verbs.len)//If the caster had any special verbs, remove them from the mob verb list.

@@ -4,29 +4,30 @@
 	name = "miner's equipment"
 	icon_state = "miningsec"
 	icon_opened = "miningsecopen"
-	icon_broken = "miningsecbroken"
 	req_access = list(access_mining)
 
-/obj/structure/closet/secure_closet/miner/New()
-	..()
-	switch(rand(4))
-		if(1) new /obj/item/storage/backpack/industrial(src)
-		if(2) new /obj/item/storage/backpack/satchel/eng(src)
-		if(3) new /obj/item/storage/backpack/dufflebag/eng(src)
-		if(4) new /obj/item/storage/backpack/messenger/eng(src)
-	new /obj/item/device/radio/headset/cargo(src)
-	new /obj/item/clothing/under/rank/miner(src)
-	new /obj/item/clothing/gloves/black(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/device/analyzer(src)
-	new /obj/item/storage/bag/ore(src)
-	new /obj/item/device/flashlight/lantern(src)
-	new /obj/item/weapon/shovel(src)
+
+/obj/structure/closet/secure_closet/miner/willContatin()
+	. = list(
+		/obj/item/device/radio/headset/cargo,
+		/obj/item/clothing/under/rank/miner,
+		/obj/item/clothing/gloves/black,
+		/obj/item/clothing/shoes/black,
+		/obj/item/device/analyzer,
+		/obj/item/storage/bag/ore,
+		/obj/item/device/flashlight/lantern,
+		/obj/item/weapon/shovel,
+		/obj/item/clothing/glasses/material,
+	)
+
 	if(prob(50))
-		new /obj/item/weapon/pickaxe(src)
+		. += /obj/item/weapon/pickaxe
 	else
-		new /obj/item/weapon/pickaxe/drill(src)
-	new /obj/item/clothing/glasses/material(src)
+		. += /obj/item/weapon/pickaxe/drill
+
+	. += pick(getBackpackTypes(BACKPACK_ENGINEERING))
+
+
 
 /******************************Lantern*******************************/
 
@@ -49,7 +50,7 @@
 	icon_state = "pickaxe"
 	item_state = "pickaxe"
 	w_class = ITEM_SIZE_HUGE
-	matter = list(DEFAULT_WALL_MATERIAL = 3750)
+	matter = list(MATERIAL_STEEL = 3750)
 	var/digspeed = 40 //moving the delay to an item var so R&D can make improved picks. --NEO
 	origin_tech = list(TECH_MATERIAL = 1, TECH_ENGINEERING = 1)
 	attack_verb = list("hit", "dug", "sliced", "attacked")
@@ -160,7 +161,7 @@
 	item_state = "shovel"
 	w_class = ITEM_SIZE_HUGE
 	origin_tech = list(TECH_MATERIAL = 1, TECH_ENGINEERING = 1)
-	matter = list(DEFAULT_WALL_MATERIAL = 50)
+	matter = list(MATERIAL_STEEL = 50)
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
 	sharp = 0
 	edge = 1
@@ -197,8 +198,8 @@
 	var/upright = 0
 	var/base_state
 
-/obj/item/stack/flag/New()
-	..()
+/obj/item/stack/flag/initialize()
+	. = ..()
 	base_state = icon_state
 
 /obj/item/stack/flag/red

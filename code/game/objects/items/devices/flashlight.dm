@@ -8,14 +8,14 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 
-	matter = list(DEFAULT_WALL_MATERIAL = 50,"glass" = 20)
+	matter = list(MATERIAL_STEEL = 50,MATERIAL_GLASS = 20)
 
 	icon_action_button = "action_flashlight"
 	var/on = 0
 	var/brightness_on = 4 //luminosity when on
 
 /obj/item/device/flashlight/initialize()
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/device/flashlight/update_icon()
@@ -55,8 +55,8 @@
 			if(!vision)
 				user << "<span class='warning'>You can't find any [H.species.vision_organ ? H.species.vision_organ : "eyes"] on [H]!</span>"
 
-			user.visible_message("<span class='notice'>\The [user] directs [src] to [M]'s eyes.</span>", \
-							 	 "<span class='notice'>You direct [src] to [M]'s eyes.</span>")
+			user.visible_message(SPAN_NOTE("\The [user] directs [src] to [M]'s eyes."), \
+							 	 SPAN_NOTE("You direct [src] to [M]'s eyes."))
 			if(H != user)	//can't look into your own eyes buster
 				if(H.stat == DEAD || H.blinded)	//mob is dead or fully blind
 					user << "<span class='warning'>\The [H]'s pupils do not react to the light!</span>"
@@ -65,23 +65,23 @@
 				//TODO: move to organ code
 				/*
 				if(XRAY in H.mutations)
-					user << "<span class='notice'>\The [H] pupils give an eerie glow!</span>"
+					user << SPAN_NOTE("\The [H] pupils give an eerie glow!")
 				*/
 				if(vision.is_bruised())
 					user << "<span class='warning'>There's visible damage to [H]'s [vision.name]!</span>"
 				else if(M.eye_blurry)
-					user << "<span class='notice'>\The [H]'s pupils react slower than normally.</span>"
+					user << SPAN_NOTE("\The [H]'s pupils react slower than normally.")
 				if(H.getBrainLoss() > 15)
-					user << "<span class='notice'>There's visible lag between left and right pupils' reactions.</span>"
+					user << SPAN_NOTE("There's visible lag between left and right pupils' reactions.")
 
 				var/list/pinpoint = list("oxycodone"=1,"tramadol"=5)
 				var/list/dilating = list("space_drugs"=5,"mindbreaker"=1)
 				if(M.reagents.has_any_reagent(pinpoint) || H.ingested.has_any_reagent(pinpoint))
-					user << "<span class='notice'>\The [H]'s pupils are already pinpoint and cannot narrow any more.</span>"
+					user << SPAN_NOTE("\The [H]'s pupils are already pinpoint and cannot narrow any more.")
 				else if(H.reagents.has_any_reagent(dilating) || H.ingested.has_any_reagent(dilating))
-					user << "<span class='notice'>\The [H]'s pupils narrow slightly, but are still very dilated.</span>"
+					user << SPAN_NOTE("\The [H]'s pupils narrow slightly, but are still very dilated.")
 				else
-					user << "<span class='notice'>\The [H]'s pupils narrow.</span>"
+					user << SPAN_NOTE("\The [H]'s pupils narrow.")
 
 			user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN) //can be used offensively
 			flick("flash", M.flash)
@@ -153,7 +153,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!usr.stat)
+	if(!usr.incapacitated())
 		attack_self(usr)
 
 /obj/item/device/flashlight/lamp/AltClick(var/mob/user)
@@ -176,9 +176,10 @@
 	var/on_damage = 7
 	var/produce_heat = 1500
 
-/obj/item/device/flashlight/flare/New()
-	fuel = rand(800, 1000) // Sorry for changing this so much but I keep under-estimating how long X number of ticks last in seconds.
-	..()
+/obj/item/device/flashlight/flare/initialize()
+	// Sorry for changing this so much but I keep under-estimating how long X number of ticks last in seconds.
+	fuel = rand(800, 1000)
+	. = ..()
 
 /obj/item/device/flashlight/flare/process()
 	var/turf/pos = get_turf(src)
@@ -201,7 +202,7 @@
 
 	// Usual checks
 	if(!fuel)
-		user << "<span class='notice'>It's out of fuel.</span>"
+		user << SPAN_NOTE("It's out of fuel.")
 		return
 	if(on)
 		return
@@ -209,7 +210,7 @@
 	. = ..()
 	// All good, turn it on.
 	if(.)
-		user.visible_message("<span class='notice'>[user] activates the flare.</span>", "<span class='notice'>You pull the cord on the flare, activating it!</span>")
+		user.visible_message(SPAN_NOTE("[user] activates the flare."), SPAN_NOTE("You pull the cord on the flare, activating it!"))
 		src.force = on_damage
 		src.damtype = "fire"
 		processing_objects += src
@@ -219,14 +220,14 @@
 	name = "glowing slime extract"
 	desc = "A glowing ball of what appears to be amber."
 	icon = 'icons/obj/lighting.dmi'
-	icon_state = "floor1" //not a slime extract sprite but... something close enough!
+	icon_state = "slime-on"
 	item_state = "slime"
 	w_class = ITEM_SIZE_TINY
 	brightness_on = 6
 	on = 1 //Bio-luminesence has one setting, on.
 
-/obj/item/device/flashlight/slime/New()
-	..()
+/obj/item/device/flashlight/slime/initialize()
+	. = ..()
 	set_light(brightness_on)
 
 /obj/item/device/flashlight/slime/update_icon()

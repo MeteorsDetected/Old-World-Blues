@@ -27,9 +27,9 @@ var/datum/antagonist/xenos/borer/borers
 /datum/antagonist/xenos/borer/create_objectives(var/datum/mind/player)
 	if(!..())
 		return
-	player.objectives += new /datum/objective/borer_survive()
-	player.objectives += new /datum/objective/borer_reproduce()
-	player.objectives += new /datum/objective/escape()
+	new /datum/objective/borer_survive(player)
+	new /datum/objective/borer_reproduce(player)
+	new /datum/objective/escape(player)
 
 /datum/antagonist/xenos/borer/place_mob(var/mob/living/mob)
 	var/mob/living/simple_animal/borer/borer = mob
@@ -53,12 +53,3 @@ var/datum/antagonist/xenos/borer/borers
 				borer.host_brain.real_name = host.real_name
 				return
 	..() // Place them at a vent if they can't get a host.
-
-/datum/antagonist/xenos/borer/remove_antagonist(var/datum/mind/player, var/mob/M)
-	switch(input("What to remove?") in list ("Mob", "Role"))
-		if("Mob")
-			M = player.current
-			..()
-			qdel(M)
-		if ("Role")
-			..()

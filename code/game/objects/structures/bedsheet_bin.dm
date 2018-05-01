@@ -3,76 +3,166 @@ CONTAINS:
 BEDSHEETS
 LINEN BINS
 */
-
 /obj/item/weapon/bedsheet
 	name = "bedsheet"
 	desc = "A surprisingly soft linen bedsheet."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "sheet"
-	item_state = "bedsheet"
+	icon = 'icons/obj/bed.dmi'
+	icon_state = "bedsheet"
+	slot_flags = SLOT_BACK
 	layer = 4.0
 	throwforce = 1
 	throw_speed = 1
 	throw_range = 2
 	w_class = ITEM_SIZE_SMALL
+	var/material = "cotton"
+	var/is_double = FALSE
+	var/global/list/cached_icon
+
+/obj/item/weapon/bedsheet/New(loc, material)
+	if(material)
+		src.material = material
+	..(loc)
+
+/obj/item/weapon/bedsheet/initialize()
+	. = ..()
+	var/material/material = get_material_by_name(src.material)
+	name = "[material.display_name] [initial(name)]"
+	src.color = material.icon_colour
+	update_icon()
+
+/obj/item/weapon/bedsheet/update_icon()
+	overlays.Cut()
+	var/icon_key = is_double ? "double_top" : "bedsheet_top"
+	if(!cached_icon)
+		cached_icon = new
+	if(!cached_icon[icon_key])
+		var/image/image = image(icon, icon_key)
+		image.appearance_flags |= RESET_COLOR
+		cached_icon[icon_key] = image
+	overlays += cached_icon[icon_key]
 
 /obj/item/weapon/bedsheet/attack_self(mob/user as mob)
 	user.drop_from_inventory(src)
 	if(layer == initial(layer))
 		layer = 5
+		pixel_x = 0
+		pixel_y = 0
 	else
 		layer = initial(layer)
 	add_fingerprint(user)
 	return
 
+/obj/item/weapon/bedsheet/attackby(obj/item/I, mob/living/user)
+	if(istype(I) && material)
+		if(I.sharp)
+			if(isturf(src.loc))
+				create_material_stacks(material, 2, src.loc)
+				qdel(src)
+			else if(user.get_inactive_hand() == src && isturf(user.loc))
+				create_material_stacks(material, 2, user.loc)
+				qdel(src)
+			else
+				user << SPAN_WARN("You can't cut [src] there.")
+			return
+	return ..()
 
 /obj/item/weapon/bedsheet/blue
-	icon_state = "sheetblue"
+	material = "blue"
+	color = "#6B6FE3"
 
 /obj/item/weapon/bedsheet/green
-	icon_state = "sheetgreen"
-
-/obj/item/weapon/bedsheet/orange
-	icon_state = "sheetorange"
+	material = "green"
+	color = "#01C608"
 
 /obj/item/weapon/bedsheet/purple
-	icon_state = "sheetpurple"
+	material = "purple"
+	color = "#9C56C4"
+
+/obj/item/weapon/bedsheet/red
+	material = "red"
+	color = "#DA020A"
+
+/obj/item/weapon/bedsheet/lime
+	material = "lime"
+	color = "#62E36C"
+
+/obj/item/weapon/bedsheet/orange
+	material = "orange"
+	color = "#FFCF72"
+
+/obj/item/weapon/bedsheet/teal
+	material ="teal"
+	color = "#00EAFA"
+
+/obj/item/weapon/bedsheet/brown
+	material = "leather"
+	color = "#5C4831"
 
 /obj/item/weapon/bedsheet/rainbow
 	icon_state = "sheetrainbow"
 
-/obj/item/weapon/bedsheet/red
-	icon_state = "sheetred"
-
-/obj/item/weapon/bedsheet/yellow
-	icon_state = "sheetyellow"
+/obj/item/weapon/bedsheet/clown
+	icon_state = "sheetclown"
 
 /obj/item/weapon/bedsheet/mime
 	icon_state = "sheetmime"
 
-/obj/item/weapon/bedsheet/clown
-	icon_state = "sheetclown"
-
-/obj/item/weapon/bedsheet/captain
-	icon_state = "sheetcaptain"
+/obj/item/weapon/bedsheet/medical
+	icon_state = "sheetmedical"
 
 /obj/item/weapon/bedsheet/rd
 	icon_state = "sheetrd"
 
-/obj/item/weapon/bedsheet/medical
-	icon_state = "sheetmedical"
+/obj/item/weapon/bedsheet/cmo
+	icon_state = "sheetcmo"
 
 /obj/item/weapon/bedsheet/hos
 	icon_state = "sheethos"
 
-/obj/item/weapon/bedsheet/hop
-	icon_state = "sheethop"
-
 /obj/item/weapon/bedsheet/ce
 	icon_state = "sheetce"
 
-/obj/item/weapon/bedsheet/brown
-	icon_state = "sheetbrown"
+/obj/item/weapon/bedsheet/hop
+	icon_state = "sheethop"
+
+/obj/item/weapon/bedsheet/captain
+	icon_state = "sheetcaptain"
+
+/obj/item/weapon/bedsheet/ian
+	icon_state = "sheetian"
+
+
+/obj/item/weapon/bedsheet/doublesheet
+	icon_state = "doublesheet"
+	wear_state = "bedsheet"
+	is_double = TRUE
+
+/obj/item/weapon/bedsheet/doublesheet/rainbow
+	icon_state = "doublesheetrainbow"
+
+/obj/item/weapon/bedsheet/doublesheet/ian
+	icon_state = "doublesheetian"
+
+/obj/item/weapon/bedsheet/doublesheet/captain
+	icon_state = "doublesheetcaptain"
+
+/obj/item/weapon/bedsheet/doublesheet/hop
+	icon_state = "doublesheethop"
+
+/obj/item/weapon/bedsheet/doublesheet/ce
+	icon_state = "doublesheetce"
+
+/obj/item/weapon/bedsheet/doublesheet/hos
+	icon_state = "doublesheethos"
+
+/obj/item/weapon/bedsheet/doublesheet/rd
+	icon_state = "doublesheetrd"
+
+/obj/item/weapon/bedsheet/doublesheet/clown
+	icon_state = "doublesheetclown"
+
+/obj/item/weapon/bedsheet/doublesheet/mime
+	icon_state = "doublesheetmime"
 
 
 /obj/structure/bedsheetbin
@@ -110,11 +200,11 @@ LINEN BINS
 		user.drop_from_inventory(I, src)
 		sheets.Add(I)
 		amount++
-		user << "<span class='notice'>You put [I] in [src].</span>"
+		user << SPAN_NOTE("You put [I] in [src].")
 	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
 	else if(amount && !hidden && I.w_class < ITEM_SIZE_HUGE && user.unEquip(I, src))
 		hidden = I
-		user << "<span class='notice'>You hide [I] among the sheets.</span>"
+		user << SPAN_NOTE("You hide [I] among the sheets.")
 
 /obj/structure/bedsheetbin/attack_hand(mob/user as mob)
 	if(amount >= 1)
@@ -129,11 +219,11 @@ LINEN BINS
 			B = new /obj/item/weapon/bedsheet(loc)
 
 		user.put_in_hands(B)
-		user << "<span class='notice'>You take [B] out of [src].</span>"
+		user << SPAN_NOTE("You take [B] out of [src].")
 
 		if(hidden)
 			hidden.loc = user.loc
-			user << "<span class='notice'>[hidden] falls out of [B]!</span>"
+			user << SPAN_NOTE("[hidden] falls out of [B]!")
 			hidden = null
 
 
@@ -152,7 +242,7 @@ LINEN BINS
 			B = new /obj/item/weapon/bedsheet(loc)
 
 		B.loc = loc
-		user << "<span class='notice'>You telekinetically remove [B] from [src].</span>"
+		user << SPAN_NOTE("You telekinetically remove [B] from [src].")
 		update_icon()
 
 		if(hidden)

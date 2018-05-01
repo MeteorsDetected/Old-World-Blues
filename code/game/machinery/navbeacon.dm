@@ -23,7 +23,7 @@ var/global/list/navbeacons			// no I don't like putting this in, but it will do 
 
 	req_access = list(access_engine)
 
-	New()
+	initialize()
 		..()
 
 		set_codes()
@@ -38,9 +38,8 @@ var/global/list/navbeacons			// no I don't like putting this in, but it will do 
 			navbeacons += src
 
 
-		spawn(5)	// must wait for map loading to finish
-			if(radio_controller)
-				radio_controller.add_object(src, freq, RADIO_NAVBEACONS)
+		if(radio_controller)
+			radio_controller.add_object(src, freq, RADIO_NAVBEACONS)
 
 	// set the transponder codes assoc list from codes_txt
 	proc/set_codes()
@@ -193,7 +192,7 @@ Transponder Codes:<UL>"}
 
 	Topic(href, href_list)
 		..()
-		if (usr.stat)
+		if (usr.incapacitated())
 			return
 		if ((in_range(src, usr) && istype(src.loc, /turf)) || (issilicon(usr)))
 			if(open && !locked)

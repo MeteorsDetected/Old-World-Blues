@@ -29,18 +29,19 @@
 	dat += "Deployment of weapon authorized by <br>Nanotrasen Naval Command<br><br>Remember, friendly fire is grounds for termination of your contract and life.<HR>"
 	user << browse(dat, "window=scroll")
 	onclose(user, "scroll")
-	return
 
 /obj/machinery/artillerycontrol/Topic(href, href_list)
 	..()
-	if (usr.stat || usr.restrained())
+	if (usr.incapacitated())
 		return
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
 		var/A
 		A = input("Area to jump bombard", "Open Fire", A) in teleportlocs
 		var/area/thearea = teleportlocs[A]
-		if (usr.stat || usr.restrained()) return
-		if(src.reload < 180) return
+		if(usr.incapacitated())
+			return
+		if(src.reload < 180)
+			return
 		if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
 			command_announcement.Announce("Bluespace artillery fire detected. Brace for impact.")
 			message_admins("[key_name_admin(usr)] has launched an artillery strike.", 1)

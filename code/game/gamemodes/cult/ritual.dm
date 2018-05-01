@@ -5,6 +5,9 @@ var/runedec = 0
 var/global/list/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", "self", "see", "other", "hide")
 var/global/list/rnwords = list("ire","ego","nahlizet","certum","veri","jatkaa","mgar","balaq", "karazet", "geeri")
 
+
+ADMIN_VERB_ADD(/client/proc/check_words, R_ADMIN)
+/*displays cult-words*/
 /client/proc/check_words() // -- Urist
 	set category = "Special Verbs"
 	set name = "Check Rune Words"
@@ -95,7 +98,7 @@ var/global/list/rnwords = list("ire","ego","nahlizet","certum","veri","jatkaa","
 			qdel(src)
 			return
 		else if(istype(I, /obj/item/weapon/nullrod))
-			user << "<span class='notice'>You disrupt the vile magic with the deadening field of the null rod!</span>"
+			user << SPAN_NOTE("You disrupt the vile magic with the deadening field of the null rod!")
 			qdel(src)
 			return
 		return
@@ -289,7 +292,7 @@ var/global/list/rnwords = list("ire","ego","nahlizet","certum","veri","jatkaa","
 	Topic(href,href_list[])
 		if (src.loc == usr)
 			var/number = text2num(href_list["number"])
-			if (usr.stat|| usr.restrained())
+			if (usr.incapacitated(INCAPACITATION_ALL))
 				return
 			switch(href_list["action"])
 				if("clear")
@@ -363,7 +366,7 @@ var/global/list/rnwords = list("ire","ego","nahlizet","certum","veri","jatkaa","
 
 	attack_self(mob/living/user as mob)
 		usr = user
-		if(!usr.canmove || usr.stat || usr.restrained())
+		if(usr.incapacitated())
 			return
 
 		if(!cultwords["travel"])

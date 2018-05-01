@@ -33,30 +33,23 @@
 
 	var/on_open_network = 0
 
-/obj/machinery/camera/New()
+/obj/machinery/camera/initialize()
 	wires = new(src)
 	assembly = new(src)
 	assembly.state = 4
 
-	/* // Use this to look for cameras that have the same c_tag.
-	for(var/obj/machinery/camera/C in cameranet.cameras)
-		var/list/tempnetwork = C.network&src.network
-		if(C != src && C.c_tag == src.c_tag && tempnetwork.len)
-			world.log << "[src.c_tag] [src.x] [src.y] [src.z] conflicts with [C.c_tag] [C.x] [C.y] [C.z]"
-	*/
 	if(!src.network || src.network.len < 1)
 		if(loc)
 			error("[src.name] in [get_area(src)] (x:[src.x] y:[src.y] z:[src.z] has errored. [src.network?"Empty network list":"Null network list"]")
 		else
 			error("[src.name] in [get_area(src)]has errored. [src.network?"Empty network list":"Null network list"]")
-		ASSERT(src.network)
-		ASSERT(src.network.len > 0)
+		ASSERT(src.network && src.network.len)
 
-	if(!c_tag)
+	if(!c_tag && isturf(loc))
 		var/area/A = get_area(src)
 		c_tag = A.get_camera_tag(src)
 
-	..()
+	. = ..()
 
 /obj/machinery/camera/Destroy()
 	deactivate(null, 0) //kick anyone viewing out
@@ -103,7 +96,7 @@
 
 /obj/machinery/camera/hitby(AM as mob|obj)
 	..()
-	if (istype(AM, /obj))
+	if (isobj(AM))
 		var/obj/O = AM
 		if (O.throwforce >= src.toughness)
 			visible_message("<span class='warning'><B>[src] was hit by [O].</B></span>")
@@ -129,11 +122,11 @@
 	update_coverage()
 	// DECONSTRUCTION
 	if(isscrewdriver(W))
-		//user << "<span class='notice'>You start to [panel_open ? "close" : "open"] the camera's panel.</span>"
+		//user << SPAN_NOTE("You start to [panel_open ? "close" : "open"] the camera's panel.")
 		//if(toggle_panel(user)) // No delay because no one likes screwdrivers trying to be hip and have a duration cooldown
 		panel_open = !panel_open
 		user.visible_message("<span class='warning'>[user] screws the camera's panel [panel_open ? "open" : "closed"]!</span>",
-		"<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
+		SPAN_NOTE("You screw the camera's panel [panel_open ? "open" : "closed"]."))
 		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 
 	else if((iswirecutter(W) || ismultitool(W)) && panel_open)
@@ -202,19 +195,19 @@
 	else
 		update_coverage()
 		set_status(!src.status)
-		if (!(src.status))
+		if (!src.status)
 			if(user)
-				visible_message("<span class='notice'> [user] has deactivated [src]!</span>")
+				visible_message(SPAN_NOTE(" [user] has deactivated [src]!"))
 			else
-				visible_message("<span class='notice'> [src] clicks and shuts down. </span>")
+				visible_message(SPAN_NOTE(" [src] clicks and shuts down. "))
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
 			icon_state = "[initial(icon_state)]1"
 			add_hiddenprint(user)
 		else
 			if(user)
-				visible_message("<span class='notice'> [user] has reactivated [src]!</span>")
+				visible_message(SPAN_NOTE(" [user] has reactivated [src]!"))
 			else
-				visible_message("<span class='notice'> [src] clicks and reactivates itself. </span>")
+				visible_message(SPAN_NOTE(" [src] clicks and reactivates itself. "))
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
 			icon_state = initial(icon_state)
 			add_hiddenprint(user)
@@ -344,7 +337,7 @@
 		return 0
 
 	// Do after stuff here
-	user << "<span class='notice'>You start to weld the [src]..</span>"
+	user << SPAN_NOTE("You start to weld the [src]..")
 	playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 	WT.eyecheck(user)
 	busy = 1

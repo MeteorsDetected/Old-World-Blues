@@ -1,3 +1,4 @@
+ADMIN_VERB_ADD(/client/proc/cinematic, R_FUN)
 /client/proc/cinematic(var/cinematic as anything in list("explosion",null))
 	set name = "Cinematic"
 	set category = "Fun"
@@ -22,5 +23,3 @@
 			ticker.station_explosion_cinematic(parameter,override)
 
 	log_admin("[key_name(src)] launched cinematic \"[cinematic]\"")
-
-	return

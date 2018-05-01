@@ -11,9 +11,9 @@
 		return 0
 
 	if(!usr || src == usr)
-		log_emote("[name]/[key] : [message]")
+		log_emote("[key]/[name]: [message]")
 	else
-		log_emote("[name]/[key] forced by ([key_name(usr)]) : [message]")
+		log_emote("[key]/[name] (usr: [key_name(usr)]) : [message]")
 	message = "<B>[src]</B> [message]"
 	. = 1
 
@@ -25,7 +25,7 @@
 	for(var/mob/M in player_list)
 		if (!M.client)
 			continue //skip monkeys and leavers
-		if (istype(M, /mob/new_player))
+		if (isnewplayer(M))
 			continue
 		if(findtext(message," snores.")) //Because we have so many sleeping people.
 			break

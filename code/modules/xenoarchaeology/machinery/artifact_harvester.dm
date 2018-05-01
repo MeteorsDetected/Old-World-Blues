@@ -14,8 +14,8 @@
 	var/obj/machinery/artifact_scanpad/owned_scanner = null
 	var/last_process = 0
 
-/obj/machinery/artifact_harvester/New()
-	..()
+/obj/machinery/artifact_harvester/initialize()
+	. = ..()
 	//connect to a nearby scanner pad
 	owned_scanner = locate(/obj/machinery/artifact_scanpad) in get_step(src, dir)
 	if(!owned_scanner)
@@ -24,7 +24,7 @@
 /obj/machinery/artifact_harvester/attackby(var/obj/I as obj, var/mob/user as mob)
 	if(istype(I,/obj/item/weapon/anobattery))
 		if(!inserted_battery)
-			user << "\blue You insert [I] into [src]."
+			user << SPAN_NOTE("You insert [I] into [src].")
 			user.drop_from_inventory(I, src)
 			src.inserted_battery = I
 			updateDialog()

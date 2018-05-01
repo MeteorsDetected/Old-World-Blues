@@ -51,9 +51,9 @@
 	throwforce = round(force*thrown_force_divisor)
 	//world << "[src] has unwielded force [force_unwielded], wielded force [force_wielded] and throwforce [throwforce] when made from default material [material.name]"
 
-/obj/item/weapon/material/twohanded/New()
-	..()
+/obj/item/weapon/material/twohanded/initialize()
 	update_icon()
+	return ..()
 
 /obj/item/weapon/material/twohanded/mob_can_equip(M as mob, slot)
 	//Cannot equip wielded items.
@@ -90,7 +90,7 @@
 
 	if(wielded) //Trying to unwield it
 		unwield()
-		H << "<span class='notice'>You are now carrying the [name] with one hand.</span>"
+		H << SPAN_NOTE("You are now carrying the [name] with one hand.")
 		if (src.unwieldsound)
 			playsound(src.loc, unwieldsound, 50, 1)
 
@@ -103,7 +103,7 @@
 			H << "<span class='warning'>You need your other hand to be empty</span>"
 			return
 		wield()
-		H << "<span class='notice'>You grab the [base_name] with both hands.</span>"
+		H << SPAN_NOTE("You grab the [base_name] with both hands.")
 		if (src.wieldsound)
 			playsound(src.loc, wieldsound, 50, 1)
 
@@ -182,7 +182,7 @@
 	sharp = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
-	default_material = "glass"
+	default_material = MATERIAL_GLASS
 
 /obj/item/weapon/material/twohanded/bostaff
 	icon_state = "bostaff0"

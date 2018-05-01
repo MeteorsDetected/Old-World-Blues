@@ -2,12 +2,13 @@
 
 /obj/machinery/computer/engines
 	name = "engine control console"
-	icon_state = "id"
+	screen_icon = "id"
 	var/state = "status"
 	var/list/engines = list()
 	var/obj/effect/map/ship/linked
 
 /obj/machinery/computer/engines/initialize()
+	. = ..()
 	linked = map_sectors["[z]"]
 	if (linked)
 		if (!linked.eng_control)

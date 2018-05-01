@@ -227,7 +227,7 @@
 var/list/mob/living/forced_ambiance_list = new
 
 /area/Entered(A)
-	if(!istype(A,/mob/living))	return
+	if(!isliving(A))	return
 
 	var/mob/living/L = A
 	if(!L.ckey)	return
@@ -294,5 +294,5 @@ var/list/mob/living/forced_ambiance_list = new
 		else
 			H.AdjustStunned(1)
 			H.AdjustWeakened(1)
-		mob << "<span class='notice'>The sudden appearance of gravity makes you fall to the floor!</span>"
+		mob << SPAN_NOTE("The sudden appearance of gravity makes you fall to the floor!")
 

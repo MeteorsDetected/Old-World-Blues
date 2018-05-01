@@ -9,28 +9,27 @@
 	var/potency = 1
 
 /obj/item/weapon/grown/New(newloc,planttype)
-
 	..()
-
-	var/datum/reagents/R = new/datum/reagents(50)
-	reagents = R
-	R.my_atom = src
-
 	//Handle some post-spawn var stuff.
 	if(planttype)
 		plantname = planttype
-		var/datum/seed/S = plant_controller.seeds[plantname]
-		if(!S || !S.chems)
-			return
 
-		potency = S.get_trait(TRAIT_POTENCY)
+/obj/item/weapon/grown/initialize()
+	create_reagents(50)
 
-		for(var/rid in S.chems)
-			var/list/reagent_data = S.chems[rid]
-			var/rtotal = reagent_data[1]
-			if(reagent_data.len > 1 && potency > 0)
-				rtotal += round(potency/reagent_data[2])
-			reagents.add_reagent(rid,max(1,rtotal))
+	var/datum/seed/S = plant_controller.seeds[plantname]
+	if(!S || !S.chems)
+		return
+
+	potency = S.get_trait(TRAIT_POTENCY)
+
+	for(var/rid in S.chems)
+		var/list/reagent_data = S.chems[rid]
+		var/rtotal = reagent_data[1]
+		if(reagent_data.len > 1 && potency > 0)
+			rtotal += round(potency/reagent_data[2])
+		reagents.add_reagent(rid,max(1,rtotal))
+	return ..()
 
 /obj/item/weapon/corncob
 	name = "corn cob"
@@ -46,7 +45,7 @@
 /obj/item/weapon/corncob/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
 	if(istype(W, /obj/item/weapon/circular_saw) || istype(W, /obj/item/weapon/material/hatchet) || istype(W, /obj/item/weapon/material/kitchen/utensil/knife) || istype(W, /obj/item/weapon/material/knife) || istype(W, /obj/item/weapon/material/knife/ritual))
-		user << "<span class='notice'>You use [W] to fashion a pipe out of the corn cob!</span>"
+		user << SPAN_NOTE("You use [W] to fashion a pipe out of the corn cob!")
 		new /obj/item/clothing/mask/smokable/pipe/cobpipe (user.loc)
 		qdel(src)
 		return

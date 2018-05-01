@@ -11,7 +11,7 @@
 	desc = "Emits a visible or invisible beam and is triggered when the beam is interrupted."
 	icon_state = "infrared"
 	origin_tech = list(TECH_MAGNET = 2)
-	matter = list(DEFAULT_WALL_MATERIAL = 1000, "glass" = 500, "waste" = 100)
+	matter = list(MATERIAL_STEEL = 1000, MATERIAL_GLASS = 500)
 
 	wires = WIRE_PULSE
 
@@ -127,7 +127,7 @@
 
 	Topic(href, href_list)
 		if(..()) return 1
-		if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+		if(usr.incapacitated() || !in_range(loc, usr))
 			usr << browse(null, "window=infra")
 			onclose(usr, "infra")
 			return

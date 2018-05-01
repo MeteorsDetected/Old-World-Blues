@@ -3,7 +3,7 @@
 	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock."
 	icon_state = "timer"
 	origin_tech = list(TECH_MAGNET = 1)
-	matter = list(DEFAULT_WALL_MATERIAL = 500, "glass" = 50, "waste" = 10)
+	matter = list(MATERIAL_STEEL = 500, MATERIAL_GLASS = 50)
 
 	wires = WIRE_PULSE
 
@@ -84,7 +84,7 @@
 
 	Topic(href, href_list)
 		if(..()) return 1
-		if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+		if(usr.incapacitated() || !in_range(loc, usr))
 			usr << browse(null, "window=timer")
 			onclose(usr, "timer")
 			return

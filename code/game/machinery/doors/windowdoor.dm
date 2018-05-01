@@ -20,9 +20,7 @@
 	..()
 	update_nearby_tiles()
 	if (src.req_access && src.req_access.len)
-		src.icon_state = "[src.icon_state]"
 		src.base_state = src.icon_state
-	return
 
 /obj/machinery/door/window/update_icon()
 	if(density)
@@ -198,7 +196,7 @@
 	)
 	if (do_after(user,40,src) && panel_open)
 		in_use = 0
-		user << "<span class='notice'>You removed the windoor electronics!</span>"
+		user << SPAN_NOTE("You removed the windoor electronics!")
 		..()
 	if(src)
 		in_use = 0

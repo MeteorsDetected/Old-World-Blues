@@ -22,15 +22,15 @@
 		return
 
 	if(flipped < 0 || !flip(get_cardinal_dir(usr,src)))
-		usr << "<span class='notice'>It won't budge.</span>"
+		usr << SPAN_NOTE("It won't budge.")
 		return
 
-	usr.visible_message("<span class='warning'>[usr] flips \the [src]!</span>")
+	usr.visible_message(SPAN_WARN("[usr] flips \the [src]!"))
 
 	if(climbable)
 		structure_shaken()
 
-	playsound(src,'sound/machines/Table_Fall.wav',100,1)
+	playsound(src,'sound/machines/Table_Fall.ogg',100,1)
 	return
 
 /obj/structure/table/proc/unflipping_check(var/direction)
@@ -66,7 +66,7 @@
 		return
 
 	if (!unflipping_check())
-		usr << "<span class='notice'>It won't budge.</span>"
+		usr << SPAN_NOTE("It won't budge.")
 		return
 	unflip()
 

@@ -32,6 +32,7 @@
 
 
 /obj/structure/filingcabinet/initialize()
+	. = ..()
 	for(var/obj/item/I in loc)
 		if(is_type_in_list(I, allowed_items))
 			I.loc = src
@@ -39,7 +40,7 @@
 
 /obj/structure/filingcabinet/attackby(obj/item/P as obj, mob/user as mob)
 	if(is_type_in_list(P,allowed_items))
-		user << "<span class='notice'>You put [P] in [src].</span>"
+		user << SPAN_NOTE("You put [P] in [src].")
 		user.drop_from_inventory(P, src)
 		icon_state = "[initial(icon_state)]-open"
 		sleep(5)
@@ -48,14 +49,14 @@
 	else if(istype(P, /obj/item/weapon/wrench))
 		playsound(loc, 'sound/items/Ratchet.ogg', 50, 1)
 		anchored = !anchored
-		user << "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>"
+		user << SPAN_NOTE("You [anchored ? "wrench" : "unwrench"] \the [src].")
 	else
-		user << "<span class='notice'>You can't put [P] in [src]!</span>"
+		user << SPAN_NOTE("You can't put [P] in [src]!")
 
 
 /obj/structure/filingcabinet/attack_hand(mob/user as mob)
 	if(contents.len <= 0)
-		user << "<span class='notice'>\The [src] is empty.</span>"
+		user << SPAN_NOTE("\The [src] is empty.")
 		return
 
 	user.set_machine(src)
@@ -83,9 +84,9 @@
 			I.loc = loc
 			if(prob(25))
 				step_rand(I)
-			user << "<span class='notice'>You pull \a [I] out of [src] at random.</span>"
+			user << SPAN_NOTE("You pull \a [I] out of [src] at random.")
 			return
-	user << "<span class='notice'>You find nothing in [src].</span>"
+	user << SPAN_NOTE("You find nothing in [src].")
 
 /obj/structure/filingcabinet/Topic(href, href_list)
 	if(href_list["retrieve"])
@@ -201,7 +202,7 @@
 /obj/structure/filingcabinet/engi
 
 
-/obj/structure/filingcabinet/engi/New()
+/obj/structure/filingcabinet/engi/initialize()
 	new /obj/item/weapon/paper/wires/airlock(src)
 	new /obj/item/weapon/paper/wires/apc(src)
 	new /obj/item/weapon/paper/wires/alarm(src)
@@ -214,4 +215,4 @@
 	new /obj/item/weapon/paper/wires/airlock(src)
 	new /obj/item/weapon/paper/wires/apc(src)
 	new /obj/item/weapon/paper/wires/alarm(src)
-	..()
+	return ..()

@@ -33,8 +33,8 @@
 	HELMET_TYPE = /obj/item/clothing/head/helmet/space
 	MASK_TYPE = /obj/item/clothing/mask/breath
 
-/obj/machinery/suit_storage_unit/New()
-	update_icon()
+/obj/machinery/suit_storage_unit/initialize()
+	. = ..()
 	if(SUIT_TYPE)
 		SUIT = new SUIT_TYPE(src)
 	if(HELMET_TYPE)
@@ -360,30 +360,6 @@
 			isUV = 0 //Cycle ends
 	update_icon()
 	updateUsrDialog()
-	return
-
-/*	spawn(200) //Let's clean dat shit after 20 secs  //Eh, this doesn't work
-		if(HELMET)
-			HELMET.clean_blood()
-		if(SUIT)
-			SUIT.clean_blood()
-		if(MASK)
-			MASK.clean_blood()
-		isUV = 0 //Cycle ends
-		update_icon()
-		updateUsrDialog()
-
-	var/i
-	for(i=0,i<4,i++) //Gradually give the guy inside some damaged based on the intensity
-		spawn(50)
-			if(OCCUPANT)
-				if(issuperUV)
-					OCCUPANT.take_organ_damage(0,40)
-					user << "Test. You gave him 40 damage"
-				else
-					OCCUPANT.take_organ_damage(0,8)
-					user << "Test. You gave him 8 damage"
-	return*/
 
 
 /obj/machinery/suit_storage_unit/proc/cycletimeleft()
@@ -407,28 +383,29 @@
 		if(user.loc != src.loc)
 			OCCUPANT << "<font color='blue'>You leave the not-so-cozy confines of the SSU.</font>"
 
-		OCCUPANT.client.eye = OCCUPANT.client.mob
-		OCCUPANT.client.perspective = MOB_PERSPECTIVE
-	OCCUPANT.loc = src.loc
+	OCCUPANT.forceMove(src.loc)
+	OCCUPANT.reset_view()
+
 	OCCUPANT = null
 	if(!isopen)
 		isopen = 1
 	update_icon()
-	return
-
 
 /obj/machinery/suit_storage_unit/verb/get_out()
 	set name = "Eject Suit Storage Unit"
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat != 0)
-		return
+	if(usr == OCCUPANT)
+		if(usr.incapacitated(INCAPACITATION_DISABLED))
+			return
+	else
+		if(usr.incapacitated())
+			return
 	eject_occupant(usr)
 	add_fingerprint(usr)
 	updateUsrDialog()
 	update_icon()
-	return
 
 
 /obj/machinery/suit_storage_unit/verb/move_inside()
@@ -436,7 +413,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat != 0)
+	if(usr.incapacitated(INCAPACITATION_MOVE))
 		return
 	if(!isopen)
 		usr << "<font color='red'>The unit's doors are shut.</font>"
@@ -450,25 +427,18 @@
 	visible_message("[usr] starts squeezing into the suit storage unit!", 3)
 	if(do_after(usr, 10))
 		usr.stop_pulling()
-		usr.client.perspective = EYE_PERSPECTIVE
-		usr.client.eye = src
-		usr.loc = src
-//		usr.metabslow = 1
+		usr.forceMove(src)
+		usr.reset_view(src)
 		OCCUPANT = usr
 		isopen = 0 //Close the thing after the guy gets inside
 		update_icon()
 
-//		for(var/obj/O in src)
-//			qdel(O)
-
 		add_fingerprint(usr)
 		updateUsrDialog()
-		return
 	else
 		OCCUPANT = null //Testing this as a backup sanity test
-	return
 
-/obj/machinery/suit_storage_unit/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/machinery/suit_storage_unit/affect_grab(var/mob/user, var/mob/target)
 	if(!isopen)
 		user << SPAN_WARN("The unit's doors are shut.")
 		return
@@ -480,8 +450,8 @@
 		return
 	visible_message("[user] starts putting [target] into the Suit Storage Unit.")
 	if(do_after(user, 20, src) && Adjacent(target))
-		target.reset_view(src)
 		target.forceMove(src)
+		target.reset_view(src)
 		OCCUPANT = target
 		isopen = 0 //close ittt
 
@@ -574,6 +544,36 @@
 
 	//Departments that the cycler can paint suits to look like.
 	var/list/departments = list("Engineering","Mining","Medical","Security","Atmos")
+	var/list/departments_datas = list(
+		"Engineering" = list(
+			/obj/item/clothing/head/helmet/space/void/engineering,
+			/obj/item/clothing/suit/space/void/engineering
+		),
+		"Mining" = list(
+			/obj/item/clothing/head/helmet/space/void/mining,
+			/obj/item/clothing/suit/space/void/mining
+		),
+		"Medical" = list(
+			/obj/item/clothing/head/helmet/space/void/medical,
+			/obj/item/clothing/suit/space/void/medical
+		),
+		"Security" = list(
+			/obj/item/clothing/head/helmet/space/void/security,
+			/obj/item/clothing/suit/space/void/security
+		),
+		"Atmos" = list(
+			/obj/item/clothing/head/helmet/space/void/atmos,
+			/obj/item/clothing/suit/space/void/atmos
+		),
+		"Mercenary" = list(
+			/obj/item/clothing/head/helmet/space/void/merc,
+			/obj/item/clothing/suit/space/void/merc
+		),
+		"^%###^%$" = list(
+			/obj/item/clothing/head/helmet/space/void/merc,
+			/obj/item/clothing/suit/space/void/merc
+		)
+	)
 	//Species that the suits can be configured to fit.
 	var/list/species = list(SPECIES_HUMAN,SPECIES_SKRELL,SPECIES_UNATHI,SPECIES_TAJARA)
 
@@ -586,13 +586,13 @@
 
 	var/datum/wires/suit_storage_unit/wires = null
 
-/obj/machinery/suit_cycler/New()
-	..()
-
+/obj/machinery/suit_cycler/initialize()
+	. = ..()
 	wires = new(src)
 	target_department = departments[1]
 	target_species = species[1]
-	if(!target_department || !target_species) qdel(src)
+	if(!target_department || !target_species)
+		qdel(src)
 
 /obj/machinery/suit_cycler/Destroy()
 	qdel(wires)
@@ -638,7 +638,7 @@
 /obj/machinery/suit_cycler/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/suit_cycler/affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+/obj/machinery/suit_cycler/affect_grab(var/mob/user, var/mob/target)
 	if(locked)
 		user << SPAN_DANG("The suit cycler is locked.")
 		return
@@ -650,8 +650,8 @@
 	visible_message(SPAN_NOTE("[user] starts putting [target] into the suit cycler."))
 
 	if(do_after(user, 20) && Adjacent(target))
-		target.reset_view(src)
 		target.forceMove(src)
+		target.reset_view(src)
 		occupant = target
 
 		add_fingerprint(user)
@@ -881,7 +881,8 @@
 	irradiating--
 
 	if(occupant)
-		if(prob(radiation_level*2)) occupant.emote("scream")
+		if(prob(radiation_level*2))
+			occupant.emote("scream")
 		if(radiation_level > 2)
 			occupant.take_organ_damage(0,radiation_level*2 + rand(1,3))
 		if(radiation_level > 1)
@@ -889,8 +890,7 @@
 		occupant.radiation += radiation_level*10
 
 /obj/machinery/suit_cycler/proc/finished_job()
-	var/turf/T = get_turf(src)
-	T.visible_message("\icon[src]<span class='notice'>The [src] pings loudly.</span>")
+	state("The [src] pings loudly.")
 	icon_state = initial(icon_state)
 	active = 0
 	updateUsrDialog()
@@ -909,8 +909,12 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat != 0)
-		return
+	if(usr == occupant)
+		if(usr.incapacitated(INCAPACITATION_DISABLED))
+			return
+	else
+		if(usr.incapacitated())
+			return
 
 	eject_occupant(usr)
 
@@ -923,18 +927,13 @@
 	if(!occupant)
 		return
 
-	if(occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
-
-	occupant.loc = get_turf(occupant)
+	occupant.forceMove(loc)
+	occupant.reset_view()
 	occupant = null
 
 	add_fingerprint(usr)
 	updateUsrDialog()
 	update_icon()
-
-	return
 
 //There HAS to be a less bloated way to do this. TODO: some kind of table/icon name coding? ~Z
 /obj/machinery/suit_cycler/proc/apply_paintjob()
@@ -945,62 +944,14 @@
 	if(target_species)
 		if(helmet) helmet.refit_for_species(target_species)
 		if(suit) suit.refit_for_species(target_species)
-
-	switch(target_department)
-		if("Engineering")
-			if(helmet)
-				helmet.name = "engineering voidsuit helmet"
-				helmet.icon_state = "rig0-engineering"
-				helmet.item_state = "eng_helm"
-			if(suit)
-				suit.name = "engineering voidsuit"
-				suit.icon_state = "rig-engineering"
-				suit.item_state = "eng_voidsuit"
-		if("Mining")
-			if(helmet)
-				helmet.name = "mining voidsuit helmet"
-				helmet.icon_state = "rig0-mining"
-				helmet.item_state = "mining_helm"
-			if(suit)
-				suit.name = "mining voidsuit"
-				suit.icon_state = "rig-mining"
-				suit.item_state = "mining_voidsuit"
-		if("Medical")
-			if(helmet)
-				helmet.name = "medical voidsuit helmet"
-				helmet.icon_state = "rig0-medical"
-				helmet.item_state = "medical_helm"
-			if(suit)
-				suit.name = "medical voidsuit"
-				suit.icon_state = "rig-medical"
-				suit.item_state = "medical_voidsuit"
-		if("Security")
-			if(helmet)
-				helmet.name = "security voidsuit helmet"
-				helmet.icon_state = "rig0-sec"
-				helmet.item_state = "sec_helm"
-			if(suit)
-				suit.name = "security voidsuit"
-				suit.icon_state = "rig-sec"
-				suit.item_state = "sec_voidsuit"
-		if("Atmos")
-			if(helmet)
-				helmet.name = "atmospherics voidsuit helmet"
-				helmet.icon_state = "rig0-atmos"
-				helmet.item_state = "atmos_helm"
-			if(suit)
-				suit.name = "atmospherics voidsuit"
-				suit.icon_state = "rig-atmos"
-				suit.item_state = "atmos_voidsuit"
-		if("^%###^%$" || "Mercenary")
-			if(helmet)
-				helmet.name = "blood-red voidsuit helmet"
-				helmet.icon_state = "rig0-syndie"
-				helmet.item_state = "syndie_helm"
-			if(suit)
-				suit.name = "blood-red voidsuit"
-				suit.item_state = "syndie_voidsuit"
-				suit.icon_state = "rig-syndie"
-
-	if(helmet) helmet.name = "refitted [helmet.name]"
-	if(suit) suit.name = "refitted [suit.name]"
+	var/list/data = departments_datas[target_department]
+	var/obj/item/clothing/head/helmet/space/void/helmet_type = data[1]
+	var/obj/item/clothing/suit/space/void/suit_type = data[2]
+	if(helmet)
+		helmet.name = "refitted [initial(helmet_type.name)]"
+		helmet.icon_state = initial(helmet_type.icon_state)
+		helmet.item_state = initial(helmet_type.item_state)
+	if(suit)
+		suit.name = "refitted [initial(suit_type.name)]"
+		suit.icon_state = initial(suit_type.icon_state)
+		suit.item_state = initial(suit_type.item_state)

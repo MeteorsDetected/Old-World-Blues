@@ -18,8 +18,8 @@
 			return
 		module.holder.forced_move(direction)*/
 
-/obj/item/device/paicard/New()
-	..()
+/obj/item/device/paicard/initialize()
+	. = ..()
 	overlays += "pai-off"
 
 /obj/item/device/paicard/Destroy()
@@ -226,14 +226,14 @@
 
 /obj/item/device/paicard/Topic(href, href_list)
 
-	if(!usr || usr.stat)
+	if(!usr || usr.incapacitated())
 		return
 
 	if(href_list["setdna"])
 		if(pai.master_dna)
 			return
 		var/mob/M = usr
-		if(!istype(M, /mob/living/carbon))
+		if(!iscarbon(M))
 			usr << "<font color=blue>You don't have any DNA, or your DNA is incompatible with this device.</font>"
 		else
 			var/datum/dna/dna = usr.dna
@@ -307,8 +307,10 @@
 
 /obj/item/device/paicard/proc/alertUpdate()
 	var/turf/T = get_turf_or_move(src.loc)
-	for (var/mob/M in viewers(T))
-		M.show_message("<span class='notice'>\The [src] flashes a message across its screen, \"Additional personalities available for download.\"</span>", 3, "<span class='notice'>\The [src] bleeps electronically.</span>", 2)
+	T.visible_message(
+		SPAN_NOTE("\The [src] flashes a message across its screen, \"Additional personalities available for download.\""),
+		SPAN_NOTE("\The [src] bleeps electronically.")
+	)
 
 /obj/item/device/paicard/emp_act(severity)
 	for(var/mob/M in src)

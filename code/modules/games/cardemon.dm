@@ -3,8 +3,8 @@
 	desc = "Finally! A children's card game in space!"
 	icon_state = "card_pack_cardemon"
 
-/obj/item/weapon/pack/cardemon/New()
-	..()
+/obj/item/weapon/pack/cardemon/initialize()
+	. = ..()
 	var/datum/playingcard/P
 	var/i
 	for(i=0; i<5; i++)
@@ -12,11 +12,12 @@
 		if(prob(10))
 			if(prob(5))
 				if(prob(5))
-					rarity = "Plasteel"
+					rarity = MATERIAL_PLASTEEL
 				else
-					rarity = "Platinum"
+					rarity = MATERIAL_PLATINUM
 			else
 				rarity = "Silver"
+			rarity = capitalize(rarity)
 
 		var/nam = pick("Death","Life","Plant","Leaf","Air","Earth","Fire","Water","Killer","Holy", "God", "Ordinary","Demon","Angel", "Plasteel", "Phoron", "Mad", "Insane", "Metal", "Steel", "Secret")
 		var/nam2 = pick("Carp", "Corgi", "Cat", "Mouse", "Octopus", "Lizard", "Monkey", "Plant", "Duck", "Demon", "Spider", "Bird", "Slime", "Sheep", "Fish")

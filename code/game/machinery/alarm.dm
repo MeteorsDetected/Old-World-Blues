@@ -144,6 +144,7 @@
 
 
 /obj/machinery/alarm/initialize()
+	. = ..()
 	set_frequency(frequency)
 	if (!master_is_operating())
 		elect_master()
@@ -798,7 +799,7 @@
 				else
 					if(allowed(usr) && !wires.IsIndexCut(AALARM_WIRE_IDSCAN))
 						locked = !locked
-						user << "\blue You [ locked ? "lock" : "unlock"] the Air Alarm interface."
+						user << SPAN_NOTE("You [ locked ? "lock" : "unlock"] the Air Alarm interface.")
 					else
 						user << "\red Access denied."
 			return
@@ -807,7 +808,7 @@
 			if(istype(W, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = W
 				if (C.use(5))
-					user << "<span class='notice'>You wire \the [src].</span>"
+					user << SPAN_NOTE("You wire \the [src].")
 					buildstage = 2
 					update_icon()
 					first_run()
@@ -842,11 +843,6 @@
 
 	return ..()
 
-/obj/machinery/alarm/power_change()
-	..()
-	spawn(rand(0,15))
-		update_icon()
-
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
 	if (buildstage < 2)
@@ -863,7 +859,7 @@ Just a object used in constructing air alarms
 	icon_state = "door_electronics"
 	desc = "Looks like a circuit. Probably is."
 	w_class = ITEM_SIZE_SMALL
-	matter = list(DEFAULT_WALL_MATERIAL = 50, "glass" = 50)
+	matter = list(MATERIAL_STEEL = 50, MATERIAL_GLASS = 50)
 
 /*
 FIRE ALARM
@@ -952,7 +948,7 @@ FIRE ALARM
 				if(istype(W, /obj/item/stack/cable_coil))
 					var/obj/item/stack/cable_coil/C = W
 					if (C.use(5))
-						user << "<span class='notice'>You wire \the [src].</span>"
+						user << SPAN_NOTE("You wire \the [src].")
 						buildstage = 2
 						return
 					else
@@ -1001,15 +997,8 @@ FIRE ALARM
 	if(locate(/obj/fire) in loc)
 		alarm()
 
-	return
-
-/obj/machinery/firealarm/power_change()
-	..()
-	spawn(rand(0,15))
-		update_icon()
-
 /obj/machinery/firealarm/attack_hand(mob/user as mob)
-	if(user.stat || stat & (NOPOWER|BROKEN))
+	if(user.incapacitated() || stat & (NOPOWER|BROKEN))
 		return
 
 	if (buildstage != 2)
@@ -1054,7 +1043,7 @@ FIRE ALARM
 
 /obj/machinery/firealarm/Topic(href, href_list)
 	..()
-	if (usr.stat || stat & (BROKEN|NOPOWER))
+	if (usr.incapacitated() || stat & (BROKEN|NOPOWER))
 		return
 
 	if (buildstage != 2)
@@ -1120,6 +1109,7 @@ FIRE ALARM
 		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
 
 /obj/machinery/firealarm/initialize()
+	. = ..()
 	if(isStationLevel(z))
 		if(security_level)
 			src.overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
@@ -1138,7 +1128,7 @@ Just a object used in constructing fire alarms
 	icon_state = "door_electronics"
 	desc = "A circuit. It has a label on it, it says \"Can handle heat levels up to 40 degrees celsius!\"."
 	w_class = ITEM_SIZE_SMALL
-	matter = list(DEFAULT_WALL_MATERIAL = 50, "glass" = 50)
+	matter = list(MATERIAL_STEEL = 50, MATERIAL_GLASS = 50)
 
 /obj/machinery/partyalarm
 	name = "\improper PARTY BUTTON"
@@ -1156,7 +1146,7 @@ Just a object used in constructing fire alarms
 	active_power_usage = 6
 
 /obj/machinery/partyalarm/attack_hand(mob/user as mob)
-	if(user.stat || stat & (NOPOWER|BROKEN))
+	if(user.incapacitated() || stat & (NOPOWER|BROKEN))
 		return
 
 	user.machine = src
@@ -1213,7 +1203,7 @@ Just a object used in constructing fire alarms
 
 /obj/machinery/partyalarm/Topic(href, href_list)
 	..()
-	if (usr.stat || stat & (BROKEN|NOPOWER))
+	if (usr.incapacitated() || stat & (BROKEN|NOPOWER))
 		return
 	if ((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(loc, /turf))) || (isAI(usr)))
 		usr.machine = src

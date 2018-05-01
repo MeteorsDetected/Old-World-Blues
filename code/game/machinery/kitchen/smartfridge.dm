@@ -26,8 +26,8 @@
 /obj/machinery/smartfridge/secure
 	is_secure = 1
 
-/obj/machinery/smartfridge/New()
-	..()
+/obj/machinery/smartfridge/initialize()
+	. = ..()
 	if(is_secure)
 		wires = new/datum/wires/smartfridge/secure(src)
 	else
@@ -162,12 +162,6 @@
 	if(src.shoot_inventory && prob(2))
 		src.throw_item()
 
-/obj/machinery/smartfridge/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
-
 /obj/machinery/smartfridge/update_icon()
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = icon_off
@@ -194,12 +188,12 @@
 		return
 
 	if(stat & NOPOWER)
-		user << "<span class='notice'>\The [src] is unpowered and useless.</span>"
+		user << SPAN_NOTE("\The [src] is unpowered and useless.")
 		return
 
 	if(accept_check(O))
 		if(contents.len >= max_n_of_items)
-			user << "<span class='notice'>\The [src] is full.</span>"
+			user << SPAN_NOTE("\The [src] is full.")
 			return 1
 		else
 			user.remove_from_mob(O)
@@ -208,7 +202,7 @@
 				item_quants[O.name]++
 			else
 				item_quants[O.name] = 1
-			user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
+			user.visible_message(SPAN_NOTE("[user] has added \the [O] to \the [src]."), SPAN_NOTE("You add \the [O] to \the [src]."))
 
 			nanomanager.update_uis(src)
 
@@ -218,7 +212,7 @@
 		for(var/obj/G in P.contents)
 			if(accept_check(G))
 				if(contents.len >= max_n_of_items)
-					user << "<span class='notice'>\The [src] is full.</span>"
+					user << SPAN_NOTE("\The [src] is full.")
 					return 1
 				else
 					P.remove_from_storage(G,src)
@@ -229,14 +223,14 @@
 					plants_loaded++
 		if(plants_loaded)
 
-			user.visible_message("<span class='notice'>[user] loads \the [src] with \the [P].</span>", "<span class='notice'>You load \the [src] with \the [P].</span>")
+			user.visible_message(SPAN_NOTE("[user] loads \the [src] with \the [P]."), SPAN_NOTE("You load \the [src] with \the [P]."))
 			if(P.contents.len > 0)
-				user << "<span class='notice'>Some items are refused.</span>"
+				user << SPAN_NOTE("Some items are refused.")
 
 		nanomanager.update_uis(src)
 
 	else
-		user << "<span class='notice'>\The [src] smartly refuses [O].</span>"
+		user << SPAN_NOTE("\The [src] smartly refuses [O].")
 		return 1
 
 /obj/machinery/smartfridge/secure/emag_act(var/remaining_charges, var/mob/user)

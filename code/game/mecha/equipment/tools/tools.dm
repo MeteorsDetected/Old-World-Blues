@@ -17,7 +17,7 @@
 		if(!cargo_holder) return
 
 		//loading
-		if(istype(target,/obj))
+		if(isobj(target))
 			var/obj/O = target
 			if(O.buckled_mob)
 				return
@@ -43,14 +43,14 @@
 					cargo_holder.cargo += O
 					O.loc = chassis
 					O.anchored = 0
-					occupant_message("<span class='notice'>[target] succesfully loaded.</span>")
+					occupant_message(SPAN_NOTE("[target] succesfully loaded."))
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 				else
 					occupant_message("<span class='warning'>You must hold still while handling objects.</span>")
 					O.anchored = initial(O.anchored)
 
 		//attacking
-		else if(istype(target,/mob/living))
+		else if(isliving(target))
 			var/mob/living/M = target
 			if(M.stat>1) return
 			if(chassis.occupant.a_intent == I_HURT)
@@ -189,12 +189,10 @@
 	var/spray_amount = 5	//units of liquid per particle. 5 is enough to wet the floor - it's a big fire extinguisher, so should be fine
 	var/max_water = 1000
 
-	New()
-		reagents = new/datum/reagents(max_water)
-		reagents.my_atom = src
+	initialize()
+		create_reagents(max_water)
 		reagents.add_reagent("water", max_water)
-		..()
-		return
+		. = ..()
 
 	action(atom/target) //copypasted from extinguisher. TODO: Rewrite from scratch.
 		if(!action_checks(target) || get_dist(chassis, target)>3) return
@@ -204,7 +202,7 @@
 			if( istype(target, /obj/structure/reagent_dispensers/watertank) && get_dist(chassis,target) <= 1)
 				var/obj/o = target
 				var/amount = o.reagents.trans_to_obj(src, 200)
-				occupant_message("<span class='notice'>[amount] units transferred into internal tank.</span>")
+				occupant_message(SPAN_NOTE("[amount] units transferred into internal tank."))
 				playsound(chassis, 'sound/effects/refill.ogg', 50, 1, -6)
 				return
 
@@ -582,7 +580,7 @@
 		if(!action_checks(src))
 			return chassis.dynbulletdamage(Proj)
 		if(prob(chassis.deflect_chance*deflect_coeff))
-			chassis.occupant_message("<span class='notice'>The armor deflects incoming projectile.</span>")
+			chassis.occupant_message(SPAN_NOTE("The armor deflects incoming projectile."))
 			chassis.visible_message("The [chassis.name] armor deflects the projectile")
 			chassis.log_append_to_last("Armor saved.")
 		else
@@ -597,14 +595,14 @@
 	proc/dynhitby(atom/movable/A)
 		if(!action_checks(A))
 			return chassis.dynhitby(A)
-		if(prob(chassis.deflect_chance*deflect_coeff) || istype(A, /mob/living) || istype(A, /obj/item/mecha_parts/mecha_tracking))
-			chassis.occupant_message("<span class='notice'>The [A] bounces off the armor.</span>")
+		if(prob(chassis.deflect_chance*deflect_coeff) || isliving(A) || istype(A, /obj/item/mecha_parts/mecha_tracking))
+			chassis.occupant_message(SPAN_NOTE("The [A] bounces off the armor."))
 			chassis.visible_message("The [A] bounces off the [chassis] armor")
 			chassis.log_append_to_last("Armor saved.")
-			if(istype(A, /mob/living))
+			if(isliving(A))
 				var/mob/living/M = A
 				M.take_organ_damage(10)
-		else if(istype(A, /obj))
+		else if(isobj(A))
 			var/obj/O = A
 			if(O.throwforce)
 				chassis.take_damage(round(O.throwforce*damage_coeff))
@@ -628,11 +626,10 @@
 	var/icon/droid_overlay
 	var/list/repairable_damage = list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH)
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		pr_repair_droid = new /datum/global_iterator/mecha_repair_droid(list(src),0)
 		pr_repair_droid.set_delay(equip_cooldown)
-		return
 
 	Destroy()
 		qdel(pr_repair_droid)
@@ -720,11 +717,10 @@
 	var/coeff = 100
 	var/list/use_channels = list(EQUIP,ENVIRON,LIGHT)
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		pr_energy_relay = new /datum/global_iterator/mecha_energy_relay(list(src),0)
 		pr_energy_relay.set_delay(equip_cooldown)
-		return
 
 	Destroy()
 		qdel(pr_energy_relay)
@@ -840,17 +836,16 @@
 	var/power_per_cycle = 20
 	reliability = 1000
 
-	New()
-		..()
-		init()
-		return
+	initialize()
+		. = ..()
+		setFuel()
 
 	Destroy()
 		qdel(pr_mech_generator)
 		pr_mech_generator = null
 		..()
 
-	proc/init()
+	proc/setFuel()
 		fuel = new /obj/item/stack/material/phoron(src)
 		fuel.amount = 0
 		pr_mech_generator = new /datum/global_iterator/mecha_generator(list(src),0)
@@ -884,7 +879,7 @@
 			var/result = load_fuel(target)
 			var/message
 			if(isnull(result))
-				message = "<span class='warning'>[fuel] traces in target minimal. [target] cannot be used as fuel.</span>"
+				message = SPAN_WARN("[fuel] traces in target minimal. [target] cannot be used as fuel.")
 			else if(!result)
 				message = "Unit is full."
 			else
@@ -894,7 +889,7 @@
 		return
 
 	proc/load_fuel(var/obj/item/stack/material/P)
-		if(P.type == fuel.type && P.amount)
+		if(P.get_material() == fuel.get_material() && P.amount)
 			var/to_load = max(max_fuel - fuel.amount*SHEET_MATERIAL_AMOUNT,0)
 			if(to_load)
 				var/units = min(max(round(to_load / SHEET_MATERIAL_AMOUNT),1),P.amount)
@@ -976,7 +971,7 @@
 	var/rad_per_cycle = 0.3
 	reliability = 1000
 
-	init()
+	setFuel()
 		fuel = new /obj/item/stack/material/uranium(src)
 		fuel.amount = 0
 		pr_mech_generator = new /datum/global_iterator/mecha_generator/nuclear(list(src),0)
@@ -1017,7 +1012,7 @@
 	action(atom/target)
 		if(!action_checks(target)) return
 		if(!cargo_holder) return
-		if(istype(target,/obj))
+		if(isobj(target))
 			var/obj/O = target
 			if(!O.anchored)
 				if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
@@ -1032,7 +1027,7 @@
 							cargo_holder.cargo += O
 							O.loc = chassis
 							O.anchored = 0
-							chassis.occupant_message("<span class='notice'>[target] succesfully loaded.</span>")
+							chassis.occupant_message(SPAN_NOTE("[target] succesfully loaded."))
 							chassis.log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 						else
 							chassis.occupant_message("<span class='warning'>You must hold still while handling objects.</span>")
@@ -1042,7 +1037,7 @@
 			else
 				chassis.occupant_message("<span class='warning'>[target] is firmly secured.</span>")
 
-		else if(istype(target,/mob/living))
+		else if(isliving(target))
 			var/mob/living/M = target
 			if(M.stat>1) return
 			if(chassis.occupant.a_intent == I_HURT)
@@ -1084,7 +1079,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/tool/passenger/proc/move_inside(var/mob/user)
 	if (chassis)
-		chassis.visible_message("<span class='notice'>[user] starts to climb into [chassis].</span>")
+		chassis.visible_message(SPAN_NOTE("[user] starts to climb into [chassis]."))
 
 	if(do_after(user, 40, needhand=0))
 		if(!src.occupant)
@@ -1116,13 +1111,7 @@
 		return
 	occupant.forceMove(get_turf(src))
 	occupant.reset_view()
-	/*
-	if(occupant.client)
-		occupant.client.eye = occupant.client.mob
-		occupant.client.perspective = MOB_PERSPECTIVE
-	*/
 	occupant = null
-	return
 
 /obj/item/mecha_parts/mecha_equipment/tool/passenger/attached()
 	..()
@@ -1161,7 +1150,7 @@
 	set src in oview(1)
 
 	//check that usr can climb in
-	if (usr.stat || !ishuman(usr))
+	if (usr.incapacitated() || !ishuman(usr))
 		return
 
 	if (!usr.Adjacent(src))

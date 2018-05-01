@@ -102,22 +102,22 @@
 			if(((stat & NOPOWER) || (stat & BROKEN)) && !( src.operating ))
 				force_toggle()
 			else
-				usr << "<span class='notice'>[src]'s motors resist your effort.</span>"
+				usr << SPAN_NOTE("[src]'s motors resist your effort.")
 			return
 
-		if(istype(C, /obj/item/stack/material) && C.get_material_name() == "plasteel") // Repairing.
+		if(ismaterial(C) && C.get_material_name() == MATERIAL_PLASTEEL) // Repairing.
 			var/amt = Ceiling((maxhealth - health)/150)
 			if(!amt)
-				usr << "<span class='notice'>\The [src] is already fully repaired.</span>"
+				usr << SPAN_NOTE("\The [src] is already fully repaired.")
 				return
 			var/obj/item/stack/P = C
 			if(P.amount < amt)
 				usr << "<span class='warning'>You don't have enough sheets to repair this! You need at least [amt] sheets.</span>"
 				return
-			usr << "<span class='notice'>You begin repairing [src]...</span>"
+			usr << SPAN_NOTE("You begin repairing [src]...")
 			if(do_after(usr, 30))
 				if(P.use(amt))
-					usr << "<span class='notice'>You have repaired \The [src]</span>"
+					usr << SPAN_NOTE("You have repaired \The [src]")
 					src.repair()
 				else
 					usr << "<span class='warning'>You don't have enough sheets to repair this! You need at least [amt] sheets.</span>"
@@ -162,7 +162,7 @@
 
 // SUBTYPE: Regular
 // Your classical blast door, found almost everywhere.
-obj/machinery/door/blast/regular
+/obj/machinery/door/blast/regular
 	icon_state_open = "pdoor0"
 	icon_state_opening = "pdoorc0"
 	icon_state_closed = "pdoor1"

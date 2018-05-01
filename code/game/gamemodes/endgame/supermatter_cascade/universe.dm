@@ -118,9 +118,9 @@ The access requirements on the Asteroid Shuttles' consoles have now been revoked
 
 /datum/universal_state/supermatter_cascade/proc/PlayerSet()
 	for(var/datum/mind/M in player_list)
-		if(!istype(M.current,/mob/living))
+		if(!isliving(M.current))
 			continue
-		if(M.current.stat!=2)
+		if(M.current.stat!=DEAD)
 			M.current.Weaken(10)
 			flick("e_flash", M.current.flash)
 

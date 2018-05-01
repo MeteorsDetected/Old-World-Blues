@@ -26,14 +26,16 @@
 	attack_hand()
 		return
 
+	initialize()
+		if(ispath(construct))
+			construct = new construct(src)
+		. = ..()
+
 /////////// Ripley
 
 /obj/item/mecha_parts/chassis/ripley
 	name = "Ripley Chassis"
-
-	New()
-		..()
-		construct = new /datum/construction/mecha/ripley_chassis(src)
+	construct = /datum/construction/mecha/ripley_chassis
 
 /obj/item/mecha_parts/part/ripley
 	desc="A Ripley APLU left arm. Data and power sockets are compatible with most exosuit tools."
@@ -67,10 +69,7 @@
 
 /obj/item/mecha_parts/chassis/gygax
 	name = "Gygax Chassis"
-
-	New()
-		..()
-		construct = new /datum/construction/mecha/gygax_chassis(src)
+	construct = /datum/construction/mecha/gygax_chassis
 
 /obj/item/mecha_parts/part/gygax
 	desc="A Gygax left arm. Data and power sockets are compatible with most exosuit tools and weapons."
@@ -114,10 +113,7 @@
 
 /obj/item/mecha_parts/chassis/durand
 	name = "Durand Chassis"
-
-	New()
-		..()
-		construct = new /datum/construction/mecha/durand_chassis(src)
+	construct = /datum/construction/mecha/durand_chassis
 
 /obj/item/mecha_parts/part/durand
 	origin_tech = list(TECH_DATA = 2, TECH_MATERIAL = 3, TECH_ENGINEERING = 3)
@@ -159,10 +155,7 @@
 
 /obj/item/mecha_parts/chassis/firefighter
 	name = "Firefighter Chassis"
-
-	New()
-		..()
-		construct = new /datum/construction/mecha/firefighter_chassis(src)
+	construct = /datum/construction/mecha/firefighter_chassis
 /*
 /obj/item/mecha_parts/part/firefighter_torso
 	name="Ripley-on-Fire Torso"
@@ -190,10 +183,7 @@
 /obj/item/mecha_parts/chassis/phazon
 	name = "Phazon Chassis"
 	origin_tech = list(TECH_MATERIAL = 7)
-
-	New()
-		..()
-		construct = new /datum/construction/mecha/phazon_chassis(src)
+	construct = /datum/construction/mecha/phazon_chassis
 
 /obj/item/mecha_parts/part/phazon
 	origin_tech = list(TECH_MATERIAL = 5, TECH_BLUESPACE = 2, TECH_MAGNET = 2)
@@ -233,10 +223,7 @@
 ///////// Odysseus
 /obj/item/mecha_parts/chassis/odysseus
 	name = "Odysseus Chassis"
-
-	New()
-		..()
-		construct = new /datum/construction/mecha/odysseus_chassis(src)
+	construct = /datum/construction/mecha/odysseus_chassis
 
 /obj/item/mecha_parts/part/odysseus
 	desc="Data and power sockets are compatible with most exosuit tools."
@@ -277,6 +264,5 @@
 	icon_state = "odysseus_armour"
 	origin_tech = list(TECH_MATERIAL = 3, TECH_ENGINEERING = 3)
 	construction_time = 200
-	construction_cost = list(DEFAULT_WALL_MATERIAL=15000)*/
-
+	construction_cost = list(MATERIAL_STEEL=15000)*/
 

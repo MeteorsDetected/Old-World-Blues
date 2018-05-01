@@ -12,7 +12,7 @@
 	icon_state = null
 	amount_per_transfer_from_this = 5
 	volume = 50
-	isGlass = 0
+	isGlass = FALSE
 
 /obj/item/weapon/reagent_containers/glass/drinks/on_reagent_change()
 	return
@@ -23,31 +23,31 @@
 
 /obj/item/weapon/reagent_containers/glass/drinks/proc/open(mob/user)
 	playsound(loc,'sound/effects/canopen.ogg', rand(10,50), 1)
-	user << "<span class='notice'>You open [src] with an audible pop!</span>"
+	user << SPAN_NOTE("You open [src] with an audible pop!")
 	flags |= OPENCONTAINER
 
 /obj/item/weapon/reagent_containers/glass/drinks/examine(var/mob/user)
 	.=..()
 	if(.<=2)
 		if(!reagents)
-			user << "<span class='notice'>\The [src] can't hold reagents anymore!</span>"
+			user << SPAN_NOTE("\The [src] can't hold reagents anymore!")
 			return
 
 		if(reagents.reagent_list.len)
 			switch(round(reagents.total_volume/volume, 0.01))
 				if(0 to 0.25)
-					user << "<span class='notice'>\The [src] is almost empty!</span>"
+					user << SPAN_NOTE("\The [src] is almost empty!")
 				if(0.26 to 0.66)
-					user << "<span class='notice'>\The [src] is half full!</span>"
+					user << SPAN_NOTE("\The [src] is half full!")
 				if(0.67 to 0.90)
-					user << "<span class='notice'>\The [src] is almost full!</span>"
+					user << SPAN_NOTE("\The [src] is almost full!")
 				else
-					user << "<span class='notice'>\The [src] is full!</span>"
+					user << SPAN_NOTE("\The [src] is full!")
 		else
-			user << "<span class='notice'>It is empty.</span>"
+			user << SPAN_NOTE("It is empty.")
 
 		if(!is_open_container())
-			user << "<span class='notice'>Must be open before use!</span>"
+			user << SPAN_NOTE("Must be open before use!")
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Drinks. END
@@ -65,9 +65,6 @@
 	possible_transfer_amounts = null
 	volume = 150
 	flags = CONDUCT | OPENCONTAINER
-
-/obj/item/weapon/reagent_containers/glass/drinks/golden_cup/tournament_26_06_2011
-	desc = "A golden cup. It will be presented to a winner of tournament 26 june and name of the winner will be graved on it."
 
 
 ///////////////////////////////////////////////Drinks
@@ -208,7 +205,7 @@
 	amount_per_transfer_from_this = 10
 	volume = 120
 	center_of_mass = list("x"=17, "y"=7)
-	isGlass = 1
+	isGlass = TRUE
 
 /obj/item/weapon/reagent_containers/glass/drinks/flask
 	name = "\improper Captain's flask"
@@ -254,7 +251,7 @@
 	icon_state = "britcup"
 	volume = 30
 	center_of_mass = list("x"=15, "y"=13)
-	isGlass = 1
+	isGlass = TRUE
 
 /obj/item/weapon/reagent_containers/glass/drinks/irecup
 	name = "cup"
@@ -262,7 +259,7 @@
 	icon_state = "irecup"
 	volume = 30
 	center_of_mass = list("x"=15, "y"=13)
-	isGlass = 1
+	isGlass = TRUE
 
 /obj/item/weapon/reagent_containers/glass/drinks/ntcup
 	name = "cup"
@@ -270,5 +267,5 @@
 	icon_state = "nt"
 	volume = 30
 	center_of_mass = list("x"=15, "y"=13)
-	isGlass = 1
+	isGlass = TRUE
 

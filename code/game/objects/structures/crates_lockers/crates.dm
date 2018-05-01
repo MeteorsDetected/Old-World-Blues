@@ -28,8 +28,7 @@
 				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
-				if(usr.stunned)
-					return 2
+				return 2
 
 	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
 	for(var/obj/O in src)
@@ -54,8 +53,8 @@
 			break
 		if(O.density || O.anchored || istype(O,/obj/structure/closet))
 			continue
-		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
-			var/obj/structure/bed/B = O
+		if(istype(O, /obj/structure/material/bed)) //This is only necessary because of rollerbeds and swivel chairs.
+			var/obj/structure/material/bed/B = O
 			if(B.buckled_mob)
 				continue
 		O.forceMove(src)
@@ -73,20 +72,20 @@
 	else if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 		if(rigged)
-			user << "<span class='notice'>[src] is already rigged!</span>"
+			user << SPAN_NOTE("[src] is already rigged!")
 			return
 		if (C.use(1))
-			user  << "<span class='notice'>You rig [src].</span>"
+			user  << SPAN_NOTE("You rig [src].")
 			rigged = 1
 			return
 	else if(istype(W, /obj/item/device/radio/electropack))
 		if(rigged)
-			user  << "<span class='notice'>You attach [W] to [src].</span>"
+			user  << SPAN_NOTE("You attach [W] to [src].")
 			user.drop_from_inventory(W, src)
 			return
 	else if(istype(W, /obj/item/weapon/wirecutters))
 		if(rigged)
-			user  << "<span class='notice'>You cut away the wiring.</span>"
+			user  << SPAN_NOTE("You cut away the wiring.")
 			playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
 			rigged = 0
 			return
@@ -98,19 +97,14 @@
 			for(var/obj/O in src.contents)
 				qdel(O)
 			qdel(src)
-			return
 		if(2.0)
 			for(var/obj/O in src.contents)
 				if(prob(50))
 					qdel(O)
 			qdel(src)
-			return
 		if(3.0)
 			if (prob(50))
 				qdel(src)
-			return
-		else
-	return
 
 /obj/structure/closet/crate/secure
 	desc = "A secure crate."
@@ -145,7 +139,7 @@
 
 /obj/structure/closet/crate/secure/proc/togglelock(mob/user as mob)
 	if(src.opened)
-		user << "<span class='notice'>Close the crate first.</span>"
+		user << SPAN_NOTE("Close the crate first.")
 		return
 	if(src.broken)
 		user << "<span class='warning'>The crate appears to be broken.</span>"
@@ -153,7 +147,7 @@
 	if(src.allowed(user))
 		set_locked(!locked, user)
 	else
-		user << "<span class='notice'>Access Denied</span>"
+		user << SPAN_NOTE("Access Denied")
 
 /obj/structure/closet/crate/secure/proc/set_locked(var/newlocked, mob/user = null)
 	if(locked == newlocked) return
@@ -161,7 +155,7 @@
 	locked = newlocked
 	if(user)
 		for(var/mob/O in viewers(user, 3))
-			O.show_message( "<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>", 1)
+			O.show_message( SPAN_NOTE("The crate has been [locked ? null : "un"]locked by [user]."), 1)
 	update_icon()
 
 /obj/structure/closet/crate/secure/verb/verb_togglelock()
@@ -169,7 +163,8 @@
 	set category = "Object"
 	set name = "Toggle Lock"
 
-	if(!usr.canmove || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
+	// Don't use it if you're not able to! Checks for stuns, ghost and restrain
+	if(usr.incapacitated())
 		return
 
 	if(ishuman(usr) || isrobot(usr))
@@ -227,7 +222,7 @@
 		overlays += sparks
 		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
 		playsound(src.loc, "sparks", 60, 1)
-		user << "<span class='notice'>You unlock \the [src].</span>"
+		user << SPAN_NOTE("You unlock \the [src].")
 		return 1
 	else
 		return -1
@@ -297,23 +292,22 @@
 	icon_state = "crate"
 	icon_opened = "crateopen"
 
-/obj/structure/closet/crate/rcd/New()
-	..()
-	new /obj/item/weapon/rcd_ammo(src)
-	new /obj/item/weapon/rcd_ammo(src)
-	new /obj/item/weapon/rcd_ammo(src)
-	new /obj/item/weapon/rcd(src)
+/obj/structure/closet/crate/rcd/willContatin()
+	return list(
+		/obj/item/weapon/rcd_ammo = 3,
+		/obj/item/weapon/rcd
+	)
 
 /obj/structure/closet/crate/solar
 	name = "solar pack crate"
 
-/obj/structure/closet/crate/solar/New()
-	..()
-	for(var/i = 1 to 21)
-		new /obj/item/solar_assembly(src)
-	new /obj/item/weapon/circuitboard/solar_control(src)
-	new /obj/item/weapon/tracker_electronics(src)
-	new /obj/item/weapon/paper/solar(src)
+/obj/structure/closet/crate/solar/willContatin()
+	return list(
+		/obj/item/solar_assembly = 21,
+		/obj/item/weapon/circuitboard/solar_control,
+		/obj/item/weapon/tracker_electronics,
+		/obj/item/weapon/paper/solar
+	)
 
 /obj/structure/closet/crate/freezer
 	name = "freezer"
@@ -357,12 +351,10 @@
 	desc = "A crate of emergency rations."
 
 
-/obj/structure/closet/crate/freezer/rations/New()
-	..()
-	new /obj/item/weapon/reagent_containers/food/snacks/liquidfood(src)
-	new /obj/item/weapon/reagent_containers/food/snacks/liquidfood(src)
-	new /obj/item/weapon/reagent_containers/food/snacks/liquidfood(src)
-	new /obj/item/weapon/reagent_containers/food/snacks/liquidfood(src)
+/obj/structure/closet/crate/freezer/rations/willContatin()
+	return list(
+		/obj/item/weapon/reagent_containers/food/snacks/liquidfood = 4
+	)
 
 /obj/structure/closet/crate/bin
 	name = "large bin"
@@ -376,11 +368,11 @@
 	icon_state = "radiation"
 	icon_opened = "radiationopen"
 
-/obj/structure/closet/crate/radiation/New()
-	..()
-	for(var/i in 1 to 4)
-		new /obj/item/clothing/suit/radiation(src)
-		new /obj/item/clothing/head/radiation(src)
+/obj/structure/closet/crate/radiation/willContatin()
+	return list(
+		/obj/item/clothing/suit/radiation = 4,
+		/obj/item/clothing/head/radiation = 4
+	)
 
 /obj/structure/closet/crate/secure/weapon
 	name = "weapons crate"
@@ -439,7 +431,6 @@
 				if(!M.anchored)
 					M.forceMove(src)
 					break
-	return
 
 /obj/structure/closet/crate/secure/large
 	name = "large crate"
@@ -466,7 +457,44 @@
 				if(!M.anchored)
 					M.forceMove(src)
 					break
-	return
+
+
+//Dresser
+/obj/structure/closet/crate/dresser
+	name = "wooden dresser"
+	icon_state = "dresser"
+	icon_opened = "dresseropen"
+	desc = "A dresser that suits you, your clothes and your space."
+
+/obj/structure/closet/crate/dresser/attackby(obj/item/I, mob/living/user)
+	if(!opened && istype(I, /obj/item/weapon/wrench))
+		var/was_anchored = anchored
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		if(was_anchored)
+			user.visible_message(
+				SPAN_NOTE("[user] begin to loosen \the [src]'s bolts..."),
+				SPAN_NOTE("You begin to loosen \the [src]'s bolts...")
+			)
+		else
+			user.visible_message(
+				SPAN_NOTE("[user] begin to tightened \the [src]'s bolts..."),
+				SPAN_NOTE("You begin to tightened \the [src]'s bolts...")
+			)
+		if(do_after(user,30, src) && was_anchored == anchored)
+			anchored = !anchored
+			if(was_anchored)
+				user.visible_message(
+					"[user] loosens \the [src]'s bolts.",
+					SPAN_NOTE("You have loosened \the [src]. Now it can be pulled somewhere else."),
+					"You hear ratchet."
+				)
+			else
+				user.visible_message(
+					"[user] tights \the [src]'s bolts.",
+					SPAN_NOTE("You have tightened \the [src]. Now it can be pulled somewhere else."),
+					"You hear ratchet."
+				)
+
 
 //fluff variant
 /obj/structure/closet/crate/secure/large/reinforced
@@ -480,16 +508,11 @@
 	icon_state = "hydrocrate"
 	icon_opened = "hydrocrateopen"
 
-/obj/structure/closet/crate/hydroponics/prespawned
-	//This exists so the prespawned hydro crates spawn with their contents.
-
-	New()
-		..()
-		new /obj/item/weapon/reagent_containers/spray/plantbgone(src)
-		new /obj/item/weapon/reagent_containers/spray/plantbgone(src)
-		new /obj/item/weapon/material/minihoe(src)
-//		new /obj/item/weapon/weedspray(src)
-//		new /obj/item/weapon/weedspray(src)
-//		new /obj/item/weapon/pestspray(src)
-//		new /obj/item/weapon/pestspray(src)
-//		new /obj/item/weapon/pestspray(src)
+//This exists so the prespawned hydro crates spawn with their contents.
+/obj/structure/closet/crate/hydroponics/prespawned/willContatin()
+	return list(
+		/obj/item/weapon/reagent_containers/spray/plantbgone = 2,
+		/obj/item/weapon/material/minihoe,
+//		/obj/item/weapon/weedspray = 2,
+//		/obj/item/weapon/pestspray = 3
+	)

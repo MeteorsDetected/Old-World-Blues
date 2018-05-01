@@ -3,9 +3,8 @@
 //						COMMON STEPS							//
 //////////////////////////////////////////////////////////////////
 
-/datum/surgery_step/generic/
+/datum/surgery_step/generic
 	can_infect = 1
-	disallowed_species = list("Arachna")
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		if (isslime(target))
 			return 0
@@ -14,9 +13,7 @@
 		if (!hasorgans(target))
 			return 0
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if (affected == null)
-			return 0
-		if (affected.status & ORGAN_DESTROYED)
+		if (!affected)
 			return 0
 		if (target_zone == BP_HEAD && target.species && (target.species.flags & IS_SYNTHETIC))
 			return 1
@@ -58,8 +55,8 @@
 		//Could be cleaner ...
 		affected.open = 1
 
-		if(istype(target) && !(target.species.flags & NO_BLOOD))
-			affected.status |= ORGAN_BLEEDING
+		if(istype(target))
+			affected.setBleeding()
 
 		affected.createwound(CUT, 1)
 		affected.clamp()
@@ -104,8 +101,8 @@
 		)
 		affected.open = 1
 
-		if(istype(target) && target.should_have_organ(O_HEART))
-			affected.status |= ORGAN_BLEEDING
+		if(istype(target))
+			affected.setBleeding()
 
 		affected.createwound(CUT, 1)
 		affected.clamp()
@@ -152,8 +149,8 @@
 		)
 		affected.open = 1
 
-		if(istype(target) && target.should_have_organ(O_HEART))
-			affected.status |= ORGAN_BLEEDING
+		if(istype(target))
+			affected.setBleeding()
 		playsound(target.loc, 'sound/weapons/bladeslice.ogg', 50, 1)
 
 		affected.createwound(CUT, 1)
@@ -299,7 +296,7 @@
 		)
 		affected.open = 0
 		affected.germ_level = 0
-		affected.status &= ~ORGAN_BLEEDING
+		affected.stopBleeding()
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -324,9 +321,7 @@
 		if (!hasorgans(target))
 			return 0
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if (affected == null)
-			return 0
-		if (affected.status & ORGAN_DESTROYED)
+		if (!affected)
 			return 0
 		return !affected.cannot_amputate
 

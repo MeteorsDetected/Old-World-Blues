@@ -14,7 +14,7 @@
 		Call in topic() and interact().
 	*/
 	proc/interactable(var/mob/user)
-		if( !src || !user || stat || user.stat || user.lying || user.blinded )
+		if( !src || !user || stat || user.incapacitated() || user.blinded )
 			return 0
 		if(!program)
 			return 0
@@ -22,9 +22,9 @@
 		if(!istype(loc,/turf) || !istype(user.loc,/turf)) // todo handheld maybe
 			return 0
 
-		if(istype(user,/mob/living/silicon))
+		if(issilicon(user))
 			if(!program.ai_allowed)
-				user << "\blue You are forbidden from accessing this program."
+				user << SPAN_NOTE("You are forbidden from accessing this program.")
 				return 0
 		else
 			if(program.human_controls)

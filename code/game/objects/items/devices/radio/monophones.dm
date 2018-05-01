@@ -7,8 +7,8 @@
 	icon_action_button = "action_music"
 	var/obj/item/device/player/player = null
 
-/obj/item/device/radio/headset/moonphones/New()
-	..()
+/obj/item/device/radio/headset/moonphones/initialize()
+	. = ..()
 	player = new(src)
 
 /obj/item/device/radio/headset/moonphones/update_icon()

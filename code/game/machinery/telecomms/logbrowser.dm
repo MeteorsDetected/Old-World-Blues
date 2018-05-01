@@ -2,7 +2,7 @@
 
 /obj/machinery/computer/telecomms/server
 	name = "Telecommunications Server Monitor"
-	icon_state = "comm_logs"
+	screen_icon = "comm_logs"
 
 	var/screen = 0				// the screen number:
 	var/list/servers = list()	// the servers located by the computer
@@ -189,6 +189,6 @@
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		emagged = 1
-		user << "<span class='notice'>You you disable the security protocols</span>"
+		user << SPAN_NOTE("You you disable the security protocols")
 		src.updateUsrDialog()
 		return 1

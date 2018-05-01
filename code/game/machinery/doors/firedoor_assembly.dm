@@ -1,4 +1,4 @@
-obj/structure/firedoor_assembly
+/obj/structure/firedoor_assembly
 	name = "\improper emergency shutter assembly"
 	desc = "It can save lives."
 	icon = 'icons/obj/doors/DoorHazard.dmi'
@@ -8,13 +8,13 @@ obj/structure/firedoor_assembly
 	density = 1
 	var/wired = 0
 
-obj/structure/firedoor_assembly/update_icon()
+/obj/structure/firedoor_assembly/update_icon()
 	if(anchored)
 		icon_state = "door_anchored"
 	else
 		icon_state = "door_construction"
 
-obj/structure/firedoor_assembly/attackby(C as obj, mob/user as mob)
+/obj/structure/firedoor_assembly/attackby(C as obj, mob/user as mob)
 	if(istype(C, /obj/item/stack/cable_coil) && !wired && anchored)
 		var/obj/item/stack/cable_coil/cable = C
 		if (cable.get_amount() < 1)
@@ -24,7 +24,7 @@ obj/structure/firedoor_assembly/attackby(C as obj, mob/user as mob)
 		if(do_after(user, 40) && !wired && anchored)
 			if (cable.use(1))
 				wired = 1
-				user << "<span class='notice'>You wire \the [src].</span>"
+				user << SPAN_NOTE("You wire \the [src].")
 
 	else if(istype(C, /obj/item/weapon/wirecutters) && wired )
 		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
@@ -32,7 +32,7 @@ obj/structure/firedoor_assembly/attackby(C as obj, mob/user as mob)
 
 		if(do_after(user, 40))
 			if(!src) return
-			user << "<span class='notice'>You cut the wires!</span>"
+			user << SPAN_NOTE("You cut the wires!")
 			new/obj/item/stack/cable_coil(src.loc, 1)
 			wired = 0
 
@@ -64,6 +64,6 @@ obj/structure/firedoor_assembly/attackby(C as obj, mob/user as mob)
 				new /obj/item/stack/material/steel(src.loc, 2)
 				qdel(src)
 		else
-			user << "<span class='notice'>You need more welding fuel.</span>"
+			user << SPAN_NOTE("You need more welding fuel.")
 	else
 		..(C, user)

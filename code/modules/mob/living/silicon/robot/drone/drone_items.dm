@@ -28,7 +28,7 @@
 	var/grabbed_something = 0
 
 	for(var/mob/M in T)
-		if(istype(M,/mob/living/simple_animal/lizard) || istype(M,/mob/living/simple_animal/mouse))
+		if(istype(M,/mob/living/simple_animal/lizard) || ismouse(M))
 			src.loc.visible_message("<span class='danger'>[src.loc] sucks [M] into its decompiler. There's a horrible crunching noise.</span>","<span class='danger'>It's a bit of a struggle, but you manage to suck [M] into your decompiler. It makes a series of visceral crunching noises.</span>")
 			new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
 			qdel(M)
@@ -38,7 +38,7 @@
 				plastic.add_charge(2000)
 			return
 
-		else if(istype(M,/mob/living/silicon/robot/drone) && !M.client)
+		else if(isdrone(M) && !M.client)
 
 			var/mob/living/silicon/robot/D = src.loc
 
@@ -126,7 +126,7 @@
 		grabbed_something = 1
 
 	if(grabbed_something)
-		user << "<span class='notice'>You deploy your decompiler and clear out the contents of \the [T].</span>"
+		user << SPAN_NOTE("You deploy your decompiler and clear out the contents of \the [T].")
 	else
 		user << "<span class='danger'>Nothing on \the [T] is useful to you.</span>"
 	return

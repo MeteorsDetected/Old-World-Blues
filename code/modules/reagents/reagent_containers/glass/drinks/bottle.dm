@@ -11,27 +11,6 @@
 	var/const/duration = 13 //Directly relates to the 'weaken' duration. Lowered by armor (i.e. helmets)
 	isGlass = 1
 
-/obj/item/weapon/reagent_containers/glass/drinks/bottle/smash(mob/living/target as mob, mob/living/user as mob)
-
-	//Creates a shattering noise and replaces the bottle with a broken_bottle
-	user.drop_from_inventory(src)
-	var/obj/item/weapon/broken_bottle/B = new(user.loc)
-	user.put_in_active_hand(B)
-	if(prob(33))
-		new/obj/item/weapon/material/shard(target.loc) // Create a glass shard at the target's location!
-	B.icon_state = src.icon_state
-
-	var/icon/I = new('icons/obj/drinks.dmi', src.icon_state)
-	I.Blend(B.broken_outline, ICON_OVERLAY, rand(5), 1)
-	I.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
-	B.icon = I
-
-	playsound(src, "shatter", 70, 1)
-	user.put_in_active_hand(B)
-	src.transfer_fingerprints_to(B)
-
-	qdel(src)
-
 /obj/item/weapon/reagent_containers/glass/drinks/bottle/attack(mob/living/target as mob, mob/living/user as mob)
 
 	if(!target)
@@ -81,7 +60,7 @@
 
 	//The reagents in the bottle splash all over the target, thanks for the idea Nodrak
 	if(reagents)
-		user.visible_message("<span class='notice'>The contents of the [src] splash all over [target]!</span>")
+		user.visible_message(SPAN_NOTE("The contents of the [src] splash all over [target]!"))
 		reagents.splash(target, reagents.total_volume)
 
 	//Finally, smash the bottle. This kills (qdel) the bottle.
@@ -141,7 +120,7 @@
 	center_of_mass = list("x"=17, "y"=3)
 	preloaded = list("vodka" = 100)
 
-/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka/badminka
+/obj/item/weapon/reagent_containers/glass/drinks/bottle/vodka/badminka
 	name = "Badminka Vodka"
 	desc = "The label's written in Cyrillic. All you can make out is the name and a word that looks vaguely like 'Vodka'."
 	icon_state = "badminka"

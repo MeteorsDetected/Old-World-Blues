@@ -9,23 +9,23 @@
 	display_name = "headphones"
 	path = /obj/item/clothing/ears/earmuffs/mp3
 
-/datum/gear/easrs/skrell/chain
-	display_name = "skrell headtail-wear, female, chain"
+/datum/gear/ears/skrell/chain
+	display_name = "skrell headtail-wear, female"
 	path = /obj/item/clothing/ears/skrell/chain
+	options = list(
+		"chain" = /obj/item/clothing/ears/skrell/chain,
+		"cloth" = /obj/item/clothing/ears/skrell/cloth_female
+	)
 
-/datum/gear/easrs/skrell/plate
-	display_name = "skrell headtail-wear, male, bands"
+/datum/gear/ears/skrell/plate
+	display_name = "skrell headtail-wear, male"
 	path = /obj/item/clothing/ears/skrell/band
+	options = list(
+		"bands" = /obj/item/clothing/ears/skrell/band,
+		"cloth" = /obj/item/clothing/ears/skrell/cloth_male
+	)
 
-/datum/gear/easrs/skrell/cloth_male
-	display_name = "skrell headtail-wear, male, cloth"
-	path = /obj/item/clothing/ears/skrell/cloth_male
-
-/datum/gear/easrs/skrell/cloth_female
-	display_name = "skrell headtail-wear, female, cloth"
-	path = /obj/item/clothing/ears/skrell/cloth_female
-
-/datum/gear/easrs/skrell/xilobeads
+/datum/gear/ears/skrell/xilobeads
 	display_name = "skrell xilobeads"
 	path = /obj/item/clothing/ears/skrell/xilobeads
 	cost = 2

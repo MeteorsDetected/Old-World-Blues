@@ -49,7 +49,6 @@
 	icon = 'icons/obj/furniture.dmi'
 	icon_state = "stool_padded_preview"
 	anchored = 1.0
-	pressure_resistance = 15
 
 
 /obj/item/clothing/gloves/boxing/hologlove
@@ -57,9 +56,6 @@
 	desc = "Because you really needed another excuse to punch your crewmates."
 	icon_state = "boxing"
 	item_state = "boxing"
-
-/obj/structure/window/reinforced/holowindow/Destroy()
-	..()
 
 /obj/structure/window/reinforced/holowindow/attackby(obj/item/W as obj, mob/user as mob)
 	if(!istype(W)) return//I really wish I did not need this
@@ -90,14 +86,7 @@
 	qdel(src)
 	return
 
-/obj/structure/window/reinforced/holowindow/disappearing/Destroy()
-	..()
-
-/obj/machinery/door/window/holowindoor/Destroy()
-	..()
-
 /obj/machinery/door/window/holowindoor/attackby(obj/item/weapon/I as obj, mob/user as mob)
-
 	if (src.operating == 1)
 		return
 
@@ -131,13 +120,9 @@
 		visible_message("[src] fades away as it shatters!")
 	qdel(src)
 
-/obj/structure/bed/chair/holochair/Destroy()
-	..()
-
-/obj/structure/bed/chair/holochair/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/material/chair/holochair/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/wrench))
-		user << ("<span class='notice'>It's a holochair, you can't dismantle it!</span>")
-	return
+		user << (SPAN_NOTE("It's a holochair, you can't dismantle it!"))
 
 /obj/item/weapon/holo
 	damtype = HALLOSS
@@ -184,11 +169,9 @@
 		return 1
 	return 0
 
-/obj/item/weapon/holo/esword/attack(target as mob, mob/user as mob)
-	..()
-
-/obj/item/weapon/holo/esword/New()
+/obj/item/weapon/holo/esword/initialize()
 	item_color = pick("red","blue","green","purple")
+	return ..()
 
 /obj/item/weapon/holo/esword/attack_self(mob/living/user as mob)
 	active = !active
@@ -197,13 +180,13 @@
 		icon_state = "sword[item_color]"
 		w_class = ITEM_SIZE_HUGE
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
-		user << "<span class='notice'>[src] is now active.</span>"
+		user << SPAN_NOTE("[src] is now active.")
 	else
 		force = 3
 		icon_state = "sword0"
 		w_class = ITEM_SIZE_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
-		user << "<span class='notice'>[src] can now be concealed.</span>"
+		user << SPAN_NOTE("[src] can now be concealed.")
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -232,8 +215,8 @@
 	density = 1
 	throwpass = 1
 
-/obj/structure/holohoop/affect_grab(var/mob/living/user, var/mob/living/target, var/obj/item/weapon/grab/grab)
-	if(grab.state == GRAB_PASSIVE)
+/obj/structure/holohoop/affect_grab(var/mob/living/user, var/mob/living/target, var/state)
+	if(state == GRAB_PASSIVE)
 		user << SPAN_WARN("You need a better grip to do that!")
 		return FALSE
 	target.forceMove(src.loc)
@@ -260,6 +243,8 @@
 	else
 		return ..(mover, target, height, air_group)
 
+//Placeholder
+/obj/structure/window/reinforced/holowindow/disappearing
 
 /obj/machinery/readybutton
 	name = "Ready Declaration Device"
@@ -285,7 +270,7 @@
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
 
-	if(user.stat || stat & (NOPOWER|BROKEN))
+	if(user.incapacitated() || stat & (NOPOWER|BROKEN))
 		user << "This device is not powered."
 		return
 
@@ -368,5 +353,5 @@
 	derez()
 
 /mob/living/simple_animal/hostile/carp/holodeck/proc/derez()
-	visible_message("<span class='notice'>\The [src] fades away!</span>")
+	visible_message(SPAN_NOTE("\The [src] fades away!"))
 	qdel(src)

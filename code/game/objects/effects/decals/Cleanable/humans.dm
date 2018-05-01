@@ -103,8 +103,8 @@ var/global/list/image/splatter_cache=list()
 		if(!perp.feet_blood_DNA)
 			perp.feet_blood_DNA = list()
 		perp.feet_blood_DNA |= blood_DNA.Copy()
-	else if (perp.buckled && istype(perp.buckled, /obj/structure/bed/chair/wheelchair))
-		var/obj/structure/bed/chair/wheelchair/W = perp.buckled
+	else if (perp.buckled && istype(perp.buckled, /obj/structure/material/chair/wheelchair))
+		var/obj/structure/material/chair/wheelchair/W = perp.buckled
 		W.bloodiness = 4
 
 	perp.update_inv_shoes(1)
@@ -125,7 +125,7 @@ var/global/list/image/splatter_cache=list()
 			return
 		var/taken = rand(1,amount)
 		amount -= taken
-		user << "<span class='notice'>You get some of \the [src] on your hands.</span>"
+		user << SPAN_NOTE("You get some of \the [src] on your hands.")
 		if (!user.blood_DNA)
 			user.blood_DNA = list()
 		user.blood_DNA |= blood_DNA.Copy()

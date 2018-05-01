@@ -20,51 +20,51 @@
 
 	var/fail_message
 
-/obj/machinery/replicator/New()
-	..()
+/obj/machinery/replicator/initialize()
+	. = ..()
 
-	var/list/viables = list(\
-	/obj/item/roller,\
-	/obj/structure/closet/crate,\
-	/obj/structure/closet/acloset,\
-	/mob/living/simple_animal/hostile/mimic,\
-	/mob/living/simple_animal/hostile/viscerator,\
-	/mob/living/simple_animal/hostile/hivebot,\
-	/obj/item/device/analyzer,\
-	/obj/item/device/camera,\
-	/obj/item/device/flash,\
-	/obj/item/device/flashlight,\
-	/obj/item/device/healthanalyzer,\
-	/obj/item/device/multitool,\
-	/obj/item/device/paicard,\
-	/obj/item/device/radio,\
-	/obj/item/device/radio/headset,\
-	/obj/item/device/radio/beacon,\
-	/obj/item/weapon/autopsy_scanner,\
-	/obj/item/weapon/bikehorn,\
-	/obj/item/weapon/bonesetter,\
-	/obj/item/weapon/material/knife/butch,\
-	/obj/item/weapon/caution,\
-	/obj/item/weapon/caution/cone,\
-	/obj/item/weapon/crowbar,\
-	/obj/item/weapon/clipboard,\
-	/obj/item/weapon/cell,\
-	/obj/item/weapon/circular_saw,\
-	/obj/item/weapon/material/hatchet,\
-	/obj/item/weapon/handcuffs,\
-	/obj/item/weapon/hemostat,\
-	/obj/item/weapon/material/knife,\
-	/obj/item/weapon/flame/lighter,\
-	/obj/item/weapon/light/bulb,\
-	/obj/item/weapon/light/tube,\
-	/obj/item/weapon/pickaxe,\
-	/obj/item/weapon/shovel,\
-	/obj/item/weapon/weldingtool,\
-	/obj/item/weapon/wirecutters,\
-	/obj/item/weapon/wrench,\
-	/obj/item/weapon/screwdriver,\
-	/obj/item/weapon/grenade/chem_grenade/cleaner,\
-	/obj/item/weapon/grenade/chem_grenade/metalfoam\
+	var/list/viables = list(
+		/obj/item/roller,
+		/obj/structure/closet/crate,
+		/obj/structure/closet/acloset,
+		/mob/living/simple_animal/hostile/mimic,
+		/mob/living/simple_animal/hostile/viscerator,
+		/mob/living/simple_animal/hostile/hivebot,
+		/obj/item/device/analyzer,
+		/obj/item/device/camera,
+		/obj/item/device/flash,
+		/obj/item/device/flashlight,
+		/obj/item/device/healthanalyzer,
+		/obj/item/device/multitool,
+		/obj/item/device/paicard,
+		/obj/item/device/radio,
+		/obj/item/device/radio/headset,
+		/obj/item/device/radio/beacon,
+		/obj/item/device/autopsy_scanner,
+		/obj/item/weapon/bikehorn,
+		/obj/item/weapon/bonesetter,
+		/obj/item/weapon/material/knife/butch,
+		/obj/item/weapon/caution,
+		/obj/item/weapon/caution/cone,
+		/obj/item/weapon/crowbar,
+		/obj/item/weapon/clipboard,
+		/obj/item/weapon/cell,
+		/obj/item/weapon/circular_saw,
+		/obj/item/weapon/material/hatchet,
+		/obj/item/weapon/handcuffs,
+		/obj/item/weapon/hemostat,
+		/obj/item/weapon/material/knife,
+		/obj/item/weapon/flame/lighter,
+		/obj/item/weapon/light/bulb,
+		/obj/item/weapon/light/tube,
+		/obj/item/weapon/pickaxe,
+		/obj/item/weapon/shovel,
+		/obj/item/weapon/weldingtool,
+		/obj/item/weapon/wirecutters,
+		/obj/item/weapon/wrench,
+		/obj/item/weapon/screwdriver,
+		/obj/item/weapon/grenade/chem_grenade/cleaner,
+		/obj/item/weapon/grenade/chem_grenade/metalfoam
 	)
 
 	var/quantity = rand(5,15)
@@ -76,19 +76,20 @@
 		viables.Remove(type)
 		construction[button_desc] = type
 
-	fail_message = "\blue \icon[src] a [pick("loud","soft","sinister","eery","triumphant","depressing","cheerful","angry")] \
+	fail_message = "\icon[src] a [pick("loud","soft","sinister","eery","triumphant","depressing","cheerful","angry")] \
 		[pick("horn","beep","bing","bleep","blat","honk","hrumph","ding")] sounds and a \
 		[pick("yellow","purple","green","blue","red","orange","white")] \
 		[pick("light","dial","meter","window","protrusion","knob","antenna","swirly thing")] \
 		[pick("swirls","flashes","whirrs","goes schwing","blinks","flickers","strobes","lights up")] on the \
 		[pick("front","side","top","bottom","rear","inside")] of [src]. A [pick("slot","funnel","chute","tube")] opens up in the \
 		[pick("front","side","top","bottom","rear","inside")]."
+	fail_message = SPAN_NOTE(fail_message)
 
 /obj/machinery/replicator/process()
 	if(spawning_types.len && powered())
 		spawn_progress_time += world.time - last_process_time
 		if(spawn_progress_time > max_spawn_time)
-			src.visible_message("\blue \icon[src] [src] pings!")
+			src.visible_message(SPAN_NOTE("\icon[src] [src] pings!"))
 
 			var/obj/source_material = pop(stored_materials)
 			var/spawn_type = pop(spawning_types)
@@ -111,7 +112,7 @@
 				icon_state = "borgcharger0(old)"
 
 		else if(prob(5))
-			src.visible_message("\blue \icon[src] [src] [pick("clicks","whizzes","whirrs","whooshes","clanks","clongs","clonks","bangs")].")
+			src.visible_message(SPAN_NOTE("\icon[src] [src] [pick("clicks","whizzes","whirrs","whooshes","clanks","clongs","clonks","bangs")]."))
 
 	last_process_time = world.time
 
@@ -129,7 +130,7 @@
 /obj/machinery/replicator/attackby(obj/item/weapon/W as obj, mob/living/user as mob)
 	user.drop_from_inventory(W, src)
 	stored_materials.Add(W)
-	src.visible_message("\blue [user] inserts [W] into [src].")
+	src.visible_message(SPAN_NOTE("[user] inserts [W] into [src]."))
 
 /obj/machinery/replicator/Topic(href, href_list)
 
@@ -138,9 +139,9 @@
 		if(index > 0 && index <= construction.len)
 			if(stored_materials.len > spawning_types.len)
 				if(spawning_types.len)
-					src.visible_message("\blue \icon[src] a [pick("light","dial","display","meter","pad")] on [src]'s front [pick("blinks","flashes")] [pick("red","yellow","blue","orange","purple","green","white")].")
+					src.visible_message(SPAN_NOTE("\icon[src] a [pick("light","dial","display","meter","pad")] on [src]'s front [pick("blinks","flashes")] [pick("red","yellow","blue","orange","purple","green","white")]."))
 				else
-					src.visible_message("\blue \icon[src] [src]'s front compartment slides shut.")
+					src.visible_message(SPAN_NOTE("\icon[src] [src]'s front compartment slides shut."))
 
 				spawning_types.Add(construction[construction[index]])
 				spawn_progress_time = 0

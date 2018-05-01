@@ -57,10 +57,6 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	light_range = 0
 	var/datum/announcement/announcement = new
 
-/obj/machinery/requests_console/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/requests_console/update_icon()
 	if(stat & NOPOWER)
 		if(icon_state != "req_comp_off")
@@ -69,8 +65,8 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		if(icon_state == "req_comp_off")
 			icon_state = "req_comp0"
 
-/obj/machinery/requests_console/New()
-	..()
+/obj/machinery/requests_console/initialize()
+	. = ..()
 
 	announcement.title = "[department] announcement"
 	announcement.newscast = 1
@@ -261,7 +257,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 	if(href_list["sendAnnouncement"])
 		if(!announcementConsole)	return
-		log_game("[usr] use [src] for annonce \"[message]\"", src.loc, FALSE)
+		log_game("[key_name(usr)] use [src] for annonce \"[message]\"", src.loc, FALSE)
 		announcement.Announce(utf8_to_cp1251(message), msg_sanitized = 1)
 		reset_announce()
 		screen = 0

@@ -14,7 +14,7 @@ var/const/MAX_ACTIVE_TIME = 400
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "facehugger"
 	item_state = "facehugger"
-	w_class = 3 //note: can be picked up by aliens unlike most other items of w_class below 4
+	w_class = ITEM_SIZE_NORMAL //note: can be picked up by aliens unlike most other items of w_class below 4
 	body_parts_covered = FACE|EYES
 	throw_range = 5
 
@@ -36,11 +36,11 @@ var/const/MAX_ACTIVE_TIME = 400
 	user.drop_from_inventory(src)
 	Attach(M)
 
-/obj/item/clothing/mask/facehugger/New()
-	if(config.aliens_allowed)
-		..()
+/obj/item/clothing/mask/facehugger/initialize()
+	if(config.aliens_allowed || sterile)
+		. = ..()
 	else
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 
 /obj/item/clothing/mask/facehugger/examine(mob/user)
 	. = ..()

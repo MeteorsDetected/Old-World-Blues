@@ -8,9 +8,9 @@
 	light_color = "#E09D37"
 	var/wax = 2000
 
-/obj/item/weapon/flame/candle/New()
+/obj/item/weapon/flame/candle/initialize()
 	wax = rand(800, 1000) // Enough for 27-33 minutes. 30 minutes on average.
-	..()
+	return ..()
 
 /obj/item/weapon/flame/candle/update_icon()
 	var/i
@@ -27,7 +27,7 @@
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
 		if(WT.isOn()) //Badasses dont get blinded by lighting their candle with a welding tool
-			light("<span class='notice'>\The [user] casually lights the [name] with [W].</span>")
+			light(SPAN_NOTE("\The [user] casually lights the [name] with [W]."))
 	else if(istype(W, /obj/item/weapon/flame/lighter))
 		var/obj/item/weapon/flame/lighter/L = W
 		if(L.lit)
@@ -42,7 +42,7 @@
 			light()
 
 
-/obj/item/weapon/flame/candle/proc/light(var/flavor_text = "<span class='notice'>\The [usr] lights the [name].</span>")
+/obj/item/weapon/flame/candle/proc/light(var/flavor_text = SPAN_NOTE("\The [usr] lights the [name]."))
 	if(!src.lit)
 		src.lit = 1
 		//src.damtype = "fire"

@@ -7,12 +7,11 @@
 	donations.donators[ckey] = money
 	return
 */
-
-
 var/datum/donations/donations = new()
 
 /hook/roundstart/proc/load_donators()
 	donations.load_donators()
+	return TRUE
 
 /datum/donations
 	var/list/donat_categoryes = list()
@@ -38,7 +37,7 @@ var/datum/donations/donations = new()
 			return
 		var/mob/living/carbon/human/user = usr
 		var/ckey = user.ckey
-		if(!istype(user) || user.stat)
+		if(!istype(user) || user.incapacitated())
 			return
 
 		var/money = donators[ckey]

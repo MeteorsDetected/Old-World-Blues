@@ -4,7 +4,7 @@
 /obj/machinery/computer/communications
 	name = "command and communications console"
 	desc = "Used to command and control the station. Can relay long-range communications."
-	icon_state = "comm"
+	screen_icon = "comm"
 	light_color = "#0099ff"
 	req_access = list(access_heads)
 	circuit = /obj/item/weapon/circuitboard/communications
@@ -36,8 +36,8 @@
 
 	var/datum/announcement/priority/crew_announcement = new
 
-/obj/machinery/computer/communications/New()
-	..()
+/obj/machinery/computer/communications/initialize()
+	. = ..()
 	crew_announcement.newscast = 1
 
 /obj/machinery/computer/communications/process()
@@ -105,7 +105,7 @@
 				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
 				if(!input || !(usr in view(1,src)))
 					return
-				log_game("[usr] use [src] for annonce \"[input]\"", src.loc, FALSE)
+				log_game("[key_name(usr)] use [src] for annonce \"[input]\"", src.loc, FALSE)
 				crew_announcement.Announce(input)
 				message_cooldown = 1
 				spawn(600)//One minute cooldown
@@ -187,7 +187,7 @@
 				if(!input || !(usr in view(1,src)))
 					return
 				Centcomm_announce(input, usr)
-				usr << "<span class='notice'>Message transmitted.</span>"
+				usr << SPAN_NOTE("Message transmitted.")
 				log_game("[key_name(usr)] has made an IA Centcomm announcement: [input]", null, 0)
 				centcomm_message_cooldown = 1
 				spawn(300)//30 second cooldown
@@ -204,7 +204,7 @@
 				if(!input || !(usr in view(1,src)))
 					return
 				Syndicate_announce(input, usr)
-				usr << "<span class='notice'>Message transmitted.</span>"
+				usr << SPAN_NOTE("Message transmitted.")
 				log_game("[key_name(usr)] has made an illegal announcement: [input]", null, 0)
 				centcomm_message_cooldown = 1
 				spawn(300)//10 minute cooldown
@@ -424,7 +424,7 @@
 		return
 
 	if(!universe.OnShuttleCall(usr))
-		user << "<span class='notice'>Cannot establish a bluespace connection.</span>"
+		user << SPAN_NOTE("Cannot establish a bluespace connection.")
 		return
 
 	if(deathsquad.deployed)

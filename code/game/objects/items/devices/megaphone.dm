@@ -29,7 +29,7 @@
 	if(!message)
 		return
 	message = capitalize(message)
-	if (src.loc == user && !user.stat)
+	if (src.loc == user && !user.incapacitated())
 		if(emagged)
 			if(insults)
 				for(var/mob/O in (viewers(user)))

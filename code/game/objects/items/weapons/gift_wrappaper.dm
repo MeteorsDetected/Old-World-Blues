@@ -15,41 +15,38 @@
 	item_state = "gift1"
 	randpixel = 10
 
-/obj/item/weapon/a_gift/New()
-	..()
+/obj/item/weapon/a_gift/initialize()
+	. = ..()
 	if(w_class > 0 && w_class < ITEM_SIZE_HUGE)
 		icon_state = "gift[w_class]"
 	else
 		icon_state = "gift[pick(1, 2, 3)]"
-	return
 
 /obj/item/weapon/a_gift/ex_act()
 	qdel(src)
 	return
 
 /obj/effect/spresent/relaymove(mob/user as mob)
-	if (user.stat)
+	if (user.incapacitated(INCAPACITATION_DISABLED))
 		return
-	user << "\blue You cant move."
+	user << SPAN_NOTE("You cant move.")
 
 /obj/effect/spresent/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
 
 	if (!istype(W, /obj/item/weapon/wirecutters))
-		user << "\blue I need wirecutters for that."
+		user << SPAN_NOTE("I need wirecutters for that.")
 		return
 
-	user << "\blue You cut open the present."
+	user << SPAN_NOTE("You cut open the present.")
 
 	for(var/mob/M in src) //Should only be one but whatever.
-		M.loc = src.loc
-		if (M.client)
-			M.client.eye = M.client.mob
-			M.client.perspective = MOB_PERSPECTIVE
+		M.forceMove(src.loc)
+		M.reset_view()
 
 	qdel(src)
 
-/obj/item/weapon/a_gift/attack_self(mob/M as mob)
+/obj/item/weapon/a_gift/attack_self(mob/M)
 	var/gift_type = pick(/obj/item/weapon/sord,
 		/obj/item/storage/wallet,
 		/obj/item/storage/photo_album,
@@ -128,11 +125,16 @@
 
 		//a good example of where we don't want to use the w_class defines
 		switch(gift.w_class)
-			if(1) icon_state = "gift1"
-			if(2) icon_state = "gift1"
-			if(3) icon_state = "gift2"
-			if(4) icon_state = "gift2"
-			else  icon_state = "gift3"
+			if(1)
+				icon_state = "gift1"
+			if(2)
+				icon_state = "gift1"
+			if(3)
+				icon_state = "gift2"
+			if(4)
+				icon_state = "gift2"
+			else
+				icon_state = "gift3"
 
 /obj/item/weapon/gift/attack_self(mob/user as mob)
 	user.unEquip(src)
@@ -142,9 +144,9 @@
 	else
 		user << SPAN_WARN("The gift was empty!")
 	qdel(src)
-	return
 
-/obj/item/weapon/gift/new_year/New()
+/obj/item/weapon/gift/new_year/initialize()
+	..()
 	var/surprize = pick(/obj/item/clothing/head/witchwig,
 		/obj/item/clothing/head/philosopher_wig,
 		/obj/item/clothing/head/pirate,
@@ -178,7 +180,7 @@
 /obj/item/weapon/wrapping_paper/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
 	if (!( locate(/obj/structure/table, src.loc) ))
-		user << "\blue You MUST put the paper on a table!"
+		user << SPAN_NOTE("You MUST put the paper on a table!")
 	if (W.w_class < ITEM_SIZE_HUGE)
 		if ((istype(user.l_hand, /obj/item/weapon/wirecutters) || istype(user.r_hand, /obj/item/weapon/wirecutters)))
 			var/a_used = W.get_storage_cost()
@@ -218,15 +220,12 @@
 
 /obj/item/weapon/wrapping_paper/attack(mob/living/carbon/human/H as mob, mob/user as mob)
 	if (!istype(H)) return
-	if (istype(H.wear_suit, /obj/item/clothing/suit/straight_jacket) || H.stat)
+	if (istype(H.wear_suit, /obj/item/clothing/suit/straight_jacket) || H.incapacitated())
 		if (src.amount > 2)
 			var/obj/effect/spresent/present = new /obj/effect/spresent (H.loc)
 			src.amount -= 2
 
-			if (H.client)
-				H.client.perspective = EYE_PERSPECTIVE
-				H.client.eye = present
-
+			H.reset_view(present)
 			H.forceMove(present)
 
 			admin_attack_log(user, H,
@@ -236,6 +235,6 @@
 			)
 
 		else
-			user << "\blue You need more paper."
+			user << SPAN_NOTE("You need more paper.")
 	else
 		user << "They are moving around too much. A straightjacket would help."

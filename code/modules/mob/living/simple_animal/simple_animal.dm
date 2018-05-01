@@ -222,10 +222,10 @@
 		..(act, type, desc)
 
 /mob/living/simple_animal/proc/visible_emote(var/act_desc)
-	custom_emote(1, act_desc)
+	src.visible_message("<B>[src]</B> [act_desc]")
 
 /mob/living/simple_animal/proc/audible_emote(var/act_desc)
-	custom_emote(2, act_desc)
+	src.audible_message("<B>[src]</B> [act_desc]")
 
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj || Proj.nodamage)
@@ -241,10 +241,10 @@
 
 		if(I_HELP)
 			if (health > 0)
-				M.visible_message("\blue [M] [response_help] \the [src]")
+				M.visible_message(SPAN_NOTE("[M] [response_help] \the [src]"))
 
 		if(I_DISARM)
-			M.visible_message("\blue [M] [response_disarm] \the [src]")
+			M.visible_message(SPAN_NOTE("[M] [response_disarm] \the [src]"))
 			M.do_attack_animation(src)
 			//TODO: Push the mob away or something
 
@@ -258,7 +258,6 @@
 
 			M.put_in_active_hand(G)
 
-			G.synch()
 			G.affecting = src
 			LAssailant = M
 
@@ -269,8 +268,6 @@
 			adjustBruteLoss(harm_intent_damage)
 			M.visible_message("\red [M] [response_harm] \the [src]")
 			M.do_attack_animation(src)
-
-	return
 
 /mob/living/simple_animal/attackby(var/obj/item/O, var/mob/user)
 	if(istype(O, /obj/item/stack/medical))
@@ -285,9 +282,9 @@
 						qdel(MED)
 					for(var/mob/M in viewers(src, null))
 						if ((M.client && !( M.blinded )))
-							M.show_message("<span class='notice'>[user] applies the [MED] on [src].</span>")
+							M.show_message(SPAN_NOTE("[user] applies the [MED] on [src]."))
 		else
-			user << "<span class='notice'>\The [src] is dead, medical items won't bring \him back to life.</span>"
+			user << SPAN_NOTE("\The [src] is dead, medical items won't bring \him back to life.")
 	if(meat_type && (stat == DEAD))	//if the animal has a meat, and if it is dead.
 		if(istype(O, /obj/item/weapon/material/knife) || istype(O, /obj/item/weapon/material/knife/butch))
 			harvest(user)
@@ -298,7 +295,7 @@
 /mob/living/simple_animal/proc/attacked_with_item(var/obj/item/O, var/mob/user)
 	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 	if(!O.force)
-		visible_message("<span class='notice'>[user] gently taps [src] with \the [O].</span>")
+		visible_message(SPAN_NOTE("[user] gently taps [src] with \the [O]."))
 		return
 
 	visible_message("<span class='danger'>[user] attacked [src] with the [O].</span>")

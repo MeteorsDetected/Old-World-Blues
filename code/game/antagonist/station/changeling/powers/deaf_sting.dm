@@ -17,7 +17,7 @@
 	var/duration = 300
 	if(src.mind.changeling.recursive_enhancement)
 		duration = duration + 100
-		src << "<span class='notice'>They will be unable to hear for a little longer.</span>"
+		src << SPAN_NOTE("They will be unable to hear for a little longer.")
 		src.mind.changeling.recursive_enhancement = 0
 	T << "<span class='danger'>Your ears pop and begin ringing loudly!</span>"
 	T.sdisabilities |= DEAF

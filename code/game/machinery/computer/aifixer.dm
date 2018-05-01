@@ -1,16 +1,12 @@
 /obj/machinery/computer/aifixer
 	name = "\improper AI system integrity restorer"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "ai-fixer"
+	screen_icon = "ai-fixer"
 	light_color = "#a97faa"
 	circuit = /obj/item/weapon/circuitboard/aifixer
 	req_one_access = list(access_robotics, access_heads)
 	var/mob/living/silicon/ai/occupant = null
 	var/active = 0
-
-/obj/machinery/computer/aifixer/New()
-	..()
-	update_icon()
 
 /obj/machinery/computer/aifixer/proc/load_ai(var/mob/living/silicon/ai/transfer, var/obj/item/device/aicard/card, var/mob/user)
 
@@ -19,7 +15,7 @@
 
 	// Transfer over the AI.
 	transfer << "You have been uploaded to a stationary terminal. Sadly, there is no remote access from here."
-	user << "\blue <b>Transfer successful</b>: \black [transfer.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed."
+	user << SPAN_NOTE("<b>Transfer successful</b>: \black [transfer.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
 
 	transfer.loc = src
 	transfer.cancel_camera()
@@ -130,15 +126,13 @@
 /obj/machinery/computer/aifixer/update_icon()
 	..()
 
-	overlays.Cut()
-
-	if((stat & BROKEN) || (stat & NOPOWER))
+	if(stat & (BROKEN|NOPOWER))
 		return
 
 	if(occupant)
 		if(occupant.stat)
-			overlays += image('icons/obj/computer.dmi', "ai-fixer-404")
+			overlays += "ai-fixer-404"
 		else
-			overlays += image('icons/obj/computer.dmi', "ai-fixer-full")
+			overlays += "ai-fixer-full"
 	else
-		overlays += image('icons/obj/computer.dmi', "ai-fixer-empty")
+		overlays += "ai-fixer-empty"

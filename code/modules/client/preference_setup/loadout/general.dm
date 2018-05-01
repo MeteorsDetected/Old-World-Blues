@@ -43,10 +43,10 @@
 /datum/gear/flask
 	display_name = "flask"
 	path = /obj/item/weapon/reagent_containers/glass/drinks/flask/barflask
-
-/datum/gear/vacflask
-	display_name = "vacuum-flask"
-	path = /obj/item/weapon/reagent_containers/glass/drinks/flask/vacuumflask
+	options = list(
+		"common" = /obj/item/weapon/reagent_containers/glass/drinks/flask/barflask,
+		"vacuum" = /obj/item/weapon/reagent_containers/glass/drinks/flask/vacuumflask
+	)
 
 /datum/gear/comb
 	display_name = "purple comb"
@@ -63,12 +63,12 @@
 	description = "The ever-popular Cards Against The Galaxy word game. Warning: may include traces of broken fourth wall. This is the black deck."
 
 /datum/gear/smokingpipe
-	display_name = "pipe, smoking"
+	display_name = "smoking pipe"
 	path = /obj/item/clothing/mask/smokable/pipe
-
-/datum/gear/cornpipe
-	display_name = "pipe, corn"
-	path = /obj/item/clothing/mask/smokable/pipe/cobpipe
+	options = list(
+		"common" = /obj/item/clothing/mask/smokable/pipe,
+		"corn"   = /obj/item/clothing/mask/smokable/pipe/cobpipe
+	)
 
 /datum/gear/matchbook
 	display_name = "matchbook"
@@ -79,7 +79,6 @@
 	path = /obj/item/weapon/flame/lighter/zippo
 
 // Belt
-
 /datum/gear/fannypack
 	display_name = "fannypack"
 	path = /obj/item/storage/belt/fannypack

@@ -32,7 +32,7 @@ var/list/datum/dna/hivemind_bank = list()
 			names += DNA.name
 
 	if(names.len <= 0)
-		src << "<span class='notice'>The airwaves already have all of our DNA.</span>"
+		src << SPAN_NOTE("The airwaves already have all of our DNA.")
 		return
 
 	var/S = input("Select a DNA to channel: ", "Channel DNA", null) as null|anything in names
@@ -44,7 +44,7 @@ var/list/datum/dna/hivemind_bank = list()
 
 	changeling.chem_charges -= 10
 	hivemind_bank += chosen_dna
-	src << "<span class='notice'>We channel the DNA of [S] to the air.</span>"
+	src << SPAN_NOTE("We channel the DNA of [S] to the air.")
 	return 1
 
 /mob/living/proc/changeling_hivedownload()
@@ -61,7 +61,7 @@ var/list/datum/dna/hivemind_bank = list()
 			names[DNA.name] = DNA
 
 	if(names.len <= 0)
-		src << "<span class='notice'>There's no new DNA to absorb from the air.</span>"
+		src << SPAN_NOTE("There's no new DNA to absorb from the air.")
 		return
 
 	var/S = input("Select a DNA absorb from the air: ", "Absorb DNA", null) as null|anything in names
@@ -72,5 +72,5 @@ var/list/datum/dna/hivemind_bank = list()
 
 	changeling.chem_charges -= 20
 	absorbDNA(chosen_dna)
-	src << "<span class='notice'>We absorb the DNA of [S] from the air.</span>"
+	src << SPAN_NOTE("We absorb the DNA of [S] from the air.")
 	return 1

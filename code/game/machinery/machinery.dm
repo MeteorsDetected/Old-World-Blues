@@ -121,6 +121,9 @@ Class Procs:
 	..(l)
 	if(d)
 		set_dir(d)
+
+/obj/machinery/initialize()
+	. = ..()
 	InitCircuit()
 	if(!machinery_sort_required && ticker)
 		dd_insertObjectList(machines, src)
@@ -141,7 +144,6 @@ Class Procs:
 /obj/machinery/process()//If you dont use process or power why are you here
 	if(!(use_power || idle_power_usage || active_power_usage))
 		return PROCESS_KILL
-	return
 
 /obj/machinery/emp_act(severity)
 	if(use_power && !stat)
@@ -162,17 +164,12 @@ Class Procs:
 	switch(severity)
 		if(1.0)
 			qdel(src)
-			return
 		if(2.0)
 			if (prob(50))
 				qdel(src)
-				return
 		if(3.0)
 			if (prob(25))
 				qdel(src)
-				return
-		else
-	return
 
 /obj/machinery/blob_act()
 	if(prob(50))
@@ -219,7 +216,7 @@ Class Procs:
 	if(isrobot(user))
 		// For some reason attack_robot doesn't work
 		// This is to stop robots from using cameras to remotely control machines.
-		if(user.client && user.client.eye == user)
+		if(src in view(world.view, user))
 			return src.attack_hand(user)
 	else
 		return src.attack_hand(user)
@@ -227,7 +224,7 @@ Class Procs:
 /obj/machinery/attack_hand(mob/user as mob)
 	if(inoperable(MAINT))
 		return 1
-	if(user.lying || user.stat)
+	if(user.incapacitated())
 		return 1
 	if (!user.IsAdvancedToolUser())
 		usr << "<span class='warning'>You don't have the dexterity to do this!</span>"
@@ -239,7 +236,7 @@ Class Procs:
 			visible_message("<span class='warning'>[H] stares cluelessly at [src].</span>")
 			return 1
 		else if(prob(H.getBrainLoss()))
-			user << "<span class='warning'>You momentarily forget how to use [src].</span>"
+			user << "<span class='warning'>You momentarily forget how to use \the [src].</span>"
 			return 1
 
 	src.add_fingerprint(user)
@@ -253,6 +250,7 @@ Class Procs:
 	if(ispath(circuit))
 		circuit = PoolOrNew(circuit, null)
 
+	component_parts = list()
 	if(circuit)
 		component_parts += circuit
 
@@ -265,8 +263,8 @@ Class Procs:
 
 	RefreshParts()
 
-/obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
-	return
+//Placeholder proc for machines that are built using frames.
+/obj/machinery/proc/RefreshParts()
 
 /obj/machinery/proc/assign_uid()
 	uid = gl_uid
@@ -288,19 +286,7 @@ Class Procs:
 		return 0
 	if(!prob(prb))
 		return 0
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-	s.set_up(5, 1, src)
-	s.start()
-	if (electrocute_mob(user, get_area(src), src, 0.7))
-		var/area/temp_area = get_area(src)
-		if(temp_area)
-			var/obj/machinery/power/apc/temp_apc = temp_area.get_apc()
-
-			if(temp_apc && temp_apc.terminal && temp_apc.terminal.powernet)
-				temp_apc.terminal.powernet.trigger_warning()
-		if(user.stunned)
-			return 1
-	return 0
+	return electrocute_mob(user, get_area(src), src, 0.7)
 
 /obj/machinery/proc/default_part_replacement(var/mob/user, var/obj/item/storage/part_replacer/R)
 	if(!istype(R))
@@ -322,14 +308,14 @@ Class Procs:
 						component_parts -= A
 						component_parts += B
 						B.loc = null
-						user << "<span class='notice'>[A.name] replaced with [B.name].</span>"
+						user << SPAN_NOTE("[A.name] replaced with [B.name].")
 						break
 			update_icon()
 			RefreshParts()
 	else
-		user << "<span class='notice'>Following parts detected in the machine:</span>"
+		user << SPAN_NOTE("Following parts detected in the machine:")
 		for(var/var/obj/item/C in component_parts)
-			user << "<span class='notice'>    [C.name]</span>"
+			user << SPAN_NOTE("    [C.name]")
 	return 1
 
 /obj/machinery/proc/default_deconstruction_crowbar(var/mob/user, var/obj/item/weapon/crowbar/C)
@@ -344,7 +330,7 @@ Class Procs:
 		return 0
 	playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 	panel_open = !panel_open
-	user << "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance hatch of [src].</span>"
+	user << SPAN_NOTE("You [panel_open ? "open" : "close"] the maintenance hatch of \the [src].")
 	update_icon()
 	return 1
 

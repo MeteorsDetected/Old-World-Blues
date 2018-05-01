@@ -63,11 +63,11 @@
 	if(href_list["attach"])
 		var/page = text2num(href_list["attach"])
 		if(pages[page])
-			usr << "<span class='notice'>There is already something there.</span>"
+			usr << SPAN_NOTE("There is already something there.")
 			return
 		var/obj/item/I = usr.get_active_hand()
 		if(!istype(I, /obj/item/weapon/paper) && !istype(I, /obj/item/weapon/photo))
-			usr << "<span class='notice'>You can't attach that.</span>"
+			usr << SPAN_NOTE("You can't attach that.")
 			return
 		usr.unEquip(I, src)
 		pages[page] = I

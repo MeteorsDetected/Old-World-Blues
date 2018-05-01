@@ -18,8 +18,8 @@
 	desc = "A simple deck of playing cards."
 	icon_state = "deck"
 
-/obj/item/weapon/deck/cards/New()
-	..()
+/obj/item/weapon/deck/cards/initialize()
+	. = ..()
 	var/datum/playingcard/P
 	for(var/suit in list("spades","clubs","diamonds","hearts"))
 
@@ -66,9 +66,9 @@
 	set desc = "Draw a card from a deck."
 	set src in view(1)
 
-	if(usr.stat || !Adjacent(usr)) return
+	if(usr.incapacitated() || !Adjacent(usr)) return
 
-	if(!istype(usr,/mob/living/carbon))
+	if(!iscarbon(usr))
 		return
 
 	var/mob/living/carbon/user = usr
@@ -102,7 +102,7 @@
 	set desc = "Deal a card from a deck."
 	set src in view(1)
 
-	if(usr.stat || !Adjacent(usr)) return
+	if(usr.incapacitated() || !Adjacent(usr)) return
 
 	if(!cards.len)
 		usr << "There are no cards in the deck."

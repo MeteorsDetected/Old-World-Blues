@@ -2,8 +2,8 @@
 /obj/machinery/door/airlock/multi_tile
 	width = 2
 
-/obj/machinery/door/airlock/multi_tile/New()
-	..()
+/obj/machinery/door/airlock/multi_tile/initialize()
+	. = ..()
 	switch(dir)
 		if(EAST, WEST)
 			bound_width = width * world.icon_size

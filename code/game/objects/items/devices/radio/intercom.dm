@@ -14,9 +14,9 @@
 /obj/item/device/radio/intercom/get_storage_cost()
 	return ITEM_SIZE_NO_CONTAINER
 
-/obj/item/device/radio/intercom/New()
-	..()
-	processing_objects += src
+/obj/item/device/radio/intercom/initialize()
+	. = ..()
+	processing_objects |= src
 
 /obj/item/device/radio/intercom/Destroy()
 	processing_objects -= src

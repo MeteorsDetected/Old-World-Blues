@@ -655,9 +655,12 @@ var/global/list/damage_icon_parts = list()
 	if(update_icons)   update_icons()
 
 /mob/living/carbon/human/update_inv_pockets(var/update_icons=1)
-	if(l_store)			l_store.screen_loc = ui_storage1	//TODO
-	if(r_store)			r_store.screen_loc = ui_storage2	//TODO
-	if(update_icons)	update_icons()
+	if(l_store)
+		l_store.screen_loc = ui_storage1	//TODO
+	if(r_store)
+		r_store.screen_loc = ui_storage2	//TODO
+	if(update_icons)
+		update_icons()
 
 
 /mob/living/carbon/human/update_inv_wear_mask(var/update_icons=1)
@@ -753,9 +756,7 @@ var/global/list/damage_icon_parts = list()
 
 		//determine icon state to use
 		var/t_state
-		if(r_hand.item_state_slots && r_hand.item_state_slots[slot_r_hand_str])
-			t_state = r_hand.item_state_slots[slot_r_hand_str]
-		else if(r_hand.item_state)
+		if(r_hand.item_state)
 			t_state = r_hand.item_state
 		else
 			t_state = r_hand.icon_state
@@ -782,9 +783,7 @@ var/global/list/damage_icon_parts = list()
 
 		//determine icon state to use
 		var/t_state
-		if(l_hand.item_state_slots && l_hand.item_state_slots[slot_l_hand_str])
-			t_state = l_hand.item_state_slots[slot_l_hand_str]
-		else if(l_hand.item_state)
+		if(l_hand.item_state)
 			t_state = l_hand.item_state
 		else
 			t_state = l_hand.icon_state

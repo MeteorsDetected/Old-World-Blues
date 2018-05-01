@@ -9,7 +9,7 @@
 	set category = "Object"
 	set src = usr
 
-	if(usr.stat || usr.restrained() || usr.lying)
+	if(usr.incapacitated())
 		return
 	print_report(usr)
 
@@ -44,7 +44,7 @@
 	var/growth_max
 	if(istype(target,/obj/structure/table))
 		return ..()
-	else if(istype(target,/mob/living/simple_animal/xeno))
+	else if(isxeno(target))
 
 		var/mob/living/simple_animal/xeno/X = target
 		if(istype(X, /mob/living/simple_animal/xeno/slime))
@@ -69,7 +69,7 @@
 
 	form_title = "[targetName]"
 	var/dat = "<h3>Biological data for [form_title]</h3>"
-	user.visible_message("<span class='notice'>[user] runs the scanner over \the [target].</span>")
+	user.visible_message(SPAN_NOTE("[user] runs the scanner over \the [target]."))
 
 	dat += "<h2>General Data</h2>"
 

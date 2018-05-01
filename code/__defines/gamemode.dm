@@ -22,7 +22,6 @@
 #define ROLE_WIZARD "wizard"
 #define ROLE_CHANGELING "changeling"
 #define ROLE_CULTIST "cultist"
-#define ROLE_HIGHLANDER "highlander"
 #define ROLE_RENEGADE "renegade"
 #define ROLE_REVOLUTIONARY "revolutionary"
 #define ROLE_LOYALIST "loyalist"

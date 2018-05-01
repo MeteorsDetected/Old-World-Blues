@@ -25,7 +25,7 @@
 	throwforce = 7
 	w_class = ITEM_SIZE_SMALL
 	origin_tech = list(TECH_MATERIAL = 1, TECH_ENGINEERING = 1)
-	matter = list(DEFAULT_WALL_MATERIAL = 150)
+	matter = list(MATERIAL_STEEL = 150)
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 
 
@@ -44,9 +44,10 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	matter = list(DEFAULT_WALL_MATERIAL = 75)
+	matter = list(MATERIAL_STEEL = 75)
 	attack_verb = list("stabbed")
 	sharp  = 1
+	randpixel = 16
 
 	suicide_act(mob/user)
 		viewers(user) << pick(\
@@ -54,7 +55,7 @@
 			"<span class='danger'>\The [user] is stabbing the [src.name] into \his heart! It looks like \he's trying to commit suicide.</span>")
 		return(BRUTELOSS)
 
-/obj/item/weapon/screwdriver/New()
+/obj/item/weapon/screwdriver/initialize()
 	switch(pick("red","blue","purple","brown","green","cyan","yellow"))
 		if ("red")
 			icon_state = "screwdriver2"
@@ -78,9 +79,7 @@
 			icon_state = "screwdriver7"
 			item_state = "screwdriver_yellow"
 
-	if (prob(75))
-		src.pixel_y = rand(0, 16)
-	..()
+	. = ..()
 
 /obj/item/weapon/screwdriver/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!istype(M) || user.a_intent == "help")
@@ -109,16 +108,16 @@
 	throw_range = 9
 	w_class = ITEM_SIZE_SMALL
 	origin_tech = list(TECH_MATERIAL = 1, TECH_ENGINEERING = 1)
-	matter = list(DEFAULT_WALL_MATERIAL = 80)
+	matter = list(MATERIAL_STEEL = 80)
 	attack_verb = list("pinched", "nipped")
 	sharp = 1
 	edge = 1
 
-/obj/item/weapon/wirecutters/New()
+/obj/item/weapon/wirecutters/initialize()
 	if(prob(50))
 		icon_state = "cutters-y"
 		item_state = "cutters_yellow"
-	..()
+	return ..()
 
 /obj/item/weapon/wirecutters/attack(mob/living/carbon/C as mob, mob/user as mob)
 	if(user.a_intent == I_HELP && istype(C) && istype(C.handcuffed, /obj/item/weapon/handcuffs/cable))
@@ -153,7 +152,7 @@
 	w_class = ITEM_SIZE_SMALL
 
 	//Cost to make in the autolathe
-	matter = list(DEFAULT_WALL_MATERIAL = 70, "glass" = 30)
+	matter = list(MATERIAL_STEEL = 70, MATERIAL_GLASS = 30)
 
 	//R&D tech level
 	origin_tech = list(TECH_ENGINEERING = 1)
@@ -163,13 +162,10 @@
 	var/status = 1 		//Whether the welder is secured or unsecured (able to attach rods to it to make a flamethrower)
 	var/max_fuel = 20 	//The max amount of fuel the welder can hold
 
-/obj/item/weapon/weldingtool/New()
-//	var/random_fuel = min(rand(10,20),max_fuel)
-	var/datum/reagents/R = new/datum/reagents(max_fuel)
-	reagents = R
-	R.my_atom = src
-	R.add_reagent("fuel", max_fuel)
-	..()
+/obj/item/weapon/weldingtool/initialize()
+	. = ..()
+	create_reagents(max_fuel)
+	reagents.add_reagent("fuel", max_fuel)
 
 /obj/item/weapon/weldingtool/Destroy()
 	if(welding)
@@ -189,9 +185,9 @@
 			return
 		status = !status
 		if(status)
-			user << "<span class='notice'>You secure the welder.</span>"
+			user << SPAN_NOTE("You secure the welder.")
 		else
-			user << "<span class='notice'>The welder can now be attached and modified.</span>"
+			user << SPAN_NOTE("The welder can now be attached and modified.")
 		src.add_fingerprint(user)
 		return
 
@@ -239,7 +235,7 @@
 	if(!proximity) return
 	if (istype(O, /obj/structure/reagent_dispensers/fueltank) && !src.welding)
 		O.reagents.trans_to_obj(src, max_fuel)
-		user << "<span class='notice'>Welder refueled</span>"
+		user << SPAN_NOTE("Welder refueled")
 		playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
 		return
 	else if (istype(O, /obj/structure/reagent_dispensers/fueltank) && src.welding)
@@ -268,15 +264,15 @@
 		var/mob/living/carbon/human/H = A
 		var/obj/item/organ/external/S = H.get_organ(user.zone_sel.selecting)
 
-		if (!S || S.robotic<ORGAN_ROBOT)
+		if(!S || S.robotic < ORGAN_ROBOT || S.open == 3)
 			return ..()
 
-		if(S.brute_dam)
-			S.heal_damage(15,0,0,1)
-			user.visible_message("\red \The [user] patches some dents on \the [H]'s [S.name] with \the [src].")
-			return
-		else
-			user << "Nothing to fix!"
+		if(!welding)
+			user << "<span class='warning'>You'll need to turn [src] on to patch the damage on [H]'s [S.name]!</span>"
+			return 1
+
+		if(S.robo_repair(15, BRUTE, "some dents", src, user))
+			remove_fuel(1, user)
 
 	else
 		return ..()
@@ -298,7 +294,7 @@
 		return 1
 	else
 		if(M)
-			M << "<span class='notice'>You need more welding fuel to complete this task.</span>"
+			M << SPAN_NOTE("You need more welding fuel to complete this task.")
 		return 0
 
 //Returns whether or not the welding tool is currently on.
@@ -323,7 +319,7 @@
 	if(set_welding && !welding)
 		if (get_fuel() > 0)
 			if(M)
-				M << "<span class='notice'>You switch the [src] on.</span>"
+				M << SPAN_NOTE("You switch the [src] on.")
 			else if(T)
 				T.visible_message("<span class='danger'>\The [src] turns on.</span>")
 			src.force = 15
@@ -334,13 +330,13 @@
 			processing_objects |= src
 		else
 			if(M)
-				M << "<span class='notice'>You need more welding fuel to complete this task.</span>"
+				M << SPAN_NOTE("You need more welding fuel to complete this task.")
 			return
 	//Otherwise
 	else if(!set_welding && welding)
 		processing_objects -= src
 		if(M)
-			M << "<span class='notice'>You switch \the [src] off.</span>"
+			M << SPAN_NOTE("You switch \the [src] off.")
 		else if(T)
 			T.visible_message("<span class='warning'>\The [src] turns off.</span>")
 		src.force = 3
@@ -383,21 +379,21 @@
 	icon_state = "industrialwelder"
 	max_fuel = 40
 	origin_tech = list(TECH_ENGINEERING = 2)
-	matter = list(DEFAULT_WALL_MATERIAL = 70, "glass" = 60)
+	matter = list(MATERIAL_STEEL = 70, MATERIAL_GLASS = 60)
 
 /obj/item/weapon/weldingtool/hugetank
 	name = "upgraded welding tool"
 	max_fuel = 80
 	w_class = ITEM_SIZE_NORMAL
 	origin_tech = list(TECH_ENGINEERING = 3)
-	matter = list(DEFAULT_WALL_MATERIAL = 70, "glass" = 120)
+	matter = list(MATERIAL_STEEL = 70, MATERIAL_GLASS = 120)
 
 /obj/item/weapon/weldingtool/experimental
 	name = "experimental welding tool"
 	max_fuel = 40
 	w_class = ITEM_SIZE_NORMAL
 	origin_tech = list(TECH_ENGINEERING = 4, TECH_PHORON = 3)
-	matter = list(DEFAULT_WALL_MATERIAL = 70, "glass" = 120)
+	matter = list(MATERIAL_STEEL = 70, MATERIAL_GLASS = 120)
 	var/last_gen = 0
 
 //Proc to make the experimental welder generate fuel, optimized as fuck -Sieve
@@ -424,7 +420,7 @@
 	item_state = "crowbar"
 	w_class = ITEM_SIZE_SMALL
 	origin_tech = list(TECH_ENGINEERING = 1)
-	matter = list(DEFAULT_WALL_MATERIAL = 50)
+	matter = list(MATERIAL_STEEL = 50)
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 
 /obj/item/weapon/crowbar/red

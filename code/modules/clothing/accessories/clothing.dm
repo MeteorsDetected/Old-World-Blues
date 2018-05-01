@@ -57,7 +57,8 @@
 /obj/item/clothing/accessory/hawaii/random
 	name = "flower-pattern shirt"
 
-/obj/item/clothing/accessory/hawaii/random/New()
+/obj/item/clothing/accessory/hawaii/random/initialize()
+	. = ..()
 	if(prob(50))
 		icon_state = "hawaii2"
 
@@ -74,7 +75,7 @@
 	slot_flags = SLOT_OCLOTHING | SLOT_TIE
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	siemens_coefficient = 0.9
-	w_class = 3
+	w_class = ITEM_SIZE_NORMAL
 
 /obj/item/clothing/accessory/wcoat/red
 	name = "red waistcoat"

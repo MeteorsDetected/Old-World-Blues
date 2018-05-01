@@ -38,11 +38,11 @@
 //-------------------------------------------
 // Standard procs
 //-------------------------------------------
-/obj/vehicle/train/cargo/engine/New()
-	..()
+/obj/vehicle/train/cargo/engine/initialize()
+	. = ..()
 	cell = new /obj/item/weapon/cell/high(src)
 	key = new(src)
-	var/image/I = new(icon = 'icons/obj/vehicles.dmi', icon_state = "cargo_engine_overlay", layer = src.layer + 0.2) //over mobs
+	var/image/I = new(icon, "cargo_engine_overlay", src.layer + 0.2) //over mobs
 	overlays += I
 	turn_off()	//so engine verbs are correctly set
 
@@ -66,8 +66,8 @@
 	if(open && istype(W, /obj/item/weapon/wirecutters))
 		passenger_allowed = !passenger_allowed
 		user.visible_message(
-			"<span class='notice'>[user] [passenger_allowed ? "cuts" : "mends"] a cable in [src].</span>",
-			"<span class='notice'>You [passenger_allowed ? "cut" : "mend"] the load limiter cable.</span>"
+			SPAN_NOTE("[user] [passenger_allowed ? "cuts" : "mends"] a cable in [src]."),
+			SPAN_NOTE("You [passenger_allowed ? "cut" : "mend"] the load limiter cable.")
 		)
 	else
 		..()

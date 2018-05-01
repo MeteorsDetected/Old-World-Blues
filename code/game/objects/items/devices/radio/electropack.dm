@@ -8,13 +8,13 @@
 	slot_flags = SLOT_BACK
 	w_class = ITEM_SIZE_HUGE
 
-	matter = list(DEFAULT_WALL_MATERIAL = 10000,"glass" = 2500)
+	matter = list(MATERIAL_STEEL = 10000,MATERIAL_GLASS = 2500)
 
 	var/code = 2
 
 /obj/item/device/radio/electropack/attack_hand(mob/living/user as mob)
 	if(src == user.back)
-		user << "<span class='notice'>You need help taking this off!</span>"
+		user << SPAN_NOTE("You need help taking this off!")
 		return
 	..()
 
@@ -22,7 +22,7 @@
 	..()
 	if(istype(W, /obj/item/clothing/head/helmet))
 		if(!b_stat)
-			user << "<span class='notice'>[src] is not ready to be attached!</span>"
+			user << SPAN_NOTE("[src] is not ready to be attached!")
 			return
 		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit( user )
 		A.icon = 'icons/obj/assemblies.dmi'
@@ -42,7 +42,7 @@
 
 /obj/item/device/radio/electropack/Topic(href, href_list)
 	//..()
-	if(usr.stat || usr.restrained())
+	if(usr.incapacitated())
 		return
 	if( ishuman(usr) && usr.Adjacent(get_turf(src)) )
 		usr.set_machine(src)
@@ -59,15 +59,15 @@
 				if(href_list["power"])
 					on = !( on )
 					icon_state = "electropack[on]"
-		if(!( master ))
-			if(istype(loc, /mob))
+		if(!master)
+			if(ismob(loc))
 				attack_self(loc)
 			else
 				for(var/mob/M in viewers(1, src))
 					if(M.client)
 						attack_self(M)
 		else
-			if(istype(master.loc, /mob))
+			if(ismob(master.loc))
 				attack_self(master.loc)
 			else
 				for(var/mob/M in viewers(1, master))
@@ -82,8 +82,8 @@
 	if(!signal || signal.encryption != code)
 		return
 
-	if(ismob(loc) && on)
-		var/mob/M = loc
+	if(isliving(loc) && on)
+		var/mob/living/M = loc
 		var/turf/T = M.loc
 		if(istype(T, /turf))
 			if(!M.moved_recently && M.last_move)

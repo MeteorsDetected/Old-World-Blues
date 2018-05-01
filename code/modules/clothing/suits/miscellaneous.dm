@@ -122,7 +122,6 @@
 /obj/item/clothing/suit/syndicatefake
 	name = "red space suit replica"
 	icon_state = "syndicate"
-	item_state = "space_suit_syndicate"
 	desc = "A plastic replica of the syndicate space suit, you'll look just like a real murderous syndicate agent in \
 			this! This is a toy, it is not made for use in space!"
 	w_class = ITEM_SIZE_NORMAL
@@ -381,47 +380,50 @@
 	set name = "Roll Sleeves"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living))
+
+	if(!isliving(usr))
 		return
-	if(usr.stat)
+	if(usr.incapacitated())
 		return
 
 	if(rolled == 0)
 		rolled = 1
-		usr << "<span class='notice'>You roll up the sleeves of your [src].</span>"
+		usr << SPAN_NOTE("You roll up the sleeves of your [src].")
 	else
 		rolled = 0
-		usr << "<span class='notice'>You roll down the sleeves of your [src].</span>"
+		usr << SPAN_NOTE("You roll down the sleeves of your [src].")
 	update_icon()
 
 /obj/item/clothing/suit/storage/flannel/verb/tuck()
 	set name = "Toggle Shirt Tucking"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)||usr.stat)
+
+	if(!isliving(usr) || usr.incapacitated())
 		return
 
 	if(tucked == 0)
 		tucked = 1
-		usr << "<span class='notice'>You tuck in your your [src].</span>"
+		usr << SPAN_NOTE("You tuck in your your [src].")
 	else
 		tucked = 0
-		usr << "<span class='notice'>You untuck your [src].</span>"
+		usr << SPAN_NOTE("You untuck your [src].")
 	update_icon()
 
 /obj/item/clothing/suit/storage/flannel/verb/button()
 	set name = "Toggle Shirt Buttons"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)||usr.stat)
+
+	if(!isliving(usr) || usr.incapacitated())
 		return
 
 	if(buttoned == 0)
 		buttoned = 1
-		usr << "<span class='notice'>You unbutton your [src].</span>"
+		usr << SPAN_NOTE("You unbutton your [src].")
 	else
 		buttoned = 0
-		usr<<"<span class='notice'>You button your [src].</span>"
+		usr<<SPAN_NOTE("You button your [src].")
 	update_icon()
 
 /obj/item/clothing/suit/storage/flannel/update_icon()

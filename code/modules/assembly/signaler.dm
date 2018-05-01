@@ -4,7 +4,7 @@
 	icon_state = "signaller"
 	item_state = "signaler"
 	origin_tech = list(TECH_MAGNET = 1)
-	matter = list(DEFAULT_WALL_MATERIAL = 1000, "glass" = 200, "waste" = 100)
+	matter = list(MATERIAL_STEEL = 1000, MATERIAL_GLASS = 200)
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
 
 	secured = 1
@@ -17,11 +17,9 @@
 	var/datum/radio_frequency/radio_connection
 	var/deadman = 0
 
-	New()
-		..()
-		spawn(40)
-			set_frequency(frequency)
-		return
+	initialize()
+		. = ..()
+		set_frequency(frequency)
 
 
 	activate()
@@ -72,7 +70,7 @@
 	Topic(href, href_list)
 		if(..()) return 1
 
-		if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+		if(usr.incapacitated() || !in_range(loc, usr))
 			usr << browse(null, "window=radio")
 			onclose(usr, "radio")
 			return

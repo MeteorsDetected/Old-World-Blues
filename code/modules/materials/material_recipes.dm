@@ -12,12 +12,17 @@
 	recipes += new/datum/stack_recipe("[display_name] spoon", /obj/item/weapon/material/kitchen/utensil/spoon/plastic, 1, on_floor = 1, supplied_material = "[name]")
 
 	if(integrity>=100)
-		recipes += new/datum/stack_recipe("[display_name] door", /obj/structure/simple_door, 10, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
+		recipes += new/datum/stack_recipe("[display_name] door", /obj/structure/simple_door, 10, time = 50, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
 		recipes += new/datum/stack_recipe("[display_name] barricade", /obj/structure/barricade, 5, time = 50, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
 		recipes += new/datum/stack_recipe("[display_name] stool", /obj/item/weapon/stool, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
-		recipes += new/datum/stack_recipe("[display_name] chair", /obj/structure/bed/chair, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
-		recipes += new/datum/stack_recipe("[display_name] bed", /obj/structure/bed, 2, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
-		recipes += new/datum/stack_recipe("[display_name] magnetic coil", /obj/machinery/magnetic_coil, 3, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
+		recipes += new/datum/stack_recipe("[display_name] chair", /obj/structure/material/chair, time = 20, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
+		recipes += new/datum/stack_recipe_list("beds", list( \
+			new/datum/stack_recipe("[display_name] bed", /obj/structure/material/bed, 2, time = 40, one_per_turf = 1, on_floor = 1, supplied_material = "[name]"),
+			new/datum/stack_recipe("[display_name] bed (flipped)", /obj/structure/material/bed/flipped, 2, time = 40, one_per_turf = 1, on_floor = 1, supplied_material = "[name]"),
+			new/datum/stack_recipe("[display_name] bed double", /obj/structure/material/bed/double, 4, time = 50, one_per_turf = 1, on_floor = 1, supplied_material = "[name]"),
+			new/datum/stack_recipe("[display_name] bed double (flipped)", /obj/structure/material/bed/flipped/double, 4, time = 50, one_per_turf = 1, on_floor = 1, supplied_material = "[name]"),
+		))
+		recipes += new/datum/stack_recipe("[display_name] magnetic coil", /obj/machinery/magnetic_coil, 3, time = 30, one_per_turf = 1, on_floor = 1, supplied_material = "[name]")
 
 	if(hardness>50)
 		recipes += new/datum/stack_recipe("[display_name] fork", /obj/item/weapon/material/kitchen/utensil/fork/plastic, 1, on_floor = 1, supplied_material = "[name]")
@@ -27,20 +32,9 @@
 /material/steel/generate_recipes()
 	..()
 	recipes += new/datum/stack_recipe_list("office chairs",list( \
-		new/datum/stack_recipe("dark office chair", /obj/structure/bed/chair/office/dark, 5, one_per_turf = 1, on_floor = 1), \
-		new/datum/stack_recipe("light office chair", /obj/structure/bed/chair/office/light, 5, one_per_turf = 1, on_floor = 1) \
-		))
-	recipes += new/datum/stack_recipe_list("comfy chairs", list( \
-		new/datum/stack_recipe("beige comfy chair", /obj/structure/bed/chair/comfy/beige, 2, one_per_turf = 1, on_floor = 1), \
-		new/datum/stack_recipe("black comfy chair", /obj/structure/bed/chair/comfy/black, 2, one_per_turf = 1, on_floor = 1), \
-		new/datum/stack_recipe("brown comfy chair", /obj/structure/bed/chair/comfy/brown, 2, one_per_turf = 1, on_floor = 1), \
-		new/datum/stack_recipe("lime comfy chair", /obj/structure/bed/chair/comfy/lime, 2, one_per_turf = 1, on_floor = 1), \
-		new/datum/stack_recipe("teal comfy chair", /obj/structure/bed/chair/comfy/teal, 2, one_per_turf = 1, on_floor = 1), \
-		new/datum/stack_recipe("red comfy chair", /obj/structure/bed/chair/comfy/red, 2, one_per_turf = 1, on_floor = 1), \
-		new/datum/stack_recipe("blue comfy chair", /obj/structure/bed/chair/comfy/blue, 2, one_per_turf = 1, on_floor = 1), \
-		new/datum/stack_recipe("purple comfy chair", /obj/structure/bed/chair/comfy/purp, 2, one_per_turf = 1, on_floor = 1), \
-		new/datum/stack_recipe("green comfy chair", /obj/structure/bed/chair/comfy/green, 2, one_per_turf = 1, on_floor = 1), \
-		))
+		new/datum/stack_recipe("dark office chair", /obj/structure/material/chair/office/dark, 5, one_per_turf = 1, on_floor = 1), \
+		new/datum/stack_recipe("light office chair", /obj/structure/material/chair/office/light, 5, one_per_turf = 1, on_floor = 1) \
+	))
 
 	recipes += new/datum/stack_recipe("table frame", /obj/structure/table, 1, time = 10, one_per_turf = 1, on_floor = 1)
 	recipes += new/datum/stack_recipe("rack", /obj/structure/table/rack, 1, time = 5, one_per_turf = 1, on_floor = 1)
@@ -49,8 +43,9 @@
 	recipes += new/datum/stack_recipe("cannon frame", /obj/item/weapon/cannonframe, 10, time = 15, one_per_turf = 0, on_floor = 0)
 	recipes += new/datum/stack_recipe("floor tile", /obj/item/stack/tile/steel, 1, 4, 20)
 	recipes += new/datum/stack_recipe("metal rod", /obj/item/stack/rods, 1, 2, 60)
-	recipes += new/datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 25, one_per_turf = 1, on_floor = 1)
 	recipes += new/datum/stack_recipe("wall girders", /obj/structure/girder, 2, time = 50, one_per_turf = 1, on_floor = 1)
+	recipes += new/datum/stack_recipe("laptop frame", /obj/structure/computerframe/laptop, 5, time = 25, one_per_turf = 1, on_floor = 1)
+	recipes += new/datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 25, one_per_turf = 1, on_floor = 1)
 	recipes += new/datum/stack_recipe("machine frame", /obj/machinery/constructable_frame/machine_frame, 5, time = 25, one_per_turf = 1, on_floor = 1)
 	recipes += new/datum/stack_recipe("turret frame", /obj/machinery/porta_turret_construct, 5, time = 25, one_per_turf = 1, on_floor = 1)
 	recipes += new/datum/stack_recipe_list("airlock assemblies", list( \
@@ -101,21 +96,22 @@
 	..()
 	recipes += new/datum/stack_recipe("wooden sandals", /obj/item/clothing/shoes/sandal, 1)
 	recipes += new/datum/stack_recipe("wood floor tile", /obj/item/stack/tile/wood, 1, 4, 20)
-	recipes += new/datum/stack_recipe("wooden chair", /obj/structure/bed/chair/wood, 3, time = 10, one_per_turf = 1, on_floor = 1)
-	recipes += new/datum/stack_recipe("crossbow frame", /obj/item/weapon/crossbowframe, 5, time = 25, one_per_turf = 0, on_floor = 0)
+	recipes += new/datum/stack_recipe("wooden chair", /obj/structure/material/chair/wood, 3, time = 10, one_per_turf = 1, on_floor = 1)
+	recipes += new/datum/stack_recipe("wooden dresser", /obj/structure/closet/crate/dresser, 10, time = 50, one_per_turf = 1)
 	recipes += new/datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 15, one_per_turf = 1, on_floor = 1)
+	recipes += new/datum/stack_recipe("barricade", /obj/structure/barricade, 5, time = 50, one_per_turf = 1, on_floor = 1)
 	recipes += new/datum/stack_recipe("buckler", /obj/item/weapon/shield/buckler, 15, time = 25, one_per_turf = 0, on_floor = 0)
 	recipes += new/datum/stack_recipe("bo staff", /obj/item/weapon/material/twohanded/bostaff, 15, time = 25, one_per_turf = 0, on_floor = 0, supplied_material = "[name]")
-	recipes += new/datum/stack_recipe("barricade", /obj/structure/barricade, 5, time = 50, one_per_turf = 1, on_floor = 1)
+	recipes += new/datum/stack_recipe("crossbow frame", /obj/item/weapon/crossbowframe, 5, time = 25, one_per_turf = 0, on_floor = 0)
 
 /material/cardboard/generate_recipes()
 	..()
 	recipes += new/datum/stack_recipe("box", /obj/item/storage/box)
 	recipes += new/datum/stack_recipe("donut box", /obj/item/storage/box/donut/empty)
-	recipes += new/datum/stack_recipe("egg box", /obj/item/storage/fancy/egg_box)
-	recipes += new/datum/stack_recipe("light tubes box", /obj/item/storage/box/lights/tubes)
-	recipes += new/datum/stack_recipe("light bulbs box", /obj/item/storage/box/lights/bulbs)
-	recipes += new/datum/stack_recipe("mouse traps box", /obj/item/storage/box/mousetraps)
+	recipes += new/datum/stack_recipe("egg box", /obj/item/storage/fancy/egg_box{preloaded = 0})
+	recipes += new/datum/stack_recipe("light tubes box", /obj/item/storage/box/lights/tubes{preloaded = 0})
+	recipes += new/datum/stack_recipe("light bulbs box", /obj/item/storage/box/lights/bulbs{preloaded = 0})
+	recipes += new/datum/stack_recipe("mouse traps box", /obj/item/storage/box/mousetraps{preloaded = 0})
 	recipes += new/datum/stack_recipe("cardborg suit", /obj/item/clothing/suit/cardborg, 3)
 	recipes += new/datum/stack_recipe("cardborg helmet", /obj/item/clothing/head/cardborg)
 	recipes += new/datum/stack_recipe("pizza box", /obj/item/pizzabox)
@@ -126,3 +122,16 @@
 		new/datum/stack_recipe("white folder", /obj/item/weapon/folder/white), \
 		new/datum/stack_recipe("yellow folder", /obj/item/weapon/folder/yellow), \
 		))
+
+/material/cloth/generate_recipes()
+	recipes = list()
+	recipes += new/datum/stack_recipe("[display_name] towel", /obj/item/towel, 1, supplied_material = "[name]")
+	recipes += new/datum/stack_recipe("[display_name] bedsheet", /obj/item/weapon/bedsheet, 2, supplied_material = "[name]")
+	recipes += new/datum/stack_recipe("[display_name] doublebedsheet", /obj/item/weapon/bedsheet/doublesheet, 2, supplied_material = "[name]")
+
+
+/material/cloth/leather/generate_recipes()
+	recipes = list()
+	recipes += new/datum/stack_recipe("leather gloves", /obj/item/clothing/gloves/botanic_leather, 1)
+
+

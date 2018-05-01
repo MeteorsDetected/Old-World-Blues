@@ -1,10 +1,9 @@
 /mob/living/carbon/human/proc/handle_strip(var/slot_to_strip,var/mob/living/user)
 
-	if(!slot_to_strip || !(ishuman(user)||istype(user,/mob/living/silicon/robot)) )
+	if(!slot_to_strip || !(ishuman(user)||isrobot(user)) )
 		return
 
-	// TODO :  Change to incapacitated() on merge.
-	if(user.stat || user.lying || user.resting || user.buckled || user.restrained() || !user.Adjacent(src))
+	if(user.incapacitated() || !user.Adjacent(src))
 		user << browse(null, text("window=mob[src.name]"))
 		return
 
@@ -52,7 +51,7 @@
 			add_attack_log(user, src,
 				"Has had \the [A] removed by [key_name(user)]",
 				"Attempted to remove [name]'s ([ckey]) [A.name]",
-				"[key_name(user)] removed [A.name] from [key_name(src)]."
+				"removed [A.name] from"
 			)
 			A.on_removed(user)
 			suit.accessories -= A
@@ -85,7 +84,7 @@
 		add_attack_log(user, src,
 			"Attempted to remove \a [target_slot]",
 			"Target of an attempt to remove \a [target_slot].",
-			"[key_name(user)] attempted to remove \a [target_slot] from [key_name(src)]"
+			"attempted to remove \a [target_slot] from"
 		)
 		if(unEquip(target_slot))
 			src.show_inv(user)
@@ -118,7 +117,7 @@
 	add_attack_log(user, src,
 		"Attempted to toggle [name]'s ([ckey]) sensors",
 		"Has had their sensors toggled by [user.name] ([user.ckey])",
-		"[key_name(user)] toggle [key_name(src)] sensors."
+		"toggle suit sensors on"
 	)
 	suit.set_sensors(user)
 

@@ -90,12 +90,12 @@
 /obj/item/weapon/melee/energy/axe/activate(mob/living/user)
 	..()
 	icon_state = "axe1"
-	user << "<span class='notice'>\The [src] is now energised.</span>"
+	user << SPAN_NOTE("\The [src] is now energised.")
 
 /obj/item/weapon/melee/energy/axe/deactivate(mob/living/user)
 	..()
 	icon_state = initial(icon_state)
-	user << "<span class='notice'>\The [src] is de-energised. It's just a regular axe now.</span>"
+	user << SPAN_NOTE("\The [src] is de-energised. It's just a regular axe now.")
 
 /obj/item/weapon/melee/energy/axe/suicide_act(mob/user)
 	viewers(user) << "<span class='warning'>\The [user] swings \the [src] towards \his head! It looks like \he's trying to commit suicide.</span>"
@@ -124,27 +124,29 @@
 
 /obj/item/weapon/melee/energy/sword/dropped(var/mob/user)
 	..()
-	if(!istype(loc,/mob))
+	if(!ismob(loc))
 		deactivate(user)
 
-/obj/item/weapon/melee/energy/sword/New()
-	blade_color = pick("red","blue","green","purple")
+/obj/item/weapon/melee/energy/sword/initialize()
+	if(!blade_color)
+		blade_color = pick("red","blue","green","purple")
+	return ..()
 
-/obj/item/weapon/melee/energy/sword/green/New()
+/obj/item/weapon/melee/energy/sword/green
 	blade_color = "green"
 
-/obj/item/weapon/melee/energy/sword/red/New()
+/obj/item/weapon/melee/energy/sword/red
 	blade_color = "red"
 
-/obj/item/weapon/melee/energy/sword/blue/New()
+/obj/item/weapon/melee/energy/sword/blue
 	blade_color = "blue"
 
-/obj/item/weapon/melee/energy/sword/purple/New()
+/obj/item/weapon/melee/energy/sword/purple
 	blade_color = "purple"
 
 /obj/item/weapon/melee/energy/sword/activate(mob/living/user)
 	if(!active)
-		user << "<span class='notice'>\The [src] is now energised.</span>"
+		user << SPAN_NOTE("\The [src] is now energised.")
 
 	..()
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -153,7 +155,7 @@
 
 /obj/item/weapon/melee/energy/sword/deactivate(mob/living/user)
 	if(active)
-		user << "<span class='notice'>\The [src] deactivates!</span>"
+		user << SPAN_NOTE("\The [src] deactivates!")
 	..()
 	attack_verb = null
 	icon_state = initial(icon_state)
@@ -213,13 +215,12 @@
 	var/mob/living/creator
 	var/datum/effect/effect/system/spark_spread/spark_system
 
-/obj/item/weapon/melee/energy/blade/New()
-
+/obj/item/weapon/melee/energy/blade/initialize()
 	spark_system = new /datum/effect/effect/system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
-
 	processing_objects |= src
+	return ..()
 
 /obj/item/weapon/melee/energy/blade/Destroy()
 	processing_objects -= src
@@ -240,7 +241,7 @@
 /obj/item/weapon/melee/energy/blade/process()
 	if(!creator || loc != creator || (creator.l_hand != src && creator.r_hand != src))
 		// Tidy up a bit.
-		if(istype(loc,/mob/living))
+		if(isliving(loc))
 			var/mob/living/carbon/human/host = loc
 			if(istype(host))
 				for(var/obj/item/organ/external/organ in host.organs)

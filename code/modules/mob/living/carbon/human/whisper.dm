@@ -36,7 +36,7 @@
 //This is used by both the whisper verb and human/say() to handle whispering
 /mob/living/carbon/human/proc/whisper_say(var/message, var/datum/language/speaking = null, var/alt_name="", var/verb="whispers")
 
-	if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
+	if(is_muzzled())
 		src << "<span class='danger'>You're muzzled and cannot speak!</span>"
 		return
 
@@ -123,7 +123,7 @@
 	//Pass whispers on to anything inside the immediate listeners.
 	for(var/mob/L in listening)
 		for(var/mob/C in L.contents)
-			if(istype(C,/mob/living))
+			if(isliving(C))
 				listening += C
 
 	//pass on the message to objects that can hear us.

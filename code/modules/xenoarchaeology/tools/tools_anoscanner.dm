@@ -5,7 +5,7 @@
 	icon = 'icons/obj/xenoarchaeology.dmi'
 	icon_state = "flashgun"
 	item_state = "lampgreen"
-	w_class = 2.0
+	w_class = ITEM_SIZE_SMALL
 	slot_flags = SLOT_BELT
 	var/nearest_artifact_id = "unknown"
 	var/nearest_artifact_distance = -1
@@ -13,6 +13,7 @@
 	var/scan_delay = 25
 
 /obj/item/device/ano_scanner/initialize()
+	. = ..()
 	scan()
 
 /obj/item/device/ano_scanner/attack_self(var/mob/user as mob)

@@ -30,14 +30,16 @@
 		user.unEquip(W)
 		src.bloodsamp = swab
 		swab.loc = src
-		user << "<span class='notice'>You insert \the [W] into \the [src].</span>"
+		user << SPAN_NOTE("You insert \the [W] into \the [src].")
 	else
 		user << "<span class='warning'>\The [src] only accepts used swabs.</span>"
 		return
 
 /obj/machinery/dnaforensics/ui_interact(mob/user, ui_key = "main",var/datum/nanoui/ui = null)
-	if(stat & (NOPOWER)) return
-	if(user.stat || user.restrained()) return
+	if(stat & (NOPOWER))
+		return
+	if(user.incapacitated())
+		return
 	var/list/data = list()
 	data["scan_progress"] = round(scanner_progress)
 	data["scanning"] = scanning
@@ -67,10 +69,10 @@
 				if(closed == 1)
 					scanner_progress = 0
 					scanning = 1
-					usr << "<span class='notice'>Scan initiated.</span>"
+					usr << SPAN_NOTE("Scan initiated.")
 					update_icon()
 				else
-					usr << "<span class='notice'>Please close sample lid before initiating scan.</span>"
+					usr << SPAN_NOTE("Please close sample lid before initiating scan.")
 			else
 				usr << "<span class='warning'>Insert an item to scan.</span>"
 
@@ -99,7 +101,7 @@
 	last_process_worldtime = world.time
 
 /obj/machinery/dnaforensics/proc/complete_scan()
-	src.visible_message("<span class='notice'>\icon[src] makes an insistent chime.</span>", 2)
+	src.visible_message(SPAN_NOTE("\icon[src] makes an insistent chime."), 2)
 	update_icon()
 	if(bloodsamp)
 		var/obj/item/weapon/paper/P = new(src)
@@ -111,7 +113,7 @@
 		if(bloodsamp.dna != null)
 			data = "Spectometric analysis on provided sample has determined the presence of [bloodsamp.dna.len] strings of DNA.<br><br>"
 			for(var/blood in bloodsamp.dna)
-				data += "\blue Blood type: [bloodsamp.dna[blood]]<br>\nDNA: [blood]<br><br>"
+				data += SPAN_NOTE("Blood type: [bloodsamp.dna[blood]]<br>\nDNA: [blood]<br><br>")
 		else
 			data += "No DNA found.<br>"
 		P.info = "<b>[src] analysis report #[report_num]</b><br>"
@@ -133,7 +135,7 @@
 	set name = "Toggle Lid"
 	set src in oview(1)
 
-	if(usr.stat || !isliving(usr))
+	if(usr.incapacitated() || !isliving(usr))
 		return
 
 	if(scanning)

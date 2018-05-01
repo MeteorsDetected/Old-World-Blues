@@ -8,6 +8,7 @@
 	var/notices = 0
 
 /obj/structure/noticeboard/initialize()
+	. = ..()
 	for(var/obj/item/I in loc)
 		if(notices > 4) break
 		if(istype(I, /obj/item/weapon/paper))
@@ -25,9 +26,9 @@
 			O.loc = src
 			notices++
 			icon_state = "nboard0[notices]"	//update sprite
-			user << "<span class='notice'>You pin the paper to the noticeboard.</span>"
+			user << SPAN_NOTE("You pin the paper to the noticeboard.")
 		else
-			user << "<span class='notice'>You reach to pin your paper to the board but hesitate. You are certain your paper will not be seen among the many others already attached.</span>"
+			user << SPAN_NOTE("You reach to pin your paper to the board but hesitate. You are certain your paper will not be seen among the many others already attached.")
 
 /obj/structure/noticeboard/attack_hand(var/mob/user)
 	examine(user)
@@ -49,33 +50,31 @@
 /obj/structure/noticeboard/Topic(href, href_list)
 	..()
 	usr.set_machine(src)
-	if(href_list["remove"])
-		if((usr.stat || usr.restrained()))	//For when a player is handcuffed while they have the notice window open
-			return
-		var/obj/item/P = locate(href_list["remove"])
-		if(P && P.loc == src)
-			P.loc = get_turf(src)	//dump paper on the floor because you're a clumsy fuck
-			P.add_fingerprint(usr)
-			add_fingerprint(usr)
-			notices--
-			icon_state = "nboard0[notices]"
-	if(href_list["write"])
-		if((usr.stat || usr.restrained())) //For when a player is handcuffed while they have the notice window open
-			return
-		var/obj/item/P = locate(href_list["write"])
-		if((P && P.loc == src)) //ifthe paper's on the board
-			if(istype(usr.r_hand, /obj/item/weapon/pen)) //and you're holding a pen
-				add_fingerprint(usr)
-				P.attackby(usr.r_hand, usr) //then do ittttt
-			else
-				if(istype(usr.l_hand, /obj/item/weapon/pen)) //check other hand for pen
-					add_fingerprint(usr)
-					P.attackby(usr.l_hand, usr)
-				else
-					usr << "<span class='notice'>You'll need something to write with!</span>"
 	if(href_list["read"])
 		var/obj/item/weapon/paper/P = locate(href_list["read"])
 		if((P && P.loc == src))
 			usr << browse("<HTML><HEAD><TITLE>[P.name]</TITLE></HEAD><BODY><TT>[P.info]</TT></BODY></HTML>", "window=[P.name]")
 			onclose(usr, "[P.name]")
-	return
+	else
+		if(usr.incapacitated())
+			return
+		if(href_list["remove"])
+			var/obj/item/P = locate(href_list["remove"])
+			if(P && P.loc == src)
+				P.loc = get_turf(src)	//dump paper on the floor because you're a clumsy fuck
+				P.add_fingerprint(usr)
+				add_fingerprint(usr)
+				notices--
+				icon_state = "nboard0[notices]"
+		if(href_list["write"])
+			var/obj/item/P = locate(href_list["write"])
+			if((P && P.loc == src)) //ifthe paper's on the board
+				if(istype(usr.r_hand, /obj/item/weapon/pen)) //and you're holding a pen
+					add_fingerprint(usr)
+					P.attackby(usr.r_hand, usr) //then do ittttt
+				else
+					if(istype(usr.l_hand, /obj/item/weapon/pen)) //check other hand for pen
+						add_fingerprint(usr)
+						P.attackby(usr.l_hand, usr)
+					else
+						usr << SPAN_NOTE("You'll need something to write with!")

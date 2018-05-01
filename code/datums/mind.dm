@@ -95,14 +95,14 @@
 	output += memory
 
 	if(objectives.len>0)
-		output += "<HR><B>Objectives:</B>"
+		output += "<HR><B>Objectives:</B><br>"
 
 		var/obj_count = 1
 		for(var/datum/objective/objective in objectives)
-			output += "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+			output += "<B>Objective #[obj_count]</B>: <div>[objective.explanation_text]</div>"
 			obj_count++
 
-	recipient << browse(output,"window=memory")
+	recipient << browse(output, "window=memory")
 
 /datum/mind/proc/edit_memory()
 	if(!ticker || !ticker.mode)
@@ -118,18 +118,20 @@
 		var/datum/antagonist/antag = all_antag_types[antag_type]
 		out += "[antag.get_panel_entry(src)]"
 	out += "</table><hr>"
-	out += "<b>Objectives</b></br>"
+	out += "<b>Objectives</b><br>"
 
 	if(objectives && objectives.len)
 		var/num = 1
 		for(var/datum/objective/O in objectives)
-			out += "<b>Objective #[num]:</b> [O.explanation_text] "
+			out += "<b>Objective #[num]:</b> "
 			if(O.completed)
 				out += "(<font color='green'>complete</font>)"
 			else
 				out += "(<font color='red'>incomplete</font>)"
-			out += " <a href='?src=\ref[src];obj_completed=\ref[O]'>\[toggle\]</a>"
-			out += " <a href='?src=\ref[src];obj_delete=\ref[O]'>\[remove\]</a><br>"
+			out += " <a href='?src=\ref[src];objective=\ref[O];act=completed'>\[toggle\]</a>"
+			out += " <a href='?src=\ref[src];objective=\ref[O];act=test'>\[check\]</a>"
+			out += " <a href='?src=\ref[src];objective=\ref[O];act=delete'>\[remove\]</a><br>"
+			out += "<div>[O.get_panel_entry()]</div>"
 			num++
 		out += "<br><a href='?src=\ref[src];obj_announce=1'>\[announce objectives\]</a>"
 
@@ -151,7 +153,13 @@
 
 	else if(href_list["remove_antagonist"])
 		var/datum/antagonist/antag = all_antag_types[href_list["remove_antagonist"]]
-		if(antag) antag.remove_antagonist(src)
+		if(antag)
+			switch(input("What to remove?") in list ("Mob", "Role"))
+				if("Mob")
+					antag.remove_antagonist(src)
+					qdel(src.current)
+				else
+					antag.remove_antagonist(src)
 
 	else if(href_list["equip_antagonist"])
 		var/datum/antagonist/antag = all_antag_types[href_list["equip_antagonist"]]
@@ -159,150 +167,47 @@
 
 	else if(href_list["unequip_antagonist"])
 		var/datum/antagonist/antag = all_antag_types[href_list["unequip_antagonist"]]
-		if(antag) antag.unequip(src.current)
+		if(antag)
+			antag.unequip(src.current)
 
 	else if(href_list["move_antag_to_spawn"])
 		var/datum/antagonist/antag = all_antag_types[href_list["move_antag_to_spawn"]]
-		if(antag) antag.place_mob(src.current)
+		if(antag)
+			antag.place_mob(src.current)
 
 	else if (href_list["role_edit"])
 		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in joblist
-		if (!new_role) return
+		if (!new_role)
+			return
 		assigned_role = new_role
 
 	else if (href_list["memory_edit"])
 		var/new_memo = sanitize(input("Write new memory", "Memory", memory) as null|message)
-		if (isnull(new_memo)) return
+		if (isnull(new_memo))
+			return
 		memory = new_memo
 
-	else if (href_list["obj_edit"] || href_list["obj_add"])
-		var/datum/objective/objective
-		var/objective_pos
-		var/def_value
+	else if (href_list["obj_add"])
+		var/new_obj_type = input("Select objective type:", "Objective type") as null|anything in all_objectives_types
+		if (!new_obj_type)
+			return
 
-		if (href_list["obj_edit"])
-			objective = locate(href_list["obj_edit"])
-			if (!objective) return
-			objective_pos = objectives.Find(objective)
+		var/new_type = all_objectives_types[new_obj_type]
+		new new_type (src)
 
-			//Text strings are easy to manipulate. Revised for simplicity.
-			var/temp_obj_type = "[objective.type]"//Convert path into a text string.
-			def_value = copytext(temp_obj_type, 19)//Convert last part of path into an objective keyword.
-			if(!def_value)//If it's a custom objective, it will be an empty string.
-				def_value = "custom"
 
-		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "debrain", "protect", "prevent", "harm", "brig", "hijack", "escape", "survive", "steal", "download", "mercenary", "capture", "absorb", "custom")
-		if (!new_obj_type) return
-
-		var/datum/objective/new_objective = null
-
-		switch (new_obj_type)
-			if ("assassinate","protect","debrain", "harm", "brig")
-				//To determine what to name the objective in explanation text.
-				var/objective_type = capitalize(new_obj_type) //Capitalize first letter.
-
-				var/list/possible_targets = list("Free objective")
-				for(var/datum/mind/possible_target in ticker.minds)
-					if ((possible_target != src) && ishuman(possible_target.current))
-						possible_targets += possible_target.current
-
-				var/mob/def_target = null
-				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
-				if (objective&&(objective.type in objective_list) && objective:target)
-					def_target = objective:target.current
-
-				var/new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
-				if (!new_target) return
-
-				var/objective_path = text2path("/datum/objective/[new_obj_type]")
-				var/mob/living/M = new_target
-				if (!istype(M) || !M.mind || new_target == "Free objective")
-					new_objective = new objective_path
-					new_objective.owner = src
-					new_objective:target = null
-					new_objective.explanation_text = "Free objective"
-				else
-					new_objective = new objective_path
-					new_objective.owner = src
-					new_objective:target = M.mind
-					new_objective.explanation_text = "[objective_type] [M.real_name], the [M.mind.special_role ? M.mind:special_role : M.mind:assigned_role]."
-
-			if ("prevent")
-				new_objective = new /datum/objective/block
-				new_objective.owner = src
-
-			if ("hijack")
-				new_objective = new /datum/objective/hijack
-				new_objective.owner = src
-
-			if ("escape")
-				new_objective = new /datum/objective/escape
-				new_objective.owner = src
-
-			if ("survive")
-				new_objective = new /datum/objective/survive
-				new_objective.owner = src
-
-			if ("mercenary")
-				new_objective = new /datum/objective/nuclear
-				new_objective.owner = src
-
-			if ("steal")
-				if (!istype(objective, /datum/objective/steal))
-					new_objective = new /datum/objective/steal
-					new_objective.owner = src
-				else
-					new_objective = objective
-				var/datum/objective/steal/steal = new_objective
-				if (!steal.select_target())
-					return
-
-			if("download","capture","absorb")
-				var/def_num
-				if(objective&&objective.type==text2path("/datum/objective/[new_obj_type]"))
-					def_num = objective.target_amount
-
-				var/target_number = input("Input target number:", "Objective", def_num) as num|null
-				if (isnull(target_number))//Ordinarily, you wouldn't need isnull. In this case, the value may already exist.
-					return
-
-				switch(new_obj_type)
-					if("download")
-						new_objective = new /datum/objective/download
-						new_objective.explanation_text = "Download [target_number] research levels."
-					if("capture")
-						new_objective = new /datum/objective/capture
-						new_objective.explanation_text = "Accumulate [target_number] capture points."
-					if("absorb")
-						new_objective = new /datum/objective/absorb
-						new_objective.explanation_text = "Absorb [target_number] compatible genomes."
-				new_objective.owner = src
-				new_objective.target_amount = target_number
-
-			if ("custom")
-				var/expl = sanitize(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null)
-				if (!expl) return
-				new_objective = new /datum/objective
-				new_objective.owner = src
-				new_objective.explanation_text = expl
-
-		if (!new_objective) return
-
-		if (objective)
-			objectives -= objective
-			objectives.Insert(objective_pos, new_objective)
-		else
-			objectives += new_objective
-
-	else if (href_list["obj_delete"])
-		var/datum/objective/objective = locate(href_list["obj_delete"])
-		if(!istype(objective))	return
-		objectives -= objective
-
-	else if(href_list["obj_completed"])
-		var/datum/objective/objective = locate(href_list["obj_completed"])
-		if(!istype(objective))	return
-		objective.completed = !objective.completed
+	else if(href_list["objective"] && href_list["act"])
+		var/datum/objective/objective = locate(href_list["objective"])
+		if(!istype(objective))
+			return
+		switch(href_list["act"])
+			if("delete")
+				qdel(objective)
+			if("completed")
+				objective.completed = !objective.completed
+			if("test")
+				var/completed = objective.check_completion()
+				usr << "\"[objective.explanation_text]\" is [completed ? "<font color='green'>Completed</font>" : "<font color='red'>Not completed</font>"]."
 
 	else if(href_list["implant"])
 		var/mob/living/carbon/human/H = current
@@ -316,7 +221,7 @@
 						if(I in organs.implants)
 							qdel(I)
 							break
-				H << "<span class='notice'><font size =3><B>Your loyalty implant has been deactivated.</B></font></span>"
+				H << SPAN_NOTE("<font size =3><B>Your loyalty implant has been deactivated.</B></font>")
 				log_admin("[key_name_admin(usr)] has de-loyalty implanted [current].", current)
 			if("add")
 				H << "<span class='danger'><font size =3>You somehow have become the recepient of a loyalty transplant, and it just activated!</font></span>"
@@ -384,9 +289,9 @@
 
 	else if (href_list["obj_announce"])
 		var/obj_count = 1
-		current << "\blue Your current objectives:"
+		current << SPAN_NOTE("Your current objectives:")
 		for(var/datum/objective/objective in objectives)
-			current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+			current << "<B>Objective #[obj_count]</B>: [utf8_to_cp1251(objective.explanation_text)]"
 			obj_count++
 	edit_memory()
 

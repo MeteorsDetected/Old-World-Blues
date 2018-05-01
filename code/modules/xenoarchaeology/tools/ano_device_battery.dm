@@ -8,7 +8,8 @@
 	var/stored_charge = 0
 	var/effect_id = ""
 
-/obj/item/weapon/anobattery/New()
+/obj/item/weapon/anobattery/initialize()
+	. = ..()
 	battery_effect = new()
 
 /obj/item/weapon/anobattery/proc/UpdateSprite()
@@ -33,14 +34,14 @@
 	var/turf/archived_loc
 	var/energy_consumed_on_touch = 100
 
-/obj/item/weapon/anodevice/New()
-	..()
-	processing_objects.Add(src)
+/obj/item/weapon/anodevice/initialize()
+	. = ..()
+	processing_objects |= src
 
 /obj/item/weapon/anodevice/attackby(var/obj/I as obj, var/mob/user as mob)
 	if(istype(I, /obj/item/weapon/anobattery))
 		if(!inserted_battery)
-			user << "\blue You insert the battery."
+			user << SPAN_NOTE("You insert the battery.")
 			user.drop_from_inventory(I, src)
 			inserted_battery = I
 			UpdateSprite()
@@ -130,13 +131,22 @@
 
 			//work out if we need to shutdown
 			if(inserted_battery.stored_charge <= 0)
-				src.loc.visible_message("\blue \icon[src] [src] buzzes.", "\blue \icon[src] You hear something buzz.")
+				src.loc.visible_message(
+					SPAN_NOTE("\icon[src] [src] buzzes."),
+					SPAN_NOTE("\icon[src] You hear something buzz.")
+				)
 				shutdown_emission()
 			else if(world.time > time_end)
-				src.loc.visible_message("\blue \icon[src] [src] chimes.", "\blue \icon[src] You hear something chime.")
+				src.loc.visible_message(
+					SPAN_NOTE("\icon[src] [src] chimes."),
+					SPAN_NOTE("\icon[src] You hear something chime.")
+				)
 				shutdown_emission()
 		else
-			src.visible_message("\blue \icon[src] [src] buzzes.", "\blue \icon[src] You hear something buzz.")
+			src.visible_message(
+				SPAN_NOTE("\icon[src] [src] buzzes."),
+				SPAN_NOTE("\icon[src] You hear something buzz.")
+			)
 			shutdown_emission()
 		last_process = world.time
 
@@ -163,7 +173,10 @@
 	if(href_list["startup"])
 		if(inserted_battery && inserted_battery.battery_effect && (inserted_battery.stored_charge > 0) )
 			activated = 1
-			src.visible_message("\blue \icon[src] [src] whirrs.", "\icon[src]\blue You hear something whirr.")
+			src.visible_message(
+				SPAN_NOTE("\icon[src] [src] whirrs."),
+				SPAN_NOTE("\icon[src]You hear something whirr.")
+			)
 			if(!inserted_battery.battery_effect.activated)
 				inserted_battery.battery_effect.ToggleActivate(1)
 			time_end = world.time + duration
@@ -200,9 +213,9 @@
 	if(activated && inserted_battery.battery_effect.effect == EFFECT_TOUCH && !isnull(inserted_battery))
 		inserted_battery.battery_effect.DoEffectTouch(M)
 		inserted_battery.use_power(energy_consumed_on_touch)
-		user.visible_message("\blue [user] taps [M] with [src], and it shudders on contact.")
+		user.visible_message(SPAN_NOTE("[user] taps [M] with [src], and it shudders on contact."))
 	else
-		user.visible_message("\blue [user] taps [M] with [src], but nothing happens.")
+		user.visible_message(SPAN_NOTE("[user] taps [M] with [src], but nothing happens."))
 
 	//admin logging
 	user.lastattacked = M

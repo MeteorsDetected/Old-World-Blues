@@ -8,13 +8,13 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 
-	matter = list(DEFAULT_WALL_MATERIAL = 50,"glass" = 20)
+	matter = list(MATERIAL_STEEL = 50,MATERIAL_GLASS = 20)
 
 	var/on = 0
 	var/brightness_on = 3 //luminosity when on
 
-/obj/item/device/pumpkinglamp/New()
-	..()
+/obj/item/device/pumpkinglamp/initialize()
+	. = ..()
 	icon_state = "pumpkin[rand(1,4)]"
 	update_icon()
 

@@ -70,7 +70,7 @@
 
 
 /obj/machinery/computer/shuttle_control/multi
-	icon_state = "syndishuttle"
+	screen_icon = "syndishuttle"
 
 /obj/machinery/computer/shuttle_control/multi/attack_hand(user as mob)
 
@@ -164,7 +164,7 @@
 		return
 
 	if (MS.moving_status != SHUTTLE_IDLE)
-		usr << "\blue [shuttle_tag] vessel is moving."
+		usr << SPAN_NOTE("[shuttle_tag] vessel is moving.")
 		return
 
 	if(href_list["dock_command"])
@@ -216,7 +216,7 @@
 		var/choice = input("Select a destination.") as null|anything in MS.destinations
 		if(!choice) return
 
-		usr << "\blue [shuttle_tag] main computer recieved message."
+		usr << SPAN_NOTE("[shuttle_tag] main computer recieved message.")
 
 		if(MS.at_origin)
 			MS.announce_arrival()

@@ -1,7 +1,7 @@
 /obj/machinery/computer/cloning
 	name = "cloning control console"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "dna"
+	screen_icon = "dna"
 	light_color = "#315ab4"
 	circuit = /obj/item/weapon/circuitboard/cloning
 	req_access = list(access_heads) //Only used for record deletion right now.
@@ -16,7 +16,7 @@
 	var/loading = 0 // Nice loading text
 
 /obj/machinery/computer/cloning/initialize()
-	..()
+	. = ..()
 	updatemodules()
 
 /obj/machinery/computer/cloning/Destroy()
@@ -75,7 +75,7 @@
 			pods += P
 			P.connected = src
 			P.name = "[initial(P.name)] #[pods.len]"
-			user << "<span class='notice'>You connect [P] to [src].</span>"
+			user << SPAN_NOTE("You connect [P] to [src].")
 	else
 		..()
 	return
@@ -411,15 +411,3 @@
 			selected_record = R
 			break
 	return selected_record
-
-/obj/machinery/computer/cloning/update_icon()
-
-	if(stat & BROKEN)
-		icon_state = "commb"
-	else
-		if(stat & NOPOWER)
-			src.icon_state = "c_unpowered"
-			stat |= NOPOWER
-		else
-			icon_state = initial(icon_state)
-			stat &= ~NOPOWER

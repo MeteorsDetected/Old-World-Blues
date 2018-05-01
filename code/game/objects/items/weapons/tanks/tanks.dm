@@ -8,8 +8,6 @@
 	slot_flags = SLOT_BACK
 	w_class = ITEM_SIZE_LARGE
 
-	pressure_resistance = ONE_ATMOSPHERE*5
-
 	force = 5.0
 	throwforce = 10.0
 	throw_speed = 1
@@ -21,15 +19,14 @@
 	var/volume = 70
 	var/manipulated_by = null		//Used by _onclick/hud/screen_objects.dm internals to determine if someone has messed with our tank or not.
 						//If they have and we haven't scanned it with the PDA or gas analyzer then we might just breath whatever they put in it.
-/obj/item/weapon/tank/New()
-	..()
-
+/obj/item/weapon/tank/initialize()
 	src.air_contents = new /datum/gas_mixture()
 	src.air_contents.volume = volume //liters
 	src.air_contents.temperature = T20C
 
 	processing_objects.Add(src)
-	return
+
+	. = ..()
 
 /obj/item/weapon/tank/Destroy()
 	if(air_contents)
@@ -61,7 +58,7 @@
 				descriptive = "room temperature"
 			else
 				descriptive = "cold"
-		user << "<span class='notice'>\The [src] feels [descriptive].</span>"
+		user << SPAN_NOTE("\The [src] feels [descriptive].")
 
 /obj/item/weapon/tank/blob_act()
 	if(prob(50))
@@ -103,9 +100,9 @@
 	var/mob/living/carbon/location = null
 
 	if(istype(loc, /obj/item/weapon/rig))		// check for tanks in rigs
-		if(istype(loc.loc, /mob/living/carbon))
+		if(iscarbon(loc.loc))
 			location = loc.loc
-	else if(istype(loc, /mob/living/carbon))
+	else if(iscarbon(loc))
 		location = loc
 
 	var/using_internal
@@ -158,7 +155,7 @@
 
 /obj/item/weapon/tank/Topic(href, href_list)
 	..()
-	if (usr.stat|| usr.restrained())
+	if (usr.incapacitated())
 		return 0
 	if (src.loc != usr)
 		return 0
@@ -173,12 +170,12 @@
 			src.distribute_pressure += cp
 		src.distribute_pressure = min(max(round(src.distribute_pressure), 0), TANK_MAX_RELEASE_PRESSURE)
 	if (href_list["stat"])
-		if(istype(loc,/mob/living/carbon))
+		if(iscarbon(loc))
 			var/mob/living/carbon/location = loc
 			if(location.internal == src)
 				location.internal = null
 				location.internals.icon_state = "internal0"
-				usr << "\blue You close the tank release valve."
+				usr << SPAN_NOTE("You close the tank release valve.")
 				if (location.internals)
 					location.internals.icon_state = "internal0"
 			else
@@ -193,7 +190,7 @@
 
 				if(can_open_valve)
 					location.internal = src
-					usr << "<span class='notice'>You open \the [src] valve.</span>"
+					usr << SPAN_NOTE("You open \the [src] valve.")
 					if (location.internals)
 						location.internals.icon_state = "internal1"
 				else

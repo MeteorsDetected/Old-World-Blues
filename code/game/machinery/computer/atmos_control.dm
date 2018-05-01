@@ -5,7 +5,7 @@
 /obj/machinery/computer/atmoscontrol
 	name = "\improper Central Atmospherics Computer"
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "computer_generic"
+	screen_icon = "computer_generic"
 	light_color = "#00b000"
 	density = 1
 	anchored = 1.0
@@ -14,14 +14,11 @@
 	var/list/monitored_alarm_ids = null
 	var/obj/nano_module/atmos_control/atmos_control
 
-/obj/machinery/computer/atmoscontrol/New()
-	..()
-
 /obj/machinery/computer/atmoscontrol/laptop
 	name = "Atmospherics Laptop"
 	desc = "Cheap Nanotrasen Laptop."
-	icon_state = "medlaptop"
-	density = 0
+	icon = 'icons/obj/computer_laptop.dmi'
+	frame = FRAME_LAPTOP
 
 /obj/machinery/computer/atmoscontrol/attack_ai(var/mob/user as mob)
 	ui_interact(user)

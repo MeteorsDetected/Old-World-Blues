@@ -10,7 +10,7 @@
 	invisibility = 101
 
 	density = 0
-	stat = 2
+	stat = DEAD
 	canmove = 0
 
 	anchored = 1	//  don't get pushed around
@@ -116,7 +116,7 @@
 				close_spawn_windows()
 				var/obj/O = locate("landmark*Observer-Start")
 				if(istype(O))
-					src << "<span class='notice'>Now teleporting.</span>"
+					src << SPAN_NOTE("Now teleporting.")
 					observer.loc = O.loc
 				else
 					src << "<span class='danger'>Could not locate an observer spawn point. Use the Teleport verb to jump to the station map.</span>"
@@ -149,12 +149,12 @@
 
 				var/queue_position = ticker.queued_players.Find(usr)
 				if(queue_position == 1)
-					usr << "<span class='notice'>You are next in line to join the game. You will be notified when a slot opens up.</span>"
+					usr << SPAN_NOTE("You are next in line to join the game. You will be notified when a slot opens up.")
 				else if(queue_position)
-					usr << "<span class='notice'>There are [queue_position-1] players in front of you in the queue to join the game.</span>"
+					usr << SPAN_NOTE("There are [queue_position-1] players in front of you in the queue to join the game.")
 				else
 					ticker.queued_players += usr
-					usr << "<span class='notice'>You have been added to the queue to join the game. Your position in queue is [ticker.queued_players.len].</span>"
+					usr << SPAN_NOTE("You have been added to the queue to join the game. Your position in queue is [ticker.queued_players.len].")
 				return
 
 			if(client.prefs.species != SPECIES_HUMAN && !check_rights(R_ADMIN, 0))
@@ -178,7 +178,7 @@
 		if(href_list["SelectedJob"])
 
 			if(!config.enter_allowed)
-				usr << "<span class='notice'>There is an administrative lock on entering the game!</span>"
+				usr << SPAN_NOTE("There is an administrative lock on entering the game!")
 				return
 			else if(ticker && ticker.mode && ticker.mode.explosion_in_progress)
 				usr << "<span class='danger'>The station is currently exploding. Joining would go poorly.</span>"
@@ -217,7 +217,7 @@
 			usr << "\red The round is either not ready, or has already finished..."
 			return 0
 		if(!config.enter_allowed)
-			usr << "<span class='notice'>There is an administrative lock on entering the game!</span>"
+			usr << SPAN_NOTE("There is an administrative lock on entering the game!")
 			return 0
 		if(!check_rights(show_msg=0) && find_general_record("name", client.prefs.real_name))
 			src << SPAN_WARN("You can't have same name as any other player!")
@@ -271,7 +271,7 @@
 
 		character.lastarea = get_area(loc)
 		// Moving wheelchair if they have one
-		if(character.buckled && istype(character.buckled, /obj/structure/bed/chair/wheelchair))
+		if(character.buckled && istype(character.buckled, /obj/structure/material/chair/wheelchair))
 			character.buckled.loc = character.loc
 			character.buckled.set_dir(character.dir)
 
@@ -453,5 +453,5 @@
 /mob/new_player/hear_radio(var/message, var/verb="says", var/datum/language/language=null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0)
 	return
 
-mob/new_player/MayRespawn()
+/mob/new_player/MayRespawn()
 	return 1

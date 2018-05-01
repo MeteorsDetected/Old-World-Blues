@@ -1,3 +1,13 @@
+/obj/item/weapon/door_pry_unit
+	name = "door openning unit"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "crowbar"
+	flags = CONDUCT
+	slot_flags = SLOT_BELT
+	force = 6
+	pry = 1
+	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
+
 //A portable analyzer, for research borgs.  This is better then giving them a gripper which can hold anything and letting them use the normal analyzer.
 /obj/item/weapon/portable_destructive_analyzer
 	name = "Portable Destructive Analyzer"
@@ -12,7 +22,7 @@
 
 	var/obj/item/weapon/loaded_item	//What is currently inside the analyzer.
 
-/obj/item/weapon/portable_destructive_analyzer/New()
+/obj/item/weapon/portable_destructive_analyzer/initialize()
 	..()
 	files = new /datum/research/techonly(src) //Setup the research data holder.
 
@@ -35,7 +45,7 @@
 				for(var/obj/I in contents)
 					for(var/mob/M in I.contents)
 						M.death()
-					if(istype(I,/obj/item/stack/material))//Only deconstructs one sheet at a time instead of the entire stack
+					if(ismaterial(I))//Only deconstructs one sheet at a time instead of the entire stack
 						var/obj/item/stack/material/S = I
 						if(S.get_amount() > 1)
 							S.use(1)
@@ -92,7 +102,7 @@
 		I.loc = src
 		loaded_item = I
 		for(var/mob/M in viewers())
-			M.show_message(text("<span class='notice'>[user] adds the [I] to the [src].</span>"), 1)
+			M.show_message(text(SPAN_NOTE("[user] adds the [I] to the [src].")), 1)
 		desc = initial(desc) + "<br>It is holding \the [loaded_item]."
 		flick("portable_analyzer_load", src)
 		icon_state = "portable_analyzer_full"
@@ -154,7 +164,7 @@
 		var/prev_carry = carry
 		grab_objects(target.loc)
 		if(prev_carry != carry)
-			user.visible_message("\blue [user] load some items onto their service tray.")
+			user.visible_message(SPAN_NOTE("[user] load some items onto their service tray."))
 		return
 
 	// Unloads the tray, copied from base item's proc dropped() and altered
@@ -193,9 +203,9 @@
 							sleep(rand(2,4))
 		if ( droppedSomething )
 			if ( foundtable )
-				user.visible_message("\blue [user] unloads their service tray.")
+				user.visible_message(SPAN_NOTE("[user] unloads their service tray."))
 			else
-				user.visible_message("\blue [user] drops all the items on their tray.")
+				user.visible_message(SPAN_NOTE("[user] drops all the items on their tray."))
 
 	return ..()
 
@@ -243,7 +253,7 @@
 		return
 
 	//n_name = copytext(n_name, 1, 32)
-	if(get_dist(user,paper) <= 1  && !user.stat)
+	if(get_dist(user,paper) <= 1  && !user.incapacitated())
 		add_fingerprint(user)
 		paper.name = "paper[(n_name ? text("- '[n_name]'") : null)]"
 	return
@@ -271,7 +281,7 @@
 	deploy_paper(get_turf(src))
 
 /obj/item/weapon/form_printer/proc/deploy_paper(var/turf/T)
-	T.visible_message("\blue \The [src.loc] dispenses a sheet of crisp white paper.")
+	T.visible_message(SPAN_NOTE("\The [src.loc] dispenses a sheet of crisp white paper."))
 	new /obj/item/weapon/paper(T)
 
 

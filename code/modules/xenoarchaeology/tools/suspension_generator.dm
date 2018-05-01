@@ -15,8 +15,8 @@
 	var/obj/effect/suspension_field/suspension_field
 	var/list/secured_mobs = list()
 
-/obj/machinery/suspension_gen/New()
-	..()
+/obj/machinery/suspension_gen/initialize()
+	. = ..()
 	src.cell = new /obj/item/weapon/cell/high(src)
 
 /obj/machinery/suspension_gen/process()
@@ -31,14 +31,14 @@
 				M.weakened = max(M.weakened, 3)
 				cell.charge -= power_use
 				if(prob(5))
-					M << "\blue [pick("You feel tingly.","You feel like floating.","It is hard to speak.","You can barely move.")]"
+					M << SPAN_NOTE(pick("You feel tingly.","You feel like floating.","It is hard to speak.","You can barely move."))
 
 		if(field_type == "iron")
 			for(var/mob/living/silicon/M in T)
 				M.weakened = max(M.weakened, 3)
 				cell.charge -= power_use
 				if(prob(5))
-					M << "\blue [pick("You feel tingly.","You feel like floating.","It is hard to speak.","You can barely move.")]"
+					M << SPAN_NOTE(pick("You feel tingly.","You feel like floating.","It is hard to speak.","You can barely move."))
 
 		for(var/obj/item/I in T)
 			if(!suspension_field.contents.len)
@@ -50,7 +50,7 @@
 			M.weakened = max(M.weakened, 3)
 			cell.charge -= power_use
 			if(prob(5))
-				M << "\blue [pick("You feel tingly.","You feel like floating.","It is hard to speak.","You can barely move.")]"
+				M << SPAN_NOTE(pick("You feel tingly.","You feel like floating.","It is hard to speak.","You can barely move."))
 
 		if(cell.charge <= 0)
 			deactivate()
@@ -82,14 +82,14 @@
 	dat += "<hr>"
 	if(!locked)
 		dat += "<b>Select field mode</b><br>"
-		dat += "[field_type=="carbon"?"<b>":""			]<A href='?src=\ref[src];select_field=carbon'>Diffracted carbon dioxide laser</A></b><br>"
-		dat += "[field_type=="nitrogen"?"<b>":""		]<A href='?src=\ref[src];select_field=nitrogen'>Nitrogen tracer field</A></b><br>"
-		dat += "[field_type=="potassium"?"<b>":""		]<A href='?src=\ref[src];select_field=potassium'>Potassium refrigerant cloud</A></b><br>"
-		dat += "[field_type=="mercury"?"<b>":""	]<A href='?src=\ref[src];select_field=mercury'>Mercury dispersion wave</A></b><br>"
-		dat += "[field_type=="iron"?"<b>":""		]<A href='?src=\ref[src];select_field=iron'>Iron wafer conduction field</A></b><br>"
-		dat += "[field_type=="calcium"?"<b>":""	]<A href='?src=\ref[src];select_field=calcium'>Calcium binary deoxidiser</A></b><br>"
-		dat += "[field_type=="chlorine"?"<b>":""	]<A href='?src=\ref[src];select_field=chlorine'>Chlorine diffusion emissions</A></b><br>"
-		dat += "[field_type=="phoron"?"<b>":""	]<A href='?src=\ref[src];select_field=phoron'>Phoron saturated field</A></b><br>"
+		dat += "[field_type=="carbon"?"<b>":""	 ]<A href='?src=\ref[src];select_field=carbon'>Diffracted carbon dioxide laser</A></b><br>"
+		dat += "[field_type=="nitrogen"?"<b>":"" ]<A href='?src=\ref[src];select_field=nitrogen'>Nitrogen tracer field</A></b><br>"
+		dat += "[field_type=="potassium"?"<b>":""]<A href='?src=\ref[src];select_field=potassium'>Potassium refrigerant cloud</A></b><br>"
+		dat += "[field_type=="mercury"?"<b>":""	 ]<A href='?src=\ref[src];select_field=mercury'>Mercury dispersion wave</A></b><br>"
+		dat += "[field_type=="iron"?"<b>":""	 ]<A href='?src=\ref[src];select_field=iron'>Iron wafer conduction field</A></b><br>"
+		dat += "[field_type=="calcium"?"<b>":""	 ]<A href='?src=\ref[src];select_field=calcium'>Calcium binary deoxidiser</A></b><br>"
+		dat += "[field_type=="chlorine"?"<b>":"" ]<A href='?src=\ref[src];select_field=chlorine'>Chlorine diffusion emissions</A></b><br>"
+		dat += "[field_type=="phoron"?"<b>":""	 ]<A href='?src=\ref[src];select_field=phoron'>Phoron saturated field</A></b><br>"
 	else
 		dat += "<br>"
 		dat += "<br>"
@@ -243,7 +243,10 @@
 			success = 1
 			for(var/mob/living/carbon/C in T)
 				C.weakened += 5
-				C.visible_message("\blue \icon[C] [C] begins to float in the air!","You feel tingly and light, but it is difficult to move.")
+				C.visible_message(
+					SPAN_NOTE("\icon[C] [C] begins to float in the air!"),
+					"You feel tingly and light, but it is difficult to move."
+				)
 		if("nitrogen")
 			success = 1
 			//
@@ -266,19 +269,25 @@
 			success = 1
 			for(var/mob/living/silicon/R in T)
 				R.weakened += 5
-				R.visible_message("\blue \icon[R] [R] begins to float in the air!","You feel tingly and light, but it is difficult to move.")
+				R.visible_message(
+					SPAN_NOTE("\icon[R] [R] begins to float in the air!"),
+					"You feel tingly and light, but it is difficult to move."
+				)
 			//
 	//in case we have a bad field type
 	if(!success)
 		return
 
 	for(var/mob/living/simple_animal/C in T)
-		C.visible_message("\blue \icon[C] [C] begins to float in the air!","You feel tingly and light, but it is difficult to move.")
+		C.visible_message(
+			SPAN_NOTE("\icon[C] [C] begins to float in the air!"),
+			"You feel tingly and light, but it is difficult to move."
+		)
 		C.weakened += 5
 
 	suspension_field = new(T)
 	suspension_field.field_type = field_type
-	src.visible_message("\blue \icon[src] [src] activates with a low hum.")
+	src.visible_message(SPAN_NOTE("\icon[src] [src] activates with a low hum."))
 	icon_state = "suspension3"
 
 	for(var/obj/item/I in T)
@@ -288,7 +297,7 @@
 	if(collected)
 		suspension_field.icon_state = "energynet"
 		suspension_field.overlays += "shield2"
-		src.visible_message("\blue \icon[suspension_field] [suspension_field] gently absconds [collected > 1 ? "something" : "several things"].")
+		src.visible_message(SPAN_NOTE("\icon[suspension_field] [suspension_field] gently absconds [collected > 1 ? "something" : "several things"]."))
 	else
 		if(istype(T,/turf/simulated/mineral) || istype(T,/turf/simulated/wall))
 			suspension_field.icon_state = "shieldsparkles"
@@ -303,7 +312,7 @@
 		M << "<span class='info'>You no longer feel like floating.</span>"
 		M.weakened = min(M.weakened, 3)
 
-	src.visible_message("\blue \icon[src] [src] deactivates with a gentle shudder.")
+	src.visible_message(SPAN_NOTE("\icon[src] [src] deactivates with a gentle shudder."))
 	qdel(suspension_field)
 	suspension_field = null
 	icon_state = "suspension2"

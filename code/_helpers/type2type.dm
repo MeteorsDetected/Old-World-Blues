@@ -142,21 +142,18 @@
 	if (rights & R_DEBUG)       . += "[seperator]+DEBUG"
 	if (rights & R_POSSESS)     . += "[seperator]+POSSESS"
 	if (rights & R_PERMISSIONS) . += "[seperator]+PERMISSIONS"
-	if (rights & R_STEALTH)     . += "[seperator]+STEALTH"
 	if (rights & R_REJUVINATE)  . += "[seperator]+REJUVINATE"
 	if (rights & R_VAREDIT)     . += "[seperator]+VAREDIT"
-	if (rights & R_SOUNDS)      . += "[seperator]+SOUND"
 	if (rights & R_SPAWN)       . += "[seperator]+SPAWN"
 	if (rights & R_MOD)         . += "[seperator]+MODERATOR"
-	if (rights & R_MENTOR)      . += "[seperator]+MENTOR"
 	return .
 
 /proc/ui_style2icon(ui_style)
 	switch (ui_style)
-		if ("old")      return 'icons/mob/screen1_old.dmi'
-		if ("Orange")   return 'icons/mob/screen1_Orange.dmi'
-		if ("Midnight") return 'icons/mob/screen1_Midnight.dmi'
-		else            return 'icons/mob/screen1_White.dmi'
+		if ("old")      return 'icons/screen/old.dmi'
+		if ("Orange")   return 'icons/screen/Orange.dmi'
+		if ("Midnight") return 'icons/screen/Midnight.dmi'
+		else            return 'icons/screen/White.dmi'
 
 // heat2color functions. Adapted from: http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/
 /proc/heat2color(temp)

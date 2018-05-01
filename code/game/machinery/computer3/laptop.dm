@@ -37,7 +37,7 @@
 		set category = "Object"
 		set src in view(1)
 
-		if(usr.stat || usr.restrained() || usr.lying || !istype(usr, /mob/living))
+		if(usr.incapacitated() || !isliving(usr))
 			usr << "\red You can't do that."
 			return
 
@@ -83,7 +83,7 @@
 	set name = "Eject ID Card"
 	set src in view(1)
 
-	if(!usr || usr.stat || usr.lying || !Adjacent(usr)) return
+	if(!usr || usr.incapacitated() || !Adjacent(usr)) return
 	var/obj/item/part/computer/cardslot/C = locate() in src.contents
 
 	if(!C)
@@ -129,7 +129,7 @@
 		set category = "Object"
 		set src in view(1)
 
-		if(usr.stat || usr.restrained() || usr.lying || !istype(usr, /mob/living) || !Adjacent(usr))
+		if(usr.incapacitated() || !isliving(usr) || !Adjacent(usr))
 			usr << "\red You can't do that."
 			return
 

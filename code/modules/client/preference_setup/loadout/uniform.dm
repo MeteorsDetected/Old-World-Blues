@@ -9,18 +9,8 @@
 	display_name = "job, skirt"
 	description = "Totally as your default uniform, but with skirt!"
 	path = /obj/item/clothing/under
-	allowed_roles = list(
-		"Captain", "Head of Personnel", "QM", "Cargo Technician",
-		"Chief Engineer","Station Engineer","Atmospheric Technician","Roboticist",
-		"Research Director","Scientist","Chief Medical Officer","Chemist","Medical Doctor","Geneticist",
-		"Head of Security","Warden","Security Officer"
-	)
 
 /datum/gear/uniform/job_skirt/spawn_for(var/mob/living/carbon/human/H)
-	if(allowed_roles && !(H.job in allowed_roles))
-		H << "<span class='warning'>Your current job does not permit you to spawn with [display_name]!</span>"
-		return null
-
 	var/tmp_path = path
 	switch(H.job)
 		if("Captain")
@@ -59,7 +49,9 @@
 			tmp_path = /obj/item/clothing/under/rank/warden/skirt
 		if("Security Officer")
 			tmp_path = /obj/item/clothing/under/rank/security/skirt
-		else return null
+		else
+			H << SPAN_WARN("Your current job does not permit you to spawn with [display_name]!")
+			return null
 
 	return new tmp_path(H)
 
@@ -68,36 +60,52 @@
 	display_name = "job, jeans"
 	description = "Totally as your default uniform, but with jeans!"
 	path = /obj/item/clothing/under
-	allowed_roles = list("QM", "Cargo Technician","Station Engineer","Atmospheric Technician"  ,\
-	"Research Director","Scientist","Chief Medical Officer","Chemist","Medical Doctor","Geneticist")
 
 /datum/gear/uniform/job_jeans/spawn_for(var/mob/living/carbon/human/H)
-	if(allowed_roles && !(H.job in allowed_roles))
-		H << "<span class='warning'>Your current job does not permit you to spawn with [display_name]!</span>"
-		return null
-
 	var/tmp_path = path
 	switch(H.job)
-		if("QM") tmp_path = /obj/item/clothing/under/rank/qm/jeans
-		if("Cargo Technician") tmp_path = /obj/item/clothing/under/rank/cargo/jeans
-		if("Station Engineer") tmp_path = /obj/item/clothing/under/rank/engineer/jeans
-		if("Atmospheric Technician") tmp_path = /obj/item/clothing/under/rank/atmospheric_technician/jeans
-		if("Scientist") tmp_path = /obj/item/clothing/under/rank/scientist/jeans
-		if("Chief Medical Officer") tmp_path = /obj/item/clothing/under/rank/chief_medical_officer/jeans
-		if("Chemist") tmp_path = /obj/item/clothing/under/rank/chemist/jeans
+		if("QM")
+			tmp_path = /obj/item/clothing/under/rank/qm/jeans
+		if("Cargo Technician")
+			tmp_path = /obj/item/clothing/under/rank/cargo/jeans
+		if("Station Engineer")
+			tmp_path = /obj/item/clothing/under/rank/engineer/jeans
+		if("Atmospheric Technician")
+			tmp_path = /obj/item/clothing/under/rank/atmospheric_technician/jeans
+		if("Scientist")
+			tmp_path = /obj/item/clothing/under/rank/scientist/jeans
+		if("Chief Medical Officer")
+			tmp_path = /obj/item/clothing/under/rank/chief_medical_officer/jeans
+		if("Chemist")
+			tmp_path = /obj/item/clothing/under/rank/chemist/jeans
 		if("Medical Doctor")
 			tmp_path = /obj/item/clothing/under/rank/medical/jeans
 			if(H.mind && H.mind.role_alt_title == "Virologist")
 				tmp_path = /obj/item/clothing/under/rank/virologist/jeans
-		if("Geneticist") tmp_path = /obj/item/clothing/under/rank/geneticist/jeans
-		else return null
+		if("Geneticist")
+			tmp_path = /obj/item/clothing/under/rank/geneticist/jeans
+		if("Head of Security")
+			tmp_path = /obj/item/clothing/under/rank/head_of_security/jeans
+		if("Warden")
+			tmp_path = /obj/item/clothing/under/rank/warden/jeans
+		if("Detective")
+			tmp_path = /obj/item/clothing/under/rank/det/jeans
+		else
+			H << SPAN_WARN("Your current job does not permit you to spawn with [display_name]!")
+			return null
 
 	return new tmp_path(H)
 
 
 /datum/gear/uniform/cheongsam
-	display_name = "cheongsam, white"
+	display_name = "cheongsam"
 	path = /obj/item/clothing/under/cheongsam
+	options = list(
+		"white" = /obj/item/clothing/under/cheongsam,
+		"blue"  = /obj/item/clothing/under/cheongsam/blue,
+		"red"   = /obj/item/clothing/under/cheongsam/red,
+		"black" = /obj/item/clothing/under/cheongsam/black
+	)
 
 /datum/gear/uniform/kilt
 	display_name = "kilt"
@@ -105,7 +113,7 @@
 
 /datum/gear/uniform/blackjumpskirt
 	display_name = "jumpskirt, black"
-	path = /obj/item/clothing/under/blackjumpskirt
+	path = /obj/item/clothing/under/color/blackjumpskirt
 
 /datum/gear/uniform/blackfjumpsuit
 	display_name = "jumpsuit, female-black"
@@ -133,46 +141,29 @@
 	display_name = "skirt, black"
 	path = /obj/item/clothing/under/blackskirt
 
-/datum/gear/uniform/pants
-	display_name = "Pants, classic jeans"
-	path = /obj/item/clothing/under/pants/classicjeans
-
-/datum/gear/uniform/pants/blackjeans
-	display_name = "Pants, black"
-	path = /obj/item/clothing/under/pants/blackjeans
-
-/datum/gear/uniform/pants/white
-	display_name = "Pants, white"
-	path = /obj/item/clothing/under/pants/white
-
-/datum/gear/uniform/pants/red
-	display_name = "Pants, red"
-	path = /obj/item/clothing/under/pants/red
-
-/datum/gear/uniform/pants/black
-	display_name = "Pants, black"
-	path = /obj/item/clothing/under/pants/black
-
-/datum/gear/uniform/pants/track
-	display_name = "Pants, track"
-	path = /obj/item/clothing/under/pants/track
-
-/datum/gear/uniform/pants/tan
-	display_name = "Pants, tan"
-	path = /obj/item/clothing/under/pants/tan
-
 /datum/gear/uniform/pants/jeans
-	display_name = "Pants, jeans"
+	display_name = "Pants (jeans)"
 	path = /obj/item/clothing/under/pants/jeans
+	options = list(
+		"common"     = /obj/item/clothing/under/pants/jeans,
+		"classic"    = /obj/item/clothing/under/pants/classicjeans,
+		"must hang"  = /obj/item/clothing/under/pants/mustangjeans,
+		"young folks"= /obj/item/clothing/under/pants/youngfolksjeans,
+		"black"      = /obj/item/clothing/under/pants/blackjeans
+	)
 
-/datum/gear/uniform/pants/khaki
-	display_name = "Pants, khaki"
-	path = /obj/item/clothing/under/pants/khaki
-
-/datum/gear/uniform/pants/camo
-	display_name = "Pants, camo"
-	path = /obj/item/clothing/under/pants/camo
-
+/datum/gear/uniform/pants/color
+	display_name = "Pants (color)"
+	path = /obj/item/clothing/under/pants/white
+	options = list(
+		"white" = /obj/item/clothing/under/pants/white,
+		"red" = /obj/item/clothing/under/pants/red,
+		"black" = /obj/item/clothing/under/pants/black,
+		"track" = /obj/item/clothing/under/pants/track,
+		"tan" = /obj/item/clothing/under/pants/tan,
+		"khaki" = /obj/item/clothing/under/pants/khaki,
+		"camo" = /obj/item/clothing/under/pants/camo,
+	)
 
 /datum/gear/uniform/suit  //amish
 	display_name = "suit, amish"
@@ -191,36 +182,27 @@
 	path = /obj/item/clothing/under/lawyer/blue
 
 /datum/gear/uniform/suit/burgundy
-	display_name = "suit, burgundy"
-	path = /obj/item/clothing/under/suit_jacket/burgundy
-
-/datum/gear/uniform/suit/checkered
-	display_name = "suit, checkered"
-	path = /obj/item/clothing/under/suit_jacket/checkered
-
-/datum/gear/uniform/suit/charcoal
-	display_name = "suit, charcoal"
-	path = /obj/item/clothing/under/suit_jacket/charcoal
+	display_name = "formal suit with jaket"
+	path = /obj/item/clothing/under/with_suit/burgundy
+	options = list(
+		"burgundy" = /obj/item/clothing/under/with_suit/burgundy,
+		"checkred" = /obj/item/clothing/under/with_suit/checkered,
+		"charcoal" = /obj/item/clothing/under/with_suit/charcoal,
+		"navy"     = /obj/item/clothing/under/with_suit/navy,
+		"tan"      = /obj/item/clothing/under/with_suit/tan
+	)
 
 /datum/gear/uniform/suit/exec
 	display_name = "suit, executive"
-	path = /obj/item/clothing/under/suit_jacket/really_black
+	path = /obj/item/clothing/under/really_black
 
 /datum/gear/uniform/suit/femaleexec
 	display_name = "suit, female-executive"
-	path = /obj/item/clothing/under/suit_jacket/female
+	path = /obj/item/clothing/under/suit_female
 
 /datum/gear/uniform/suit/gentle
 	display_name = "suit, gentlemen"
 	path = /obj/item/clothing/under/gentlesuit
-
-/datum/gear/uniform/suit/navy
-	display_name = "suit, navy"
-	path = /obj/item/clothing/under/suit_jacket/navy
-
-/datum/gear/uniform/suit/red
-	display_name = "suit, red"
-	path = /obj/item/clothing/under/suit_jacket/red
 
 /datum/gear/uniform/suit/redlawyer
 	display_name = "suit, lawyer-red"
@@ -234,10 +216,6 @@
 	display_name = "suit, purple"
 	path = /obj/item/clothing/under/lawyer/purpsuit
 
-/datum/gear/uniform/suit/tan
-	display_name = "suit, tan"
-	path = /obj/item/clothing/under/suit_jacket/tan
-
 /datum/gear/uniform/suit/white
 	display_name = "suit, white"
 	path = /obj/item/clothing/under/scratch
@@ -248,15 +226,28 @@
 
 /datum/gear/uniform/sundress
 	display_name = "sundress"
-	path = /obj/item/clothing/under/sundress
-
-/datum/gear/uniform/sundress/white
-	display_name = "sundress, white"
-	path = /obj/item/clothing/under/sundress_white
+	path = /obj/item/clothing/under/dress/sundress
+	options = list(
+		"black" = /obj/item/clothing/under/dress/sundress,
+		"white" = /obj/item/clothing/under/dress/sundress_white
+	)
 
 /datum/gear/uniform/dress_fire
 	display_name = "flame dress"
 	path = /obj/item/clothing/under/dress/fire
+
+/datum/gear/uniform/sec_blue
+	display_name = "uniform, blue (Warden, Sec)"
+	path = /obj/item/clothing/under/rank/security/blue
+
+/datum/gear/uniform/sec_blue/spawn_for(var/mob/living/carbon/human/H)
+	if(allowed_roles && !(H.job in allowed_roles))
+		H << SPAN_WARN("Your current job does not permit you to spawn with [display_name]!")
+		return null
+	var/tmp_path = path
+	if(H.job == "Warden")
+		tmp_path = /obj/item/clothing/under/rank/warden/blue
+	return new tmp_path ()
 
 /datum/gear/uniform/corpsecsuit
 	display_name = "uniform, corporate (Security)"
@@ -265,7 +256,7 @@
 
 /datum/gear/uniform/corpsecsuit/spawn_for(var/mob/living/carbon/human/H)
 	if(allowed_roles && !(H.job in allowed_roles))
-		H << "<span class='warning'>Your current job does not permit you to spawn with [display_name]!</span>"
+		H << SPAN_WARN("Your current job does not permit you to spawn with [display_name]!")
 		return null
 
 	var/tmp_path = path
@@ -280,28 +271,8 @@
 
 /datum/gear/uniform/uniform_hr
 	display_name = "uniform, HR director (HoP)"
-	path = /obj/item/clothing/under/dress/hr
+	path = /obj/item/clothing/under/rank/hop/dress/hr
 	allowed_roles = list("Head of Personnel")
-
-/datum/gear/uniform/bluesecsuit
-	display_name = "uniform, navy blue (Security)"
-	path = /obj/item/clothing/under/rank/security/blue
-	allowed_roles = list("Head of Security","Warden", "Security Officer", "Detective")
-
-/datum/gear/uniform/bluesecsuit/spawn_for(var/mob/living/carbon/human/H)
-	if(allowed_roles && !(H.job in allowed_roles))
-		H << "<span class='warning'>Your current job does not permit you to spawn with [display_name]!</span>"
-		return null
-
-	var/tmp_path = path
-	switch(H.job)
-		if("Head of Security")
-			tmp_path = /obj/item/clothing/under/rank/head_of_security/blue
-		if("Warden")
-			tmp_path = /obj/item/clothing/under/rank/warden/blue
-		if("Detective")
-			tmp_path = /obj/item/clothing/under/rank/det/blue
-	return new tmp_path ()
 
 /datum/gear/uniform/dnavysecsuit
 	display_name = "uniform, deep navy (Security)"
@@ -310,7 +281,7 @@
 
 /datum/gear/uniform/dnavysecsuit/spawn_for(var/mob/living/carbon/human/H)
 	if(allowed_roles && !(H.job in allowed_roles))
-		H << "<span class='warning'>Your current job does not permit you to spawn with [display_name]!</span>"
+		H << SPAN_WARN("Your current job does not permit you to spawn with [display_name]!")
 		return null
 
 	var/tmp_path = path
@@ -328,7 +299,7 @@
 
 /datum/gear/uniform/tansecsuit/spawn_for(var/mob/living/carbon/human/H)
 	if(allowed_roles && !(H.job in allowed_roles))
-		H << "<span class='warning'>Your current job does not permit you to spawn with [display_name]!</span>"
+		H << SPAN_WARN("Your current job does not permit you to spawn with [display_name]!")
 		return null
 
 	var/tmp_path = path
@@ -339,6 +310,3 @@
 			tmp_path = /obj/item/clothing/under/rank/warden/tan
 	return new tmp_path ()
 
-/datum/gear/uniform/squatter_outfit
-	display_name = "slav squatter tracksuit"
-	path = /obj/item/clothing/under/squatter_outfit

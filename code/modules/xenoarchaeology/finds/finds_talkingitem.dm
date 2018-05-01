@@ -61,7 +61,7 @@
 		var/list/options = list("[holder_atom] seems to be listening intently to [source]...",\
 			"[holder_atom] seems to be focusing on [source]...",\
 			"[holder_atom] seems to turn it's attention to [source]...")
-		holder_atom.loc.visible_message("\blue \icon[holder_atom] [pick(options)]")
+		holder_atom.loc.visible_message(SPAN_NOTE("\icon[holder_atom] [pick(options)]"))
 
 	if(prob(20))
 		spawn(2)
@@ -116,7 +116,7 @@
 	for(var/mob/M in mob_list)
 		if (!M.client)
 			continue //skip monkeys and leavers
-		if (istype(M, /mob/new_player))
+		if (isnewplayer(M))
 			continue
 		if(M.stat == DEAD &&  M.client.prefs.chat_toggles & CHAT_GHOSTEARS)
 			listening|=M

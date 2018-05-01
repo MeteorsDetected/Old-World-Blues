@@ -4,7 +4,7 @@
 	name = "Gravity Generator Control"
 	desc = "A computer to control a local gravity generator.  Qualified personnel only."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "airtunnel0e"
+	screen_icon = "airtunnel0e"
 	anchored = 1
 	density = 1
 	var/obj/machinery/gravity_generator = null
@@ -25,19 +25,13 @@
 	var/effectiverange = 25
 
 	// Borrows code from cloning computer
-/obj/machinery/computer/gravity_control_computer/New()
-	..()
-	spawn(5)
-		updatemodules()
-		return
-	return
+/obj/machinery/computer/gravity_control_computer/initialize()
+	. = ..()
+	updatemodules()
 
-/obj/machinery/gravity_generator/New()
-	..()
-	spawn(5)
-		locatelocalareas()
-		return
-	return
+/obj/machinery/gravity_generator/initialize()
+	. = ..()
+	locatelocalareas()
 
 
 

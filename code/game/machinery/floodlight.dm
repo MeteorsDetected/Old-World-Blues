@@ -12,11 +12,11 @@
 	var/open = 0
 	var/brightness_on = 8		//can't remember what the maxed out value is
 
-/obj/machinery/floodlight/New()
+/obj/machinery/floodlight/initialize()
 	src.cell = new(src)
 	cell.maxcharge = 1000
 	cell.charge = 1000 // 41minutes @ 200W
-	..()
+	. = ..()
 
 /obj/machinery/floodlight/update_icon()
 	overlays.Cut()
@@ -62,7 +62,7 @@
 		visible_message("\The [src] shuts down.")
 
 /obj/machinery/floodlight/attack_ai(mob/user as mob)
-	if(istype(user, /mob/living/silicon/robot) && Adjacent(user))
+	if(isrobot(user) && Adjacent(user))
 		return attack_hand(user)
 
 	if(on)

@@ -30,18 +30,11 @@
 	icon_state = "syndicate1"
 	icon_opened = "syndicate1open"
 
-/obj/structure/closet/gimmick/russian/New()
-	..()
-	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
+/obj/structure/closet/gimmick/russian/willContatin()
+	return list(
+		/obj/item/clothing/head/ushanka = 5,
+		/obj/item/clothing/under/soviet = 5,
+	)
 
 
 /obj/structure/closet/gimmick/tacticool
@@ -50,23 +43,17 @@
 	icon_state = "syndicate1"
 	icon_opened = "syndicate1open"
 
-/obj/structure/closet/gimmick/tacticool/New()
-	..()
-	new /obj/item/clothing/glasses/eyepatch(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/clothing/gloves/black/swat(src)
-	new /obj/item/clothing/gloves/black/swat(src)
-	new /obj/item/clothing/head/helmet/swat(src)
-	new /obj/item/clothing/head/helmet/swat(src)
-	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/clothing/shoes/jackboots/swat(src)
-	new /obj/item/clothing/shoes/jackboots/swat(src)
-	new /obj/item/clothing/suit/armor/swat(src)
-	new /obj/item/clothing/suit/armor/swat(src)
-	new /obj/item/clothing/under/syndicate/tacticool(src)
-	new /obj/item/clothing/under/syndicate/tacticool(src)
-
+/obj/structure/closet/gimmick/tacticool/willContatin()
+	return list(
+		/obj/item/clothing/glasses/eyepatch,
+		/obj/item/clothing/glasses/sunglasses,
+		/obj/item/clothing/gloves/black/swat = 2,
+		/obj/item/clothing/head/helmet/swat = 2,
+		/obj/item/clothing/mask/gas = 2,
+		/obj/item/clothing/shoes/jackboots/swat = 2,
+		/obj/item/clothing/suit/armor/swat = 2,
+		/obj/item/clothing/under/syndicate/tacticool = 2,
+	)
 
 /obj/structure/closet/thunderdome
 	name = "\improper Thunderdome closet"
@@ -75,55 +62,31 @@
 	icon_opened = "syndicateopen"
 	anchored = 1
 
-/obj/structure/closet/thunderdome/New()
-	..()
-
 /obj/structure/closet/thunderdome/tdred
 	name = "red-team Thunderdome closet"
 
-/obj/structure/closet/thunderdome/tdred/New()
-	..()
-	new /obj/item/clothing/suit/armor/tdome/red(src)
-	new /obj/item/clothing/suit/armor/tdome/red(src)
-	new /obj/item/clothing/suit/armor/tdome/red(src)
-	new /obj/item/weapon/melee/energy/sword(src)
-	new /obj/item/weapon/melee/energy/sword(src)
-	new /obj/item/weapon/melee/energy/sword(src)
-	new /obj/item/weapon/gun/energy/laser(src)
-	new /obj/item/weapon/gun/energy/laser(src)
-	new /obj/item/weapon/gun/energy/laser(src)
-	new /obj/item/weapon/melee/baton(src)
-	new /obj/item/weapon/melee/baton(src)
-	new /obj/item/weapon/melee/baton(src)
-	new /obj/item/storage/box/flashbangs(src)
-	new /obj/item/storage/box/flashbangs(src)
-	new /obj/item/storage/box/flashbangs(src)
-	new /obj/item/clothing/head/helmet/thunderdome(src)
-	new /obj/item/clothing/head/helmet/thunderdome(src)
-	new /obj/item/clothing/head/helmet/thunderdome(src)
+/obj/structure/closet/thunderdome/tdred/willContatin()
+	return list(
+		/obj/item/clothing/suit/armor/tdome/red = 3,
+		/obj/item/weapon/melee/energy/sword = 3,
+		/obj/item/weapon/gun/energy/laser = 3,
+		/obj/item/weapon/melee/baton = 3,
+		/obj/item/storage/box/flashbangs = 3,
+		/obj/item/clothing/head/helmet/thunderdome = 3,
+	)
+
 
 /obj/structure/closet/thunderdome/tdgreen
 	name = "green-team Thunderdome closet"
 	icon_state = "syndicate1"
 	icon_opened = "syndicate1open"
 
-/obj/structure/closet/thunderdome/tdgreen/New()
-	..()
-	new /obj/item/clothing/suit/armor/tdome/green(src)
-	new /obj/item/clothing/suit/armor/tdome/green(src)
-	new /obj/item/clothing/suit/armor/tdome/green(src)
-	new /obj/item/weapon/melee/energy/sword(src)
-	new /obj/item/weapon/melee/energy/sword(src)
-	new /obj/item/weapon/melee/energy/sword(src)
-	new /obj/item/weapon/gun/energy/laser(src)
-	new /obj/item/weapon/gun/energy/laser(src)
-	new /obj/item/weapon/gun/energy/laser(src)
-	new /obj/item/weapon/melee/baton(src)
-	new /obj/item/weapon/melee/baton(src)
-	new /obj/item/weapon/melee/baton(src)
-	new /obj/item/storage/box/flashbangs(src)
-	new /obj/item/storage/box/flashbangs(src)
-	new /obj/item/storage/box/flashbangs(src)
-	new /obj/item/clothing/head/helmet/thunderdome(src)
-	new /obj/item/clothing/head/helmet/thunderdome(src)
-	new /obj/item/clothing/head/helmet/thunderdome(src)
+/obj/structure/closet/thunderdome/tdgreen/willContatin()
+	return list(
+		/obj/item/clothing/suit/armor/tdome/green = 3,
+		/obj/item/weapon/melee/energy/sword = 3,
+		/obj/item/weapon/gun/energy/laser = 3,
+		/obj/item/weapon/melee/baton = 3,
+		/obj/item/storage/box/flashbangs = 3,
+		/obj/item/clothing/head/helmet/thunderdome = 3,
+	)

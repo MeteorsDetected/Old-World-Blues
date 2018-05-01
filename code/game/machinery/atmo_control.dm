@@ -23,6 +23,7 @@
 	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/air_sensor/update_icon()
+	..()
 	icon_state = "gsensor[on]"
 
 /obj/machinery/air_sensor/process()
@@ -65,16 +66,17 @@
 	radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
 
 /obj/machinery/air_sensor/initialize()
+	. = ..()
 	set_frequency(frequency)
 
-obj/machinery/air_sensor/Destroy()
+/obj/machinery/air_sensor/Destroy()
 	if(radio_controller)
 		radio_controller.remove_object(src,frequency)
 	..()
 
 /obj/machinery/computer/general_air_control
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "tank"
+	screen_icon = "tank"
 
 	name = "Computer"
 
@@ -85,7 +87,7 @@ obj/machinery/air_sensor/Destroy()
 	var/datum/radio_frequency/radio_connection
 	circuit = /obj/item/weapon/circuitboard/air_management
 
-obj/machinery/computer/general_air_control/Destroy()
+/obj/machinery/computer/general_air_control/Destroy()
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
 	..()
@@ -153,12 +155,13 @@ obj/machinery/computer/general_air_control/Destroy()
 	radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
 
 /obj/machinery/computer/general_air_control/initialize()
+	. = ..()
 	set_frequency(frequency)
 
 
 /obj/machinery/computer/general_air_control/large_tank_control
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "tank"
+	screen_icon = "tank"
 
 	frequency = 1441
 	var/input_tag
@@ -278,7 +281,7 @@ Max Output Pressure: [output_pressure] kPa<BR>"}
 
 /obj/machinery/computer/general_air_control/supermatter_core
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "tank"
+	screen_icon = "tank"
 
 	frequency = 1438
 	var/input_tag
@@ -398,7 +401,7 @@ Min Core Pressure: [pressure_limit] kPa<BR>"}
 
 /obj/machinery/computer/general_air_control/fuel_injection
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "atmos"
+	screen_icon = "atmos"
 
 	var/device_tag
 	var/list/device_info

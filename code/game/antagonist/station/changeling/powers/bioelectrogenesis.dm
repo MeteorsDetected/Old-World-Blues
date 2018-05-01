@@ -24,7 +24,7 @@
 	if(held_item == null)
 		if(src.mind.changeling.recursive_enhancement)
 			if(changeling_generic_weapon(/obj/item/weapon/electric_hand/efficent))
-				src << "<span class='notice'>We will shock others more efficently.</span>"
+				src << SPAN_NOTE("We will shock others more efficently.")
 				src.mind.changeling.recursive_enhancement = 0
 				return 1
 		else
@@ -137,7 +137,7 @@
 		siemens = gloves.siemens_coefficient
 
 	//Excuse the copypasta.
-	if(istype(target,/mob/living/carbon))
+	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 
 		if(user.mind.changeling.chem_charges < shock_cost)
@@ -159,7 +159,7 @@
 		user.mind.changeling.chem_charges -= shock_cost
 		return 1
 
-	else if(istype(target,/mob/living/silicon))
+	else if(issilicon(target))
 		var/mob/living/silicon/S = target
 
 		if(user.mind.changeling.chem_charges < 10)

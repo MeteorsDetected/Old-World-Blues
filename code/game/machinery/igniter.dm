@@ -30,13 +30,8 @@
 			location.hotspot_expose(1000,500,1)
 	return 1
 
-/obj/machinery/igniter/New()
-	..()
-	icon_state = "igniter[on]"
-
-/obj/machinery/igniter/power_change()
-	..()
-	if(!( stat & NOPOWER) )
+/obj/machinery/igniter/update_icon()
+	if(!(stat&NOPOWER) )
 		icon_state = "igniter[src.on]"
 	else
 		icon_state = "igniter0"
@@ -58,18 +53,11 @@
 	active_power_usage = 4
 
 
-/obj/machinery/sparker/New()
-	..()
-
-/obj/machinery/sparker/power_change()
-	..()
-	if ( !(stat & NOPOWER) && disable == 0 )
-
-		icon_state = "[base_state]"
-//		src.sd_SetLuminosity(2)
-	else
+/obj/machinery/sparker/update_icon()
+	if((stat&NOPOWER) || disable)
 		icon_state = "[base_state]-p"
-//		src.sd_SetLuminosity(0)
+	else
+		icon_state = base_state
 
 /obj/machinery/sparker/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (istype(W, /obj/item/weapon/screwdriver))
@@ -88,8 +76,6 @@
 /obj/machinery/sparker/attack_ai()
 	if (src.anchored)
 		return src.ignite()
-	else
-		return
 
 /obj/machinery/sparker/proc/ignite()
 	if (!(powered()))

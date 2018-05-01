@@ -34,18 +34,16 @@ BLIND     // can't see anything
 
 /obj/item/clothing/glasses/attack_self(mob/user)
 	if(toggleable)
+		active = !active
 		if(active)
-			active = 0
-			icon_state = off_state
-			user.update_inv_glasses()
-			usr << "You deactivate the optical matrix on the [src]."
-		else
-			active = 1
 			icon_state = initial(icon_state)
-			user.update_inv_glasses()
 			if(activation_sound)
 				usr << activation_sound
 			usr << "You activate the optical matrix on the [src]."
+		else
+			icon_state = off_state
+			usr << "You deactivate the optical matrix on the [src]."
+		user.update_inv_glasses()
 
 /obj/item/clothing/glasses/meson
 	name = "Optical Meson Scanner"
@@ -57,8 +55,8 @@ BLIND     // can't see anything
 	toggleable = 1
 	vision_flags = SEE_TURFS
 
-/obj/item/clothing/glasses/meson/New()
-	..()
+/obj/item/clothing/glasses/meson/initialize()
+	. = ..()
 	overlay = global_hud.meson
 
 /obj/item/clothing/glasses/meson/prescription
@@ -74,8 +72,8 @@ BLIND     // can't see anything
 	toggleable = 1
 	icon_action_button = "action_science"
 
-/obj/item/clothing/glasses/science/New()
-	..()
+/obj/item/clothing/glasses/science/initialize()
+	. = ..()
 	overlay = global_hud.science
 
 /obj/item/clothing/glasses/night
@@ -90,8 +88,8 @@ BLIND     // can't see anything
 	icon_action_button = "action_nvg"
 	off_state = "denight"
 
-/obj/item/clothing/glasses/night/New()
-	..()
+/obj/item/clothing/glasses/night/initialize()
+	. = ..()
 	overlay = global_hud.nvg
 
 /obj/item/clothing/glasses/eyepatch
@@ -111,8 +109,11 @@ BLIND     // can't see anything
 		set name = "Switch Eyepatch"
 		set category = "Object"
 		set src in usr
-		if(!istype(usr, /mob/living)) return
-		if(usr.stat) return
+
+		if(!isliving(usr))
+			return
+		if(usr.incapacitated())
+			return
 
 		if(icon_state == initial(icon_state))
 			icon_state = "[initial(icon_state)]_l"
@@ -208,7 +209,7 @@ BLIND     // can't see anything
 	icon_state = "welding-g"
 	item_state = "welding-g"
 	icon_action_button = "action_welding_g"
-	matter = list(DEFAULT_WALL_MATERIAL = 1500, "glass" = 1000)
+	matter = list(MATERIAL_STEEL = 1500, MATERIAL_GLASS = 1000)
 	var/up = 0
 
 /obj/item/clothing/glasses/welding/attack_self()
@@ -219,7 +220,7 @@ BLIND     // can't see anything
 	set name = "Adjust welding goggles"
 	set src in usr
 
-	if(usr.canmove && !usr.stat && !usr.restrained())
+	if(usr.incapacitated())
 		if(src.up)
 			src.up = !src.up
 			flags_inv |= HIDEEYES
@@ -263,10 +264,9 @@ BLIND     // can't see anything
 	icon_state = "sunhud"
 	var/obj/item/clothing/glasses/hud/security/hud = null
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		src.hud = new/obj/item/clothing/glasses/hud/security(src)
-		return
 
 /obj/item/clothing/glasses/sunglasses/sechud/tactical
 	name = "tactical HUD"
@@ -297,8 +297,8 @@ BLIND     // can't see anything
 						M.disabilities &= ~NEARSIGHTED
 		..()
 
-/obj/item/clothing/glasses/thermal/New()
-	..()
+/obj/item/clothing/glasses/thermal/initialize()
+	. = ..()
 	overlay = global_hud.thermal
 
 /obj/item/clothing/glasses/thermal/syndi	//These are now a traitor item, concealed as mesons.	-Pete

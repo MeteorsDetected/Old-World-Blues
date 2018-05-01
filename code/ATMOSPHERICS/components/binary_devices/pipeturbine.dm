@@ -88,7 +88,7 @@
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
 		if(istype(W, /obj/item/weapon/wrench))
 			anchored = !anchored
-			user << "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding \the [src] to the floor.</span>"
+			user << SPAN_NOTE("You [anchored ? "secure" : "unsecure"] the bolts holding \the [src] to the floor.")
 
 			if(anchored)
 				if(dir & (NORTH|SOUTH))
@@ -234,10 +234,9 @@
 	var/kin_to_el_ratio = 0.1	//How much kinetic energy will be taken from turbine and converted into electricity
 	var/obj/machinery/atmospherics/pipeturbine/turbine
 
-	New()
-		..()
-		spawn(1)
-			updateConnection()
+	initialize()
+		. = ..()
+		updateConnection()
 
 	proc/updateConnection()
 		turbine = null
@@ -260,7 +259,7 @@
 		if(istype(W, /obj/item/weapon/wrench))
 			anchored = !anchored
 			turbine = null
-			user << "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding \the [src] to the floor.</span>"
+			user << SPAN_NOTE("You [anchored ? "secure" : "unsecure"] the bolts holding \the [src] to the floor.")
 			updateConnection()
 		else
 			..()

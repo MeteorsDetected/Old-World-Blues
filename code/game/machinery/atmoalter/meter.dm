@@ -11,14 +11,9 @@
 	use_power = 1
 	idle_power_usage = 15
 
-/obj/machinery/meter/New()
-	..()
-	src.target = locate(/obj/machinery/atmospherics/pipe) in loc
-	return 1
-
 /obj/machinery/meter/initialize()
-	if (!target)
-		src.target = locate(/obj/machinery/atmospherics/pipe) in loc
+	. = ..()
+	src.target = locate(/obj/machinery/atmospherics/pipe) in loc
 
 /obj/machinery/meter/process()
 	if(!target)
@@ -98,26 +93,20 @@
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-	user << "<span class='notice'>You begin to unfasten \the [src]...</span>"
+	user << SPAN_NOTE("You begin to unfasten \the [src]...")
 	if (do_after(user, 40))
 		user.visible_message( \
-			"<span class='notice'>\The [user] unfastens \the [src].</span>", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
+			SPAN_NOTE("\The [user] unfastens \the [src]."), \
+			SPAN_NOTE("You have unfastened \the [src]."), \
 			"You hear ratchet.")
 		new /obj/item/pipe_meter(src.loc)
 		qdel(src)
 
 // TURF METER - REPORTS A TILE'S AIR CONTENTS
 
-/obj/machinery/meter/turf/New()
-	..()
-	src.target = loc
-	return 1
-
-
 /obj/machinery/meter/turf/initialize()
-	if (!target)
-		src.target = loc
+	. = ..()
+	target = loc
 
 /obj/machinery/meter/turf/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	return

@@ -54,34 +54,29 @@
 	return smes_amt / SMESRATE
 
 
-/obj/machinery/power/smes/New()
-	..()
-	spawn(5)
-		if(!powernet)
-			connect_to_network()
+/obj/machinery/power/smes/initialize()
+	. = ..()
+	if(!powernet)
+		connect_to_network()
 
-		dir_loop:
-			for(var/d in cardinal)
-				var/turf/T = get_step(src, d)
-				for(var/obj/machinery/power/terminal/term in T)
-					if(term && term.dir == turn(d, 180))
-						terminal = term
-						break dir_loop
-		if(!terminal)
-			stat |= BROKEN
-			return
-		terminal.master = src
-		if(!terminal.powernet)
-			terminal.connect_to_network()
-		update_icon()
+	dir_loop:
+		for(var/d in cardinal)
+			var/turf/T = get_step(src, d)
+			for(var/obj/machinery/power/terminal/term in T)
+				if(term && term.dir == turn(d, 180))
+					terminal = term
+					break dir_loop
+	if(!terminal)
+		stat |= BROKEN
+		return
+	terminal.master = src
+	if(!terminal.powernet)
+		terminal.connect_to_network()
+	update_icon()
 
+	if(!should_be_mapped)
+		warning("Non-buildable or Non-magical SMES at ([src.x],[src.y],[src.z])")
 
-
-
-		if(!should_be_mapped)
-			warning("Non-buildable or Non-magical SMES at [src.x]X [src.y]Y [src.z]Z")
-
-	return
 
 
 /obj/machinery/power/smes/disconnect_terminal()
@@ -93,7 +88,8 @@
 
 /obj/machinery/power/smes/update_icon()
 	overlays.Cut()
-	if(stat & BROKEN)	return
+	if(stat & BROKEN)
+		return
 
 	overlays += image('icons/obj/power.dmi', "smes-op[outputting]")
 
@@ -108,7 +104,6 @@
 	var/clevel = chargedisplay()
 	if(clevel>0)
 		overlays += image('icons/obj/power.dmi', "smes-og[clevel]")
-	return
 
 
 /obj/machinery/power/smes/proc/chargedisplay()
@@ -189,7 +184,7 @@
 //Will return 1 on failure
 /obj/machinery/power/smes/proc/make_terminal(const/mob/user)
 	if (user.loc == loc)
-		user << "<span class='warning'>You must not be on the same tile as the [src].</span>"
+		user << SPAN_WARN("You must not be on the same tile as the [src].")
 		return 1
 
 	//Direction the terminal will face to
@@ -201,13 +196,13 @@
 			tempDir = WEST
 	var/turf/tempLoc = get_step(src, reverse_direction(tempDir))
 	if (istype(tempLoc, /turf/space))
-		user << "<span class='warning'>You can't build a terminal on space.</span>"
+		user << SPAN_WARN("You can't build a terminal on space.")
 		return 1
 	else if (istype(tempLoc))
 		if(tempLoc.intact)
-			user << "<span class='warning'>You must remove the floor plating first.</span>"
+			user << SPAN_WARN("You must remove the floor plating first.")
 			return 1
-	user << "<span class='notice'>You start adding cable to the [src].</span>"
+	user << SPAN_NOTE("You start adding cable to the [src].")
 	if(do_after(user, 50))
 		terminal = new /obj/machinery/power/terminal(tempLoc)
 		terminal.set_dir(tempDir)
@@ -238,22 +233,22 @@
 	if(istype(W, /obj/item/weapon/screwdriver))
 		if(!open_hatch)
 			open_hatch = 1
-			user << "<span class='notice'>You open the maintenance hatch of [src].</span>"
+			user << SPAN_NOTE("You open the maintenance hatch of [src].")
 			return 0
 		else
 			open_hatch = 0
-			user << "<span class='notice'>You close the maintenance hatch of [src].</span>"
+			user << SPAN_NOTE("You close the maintenance hatch of [src].")
 			return 0
 
 	if (!open_hatch)
-		user << "<span class='warning'>You need to open access hatch on [src] first!</spann>"
+		user << SPAN_WARN("You need to open access hatch on [src] first!")
 		return 0
 
 	if(istype(W, /obj/item/stack/cable_coil) && !terminal && !building_terminal)
 		building_terminal = 1
 		var/obj/item/stack/cable_coil/CC = W
 		if (CC.get_amount() <= 10)
-			user << "<span class='warning'>You need more cables.</span>"
+			user << SPAN_WARN("You need more cables.")
 			building_terminal = 0
 			return 0
 		if (make_terminal(user))
@@ -261,9 +256,9 @@
 			return 0
 		building_terminal = 0
 		CC.use(10)
-		user.visible_message(\
-				"<span class='notice'>[user.name] has added cables to the [src].</span>",\
-				"<span class='notice'>You added cables to the [src].</span>")
+		user.visible_message(
+				SPAN_NOTE("[user.name] has added cables to the [src]."),
+				SPAN_NOTE("You added cables to the [src]."))
 		terminal.connect_to_network()
 		stat = 0
 		return 0
@@ -273,22 +268,18 @@
 		var/turf/tempTDir = terminal.loc
 		if (istype(tempTDir))
 			if(tempTDir.intact)
-				user << "<span class='warning'>You must remove the floor plating first.</span>"
+				user << SPAN_WARN("You must remove the floor plating first.")
 			else
-				user << "<span class='notice'>You begin to cut the cables...</span>"
+				user << SPAN_NOTE("You begin to cut the cables...")
 				playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 				if(do_after(user, 50))
 					if (prob(50) && electrocute_mob(usr, terminal.powernet, terminal))
-						var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-						s.set_up(5, 1, src)
-						s.start()
 						building_terminal = 0
-						if(usr.stunned)
-							return 0
+						return 0
 					new /obj/item/stack/cable_coil(loc,10)
-					user.visible_message(\
-						"<span class='notice'>[user.name] cut the cables and dismantled the power terminal.</span>",\
-						"<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
+					user.visible_message(
+						SPAN_NOTE("[user.name] cut the cables and dismantled the power terminal."),
+						SPAN_NOTE("You cut the cables and dismantle the power terminal."))
 					qdel(terminal)
 		building_terminal = 0
 		return 0

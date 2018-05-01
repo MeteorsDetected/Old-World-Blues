@@ -2,7 +2,7 @@
 	name = "mounted sleeper"
 	desc = "A sleeper. Mountable to an exosuit. (Can be attached to: Medical Exosuits)"
 	icon = 'icons/obj/Cryogenic2.dmi'
-	icon_state = "sleeper_0"
+	icon_state = "sleeper"
 	origin_tech = list(TECH_DATA = 2, TECH_BIO = 3)
 	energy_drain = 20
 	range = MELEE
@@ -14,11 +14,10 @@
 	required_type = /obj/mecha/medical
 	salvageable = 0
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		pr_mech_sleeper = new /datum/global_iterator/mech_sleeper(list(src),0)
 		pr_mech_sleeper.set_delay(equip_cooldown)
-		return
 
 	Destroy()
 		qdel(pr_mech_sleeper)
@@ -56,11 +55,6 @@
 				target.forceMove(src)
 				occupant = target
 				target.reset_view(src)
-				/*
-				if(target.client)
-					target.client.perspective = EYE_PERSPECTIVE
-					target.client.eye = chassis
-				*/
 				set_ready_state(0)
 				pr_mech_sleeper.start()
 				occupant_message("<font color='blue'>[target] successfully loaded into [src]. Life support functions engaged.</font>")
@@ -85,11 +79,6 @@
 		occupant_message("[occupant] ejected. Life support functions disabled.")
 		log_message("[occupant] ejected. Life support functions disabled.")
 		occupant.reset_view()
-		/*
-		if(occupant.client)
-			occupant.client.eye = occupant.client.mob
-			occupant.client.perspective = MOB_PERSPECTIVE
-		*/
 		occupant = null
 		pr_mech_sleeper.stop()
 		set_ready_state(1)
@@ -239,10 +228,10 @@
 	var/max_cable = 1000
 	required_type = /obj/mecha/working
 
-	New()
+	initialize()
 		cable = new(src)
 		cable.amount = 0
-		..()
+		. = ..()
 
 	attached()
 		..()
@@ -388,8 +377,8 @@
 	origin_tech = list(TECH_MATERIAL = 3, TECH_BIO = 4, TECH_MAGNET = 4, TECH_DATA = 3)
 	required_type = /obj/mecha/medical
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		flags |= NOREACT
 		syringes = new
 		known_reagents = list("inaprovaline"="Inaprovaline","anti_toxin"="Dylovene")
@@ -595,7 +584,7 @@
 		if(get_dist(src,A) >= 4)
 			occupant_message("The object is too far away.")
 			return 0
-		if(!A.reagents || istype(A,/mob))
+		if(!A.reagents || ismob(A))
 			occupant_message("<span class=\"alert\">No reagent info gained from [A].</span>")
 			return 0
 		occupant_message("Analyzing reagents...")

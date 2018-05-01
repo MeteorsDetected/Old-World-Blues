@@ -11,7 +11,7 @@
 		src << "You cannot leave your host in your current state."
 
 	if(docile)
-		src << "\blue You are feeling far too docile to do that."
+		src << SPAN_NOTE("You are feeling far too docile to do that.")
 		return
 
 	if(!host || !src) return
@@ -74,7 +74,7 @@
 		var/mob/living/carbon/human/H = M
 
 		var/obj/item/organ/external/E = H.organs_by_name[BP_HEAD]
-		if(!E || (E.status & ORGAN_DESTROYED))
+		if(!E || E.is_stump())
 			src << "\The [H] does not have a head!"
 
 		if(!H.should_have_organ(O_BRAIN))
@@ -136,7 +136,7 @@
 		src << "You are not inside a host body."
 		return
 
-	if(host.stat != 2)
+	if(host.stat != DEAD)
 		src << "Your host is still alive."
 		return
 
@@ -144,7 +144,7 @@
 		src << "You cannot do that in your current state."
 
 	if(docile)
-		src << "\blue You are feeling far too docile to do that."
+		src << SPAN_NOTE("You are feeling far too docile to do that.")
 		return
 
 
@@ -212,7 +212,7 @@
 		src << "You cannot secrete chemicals in your current state."
 
 	if(docile)
-		src << "\blue You are feeling far too docile to do that."
+		src << SPAN_NOTE("You are feeling far too docile to do that.")
 		return
 
 	if(chemicals < 50)
@@ -240,13 +240,13 @@
 		src << "You cannot do that from within a host body."
 		return
 
-	if(src.stat)
+	if(src.incapacitated())
 		src << "You cannot do that in your current state."
 		return
 
 	var/list/choices = list()
 	for(var/mob/living/carbon/C in view(3,src))
-		if(C.stat != 2)
+		if(C.stat != DEAD)
 			choices += C
 
 	if(world.time - used_dominate < 150)
@@ -276,12 +276,12 @@
 		src << "You are not inside a host body."
 		return
 
-	if(src.stat)
+	if(src.incapacitated())
 		src << "You cannot do that in your current state."
 		return
 
 	if(docile)
-		src << "\blue You are feeling far too docile to do that."
+		src << SPAN_NOTE("You are feeling far too docile to do that.")
 		return
 
 	src << "You begin delicately adjusting your connection to the host brain..."
@@ -342,7 +342,7 @@
 	set name = "Revive Host"
 	set desc = "Send a jolt of electricity through your host, reviving them."
 
-	if(stat != 2)
+	if(stat != DEAD)
 		usr << "Your host is already alive."
 		return
 

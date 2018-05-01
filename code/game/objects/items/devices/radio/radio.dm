@@ -26,7 +26,7 @@
 	throw_range = 9
 	w_class = ITEM_SIZE_SMALL
 
-	matter = list("glass" = 25,DEFAULT_WALL_MATERIAL = 75)
+	matter = list(MATERIAL_GLASS = 25,MATERIAL_STEEL = 75)
 	var/const/FREQ_LISTENING = 1
 
 
@@ -39,8 +39,8 @@
 		frequency = new_frequency
 		radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
 
-/obj/item/device/radio/New()
-	..()
+/obj/item/device/radio/initialize()
+	. = ..()
 	wires = new(src)
 
 /obj/item/device/radio/Destroy()
@@ -54,7 +54,7 @@
 
 
 /obj/item/device/radio/initialize()
-
+	..()
 	if(freerange)
 		if(frequency < 1200 || frequency > 1600)
 			frequency = sanitize_frequency(frequency, maxf)
@@ -277,7 +277,7 @@
 			jobname = "Cyborg"
 
 		// --- Personal AI (pAI) ---
-		else if (istype(M, /mob/living/silicon/pai))
+		else if (ispAI(M))
 			jobname = "Personal AI"
 
 		// --- Unidentifiable mob ---
@@ -434,9 +434,9 @@
 	. = ..()
 	if (.<=1)
 		if (b_stat)
-			user << "<span class='notice'>\the [src] can be attached and modified!</span>"
+			user << SPAN_NOTE("\the [src] can be attached and modified!")
 		else
-			user << "<span class='notice'>\the [src] can not be modified or attached!</span>"
+			user << SPAN_NOTE("\the [src] can not be modified or attached!")
 	return
 
 /obj/item/device/radio/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -447,9 +447,9 @@
 	b_stat = !( b_stat )
 	if(!istype(src, /obj/item/device/radio/beacon))
 		if (b_stat)
-			user.show_message("<span class='notice'>\The [src] can now be attached and modified!</span>")
+			user.show_message(SPAN_NOTE("\The [src] can now be attached and modified!"))
 		else
-			user.show_message("<span class='notice'>\The [src] can no longer be modified or attached!</span>")
+			user.show_message(SPAN_NOTE("\The [src] can no longer be modified or attached!"))
 		updateDialog()
 			//Foreach goto(83)
 		add_fingerprint(user)
@@ -573,7 +573,7 @@
 	return
 
 /obj/item/device/radio/borg/Topic(href, href_list)
-	if(usr.stat || !on)
+	if(usr.incapacitated() || !on)
 		return
 	if (href_list["mode"])
 		if(subspace_transmission != 1)
@@ -702,7 +702,7 @@
 	return
 
 /obj/item/device/radio/drone/Topic(href, href_list)
-	if(usr.stat || !on)
+	if(usr.incapacitated() || !on)
 		return
 	if (href_list["mode"])
 		if(subspace_transmission != 1)

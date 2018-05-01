@@ -24,10 +24,9 @@
 *   Initialising
 ********************/
 
-/obj/machinery/microwave/New()
-	..()
-	reagents = new/datum/reagents(100)
-	reagents.my_atom = src
+/obj/machinery/microwave/initialize()
+	. = ..()
+	create_reagents(100)
 	if (!available_recipes)
 		available_recipes = new
 		for (var/type in (typesof(/datum/recipe)-/datum/recipe))
@@ -55,24 +54,24 @@
 	if(src.broken > 0)
 		if(src.broken == 2 && istype(O, /obj/item/weapon/screwdriver)) // If it's broken and they're using a screwdriver
 			user.visible_message( \
-				"\blue [user] starts to fix part of the microwave.",
-				"\blue You start to fix part of the microwave."
+				SPAN_NOTE("[user] starts to fix part of the microwave."),
+				SPAN_NOTE("You start to fix part of the microwave.")
 			)
 			if (do_after(user,20))
 				user.visible_message(
-					"\blue [user] fixes part of the microwave.",
-					"\blue You have fixed part of the microwave."
+					SPAN_NOTE("[user] fixes part of the microwave."),
+					SPAN_NOTE("You have fixed part of the microwave.")
 				)
 				src.broken = 1 // Fix it a bit
 		else if(src.broken == 1 && istype(O, /obj/item/weapon/wrench)) // If it's broken and they're doing the wrench
 			user.visible_message( \
-				"\blue [user] starts to fix part of the microwave.",
-				"\blue You start to fix part of the microwave."
+				SPAN_NOTE("[user] starts to fix part of the microwave."),
+				SPAN_NOTE("You start to fix part of the microwave.")
 			)
 			if (do_after(user,20))
 				user.visible_message(
-					"\blue [user] fixes the microwave.",
-					"\blue You have fixed the microwave."
+					SPAN_NOTE("[user] fixes the microwave."),
+					SPAN_NOTE("You have fixed the microwave.")
 				)
 				src.icon_state = "mw"
 				src.broken = 0 // Fix it!
@@ -84,13 +83,13 @@
 	else if(src.dirty==100) // The microwave is all dirty so can't be used!
 		if(istype(O, /obj/item/weapon/reagent_containers/spray/cleaner)) // If they're trying to clean it then let them
 			user.visible_message(
-				"\blue [user] starts to clean the microwave.",
-				"\blue You start to clean the microwave."
+				SPAN_NOTE("[user] starts to clean the microwave."),
+				SPAN_NOTE("You start to clean the microwave.")
 			)
 			if (do_after(user,20))
 				user.visible_message(
-					"\blue [user]  has cleaned  the microwave.",
-					"\blue You have cleaned the microwave."
+					SPAN_NOTE("[user]  has cleaned  the microwave."),
+					SPAN_NOTE("You have cleaned the microwave.")
 				)
 				src.dirty = 0 // It's clean!
 				src.broken = 0 // just to be sure
@@ -108,15 +107,15 @@
 			new O.type (src)
 			S.use(1)
 			user.visible_message(
-				"\blue [user] has added one of [O] to \the [src].",
-				"\blue You add one of [O] to \the [src]."
+				SPAN_NOTE("[user] has added one of [O] to \the [src]."),
+				SPAN_NOTE("You add one of [O] to \the [src].")
 			)
 			return
 		else
 			user.drop_from_inventory(O, src)
 			user.visible_message(
-				"\blue [user] has added \the [O] to \the [src].",
-				"\blue You add \the [O] to \the [src]."
+				SPAN_NOTE("[user] has added \the [O] to \the [src]."),
+				SPAN_NOTE("You add \the [O] to \the [src].")
 			)
 			return
 	else if(istype(O,/obj/item/weapon/reagent_containers/glass) || istype(O,/obj/item/weapon/reagent_containers/condiment))
@@ -137,7 +136,7 @@
 	return FALSE
 
 /obj/machinery/microwave/attack_ai(mob/user as mob)
-	if(istype(user, /mob/living/silicon/robot) && Adjacent(user))
+	if(isrobot(user) && Adjacent(user))
 		attack_hand(user)
 
 /obj/machinery/microwave/attack_hand(mob/user as mob)
@@ -291,7 +290,7 @@
 	return 0
 
 /obj/machinery/microwave/proc/start()
-	src.visible_message("\blue The microwave turns on.", "\blue You hear a microwave.")
+	src.visible_message(SPAN_NOTE("The microwave turns on."), SPAN_NOTE("You hear a microwave."))
 	src.operating = 1
 	src.icon_state = "mw1"
 	src.updateUsrDialog()
@@ -313,7 +312,7 @@
 	if (src.reagents.total_volume)
 		src.dirty++
 	src.reagents.clear_reagents()
-	usr << "\blue You dispose of the microwave contents."
+	usr << SPAN_NOTE("You dispose of the microwave contents.")
 	src.updateUsrDialog()
 
 /obj/machinery/microwave/proc/muck_start()

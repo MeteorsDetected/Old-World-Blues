@@ -9,7 +9,7 @@
 	throwforce = 0
 	w_class = ITEM_SIZE_NORMAL
 	origin_tech = list(TECH_MATERIAL = 1)
-	matter = list(DEFAULT_WALL_MATERIAL = 18750)
+	matter = list(MATERIAL_STEEL = 18750)
 	var/deployed = 0
 
 /obj/item/weapon/beartrap/suicide_act(mob/user)
@@ -17,7 +17,7 @@
 	return (BRUTELOSS)
 
 /obj/item/weapon/beartrap/proc/can_use(mob/user)
-	return (user.IsAdvancedToolUser() && !issilicon(user) && !user.stat && !user.restrained())
+	return (user.IsAdvancedToolUser() && !issilicon(user) && !user.incapacitated())
 
 /obj/item/weapon/beartrap/attack_self(mob/user as mob)
 	..()
@@ -43,23 +43,23 @@
 /obj/item/weapon/beartrap/attack_hand(mob/user as mob)
 	if(buckled_mob && can_use(user))
 		user.visible_message(
-			"<span class='notice'>[user] begins freeing [buckled_mob] from \the [src].</span>",
-			"<span class='notice'>You carefully begin to free [buckled_mob] from \the [src].</span>",
+			SPAN_NOTE("[user] begins freeing [buckled_mob] from \the [src]."),
+			SPAN_NOTE("You carefully begin to free [buckled_mob] from \the [src]."),
 			)
 		if(do_after(user, 60) && buckled_mob)
-			user.visible_message("<span class='notice'>[buckled_mob] has been freed from \the [src] by [user].</span>")
+			user.visible_message(SPAN_NOTE("[buckled_mob] has been freed from \the [src] by [user]."))
 			unbuckle_mob()
 			anchored = 0
 	else if(deployed && can_use(user))
 		user.visible_message(
 			"<span class='danger'>[user] starts to disarm \the [src].</span>",
-			"<span class='notice'>You begin disarming \the [src]!</span>",
+			SPAN_NOTE("You begin disarming \the [src]!"),
 			"You hear a latch click followed by the slow creaking of a spring."
 			)
 		if(do_after(user, 60))
 			user.visible_message(
 				"<span class='danger'>[user] has disarmed \the [src].</span>",
-				"<span class='notice'>You have disarmed \the [src]!</span>"
+				SPAN_NOTE("You have disarmed \the [src]!")
 				)
 			deployed = 0
 			anchored = 0

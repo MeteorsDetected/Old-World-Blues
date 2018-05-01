@@ -6,7 +6,8 @@
 		set name = "Toggle Coat Buttons"
 		set category = "Object"
 		set src in usr
-		if(!usr.canmove || usr.stat || usr.restrained())
+
+		if(usr.incapacitated())
 			return 0
 
 		//Will check whether icon state is currently set to the "open" or "closed" state
@@ -21,15 +22,15 @@
 			wear_state = base_wear_state + "_open"
 		update_clothing_icon()	//so our overlays update
 
-/obj/item/clothing/suit/storage/toggle/New()
-	..()
-	if(copytext(icon_state,-5) == "_open")
-		base_state = copytext(icon_state,1,-5)
+/obj/item/clothing/suit/storage/toggle/initialize()
+	. = ..()
+	if(copytext(icon_state, -5) == "_open")
+		base_state = copytext(icon_state, 1, -5)
 	else
 		base_state = icon_state
 	if(wear_state)
-		if(copytext(wear_state,-5) == "_open")
-			base_wear_state = copytext(icon_state,1,-5)
+		if(copytext(wear_state, -5) == "_open")
+			base_wear_state = copytext(icon_state, 1, -5)
 		base_wear_state = wear_state
 	else
 		wear_state = icon_state

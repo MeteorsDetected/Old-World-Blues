@@ -122,7 +122,7 @@
 		)
 
 /obj/machinery/portable_atmospherics/hydroponics/AltClick()
-	if(mechanical && !usr.stat && !usr.lying && Adjacent(usr))
+	if(mechanical && !usr.incapacitated() && Adjacent(usr))
 		close_lid(usr)
 		return
 	return ..()
@@ -131,7 +131,7 @@
 	if(istype(user,/mob/living/carbon/alien/diona))
 		var/mob/living/carbon/alien/diona/nymph = user
 
-		if(nymph.stat == DEAD || nymph.paralysis || nymph.weakened || nymph.stunned || nymph.restrained())
+		if(nymph.incapacitated())
 			return
 
 		if(weedlevel > 0)
@@ -146,8 +146,8 @@
 			nymph.visible_message("<font color='blue'><b>[nymph]</b> rolls around in [src] for a bit.</font>","<font color='blue'>You roll around in [src] for a bit.</font>")
 		return
 
-/obj/machinery/portable_atmospherics/hydroponics/New()
-	..()
+/obj/machinery/portable_atmospherics/hydroponics/initialize()
+	. = ..()
 	temp_chem_holder = new()
 	temp_chem_holder.create_reagents(10)
 	create_reagents(200)
@@ -310,7 +310,7 @@
 	pestlevel = 0
 	sampled = 0
 	update_icon()
-	visible_message("<span class='notice'>[src] has been overtaken by [seed.display_name].</span>")
+	visible_message(SPAN_NOTE("[src] has been overtaken by [seed.display_name]."))
 
 	return
 
@@ -543,7 +543,7 @@
 
 /obj/machinery/portable_atmospherics/hydroponics/attack_hand(mob/user as mob)
 
-	if(istype(usr,/mob/living/silicon))
+	if(issilicon(usr))
 		return
 
 	if(harvest)
@@ -557,7 +557,7 @@
 		usr << "[src] is empty."
 		return
 
-	usr << "<span class='notice'>[seed.display_name]</span> are growing here.</span>"
+	usr << SPAN_NOTE("[seed.display_name]</span> are growing here.")
 
 	if(.>2)
 		return
@@ -610,7 +610,7 @@
 	close_lid(usr)
 
 /obj/machinery/portable_atmospherics/hydroponics/proc/close_lid(var/mob/living/user)
-	if(!user || user.stat || user.restrained())
+	if(!user || user.incapacitated())
 		return
 
 	closed_system = !closed_system

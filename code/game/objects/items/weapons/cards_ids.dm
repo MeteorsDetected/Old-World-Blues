@@ -93,11 +93,11 @@
 	if(istype(O, /obj/item/stack/telecrystal))
 		var/obj/item/stack/telecrystal/T = O
 		if(T.amount < 1)
-			usr << "<span class='notice'>You are not adding enough telecrystals to fuel \the [src].</span>"
+			usr << SPAN_NOTE("You are not adding enough telecrystals to fuel \the [src].")
 			return
 		uses += T.amount/2 //Gives 5 uses per 10 TC
 		uses = ceil(uses) //Ensures no decimal uses nonsense, rounds up to be nice
-		usr << "<span class='notice'>You add \the [O] to \the [src]. Increasing the uses of \the [src] to [uses].</span>"
+		usr << SPAN_NOTE("You add \the [O] to \the [src]. Increasing the uses of \the [src] to [uses].")
 		qdel(O)
 */
 
@@ -121,7 +121,6 @@
 
 /obj/item/weapon/card/id/New()
 	..()
-	spawn(30)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		blood_type = H.dna.b_type
@@ -172,8 +171,8 @@
 
 /obj/item/weapon/card/id/syndicate/New(mob/user as mob)
 	..()
-	if(!isnull(user)) // Runtime prevention on laggy starts or where users log out because of lag at round start.
-		registered_name = ishuman(user) ? user.real_name : user.name
+	if(ishuman(user)) // Runtime prevention on laggy starts or where users log out because of lag at round start.
+		registered_name = user.real_name
 	else
 		registered_name = "Agent Card"
 	assignment = "Agent"
@@ -184,9 +183,9 @@
 	if(istype(O, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/I = O
 		src.access |= I.access
-		if(istype(user, /mob/living) && user.mind)
+		if(isliving(user) && user.mind)
 			if(user.mind.special_role)
-				usr << "\blue The card's microscanners activate as you pass it over the ID, copying its access."
+				usr << SPAN_NOTE("The card's microscanners activate as you pass it over the ID, copying its access.")
 
 /obj/item/weapon/card/id/syndicate/attack_self(mob/user as mob)
 	if(!src.registered_name)
@@ -204,7 +203,7 @@
 			return
 		src.assignment = u
 		src.name = "[src.registered_name]'s ID Card ([src.assignment])"
-		user << "\blue You successfully forge the ID card."
+		user << SPAN_NOTE("You successfully forge the ID card.")
 		registered_user = user
 	else if(!registered_user || registered_user == user)
 
@@ -224,7 +223,7 @@
 					return
 				src.assignment = u
 				src.name = "[src.registered_name]'s ID Card ([src.assignment])"
-				user << "\blue You successfully forge the ID card."
+				user << SPAN_NOTE("You successfully forge the ID card.")
 				return
 			if("Show")
 				..()
@@ -248,9 +247,10 @@
 	registered_name = "Captain"
 	assignment = "Captain"
 
-/obj/item/weapon/card/id/captains_spare/New()
+/obj/item/weapon/card/id/captains_spare/initialize()
 	access = get_all_accesses()
-	..()
+	return ..()
+
 
 /obj/item/weapon/card/id/centcom
 	name = "\improper CentCom. ID"
@@ -258,24 +258,27 @@
 	icon_state = "centcom"
 	registered_name = "Central Command"
 	assignment = "General"
-	New()
-		access = get_all_centcom_access()
-		..()
+
+/obj/item/weapon/card/id/centcom/New()
+	access = get_all_centcom_access()
+	return ..()
+
 
 /obj/item/weapon/card/id/army
 	name = "\improper Army Identification Card"
 	desc = "An AID straight from NTCI"
 	icon_state = "centcom_old"
 	assignment = "NT Colonial Infantry"
-	New()
-		access = get_all_centcom_access()
-		..()
+
+/obj/item/weapon/card/id/army/initialize()
+	access = get_all_centcom_access()
+	return ..()
 
 
 /obj/item/weapon/card/id/centcom/ERT
 	name = "\improper Emergency Response Team ID"
 	assignment = "Emergency Response Team"
 
-/obj/item/weapon/card/id/centcom/ERT/New()
-	..()
-	access += get_all_accesses()
+/obj/item/weapon/card/id/centcom/ERT/initialize()
+	access = get_all_accesses()
+	return ..()

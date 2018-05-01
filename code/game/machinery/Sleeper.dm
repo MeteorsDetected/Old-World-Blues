@@ -19,29 +19,21 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	src.updateUsrDialog()
-	return
 
 /obj/machinery/sleep_console/ex_act(severity)
 	switch(severity)
 		if(1.0)
-			//SN src = null
 			qdel(src)
-			return
 		if(2.0)
 			if (prob(50))
-				//SN src = null
 				qdel(src)
-				return
-		else
-	return
 
-/obj/machinery/sleep_console/New()
-	..()
-	spawn(5)
-		for(var/dir in cardinal)
-			connected = locate(/obj/machinery/sleeper) in get_step(src, dir)
-			if(connected)
-				return
+/obj/machinery/sleep_console/initialize()
+	. = ..()
+	for(var/dir in cardinal)
+		connected = locate(/obj/machinery/sleeper) in get_step(src, dir)
+		if(connected)
+			return
 
 
 /obj/machinery/sleep_console/attack_ai(mob/user as mob)
@@ -133,12 +125,6 @@
 			src.connected.eject()
 			src.updateUsrDialog()
 		src.add_fingerprint(usr)
-	return
-
-
-
-
-
 
 
 
@@ -164,8 +150,8 @@
 	idle_power_usage = 15
 	active_power_usage = 200 //builtin health analyzer, dialysis machine, injectors.
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		beaker = new /obj/item/weapon/reagent_containers/glass/beaker/large(src)
 
 	process()
@@ -182,7 +168,6 @@
 					if (ishuman(src.occupant))
 						src.occupant.vessel.trans_to_obj(beaker, pumped + 1)
 		src.updateUsrDialog()
-		return
 
 	update_icon()
 		if(occupant)
@@ -196,9 +181,8 @@
 				A.loc = src.loc
 				A.blob_act()
 			qdel(src)
-		return
 
-	affect_grab(var/mob/user, var/mob/target, var/obj/item/weapon/grab/grab)
+	affect_grab(var/mob/user, var/mob/target)
 		if(src.occupant)
 			user << SPAN_NOTE("The sleeper is already occupied!")
 			return
@@ -212,10 +196,10 @@
 
 		if(do_after(user, 20, src) && Adjacent(target))
 			if(src.occupant)
-				user << "\blue <B>The sleeper is already occupied!</B>"
+				user << SPAN_NOTE("<B>The sleeper is already occupied!</B>")
 				return
-			target.reset_view(src)
 			target.forceMove(src)
+			target.reset_view(src)
 			update_use_power(2)
 			occupant = target
 			update_icon()
@@ -245,22 +229,19 @@
 					A.loc = src.loc
 					ex_act(severity)
 				qdel(src)
-				return
 			if(2.0)
 				if(prob(50))
 					for(var/atom/movable/A as mob|obj in src)
 						A.loc = src.loc
 						ex_act(severity)
 					qdel(src)
-					return
 			if(3.0)
 				if(prob(25))
 					for(var/atom/movable/A as mob|obj in src)
 						A.loc = src.loc
 						ex_act(severity)
 					qdel(src)
-					return
-		return
+
 	emp_act(severity)
 		if(filtering)
 			toggle_filter()
@@ -288,6 +269,7 @@
 		if (M:reagents.get_reagent_amount("inaprovaline") < 5)
 			M:reagents.add_reagent("inaprovaline", 5)
 		return
+
 	proc/toggle_filter()
 		if(!src.occupant)
 			filtering = 0
@@ -302,14 +284,11 @@
 			toggle_filter()
 		if(!src.occupant)
 			return
-		if(src.occupant.client)
-			src.occupant.client.eye = src.occupant.client.mob
-			src.occupant.client.perspective = MOB_PERSPECTIVE
-		src.occupant.loc = src.loc
+		src.occupant.forceMove(src.loc)
+		src.occupant.reset_view()
 		src.occupant = null
 		update_icon()
 		update_use_power(1)
-		return
 
 
 	proc/inject_chemical(mob/living/user as mob, chemical, amount)
@@ -328,14 +307,14 @@
 
 	proc/check(mob/living/user as mob)
 		if(src.occupant)
-			user << text("\blue <B>Occupant ([]) Statistics:</B>", src.occupant)
+			user << SPAN_NOTE("<B>Occupant ([src.occupant]) Statistics:</B>")
 			var/t1
 			switch(src.occupant.stat)
 				if(0.0)
 					t1 = "Conscious"
 				if(1.0)
 					t1 = "Unconscious"
-				if(2.0)
+				if(DEAD)
 					t1 = "*dead*"
 				else
 			user << text("[]\t Health %: [] ([])", (src.occupant.health > 50 ? "\blue " : "\red "), src.occupant.health, t1)
@@ -344,14 +323,14 @@
 			user << text("[]\t -Respiratory Damage %: []", (src.occupant.getOxyLoss() < 60 ? "\blue " : "\red "), src.occupant.getOxyLoss())
 			user << text("[]\t -Toxin Content %: []", (src.occupant.getToxLoss() < 60 ? "\blue " : "\red "), src.occupant.getToxLoss())
 			user << text("[]\t -Burn Severity %: []", (src.occupant.getFireLoss() < 60 ? "\blue " : "\red "), src.occupant.getFireLoss())
-			user << "\blue Expected time till occupant can safely awake: (note: If health is below 20% these times are inaccurate)"
-			user << text("\blue \t [] second\s (if around 1 or 2 the sleeper is keeping them asleep.)", src.occupant.paralysis / 5)
+			user << SPAN_NOTE("Expected time till occupant can safely awake: (note: If health is below 20% these times are inaccurate)")
+			user << SPAN_NOTE("\t [src.occupant.paralysis / 5] second\s (if around 1 or 2 the sleeper is keeping them asleep.)")
 			if(src.beaker)
 				user << text("\blue \t Dialysis Output Beaker has [] of free space remaining.", src.beaker.reagents.maximum_volume - src.beaker.reagents.total_volume)
 			else
-				user << "\blue No Dialysis Output Beaker loaded."
+				user << SPAN_NOTE("No Dialysis Output Beaker loaded.")
 		else
-			user << "\blue There is no one inside!"
+			user << SPAN_NOTE("There is no one inside!")
 		return
 
 
@@ -359,18 +338,17 @@
 		set name = "Eject Sleeper"
 		set category = "Object"
 		set src in oview(1)
-		if(usr.stat)
+		if(usr != occupant && usr.incapacitated() || usr.incapacitated(INCAPACITATION_DISABLED))
 			return
 		update_icon()
 		src.go_out()
 		add_fingerprint(usr)
-		return
 
 	verb/remove_beaker()
 		set name = "Remove Beaker"
 		set category = "Object"
 		set src in oview(1)
-		if(usr.stat != 0)
+		if(usr.incapacitated())
 			return
 		if(beaker)
 			filtering = 0
@@ -384,11 +362,11 @@
 		set category = "Object"
 		set src in oview(1)
 
-		if(usr.stat != 0 || !(ishuman(usr) || issmall(usr)))
+		if(usr.incapacitated(INCAPACITATION_MOVE) || !ishuman(usr))
 			return
 
 		if(src.occupant)
-			usr << "\blue <B>The sleeper is already occupied!</B>"
+			usr << SPAN_NOTE("<B>The sleeper is already occupied!</B>")
 			return
 
 		for(var/mob/living/carbon/slime/M in range(1,usr))
@@ -396,13 +374,13 @@
 				usr << "You're too busy getting your life sucked out of you."
 				return
 		visible_message("[usr] starts climbing into the sleeper.", 3)
-		if(do_after(usr, 20))
+		if(do_after(usr, 20, src))
 			if(src.occupant)
-				usr << "\blue <B>The sleeper is already occupied!</B>"
+				usr << SPAN_NOTE("<B>The sleeper is already occupied!</B>")
 				return
 			usr.stop_pulling()
-			usr.reset_view()
-			usr.loc = src
+			usr.forceMove(src)
+			usr.reset_view(src)
 			update_use_power(2)
 			src.occupant = usr
 			update_icon()
@@ -410,8 +388,6 @@
 			for(var/obj/O in src)
 				if(O!=beaker) O.forceMove(loc)
 			src.add_fingerprint(usr)
-			return
-		return
 
 /obj/machinery/sleeper/old
 	icon_state = "sleeper_old"

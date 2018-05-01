@@ -12,7 +12,8 @@
 	var/w_items = 0			//the combined w_class of all the items in the cistern
 	var/mob/living/swirlie = null	//the mob being given a swirlie
 
-/obj/structure/toilet/New()
+/obj/structure/toilet/initialize()
+	. = ..()
 	open = round(rand(0, 1))
 	update_icon()
 
@@ -33,7 +34,7 @@
 		else
 			var/obj/item/I = pick(contents)
 			user.put_in_hands(I)
-			user << "<span class='notice'>You find \an [I] in the cistern.</span>"
+			user << SPAN_NOTE("You find \an [I] in the cistern.")
 			w_items -= I.w_class
 			return
 
@@ -45,11 +46,11 @@
 	if(!open || !usr.Adjacent(src))
 		return ..()
 	var/H = user.get_active_hand()
-	if(istype(H,/obj/item/weapon/reagent_containers/glass) || istype(H,/obj/item/weapon/reagent_containers/food/drinks))
+	if(istype(H,/obj/item/weapon/reagent_containers/glass))
 		var/obj/item/weapon/reagent_containers/O = user.get_active_hand()
 		if(O.reagents && O.reagents.total_volume && O.is_open_container())
 			O.reagents.clear_reagents()
-			user << "<span class='notice'>You empty the [O] into the [src].</span>"
+			user << SPAN_NOTE("You empty the [O] into the [src].")
 
 /obj/structure/toilet/update_icon()
 	icon_state = "toilet[open][cistern]"
@@ -68,20 +69,20 @@
 			update_icon()
 			return
 
-	if(cistern && !istype(user,/mob/living/silicon/robot)) //STOP PUTTING YOUR MODULES IN THE TOILET.
+	if(cistern && !isrobot(user)) //STOP PUTTING YOUR MODULES IN THE TOILET.
 		if(I.w_class > ITEM_SIZE_NORMAL)
-			user << "<span class='notice'>\The [I] does not fit.</span>"
+			user << SPAN_NOTE("\The [I] does not fit.")
 			return
 		if(w_items + I.w_class > 5)
-			user << "<span class='notice'>The cistern is full.</span>"
+			user << SPAN_NOTE("The cistern is full.")
 			return
 		user.drop_from_inventory(I, src)
 		w_items += I.w_class
 		user << "You carefully place \the [I] into the cistern."
 		return
 
-/obj/structure/toilet/affect_grab(var/mob/user, var/mob/living/target, var/obj/item/weapon/grab/grab)
-	if(grab.state == GRAB_PASSIVE)
+/obj/structure/toilet/affect_grab(var/mob/user, var/mob/living/target, var/state)
+	if(state == GRAB_PASSIVE)
 		user << SPAN_NOTE("You need a tighter grip.")
 		return FALSE
 	if(!target.loc == src.loc)
@@ -124,8 +125,8 @@
 	density = 0
 	anchored = 1
 
-/obj/structure/urinal/affect_grab(var/mob/living/user, var/mob/living/target, var/obj/item/weapon/grab/grab)
-	if(grab.state > GRAB_PASSIVE)
+/obj/structure/urinal/affect_grab(var/mob/living/user, var/mob/living/target, var/state)
+	if(state > GRAB_PASSIVE)
 		user << SPAN_NOTE("You need a tighter grip.")
 		return FALSE
 	else
@@ -160,8 +161,8 @@
 	var/is_washing = 0
 	var/list/temperature_settings = list("normal" = 310, "boiling" = T0C+100, "freezing" = T0C)
 
-/obj/machinery/shower/New()
-	..()
+/obj/machinery/shower/initialize()
+	. = ..()
 	create_reagents(50)
 
 //add heat controls? when emagged, you can freeze to death in it?
@@ -186,10 +187,10 @@
 
 /obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob)
 	if(I.type == /obj/item/device/analyzer)
-		user << "<span class='notice'>The water temperature seems to be [watertemp].</span>"
+		user << SPAN_NOTE("The water temperature seems to be [watertemp].")
 	if(istype(I, /obj/item/weapon/wrench))
 		var/newtemp = input(user, "What setting would you like to set the temperature valve to?", "Water Temperature Valve") in temperature_settings
-		user << "<span class='notice'>You begin to adjust the temperature valve with \the [I].</span>"
+		user << SPAN_NOTE("You begin to adjust the temperature valve with \the [I].")
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		if(do_after(user, 50))
 			watertemp = newtemp
@@ -377,11 +378,11 @@
 	if(!usr.Adjacent(src))
 		return ..()
 	var/H = user.get_active_hand()
-	if(istype(H,/obj/item/weapon/reagent_containers/glass) || istype(H,/obj/item/weapon/reagent_containers/food/drinks))
+	if(istype(H,/obj/item/weapon/reagent_containers/glass))
 		var/obj/item/weapon/reagent_containers/O = user.get_active_hand()
 		if(O.reagents && O.reagents.total_volume && O.is_open_container())
 			O.reagents.clear_reagents()
-			user << "<span class='notice'>You empty the [O] into the [src].</span>"
+			user << SPAN_NOTE("You empty the [O] into the [src].")
 
 
 /obj/structure/sink/attack_hand(mob/user as mob)
@@ -389,7 +390,7 @@
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.get_organ(H.hand ? BP_L_HAND : BP_R_HAND)
 		if(temp && !temp.is_usable())
-			user << "<span class='notice'>You try to move your [temp.name], but cannot!</span>"
+			user << SPAN_NOTE("You try to move your [temp.name], but cannot!")
 			return
 
 	if(isrobot(user) || isAI(user))
@@ -402,7 +403,7 @@
 		user << "<span class='warning'>Someone's already washing here.</span>"
 		return
 
-	usr << "<span class='notice'>You start washing your hands.</span>"
+	usr << SPAN_NOTE("You start washing your hands.")
 
 	busy = 1
 	sleep(40)
@@ -414,10 +415,10 @@
 	if(ishuman(user))
 		user:update_inv_gloves()
 	for(var/mob/V in viewers(src, null))
-		V.show_message("<span class='notice'>[user] washes their hands using \the [src].</span>")
+		V.show_message(SPAN_NOTE("[user] washes their hands using \the [src]."))
 
 
-/obj/structure/sink/attackby(obj/item/O as obj, mob/user as mob)
+/obj/structure/sink/attackby(obj/item/O, mob/living/user)
 	if(busy)
 		user << "<span class='warning'>Someone's already washing here.</span>"
 		return
@@ -450,7 +451,7 @@
 				return 1
 	else if(istype(O, /obj/item/weapon/mop))
 		O.reagents.add_reagent("water", 5)
-		user << "<span class='notice'>You wet \the [O] in \the [src].</span>"
+		user << SPAN_NOTE("You wet \the [O] in \the [src].")
 		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 		return
 
@@ -460,7 +461,7 @@
 	var/obj/item/I = O
 	if(!I || !istype(I,/obj/item)) return
 
-	usr << "<span class='notice'>You start washing \the [I].</span>"
+	usr << SPAN_NOTE("You start washing \the [I].")
 
 	busy = 1
 	sleep(40)
@@ -472,8 +473,8 @@
 
 	O.clean_blood()
 	user.visible_message( \
-		"<span class='notice'>[user] washes \a [I] using \the [src].</span>", \
-		"<span class='notice'>You wash \a [I] using \the [src].</span>")
+		SPAN_NOTE("[user] washes \a [I] using \the [src]."), \
+		SPAN_NOTE("You wash \a [I] using \the [src]."))
 
 
 /obj/structure/sink/kitchen

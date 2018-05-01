@@ -5,7 +5,8 @@
 	notices = 5
 	icon_state = "nboard05"
 
-/obj/structure/noticeboard/anomaly/New()
+/obj/structure/noticeboard/anomaly/initialize()
+	. = ..()
 	//add some memos
 	var/obj/item/weapon/paper/P = new()
 	P.name = "Memo RE: proper analysis procedure"
@@ -47,8 +48,8 @@
 /obj/structure/bookcase/manuals/xenoarchaeology
 	name = "Xenoarchaeology Manuals bookcase"
 
-	New()
-		..()
+	initialize()
+		. = ..()
 		new /obj/item/weapon/book/manual/excavation(src)
 		new /obj/item/weapon/book/manual/mass_spectrometry(src)
 		new /obj/item/weapon/book/manual/materials_chemistry_analysis(src)
@@ -64,44 +65,42 @@
 	req_access = list(access_tox_storage)
 	icon_state = "secureres"
 	icon_opened = "secureresopen"
-	icon_broken = "secureresbroken"
 
-	New()
-		..()
-		sleep(2)
-		new /obj/item/clothing/under/rank/scientist(src)
-		new /obj/item/clothing/suit/storage/toggle/labcoat(src)
-		new /obj/item/clothing/shoes/white(src)
-		new /obj/item/clothing/glasses/science(src)
-		new /obj/item/device/radio/headset/sci(src)
-		new /obj/item/storage/belt/archaeology(src)
-		new /obj/item/storage/box/excavation(src)
-		return
+/obj/structure/closet/secure_closet/xenoarchaeologist/willContatin()
+	return list(
+		/obj/item/clothing/under/rank/scientist,
+		/obj/item/clothing/suit/storage/toggle/labcoat,
+		/obj/item/clothing/shoes/white,
+		/obj/item/clothing/glasses/science,
+		/obj/item/device/radio/headset/sci,
+		/obj/item/storage/belt/archaeology,
+		/obj/item/storage/box/excavation
+	)
+
 
 /obj/structure/closet/excavation
 	name = "Excavation tools"
 	icon_state = "toolcloset"
 	icon_opened = "toolclosetopen"
 
-	New()
-		..()
-		sleep(2)
-		new /obj/item/storage/belt/archaeology(src)
-		new /obj/item/storage/box/excavation(src)
-		new /obj/item/device/flashlight/lantern(src)
-		new /obj/item/device/ano_scanner(src)
-		new /obj/item/device/depth_scanner(src)
-		new /obj/item/device/core_sampler(src)
-		new /obj/item/device/gps(src)
-		new /obj/item/device/beacon_locator(src)
-		new /obj/item/device/radio/beacon(src)
-		new /obj/item/clothing/glasses/meson(src)
-		new /obj/item/weapon/pickaxe(src)
-		new /obj/item/device/measuring_tape(src)
-		new /obj/item/weapon/pickaxe/hand(src)
-		new /obj/item/storage/bag/fossils(src)
-		new /obj/item/weapon/hand_labeler(src)
-		return
+/obj/structure/closet/excavation/willContatin()
+	return list(
+		/obj/item/storage/belt/archaeology,
+		/obj/item/storage/box/excavation,
+		/obj/item/device/flashlight/lantern,
+		/obj/item/device/ano_scanner,
+		/obj/item/device/depth_scanner,
+		/obj/item/device/core_sampler,
+		/obj/item/device/gps,
+		/obj/item/device/beacon_locator,
+		/obj/item/device/radio/beacon,
+		/obj/item/clothing/glasses/meson,
+		/obj/item/weapon/pickaxe,
+		/obj/item/device/measuring_tape,
+		/obj/item/weapon/pickaxe/hand,
+		/obj/item/storage/bag/fossils,
+		/obj/item/weapon/hand_labeler,
+	)
 
 //---- Isolation room air alarms
 

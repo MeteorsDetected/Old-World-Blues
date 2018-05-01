@@ -205,8 +205,7 @@
 
 
 /mob/living/carbon/human/show_inv(mob/user as mob)
-	// TODO :  Change to incapacitated() on merge.
-	if(user.stat || user.lying || user.resting || user.buckled || !user.Adjacent(src))
+	if(user.incapacitated() || !user.Adjacent(src))
 		return
 
 	var/obj/item/clothing/under/suit = null
@@ -362,7 +361,7 @@
 /mob/living/carbon/human/Topic(href, href_list)
 
 	if (href_list["refresh"])
-		if(machine &&in_range(src, machine))
+		if(machine && in_range(src, machine))
 			var/mob/living/L = machine
 			L.show_inv(src)
 
@@ -407,7 +406,7 @@
 											if(ishuman(usr))
 												var/mob/living/carbon/human/U = usr
 												U.handle_regular_hud_updates()
-											if(istype(usr,/mob/living/silicon/robot))
+											if(isrobot(usr))
 												var/mob/living/silicon/robot/U = usr
 												U.handle_regular_hud_updates()
 
@@ -491,7 +490,7 @@
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"security"))
 								var/t1 = sanitize(input("Add Comment:", "Sec. records", null, null)  as message)
-								if ( !(t1) || usr.stat || usr.restrained() || !(hasHUD(usr,"security")) )
+								if ( !(t1) || usr.incapacitated() || !(hasHUD(usr,"security")) )
 									return
 								var/counter = 1
 								while(R.fields[text("com_[]", counter)])
@@ -499,7 +498,7 @@
 								if(ishuman(usr))
 									var/mob/living/carbon/human/U = usr
 									R.fields[text("com_[counter]")] = text("Made by [U.get_authentification_name()] ([U.get_assignment()]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
-								if(istype(usr,/mob/living/silicon/robot))
+								if(isrobot(usr))
 									var/mob/living/silicon/robot/U = usr
 									R.fields[text("com_[counter]")] = text("Made by [U.name] ([U.modtype] [U.braintype]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
 
@@ -535,7 +534,7 @@
 										if(ishuman(usr))
 											var/mob/living/carbon/human/U = usr
 											U.handle_regular_hud_updates()
-										if(istype(usr,/mob/living/silicon/robot))
+										if(isrobot(usr))
 											var/mob/living/silicon/robot/U = usr
 											U.handle_regular_hud_updates()
 
@@ -620,7 +619,7 @@
 						if (R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr,"medical"))
 								var/t1 = sanitize(input("Add Comment:", "Med. records", null, null)  as message)
-								if ( !(t1) || usr.stat || usr.restrained() || !(hasHUD(usr,"medical")) )
+								if ( !(t1) || usr.incapacitated() || !(hasHUD(usr,"medical")) )
 									return
 								var/counter = 1
 								while(R.fields[text("com_[]", counter)])
@@ -628,7 +627,7 @@
 								if(ishuman(usr))
 									var/mob/living/carbon/human/U = usr
 									R.fields[text("com_[counter]")] = text("Made by [U.get_authentification_name()] ([U.get_assignment()]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
-								if(istype(usr,/mob/living/silicon/robot))
+								if(isrobot(usr))
 									var/mob/living/silicon/robot/U = usr
 									R.fields[text("com_[counter]")] = text("Made by [U.name] ([U.modtype] [U.braintype]) on [time2text(world.realtime, "DDD MMM DD hh:mm:ss")], [game_year]<BR>[t1]")
 
@@ -728,7 +727,11 @@
 
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)
-		visible_message("\red \The [src] begins playing \his ribcage like a xylophone. It's quite spooky.","\blue You begin to play a spooky refrain on your ribcage.","\red You hear a spooky xylophone melody.")
+		visible_message(
+			"\red \The [src] begins playing \his ribcage like a xylophone. It's quite spooky.",
+			SPAN_NOTE("You begin to play a spooky refrain on your ribcage."),
+			"\red You hear a spooky xylophone melody."
+		)
 		var/song = pick('sound/effects/xylophone1.ogg','sound/effects/xylophone2.ogg','sound/effects/xylophone3.ogg')
 		playsound(loc, song, 50, 1, -1)
 		xylophone = 1
@@ -762,7 +765,8 @@
 
 				var/turf/location = loc
 				if (istype(location, /turf/simulated))
-					location.add_vomit_floor(src, 1)
+					var/turf/simulated/S = location
+					S.add_vomit(src, 1)
 
 				nutrition -= 40
 				adjustToxLoss(-3)
@@ -838,8 +842,8 @@
 	check_dna()
 
 	visible_message(
-		"\blue \The [src] morphs and changes [get_visible_gender() == MALE ? "his" : get_visible_gender() == FEMALE ? "her" : "their"] appearance!",
-		"\blue You change your appearance!",
+		SPAN_NOTE("\The [src] morphs and changes [get_visible_gender() == MALE ? "his" : get_visible_gender() == FEMALE ? "her" : "their"] appearance!"),
+		SPAN_NOTE("You change your appearance!"),
 		"\red Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!"
 	)
 
@@ -861,10 +865,10 @@
 
 	var/say = sanitize(input("What do you wish to say"))
 	if(/mob/living/carbon/human/proc/remotesay in target.verbs)
-		target.show_message("\blue You hear [src.real_name]'s voice: [say]")
+		target.show_message(SPAN_NOTE("You hear [src.real_name]'s voice: [say]"))
 	else
-		target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
-	usr.show_message("\blue You project your mind into [target.real_name]: [say]")
+		target.show_message(SPAN_NOTE("You hear a voice that seems to echo around the room: [say]"))
+	usr.show_message(SPAN_NOTE("You project your mind into [target.real_name]: [say]"))
 	log_say("[key_name(usr)] sent a telepathic message to [key_name(target)]: [say]")
 	for(var/mob/observer/dead/G in dead_mob_list)
 		G.show_message("<i>Telepathic message from <b>[src]</b> to <b>[target]</b>: [say]</i>")
@@ -873,7 +877,7 @@
 	set name = "Remote View"
 	set category = "Superpower"
 
-	if(stat!=CONSCIOUS)
+	if(stat != CONSCIOUS)
 		remoteview_target = null
 		reset_view(0)
 		return
@@ -1031,8 +1035,7 @@
 					src << msg
 
 				organ.take_damage(rand(1,3), 0, 0)
-				if(!(organ.robotic >= ORGAN_ROBOT) && should_have_organ(O_HEART)) //There is no blood in protheses.
-					organ.status |= ORGAN_BLEEDING
+				if(organ.setBleeding())
 					src.adjustToxLoss(rand(1,3))
 
 /mob/living/carbon/human/verb/check_pulse()
@@ -1041,18 +1044,22 @@
 	set desc = "Approximately count somebody's pulse. Requires you to stand still at least 6 seconds."
 	set src in view(1)
 
-	if(usr.stat || usr.restrained() || !isliving(usr)) return
+	if(usr.incapacitated() || !isliving(usr)) return
 
 	var/self = (usr == src)
 	if(!self)
-		usr.visible_message("<span class='notice'>[usr] kneels down, puts \his hand on [src]'s wrist and begins counting their pulse.</span>",\
-		"You begin counting [src]'s pulse")
+		usr.visible_message(
+			SPAN_NOTE("[usr] kneels down, puts \his hand on [src]'s wrist and begins counting their pulse."),
+			"You begin counting [src]'s pulse"
+		)
 	else
-		usr.visible_message("<span class='notice'>[usr] begins counting their pulse.</span>",\
-		"You begin counting your pulse.")
+		usr.visible_message(
+			SPAN_NOTE("[usr] begins counting their pulse."),
+			"You begin counting your pulse."
+		)
 
 	if(src.pulse)
-		usr << "<span class='notice'>[self ? "You have a" : "[src] has a"] pulse! Counting...</span>"
+		usr << SPAN_NOTE("[self ? "You have a" : "[src] has a"] pulse! Counting...")
 	else
 		usr << "<span class='danger'>[src] has no pulse!</span>"	//it is REALLY UNLIKELY that a dead person would check his own pulse
 		return
@@ -1118,9 +1125,6 @@
 
 	fixblood()
 
-	if (species.ability_datum)
-		species_abilities = new species.ability_datum
-
 	// Rebuild the HUD. If they aren't logged in then login() should reinstantiate it for them.
 	if(client && client.screen)
 		client.screen.Cut()
@@ -1140,10 +1144,14 @@
 	for(var/obj/item/organ/organ in (organs|internal_organs))
 		qdel(organ)
 
-	if(organs.len)                  organs.Cut()
-	if(internal_organs.len)         internal_organs.Cut()
-	if(organs_by_name.len)          organs_by_name.Cut()
-	if(internal_organs_by_name.len) internal_organs_by_name.Cut()
+	if(organs.len)
+		organs.Cut()
+	if(internal_organs.len)
+		internal_organs.Cut()
+	if(organs_by_name.len)
+		organs_by_name.Cut()
+	if(internal_organs_by_name.len)
+		internal_organs_by_name.Cut()
 
 
 	if(from_preference)
@@ -1194,7 +1202,7 @@
 	set name = "Write in blood"
 	set desc = "Use blood on your hands to write a short message on the floor or a wall, murder mystery style."
 
-	if (src.stat)
+	if (src.incapacitated())
 		return
 
 	if (usr != src)
@@ -1392,7 +1400,7 @@
 	else
 		U << "<span class='warning'>You begin to relocate [S]'s [current_limb.joint]...</span>"
 
-	if(!do_after(U, 30))
+	if(!do_mob(U, src, 30))
 		return
 	if(!choice || !current_limb || !S || !U)
 		return
@@ -1446,7 +1454,3 @@
 		get_scooped(H)
 		return
 	return ..()
-
-/mob/living/carbon/human/is_muzzled()
-	return (wear_mask && (istype(wear_mask, /obj/item/clothing/mask/muzzle) || istype(src.wear_mask, /obj/item/weapon/grenade)))
-

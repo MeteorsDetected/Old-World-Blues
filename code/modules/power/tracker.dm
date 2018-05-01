@@ -41,7 +41,7 @@
 /obj/machinery/power/tracker/proc/Make(var/obj/item/solar_assembly/S)
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
-		S.glass_type = /obj/item/stack/material/glass
+		S.glass_type = MATERIAL_GLASS
 		S.tracker = 1
 		S.anchored = 1
 	S.loc = src
@@ -61,14 +61,14 @@
 
 	if(istype(W, /obj/item/weapon/crowbar))
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-		user.visible_message("<span class='notice'>[user] begins to take the glass off the solar tracker.</span>")
+		user.visible_message(SPAN_NOTE("[user] begins to take the glass off the solar tracker."))
 		if(do_after(user, 50,src))
 			var/obj/item/solar_assembly/S = locate() in src
 			if(S)
 				S.loc = src.loc
 				S.give_glass()
 			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
-			user.visible_message("<span class='notice'>[user] takes the glass off the tracker.</span>")
+			user.visible_message(SPAN_NOTE("[user] takes the glass off the tracker."))
 			qdel(src)
 		return
 	..()

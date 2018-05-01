@@ -62,10 +62,7 @@
 
 		user.mind.special_role = "Avatar of the Wish Granter"
 
-		var/datum/objective/silence/silence = new
-		silence.owner = user.mind
-		user.mind.objectives += silence
-
+		new /datum/objective/silence (user.mind)
 		show_objectives(user.mind)
 		user << "You have a very bad feeling about this."
 

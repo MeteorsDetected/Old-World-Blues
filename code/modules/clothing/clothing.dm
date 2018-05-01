@@ -11,7 +11,8 @@
 
 	/*
 		Sprites used when the clothing item is refit. This is done by setting icon_override.
-		Ideally, sprite_sheets_refit should be used for "hard" clothing items that can't change shape very well to fit the wearer (e.g. helmets, hardsuits).
+		Ideally, sprite_sheets_refit should be used for "hard" clothing items
+		that can't change shape very well to fit the wearer (e.g. helmets, hardsuits).
 	*/
 	var/list/sprite_sheets_refit = null
 	var/ear_protection = 0
@@ -26,8 +27,8 @@
 	gunshot_residue = null
 	update_clothing_icon()
 
-/obj/item/clothing/New()
-	..()
+/obj/item/clothing/initialize()
+	. = ..()
 	if(starting_accessories)
 		for(var/T in starting_accessories)
 			var/obj/item/clothing/accessory/tie = new T(src)
@@ -141,9 +142,10 @@
 	item_state = null
 	icon = 'icons/inv_slots/gloves/icon.dmi'
 	siemens_coefficient = 0.75
-	var/wired = 0
-	var/obj/item/weapon/cell/cell = 0
-	var/clipped = 0
+	var/clipped = FALSE
+	var/overgloves = FALSE
+	var/obj/item/clothing/gloves/gloves = null	//Undergloves
+	var/mob/living/carbon/human/wearer = null	//For glove procs
 	sprite_group = SPRITE_GLOVES
 	body_parts_covered = HANDS
 	slot_flags = SLOT_GLOVES
@@ -155,14 +157,37 @@
 		var/mob/M = src.loc
 		M.update_inv_gloves()
 
-/obj/item/clothing/gloves/emp_act(severity)
-	if(cell)
-		//why is this not part of the powercell code?
-		cell.charge -= 1000 / severity
-		if (cell.charge < 0)
-			cell.charge = 0
-		if(cell.reliability != 100 && prob(50/severity))
-			cell.reliability -= 10 / severity
+/obj/item/clothing/gloves/mob_can_equip(mob/user, slot, disable_warning)
+	if(!overgloves || slot != slot_gloves)
+		return ..()
+
+	var/mob/living/carbon/human/H = user
+	if(H.gloves)
+		gloves = H.gloves
+		if(gloves.overgloves)
+			if(!disable_warning)
+				user << "You are unable to wear \the [src] as \the [H.gloves] are in the way."
+			gloves = null
+			return FALSE
+		H.drop_from_inventory(gloves, src)
+
+	if(!..())
+		if(gloves)
+			if(H.equip_to_slot_if_possible(gloves, slot_gloves))
+				gloves = null
+		return FALSE
+	if(gloves)
+		user << "You slip \the [src] on over \the [gloves]."
+	wearer = H
+	return TRUE
+
+/obj/item/clothing/gloves/dropped()
+	if(gloves)
+		var/mob/living/carbon/human/H = wearer
+		if(!H.equip_to_slot_if_possible(gloves, slot_gloves))
+			gloves.forceMove(get_turf(src))
+		src.gloves = null
+	wearer = null
 	..()
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
@@ -171,12 +196,15 @@
 
 /obj/item/clothing/gloves/proc/clipped(var/mob/user)
 	if (clipped)
-		user << "<span class='notice'>The [src] have already been clipped!</span>"
+		user << SPAN_NOTE("The [src] have already been clipped!")
 		update_icon()
 		return
 
 	playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
-	user.visible_message("\red [user] cuts the fingertips off of the [src].","\red You cut the fingertips off of the [src].")
+	user.visible_message(
+		SPAN_WARN("[user] cuts the fingertips off of the [src]."),
+		SPAN_WARN("You cut the fingertips off of the [src].")
+	)
 
 	clipped = 1
 	name = "fingerless [name]"
@@ -206,8 +234,8 @@
 	var/has_light = 1
 	var/on = 0
 
-/obj/item/clothing/head/New()
-	..()
+/obj/item/clothing/head/initialize()
+	. = ..()
 	if(!icon_action_button && brightness_on)
 		icon_action_button = "[icon_state]"
 
@@ -291,8 +319,47 @@
 
 	permeability_coefficient = 0.50
 	force = 2
-	var/overshoes = 0
 	species_restricted = list("exclude",SPECIES_UNATHI,SPECIES_TAJARA)
+
+	var/overshoes = FALSE
+	var/obj/item/clothing/shoes/shoes = null	//Undershoes
+	var/mob/living/carbon/human/wearer = null	//For shoe procs
+
+/obj/item/clothing/shoes/mob_can_equip(mob/user, slot, disable_warning)
+	if(!overshoes || slot != slot_shoes)
+		return ..()
+
+	var/mob/living/carbon/human/H = user
+
+	if(H.shoes)
+		shoes = H.shoes
+		if(shoes.overshoes)
+			if(!disable_warning)
+				user << "You are unable to wear \the [src] as \the [H.shoes] are in the way."
+			shoes = null
+			return FALSE
+		H.drop_from_inventory(shoes)	//Remove the old shoes so you can put on the magboots.
+		shoes.forceMove(src)
+
+	if(!..())
+		if(shoes) 	//Put the old shoes back on if the check fails.
+			if(H.equip_to_slot_if_possible(shoes, slot_shoes))
+				src.shoes = null
+		return FALSE
+
+	if (shoes)
+		user << "You slip \the [src] on over \the [shoes]."
+	wearer = H
+	return TRUE
+
+/obj/item/clothing/shoes/dropped()
+	..()
+	if(shoes)
+		var/mob/living/carbon/human/H = wearer
+		if(!H.equip_to_slot_if_possible(shoes, slot_shoes))
+			shoes.forceMove(get_turf(src))
+		src.shoes = null
+	wearer = null
 
 /obj/item/clothing/shoes/proc/handle_movement(var/turf/walking, var/running)
 	return
@@ -338,7 +405,6 @@
 	slot_flags = SLOT_ICLOTHING
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	w_class = ITEM_SIZE_NORMAL
-	center_of_mass = null
 	var/has_sensor = 1 //For the crew computer 2 = unable to change mode
 	var/sensor_mode = 0
 		/*
@@ -347,7 +413,7 @@
 		3 = Report location
 		*/
 	var/displays_id = 1
-	var/status = 0 //0 = default, 1 = rolled dows, 2 = rolled sleeves
+	var/status = 0 //0 = default, 1 = rolled downs, 2 = rolled sleeves
 	valid_accessory_slots = list("utility","armband","decor","over")
 	restricted_accessory_slots = list("utility", "armband")
 
@@ -419,7 +485,8 @@
 /obj/item/clothing/under/proc/set_sensors(mob/usr as mob)
 	var/mob/M = usr
 	if (istype(M, /mob/observer)) return
-	if (usr.stat || usr.restrained()) return
+	if (usr.incapacitated())
+		return
 	if(has_sensor >= 2)
 		usr << "The controls are locked."
 		return 0
@@ -458,7 +525,7 @@
 					"Your suit will now report your vital lifesigns as well as your coordinate position."
 				)
 
-	else if (istype(src.loc, /mob))
+	else if (ismob(src.loc))
 		usr.visible_message("[usr] adjusts [src.loc]'s sensors.", "You adjust [src.loc]'s sensors.")
 
 /obj/item/clothing/under/AltClick(mob/living/carbon/human/user)
@@ -471,25 +538,27 @@
 	set name = "Toggle Suit Sensors"
 	set category = "Object"
 	set src in usr
+
 	set_sensors(usr)
-	..()
 
 /obj/item/clothing/under/verb/rollsuit()
 	set name = "Roll Down Jumpsuit"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat || usr.restrained()) return
+	if(!isliving(usr))
+		return
+	if(usr.incapacitated())
+		return
 
 	if(status != ROLL_DOWN)
 		status = ROLL_DOWN
 		update_status()
 		if(status == ROLL_DOWN)
-			usr << "<span class='notice'>You roll down your [src].</span>"
+			usr << SPAN_NOTE("You roll down your [src].")
 		else
 			usr << "<span class='warning'>You can't roll down [src].</span>"
 	else
-		usr << "<span class='notice'>You roll up your [src].</span>"
+		usr << SPAN_NOTE("You roll up your [src].")
 		status = ROLL_NONE
 		update_status()
 
@@ -498,25 +567,27 @@
 	set name = "Roll Up Sleeves"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)) return
-	if(usr.stat || usr.restrained()) return
+	if(!isliving(usr))
+		return
+	if(usr.incapacitated())
+		return
 
 	if(status != ROLL_SLEV)
 		status = ROLL_SLEV
 		update_status()
 		if(status == ROLL_SLEV)
-			usr << "<span class='notice'>You roll up your [src]'s sleeves.</span>"
+			usr << SPAN_NOTE("You roll up your [src]'s sleeves.")
 		else
 			usr << "<span class='warning'>You can't roll up your [src]'s sleeves.</span>"
 	else
 		status = ROLL_NONE
-		usr << "<span class='notice'>You roll down your [src]'s sleeves.</span>"
+		usr << SPAN_NOTE("You roll down your [src]'s sleeves.")
 		update_status()
 
 
-/obj/item/clothing/under/rank/New()
+/obj/item/clothing/under/rank/initialize()
 	sensor_mode = pick(0,1,2,3)
-	..()
+	. = ..()
 
 #undef ROLL_NONE
 #undef ROLL_DOWN

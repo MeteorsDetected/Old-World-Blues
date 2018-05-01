@@ -51,7 +51,7 @@
 	if(!emagged)
 		emagged = 1
 		if(user)
-			user << "<span class='notice'>The [src] buzzes and beeps.</span>"
+			user << SPAN_NOTE("The [src] buzzes and beeps.")
 		return 1
 
 /mob/living/bot/floorbot/Topic(href, href_list)
@@ -219,7 +219,7 @@
 			return
 		repairing = 1
 		update_icons()
-		visible_message("<span class='notice'>[src] begins to repair the hole.</span>")
+		visible_message(SPAN_NOTE("[src] begins to repair the hole."))
 		if(do_after(src, 50))
 			if(A && (locate(/obj/structure/lattice, A) && building == 1 || !locate(/obj/structure/lattice, A) && building == 2)) // Make sure that it still needs repairs
 				var/obj/item/I
@@ -236,7 +236,7 @@
 		if(!F.floor_type && amount)
 			repairing = 1
 			update_icons()
-			visible_message("<span class='notice'>[src] begins to improve the floor.</span>")
+			visible_message(SPAN_NOTE("[src] begins to improve the floor."))
 			if(do_after(src, 50))
 				if(!F.floor_type)
 					var/obj/item/stack/tile/steel/T = new /obj/item/stack/tile/steel(src)
@@ -247,7 +247,7 @@
 			update_icons()
 	else if(istype(A, /obj/item/stack/tile/steel) && amount < maxAmount)
 		var/obj/item/stack/tile/steel/T = A
-		visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
+		visible_message(SPAN_NOTE("[src] begins to collect tiles."))
 		repairing = 1
 		update_icons()
 		if(do_after(src, 20))
@@ -258,10 +258,10 @@
 		target = null
 		repairing = 0
 		update_icons()
-	else if(istype(A, /obj/item/stack/material) && amount + 4 <= maxAmount)
+	else if(ismaterial(A) && amount + 4 <= maxAmount)
 		var/obj/item/stack/material/M = A
-		if(M.get_material_name() == DEFAULT_WALL_MATERIAL)
-			visible_message("<span class='notice'>[src] begins to make tiles.</span>")
+		if(M.get_material_name() == MATERIAL_STEEL)
+			visible_message(SPAN_NOTE("[src] begins to make tiles."))
 			repairing = 1
 			update_icons()
 			if(do_after(src, 40))
@@ -303,14 +303,14 @@
 		..()
 		return
 	if(contents.len >= 1)
-		user << "<span class='notice'>They wont fit in as there is already stuff inside.</span>"
+		user << SPAN_NOTE("They wont fit in as there is already stuff inside.")
 		return
 	if(user.s_active)
 		user.s_active.close(user)
 	if(T.use(10))
 		var/obj/item/weapon/toolbox_tiles/B = new /obj/item/weapon/toolbox_tiles
 		user.put_in_hands(B)
-		user << "<span class='notice'>You add the tiles into the empty toolbox. They protrude from the top.</span>"
+		user << SPAN_NOTE("You add the tiles into the empty toolbox. They protrude from the top.")
 		user.drop_from_inventory(src)
 		qdel(src)
 	else
@@ -336,7 +336,7 @@
 		var/obj/item/weapon/toolbox_tiles_sensor/B = new /obj/item/weapon/toolbox_tiles_sensor()
 		B.created_name = created_name
 		user.put_in_hands(B)
-		user << "<span class='notice'>You add the sensor to the toolbox and tiles!</span>"
+		user << SPAN_NOTE("You add the sensor to the toolbox and tiles!")
 		user.drop_from_inventory(src)
 		qdel(src)
 	else if (istype(W, /obj/item/weapon/pen))
@@ -366,7 +366,7 @@
 		var/turf/T = get_turf(user.loc)
 		var/mob/living/bot/floorbot/A = new /mob/living/bot/floorbot(T)
 		A.name = created_name
-		user << "<span class='notice'>You add the robot arm to the odd looking toolbox assembly! Boop beep!</span>"
+		user << SPAN_NOTE("You add the robot arm to the odd looking toolbox assembly! Boop beep!")
 		user.drop_from_inventory(src)
 		qdel(src)
 	else if(istype(W, /obj/item/weapon/pen))

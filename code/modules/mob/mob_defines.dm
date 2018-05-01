@@ -67,10 +67,6 @@
 	var/slurring = null		//Carbon
 	var/real_name = null
 	var/flavor_text = ""
-	var/med_record = ""
-	var/sec_record = ""
-	var/gen_record = ""
-	var/exploit_record = ""
 	var/blinded = null
 	var/bhunger = 0			//Carbon
 	var/ajourn = 0
@@ -79,8 +75,6 @@
 	var/confused = 0		//Carbon
 	var/antitoxs = null
 	var/phoron = null
-	var/sleeping = 0		//Carbon
-	var/resting = 0			//Carbon
 	var/lying = 0
 	var/lying_prev = 0
 	var/canmove = 1
@@ -109,9 +103,6 @@
 	var/nutrition = 400.0//Carbon
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
-	var/paralysis = 0.0
-	var/stunned = 0.0
-	var/weakened = 0.0
 	var/losebreath = 0.0//Carbon
 	var/intent = null//Living
 	var/shakecamera = 0
@@ -130,11 +121,6 @@
 	var/seer = 0 //for cult//Carbon, probably Human
 
 	var/datum/hud/hud_used = null
-
-	var/list/grabbed_by = list(  )
-	var/list/requests = list(  )
-
-	var/list/mapobjs = list()
 
 	var/in_throw_mode = 0
 
