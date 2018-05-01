@@ -140,7 +140,7 @@
 
 	my_area.shift_contents(shift, direction=direction)
 
-	for(var/mob/M in my_area)
+	for(var/mob/living/M in my_area)
 		if(M.client)
 			spawn(0)
 				if(M.buckled)

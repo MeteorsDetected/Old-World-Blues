@@ -1,7 +1,6 @@
 /obj/machinery/computer/new_shuttle_control
 	name = "shuttle control console"
-	icon = 'icons/obj/computer.dmi'
-	icon_state = "shuttle"
+	screen_icon = "shuttle"
 	circuit = null
 	var/datum/shuttle/untethered/my_shuttle = null
 
