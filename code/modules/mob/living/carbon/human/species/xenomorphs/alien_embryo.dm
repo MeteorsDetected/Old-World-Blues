@@ -158,7 +158,10 @@
 		if(istype(new_xeno.loc.loc, /obj/structure/morgue))
 			new_xeno.loc = get_turf(new_xeno)
 
-		affected_mob.birth = 1
+		if(ishuman(affected_mob))
+			var/mob/living/carbon/human/H = affected_mob
+			H.birth = 1
+			H.UpdateDamageIcon()
 
 
 		new_xeno.key = picked
