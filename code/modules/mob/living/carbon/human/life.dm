@@ -86,11 +86,6 @@
 	if(!handle_some_updates())
 		return											//We go ahead and process them 5 times for HUD images and other stuff though.
 
-	if(src.lying && src.birth)
-		src.overlays += image('icons/mob/alien.dmi', loc = src, icon_state = "bursted_lie")
-	else if(!src.lying && src.birth)
-		src.overlays += image('icons/mob/alien.dmi', loc = src, icon_state = "bursted_stand")
-
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
 

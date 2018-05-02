@@ -80,6 +80,8 @@
 	var/list/flavor_texts = list()
 	var/gunshot_residue
 
+	var/birth = 0
+
 	mob_bump_flag = HUMAN
 	mob_push_flags = ~HEAVY
 	mob_swap_flags = ~HEAVY

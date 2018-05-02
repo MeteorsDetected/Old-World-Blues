@@ -44,7 +44,6 @@
 	var/use_me = 1 //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
 	var/computer_id = null
-	var/birth = 0
 	var/obj/machinery/machine = null
 	var/other_mobs = null
 //	var/memory = ""
