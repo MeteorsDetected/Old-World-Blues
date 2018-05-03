@@ -22,7 +22,7 @@
 	item_state = "electronic"
 	throw_speed = 4
 	throw_range = 20
-	origin_tech = list(TECH_MAGNET = 1)
+	origin_tech = list(TECH(T_MAGNET) = 1)
 	matter = list(MATERIAL_STEEL = 400)
 
 /obj/item/weapon/locator/attack_self(mob/user as mob)
@@ -133,7 +133,7 @@ Frequency:
 	w_class = ITEM_SIZE_SMALL
 	throw_speed = 3
 	throw_range = 5
-	origin_tech = list(TECH_MAGNET = 1, TECH_BLUESPACE = 3)
+	origin_tech = list(TECH(T_MAGNET) = 1, TECH(T_BLUESPACE) = 3)
 	matter = list(MATERIAL_STEEL = 10000)
 
 /obj/item/weapon/hand_tele/attack_self(mob/user as mob)
@@ -205,7 +205,7 @@ Frequency:
 	w_class = ITEM_SIZE_SMALL
 	throw_speed = 3
 	throw_range = 5
-	origin_tech = list(TECH_MATERIAL = 9, TECH_BLUESPACE = 10, TECH_MAGNET = 8, TECH_POWER = 8, TECH_ARCANE = 4, TECH_ILLEGAL = 5)
+	origin_tech = list(TECH(T_MATERIAL) = 9, TECH(T_BLUESPACE) = 10, TECH(T_MAGNET) = 8, TECH(T_POWER) = 8, TECH(T_ARCANE) = 4, TECH(T_ILLEGAL) = 5)
 	matter = list(MATERIAL_STEEL = 10000, MATERIAL_GLASS = 5000)
 
 /obj/item/weapon/vortex_manipulator/attack_self(mob/user as mob)

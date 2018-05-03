@@ -8,7 +8,7 @@
 	force = 10
 	throwforce = 7
 	w_class = ITEM_SIZE_NORMAL
-	origin_tech = list(TECH_COMBAT = 4)
+	origin_tech = list(TECH(T_COMBAT) = 4)
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 
 	suicide_act(mob/user)

@@ -11,7 +11,7 @@
 	damtype = BURN
 	force = 10
 	hitsound = 'sound/items/welder2.ogg'
-	origin_tech = list(TECH_ARCANE = 2)
+	origin_tech = list(TECH(T_ARCANE) = 2)
 
 /obj/item/weapon/scrying/attack_self(mob/living/user)
 	visible_message(SPAN_DANG("[user] stares into [src], their eyes glazing over."))

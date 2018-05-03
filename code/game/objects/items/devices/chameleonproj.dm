@@ -8,7 +8,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = ITEM_SIZE_TINY
-	origin_tech = list(TECH_ILLEGAL = 4, TECH_MAGNET = 4)
+	origin_tech = list(TECH(T_ILLEGAL) = 4, TECH(T_MAGNET) = 4)
 	var/can_use = 1
 	var/obj/effect/dummy/chameleon/active_dummy = null
 	var/saved_item = /obj/item/weapon/cigbutt

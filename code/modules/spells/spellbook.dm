@@ -10,7 +10,7 @@
 	var/temp = null
 	var/max_uses = 5
 	var/op = 1
-	origin_tech = list(TECH_ARCANE = 5)
+	origin_tech = list(TECH(T_ARCANE) = 5)
 
 /obj/item/weapon/spellbook/attack_self(mob/user = usr)
 	if(!user)
@@ -222,9 +222,9 @@
 			if(href_list["temp"])
 				temp = null
 		if(uses <= 0)
-			origin_tech[TECH_ARCANE] = 4
+			origin_tech[TECH(T_ARCANE)] = 4
 		else
-			origin_tech[TECH_ARCANE] = 5
+			origin_tech[TECH(T_ARCANE)] = 5
 		attack_self()
 
 	return
@@ -262,7 +262,7 @@
 		user <<SPAN_NOTE("you rapidly read through the arcane book. Suddenly you realize you understand [spellname]!")
 		user.attack_log += text("\[[time_stamp()]\] <font color='orange'>[user.real_name] ([user.ckey]) learned the spell [spellname] ([S]).</font>")
 		onlearned(user)
-		origin_tech[TECH_ARCANE]--
+		origin_tech[TECH(T_ARCANE)]--
 
 /obj/item/weapon/spellbook/oneuse/proc/recoil(mob/living/user)
 	user.visible_message(SPAN_WARN("[src] glows in a black light!"))

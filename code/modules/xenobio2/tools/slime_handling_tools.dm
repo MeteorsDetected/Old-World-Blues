@@ -16,7 +16,7 @@
 	slot_flags = SLOT_BELT
 	force = 9
 	lightcolor = "#33CCFF"
-	origin_tech = list(TECH_COMBAT = 2, TECH_BIO = 4)
+	origin_tech = list(TECH(T_COMBAT) = 2, TECH(T_BIO) = 4)
 	agonyforce = 10	//It's not supposed to be great at stunning human beings.
 	var/stasisforce = 60	//How much stasis it does to slimes, and 1/3rd to non-slimes.
 

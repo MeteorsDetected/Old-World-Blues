@@ -24,7 +24,7 @@
 	force = 6
 	throwforce = 7
 	w_class = ITEM_SIZE_SMALL
-	origin_tech = list(TECH_MATERIAL = 1, TECH_ENGINEERING = 1)
+	origin_tech = list(TECH(T_MATERIAL) = 1, TECH(T_ENGINEERING) = 1)
 	matter = list(MATERIAL_STEEL = 150)
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 
@@ -107,7 +107,7 @@
 	throw_speed = 2
 	throw_range = 9
 	w_class = ITEM_SIZE_SMALL
-	origin_tech = list(TECH_MATERIAL = 1, TECH_ENGINEERING = 1)
+	origin_tech = list(TECH(T_MATERIAL) = 1, TECH(T_ENGINEERING) = 1)
 	matter = list(MATERIAL_STEEL = 80)
 	attack_verb = list("pinched", "nipped")
 	sharp = 1
@@ -155,7 +155,7 @@
 	matter = list(MATERIAL_STEEL = 70, MATERIAL_GLASS = 30)
 
 	//R&D tech level
-	origin_tech = list(TECH_ENGINEERING = 1)
+	origin_tech = list(TECH(T_ENGINEERING) = 1)
 
 	//Welding tool specific stuff
 	var/welding = 0 	//Whether or not the welding tool is off(0), on(1) or currently welding(2)
@@ -378,7 +378,7 @@
 	name = "industrial welding tool"
 	icon_state = "industrialwelder"
 	max_fuel = 50
-	origin_tech = list(TECH_ENGINEERING = 2)
+	origin_tech = list(TECH(T_ENGINEERING) = 2)
 	matter = list(MATERIAL_STEEL = 70, MATERIAL_GLASS = 60)
 
 /obj/item/weapon/weldingtool/hugetank
@@ -386,7 +386,7 @@
 	icon_state = "hugetankwelder"
 	max_fuel = 80
 	w_class = ITEM_SIZE_NORMAL
-	origin_tech = list(TECH_ENGINEERING = 3)
+	origin_tech = list(TECH(T_ENGINEERING) = 3)
 	matter = list(MATERIAL_STEEL = 70, MATERIAL_GLASS = 120)
 
 /obj/item/weapon/weldingtool/experimental
@@ -395,9 +395,9 @@
 	icon_state = "expwelder"
 	max_fuel = 40
 	w_class = ITEM_SIZE_NORMAL
-	origin_tech = list(TECH_ENGINEERING = 4, TECH_PHORON = 3)
+	origin_tech = list(TECH(T_ENGINEERING) = 4, TECH(T_PHORON) = 3)
 	matter = list(MATERIAL_STEEL = 200, MATERIAL_GLASS = 120)
-	var/last_gen = 1
+	var/last_gen = 0
 
 //Proc to make the experimental welder generate fuel, optimized as fuck -Sieve
 /obj/item/weapon/weldingtool/experimental/proc/fuel_gen()
@@ -422,7 +422,7 @@
 	pry = 1
 	item_state = "crowbar"
 	w_class = ITEM_SIZE_SMALL
-	origin_tech = list(TECH_ENGINEERING = 1)
+	origin_tech = list(TECH(T_ENGINEERING) = 1)
 	matter = list(MATERIAL_STEEL = 50)
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 

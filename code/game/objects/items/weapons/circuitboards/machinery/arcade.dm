@@ -2,5 +2,5 @@
 	name = T_BOARD("arcade machine")
 	build_path = /obj/machinery/arcade
 	board_type = "machine"
-	origin_tech = list(TECH_DATA = 1)
+	origin_tech = list(TECH(T_DATA) = 1)
 

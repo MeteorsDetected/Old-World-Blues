@@ -10,7 +10,7 @@
 	icon_state = "blank"
 	w_class = ITEM_SIZE_HUGE
 	flags = CONDUCT
-	origin_tech = list(TECH_DATA = 2, TECH_MATERIAL = 2)
+	origin_tech = list(TECH(T_DATA) = 2, TECH(T_MATERIAL) = 2)
 
 /obj/item/mecha_parts/chassis
 	name="Mecha Chassis"
@@ -39,13 +39,13 @@
 
 /obj/item/mecha_parts/part/ripley
 	desc="A Ripley APLU left arm. Data and power sockets are compatible with most exosuit tools."
-	origin_tech = list(TECH_DATA = 2, TECH_MATERIAL = 2, TECH_ENGINEERING = 2)
+	origin_tech = list(TECH(T_DATA) = 2, TECH(T_MATERIAL) = 2, TECH(T_ENGINEERING) = 2)
 
 /obj/item/mecha_parts/part/ripley/torso
 	name="Ripley Torso"
 	desc="A torso part of Ripley APLU. Contains power unit, processing core and life support systems."
 	icon_state = "ripley_harness"
-	origin_tech = list(TECH_DATA = 2, TECH_MATERIAL = 2, TECH_BIO = 2, TECH_ENGINEERING = 2)
+	origin_tech = list(TECH(T_DATA) = 2, TECH(T_MATERIAL) = 2, TECH(T_BIO) = 2, TECH(T_ENGINEERING) = 2)
 
 /obj/item/mecha_parts/part/ripley/left_arm
 	name="Ripley Left Arm"
@@ -73,19 +73,19 @@
 
 /obj/item/mecha_parts/part/gygax
 	desc="A Gygax left arm. Data and power sockets are compatible with most exosuit tools and weapons."
-	origin_tech = list(TECH_DATA = 2, TECH_MATERIAL = 2, TECH_ENGINEERING = 3)
+	origin_tech = list(TECH(T_DATA) = 2, TECH(T_MATERIAL) = 2, TECH(T_ENGINEERING) = 3)
 
 /obj/item/mecha_parts/part/gygax/torso
 	name="Gygax Torso"
 	desc="A torso part of Gygax. Contains power unit, processing core and life support systems. Has an additional equipment slot."
 	icon_state = "gygax_harness"
-	origin_tech = list(TECH_DATA = 2, TECH_MATERIAL = 2, TECH_BIO = 3, TECH_ENGINEERING = 3)
+	origin_tech = list(TECH(T_DATA) = 2, TECH(T_MATERIAL) = 2, TECH(T_BIO) = 3, TECH(T_ENGINEERING) = 3)
 
 /obj/item/mecha_parts/part/gygax/head
 	name="Gygax Head"
 	desc="A Gygax head. Houses advanced surveilance and targeting sensors."
 	icon_state = "gygax_head"
-	origin_tech = list(TECH_DATA = 2, TECH_MATERIAL = 2, TECH_MAGNET = 3, TECH_ENGINEERING = 3)
+	origin_tech = list(TECH(T_DATA) = 2, TECH(T_MATERIAL) = 2, TECH(T_MAGNET) = 3, TECH(T_ENGINEERING) = 3)
 
 /obj/item/mecha_parts/part/gygax/left_arm
 	name="Gygax Left Arm"
@@ -106,7 +106,7 @@
 /obj/item/mecha_parts/part/gygax/armour
 	name="Gygax Armour Plates"
 	icon_state = "gygax_armor"
-	origin_tech = list(TECH_MATERIAL = 6, TECH_COMBAT = 4, TECH_ENGINEERING = 5)
+	origin_tech = list(TECH(T_MATERIAL) = 6, TECH(T_COMBAT) = 4, TECH(T_ENGINEERING) = 5)
 
 
 //////////// Durand
@@ -116,17 +116,17 @@
 	construct = /datum/construction/mecha/durand_chassis
 
 /obj/item/mecha_parts/part/durand
-	origin_tech = list(TECH_DATA = 2, TECH_MATERIAL = 3, TECH_ENGINEERING = 3)
+	origin_tech = list(TECH(T_DATA) = 2, TECH(T_MATERIAL) = 3, TECH(T_ENGINEERING) = 3)
 
 /obj/item/mecha_parts/part/durand/torso
 	name="Durand Torso"
 	icon_state = "durand_harness"
-	origin_tech = list(TECH_DATA = 2, TECH_MATERIAL = 3, TECH_BIO = 3, TECH_ENGINEERING = 3)
+	origin_tech = list(TECH(T_DATA) = 2, TECH(T_MATERIAL) = 3, TECH(T_BIO) = 3, TECH(T_ENGINEERING) = 3)
 
 /obj/item/mecha_parts/part/durand/head
 	name="Durand Head"
 	icon_state = "durand_head"
-	origin_tech = list(TECH_DATA = 2, TECH_MATERIAL = 3, TECH_MAGNET = 3, TECH_ENGINEERING = 3)
+	origin_tech = list(TECH(T_DATA) = 2, TECH(T_MATERIAL) = 3, TECH(T_MAGNET) = 3, TECH(T_ENGINEERING) = 3)
 
 /obj/item/mecha_parts/part/durand/left_arm
 	name="Durand Left Arm"
@@ -147,7 +147,7 @@
 /obj/item/mecha_parts/part/durand/armour
 	name="Durand Armour Plates"
 	icon_state = "durand_armor"
-	origin_tech = list(TECH_MATERIAL = 5, TECH_COMBAT = 4, TECH_ENGINEERING = 5)
+	origin_tech = list(TECH(T_MATERIAL) = 5, TECH(T_COMBAT) = 4, TECH(T_ENGINEERING) = 5)
 
 
 
@@ -182,21 +182,21 @@
 
 /obj/item/mecha_parts/chassis/phazon
 	name = "Phazon Chassis"
-	origin_tech = list(TECH_MATERIAL = 7)
+	origin_tech = list(TECH(T_MATERIAL) = 7)
 	construct = /datum/construction/mecha/phazon_chassis
 
 /obj/item/mecha_parts/part/phazon
-	origin_tech = list(TECH_MATERIAL = 5, TECH_BLUESPACE = 2, TECH_MAGNET = 2)
+	origin_tech = list(TECH(T_MATERIAL) = 5, TECH(T_BLUESPACE) = 2, TECH(T_MAGNET) = 2)
 
 /obj/item/mecha_parts/part/phazon/torso
 	name="Phazon Torso"
 	icon_state = "phazon_harness"
-	origin_tech = list(TECH_DATA = 5, TECH_MATERIAL = 7, TECH_BLUESPACE = 6, TECH_POWER = 6)
+	origin_tech = list(TECH(T_DATA) = 5, TECH(T_MATERIAL) = 7, TECH(T_BLUESPACE) = 6, TECH(T_POWER) = 6)
 
 /obj/item/mecha_parts/part/phazon/head
 	name="Phazon Head"
 	icon_state = "phazon_head"
-	origin_tech = list(TECH_DATA = 4, TECH_MATERIAL = 5, TECH_MAGNET = 6)
+	origin_tech = list(TECH(T_DATA) = 4, TECH(T_MATERIAL) = 5, TECH(T_MAGNET) = 6)
 
 /obj/item/mecha_parts/part/phazon/left_arm
 	name="Phazon Left Arm"
@@ -218,7 +218,7 @@
 /obj/item/mecha_parts/part/phazon/armor
 	name="Phazon Right Armour"
 	icon_state = "phazon_armor"
-	origin_tech = list(TECH_MATERIAL = 5, TECH_BLUESPACE = 6, TECH_MAGNET = 3)
+	origin_tech = list(TECH(T_MATERIAL) = 5, TECH(T_BLUESPACE) = 6, TECH(T_MAGNET) = 3)
 
 ///////// Odysseus
 /obj/item/mecha_parts/chassis/odysseus
@@ -227,18 +227,18 @@
 
 /obj/item/mecha_parts/part/odysseus
 	desc="Data and power sockets are compatible with most exosuit tools."
-	origin_tech = list(TECH_DATA = 2, TECH_MATERIAL = 2, TECH_ENGINEERING = 2)
+	origin_tech = list(TECH(T_DATA) = 2, TECH(T_MATERIAL) = 2, TECH(T_ENGINEERING) = 2)
 
 /obj/item/mecha_parts/part/odysseus/head
 	name="Odysseus Head"
 	icon_state = "odysseus_head"
-	origin_tech = list(TECH_DATA = 3, TECH_MATERIAL = 2)
+	origin_tech = list(TECH(T_DATA) = 3, TECH(T_MATERIAL) = 2)
 
 /obj/item/mecha_parts/part/odysseus/torso
 	name="Odysseus Torso"
 	desc="A torso part of Odysseus. Contains power unit, processing core and life support systems."
 	icon_state = "odysseus_torso"
-	origin_tech = list(TECH_DATA = 2, TECH_MATERIAL = 2, TECH_BIO = 2, TECH_ENGINEERING = 2)
+	origin_tech = list(TECH(T_DATA) = 2, TECH(T_MATERIAL) = 2, TECH(T_BIO) = 2, TECH(T_ENGINEERING) = 2)
 
 /obj/item/mecha_parts/part/odysseus/left_arm
 	name="Odysseus Left Arm"
@@ -262,7 +262,7 @@
 /*/obj/item/mecha_parts/part/odysseus_armour
 	name="Odysseus Carapace"
 	icon_state = "odysseus_armour"
-	origin_tech = list(TECH_MATERIAL = 3, TECH_ENGINEERING = 3)
+	origin_tech = list(TECH(T_MATERIAL) = 3, TECH(T_ENGINEERING) = 3)
 	construction_time = 200
 	construction_cost = list(MATERIAL_STEEL=15000)*/
 

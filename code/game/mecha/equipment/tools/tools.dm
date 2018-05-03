@@ -129,7 +129,7 @@
 	name = "diamond drill"
 	desc = "This is an upgraded version of the drill that'll pierce the heavens! (Can be attached to: Combat and Engineering Exosuits)"
 	icon_state = "mecha_diamond_drill"
-	origin_tech = list(TECH_MATERIAL = 4, TECH_ENGINEERING = 3)
+	origin_tech = list(TECH(T_MATERIAL) = 4, TECH(T_ENGINEERING) = 3)
 	equip_cooldown = 20
 	force = 15
 
@@ -251,7 +251,7 @@
 	name = "mounted RCD"
 	desc = "An exosuit-mounted Rapid Construction Device. (Can be attached to: Any exosuit)"
 	icon_state = "mecha_rcd"
-	origin_tech = list(TECH_MATERIAL = 4, TECH_BLUESPACE = 3, TECH_MAGNET = 4, TECH_POWER = 4)
+	origin_tech = list(TECH(T_MATERIAL) = 4, TECH(T_BLUESPACE) = 3, TECH(T_MAGNET) = 4, TECH(T_POWER) = 4)
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MELEE|RANGED
@@ -354,7 +354,7 @@
 	name = "teleporter"
 	desc = "An exosuit module that allows exosuits to teleport to any position in view."
 	icon_state = "mecha_teleport"
-	origin_tech = list(TECH_BLUESPACE = 10)
+	origin_tech = list(TECH(T_BLUESPACE) = 10)
 	equip_cooldown = 150
 	energy_drain = 1000
 	range = RANGED
@@ -374,7 +374,7 @@
 	name = "wormhole generator"
 	desc = "An exosuit module that allows generating of small quasi-stable wormholes."
 	icon_state = "mecha_wholegen"
-	origin_tech = list(TECH_BLUESPACE = 3)
+	origin_tech = list(TECH(T_BLUESPACE) = 3)
 	equip_cooldown = 50
 	energy_drain = 300
 	range = RANGED
@@ -424,7 +424,7 @@
 	name = "gravitational catapult"
 	desc = "An exosuit mounted Gravitational Catapult."
 	icon_state = "mecha_teleport"
-	origin_tech = list(TECH_BLUESPACE = 2, TECH_MAGNET = 3)
+	origin_tech = list(TECH(T_BLUESPACE) = 2, TECH(T_MAGNET) = 3)
 	equip_cooldown = 10
 	energy_drain = 100
 	range = MELEE|RANGED
@@ -500,7 +500,7 @@
 	name = "\improper CCW armor booster"
 	desc = "Close-combat armor booster. Boosts exosuit armor against armed melee attacks. Requires energy to operate."
 	icon_state = "mecha_abooster_ccw"
-	origin_tech = list(TECH_MATERIAL = 3)
+	origin_tech = list(TECH(T_MATERIAL) = 3)
 	equip_cooldown = 10
 	energy_drain = 50
 	range = 0
@@ -548,7 +548,7 @@
 	name = "\improper RW armor booster"
 	desc = "Ranged-weaponry armor booster. Boosts exosuit armor against ranged attacks. Completely blocks taser shots, but requires energy to operate."
 	icon_state = "mecha_abooster_proj"
-	origin_tech = list(TECH_MATERIAL = 4)
+	origin_tech = list(TECH(T_MATERIAL) = 4)
 	equip_cooldown = 10
 	energy_drain = 50
 	range = 0
@@ -617,7 +617,7 @@
 	name = "repair droid"
 	desc = "Automated repair droid. Scans exosuit for damage and repairs it. Can fix almost any type of external or internal damage."
 	icon_state = "repair_droid"
-	origin_tech = list(TECH_MAGNET = 3, TECH_DATA = 3)
+	origin_tech = list(TECH(T_MAGNET) = 3, TECH(T_DATA) = 3)
 	equip_cooldown = 20
 	energy_drain = 100
 	range = 0
@@ -709,7 +709,7 @@
 	name = "energy relay"
 	desc = "Wirelessly drains energy from any available power channel in area. The performance index is quite low."
 	icon_state = "tesla"
-	origin_tech = list(TECH_MAGNET = 4, TECH_ILLEGAL = 2)
+	origin_tech = list(TECH(T_MAGNET) = 4, TECH(T_ILLEGAL) = 2)
 	equip_cooldown = 10
 	energy_drain = 0
 	range = 0
@@ -823,7 +823,7 @@
 	name = "phoron generator"
 	desc = "Generates power using solid phoron as fuel. Pollutes the environment."
 	icon_state = "tesla"
-	origin_tech = list(TECH_PHORON = 2, TECH_POWER = 2, TECH_ENGINEERING = 1)
+	origin_tech = list(TECH(T_PHORON) = 2, TECH(T_POWER) = 2, TECH(T_ENGINEERING) = 1)
 	equip_cooldown = 10
 	energy_drain = 0
 	range = MELEE
@@ -963,7 +963,7 @@
 	name = "\improper ExoNuclear reactor"
 	desc = "Generates power using uranium. Pollutes the environment."
 	icon_state = "tesla"
-	origin_tech = list(TECH_POWER = 3, TECH_ENGINEERING = 3)
+	origin_tech = list(TECH(T_POWER) = 3, TECH(T_ENGINEERING) = 3)
 	max_fuel = 50000
 	fuel_per_cycle_idle = 10
 	fuel_per_cycle_active = 30
@@ -1059,7 +1059,7 @@
 	name = "passenger compartment"
 	desc = "A mountable passenger compartment for exo-suits. Rather cramped."
 	icon_state = "mecha_abooster_ccw"
-	origin_tech = list(TECH_ENGINEERING = 1, TECH_BIO = 1)
+	origin_tech = list(TECH(T_ENGINEERING) = 1, TECH(T_BIO) = 1)
 	energy_drain = 10
 	range = MELEE
 	reliability = 1000
