@@ -9,7 +9,7 @@
 	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artefacts power."
 	w_class = ITEM_SIZE_SMALL
 	slot_flags = SLOT_BELT
-	origin_tech = list(TECH_BLUESPACE = 4, TECH_MATERIAL = 4)
+	origin_tech = list(TECH(T_BLUESPACE) = 4, TECH(T_MATERIAL) = 4)
 	var/imprinted = "empty"
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////

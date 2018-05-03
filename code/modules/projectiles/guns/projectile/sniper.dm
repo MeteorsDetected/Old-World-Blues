@@ -6,7 +6,7 @@
 	w_class = ITEM_SIZE_HUGE
 	force = 10
 	slot_flags = SLOT_BACK
-	origin_tech = list(TECH_COMBAT = 8, TECH_MATERIAL = 2, TECH_ILLEGAL = 8)
+	origin_tech = list(TECH(T_COMBAT) = 8, TECH(T_MATERIAL) = 2, TECH(T_ILLEGAL) = 8)
 	caliber = "14.5mm"
 	recoil = 2 //extra kickback
 	//fire_sound = 'sound/weapons/sniper.ogg'

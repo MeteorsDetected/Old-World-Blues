@@ -4,7 +4,7 @@
 	icon_state = "autopsy_scanner"
 	flags = CONDUCT
 	w_class = ITEM_SIZE_SMALL
-	origin_tech = list(TECH_MATERIAL = 1, TECH_BIO = 1)
+	origin_tech = list(TECH(T_MATERIAL) = 1, TECH(T_BIO) = 1)
 	var/list/datum/autopsy_data_scanner/wdata = list()
 	var/list/datum/autopsy_data_scanner/chemtraces = list()
 	var/target_name = null

@@ -26,7 +26,7 @@
 	throw_speed = 1
 	throw_range = 4
 	w_class = ITEM_SIZE_HUGE
-	origin_tech = list(TECH_MATERIAL = 2)
+	origin_tech = list(TECH(T_MATERIAL) = 2)
 	matter = list(MATERIAL_GLASS = 7500, MATERIAL_STEEL = 1000)
 	attack_verb = list("shoved", "bashed")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
@@ -104,7 +104,7 @@
 	throw_speed = 1
 	throw_range = 4
 	w_class = ITEM_SIZE_SMALL
-	origin_tech = list(TECH_MATERIAL = 4, TECH_MAGNET = 3, TECH_ILLEGAL = 4)
+	origin_tech = list(TECH(T_MATERIAL) = 4, TECH(T_MAGNET) = 3, TECH(T_ILLEGAL) = 4)
 	attack_verb = list("shoved", "bashed")
 	var/active = 0
 
@@ -169,7 +169,7 @@
 	throw_speed = 2
 	throw_range = 10
 	w_class = ITEM_SIZE_SMALL
-	origin_tech = list(TECH_MAGNET = 3, TECH_ILLEGAL = 4)
+	origin_tech = list(TECH(T_MAGNET) = 3, TECH(T_ILLEGAL) = 4)
 
 /obj/item/weapon/cloaking_device/attack_self(mob/user as mob)
 	src.active = !( src.active )

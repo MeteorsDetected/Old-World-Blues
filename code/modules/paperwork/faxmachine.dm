@@ -6,7 +6,7 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 
 /obj/item/weapon/circuitboard/fax
 	name = T_BOARD("fax macine")
-	origin_tech = list(TECH_DATA = 2)
+	origin_tech = list(TECH(T_DATA) = 2)
 	build_path = /obj/machinery/photocopier/faxmachine
 	board_type = "machine"
 	var/department = ""
@@ -17,7 +17,7 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 /obj/item/weapon/circuitboard/fax/command
 	name = T_BOARD("command fax macine")
 	build_path = /obj/machinery/photocopier/faxmachine/command
-	origin_tech = list(TECH_DATA = 3)
+	origin_tech = list(TECH(T_DATA) = 3)
 	req_components = list(
 		/obj/item/stack/cable_coil = 4,
 		/obj/item/weapon/stock_parts/manipulator = 1,

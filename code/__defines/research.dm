@@ -1,14 +1,16 @@
-#define TECH_MATERIAL "materials"
-#define TECH_ENGINEERING "engineering"
-#define TECH_PHORON "phorontech"
-#define TECH_POWER "powerstorage"
-#define TECH_BLUESPACE "bluespace"
-#define TECH_BIO "biotech"
-#define TECH_COMBAT "combat"
-#define TECH_MAGNET "magnets"
-#define TECH_DATA "programming"
-#define TECH_ILLEGAL "syndicate"
-#define TECH_ARCANE "arcane"
+#define TECH(tech) "" + tech
+
+#define T_MATERIAL "materials"
+#define T_ENGINEERING "engineering"
+#define T_PHORON "phorontech"
+#define T_POWER "powerstorage"
+#define T_BLUESPACE "bluespace"
+#define T_BIO "biotech"
+#define T_COMBAT "combat"
+#define T_MAGNET "magnets"
+#define T_DATA "programming"
+#define T_ILLEGAL "syndicate"
+#define T_ARCANE "arcane"
 
 #define IMPRINTER	0x1	//For circuits. Uses glass/chemicals.
 #define PROTOLATHE	0x2	//New stuff. Uses glass/metal/chemicals

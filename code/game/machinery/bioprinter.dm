@@ -4,7 +4,7 @@
 	name = T_BOARD("bioprinter")
 	build_path = /obj/machinery/bioprinter
 	board_type = "machine"
-	origin_tech = list(TECH_BIO = 5)
+	origin_tech = list(TECH(T_BIO) = 5)
 	var/prosthetics = FALSE
 	req_components = list(
 		/obj/item/weapon/stock_parts/matter_bin = 1,

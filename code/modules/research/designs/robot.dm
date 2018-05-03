@@ -1,7 +1,7 @@
 /datum/design/item/synthetic_flash
 	name = "Synthetic flash"
 	id = "sflash"
-	req_tech = list(TECH_MAGNET = 3, TECH_COMBAT = 2)
+	req_tech = list(TECH(T_MAGNET) = 3, TECH(T_COMBAT) = 2)
 	build_type = MECHFAB
 	materials = list(DEFAULT_WALL_MATERIAL = 750, "glass" = 750)
 	build_path = /obj/item/device/flash/synthetic
@@ -163,6 +163,6 @@
 	name = "Illegal upgrade"
 	desc = "Allows for the construction of lethal upgrades for cyborgs."
 	id = "borg_syndicate_module"
-	req_tech = list(TECH_COMBAT = 4, TECH_ILLEGAL = 3)
+	req_tech = list(TECH(T_COMBAT) = 4, TECH(T_ILLEGAL) = 3)
 	materials = list(MATERIAL_STEEL = 10000, MATERIAL_GLASS = 15000, MATERIAL_DIAMOND = 10000)
 	build_path = /obj/item/borg/upgrade/syndicate

@@ -7,7 +7,7 @@
 	item_state = "electronic"
 	action_button_name = "Toggle UV light"
 	matter = list(MATERIAL_STEEL = 150)
-	origin_tech = list(TECH_MAGNET = 1, TECH_ENGINEERING = 1)
+	origin_tech = list(TECH(T_MAGNET) = 1, TECH(T_ENGINEERING) = 1)
 
 	var/list/scanned = list()
 	var/list/stored_alpha = list()

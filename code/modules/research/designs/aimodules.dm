@@ -15,60 +15,60 @@
 /datum/design/aimodule/safeguard
 	name = "Safeguard"
 	id = "safeguard"
-	req_tech = list(TECH_DATA = 3, TECH_MATERIAL = 4)
+	req_tech = list(TECH(T_DATA) = 3, TECH(T_MATERIAL) = 4)
 	build_path = /obj/item/weapon/aiModule/safeguard
 
 /datum/design/aimodule/onehuman
 	name = "OneCrewMember"
 	id = "onehuman"
-	req_tech = list(TECH_DATA = 4, TECH_MATERIAL = 6)
+	req_tech = list(TECH(T_DATA) = 4, TECH(T_MATERIAL) = 6)
 	build_path = /obj/item/weapon/aiModule/oneHuman
 
 /datum/design/aimodule/protectstation
 	name = "ProtectStation"
 	id = "protectstation"
-	req_tech = list(TECH_DATA = 3, TECH_MATERIAL = 6)
+	req_tech = list(TECH(T_DATA) = 3, TECH(T_MATERIAL) = 6)
 	build_path = /obj/item/weapon/aiModule/protectStation
 
 /datum/design/aimodule/notele
 	name = "TeleporterOffline"
 	id = "notele"
-	req_tech = list(TECH_DATA = 3)
+	req_tech = list(TECH(T_DATA) = 3)
 	build_path = /obj/item/weapon/aiModule/teleporterOffline
 
 /datum/design/aimodule/quarantine
 	name = "Quarantine"
 	id = "quarantine"
-	req_tech = list(TECH_DATA = 3, TECH_BIO = 2, TECH_MATERIAL = 4)
+	req_tech = list(TECH(T_DATA) = 3, TECH(T_BIO) = 2, TECH(T_MATERIAL) = 4)
 	build_path = /obj/item/weapon/aiModule/quarantine
 
 /datum/design/aimodule/oxygen
 	name = "OxygenIsToxicToHumans"
 	id = "oxygen"
-	req_tech = list(TECH_DATA = 3, TECH_BIO = 2, TECH_MATERIAL = 4)
+	req_tech = list(TECH(T_DATA) = 3, TECH(T_BIO) = 2, TECH(T_MATERIAL) = 4)
 	build_path = /obj/item/weapon/aiModule/oxygen
 
 /datum/design/aimodule/freeform
 	name = "Freeform"
 	id = "freeform"
-	req_tech = list(TECH_DATA = 4, TECH_MATERIAL = 4)
+	req_tech = list(TECH(T_DATA) = 4, TECH(T_MATERIAL) = 4)
 	build_path = /obj/item/weapon/aiModule/freeform
 
 /datum/design/aimodule/reset
 	name = "Reset"
 	id = "reset"
-	req_tech = list(TECH_DATA = 3, TECH_MATERIAL = 6)
+	req_tech = list(TECH(T_DATA) = 3, TECH(T_MATERIAL) = 6)
 	build_path = /obj/item/weapon/aiModule/reset
 
 /datum/design/aimodule/purge
 	name = "Purge"
 	id = "purge"
-	req_tech = list(TECH_DATA = 4, TECH_MATERIAL = 6)
+	req_tech = list(TECH(T_DATA) = 4, TECH(T_MATERIAL) = 6)
 	build_path = /obj/item/weapon/aiModule/purge
 
 // *** Core modules
 /datum/design/aimodule/core
-	req_tech = list(TECH_DATA = 4, TECH_MATERIAL = 6)
+	req_tech = list(TECH(T_DATA) = 4, TECH(T_MATERIAL) = 6)
 
 /datum/design/aimodule/core/AssembleDesignName()
 	name = "AI core module design ([name])"
@@ -98,6 +98,6 @@
 /datum/design/aimodule/core/tyrant
 	name = "T.Y.R.A.N.T."
 	id = "tyrant"
-	req_tech = list(TECH_DATA = 4, TECH_ILLEGAL = 2, TECH_MATERIAL = 6)
+	req_tech = list(TECH(T_DATA) = 4, TECH(T_ILLEGAL) = 2, TECH(T_MATERIAL) = 6)
 	build_path = /obj/item/weapon/aiModule/tyrant
 

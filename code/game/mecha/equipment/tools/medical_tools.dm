@@ -3,7 +3,7 @@
 	desc = "A sleeper. Mountable to an exosuit. (Can be attached to: Medical Exosuits)"
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper"
-	origin_tech = list(TECH_DATA = 2, TECH_BIO = 3)
+	origin_tech = list(TECH(T_DATA) = 2, TECH(T_BIO) = 3)
 	energy_drain = 20
 	range = MELEE
 	reliability = 1000
@@ -374,7 +374,7 @@
 	var/datum/global_iterator/mech_synth/synth
 	range = MELEE|RANGED
 	equip_cooldown = 10
-	origin_tech = list(TECH_MATERIAL = 3, TECH_BIO = 4, TECH_MAGNET = 4, TECH_DATA = 3)
+	origin_tech = list(TECH(T_MATERIAL) = 3, TECH(T_BIO) = 4, TECH(T_MAGNET) = 4, TECH(T_DATA) = 3)
 	required_type = /obj/mecha/medical
 
 	initialize()

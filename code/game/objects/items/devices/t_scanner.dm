@@ -8,7 +8,7 @@
 	w_class = ITEM_SIZE_SMALL
 	item_state = "electronic"
 	matter = list(MATERIAL_STEEL = 150)
-	origin_tech = list(TECH_MAGNET = 1, TECH_ENGINEERING = 1)
+	origin_tech = list(TECH(T_MAGNET) = 1, TECH(T_ENGINEERING) = 1)
 
 	var/scan_range = 1
 

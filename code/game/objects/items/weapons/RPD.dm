@@ -49,7 +49,7 @@ RPD
 	throw_range = 5
 	w_class = ITEM_SIZE_NORMAL
 	//matter = list(MATERIAL_STEEL = 50000)
-	origin_tech = list(TECH_ENGINEERING = 4, TECH_MATERIAL = 2)
+	origin_tech = list(TECH(T_ENGINEERING) = 4, TECH(T_MATERIAL) = 2)
 	var/datum/effect/effect/system/spark_spread/spark_system
 	var/stored_matter = 0
 	var/working = 0
@@ -381,7 +381,7 @@ RPD
 	icon_state = "rpd"
 	item_state = "rpdammo"
 	w_class = ITEM_SIZE_SMALL
-	origin_tech = list(TECH_MATERIAL = 2)
+	origin_tech = list(TECH(T_MATERIAL) = 2)
 	matter = list(MATERIAL_STEEL = 30000,MATERIAL_GLASS = 15000)
 */
 /obj/item/weapon/rpd/borg
