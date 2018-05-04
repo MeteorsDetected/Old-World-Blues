@@ -1704,6 +1704,42 @@ area/crew_quarters/barman
 	name = "\improper Listening Post Solars"
 	icon_state = "LPS"
 
+//Trading Station
+
+/area/trader
+	name = "Trading Station"
+	icon_state = ""
+	requires_power = 0
+	lighting_use_dynamic = 0
+
+/area/trader/docks
+	name = "docks for ship"
+	icon_state = "green"
+
+/area/trader/docks/cargo
+	name = "cargo trader"
+	icon_state = "apmaint"
+
+/area/trader/docks/bar
+	name = "trader bar"
+	icon_state = "bar"
+
+/area/trader/docks/dealer
+	name = "trader for assignments"
+	icon_state = "red"
+
+/area/trader/docks/ground_control
+	name = "bridge trader s"
+	icon_state = "bridge"
+
+/area/trader/docks/tech
+	name = "tech tonell"
+	icon_state = "yellow"
+
+/area/trader/docks/civil
+	name = "huh yeah"
+	icon_state = "fitness"
+
 //DERELICT
 
 /area/derelict
