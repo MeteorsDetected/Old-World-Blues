@@ -59,9 +59,11 @@
 
 		busy = 1
 
-		overlays += "[icon_state]_[stack.name]"
-		sleep(10)
-		overlays -= "[icon_state]_[stack.name]"
+		var/image/overlay = image(icon, "[icon_state]_load")
+		overlay.color = stack.material.icon_colour
+		overlays += overlay
+		spawn(10)
+			overlays -= overlay
 
 		var/material = stack.get_material_name()
 		if(do_after(usr, 16) && stack.use(amount))
