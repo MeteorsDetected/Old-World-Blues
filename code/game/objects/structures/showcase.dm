@@ -6,3 +6,6 @@
 	density = 1
 	anchored = 1
 	unacidable = 1//temporary until I decide whether the borg can be removed. -veyveyr
+
+/obj/structure/showcase/showcase_3
+	icon_state = "showcase_3"
