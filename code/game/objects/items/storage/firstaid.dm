@@ -30,7 +30,7 @@
 		/obj/item/weapon/reagent_containers/pill/kelotane = 3
 	)
 
-/obj/item/storage/firstair/fire/initialize()
+/obj/item/storage/firstaid/fire/initialize()
 	. = ..()
 	icon_state = pick("ointment", "firefirstaid")
 
