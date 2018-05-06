@@ -118,9 +118,8 @@
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		if(..())
 			var/obj/item/prosthesis/p = tool
-			if (p.part)
-				if (!(target_zone in p.part))
-					return 0
+			if(!(target_zone in p.part))
+				return 0
 			return isnull(target.get_organ(target_zone))
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
