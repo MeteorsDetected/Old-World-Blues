@@ -1083,7 +1083,8 @@
 			"backkey"=/obj/item/weapon/crowbar,
 			"desc"="Advanced capacitor is installed"),
 		//8
-		list("key"=/obj/item/weapon/stock_parts/capacitor/adv,
+		list("key"=/obj/item/weapon/stock_parts/capacitor,
+			"rating" = 2,
 			"backkey"=/obj/item/weapon/screwdriver,
 			"desc"="Advanced scanner module is secured"),
 		//9
@@ -1091,7 +1092,8 @@
 			"backkey"=/obj/item/weapon/crowbar,
 			"desc"="Advanced scanner module is installed"),
 		//10
-		list("key"=/obj/item/weapon/stock_parts/scanning_module/adv,
+		list("key"=/obj/item/weapon/stock_parts/scanning_module,
+			"rating" = 2,
 			"backkey"=/obj/item/weapon/screwdriver,
 			"desc"="Targeting module is secured"),
 		//11
