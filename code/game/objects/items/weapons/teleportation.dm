@@ -144,7 +144,7 @@ Frequency:
 	var/list/L = list()
 	for(var/obj/machinery/teleport/hub/R in machines)
 		var/obj/machinery/computer/teleporter/com = R.com
-		if (istype(com, /obj/machinery/computer/teleporter) && com.locked && com.locked.is_active() && !com.one_time_use)
+		if (istype(com) && com.locked && com.locked.is_active() && !com.one_time_use)
 			if(R.icon_state == "tele1")
 				L["[com.id] (Active)"] = com.locked.target_obj
 			else
@@ -158,8 +158,8 @@ Frequency:
 		turfs += T
 	if(turfs.len)
 		L["None (Dangerous)"] = pick(turfs)
-	var/t1 = input(user, "Please select a teleporter to lock in on.", "Hand Teleporter") in L
-	if(user.get_active_hand() != src || user.incapacitated())
+	var/t1 = input(user, "Please select a teleporter to lock in on.", "Hand Teleporter") as null|anything in L
+	if(t1 == null || user.get_active_hand() != src || user.incapacitated())
 		return
 	var/count = 0	//num of portals from this teleport in world
 	for(var/obj/effect/portal/PO in world)
