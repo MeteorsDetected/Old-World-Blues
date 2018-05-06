@@ -7,14 +7,6 @@
 	..()
 	w_class ++ // I't large than normal organ
 
-/obj/item/organ/external/robotic/enforcer/limb
-	forced_children = list(
-		BP_L_ARM = list(BP_L_HAND = /obj/item/organ/external/robotic/enforcer/hand),
-		BP_R_ARM = list(BP_R_HAND = /obj/item/organ/external/robotic/enforcer/hand),
-		BP_L_LEG = list(BP_L_FOOT = /obj/item/organ/external/robotic/enforcer),
-		BP_R_LEG = list(BP_R_FOOT = /obj/item/organ/external/robotic/enforcer)
-	)
-
 /obj/item/organ/external/robotic/enforcer/hand
 	var/datum/unarmed_attack/enforcer/active_atack = new
 

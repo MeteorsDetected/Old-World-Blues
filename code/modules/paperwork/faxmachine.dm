@@ -208,15 +208,16 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 		else if(href_list["remove"])
 			if(copyitem)
 				copyitem.loc = usr.loc
-				usr.put_in_hands(copyitem)
+				if(!usr.put_in_hands(copyitem))
+					copyitem.forceMove(loc)
 				usr << SPAN_NOTE("You take \the [copyitem] out of \the [src].")
 				copyitem = null
 				updateUsrDialog()
 
 		if(href_list["scan"])
 			if (scan)
-				usr.put_in_hands(scan)
-				scan.forceMove(loc)
+				if(!usr.put_in_hands(scan))
+					scan.forceMove(loc)
 				scan = null
 			else
 				var/obj/item/I = usr.get_active_hand()
@@ -307,7 +308,17 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/obj/item/sent, var/reply_type, font_colour="#006100")
-	var/msg = SPAN_NOTE("<b><font color='[font_colour]'>[faxname]: </font>[key_name(sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[sender]'>SM</A>) (<A HREF='?_src_=holder;adminplayerobservejump=\ref[sender]'>JMP</A>) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<a href='?_src_=holder;[reply_type]=\ref[sender];originfax=\ref[src]'>REPLY</a>)</b>: Receiving '[sent.name]' via secure connection ... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>")
+	var/msg = "<b>\
+		<font color='[font_colour]'>[faxname]: </font> [key_name(sender, 1)] \
+		(<A HREF='?_src_=holder;adminplayeropts=\ref[sender]'>PP</A>) \
+		(<A HREF='?_src_=vars;Vars=\ref[sender]'>VV</A>) \
+		(<A HREF='?_src_=holder;subtlemessage=\ref[sender]'>SM</A>) \
+		(<A HREF='?_src_=holder;adminplayerobservejump=\ref[sender]'>JMP</A>) \
+		(<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) \
+		(<a href='?_src_=holder;[reply_type]=\ref[sender];originfax=\ref[src]'>REPLY</a>)</b>: \
+		Receiving '[sent.name]' via secure connection ... \
+		<a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	msg = SPAN_NOTE(msg)
 
 	for(var/client/C in admins)
 		if(R_ADMIN & C.holder.rights)

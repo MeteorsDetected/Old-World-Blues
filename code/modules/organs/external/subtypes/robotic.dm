@@ -7,7 +7,6 @@
 	robotic = ORGAN_ROBOT
 	brute_mod = 0.8
 	burn_mod = 0.8
-	var/list/forced_children = null
 
 /obj/item/organ/external/robotic/set_description(var/datum/organ_description/desc)
 	src.name = "[name] [desc.name]"
@@ -16,15 +15,6 @@
 	src.max_damage = desc.max_damage
 	src.min_broken_damage = desc.min_broken_damage
 	src.w_class = desc.w_class
-
-/obj/item/organ/external/robotic/install()
-	if(..()) return 1
-	if(islist(forced_children) && forced_children[organ_tag])
-		var/list/spawn_part = forced_children[organ_tag]
-		var/child_type
-		for(var/name in spawn_part)
-			child_type = spawn_part[name]
-			new child_type(owner, owner.species.has_limbs[name])
 
 /obj/item/organ/external/robotic/sync_to_owner()
 	for(var/obj/item/organ/I in internal_organs)

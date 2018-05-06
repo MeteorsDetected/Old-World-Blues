@@ -487,9 +487,10 @@
 		//convert list to units
 		amount *= SHEET_MATERIAL_AMOUNT
 		if(resources[material] < amount)
-			amount = round(resources[material], SHEET_MATERIAL_AMOUNT)
-			if(amount < SHEET_MATERIAL_AMOUNT)
+			amount = round(resources[material]/SHEET_MATERIAL_AMOUNT)
+			if(amount < 1)
 				return
+			amount = amount *= SHEET_MATERIAL_AMOUNT
 		resources[material] -= amount
 		create_material_stacks_from_unit(material, amount, src.loc)
 		temp = "Ejected [round(amount, SHEET_MATERIAL_AMOUNT)] of [material]<br><a href='?src=\ref[src];clear_temp=1'>Return</a>"
