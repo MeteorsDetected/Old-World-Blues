@@ -120,7 +120,10 @@
 			var/obj/item/prosthesis/p = tool
 			if(!(target_zone in p.part))
 				return 0
-			return isnull(target.get_organ(target_zone))
+			var/datum/organ_description/organ_data = target.species.has_limbs[target_zone]
+			if(!organ_data)
+				return FALSE
+			return target.get_organ(organ_data.parent_organ) && isnull(target.get_organ(target_zone))
 
 	begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		user.visible_message(
