@@ -127,12 +127,18 @@
 					state |= SECURED
 					user << SPAN_NOTE("You screw the circuit board into place.")
 			else if(istype(P, /obj/item/weapon/crowbar))
+				if(state & SECURED)
+					user << SPAN_WARN("You should unscrew circuitboard first!")
+					return
 				playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
 				user << SPAN_NOTE("You remove the circuit board.")
 				src.circuit.forceMove(src.loc)
 				src.circuit = null
 
 			else if(ismaterial(P) && P.get_material_name() == MATERIAL_GLASS)
+				if(!wire)
+					user << SPAN_WARN("You shoud add wire first!")
+					return
 				var/obj/item/stack/G = P
 				if (G.get_amount() < 2)
 					user << SPAN_WARN("You need two sheets of glass to put in the glass panel.")
