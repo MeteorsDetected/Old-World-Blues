@@ -96,7 +96,7 @@
 	else
 		oobjs = list()
 
-	forceMove(NewLoc)
+	loc = NewLoc
 	dir = Dir
 
 	nlocs = locs
