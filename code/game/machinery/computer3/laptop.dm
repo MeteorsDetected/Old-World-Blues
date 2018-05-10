@@ -52,16 +52,16 @@
 		if(!stored_computer)
 			if(contents.len)
 				for(var/obj/O in contents)
-					O.loc = loc
+					O.forceMove(loc)
 			usr << "\The [src] crumbles to pieces."
 			spawn(5)
 				qdel(src)
 			return
 
-		stored_computer.loc = loc
+		stored_computer.forceMove(loc)
 		stored_computer.stat &= ~MAINT
 		stored_computer.update_icon()
-		loc = stored_computer
+		forceMove(stored_computer)
 		usr << "You open \the [src]."
 
 
@@ -156,8 +156,8 @@
 			portable=new
 			portable.stored_computer = src
 
-		portable.loc = loc
-		loc = portable
+		portable.forceMove(loc)
+		forceMove(portable)
 		stat |= MAINT
 		if(user)
 			user << "You close \the [src]."

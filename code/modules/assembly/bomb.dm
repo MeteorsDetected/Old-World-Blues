@@ -31,11 +31,11 @@
 
 		user << SPAN_NOTE("You disassemble [src].")
 
-		bombassembly.loc = user.loc
+		bombassembly.forceMove(user.loc)
 		bombassembly.master = null
 		bombassembly = null
 
-		bombtank.loc = user.loc
+		bombtank.forceMove(user.loc)
 		bombtank.master = null
 		bombtank = null
 
@@ -94,7 +94,7 @@
 
 	R.bombtank = src	//Same for tank
 	master = R
-	loc = R
+	forceMove(R)
 	R.update_icon()
 	return
 
@@ -103,7 +103,7 @@
 	var/strength = 1
 
 	var/turf/ground_zero = get_turf(loc)
-	loc = null
+	forceMove(null)
 
 	if(air_contents.temperature > (T0C + 400))
 		strength = (fuel_moles/15)

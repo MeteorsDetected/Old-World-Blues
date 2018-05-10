@@ -31,7 +31,7 @@
 		return null
 
 	Destroy()
-		loc = null
+		forceMove(null)
 
 		if(node)
 			node.disconnect(src)

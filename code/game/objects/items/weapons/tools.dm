@@ -195,7 +195,7 @@
 		var/obj/item/stack/rods/R = W
 		R.use(1)
 		var/obj/item/weapon/flamethrower/F = new/obj/item/weapon/flamethrower(user.loc)
-		src.loc = F
+		src.forceMove(F)
 		F.weldtool = src
 		if (user.client)
 			user.client.screen -= src
@@ -208,7 +208,7 @@
 		user.remove_from_mob(src)
 		if (user.client)
 			user.client.screen -= src
-		src.loc = F
+		src.forceMove( F)
 		src.add_fingerprint(user)
 		return
 
@@ -482,9 +482,9 @@
 		return 0
 	var/obj/item/tool = tools[current_tool]
 	if(!tool) return 0
-	tool.loc = user
+	tool.forceMove(user)
 	var/resolved = target.attackby(tool,user)
 	if(!resolved && tool && target)
 		tool.afterattack(target,user,1)
 	if(tool)
-		tool.loc = src*/
+		tool.forceMove(src)*/

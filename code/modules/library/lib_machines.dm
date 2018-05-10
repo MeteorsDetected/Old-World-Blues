@@ -442,10 +442,9 @@ datum/borrowbook // Datum used to keep track of who has borrowed what when and f
 		cache = null
 	if(href_list["eject"])
 		for(var/obj/item/weapon/book/B in contents)
-			B.loc = src.loc
+			B.forceMove(src.loc)
 	src.add_fingerprint(usr)
 	src.updateUsrDialog()
-	return
 
 
 /*

@@ -150,7 +150,7 @@
 	if(href_list["ejectBeaker"])
 		if(beaker)
 			var/obj/item/weapon/reagent_containers/B = beaker
-			B.loc = loc
+			B.forceMove(loc)
 			beaker = null
 
 	add_fingerprint(usr)
@@ -335,7 +335,7 @@
 
 	if (href_list["ejectp"])
 		if(loaded_pill_bottle)
-			loaded_pill_bottle.loc = src.loc
+			loaded_pill_bottle.forceMove(src.loc)
 			loaded_pill_bottle = null
 
 	else if(href_list["close"])
@@ -460,7 +460,7 @@
 				reagents.trans_to_obj(P,amount_per_pill)
 				if(src.loaded_pill_bottle)
 					if(loaded_pill_bottle.contents.len < loaded_pill_bottle.storage_slots)
-						P.loc = loaded_pill_bottle
+						P.forceMove(loaded_pill_bottle)
 						src.updateUsrDialog()
 
 		else if (href_list["createbottle"])

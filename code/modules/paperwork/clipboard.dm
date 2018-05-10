@@ -43,7 +43,7 @@
 	else if(istype(W, /obj/item/weapon/pen))
 		if(!haspen)
 			usr.drop_from_inventory(W, src)
-			W.loc = src
+			W.forceMove(src)
 			haspen = W
 			usr << SPAN_NOTE("You slot the pen into \the [src].")
 
@@ -86,7 +86,7 @@
 
 		if(href_list["pen"])
 			if(istype(haspen) && (haspen.loc == src))
-				haspen.loc = usr.loc
+				haspen.forceMove(usr.loc)
 				usr.put_in_hands(haspen)
 				haspen = null
 

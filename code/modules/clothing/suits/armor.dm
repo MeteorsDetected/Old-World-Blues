@@ -153,7 +153,7 @@
 		spark_system.start()
 		playsound(user.loc, "sparks", 50, 1)
 
-		user.loc = picked
+		user.forceMove(picked)
 		return 1
 	return 0
 

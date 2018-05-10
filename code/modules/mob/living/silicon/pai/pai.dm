@@ -79,7 +79,7 @@
 /mob/living/silicon/pai/New(var/obj/item/device/paicard)
 
 	canmove = 0
-	src.loc = paicard
+	src.forceMove(paicard)
 	card = paicard
 	sradio = new(src)
 	if(card)
@@ -395,8 +395,8 @@
 	resting = 0
 
 	//This seems redundant but not including the forced loc setting messes the behavior up.
-	src.loc = card
-	card.loc = get_turf(card)
+	src.forceMove(card)
+	card.forceMove(get_turf(card))
 	src.forceMove(card)
 	card.forceMove(card.loc)
 	canmove = 0

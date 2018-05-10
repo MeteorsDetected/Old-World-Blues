@@ -14,7 +14,7 @@
 
 /obj/nano_module/law_manager/New(var/mob/living/silicon/S)
 	..()
-	loc = S
+	forceMove(S)
 	owner = S
 
 	if(!admin_laws)

@@ -117,7 +117,7 @@
 				var/obj/O = locate("landmark*Observer-Start")
 				if(istype(O))
 					src << SPAN_NOTE("Now teleporting.")
-					observer.loc = O.loc
+					observer.forceMove(O.loc)
 				else
 					src << "<span class='danger'>Could not locate an observer spawn point. Use the Teleport verb to jump to the station map.</span>"
 				observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
@@ -261,7 +261,7 @@
 
 		if(S && istype(S))
 			if(S.check_job_spawning(rank))
-				character.loc = S.pickPoint()
+				character.forceMove(S.pickPoint())
 				join_message = S.msg
 			else
 				character << "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead."
@@ -274,7 +274,7 @@
 		character.lastarea = get_area(loc)
 		// Moving wheelchair if they have one
 		if(character.buckled && istype(character.buckled, /obj/structure/material/chair/wheelchair))
-			character.buckled.loc = character.loc
+			character.buckled.forceMove(character.loc)
 			character.buckled.set_dir(character.dir)
 
 		ticker.mode.handle_latejoin(character)

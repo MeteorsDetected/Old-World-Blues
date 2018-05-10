@@ -30,7 +30,7 @@
 	playsound(M, 'sound/weapons/shotgunpump.ogg', 60, 1)
 
 	if(chambered)//We have a shell in the chamber
-		chambered.loc = get_turf(src)//Eject casing
+		chambered.forceMove(get_turf(src)) //Eject casing
 		chambered = null
 
 	if(loaded.len)

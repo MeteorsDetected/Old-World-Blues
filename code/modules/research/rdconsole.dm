@@ -192,7 +192,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		d_disk.blueprint = null
 
 	else if(href_list["eject_design"]) //Eject the design disk.
-		d_disk.loc = loc
+		d_disk.forceMove(loc)
 		d_disk = null
 		screen = 1.0
 
@@ -209,7 +209,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				usr << "\red The destructive analyzer is busy at the moment."
 
 			else if(linked_destroy.loaded_item)
-				linked_destroy.loaded_item.loc = linked_destroy.loc
+				linked_destroy.loaded_item.forceMove(linked_destroy.loc)
 				linked_destroy.loaded_item = null
 				linked_destroy.icon_state = "d_analyzer"
 				screen = 2.1
@@ -411,7 +411,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				PR.info += GetResearchLevelsInfo()
 			PR.info_links = PR.info
 			PR.icon_state = "paper_words"
-			PR.loc = src.loc
+			PR.forceMove(src.loc)
 			spawn(10)
 				screen = ((text2num(href_list["print"]) == 2) ? 5.0 : 1.1)
 				updateUsrDialog()

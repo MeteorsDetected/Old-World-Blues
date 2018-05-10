@@ -162,7 +162,7 @@
 					qdel(W)
 					continue
 				W.layer = initial(W.layer)
-				W.loc = M.loc
+				W.forceMove(M.loc)
 				W.dropped(M)
 
 		var/mob/living/new_mob = new /mob/living/simple_animal/corgi(A.loc)

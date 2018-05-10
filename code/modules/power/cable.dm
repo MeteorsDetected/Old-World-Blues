@@ -429,7 +429,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		return
 
 	// remove the cut cable from its turf and powernet, so that it doesn't get count in propagate_network worklist
-	loc = null
+	forceMove(null)
 	powernet.remove_cable(src) //remove the cut cable from its powernet
 
 	var/datum/powernet/newPN = new()// creates a new powernet...

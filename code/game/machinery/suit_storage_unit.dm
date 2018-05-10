@@ -244,39 +244,36 @@
 	if(!HELMET)
 		return //Do I even need this sanity check? Nyoro~n
 	else
-		HELMET.loc = src.loc
+		HELMET.forceMove(src.loc)
 		HELMET = null
-		return
 
 
 /obj/machinery/suit_storage_unit/proc/dispense_suit(mob/user as mob)
 	if(!SUIT)
 		return
 	else
-		SUIT.loc = src.loc
+		SUIT.forceMove(src.loc)
 		SUIT = null
-		return
 
 
 /obj/machinery/suit_storage_unit/proc/dispense_mask(mob/user as mob)
 	if(!MASK)
 		return
 	else
-		MASK.loc = src.loc
+		MASK.forceMove(src.loc)
 		MASK = null
-		return
 
 
 /obj/machinery/suit_storage_unit/proc/dump_everything()
 	islocked = 0 //locks go free
 	if(SUIT)
-		SUIT.loc = src.loc
+		SUIT.forceMove(src.loc)
 		SUIT = null
 	if(HELMET)
-		HELMET.loc = src.loc
+		HELMET.forceMove(src.loc)
 		HELMET = null
 	if(MASK)
-		MASK.loc = src.loc
+		MASK.forceMove(src.loc)
 		MASK = null
 	if(OCCUPANT)
 		eject_occupant(OCCUPANT)
@@ -375,7 +372,7 @@
 	if(!OCCUPANT)
 		return
 //	for(var/obj/O in src)
-//		O.loc = src.loc
+//		O.forceMove(src.loc)
 
 	if(OCCUPANT.client)
 		if(user != OCCUPANT)
@@ -788,11 +785,11 @@
 /obj/machinery/suit_cycler/Topic(href, href_list)
 	if(href_list["eject_suit"])
 		if(!suit) return
-		suit.loc = get_turf(src)
+		suit.forceMove(get_turf(src))
 		suit = null
 	else if(href_list["eject_helmet"])
 		if(!helmet) return
-		helmet.loc = get_turf(src)
+		helmet.forceMove(get_turf(src))
 		helmet = null
 	else if(href_list["select_department"])
 		var/choice = input("Please select the target department paintjob.","Suit cycler",null) as null|anything in departments

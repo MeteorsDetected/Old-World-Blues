@@ -76,8 +76,10 @@
 			if(istype(H.shoes, /obj/item/clothing/shoes/magboots) && (H.shoes.item_flags & NOSLIP))
 				can_grab = 0
 		if(can_grab)
-			src.visible_message("<span class='danger'>Tendrils lash out from \the [src] and drag \the [victim] in!</span>")
-			victim.loc = src.loc
+			src.visible_message(
+				SPAN_DANG("Tendrils lash out from \the [src] and drag \the [victim] in!")
+			)
+			victim.forceMove(src.loc)
 
 	//entangling people
 	if(victim.loc == src.loc)

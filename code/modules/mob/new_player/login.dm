@@ -23,7 +23,7 @@ var/obj/effect/lobby_image = new /obj/effect/lobby_image
 		mind.active = 1
 		mind.current = src
 
-	loc = null
+	forceMove(null)
 	client.screen += lobby_image
 	sight |= SEE_TURFS
 	player_list |= src

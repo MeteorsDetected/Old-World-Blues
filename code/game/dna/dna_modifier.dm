@@ -73,11 +73,9 @@
 
 /obj/machinery/dna_scannernew/proc/eject_occupant()
 	src.go_out()
-	for(var/obj/O in src)
-		O.loc = get_turf(src)//Ejects items that manage to get in there (exluding the components)
-	if(!occupant)
-		for(var/mob/M in src)//Failsafe so you can get mobs out
-			M.loc = get_turf(src)
+	var/turf/targetTurf = get_turf(src)
+	for(var/atom/movable/A in src)
+		A.forceMove(targetTurf)
 
 /obj/machinery/dna_scannernew/verb/move_inside()
 	set src in oview(1)
@@ -182,39 +180,23 @@
 /obj/machinery/dna_scannernew/ex_act(severity)
 	switch(severity)
 		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
-				A.loc = src.loc
-				ex_act(severity)
-				//Foreach goto(35)
-			//SN src = null
+			for(var/atom/movable/A in src)
+				A.ex_act(severity)
 			qdel(src)
-			return
 		if(2.0)
 			if (prob(50))
-				for(var/atom/movable/A as mob|obj in src)
-					A.loc = src.loc
-					ex_act(severity)
-					//Foreach goto(108)
-				//SN src = null
+				for(var/atom/movable/A in src)
+					A.ex_act(severity)
 				qdel(src)
-				return
 		if(3.0)
 			if (prob(25))
-				for(var/atom/movable/A as mob|obj in src)
-					A.loc = src.loc
-					ex_act(severity)
-					//Foreach goto(181)
-				//SN src = null
+				for(var/atom/movable/A in src)
+					A.ex_act(severity)
 				qdel(src)
-				return
-		else
-	return
 
 
 /obj/machinery/dna_scannernew/blob_act()
 	if(prob(75))
-		for(var/atom/movable/A as mob|obj in src)
-			A.loc = src.loc
 		qdel(src)
 
 /obj/machinery/computer/scan_consolenew
@@ -617,7 +599,7 @@
 	if(href_list["ejectBeaker"])
 		if(connected.beaker)
 			var/obj/item/weapon/reagent_containers/glass/B = connected.beaker
-			B.loc = connected.loc
+			B.forceMove(connected.loc)
 			connected.beaker = null
 		return 1
 
@@ -642,7 +624,7 @@
 		if (bufferOption == "ejectDisk")
 			if (!src.disk)
 				return
-			src.disk.loc = get_turf(src)
+			src.disk.forceMove(get_turf(src))
 			src.disk = null
 			return 1
 
@@ -744,7 +726,7 @@
 				else
 					I.buf = buf
 				if(success)
-					I.loc = src.loc
+					I.forceMove(src.loc)
 					I.name += " ([buf.name])"
 					//src.temphtml = "Injector created."
 					spawn(300)

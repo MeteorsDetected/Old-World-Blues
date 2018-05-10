@@ -137,7 +137,7 @@
 							flick("dust-h", animation)
 							qdel(animation)
 							var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade( T.loc )
-							S.loc = C //put shade in stone
+							S.forceMove(C) //put shade in stone
 							S.status_flags |= GODMODE //So they won't die inside the stone somehow
 							S.canmove = 0//Can't move out of the soul stone
 							S.name = "Shade of [T.real_name]"
@@ -169,7 +169,7 @@
 					if(T.name != C.imprinted)
 						U << "\red <b>Capture failed!</b>: \black The soul stone has already been imprinted with [C.imprinted]'s mind!"
 					else
-						T.loc = C //put shade in stone
+						T.forceMove(C) //put shade in stone
 						T.status_flags |= GODMODE
 						T.canmove = 0
 						T.health = T.maxHealth

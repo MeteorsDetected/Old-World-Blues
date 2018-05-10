@@ -17,7 +17,7 @@
 	transfer << "You have been uploaded to a stationary terminal. Sadly, there is no remote access from here."
 	user << SPAN_NOTE("<b>Transfer successful</b>: \black [transfer.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
 
-	transfer.loc = src
+	transfer.forceMove(src)
 	transfer.cancel_camera()
 	transfer.control_disabled = 1
 	occupant = transfer

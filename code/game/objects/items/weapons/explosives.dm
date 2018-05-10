@@ -50,7 +50,7 @@
 	if(do_after(user, 50) && in_range(user, target))
 		user.drop_from_inventory(src)
 		src.target = target
-		loc = null
+		forceMove(null)
 
 		if (ismob(target))
 			admin_attack_log(user, target,

@@ -163,7 +163,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(masters[user])
 		step_to(masters[user], user.eyeobj) // So it turns.
 		var/obj/effect/overlay/H = masters[user]
-		H.loc = get_turf(user.eyeobj)
+		H.forceMove(get_turf(user.eyeobj))
 		masters[user] = H
 	return 1
 

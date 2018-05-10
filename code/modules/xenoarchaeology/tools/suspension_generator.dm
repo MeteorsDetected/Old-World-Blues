@@ -140,7 +140,7 @@
 				usr.put_in_hands(auth_card)
 				auth_card = null
 			else
-				auth_card.loc = loc
+				auth_card.forceMove(loc)
 				auth_card = null
 	else if(href_list["lock"])
 		locked = 1
@@ -154,7 +154,7 @@
 	if(!open)
 		interact(user)
 	else if(cell)
-		cell.loc = loc
+		cell.forceMove(loc)
 		cell.add_fingerprint(user)
 		cell.update_icon()
 
@@ -291,7 +291,7 @@
 	icon_state = "suspension3"
 
 	for(var/obj/item/I in T)
-		I.loc = suspension_field
+		I.forceMove(suspension_field)
 		collected++
 
 	if(collected)
@@ -350,5 +350,5 @@
 
 /obj/effect/suspension_field/Destroy()
 	for(var/atom/movable/I in src)
-		I.loc = src.loc
+		I.forceMove(src.loc)
 	..()

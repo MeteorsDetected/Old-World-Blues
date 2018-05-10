@@ -108,7 +108,7 @@
 		cuffs = new dispensed_type(get_turf(user))
 	else
 		user.drop_from_inventory(cuffs)
-	cuffs.loc = target
+	cuffs.forceMove(target)
 	target.handcuffed = cuffs
 	target.update_inv_handcuffed()
 	return

@@ -96,4 +96,4 @@
 			nloc.hotspot_expose(temp,125)
 
 		spawn(20)
-			loc = null
+			forceMove(null)

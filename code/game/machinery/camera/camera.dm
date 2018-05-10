@@ -135,7 +135,7 @@
 	else if(iswelder(W) && (wires.CanDeconstruct() || (stat & BROKEN)))
 		if(weld(W, user))
 			if(assembly)
-				assembly.loc = src.loc
+				assembly.forceMove(src.loc)
 				assembly.state = 1
 				assembly = null //so qdel doesn't eat it.
 				new /obj/item/stack/cable_coil(src.loc, length=2)

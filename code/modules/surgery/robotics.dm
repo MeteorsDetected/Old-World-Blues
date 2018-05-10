@@ -459,15 +459,15 @@
 	end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message(
-			"<span class='notice'>[user] has installed \the [tool] into [target]'s [affected.name].</span>",
-			"<span class='notice'>You have installed \the [tool] into [target]'s [affected.name].</span>"
+			SPAN_NOTE("[user] has installed \the [tool] into [target]'s [affected.name]."),
+			SPAN_NOTE("You have installed \the [tool] into [target]'s [affected.name].")
 		)
 
 		var/obj/item/device/mmi/M = tool
 		var/obj/item/organ/internal/mmi_holder/holder = new(target, 1)
 		target.internal_organs_by_name["brain"] = holder
 		user.drop_from_inventory(tool)
-		tool.loc = holder
+		tool.forceMove(holder)
 		holder.stored_mmi = tool
 		holder.update_from_mmi()
 

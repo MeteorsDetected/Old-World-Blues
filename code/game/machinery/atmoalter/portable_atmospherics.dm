@@ -174,7 +174,7 @@
 			SPAN_NOTE("You open the panel on [src] and remove [cell].")
 		)
 		cell.add_fingerprint(user)
-		cell.loc = src.loc
+		cell.forceMove(src.loc)
 		cell = null
 		power_change()
 		return

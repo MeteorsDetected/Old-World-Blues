@@ -253,7 +253,7 @@ What a mess.*/
 				else
 					var/obj/item/I = usr.get_active_hand()
 					if (istype(I, /obj/item/weapon/card/id) && usr.unEquip(I))
-						I.loc = src
+						I.forceMove(src)
 						scan = I
 
 			if("Log Out")

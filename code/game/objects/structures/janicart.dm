@@ -223,7 +223,7 @@
 	..()
 	if(buckled_mob)
 		if(buckled_mob.buckled == src)
-			buckled_mob.loc = loc
+			buckled_mob.forceMove(loc)
 
 
 /obj/structure/material/chair/janicart/post_buckle_mob(mob/living/M)

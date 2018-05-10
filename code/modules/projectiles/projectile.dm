@@ -132,7 +132,7 @@
 		return 0
 
 	original = target
-	loc = curloc
+	forceMove(curloc)
 	starting = curloc
 	current = curloc
 	yo = targloc.y - curloc.y + y_offset
@@ -214,7 +214,7 @@
 		return 0 //no
 
 	if(A == firer)
-		loc = A.loc
+		forceMove(A.loc)
 		return 0 //cannot shoot yourself
 
 	if((bumped && !forced) || (A in permutated))
@@ -256,9 +256,9 @@
 		//move ourselves onto A so we can continue on our way.
 		if(A)
 			if(istype(A, /turf))
-				loc = A
+				forceMove(A)
 			else
-				loc = A.loc
+				forceMove(A.loc)
 			permutated.Add(A)
 		bumped = 0 //reset bumped variable!
 		return 0
@@ -389,7 +389,7 @@
 
 /obj/item/projectile/test/Bump(atom/A as mob|obj|turf|area)
 	if(A == firer)
-		loc = A.loc
+		forceMove(A.loc)
 		return //cannot shoot yourself
 	if(istype(A, /obj/item/projectile))
 		return

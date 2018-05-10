@@ -160,7 +160,7 @@ var/list/ai_verbs_default = list(
 	anchored = 1
 	canmove = 0
 	density = 1
-	loc = loc
+	forceMove(loc)
 
 	holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
 
@@ -286,7 +286,7 @@ var/list/ai_verbs_default = list(
 	if(isnull(powered_ai))
 		qdel(src)
 
-	loc = powered_ai.loc
+	forceMove(powered_ai.loc)
 	use_power(1) // Just incase we need to wake up the power system.
 
 	..()
@@ -301,7 +301,7 @@ var/list/ai_verbs_default = list(
 		use_power = 0
 		return
 	if(!powered_ai.anchored)
-		loc = powered_ai.loc
+		forceMove(powered_ai.loc)
 		use_power = 0
 		use_power(50000) // Less optimalised but only called if AI is unwrenched. This prevents usage of wrenching as method to keep AI operational without power. Intellicard is for that.
 	if(powered_ai.anchored)

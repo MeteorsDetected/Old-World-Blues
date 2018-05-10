@@ -7,7 +7,7 @@
 
 /obj/nano_module/atmos_control/New(atmos_computer, req_access, req_one_access, monitored_alarm_ids)
 	..()
-	loc = atmos_computer
+	forceMove(atmos_computer)
 	src.req_access = req_access
 	src.req_one_access = req_one_access
 	atmos_state = default_state

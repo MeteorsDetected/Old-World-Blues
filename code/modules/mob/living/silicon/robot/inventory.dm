@@ -263,5 +263,5 @@
 		src << SPAN_NOTE("You need to disable a module first!")
 
 /mob/living/silicon/robot/put_in_hands(var/obj/item/W) // No hands.
-	W.loc = get_turf(src)
+	W.forceMove(get_turf(src))
 	return 1

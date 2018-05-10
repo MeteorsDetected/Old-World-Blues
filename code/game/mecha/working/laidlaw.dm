@@ -12,7 +12,7 @@
 
 /obj/mecha/working/laydlaw/Destroy()
 	for(var/atom/movable/A in src.cargo)
-		A.loc = loc
+		A.forceMove(loc)
 		var/turf/T = loc
 		if(istype(T))
 			T.Entered(A)

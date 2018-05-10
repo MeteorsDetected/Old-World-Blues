@@ -83,14 +83,14 @@
 			if(istype(P, /obj/item/weapon/crowbar))
 				playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
 				state = 2
-				circuit.loc = src.loc
+				circuit.forceMove(src.loc)
 				circuit = null
 				if(components.len == 0)
 					user << SPAN_WARN("You remove the circuit board.")
 				else
 					user << SPAN_NOTE("You remove the circuit board and other components.")
 					for(var/obj/item/weapon/W in components)
-						W.loc = src.loc
+						W.forceMove(src.loc)
 				desc = initial(desc)
 				req_components = null
 				components = null
@@ -116,11 +116,11 @@
 						src.circuit.construct(new_machine)
 
 						new_machine.component_parts += circuit
-						circuit.loc = null
+						circuit.forceMove(null)
 
 						for(var/obj/O in src)
 							new_machine.component_parts += O
-							O.loc = null
+							O.forceMove(null)
 
 						new_machine.RefreshParts()
 						qdel(src)

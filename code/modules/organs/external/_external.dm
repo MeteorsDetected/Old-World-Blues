@@ -168,20 +168,20 @@
 		//large items and non-item objs fall to the floor, everything else stays
 		var/obj/item/I = implant
 		if(istype(I) && I.w_class < 3)
-			implant.loc = get_turf(owner)
+			implant.forceMove(get_turf(owner))
 		else
-			implant.loc = src
+			implant.forceMove(src)
 	implants.Cut()
 
 	if(children)
 		for(var/obj/item/organ/external/child in children)
 			child.removed(user, 0)
-			child.loc = src
+			child.forceMove(src)
 
 	if(internal_organs)
 		for(var/obj/item/organ/internal/organ in internal_organs)
 			organ.removed(user, 0)
-			organ.loc = src
+			organ.forceMove(src)
 
 	// Remove parent references
 	parent.children -= src
@@ -212,7 +212,7 @@
 			removable_objects |= I
 	if(removable_objects.len)
 		var/obj/item/I = pick(removable_objects)
-		I.loc = get_turf(user) //just in case something was embedded that is not an item
+		I.forceMove(get_turf(user)) //just in case something was embedded that is not an item
 		if(istype(I))
 			user.put_in_hands(I)
 		user.visible_message(SPAN_DANG("\The [user] rips \the [I] out of \the [src]!"))
@@ -328,7 +328,7 @@ This function completely restores a damaged organ to perfect condition.
 	// remove embedded objects and drop them on the floor
 	for(var/obj/implanted_object in implants)
 		if(!istype(implanted_object,/obj/item/weapon/implant))	// We don't want to remove REAL implants. Just shrapnel etc.
-			implanted_object.loc = get_turf(src)
+			implanted_object.forceMove(get_turf(src))
 			implants -= implanted_object
 
 	owner.updatehealth()
@@ -737,7 +737,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			new /obj/effect/decal/cleanable/ash(get_turf(victim))
 			for(var/obj/item/I in src)
 				if(I.w_class > ITEM_SIZE_SMALL && !istype(I,/obj/item/organ))
-					I.loc = get_turf(src)
+					I.forceMove(get_turf(src))
 			qdel(src)
 		if(DROPLIMB_BLUNT)
 			var/obj/effect/decal/cleanable/blood/gibs/gore
@@ -757,7 +757,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 					I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
 
 			for(var/obj/item/I in src)
-				I.loc = get_turf(src)
+				I.forceMove(get_turf(src))
 				I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
 
 			qdel(src)
@@ -926,7 +926,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	owner.embedded_flag = 1
 	W.add_blood(owner)
 	owner.verbs += /mob/proc/yank_out_object
-	W.loc = owner
+	W.forceMove(owner)
 
 /obj/item/organ/external/proc/disfigure(var/type = "brute")
 	if (disfigured)

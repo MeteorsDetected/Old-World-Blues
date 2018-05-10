@@ -6,7 +6,7 @@
 			"You hear the satisfying click of a wire jack fastening into place."
 		)
 		user.unEquip(src)
-		src.loc = M
+		src.forceMove(M)
 		src.machine = M
 	else
 		user.visible_message(

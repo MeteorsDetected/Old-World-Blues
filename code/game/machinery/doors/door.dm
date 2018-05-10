@@ -228,7 +228,7 @@
 		else
 			repairing = stack.split(amount_needed)
 			if (repairing)
-				repairing.loc = src
+				repairing.forceMove(src)
 				transfer = repairing.amount
 
 		if (transfer)
@@ -256,7 +256,7 @@
 	if(repairing && istype(I, /obj/item/weapon/crowbar))
 		user << SPAN_NOTE("You remove \the [repairing].")
 		playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
-		repairing.loc = user.loc
+		repairing.forceMove(user.loc)
 		repairing = null
 		return
 
