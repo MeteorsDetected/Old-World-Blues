@@ -786,9 +786,9 @@ About the new airlock wires panel:
 					new /obj/item/weapon/circuitboard/broken(src.loc)
 					operating = 0
 				else
-					if (!electronics) create_electronics()
-
-					electronics.loc = src.loc
+					if (!electronics)
+						create_electronics()
+					electronics.forceMove(src.loc)
 					electronics = null
 
 				qdel(src)
@@ -998,7 +998,7 @@ About the new airlock wires panel:
 		assembly_type = assembly.type
 
 		electronics = assembly.electronics
-		electronics.loc = src
+		electronics.forceMove(src)
 
 		//update the door's access to match the electronics'
 		secured_wires = electronics.secure

@@ -32,12 +32,12 @@
 			if(target.buckled)
 				target.buckled = null
 			jaunt_disappear(animation, target)
-			target.loc = holder
+			target.forceMove(holder)
 			target.transforming=0 //mob is safely inside holder now, no need for protection.
 			jaunt_steam(mobloc)
 			sleep(duration)
 			mobloc = holder.last_valid_turf
-			animation.loc = mobloc
+			animation.forceMove(mobloc)
 			jaunt_steam(mobloc)
 			target.canmove = 0
 			holder.reappearing = 1
@@ -84,14 +84,14 @@
 /obj/effect/dummy/spell_jaunt/Destroy()
 	// Eject contents if deleted somehow
 	for(var/atom/movable/AM in src)
-		AM.loc = get_turf(src)
+		AM.forceMove(get_turf(src))
 	return ..()
 
 /obj/effect/dummy/spell_jaunt/relaymove(var/mob/user, direction)
 	if (!src.canmove || reappearing) return
 	var/turf/newLoc = get_step(src,direction)
 	if(!(newLoc.flags & NOJAUNT))
-		loc = newLoc
+		forceMove(newLoc)
 		var/turf/T = get_turf(loc)
 		if(!T.contains_dense_objects())
 			last_valid_turf = T

@@ -35,7 +35,7 @@
 	. = ..()
 	for(var/obj/item/I in loc)
 		if(is_type_in_list(I, allowed_items))
-			I.loc = src
+			I.forceMove(src)
 
 
 /obj/structure/filingcabinet/attackby(obj/item/P as obj, mob/user as mob)
@@ -81,7 +81,7 @@
 	if(contents.len)
 		if(prob(40 + contents.len * 5))
 			var/obj/item/I = pick(contents)
-			I.loc = loc
+			I.forceMove(loc)
 			if(prob(25))
 				step_rand(I)
 			user << SPAN_NOTE("You pull \a [I] out of [src] at random.")

@@ -75,7 +75,7 @@
 			user << "<span class='warning'>[src] is full!</span>"
 			return
 		user.remove_from_mob(S)
-		S.loc = src
+		S.forceMove(src)
 		darts += S //add to the end
 		user.visible_message("[user] inserts \a [S] into [src].", SPAN_NOTE("You insert \a [S] into [src]."))
 	else

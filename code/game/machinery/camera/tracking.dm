@@ -2,8 +2,9 @@
 #define TRACKING_NO_COVERAGE 1
 #define TRACKING_TERMINATE 2
 
-/mob/living/silicon/ai/var/max_locations = 10
-/mob/living/silicon/ai/var/stored_locations[0]
+/mob/living/silicon/ai/
+	var/max_locations = 10
+	var/stored_locations[0]
 
 /mob/living/silicon/ai/proc/get_camera_list()
 	if(src.stat == DEAD)
@@ -35,29 +36,27 @@
 	var/obj/machinery/camera/C = track.cameras[camera]
 	src.eyeobj.setLoc(C)
 
-	return
-
 /mob/living/silicon/ai/proc/ai_store_location(loc as text)
 	set category = "AI Commands"
 	set name = "Store Camera Location"
 	set desc = "Stores your current camera location by the given name"
 
-	loc = sanitize(loc)
+	forceMove(sanitize(loc))
 	if(!loc)
-		src << "<span class='warning'>Must supply a location name</span>"
+		src << SPAN_WARN("Must supply a location name")
 		return
 
 	if(stored_locations.len >= max_locations)
-		src << "<span class='warning'>Cannot store additional locations. Remove one first</span>"
+		src << SPAN_WARN("Cannot store additional locations. Remove one first")
 		return
 
 	if(loc in stored_locations)
-		src << "<span class='warning'>There is already a stored location by this name</span>"
+		src << SPAN_WARN("There is already a stored location by this name")
 		return
 
 	var/L = src.eyeobj.getLoc()
 	if(!isOnPlayerLevel(L))
-		src << "<span class='warning'>Unable to store this location</span>"
+		src << SPAN_WARN("Unable to store this location")
 		return
 
 	stored_locations[loc] = L
@@ -84,7 +83,7 @@
 	set desc = "Deletes the selected camera location"
 
 	if (!(loc in stored_locations))
-		src << "<span class='warning'>Location [loc] not found</span>"
+		src << SPAN_WARN("Location [loc] not found")
 		return
 
 	stored_locations.Remove(loc)

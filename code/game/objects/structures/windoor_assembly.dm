@@ -180,7 +180,7 @@
 					src.name = "Near finished Windoor Assembly"
 					src.electronics = W
 				else
-					W.loc = src.loc
+					W.forceMove(src.loc)
 
 			//Screwdriver to remove airlock electronics. Step 6 undone.
 			else if(istype(W, /obj/item/weapon/screwdriver) && src.electronics)
@@ -196,7 +196,7 @@
 						src.name = "Wired Windoor Assembly"
 					var/obj/item/weapon/airlock_electronics/ae = electronics
 					electronics = null
-					ae.loc = src.loc
+					ae.forceMove(src.loc)
 
 			//Crowbar to complete the assembly, Step 7 complete.
 			else if(istype(W, /obj/item/weapon/crowbar))
@@ -231,7 +231,7 @@
 						else
 							windoor.req_access = src.electronics.conf_access
 						windoor.electronics = src.electronics
-						src.electronics.loc = windoor
+						src.electronics.forceMove(windoor)
 					else
 						var/obj/machinery/door/window/windoor = new /obj/machinery/door/window(src.loc)
 						if(src.facing == "l")
@@ -249,11 +249,9 @@
 						else
 							windoor.req_access = src.electronics.conf_access
 						windoor.electronics = src.electronics
-						src.electronics.loc = windoor
-
+						src.electronics.forceMove(windoor)
 
 					qdel(src)
-
 
 			else
 				..()
@@ -280,7 +278,6 @@
 		update_nearby_tiles(need_rebuild=1)
 
 	update_icon()
-	return
 
 //Flips the windoor assembly, determines whather the door opens to the left or the right
 /obj/structure/windoor_assembly/verb/flip()

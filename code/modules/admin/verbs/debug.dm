@@ -828,7 +828,7 @@ ADMIN_VERB_ADD(/client/proc/cmd_admin_dress, R_FUN)
 				Phoron.air_contents.gas["phoron"] = 70
 				Rad.drainratio = 0
 				Rad.P = Phoron
-				Phoron.loc = Rad
+				Phoron.forceMove(Rad)
 
 			if(!Rad.active)
 				Rad.toggle_power()
@@ -871,7 +871,7 @@ ADMIN_VERB_ADD(/client/proc/cmd_admin_dress, R_FUN)
 				Phoron.air_contents.gas["phoron"] = 29.1154	//This is a full tank if you filled it from a canister
 				Rad.P = Phoron
 
-				Phoron.loc = Rad
+				Phoron.forceMove(Rad)
 
 				if(!Rad.active)
 					Rad.toggle_power()

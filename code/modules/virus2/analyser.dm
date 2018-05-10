@@ -46,7 +46,7 @@
 			dish.info = r
 			dish.name = "[initial(dish.name)] ([dish.virus2.name()])"
 			dish.analysed = 1
-			dish.loc = src.loc
+			dish.forceMove(src.loc)
 			dish = null
 
 			icon_state = "analyser"
@@ -60,7 +60,7 @@
 		else
 			pause = 1
 			spawn(25)
-				dish.loc = src.loc
+				dish.forceMove(src.loc)
 				dish = null
 
 				src.state("\The [src] buzzes, \"Insufficient growth density to complete analysis.\"")

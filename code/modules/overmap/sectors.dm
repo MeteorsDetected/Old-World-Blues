@@ -35,7 +35,7 @@ var/global/list/map_sectors = list()
 /obj/effect/mapinfo/New()
 	tag = "sector[z]"
 	zlevel = z
-	loc = null
+	forceMove(null)
 
 /obj/effect/mapinfo/sector
 	name = "generic sector"
@@ -69,7 +69,7 @@ var/global/list/map_sectors = list()
 		desc = data.desc
 	var/new_x = data.mapx ? data.mapx : rand(OVERMAP_EDGE, world.maxx - OVERMAP_EDGE)
 	var/new_y = data.mapy ? data.mapy : rand(OVERMAP_EDGE, world.maxy - OVERMAP_EDGE)
-	loc = locate(new_x, new_y, OVERMAP_ZLEVEL)
+	forceMove(locate(new_x, new_y, OVERMAP_ZLEVEL))
 
 	if(data.landing_area)
 		shuttle_landing = locate(data.landing_area)
@@ -103,7 +103,7 @@ var/global/list/map_sectors = list()
 	always_known = 0
 
 /obj/effect/map/sector/temporary/New(var/nx, var/ny, var/nz)
-	loc = locate(nx, ny, OVERMAP_ZLEVEL)
+	forceMove(locate(nx, ny, OVERMAP_ZLEVEL))
 	map_z = nz
 	map_sectors["[map_z]"] = src
 	testing("Temporary sector at [x],[y] was created, corresponding zlevel is [map_z].")

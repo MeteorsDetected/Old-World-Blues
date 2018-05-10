@@ -107,7 +107,7 @@
 		if(!T)	return 0
 		var/obj/effect/blob/B = new /obj/effect/blob(src.loc, min(src.health, 30))
 		if(T.Enter(B,src))//Attempt to move into the tile
-			B.loc = T
+			B.forceMove(T)
 		else
 			T.blob_act()//If we cant move in hit the turf
 			qdel(B)

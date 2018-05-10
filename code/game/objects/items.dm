@@ -77,7 +77,7 @@
 		m.drop_from_inventory(src)
 		m.update_inv_r_hand()
 		m.update_inv_l_hand()
-		src.loc = null
+		src.forceMove(null)
 	return ..()
 
 /obj/item/device
@@ -132,7 +132,6 @@
 	var/turf/T = src.loc
 
 	src.loc = null
-
 	src.loc = T
 
 /obj/item/examine(mob/user, var/return_dist = 0)

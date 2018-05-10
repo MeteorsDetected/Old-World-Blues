@@ -222,14 +222,14 @@ LINEN BINS
 		user << SPAN_NOTE("You take [B] out of [src].")
 
 		if(hidden)
-			hidden.loc = user.loc
+			hidden.forceMove(user.loc)
 			user << SPAN_NOTE("[hidden] falls out of [B]!")
 			hidden = null
 
 
 	add_fingerprint(user)
 
-/obj/structure/bedsheetbin/attack_tk(mob/user as mob)
+/obj/structure/bedsheetbin/attack_tk(mob/user)
 	if(amount >= 1)
 		amount--
 
@@ -241,12 +241,12 @@ LINEN BINS
 		else
 			B = new /obj/item/weapon/bedsheet(loc)
 
-		B.loc = loc
+		B.forceMove(loc)
 		user << SPAN_NOTE("You telekinetically remove [B] from [src].")
 		update_icon()
 
 		if(hidden)
-			hidden.loc = loc
+			hidden.forceMove(loc)
 			hidden = null
 
 

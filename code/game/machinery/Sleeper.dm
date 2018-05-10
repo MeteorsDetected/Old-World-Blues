@@ -177,8 +177,8 @@
 
 	blob_act()
 		if(prob(75))
-			for(var/atom/movable/A as mob|obj in src)
-				A.loc = src.loc
+			for(var/atom/movable/A in src)
+				A.forceMove(src.loc)
 				A.blob_act()
 			qdel(src)
 
@@ -225,20 +225,20 @@
 			toggle_filter()
 		switch(severity)
 			if(1.0)
-				for(var/atom/movable/A as mob|obj in src)
-					A.loc = src.loc
+				for(var/atom/movable/A in src)
+					A.forceMove(src.loc)
 					ex_act(severity)
 				qdel(src)
 			if(2.0)
 				if(prob(50))
-					for(var/atom/movable/A as mob|obj in src)
-						A.loc = src.loc
+					for(var/atom/movable/A in src)
+						A.forceMove(src.loc)
 						ex_act(severity)
 					qdel(src)
 			if(3.0)
 				if(prob(25))
-					for(var/atom/movable/A as mob|obj in src)
-						A.loc = src.loc
+					for(var/atom/movable/A in src)
+						A.forceMove(src.loc)
 						ex_act(severity)
 					qdel(src)
 
@@ -352,7 +352,7 @@
 			return
 		if(beaker)
 			filtering = 0
-			beaker.loc = usr.loc
+			beaker.forceMove(usr.loc)
 			beaker = null
 		add_fingerprint(usr)
 		return

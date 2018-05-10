@@ -97,7 +97,7 @@
 
 				state = 4
 				var/obj/machinery/camera/C = new(src.loc)
-				src.loc = C
+				src.forceMove( C)
 				C.assembly = src
 
 				C.auto_turn()
@@ -134,7 +134,7 @@
 		user << "You attach \the [W] into the assembly inner circuits."
 		upgrades += W
 		user.remove_from_mob(W)
-		W.loc = src
+		W.forceMove(src)
 		return
 
 	// Taking out upgrades
@@ -143,7 +143,7 @@
 		if(U)
 			user << "You unattach an upgrade from the assembly."
 			playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
-			U.loc = get_turf(src)
+			U.forceMove(get_turf(src))
 			upgrades -= U
 		return
 

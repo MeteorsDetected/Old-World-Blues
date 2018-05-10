@@ -28,7 +28,8 @@
 	var/turf/T = loc
 	T.contents += contents
 	if(beaker)
-		beaker.loc = get_step(loc, SOUTH) //Beaker is carefully ejected from the wreckage of the cryotube
+		//Beaker is carefully ejected from the wreckage of the cryotube
+		beaker.forceMove(get_step(loc, SOUTH))
 	..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/initialize()
@@ -158,7 +159,7 @@
 
 	if(href_list["ejectBeaker"])
 		if(beaker)
-			beaker.loc = get_step(loc, SOUTH)
+			usr.put_in_hands(beaker)
 			beaker = null
 
 	if(href_list["ejectOccupant"])
@@ -251,7 +252,8 @@
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)
 		return
-	occupant.loc = get_step(loc, SOUTH)	//this doesn't account for walls or anything, but i don't forsee that being a problem.
+	//this doesn't account for walls or anything, but i don't forsee that being a problem.
+	occupant.forceMove(get_step(loc, SOUTH))
 	occupant.reset_view()
 	//Patch by Aranclanos to stop people from taking burn damage after being ejected
 	if (occupant.bodytemperature < 261 && occupant.bodytemperature >= 70)

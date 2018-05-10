@@ -49,7 +49,7 @@ var/global/list/ashtray_cache = list()
 			user << "\The [src] is full."
 			return
 		user.remove_from_mob(W)
-		W.loc = src
+		W.forceMove(src)
 
 		if (istype(W,/obj/item/clothing/mask/smokable/cigarette))
 			var/obj/item/clothing/mask/smokable/cigarette/cig = W
@@ -83,7 +83,7 @@ var/global/list/ashtray_cache = list()
 		if (contents.len)
 			src.visible_message("<span class='danger'>\The [src] slams into [hit_atom], spilling its contents!</span>")
 		for (var/obj/item/clothing/mask/smokable/cigarette/O in contents)
-			O.loc = src.loc
+			O.forceMove(src.loc)
 		if (health < 1)
 			shatter()
 			return
@@ -93,7 +93,7 @@ var/global/list/ashtray_cache = list()
 /obj/item/weapon/material/ashtray/attack_self(mob/user as mob)
 	if (contents.len)
 		for (var/obj/item/O in contents)
-			O.loc = get_turf(src)
+			O.forceMove(get_turf(src))
 		user.visible_message("[user] empties \the [src]!")
 		update_icon()
 	else

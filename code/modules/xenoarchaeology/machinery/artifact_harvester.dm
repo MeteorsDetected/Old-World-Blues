@@ -224,7 +224,7 @@
 			icon_state = "incubator"
 
 	if (href_list["ejectbattery"])
-		src.inserted_battery.loc = src.loc
+		src.inserted_battery.forceMove(src.loc)
 		src.inserted_battery = null
 
 	if (href_list["drainbattery"])

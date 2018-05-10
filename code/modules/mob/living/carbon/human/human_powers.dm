@@ -211,7 +211,7 @@
 		for(var/mob/M in src)
 			if(M in stomach_contents)
 				stomach_contents.Remove(M)
-				M.loc = loc
+				M.forceMove(loc)
 		src.visible_message("\red <B>[src] hurls out the contents of their stomach!</B>")
 	return
 
@@ -245,7 +245,7 @@
 
 	for(var/mob/living/carbon/alien/diona/D in src)
 		nymphs++
-		D.loc = T
+		D.forceMove(T)
 		D.set_dir(pick(NORTH, SOUTH, EAST, WEST))
 
 	if(nymphs < 5)

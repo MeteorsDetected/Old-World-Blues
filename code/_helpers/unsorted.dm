@@ -1440,7 +1440,7 @@ proc/GaussRandRound(var/sigma,var/roundto)
 
 						// Spawn a new shuttle corner object
 						var/obj/corner = new()
-						corner.loc = X
+						corner.forceMove(X)
 						corner.density = 1
 						corner.anchored = 1
 						corner.icon = X.icon
@@ -1469,10 +1469,10 @@ proc/GaussRandRound(var/sigma,var/roundto)
 							qdel(O) // prevents multiple shuttle corners from stacking
 							continue
 						if(!isobj(O)) continue
-						O.loc = X
+						O.forceMove(X)
 					for(var/mob/M in T)
 						if(!ismob(M) || isEye(M)) continue // If we need to check for more mobs, I'll add a variable
-						M.loc = X
+						M.forceMove(X)
 
 //					var/area/AR = X.loc
 
@@ -1598,7 +1598,7 @@ proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
 
 
 					for(var/obj/O in newobjs)
-						O.loc = X
+						O.forceMove(X)
 
 					for(var/mob/M in T)
 
@@ -1609,7 +1609,7 @@ proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
 						newmobs += DuplicateObject(M , 1)
 
 					for(var/mob/M in newmobs)
-						M.loc = X
+						M.forceMove(X)
 
 					copiedobjs += newobjs
 					copiedobjs += newmobs
@@ -1931,12 +1931,12 @@ var/mob/dview/dview_mob = new
 	if(!center)
 		return
 
-	dview_mob.loc = center
+	dview_mob.forceMove(center)
 
 	dview_mob.see_invisible = invis_flags
 
 	. = view(range, dview_mob)
-	dview_mob.loc = null
+	dview_mob.forceMove(null)
 
 /mob/dview
 	invisibility = 101

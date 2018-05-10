@@ -82,7 +82,7 @@ default behaviour is:
 
 			//Leaping mobs just land on the tile, no pushing, no anything.
 			if(status_flags & LEAPING)
-				loc = tmob.loc
+				forceMove(tmob.loc)
 				status_flags &= ~LEAPING
 				now_pushing = FALSE
 				return
@@ -722,7 +722,7 @@ default behaviour is:
 
 	for(var/mob/O in viewers(src, null))
 		O.show_message(text("<B>[src] scrambles into the ventillation ducts!</B>"), 1)
-	loc = target_vent
+	forceMove(target_vent)
 
 	var/travel_time = round(get_dist(loc, target_vent.loc) / 2)
 
@@ -740,7 +740,7 @@ default behaviour is:
 		if(target_vent.welded)			//the vent can be welded while alien scrolled through the list or travelled.
 			target_vent = vent_found 	//travel back. No additional time required.
 			src << "\red The vent you were heading to appears to be welded."
-		loc = target_vent.loc
+		forceMove(target_vent.loc)
 		var/area/new_area = get_area(loc)
 		if(new_area)
 			new_area.Entered(src)

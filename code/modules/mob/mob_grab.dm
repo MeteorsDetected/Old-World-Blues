@@ -63,7 +63,7 @@
 
 /obj/item/weapon/grab/New(mob/user, mob/victim)
 	..()
-	loc = user
+	forceMove(user)
 	assailant = user
 	affecting = victim
 
@@ -205,12 +205,12 @@
 			shift = -10
 			adir = assailant.dir
 			affecting.set_dir(assailant.dir)
-			affecting.loc = assailant.loc
+			affecting.forceMove(assailant.loc)
 		if(GRAB_KILL)
 			shift = 0
 			adir = 1
 			affecting.set_dir(SOUTH) //face up
-			affecting.loc = assailant.loc
+			affecting.forceMove(assailant.loc)
 
 	switch(adir)
 		if(NORTH)
@@ -342,7 +342,7 @@
 		devour(affecting, assailant)
 
 /obj/item/weapon/grab/dropped()
-	loc = null
+	forceMove(null)
 	if(!destroying)
 		qdel(src)
 

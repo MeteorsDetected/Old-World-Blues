@@ -71,7 +71,7 @@
 	else if(istype(W, /obj/item/weapon/screwdriver))
 		if(bcell)
 			bcell.update_icon()
-			bcell.loc = get_turf(src.loc)
+			bcell.forceMove(get_turf(src.loc))
 			bcell = null
 			user << SPAN_NOTE("You remove the cell from the [src].")
 			status = 0

@@ -43,7 +43,7 @@
 			"You sheathe \the [W] into \the [src]."
 		)
 		user.drop_from_inventory(W)
-		W.loc = src
+		W.forceMove(src)
 		src.concealed_blade = W
 		update_icon()
 	else

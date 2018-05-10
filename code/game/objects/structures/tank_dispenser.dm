@@ -95,7 +95,7 @@
 					oxytanks.Remove(O)
 				else
 					O = new /obj/item/weapon/tank/oxygen(loc)
-				O.loc = loc
+				O.forceMove(loc)
 				usr << SPAN_NOTE("You take [O] out of [src].")
 				oxygentanks--
 				update_icon()
@@ -107,7 +107,7 @@
 					platanks.Remove(P)
 				else
 					P = new /obj/item/weapon/tank/phoron(loc)
-				P.loc = loc
+				P.forceMove(loc)
 				usr << SPAN_NOTE("You take [P] out of [src].")
 				phorontanks--
 				update_icon()

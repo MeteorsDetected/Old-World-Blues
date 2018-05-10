@@ -328,19 +328,19 @@
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/A in src)
-				A.loc = loc
+				A.forceMove(loc)
 				ex_act(severity)
 			qdel(src)
 		if(2.0)
 			if(prob(50))
 				for(var/atom/movable/A in src)
-					A.loc = loc
+					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
 		if(3.0)
 			if(prob(25))
 				for(var/atom/movable/A in src)
-					A.loc = loc
+					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
 

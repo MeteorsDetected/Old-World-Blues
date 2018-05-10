@@ -147,7 +147,7 @@
 	if(operating || !src.occupant)
 		return
 	for(var/obj/O in src)
-		O.loc = src.loc
+		O.forceMove(src.loc)
 	src.occupant.forceMove(src.loc)
 	src.occupant.reset_view()
 	src.occupant = null
@@ -217,9 +217,10 @@
 			if((istype(thing,/obj/item/organ) || istype(thing,/obj/item/organ)) && prob(80))
 				qdel(thing)
 				continue
-			thing.loc = get_turf(thing) // Drop it onto the turf for throwing.
-			thing.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(0,3),emagged ? 100 : 50) // Being pelted with bits of meat and bone would hurt.
+			//Drop it onto the turf for throwing.
+			thing.forceMove(get_turf(thing))
+			// Being pelted with bits of meat and bone would hurt.
+			thing.throw_at(get_edge_target_turf(src,gib_throw_dir),rand(0,3),emagged ? 100 : 50)
 
 		update_icon()
-
 

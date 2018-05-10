@@ -29,11 +29,10 @@
 	if(istype(swab) && swab.is_used())
 		user.unEquip(W)
 		src.bloodsamp = swab
-		swab.loc = src
+		swab.forceMove(src)
 		user << SPAN_NOTE("You insert \the [W] into \the [src].")
 	else
-		user << "<span class='warning'>\The [src] only accepts used swabs.</span>"
-		return
+		user << SPAN_WARN("\The [src] only accepts used swabs.")
 
 /obj/machinery/dnaforensics/ui_interact(mob/user, ui_key = "main",var/datum/nanoui/ui = null)
 	if(stat & (NOPOWER))
