@@ -207,7 +207,7 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 
 		else if(href_list["remove"])
 			if(copyitem)
-				copyitem.loc = usr.loc
+				copyitem.forceMove(usr.loc)
 				if(!usr.put_in_hands(copyitem))
 					copyitem.forceMove(loc)
 				usr << SPAN_NOTE("You take \the [copyitem] out of \the [src].")

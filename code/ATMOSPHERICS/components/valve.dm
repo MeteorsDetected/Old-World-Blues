@@ -72,7 +72,7 @@
 	return null
 
 /obj/machinery/atmospherics/valve/Destroy()
-	loc = null
+	forceMove(null)
 
 	if(node1)
 		node1.disconnect(src)

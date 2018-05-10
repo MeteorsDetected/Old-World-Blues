@@ -42,7 +42,7 @@
 		var/obj/item/roller_holder/RH = W
 		if(!RH.held)
 			user << SPAN_NOTE("You collect the roller bed.")
-			src.loc = RH
+			src.forceMove(RH)
 			RH.held = src
 		return
 
@@ -70,7 +70,7 @@
 	..()
 	if(buckled_mob)
 		if(buckled_mob.buckled == src)
-			buckled_mob.loc = src.loc
+			buckled_mob.forceMove(src.loc)
 		else
 			buckled_mob = null
 

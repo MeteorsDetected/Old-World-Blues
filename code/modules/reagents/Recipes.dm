@@ -900,7 +900,7 @@
 		SPAN_WARN("Infused with phoron, the core begins to quiver and grow, and soon a new baby slime emerges from it!")
 	)
 	var/mob/living/carbon/slime/S = new /mob/living/carbon/slime
-	S.loc = get_turf(holder.my_atom)
+	S.forceMove(get_turf(holder.my_atom))
 	..()
 
 /datum/chemical_reaction/slime/monkey
@@ -969,7 +969,7 @@
 		var/chosen = pick(borks)
 		var/obj/B = new chosen
 		if(B)
-			B.loc = get_turf(holder.my_atom)
+			B.forceMove(get_turf(holder.my_atom))
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)
 					step(B, pick(NORTH, SOUTH, EAST, WEST))
@@ -1052,7 +1052,7 @@
 
 /datum/chemical_reaction/slime/cell/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/obj/item/weapon/cell/slime/P = new /obj/item/weapon/cell/slime
-	P.loc = get_turf(holder.my_atom)
+	P.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slime/glow
 	name = "Slime Glow"
@@ -1066,7 +1066,7 @@
 /datum/chemical_reaction/slime/glow/on_reaction(var/datum/reagents/holder, var/created_volume)
 	..()
 	var/obj/item/device/flashlight/slime/F = new /obj/item/device/flashlight/slime
-	F.loc = get_turf(holder.my_atom)
+	F.forceMove(get_turf(holder.my_atom))
 
 //Purple
 /datum/chemical_reaction/slime/psteroid
@@ -1080,7 +1080,7 @@
 /datum/chemical_reaction/slime/psteroid/on_reaction(var/datum/reagents/holder, var/created_volume)
 	..()
 	var/obj/item/weapon/slimesteroid/P = new /obj/item/weapon/slimesteroid
-	P.loc = get_turf(holder.my_atom)
+	P.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slime/jam
 	name = "Slime Jam"
@@ -1138,7 +1138,7 @@
 /datum/chemical_reaction/slime/ppotion/on_reaction(var/datum/reagents/holder)
 	..()
 	var/obj/item/weapon/slimepotion/P = new /obj/item/weapon/slimepotion
-	P.loc = get_turf(holder.my_atom)
+	P.forceMove(get_turf(holder.my_atom))
 
 //Black
 /datum/chemical_reaction/slime/mutate2
@@ -1176,7 +1176,7 @@
 /datum/chemical_reaction/slime/potion2/on_reaction(var/datum/reagents/holder)
 	..()
 	var/obj/item/weapon/slimepotion2/P = new /obj/item/weapon/slimepotion2
-	P.loc = get_turf(holder.my_atom)
+	P.forceMove(get_turf(holder.my_atom))
 
 //Adamantine
 /datum/chemical_reaction/slime/golem
@@ -1190,7 +1190,7 @@
 /datum/chemical_reaction/slime/golem/on_reaction(var/datum/reagents/holder)
 	..()
 	var/obj/effect/golemrune/Z = new /obj/effect/golemrune
-	Z.loc = get_turf(holder.my_atom)
+	Z.forceMove(get_turf(holder.my_atom))
 	Z.announce_to_ghosts()
 
 /* Food */

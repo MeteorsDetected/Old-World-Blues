@@ -59,7 +59,7 @@ var/datum/donations/donations = new()
 		var/where = user.equip_in_one_of_slots(spawned, slots, del_on_fail=0)
 
 		if (!where)
-			spawned.loc = user.loc
+			spawned.forceMove(user.loc)
 			user << "<span class='info'>Your [spawned.name] has been spawned!</span>"
 		else
 			user << "<span class='info'>Your [spawned.name] has been spawned in your [where]!</span>"

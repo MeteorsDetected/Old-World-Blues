@@ -14,7 +14,7 @@ ADMIN_VERB_ADD(/client/proc/Jump, R_ADMIN|R_MOD|R_DEBUG)
 
 	if(config.allow_admin_jump)
 		usr.on_mob_jump()
-		usr.loc = pick(get_area_turfs(A))
+		usr.forceMove(pick(get_area_turfs(A)))
 
 		log_admin("[key_name(usr)] jumped to [A]", A, 0)
 	else
@@ -30,7 +30,7 @@ ADMIN_VERB_ADD(/client/proc/jumptoturf, R_ADMIN|R_MOD|R_DEBUG)
 	if(config.allow_admin_jump)
 		log_admin("[key_name(usr)] jumped to [T].", T, 0)
 		usr.on_mob_jump()
-		usr.loc = T
+		usr.forceMove(T)
 	else
 		alert("Admin jumping disabled")
 	return
@@ -51,7 +51,7 @@ ADMIN_VERB_ADD(/client/proc/jumptomob, R_ADMIN|R_MOD|R_DEBUG)
 			var/turf/T = get_turf(M)
 			if(T && isturf(T))
 				A.on_mob_jump()
-				A.loc = T
+				A.forceMove(T)
 			else
 				A << "This mob is not located in the game world."
 	else
@@ -86,7 +86,7 @@ ADMIN_VERB_ADD(/client/proc/jumptokey, R_ADMIN|R_MOD|R_DEBUG)
 		var/mob/M = selection:mob
 		log_admin("[key_name(usr)] jumped to [key_name(M)]", M, 0)
 		usr.on_mob_jump()
-		usr.loc = M.loc
+		usr.forceMove(M.loc)
 	else
 		alert("Admin jumping disabled")
 
@@ -101,7 +101,7 @@ ADMIN_VERB_ADD(/client/proc/Getmob, R_ADMIN|R_MOD|R_DEBUG)
 	if(config.allow_admin_jump)
 		log_admin("[key_name(usr)] teleported [key_name(M)]", M)
 		M.on_mob_jump()
-		M.loc = get_turf(usr)
+		M.forceMove(get_turf(usr))
 	else
 		alert("Admin jumping disabled")
 
@@ -129,6 +129,6 @@ ADMIN_VERB_ADD(/client/proc/Getkey, R_ADMIN|R_MOD|R_DEBUG)
 		log_admin("[key_name(usr)] teleported [key_name(M)]", M)
 		if(M)
 			M.on_mob_jump()
-			M.loc = get_turf(usr)
+			M.forceMove(get_turf(usr))
 	else
 		alert("Admin jumping disabled")

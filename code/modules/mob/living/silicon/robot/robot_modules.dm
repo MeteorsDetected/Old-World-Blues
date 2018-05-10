@@ -596,7 +596,7 @@ var/mob/living/silicon/robot/global/list/redcode_robot_modules = list(
 
 /obj/item/weapon/robot_module/syndicate/New(var/mob/living/silicon/robot/R)
 	..()
-	loc = R
+	forceMove(R)
 	src.modules += new /obj/item/device/flash(src)
 	src.modules += new /obj/item/weapon/melee/energy/sword(src)
 	src.modules += new /obj/item/weapon/gun/energy/pulse_rifle/destroyer(src)

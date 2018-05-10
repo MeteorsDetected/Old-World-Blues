@@ -169,11 +169,11 @@
 					new /obj/item/toy/ammo/gun(src.loc)
 
 				else if(istype(prizeselect, /obj/item/clothing/suit/syndicatefake)) //Helmet is part of the suit
-					new	/obj/item/clothing/head/syndicatefake(src.loc)
+					new /obj/item/clothing/head/syndicatefake(src.loc)
 
 			else
 				var/atom/movable/prize = pick(contents)
-				prize.loc = src.loc
+				prize.forceMove(src.loc)
 
 	else if (emagged && (turtle >= 4))
 		var/boomamt = rand(5,10)

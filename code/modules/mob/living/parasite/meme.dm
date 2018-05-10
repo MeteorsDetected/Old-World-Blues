@@ -32,7 +32,7 @@ be able to influence the host through various commands.
 
 	if(src.host) exit_host()
 	src.host = host
-	src.loc = host
+	src.forceMove(host)
 	host.parasites.Add(src)
 	host.status_flags |= PASSEMOTES
 
@@ -42,7 +42,7 @@ be able to influence the host through various commands.
 	return 1
 
 /mob/living/parasite/proc/exit_host()
-	src.loc = get_turf(host)
+	src.forceMove(get_turf(host))
 	src.host.parasites.Remove(src)
 	src.host = null
 
@@ -132,7 +132,8 @@ be able to influence the host through various commands.
 
 /mob/living/parasite/meme/death()
 	// make sure the mob is on the actual map before gibbing
-	if(host) src.loc = host.loc
+	if(host)
+		src.forceMove(host.loc)
 	host.parasites -= src
 	src.stat = DEAD
 	..()
@@ -535,7 +536,7 @@ be able to influence the host through various commands.
 		log_mode("[key_name(src)] has taken possession (meme) of [key_name(host)]", host)
 
 		var/mob/dummy = new()
-		dummy.loc = 0
+		dummy.forceMove(null)
 		dummy.sight = BLIND
 
 		var/datum/mind/host_mind = host.mind
@@ -552,7 +553,7 @@ be able to influence the host through various commands.
 		meme_mind.transfer_to(src)
 		host_mind.transfer_to(host)
 		meme_mind.current.clearHUD()
-		src << "\red You lose control.."
+		src << SPAN_WARN("You lose control..")
 
 		del dummy
 

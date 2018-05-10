@@ -268,7 +268,7 @@ Frequency:
 		else if(istype(W, /obj/item/weapon/screwdriver))
 			if(vcell)
 				vcell.update_icon()
-				vcell.loc = get_turf(src.loc)
+				vcell.forceMove(get_turf(src.loc))
 				vcell = null
 				user << SPAN_NOTE("You remove the cell from the [src].")
 				icon_state = "vm_nocell"

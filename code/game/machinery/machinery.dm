@@ -307,7 +307,7 @@ Class Procs:
 						R.handle_item_insertion(A, 1)
 						component_parts -= A
 						component_parts += B
-						B.loc = null
+						B.forceMove(null)
 						user << SPAN_NOTE("[A.name] replaced with [B.name].")
 						break
 			update_icon()

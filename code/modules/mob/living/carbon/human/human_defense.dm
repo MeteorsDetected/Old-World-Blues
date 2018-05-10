@@ -48,7 +48,7 @@ emp_act
 			var/obj/item/weapon/material/shard/shrapnel/SP = new()
 			SP.name = (P.name != "shrapnel")? "[P.name] shrapnel" : "shrapnel"
 			SP.desc = "[SP.desc] It looks like it was fired from [P.shot_from]."
-			SP.loc = organ
+			SP.forceMove(organ)
 			organ.embed(SP)
 
 	return (..(P , def_zone))
@@ -364,8 +364,11 @@ emp_act
 				var/turf/T = near_wall(dir,2)
 
 				if(T)
-					src.loc = T
-					visible_message("<span class='warning'>[src] is pinned to the wall by [O]!</span>","<span class='warning'>You are pinned to the wall by [O]!</span>")
+					src.forceMove(T)
+					visible_message(
+						SPAN_WARN("[src] is pinned to the wall by [O]!"),
+						SPAN_WARN("You are pinned to the wall by [O]!")
+					)
 					src.anchored = 1
 					src.pinned += O
 

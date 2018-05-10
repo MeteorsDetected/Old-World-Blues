@@ -203,7 +203,7 @@
 
 	if(wrapped) //Already have an item.
 		//Temporary put wrapped into user so target's attackby() checks pass.
-		wrapped.loc = user
+		wrapped.forceMove(user)
 
 		//Pass the attack on to the target. This might delete/relocate wrapped.
 		var/resolved = target.attackby(wrapped,user)
@@ -215,7 +215,7 @@
 		force_holder = null
 		//If wrapped was neither deleted nor put into target, put it back into the gripper.
 		if(wrapped && user && (wrapped.loc == user))
-			wrapped.loc = src
+			wrapped.forceMove(src)
 		else
 			wrapped = null
 			return
@@ -238,7 +238,7 @@
 		//We can grab the item, finally.
 		if(grab)
 			user << "You collect \the [I]."
-			I.loc = src
+			I.forceMove(src)
 			wrapped = I
 			return
 		else
@@ -253,7 +253,7 @@
 
 				A.cell.add_fingerprint(user)
 				A.cell.update_icon()
-				A.cell.loc = src
+				A.cell.forceMove(src)
 				A.cell = null
 
 				A.charging = 0
@@ -271,7 +271,7 @@
 				A.cell.add_fingerprint(user)
 				A.cell.update_icon()
 				A.updateicon()
-				A.cell.loc = src
+				A.cell.forceMove(src)
 				A.cell = null
 
 				user.visible_message("<span class='danger'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")

@@ -49,7 +49,7 @@
 
 /obj/structure/transit_tube_pod/Destroy()
 	for(var/atom/movable/AM in contents)
-		AM.loc = loc
+		AM.forceMove(loc)
 
 	..()
 
@@ -60,7 +60,7 @@
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/AM in contents)
-				AM.loc = loc
+				AM.forceMove(loc)
 				AM.ex_act(severity++)
 
 			qdel(src)
@@ -68,7 +68,7 @@
 		if(2.0)
 			if(prob(50))
 				for(var/atom/movable/AM in contents)
-					AM.loc = loc
+					AM.forceMove(loc)
 					AM.ex_act(severity++)
 
 				qdel(src)
@@ -101,7 +101,7 @@
 		AM << "<span class='warning'>The tube's support pylons block your way.</span>"
 		return ..()
 	else
-		AM.loc = src.loc
+		AM.forceMove(src.loc)
 		AM << "<span class='info'>You slip under the tube.</span>"
 
 
@@ -112,7 +112,7 @@
 				AM << SPAN_NOTE("The pod is already occupied.")
 				return
 			else if(!pod.moving && pod.dir in directions())
-				AM.loc = pod
+				AM.forceMove(pod)
 				return
 
 
@@ -319,7 +319,7 @@
 			last_delay = current_tube.enter_delay(src, next_dir)
 			sleep(last_delay)
 			set_dir(next_dir)
-			loc = next_loc // When moving from one tube to another, skip collision and such.
+			forceMove(next_loc) // When moving from one tube to another, skip collision and such.
 			density = current_tube.density
 
 			if(current_tube && current_tube.should_stop_pod(src, next_dir))
@@ -372,7 +372,7 @@
 	if(ismob(mob) && mob.client)
 		// If the pod is not in a tube at all, you can get out at any time.
 		if(!(locate(/obj/structure/transit_tube) in loc))
-			mob.loc = loc
+			mob.forceMove(loc)
 			mob.client.Move(get_step(loc, direction), direction)
 
 			//if(moving && istype(loc, /turf/space))
@@ -385,7 +385,7 @@
 					if(!station.pod_moving)
 						if(direction == station.dir)
 							if(station.icon_state == "open")
-								mob.loc = loc
+								mob.forceMove(loc)
 								mob.client.Move(get_step(loc, direction), direction)
 
 							else

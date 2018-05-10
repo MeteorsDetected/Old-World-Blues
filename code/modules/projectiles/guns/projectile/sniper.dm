@@ -33,7 +33,7 @@
 	if(bolt_open)
 		if(chambered)
 			user << SPAN_NOTE("You work the bolt open, ejecting [chambered]!")
-			chambered.loc = get_turf(src)
+			chambered.forceMove(get_turf(src))
 			loaded -= chambered
 			chambered = null
 		else

@@ -79,7 +79,7 @@
 			playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 1)
 	if(response == "Eject")
 		if(loaded_item)
-			loaded_item.loc = get_turf(src)
+			loaded_item.forceMove(get_turf(src))
 			desc = initial(desc)
 			icon_state = initial(icon_state)
 			loaded_item = null
@@ -99,7 +99,7 @@
 			user << "Your [src] already has something inside.  Analyze or eject it first."
 			return
 		var/obj/item/I = target
-		I.loc = src
+		I.forceMove(src)
 		loaded_item = I
 		for(var/mob/M in viewers())
 			M.show_message(text(SPAN_NOTE("[user] adds the [I] to the [src].")), 1)
@@ -191,7 +191,7 @@
 		var droppedSomething = 0
 
 		for(var/obj/item/I in src)
-			I.loc = dropspot
+			I.forceMove(dropspot)
 			contents.Remove(I)
 			droppedSomething = 1
 			if(!foundtable && isturf(dropspot))

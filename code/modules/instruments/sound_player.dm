@@ -15,7 +15,7 @@
 	New(obj/where, datum/instrument/what)
 		song = new (src, what)
 		actual_instrument = where
-		src.loc = where
+		src.forceMove(where)
 
 	Destroy()
 		song.playing = 0

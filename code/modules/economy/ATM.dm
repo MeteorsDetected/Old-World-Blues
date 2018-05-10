@@ -55,7 +55,7 @@ log transactions
 			number_incorrect_tries = 0
 
 	for(var/obj/item/weapon/spacecash/S in src)
-		S.loc = src.loc
+		S.forceMove(src.loc)
 		if(prob(50))
 			playsound(loc, 'sound/items/polaroid1.ogg', 50, 1)
 		else

@@ -68,7 +68,7 @@ var/list/organ_cache = list()
 	if(!istype(owner))
 		return
 
-	loc = get_turf(owner)
+	forceMove(get_turf(owner))
 	processing_objects |= src
 	rejecting = null
 

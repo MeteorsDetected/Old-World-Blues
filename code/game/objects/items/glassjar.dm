@@ -29,7 +29,7 @@
 			SPAN_NOTE("[user] scoops [L] into \the [src]."),
 			SPAN_NOTE("You scoop [L] into \the [src].")
 		)
-		L.loc = src
+		L.forceMove(src)
 		contains = 2
 		update_icon()
 		return
@@ -39,7 +39,7 @@
 			SPAN_NOTE("[user] scoops [S] into \the [src]."),
 			SPAN_NOTE("You scoop [S] into \the [src].")
 		)
-		S.loc = src
+		S.forceMove(src)
 		processing_objects.Remove(S) // No growing inside jars
 		contains = 3
 		update_icon()
@@ -49,21 +49,21 @@
 	switch(contains)
 		if(1)
 			for(var/obj/O in src)
-				O.loc = user.loc
+				O.forceMove(user.loc)
 			user << SPAN_NOTE("You take money out of \the [src].")
 			contains = 0
 			update_icon()
 			return
 		if(2)
 			for(var/mob/M in src)
-				M.loc = user.loc
+				M.forceMove(user.loc)
 				user.visible_message(SPAN_NOTE("[user] releases [M] from \the [src]."), SPAN_NOTE("You release [M] from \the [src]."))
 			contains = 0
 			update_icon()
 			return
 		if(3)
 			for(var/obj/effect/spider/spiderling/S in src)
-				S.loc = user.loc
+				S.forceMove(user.loc)
 				user.visible_message(SPAN_NOTE("[user] releases [S] from \the [src]."), SPAN_NOTE("You release [S] from \the [src]."))
 				processing_objects.Add(S) // They can grow after being let out though
 			contains = 0
@@ -79,7 +79,7 @@
 		var/obj/item/weapon/spacecash/S = W
 		user.visible_message(SPAN_NOTE("[user] puts [S.worth] [S.worth > 1 ? "thalers" : "thaler"] into \the [src]."))
 		user.drop_from_inventory(S)
-		S.loc = src
+		S.forceMove(src)
 		update_icon()
 
 /obj/item/glass_jar/update_icon() // Also updates name and desc

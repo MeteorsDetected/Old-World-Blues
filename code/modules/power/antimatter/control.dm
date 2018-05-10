@@ -111,7 +111,6 @@
 			qdel(src)
 		return
 	check_stability()
-	return
 
 
 /obj/machinery/power/am_control_unit/ex_act(severity)
@@ -123,7 +122,6 @@
 		if(3.0)
 			stability -= 20
 	check_stability()
-	return
 
 
 /obj/machinery/power/am_control_unit/bullet_act(var/obj/item/projectile/Proj)
@@ -151,16 +149,20 @@
 	if(istype(W, /obj/item/weapon/wrench))
 		if(!anchored)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
-			user.visible_message("[user.name] secures the [src.name] to the floor.", \
-				"You secure the anchor bolts to the floor.", \
-				"You hear a ratchet")
+			user.visible_message(
+				"[user.name] secures the [src.name] to the floor.",
+				"You secure the anchor bolts to the floor.",
+				"You hear a ratchet"
+			)
 			src.anchored = 1
 			connect_to_network()
 		else if(!linked_shielding.len > 0)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
-			user.visible_message("[user.name] unsecures the [src.name].", \
-				"You remove the anchor bolts.", \
-				"You hear a ratchet")
+			user.visible_message(
+				"[user.name] unsecures the [src.name].",
+				"You remove the anchor bolts.",
+				"You hear a ratchet"
+			)
 			src.anchored = 0
 			disconnect_from_network()
 		else
@@ -169,15 +171,17 @@
 
 	if(istype(W, /obj/item/weapon/am_containment))
 		if(fueljar)
-			user << "\red There is already a [fueljar] inside!"
+			user << SPAN_WARN("There is already a [fueljar] inside!")
 			return
 		fueljar = W
 		user.remove_from_mob(W)
-		W.loc = src
+		W.forceMove(src)
 		user.update_icons()
-		user.visible_message("[user.name] loads an [W.name] into the [src.name].", \
-				"You load an [W.name].", \
-				"You hear a thunk.")
+		user.visible_message(
+			"[user.name] loads an [W.name] into the [src.name].",
+			"You load an [W.name].",
+			"You hear a thunk."
+		)
 		return
 
 	if(W.force >= 20)
@@ -319,7 +323,7 @@
 
 	if(href_list["ejectjar"])
 		if(fueljar)
-			fueljar.loc = src.loc
+			fueljar.forceMove(src.loc)
 			fueljar = null
 			//fueljar.control_unit = null currently it does not care where it is
 			//update_icon() when we have the icon for it

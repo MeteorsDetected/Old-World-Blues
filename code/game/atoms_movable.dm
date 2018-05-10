@@ -37,7 +37,7 @@
 		reagents = null
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
-	loc = null
+	forceMove(null)
 	if (pulledby)
 		if (pulledby.pulling == src)
 			pulledby.pulling = null
@@ -96,7 +96,7 @@
 	else
 		oobjs = list()
 
-	loc = NewLoc
+	forceMove(NewLoc)
 	dir = Dir
 
 	nlocs = locs

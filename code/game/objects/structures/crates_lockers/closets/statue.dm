@@ -61,7 +61,7 @@
 /obj/structure/closet/statue/dump_contents()
 
 	for(var/obj/O in src)
-		O.loc = src.loc
+		O.forceMove(src.loc)
 
 	for(var/mob/living/M in src)
 		M.forceMove(src.loc)

@@ -54,7 +54,7 @@
 				user << SPAN_NOTE("You remove the circuit board.")
 				state = 1
 				icon_state = "0"
-				circuit.loc = loc
+				circuit.forceMove(loc)
 				circuit = null
 		if(2)
 			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
@@ -146,7 +146,7 @@
 			if(istype(P, /obj/item/weapon/crowbar) && brain)
 				playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
 				user << SPAN_NOTE("You remove the brain.")
-				brain.loc = loc
+				brain.forceMove(loc)
 				brain = null
 				icon_state = "3"
 
@@ -196,7 +196,7 @@
 	transfer.aiRestorePowerRoutine = 0
 	transfer.control_disabled = 0
 	transfer.aiRadio.disabledAi = 0
-	transfer.loc = get_turf(src)
+	transfer.forceMove(get_turf(src))
 	transfer.create_eyeobj()
 	transfer.cancel_camera()
 	user << SPAN_NOTE("<b>Transfer successful</b>: \black [transfer.name] ([rand(1000,9999)].exe) downloaded to host terminal. Local copy wiped.")
