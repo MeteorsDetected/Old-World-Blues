@@ -90,10 +90,11 @@ var/global/atomInstantInitialize = FALSE
 
 /datum/controller/game_controller/proc/initializeAtoms()
 	admin_notice("<span class='danger'>Initializing objects</span>", R_DEBUG)
+	var/list/atoms = world.contents.Copy()
 	atomInstantInitialize = TRUE
 
 	var/count = 0
-	for(var/atom/movable/A in world)
+	for(var/atom/movable/A in atoms)
 		initAtom(A, TRUE)
 		++count
 	admin_notice(SPAN_DANG("Initialized [count] atoms"), R_DEBUG)
