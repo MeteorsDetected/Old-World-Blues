@@ -21,6 +21,10 @@
 
 	var/adminhelped = 0
 
+	// For FTP requests. (i.e. downloading runtime logs.)
+	// However it'd be ok to use for accessing attack logs and such too, which are even laggier.
+	var/fileaccess_timer = 0
+
 		///////////////
 		//SOUND STUFF//
 		///////////////

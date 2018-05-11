@@ -1,5 +1,9 @@
 // Math constants.
 #define M_PI    3.14159265
+#define INFINITY             1.#INF
+
+#define SPEED_OF_LIGHT       3e8    // Approximate.
+#define SPEED_OF_LIGHT_SQ    9e16
 
 #define R_IDEAL_GAS_EQUATION       8.31    // kPa*L/(K*mol).
 #define ONE_ATMOSPHERE             101.325 // kPa.
@@ -29,3 +33,4 @@
 
 #define SIMPLE_SIGN(X) ((X) < 0 ? -1 : 1)
 #define SIGN(X)        ((X) ? SIMPLE_SIGN(X) : 0)
+
