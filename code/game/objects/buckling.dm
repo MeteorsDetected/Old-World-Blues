@@ -11,6 +11,8 @@
 /obj/attack_robot(mob/user)
 	if(Adjacent(user))
 		attack_hand(user)
+	else
+		. = ..()
 
 /obj/attack_hand(mob/living/user)
 	. = ..()
