@@ -100,13 +100,6 @@ datum/archived_book/New(var/path)
 	if(!photos)
 		photos = new()
 
-	// let's sanitize it here too!
-	for(var/tag in paper_blacklist)
-		if(findtext(dat,"<"+tag))
-			dat = ""
-			return
-
-
 datum/archived_book/proc/save()
 	var/savefile/F = new(book_mgr.path(id))
 
