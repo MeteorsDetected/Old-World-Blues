@@ -11,6 +11,7 @@ var/list/latejoin         = list()
 var/list/latejoin_gateway = list()
 var/list/latejoin_cryo    = list()
 var/list/latejoin_cyborg  = list()
+var/list/latejoin_alecto  = list()
 
 var/list/wizardstart     = list()
 var/list/ninjastart         = list()
