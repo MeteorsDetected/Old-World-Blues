@@ -47,7 +47,6 @@
 
 
 		for(var/obj/O in T)
-
 			// Reset the shuttle corners
 			if(O.tag == "delete me")
 				target.icon = 'icons/turf/shuttle.dmi'
@@ -65,7 +64,7 @@
 		if(turftoleave)
 			T.ChangeTurf(turftoleave)
 		else
-			T.ChangeTurf(/turf/space)
+			T.ChangeTurf(world.turf)
 
 		new T.loc.type (target)
 		new world.area (T)
