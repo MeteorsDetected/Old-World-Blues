@@ -1904,6 +1904,7 @@
 #include "maps\exodus\derelict1.dmm"
 #include "maps\exodus\derelict2.dmm"
 #include "maps\exodus\finds.dmm"
+#include "maps\exodus\ilona.dmm"
 #include "maps\exodus\Olivia.dmm"
 #include "maps\exodus\pirat_base.dmm"
 #include "maps\exodus\trader.dmm"
