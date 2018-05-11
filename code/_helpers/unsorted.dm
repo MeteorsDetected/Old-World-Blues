@@ -1982,3 +1982,25 @@ var/mob/dview/dview_mob = new
 	A.forceMove(get_step(A, dir))
 	shiftPixel(A, reverse_dir[dir], shift)
 
+
+/proc/smothDirs(var/list/neighbors)
+	var/list/sets = list(
+		"[NORTHEAST]" = list(NORTH, EAST, NORTHEAST),
+		"[NORTHWEST]" = list(WEST, NORTH, NORTHWEST),
+		"[SOUTHEAST]" = list(EAST, SOUTH, SOUTHEAST),
+		"[SOUTHWEST]" = list(SOUTH, WEST, SOUTHWEST),
+	)
+	. = list()
+	for(var/dir in sets)
+		var/out = 0
+		out |= (sets[dir][1] in neighbors) && 1
+		out |= (sets[dir][2] in neighbors) && 2
+		out |= (sets[dir][3] in neighbors) && 4
+		switch(out)
+			if(0 to 1)
+				out += 1
+			if(2 to 4)
+				out += 2
+			if(5 to 7)
+				out += 3
+		.[dir] = out
