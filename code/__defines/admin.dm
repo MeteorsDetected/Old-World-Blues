@@ -33,3 +33,8 @@
 #define R_MOD           0x800
 
 #define R_MAXPERMISSION 0x800 // This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+
+// Number of identical messages required to get the spam-prevention auto-mute thing to trigger warnings and automutes.
+#define SPAM_TRIGGER_WARNING  5
+#define SPAM_TRIGGER_AUTOMUTE 10
+

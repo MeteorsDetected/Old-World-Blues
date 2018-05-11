@@ -13,7 +13,6 @@
 #define SPECIES_NEAERA "Neaera"
 #define SPECIES_STOK "Stok"
 
-
 #define STATION_ORGANIC_SPECIES list(SPECIES_HUMAN, SPECIES_TAJARA, SPECIES_SKRELL, \
 	SPECIES_MONKEY, SPECIES_FARWA, SPECIES_NEAERA, SPECIES_STOK)
 
@@ -60,3 +59,10 @@
 #define NO_TALK_MSG 128 // Do not show the "\The [speaker] talks into \the [radio]" message
 #define NO_STUTTER  256 // No stuttering, slurring, or other speech problems
 #define COMMON_VERBS 512 // Robots will apply regular verbs to this.
+
+//Species size
+#define SMALL  1 // mouse
+#define MEDIUM 2 // human
+#define LARGE  4 // 2 humans
+
+
