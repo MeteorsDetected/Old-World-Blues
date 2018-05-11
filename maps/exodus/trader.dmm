@@ -486,7 +486,7 @@
 "jr" = (/obj/machinery/atmospherics/pipe/manifold4w/visible,/turf/simulated/floor/plating{dir = 2; icon_state = "warnplate"},/area/trader/docks/tech)
 "js" = (/obj/machinery/atmospherics/pipe/simple/visible{icon_state = "intact"; dir = 9},/turf/simulated/floor/plating{dir = 2; icon_state = "warnplate"},/area/trader/docks/tech)
 "jt" = (/obj/machinery/door/airlock/external{frequency = 1379; icon_state = "door_locked"; id_tag = "eva_outer"; locked = 1; name = "EVA External Access"; req_access = list(13)},/obj/machinery/access_button{command = "cycle_exterior"; frequency = 1379; master_tag = "eva_airlock"; name = "exterior access button"; pixel_y = -25; req_access = newlist()},/turf/simulated/floor/plating,/area/trader/docks/tech)
-"ju" = (/obj/structure/window/reinforced,/obj/machinery/door/airlock/external,/obj/shuttle_beacon{dir = 8; name = "Trader"},/turf/simulated/floor/plating{dir = 2; icon_state = "warnplate"},/area/trader/docks)
+"ju" = (/obj/structure/window/reinforced,/obj/machinery/door/airlock/external)
 "jv" = (/obj/machinery/door/firedoor,/obj/machinery/door/airlock/external,/obj/structure/sign/securearea{desc = "A warning sign which reads 'EXTERNAL AIRLOCK'"; icon_state = "space"; layer = 4; name = "EXTERNAL AIRLOCK"; pixel_y = -32},/turf/simulated/floor/plating,/area/trader/docks)
 "jw" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/obj/structure/mirror{dir = 4; pixel_x = -28},/turf/simulated/floor{icon_state = "white"},/area/trader/docks/tech)
 "jx" = (/turf/simulated/floor{icon_state = "white"},/area/trader/docks/tech)
