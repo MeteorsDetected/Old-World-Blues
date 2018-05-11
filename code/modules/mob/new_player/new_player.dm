@@ -117,7 +117,7 @@
 				var/obj/O = locate("landmark*Observer-Start")
 				if(istype(O))
 					src << SPAN_NOTE("Now teleporting.")
-					observer.forceMove(O.loc)
+					observer.loc = O.loc
 				else
 					src << "<span class='danger'>Could not locate an observer spawn point. Use the Teleport verb to jump to the station map.</span>"
 				observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.

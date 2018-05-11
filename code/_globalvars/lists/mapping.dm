@@ -13,16 +13,16 @@ var/list/latejoin_cryo    = list()
 var/list/latejoin_cyborg  = list()
 var/list/latejoin_alecto  = list()
 
-var/list/wizardstart     = list()
-var/list/ninjastart         = list()
-var/list/newplayer_start = list()
-var/list/holdingfacility    = list() // Captured people go here
-var/list/xeno_spawn         = list() // Aliens spawn at at these.
-var/list/tdome1             = list()
-var/list/tdome2             = list()
-var/list/tdomeobserve       = list()
-var/list/tdomeadmin         = list()
-var/list/blobstart          = list()
+var/list/wizardstart      = list()
+var/list/ninjastart       = list()
+var/list/newplayer_start  = list()
+var/list/holdingfacility  = list() // Captured people go here
+var/list/xeno_spawn       = list() // Aliens spawn at at these.
+var/list/tdome1           = list()
+var/list/tdome2           = list()
+var/list/tdomeobserve     = list()
+var/list/tdomeadmin       = list()
+var/list/blobstart        = list()
 
 // Reference list for disposal sort junctions. Filled up by sorting junction's New()
 /var/list/tagger_locations = list()
