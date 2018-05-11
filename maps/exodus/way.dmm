@@ -488,7 +488,7 @@
 "jt" = (/obj/item/storage/firstaid/toxin,/turf/simulated/floor,/area/derelict/bridge/access)
 "ju" = (/obj/item/trash/liquidfood,/turf/simulated/floor/plating,/area/derelict/bridge/access)
 "jv" = (/obj/effect/decal/cleanable/blood/drip,/turf/simulated/floor/plating,/area/derelict/bridge/access)
-"jw" = (/obj/machinery/light/small{dir = 1; light = "#DA0205"; light_color = "#DA0205"},/turf/simulated/floor,/area/derelict/bridge/access)
+"jw" = (/obj/machinery/light/small{dir = 1; light_color = "#DA0205"},/turf/simulated/floor,/area/derelict/bridge/access)
 "jx" = (/obj/effect/decal/cleanable/blood/drip,/turf/simulated/floor,/area/derelict/bridge/access)
 "jy" = (/obj/effect/decal/cleanable/blood/splatter/animated,/turf/simulated/floor,/area/derelict/bridge/access)
 "jz" = (/obj/item/weapon/material/harpoon,/obj/effect/spider/stickyweb,/turf/simulated/floor/plating,/area/derelict/bridge)
