@@ -26,7 +26,11 @@
 
 /obj/item/stack/material/New(loc, var/amount, var/material)
 	..(loc, amount)
+	src.material = material
 
+
+/obj/item/stack/material/initialize()
+	. = ..()
 	if(material)
 		set_material(material)
 	else
