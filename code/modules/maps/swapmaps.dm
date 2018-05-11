@@ -174,10 +174,13 @@ swapmap
 			   x2>swapmaps_compiled_maxx)
 				var/list/areas=new
 				for(var/atom/A in block(locate(x1,y1,z1),locate(x2,y2,z2)))
-					for(var/obj/O in A) qdel(O)
+					for(var/obj/O in A)
+						qdel(O)
 					for(var/mob/M in A)
-						if(!M.key) qdel(M)
-						else M.loc=null
+						if(!M.key)
+							qdel(M)
+						else
+							M.forceMove(null)
 					areas[A.loc]=null
 					qdel(A)
 				// delete areas that belong only to this map
@@ -286,10 +289,13 @@ swapmap
 						A.contents+=T
 					else defarea.contents+=T
 					// clear the turf
-					for(var/obj/O in T) qdel(O)
+					for(var/obj/O in T)
+						qdel(O)
 					for(var/mob/M in T)
-						if(!M.key) qdel(M)
-						else M.loc=null
+						if(!M.key)
+							qdel(M)
+						else
+							M.forceMove(null)
 					// finish the read
 					T.Read(S)
 					S.cd=".."

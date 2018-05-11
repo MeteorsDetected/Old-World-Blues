@@ -196,7 +196,7 @@
 		H << SPAN_NOTE("You retract your suit helmet.")
 		boots.canremove = 1
 		H.drop_from_inventory(boots)
-		boots.loc = src
+		boots.forceMove(src)
 	else
 		if(H.equip_to_slot_if_possible(boots, slot_shoes))
 			boots.pickup(H)

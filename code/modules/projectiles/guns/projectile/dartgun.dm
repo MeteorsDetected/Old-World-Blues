@@ -34,7 +34,7 @@
 	desc = "A rack of hollow darts."
 	icon_state = "darts"
 	item_state = "rcdammo"
-	origin_tech = list(TECH_MATERIAL = 2)
+	origin_tech = list(TECH(T_MATERIAL) = 2)
 	mag_type = MAGAZINE
 	caliber = "dart"
 	ammo_type = /obj/item/ammo_casing/chemdart
@@ -110,7 +110,7 @@
 			return
 		var/obj/item/weapon/reagent_containers/glass/beaker/B = I
 		if(user.unEquip(B))
-			B.loc = src
+			B.forceMove(src)
 			beakers += B
 			user << SPAN_NOTE("You slot [B] into [src].")
 			src.updateUsrDialog()
@@ -186,7 +186,7 @@
 				usr << "You remove [B] from [src]."
 				mixing -= B
 				beakers -= B
-				B.loc = get_turf(src)
+				B.forceMove(get_turf(src))
 	else if (href_list["eject_cart"])
 		unload_ammo(usr)
 	src.updateUsrDialog()

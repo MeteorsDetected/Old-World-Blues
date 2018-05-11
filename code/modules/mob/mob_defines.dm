@@ -2,13 +2,9 @@
 	density = 1
 	layer = 4.0
 	animate_movement = 2
-//	flags = NOREACT
 	var/datum/mind/mind
 
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
-
-	//Not in use yet
-	var/obj/effect/organstructure/organStructure = null
 
 	var/obj/screen/flash = null
 	var/obj/screen/blind = null
@@ -48,7 +44,6 @@
 	var/use_me = 1 //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
 	var/computer_id = null
-	var/birth = 0
 	var/obj/machinery/machine = null
 	var/other_mobs = null
 //	var/memory = ""

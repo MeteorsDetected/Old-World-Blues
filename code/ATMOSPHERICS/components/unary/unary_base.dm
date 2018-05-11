@@ -31,7 +31,7 @@
 		return null
 
 	Destroy()
-		loc = null
+		forceMove(null)
 
 		if(node)
 			node.disconnect(src)
@@ -42,6 +42,7 @@
 		..()
 
 	initialize()
+		. = ..()
 		if(node) return
 
 		var/node_connect = dir

@@ -25,7 +25,7 @@ ADMIN_VERB_ADD(/proc/release, R_POSSESS)
 /proc/release(obj/O as obj in world)
 	set name = "Release Obj"
 	set category = "Object"
-	//usr.loc = get_turf(usr)
+	//usr.forceMove(get_turf(usr))
 
 	//if you have a name archived and if you are actually relassing an object
 	if(usr.control_object && usr.name_archive)

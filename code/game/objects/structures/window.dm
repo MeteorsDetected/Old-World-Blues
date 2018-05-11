@@ -486,8 +486,8 @@
 	name = "shuttle window"
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
 	icon = 'icons/obj/podwindows.dmi'
-	icon_state = "window"
-	basestate = "window"
+	icon_state = "basic"
+	basestate = "basic"
 	maxhealth = 40
 	reinf = 1
 	dir = 5
@@ -496,25 +496,17 @@
 	return TRUE
 
 /obj/structure/window/shuttle/update_icon() //icon_state has to be set manually
-	var/wallcount = 0
-	var/wall_dirs = 0
-	var/windowcount = 0
-	var/window_dirs = 0
+	icon_state = "blank"
+	overlays.Cut()
+
 	for(var/dir in cardinal)
 		var/turf/T = get_step(src, dir)
 		if(istype(T, /turf/simulated/shuttle/wall) || locate(/obj/shuttle/corner) in T)
-			wallcount += 1
-			wall_dirs |= dir
+			overlays += image("wall",   dir = dir)
 		else if(locate(/obj/structure/window/shuttle) in T)
-			windowcount += 1
-			window_dirs |= dir
-	icon_state = "[wallcount]_[windowcount]"
-	if(windowcount >= wallcount)
-		dir = window_dirs
-	else
-		dir = wall_dirs
-	if(dir == NORTH|SOUTH || dir == EAST|WEST)
-		dir = dir & (NORTH|WEST)
+			overlays += image("window", dir = dir)
+		else
+			overlays += image("empty", dir = dir)
 
 
 /obj/structure/window/reinforced/polarized

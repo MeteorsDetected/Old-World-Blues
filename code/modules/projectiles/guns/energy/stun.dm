@@ -24,7 +24,7 @@
 	icon_state = "stunrevolver"
 	item_state = "stunrevolver"
 	fire_sound = 'sound/weapons/Gunshot.ogg'
-	origin_tech = list(TECH_COMBAT = 3, TECH_MATERIAL = 3, TECH_POWER = 2)
+	origin_tech = list(TECH(T_COMBAT) = 3, TECH(T_MATERIAL) = 3, TECH(T_POWER) = 2)
 	projectile_type = /obj/item/projectile/energy/electrode
 	max_shots = 8
 
@@ -35,7 +35,7 @@
 	icon_state = "crossbow"
 	w_class = ITEM_SIZE_NORMAL
 	item_state = "crossbow"
-	origin_tech = list(TECH_COMBAT = 2, TECH_MAGNET = 2, TECH_ILLEGAL = 5)
+	origin_tech = list(TECH(T_COMBAT) = 2, TECH(T_MAGNET) = 2, TECH(T_ILLEGAL) = 5)
 	matter = list(MATERIAL_STEEL = 2000)
 	slot_flags = SLOT_BELT
 	silenced = 1

@@ -41,7 +41,7 @@
 		var/blind = 0
 		var/area/loc = null
 		if (istype(T, /turf))
-			loc = T.loc
+			forceMove(T.loc)
 			if (istype(loc, /area))
 				if (!loc.power_equip && !istype(src.loc,/obj/item) && !APU_power)
 					blind = 1

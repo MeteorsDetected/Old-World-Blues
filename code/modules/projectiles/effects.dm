@@ -5,7 +5,7 @@
 
 /obj/effect/projectile/New(var/turf/location)
 	if(istype(location))
-		loc = location
+		forceMove(location)
 
 /obj/effect/projectile/proc/set_transform(var/matrix/M)
 	if(istype(M))

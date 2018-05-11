@@ -120,7 +120,7 @@
 		if(do_after(user, 20))
 			new /obj/structure/computerframe/deconstruct(src.loc, src)
 			for (var/obj/C in src)
-				C.loc = src.loc
+				C.forceMove(src.loc)
 			if (src.stat & BROKEN)
 				user << SPAN_NOTE("The broken glass falls out.")
 				new /obj/item/weapon/material/shard( src.loc )

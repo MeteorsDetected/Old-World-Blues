@@ -153,12 +153,15 @@
 
 		//Pulling the larva out if it spawns in a sleeper, cryotube, another alien, etc. Leaving the larva in if it spawns inside a bodybag or a closet.
 		if (!isturf(new_xeno.loc) && !istype(new_xeno.loc,/obj/structure/closet/))  //Remember that bodybags /obj/structure/closet/.
-			new_xeno.loc = get_turf(new_xeno)
+			new_xeno.forceMove(get_turf(new_xeno))
 		//If you're a really unlucky larva, you may spawn inside a body bag which is inside a morgue tray, and you could get trapped.
 		if(istype(new_xeno.loc.loc, /obj/structure/morgue))
-			new_xeno.loc = get_turf(new_xeno)
+			new_xeno.forceMove(get_turf(new_xeno))
 
-		affected_mob.birth = 1
+		if(ishuman(affected_mob))
+			var/mob/living/carbon/human/H = affected_mob
+			H.birth = 1
+			H.UpdateDamageIcon()
 
 
 		new_xeno.key = picked

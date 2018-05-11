@@ -9,7 +9,7 @@
 	siemens_coefficient = 0.3
 	sprite_sheets_refit = null
 	sprite_sheets_obj = null
-	origin_tech = list(TECH_ARCANE = 2)
+	origin_tech = list(TECH(T_ARCANE) = 2)
 	wizard_garb = 1
 
 /obj/item/clothing/suit/space/void/wizard
@@ -23,5 +23,5 @@
 	siemens_coefficient = 0.3
 	sprite_sheets_refit = null
 	sprite_sheets_obj = null
-	origin_tech = list(TECH_ARCANE = 2)
+	origin_tech = list(TECH(T_ARCANE) = 2)
 	wizard_garb = 1

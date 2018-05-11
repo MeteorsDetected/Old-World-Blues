@@ -20,7 +20,7 @@
 	// Drop all the things. All of them.
 	overlays.Cut()
 	for(var/obj/item/I in src)
-		I.loc = M.loc
+		I.forceMove(M.loc)
 		if(isturf(I.loc))
 			spawn()
 				for(var/i = 1, i <= rand(1,2), i++)

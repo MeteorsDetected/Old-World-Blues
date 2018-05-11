@@ -103,7 +103,7 @@
 		if(!forced)
 			return
 		files = list()
-		inserted.loc = computer.loc
+		inserted.forceMove(computer.loc)
 		if(usr)
 			if(!usr.get_active_hand())
 				usr.put_in_active_hand(inserted)

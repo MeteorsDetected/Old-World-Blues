@@ -85,7 +85,7 @@ var/list/name_to_material
 	var/icon_base = "metal"               // Wall and table base icon tag. See header.
 	var/door_icon_base = "metal"          // Door base icon tag. See header.
 	var/icon_reinf = "reinf_metal"        // Overlay used
-	var/list/stack_origin_tech = list(TECH_MATERIAL = 1) // Research level for stacks.
+	var/list/stack_origin_tech = list(TECH(T_MATERIAL) = 1) // Research level for stacks.
 
 	// Attributes
 	var/cut_delay = 0            // Delay in ticks when cutting through this wall.
@@ -230,7 +230,7 @@ var/list/name_to_material
 	icon_reinf = "reinf_stone"
 	icon_colour = "#007A00"
 	weight = 22
-	stack_origin_tech = list(TECH_MATERIAL = 5)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 5)
 	door_icon_base = "stone"
 	grind_to = MATERIAL_URANIUM
 	resilience = 9
@@ -249,7 +249,7 @@ var/list/name_to_material
 	shard_type = SHARD_SHARD
 	tableslam_noise = 'sound/effects/Glasshit.ogg'
 	hardness = 100
-	stack_origin_tech = list(TECH_MATERIAL = 6)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 6)
 	resilience = 25
 	reflectance = 50
 
@@ -259,7 +259,7 @@ var/list/name_to_material
 	icon_colour = "#EDD12F"
 	weight = 24
 	hardness = 40
-	stack_origin_tech = list(TECH_MATERIAL = 4)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 4)
 	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
 	grind_to = MATERIAL_GOLD
@@ -276,7 +276,7 @@ var/list/name_to_material
 	icon_colour = "#D1E6E3"
 	weight = 22
 	hardness = 50
-	stack_origin_tech = list(TECH_MATERIAL = 3)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 3)
 	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
 	grind_to = MATERIAL_SILVER
@@ -290,7 +290,7 @@ var/list/name_to_material
 	icon_colour = "#FC2BC5"
 	shard_type = SHARD_SHARD
 	hardness = 30
-	stack_origin_tech = list(TECH_MATERIAL = 2, TECH_PHORON = 2)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 2, TECH(T_PHORON) = 2)
 	door_icon_base = "stone"
 	sheet_singular_name = "crystal"
 	sheet_plural_name = "crystals"
@@ -369,7 +369,7 @@ var/list/name_to_material
 	explosion_resistance = 25
 	hardness = 80
 	weight = 23
-	stack_origin_tech = list(TECH_MATERIAL = 2)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 2)
 	resilience = 49
 	reflectance = 10
 	composite_material = list(MATERIAL_STEEL = 3750, MATERIAL_PLATINUM = 3750) //todo
@@ -478,7 +478,7 @@ var/list/name_to_material
 	hardness = 40
 	weight = 30
 	reflectance = 25
-	stack_origin_tech = list(TECH_MATERIAL = 2)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 2)
 	composite_material = list(MATERIAL_STEEL = 1875,MATERIAL_GLASS = 3750)
 	window_options = list("One Direction" = 1, "Full Window" = 4, "Windoor" = 5)
 	created_window = /obj/structure/window/reinforced
@@ -494,7 +494,7 @@ var/list/name_to_material
 	ignition_point = PHORON_MINIMUM_BURN_TEMPERATURE+300
 	integrity = 200 // idk why but phoron windows are strong, so.
 	icon_colour = "#FC2BC5"
-	stack_origin_tech = list(TECH_MATERIAL = 4)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 4)
 	reflectance = 40
 	created_window = /obj/structure/window/phoronbasic
 	wire_product = null
@@ -505,7 +505,7 @@ var/list/name_to_material
 	name = "rphglass"
 	display_name = "reinforced phoron glass"
 	icon_state = "sheet-phoronrglass"
-	stack_origin_tech = list(TECH_MATERIAL = 5)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 5)
 	reflectance = 35
 	composite_material = list() //todo
 	created_window = /obj/structure/window/phoronreinforced
@@ -524,7 +524,7 @@ var/list/name_to_material
 	weight = 12
 	resilience = 0
 	melting_point = T0C+371 //assuming heat resistant plastic
-	stack_origin_tech = list(TECH_MATERIAL = 3)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 3)
 	reflectance = -20
 
 /material/plastic/holographic
@@ -539,7 +539,7 @@ var/list/name_to_material
 	name = MATERIAL_OSMIUM
 	icon_state = "sheet-silver"
 	icon_colour = "#9999FF"
-	stack_origin_tech = list(TECH_MATERIAL = 5)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 5)
 	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
 	flags = MATERIAL_COLORIZE_STACK
@@ -548,7 +548,7 @@ var/list/name_to_material
 	name = MATERIAL_TRITIUM
 	icon_state = "sheet-silver"
 	icon_colour = "#777777"
-	stack_origin_tech = list(TECH_MATERIAL = 5)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 5)
 	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
 	flags = MATERIAL_COLORIZE_STACK
@@ -557,7 +557,7 @@ var/list/name_to_material
 	name = MATERIAL_MYTHRIL
 	icon_state = "sheet-mythril"
 	icon_colour = "#E6C5DE"
-	stack_origin_tech = list(TECH_MATERIAL = 6, TECH_POWER = 6, TECH_MAGNET = 5)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 6, TECH(T_POWER) = 6, TECH(T_MAGNET) = 5)
 	grind_to = "hydrogen"
 	reflectance = 0
 
@@ -566,7 +566,7 @@ var/list/name_to_material
 	icon_state = "sheet-adamantine"
 	icon_colour = "#9999FF"
 	weight = 27
-	stack_origin_tech = list(TECH_MATERIAL = 2)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 2)
 	sheet_singular_name = "ingot"
 	sheet_plural_name = "ingots"
 	reflectance = 15
@@ -611,7 +611,7 @@ var/list/name_to_material
 	weight = 18
 	melting_point = T0C+300 //okay, not melting in this case, but hot enough to destroy wood
 	ignition_point = T0C+288
-	stack_origin_tech = list(TECH_MATERIAL = 1, TECH_BIO = 1)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 1, TECH(T_BIO) = 1)
 	dooropen_noise = 'sound/effects/doorcreaky.ogg'
 	door_icon_base = "wood"
 	destruction_desc = "splinters"
@@ -639,7 +639,7 @@ var/list/name_to_material
 	weight = 1
 	ignition_point = T0C+232 //"the temperature at which book-paper catches fire, and burns." close enough
 	melting_point = T0C+232 //temperature at which cardboard walls would be destroyed
-	stack_origin_tech = list(TECH_MATERIAL = 1)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 1)
 	door_icon_base = "wood"
 	destruction_desc = "crumples"
 
@@ -686,7 +686,7 @@ var/list/name_to_material
 /material/cloth //todo
 	name = "cloth"
 	icon_state = "sheet-cloth"
-	stack_origin_tech = list(TECH_MATERIAL = 2)
+	stack_origin_tech = list(TECH(T_MATERIAL) = 2)
 	door_icon_base = "wood"
 	ignition_point = T0C+232
 	melting_point = T0C+300

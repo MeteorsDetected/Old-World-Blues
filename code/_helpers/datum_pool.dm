@@ -90,9 +90,9 @@ var/global/list/GlobalPool = list()
 /atom/movable/Prepare(args)
 	var/list/args_list = args
 	if(istype(args_list) && args_list.len)
-		loc = args[1]
+		forceMove(args[1])
 	else
-		loc = args
+		forceMove(args)
 	..()
 
 /datum/proc/ResetVars(var/list/exlude = list())

@@ -64,7 +64,7 @@
 	singular_name = "gauze length"
 	desc = "Some sterile gauze to wrap around bloody stumps."
 	icon_state = "brutepack"
-	origin_tech = list(TECH_BIO = 1)
+	origin_tech = list(TECH(T_BIO) = 1)
 	var/clean = 0
 
 /obj/item/stack/medical/bruise_pack/advanced
@@ -144,7 +144,7 @@
 	singular_name = "ointment"
 	icon_state = "ointment"
 	heal_burn = 1
-	origin_tech = list(TECH_BIO = 1)
+	origin_tech = list(TECH(T_BIO) = 1)
 
 /obj/item/stack/medical/ointment/advanced
 	name = "advanced burn kit"

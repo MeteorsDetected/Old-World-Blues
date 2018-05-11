@@ -152,7 +152,7 @@
 	w_class = ITEM_SIZE_LARGE
 	possible_transfer_amounts = null
 	volume = 600
-	origin_tech = list(TECH_COMBAT = 3, TECH_MATERIAL = 3, TECH_ENGINEERING = 3)
+	origin_tech = list(TECH(T_COMBAT) = 3, TECH(T_MATERIAL) = 3, TECH(T_ENGINEERING) = 3)
 	center_of_mass = list("x"=17, "y"=11)
 
 /obj/item/weapon/reagent_containers/spray/chemsprayer/Spray_at(atom/A as mob|obj)

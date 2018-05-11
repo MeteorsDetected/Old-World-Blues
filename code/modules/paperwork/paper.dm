@@ -346,17 +346,6 @@
 		// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
 		if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/weapon/clipboard) || istype(src.loc, /obj/item/weapon/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
 			return
-/*
-		t = checkhtml(t)
-
-		// check for exploits
-		for(var/bad in paper_blacklist)
-			if(findtext(t,bad))
-				usr << SPAN_NOTE("You think to yourself, \"Hm.. this is only paper...\"")
-				log_admin("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")
-				message_admins("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")
-				return
-*/
 
 		var last_fields_value = fields
 
@@ -428,13 +417,13 @@
 				h_user.put_in_l_hand(B)
 			else if (h_user.l_store == src)
 				h_user.drop_from_inventory(src)
-				B.loc = h_user
+				B.forceMove(h_user)
 				B.layer = 20
 				h_user.l_store = B
 				h_user.update_inv_pockets()
 			else if (h_user.r_store == src)
 				h_user.drop_from_inventory(src)
-				B.loc = h_user
+				B.forceMove(h_user)
 				B.layer = 20
 				h_user.r_store = B
 				h_user.update_inv_pockets()
@@ -442,12 +431,12 @@
 				h_user.u_equip(src)
 				h_user.put_in_hands(B)
 			else if (!istype(src.loc, /turf))
-				src.loc = get_turf(h_user)
+				src.forceMove(get_turf(h_user))
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
 		user << SPAN_NOTE("You clip the [P.name] to [(src.name == "paper") ? "the paper" : src.name].")
-		src.loc = B
-		P.loc = B
+		src.forceMove(B)
+		P.forceMove(B)
 
 		B.pages.Add(src)
 		B.pages.Add(P)

@@ -6,7 +6,7 @@
 	w_class = ITEM_SIZE_SMALL
 	slot_flags = SLOT_BELT
 	var/flush = null
-	origin_tech = list(TECH_DATA = 4, TECH_MATERIAL = 4)
+	origin_tech = list(TECH(T_DATA) = 4, TECH(T_MATERIAL) = 4)
 
 	var/mob/living/silicon/ai/carded_ai
 
@@ -108,7 +108,7 @@
 	admin_attack_log(user, ai, "Carded with [src.name]", "Was carded with [src.name]", "used the [src.name] to card")
 	src.name = "[initial(name)] - [ai.name]"
 
-	ai.loc = src
+	ai.forceMove(src)
 	ai.cancel_camera()
 	ai.destroy_eyeobj(src)
 	ai.control_disabled = 1

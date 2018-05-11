@@ -16,7 +16,7 @@
 	throw_range = 15
 	throw_speed = 3
 	var/mode = 1
-	origin_tech = list(TECH_MAGNET = 5, TECH_ENGINEERING = 5)
+	origin_tech = list(TECH(T_MAGNET) = 5, TECH(T_ENGINEERING) = 5)
 
 /obj/item/device/debugger/resolve_attackby(obj/O, mob/user)
 	var/obj/machinery/door/D = O

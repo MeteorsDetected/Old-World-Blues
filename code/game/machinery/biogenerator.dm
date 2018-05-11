@@ -31,7 +31,6 @@
 		icon_state = "biogen-stand"
 	else
 		icon_state = "biogen-work"
-	return
 
 /obj/machinery/biogenerator/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(default_deconstruction_screwdriver(user, O))
@@ -44,10 +43,9 @@
 		if(beaker)
 			user << SPAN_NOTE("The [src] is already loaded.")
 		else
-			user.remove_from_mob(O)
-			O.loc = src
-			beaker = O
-			updateUsrDialog()
+			if(user.unEquip(O, src))
+				beaker = O
+				updateUsrDialog()
 	else if(processing)
 		user << SPAN_NOTE("\The [src] is currently processing.")
 	else if(istype(O, /obj/item/storage/bag/plants))
@@ -58,7 +56,7 @@
 			user << SPAN_NOTE("\The [src] is already full! Activate it.")
 		else
 			for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in O.contents)
-				G.loc = src
+				G.forceMove(src)
 				i++
 				if(i >= 10)
 					user << SPAN_NOTE("You fill \the [src] to its capacity.")
@@ -76,11 +74,9 @@
 		if(i >= 10)
 			user << SPAN_NOTE("\The [src] is full! Activate it.")
 		else
-			user.remove_from_mob(O)
-			O.loc = src
-			user << SPAN_NOTE("You put \the [O] in \the [src]")
+			if(user.unEquip(O, src))
+				user << SPAN_NOTE("You put \the [O] in \the [src]")
 	update_icon()
-	return
 
 /obj/machinery/biogenerator/interact(mob/user as mob)
 	if(stat & BROKEN)
@@ -228,7 +224,7 @@
 			activate()
 		if("detach")
 			if(beaker)
-				beaker.loc = src.loc
+				beaker.forceMove(src.loc)
 				beaker = null
 				update_icon()
 		if("create")

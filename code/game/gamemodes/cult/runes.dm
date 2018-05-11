@@ -38,10 +38,12 @@ var/list/sacrificed = list()
 					user.say("Sas[pick("'","`")]so c'arta forbici!")//Only you can stop auto-muting
 				else
 					user.whisper("Sas[pick("'","`")]so c'arta forbici!")
-				user.visible_message("<span class='danger'>[user] disappears in a flash of red light!</span>", \
-				"<span class='danger'>You feel as your body gets dragged through the dimension of Nar-Sie!</span>", \
-				"<span class='danger'>You hear a sickening crunch and sloshing of viscera.</span>")
-				user.loc = allrunesloc[rand(1,index)]
+				user.visible_message(
+					SPAN_DANG("[user] disappears in a flash of red light!"),
+					SPAN_DANG("You feel as your body gets dragged through the dimension of Nar-Sie!"),
+					SPAN_DANG("You hear a sickening crunch and sloshing of viscera.")
+				)
+				user.forceMove(allrunesloc[rand(1,index)])
 				return
 			if(istype(src,/obj/effect/rune))
 				return	fizzle() //Use friggin manuals, Dorf, your list was of zero length.
@@ -75,15 +77,16 @@ var/list/sacrificed = list()
 					culcount++
 			if(culcount >= 3)
 				user.say("Sas[pick("'","`")]so c'arta forbici tarem!")
-				user.visible_message("<span class='warning'>You feel air moving from the rune - like as it was swapped with somewhere else.</span>", \
-				"<span class='warning'>You feel air moving from the rune - like as it was swapped with somewhere else.</span>", \
-				"<span class='warning'>You smell ozone.</span>")
+				user.visible_message(
+					SPAN_WARN("You feel air moving from the rune - like as it was swapped with somewhere else."),
+					SPAN_WARN("You feel air moving from the rune - like as it was swapped with somewhere else."),
+					SPAN_WARN("You smell ozone.")
+				)
 				for(var/obj/O in src.loc)
 					if(!O.anchored)
-						O.loc = IP.loc
+						O.forceMove(IP.loc)
 				for(var/mob/M in src.loc)
-					M.loc = IP.loc
-				return
+					M.forceMove(IP.loc)
 
 			return fizzle()
 
@@ -95,15 +98,16 @@ var/list/sacrificed = list()
 				usr.say("N[pick("'","`")]ath reth sh'yro eth d'raggathnor!")
 			else
 				usr.whisper("N[pick("'","`")]ath reth sh'yro eth d'raggathnor!")
-			usr.visible_message("<span class='warning'>Rune disappears with a flash of red light, and in its place now a book lies.</span>", \
-			"<span class='warning'>You are blinded by the flash of red light! After you're able to see again, you see that now instead of the rune there's a book.</span>", \
-			"<span class='warning'>You hear a pop and smell ozone.</span>")
+			usr.visible_message(
+				SPAN_WARN("Rune disappears with a flash of red light, and in its place now a book lies."),
+				SPAN_WARN("You are blinded by the flash of red light! After you're able to see again, you see that now instead of the rune there's a book."),
+				SPAN_WARN("You hear a pop and smell ozone.")
+			)
 			if(istype(src,/obj/effect/rune))
 				new /obj/item/weapon/book/tome(src.loc)
 			else
 				new /obj/item/weapon/book/tome(usr.loc)
 			qdel(src)
-			return
 
 
 
@@ -876,7 +880,7 @@ var/list/sacrificed = list()
 				if(cultist.buckled || cultist.handcuffed || (!isturf(cultist.loc) && !istype(cultist.loc, /obj/structure/closet)))
 					user << "<span class='warning'>You cannot summon \the [cultist], for \his shackles of blood are strong.</span>"
 					return fizzle()
-				cultist.loc = src.loc
+				cultist.forceMove(src.loc)
 				cultist.lying = 1
 				cultist.regenerate_icons()
 

@@ -38,7 +38,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/burnt = 0
 	var/smoketime = 5
 	w_class = ITEM_SIZE_TINY
-	origin_tech = list(TECH_MATERIAL = 1)
+	origin_tech = list(TECH(T_MATERIAL) = 1)
 	slot_flags = SLOT_EARS
 	attack_verb = list("burnt", "singed")
 

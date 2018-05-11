@@ -2,7 +2,7 @@
 	name = "emp grenade"
 	icon_state = "emp"
 	item_state = "empgrenade"
-	origin_tech = list(TECH_MATERIAL = 2, TECH_MAGNET = 3)
+	origin_tech = list(TECH(T_MATERIAL) = 2, TECH(T_MAGNET) = 3)
 	var/emp_heavy = 4
 	var/emp_light = 10
 
@@ -16,6 +16,6 @@
 	name = "low yield emp grenade"
 	desc = "A weaker variant of the EMP grenade"
 	icon_state = "lyemp"
-	origin_tech = list(TECH_MATERIAL = 2, TECH_MAGNET = 3)
+	origin_tech = list(TECH(T_MATERIAL) = 2, TECH(T_MAGNET) = 3)
 	emp_heavy = 1
 	emp_light = 4

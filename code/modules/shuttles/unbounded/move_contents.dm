@@ -55,11 +55,11 @@
 				qdel(O) // prevents multiple shuttle corners from stacking
 				continue
 			if(!isobj(O)) continue
-			O.loc = target
+			O.forceMove(target)
 		for(var/mob/M in T)
 			// If we need to check for more mobs, I'll add a variable
 			if(!ismob(M)) continue
-			M.loc = target
+			M.forceMove(target)
 
 		if(turftoleave)
 			T.ChangeTurf(turftoleave)

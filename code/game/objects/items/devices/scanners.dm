@@ -20,7 +20,7 @@ REAGENT SCANNER
 	throw_speed = 5
 	throw_range = 10
 	matter = list(MATERIAL_STEEL = 200)
-	origin_tech = list(TECH_MAGNET = 1, TECH_BIO = 1)
+	origin_tech = list(TECH(T_MAGNET) = 1, TECH(T_BIO) = 1)
 	var/mode = 1;
 
 /obj/item/device/healthanalyzer/do_surgery(mob/living/M, mob/living/user)
@@ -218,7 +218,7 @@ REAGENT SCANNER
 
 	matter = list(MATERIAL_STEEL = 30,MATERIAL_GLASS = 20)
 
-	origin_tech = list(TECH_MAGNET = 1, TECH_ENGINEERING = 1)
+	origin_tech = list(TECH(T_MAGNET) = 1, TECH(T_ENGINEERING) = 1)
 
 /obj/item/device/analyzer/atmosanalyze(var/mob/user)
 	var/air = user.return_air()
@@ -251,7 +251,7 @@ REAGENT SCANNER
 
 	matter = list(MATERIAL_STEEL = 30,MATERIAL_GLASS = 20)
 
-	origin_tech = list(TECH_MAGNET = 2, TECH_BIO = 2)
+	origin_tech = list(TECH(T_MAGNET) = 2, TECH(T_BIO) = 2)
 	var/details = 0
 	var/recent_fail = 0
 
@@ -294,7 +294,7 @@ REAGENT SCANNER
 	name = "advanced mass spectrometer"
 	icon_state = "adv_spectrometer"
 	details = 1
-	origin_tech = list(TECH_MAGNET = 4, TECH_BIO = 2)
+	origin_tech = list(TECH(T_MAGNET) = 4, TECH(T_BIO) = 2)
 
 /obj/item/device/reagent_scanner
 	name = "reagent scanner"
@@ -309,7 +309,7 @@ REAGENT SCANNER
 	throw_range = 20
 	matter = list(MATERIAL_STEEL = 30,MATERIAL_GLASS = 20)
 
-	origin_tech = list(TECH_MAGNET = 2, TECH_BIO = 2)
+	origin_tech = list(TECH(T_MAGNET) = 2, TECH(T_BIO) = 2)
 	var/details = 0
 	var/recent_fail = 0
 
@@ -340,13 +340,13 @@ REAGENT SCANNER
 	name = "advanced reagent scanner"
 	icon_state = "adv_spectrometer"
 	details = 1
-	origin_tech = list(TECH_MAGNET = 4, TECH_BIO = 2)
+	origin_tech = list(TECH(T_MAGNET) = 4, TECH(T_BIO) = 2)
 
 /obj/item/device/slime_scanner
 	name = "slime scanner"
 	icon_state = "adv_spectrometer"
 	item_state = "analyzer"
-	origin_tech = list(TECH_BIO = 1)
+	origin_tech = list(TECH(T_BIO) = 1)
 	w_class = ITEM_SIZE_SMALL
 	flags = CONDUCT
 	throwforce = 0

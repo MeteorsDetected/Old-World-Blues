@@ -284,7 +284,7 @@
 			user << SPAN_NOTE("You removed the airlock electronics!")
 			src.state = 1
 			src.name = "Wired Airlock Assembly"
-			electronics.loc = src.loc
+			electronics.forceMove(src.loc)
 			electronics = null
 
 	else if(ismaterial(W) && !glass)

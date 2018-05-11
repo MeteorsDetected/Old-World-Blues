@@ -157,7 +157,7 @@
 	if(host.mind)
 		borers.remove_antagonist(host.mind)
 
-	src.loc = get_turf(host)
+	src.forceMove(get_turf(host))
 
 	reset_view(null)
 	machine = null

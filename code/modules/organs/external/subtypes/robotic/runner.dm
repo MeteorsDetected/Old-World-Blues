@@ -7,12 +7,18 @@
 /obj/item/prosthesis/runner/l_leg
 	name = "R.U.N.N.E.R. left leg"
 	icon_state = "l_leg"
-	part = list(BP_L_LEG = /obj/item/organ/external/robotic/limb/runner)
+	part = list(
+		BP_L_LEG = /obj/item/organ/external/robotic/limb/runner,
+		BP_L_FOOT = /obj/item/organ/external/robotic/limb/runner/tiny
+	)
 
 /obj/item/prosthesis/runner/r_leg
 	name = "R.U.N.N.E.R. right leg"
 	icon_state = "r_leg"
-	part = list(BP_R_LEG = /obj/item/organ/external/robotic/limb/runner)
+	part = list(
+		BP_R_LEG = /obj/item/organ/external/robotic/limb/runner,
+		BP_R_FOOT = /obj/item/organ/external/robotic/limb/runner/tiny
+	)
 
 
 /obj/item/organ/external/robotic/limb/runner
@@ -21,10 +27,6 @@
 	min_broken_damage = 30
 	w_class = ITEM_SIZE_NORMAL
 	tally = -0.25
-	forced_children = list(
-		BP_L_LEG = list(BP_L_FOOT = /obj/item/organ/external/robotic/limb/runner/tiny),
-		BP_R_LEG = list(BP_R_FOOT = /obj/item/organ/external/robotic/limb/runner/tiny)
-		)
 
 /obj/item/organ/external/robotic/limb/runner/tiny
 	tally = 0

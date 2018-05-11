@@ -111,7 +111,7 @@
 	)
 
 	attacker.drop_from_inventory(src)
-	src.loc = null
+	src.forceMove(null)
 	qdel(src)
 	return
 
@@ -161,6 +161,6 @@
 		else
 			if(!do_mob(user, target, 100)) return
 		user.visible_message("<span class='danger'>[user] devours [target]!</span>")
-		target.loc = user
+		target.forceMove(user)
 		attacker.stomach_contents.Add(target)
 		qdel(src)

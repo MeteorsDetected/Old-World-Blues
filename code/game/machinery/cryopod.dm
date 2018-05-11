@@ -141,12 +141,12 @@
 /obj/item/weapon/circuitboard/cryopodcontrol
 	name = "Circuit board (Cryogenic Oversight Console)"
 	build_path = /obj/machinery/computer/cryopod
-	origin_tech = list(TECH_DATA = 3)
+	origin_tech = list(TECH(T_DATA) = 3)
 
 /obj/item/weapon/circuitboard/robotstoragecontrol
 	name = "Circuit board (Robotic Storage Console)"
 	build_path = /obj/machinery/computer/cryopod/robot
-	origin_tech = list(TECH_DATA = 3)
+	origin_tech = list(TECH(T_DATA) = 3)
 
 //Decorative structures to go alongside cryopods.
 /obj/structure/cryofeed
@@ -324,7 +324,7 @@
 		else
 			if(control_computer && control_computer.allow_items)
 				control_computer.frozen_items += W
-				W.loc = null
+				W.forceMove(null)
 			else
 				W.forceMove(src.loc)
 

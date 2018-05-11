@@ -65,7 +65,7 @@
 
 				if(prob(src.getBruteLoss() - 50))
 					for(var/atom/movable/A in stomach_contents)
-						A.loc = loc
+						A.forceMove(loc)
 						stomach_contents.Remove(A)
 					src.gib()
 
@@ -73,10 +73,10 @@
 	for(var/mob/M in src)
 		if(M in src.stomach_contents)
 			src.stomach_contents.Remove(M)
-		M.loc = src.loc
-		for(var/mob/N in viewers(src, null))
-			if(N.client)
-				N.show_message(text("\red <B>[M] bursts out of [src]!</B>"), 2)
+		M.forceMove(src.loc)
+		src.visible_message(
+			SPAN_DANG("[M] bursts out of [src]!")
+		)
 	..()
 
 /mob/living/carbon/attack_hand(mob/M as mob)
@@ -86,9 +86,6 @@
 		var/obj/item/organ/external/temp = H.get_organ(H.hand ? BP_L_HAND : BP_R_HAND)
 		if(temp && !temp.is_usable())
 			H << "\red You can't use your [temp.name]"
-			return
-
-	return
 
 /mob/living/carbon/electrocute_act(var/shock_damage, var/obj/source, var/siemens_coeff = 1.0, var/def_zone = null)
 	if(status_flags & GODMODE)	return 0	//godmode

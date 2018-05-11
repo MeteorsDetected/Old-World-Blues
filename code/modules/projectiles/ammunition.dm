@@ -112,7 +112,7 @@
 			user << "<span class='warning'>[src] is full!</span>"
 			return
 		user.remove_from_mob(C)
-		C.loc = src
+		C.forceMove(src)
 		stored_ammo.Insert(1, C) //add to the head of the list
 		update_icon()
 
@@ -122,7 +122,7 @@
 		return
 	user << SPAN_NOTE("You empty [src].")
 	for(var/obj/item/ammo_casing/C in stored_ammo)
-		C.loc = user.loc
+		C.forceMove(user.loc)
 		C.set_dir(pick(cardinal))
 	stored_ammo.Cut()
 	update_icon()

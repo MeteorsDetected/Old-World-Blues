@@ -133,12 +133,11 @@
 	if(carved)
 		if(store)
 			user << SPAN_NOTE("[store] falls out of [title]!")
-			store.loc = get_turf(src.loc)
+			store.forceMove(get_turf(src.loc))
 			store = null
-			return
 		else
 			user << SPAN_NOTE("The pages of [title] have been cut out!")
-			return
+		return
 	if(src.dat)
 		user << browse("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", "window=book")
 		user.visible_message("[user] opens a book titled \"[src.title]\" and begins reading intently.")

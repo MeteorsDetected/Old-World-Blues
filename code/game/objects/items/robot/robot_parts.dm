@@ -117,7 +117,7 @@
 		var/obj/item/stack/material/M = W
 		if (M.use(1))
 			var/obj/item/weapon/secbot_assembly/ed209_assembly/B = new(loc)
-			B.loc = get_turf(src)
+			B.forceMove(get_turf(src))
 			user << SPAN_NOTE("You armed the robot frame.")
 			if (user.get_inactive_hand() == src)
 				user.remove_from_mob(src)
@@ -219,8 +219,9 @@
 		O.job = "Cyborg"
 		var/obj/item/robot_parts/chest/chest = parts["chest"]
 		O.cell = chest.cell
-		O.cell.loc = O
-		W.loc = O//Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
+		O.cell.forceMove(O)
+		//Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
+		W.forceMove(O)
 
 		// Since we "magically" installed a cell, we also have to update the correct component.
 		if(O.cell)

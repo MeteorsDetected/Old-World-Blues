@@ -158,7 +158,7 @@
 
 	if (href_list["ejectchem"])
 		if(beaker)
-			beaker.loc = src.loc
+			beaker.forceMove(src.loc)
 			beaker = null
 		return 1
 
@@ -170,7 +170,7 @@
 
 	if (href_list["ejectdish"])
 		if(dish)
-			dish.loc = src.loc
+			dish.forceMove(src.loc)
 			dish = null
 		return 1
 

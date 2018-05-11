@@ -18,7 +18,7 @@
 
 	matter = list(MATERIAL_STEEL = 50,MATERIAL_GLASS = 20)
 
-	origin_tech = list(TECH_MAGNET = 1, TECH_ENGINEERING = 1)
+	origin_tech = list(TECH(T_MAGNET) = 1, TECH(T_ENGINEERING) = 1)
 	var/obj/machinery/telecomms/buffer // simple machine buffer for device linkage
 	var/obj/machinery/clonepod/connecting //same for cryopod linkage
 	var/obj/machinery/connectable	//Used to connect machinery.

@@ -160,7 +160,7 @@
 
 		if("cancel")
 			if(relap)
-				relap.loc = src.loc
+				relap.forceMove(src.loc)
 				relap = null
 			vendmode = 0
 

@@ -230,7 +230,7 @@
 					worm.detatch()
 					worm.leave_host()
 				else
-					obj.loc = get_turf(target)
+					obj.forceMove(get_turf(target))
 					obj.add_blood(target)
 					obj.update_icon()
 					if(istype(obj,/obj/item/weapon/implant))

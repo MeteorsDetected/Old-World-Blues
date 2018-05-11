@@ -99,7 +99,7 @@
 	else if ( href_list["unload"] )
 		item_quants.Cut()
 		for(var/obj/O in contents )
-			O.loc = get_turf(src)
+			O.forceMove(get_turf(src))
 
 	src.updateUsrDialog()
 	return

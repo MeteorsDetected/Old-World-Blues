@@ -1051,17 +1051,17 @@
 		M << "You've been hit by bluespace artillery!"
 		log_admin("[key_name(M)] has been hit by Bluespace Artillery fired by [src.owner]", M)
 
-		var/obj/effect/stop/S
-		S = new /obj/effect/stop
+		var/obj/effect/stop/S = new /obj/effect/stop(M.loc)
 		S.victim = M
-		S.loc = M.loc
 		spawn(20)
 			qdel(S)
 
 		var/turf/simulated/floor/T = get_turf(M)
 		if(istype(T))
-			if(prob(80))	T.break_tile_to_plating()
-			else			T.break_tile()
+			if(prob(80))
+				T.break_tile_to_plating()
+			else
+				T.break_tile()
 
 		if(M.health == 1)
 			M.gib()

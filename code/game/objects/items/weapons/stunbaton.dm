@@ -10,7 +10,7 @@
 	edge = 0
 	throwforce = 7
 	w_class = ITEM_SIZE_NORMAL
-	origin_tech = list(TECH_COMBAT = 2)
+	origin_tech = list(TECH(T_COMBAT) = 2)
 	attack_verb = list("beaten")
 	var/stunforce = 2
 	var/agonyforce = 80
@@ -71,7 +71,7 @@
 	else if(istype(W, /obj/item/weapon/screwdriver))
 		if(bcell)
 			bcell.update_icon()
-			bcell.loc = get_turf(src.loc)
+			bcell.forceMove(get_turf(src.loc))
 			bcell = null
 			user << SPAN_NOTE("You remove the cell from the [src].")
 			status = 0

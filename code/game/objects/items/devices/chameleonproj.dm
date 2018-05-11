@@ -8,7 +8,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = ITEM_SIZE_TINY
-	origin_tech = list(TECH_ILLEGAL = 4, TECH_MAGNET = 4)
+	origin_tech = list(TECH(T_ILLEGAL) = 4, TECH(T_MAGNET) = 4)
 	var/can_use = 1
 	var/obj/effect/dummy/chameleon/active_dummy = null
 	var/saved_item = /obj/item/weapon/cigbutt
@@ -76,7 +76,7 @@
 
 /obj/item/device/chameleon/proc/eject_all()
 	for(var/atom/movable/A in active_dummy)
-		A.loc = active_dummy.loc
+		A.forceMove(active_dummy.loc)
 		if(ismob(A))
 			var/mob/M = A
 			M.reset_view(null)
@@ -96,7 +96,7 @@
 	icon_state = new_iconstate
 	overlays = new_overlays
 	set_dir(O.dir)
-	M.loc = src
+	M.forceMove(src)
 	master = C
 	master.active_dummy = src
 

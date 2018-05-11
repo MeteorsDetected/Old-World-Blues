@@ -111,7 +111,7 @@
 
 	if(building)
 		if(loc)
-			src.loc = loc
+			src.forceMove(loc)
 
 		if(dir)
 			src.set_dir(dir)
@@ -823,7 +823,7 @@
 				if(do_after(user,20))
 					user << "You pry out the circuit!"
 					var/obj/item/weapon/airalarm_electronics/circuit = new /obj/item/weapon/airalarm_electronics()
-					circuit.loc = user.loc
+					circuit.forceMove(user.loc)
 					buildstage = 0
 					update_icon()
 				return
@@ -959,7 +959,7 @@ FIRE ALARM
 					playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
 					spawn(20)
 						var/obj/item/weapon/firealarm_electronics/circuit = new /obj/item/weapon/firealarm_electronics()
-						circuit.loc = user.loc
+						circuit.forceMove(user.loc)
 						buildstage = 0
 						update_icon()
 			if(0)
@@ -1097,7 +1097,7 @@ FIRE ALARM
 	..()
 
 	if(loc)
-		src.loc = loc
+		src.forceMove(loc)
 
 	if(dir)
 		src.set_dir(dir)
@@ -1183,7 +1183,6 @@ Just a object used in constructing fire alarms
 		var/dat = text("<HTML><HEAD></HEAD><BODY><TT><B>[]</B> []\n<HR>\nTimer System: []<BR>\nTime Left: [][] <A href='?src=\ref[];tp=-30'>-</A> <A href='?src=\ref[];tp=-1'>-</A> <A href='?src=\ref[];tp=1'>+</A> <A href='?src=\ref[];tp=30'>+</A>\n</TT></BODY></HTML>", stars("Party Button"), d1, d2, (minute ? text("[]:", minute) : null), second, src, src, src, src)
 		user << browse(dat, "window=partyalarm")
 		onclose(user, "partyalarm")
-	return
 
 /obj/machinery/partyalarm/proc/reset()
 	if (!( working ))
@@ -1199,7 +1198,6 @@ Just a object used in constructing fire alarms
 	var/area/A = get_area(src)
 	ASSERT(isarea(A))
 	A.partyalert()
-	return
 
 /obj/machinery/partyalarm/Topic(href, href_list)
 	..()
@@ -1225,5 +1223,3 @@ Just a object used in constructing fire alarms
 		add_fingerprint(usr)
 	else
 		usr << browse(null, "window=partyalarm")
-		return
-	return

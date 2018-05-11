@@ -96,7 +96,7 @@
 		usr.visible_message("[usr] begins to detach [rig] from \the [src].", "You begin to detach [rig] from \the [src]")
 		if(do_after(usr, 20))
 			usr.visible_message(SPAN_NOTE("[usr] detaches [rig] from \the [src]."), SPAN_NOTE("You detach [rig] from \the [src]"))
-			rig.loc = get_turf(usr)
+			rig.forceMove(get_turf(usr))
 			rig = null
 			overlays.Cut()
 

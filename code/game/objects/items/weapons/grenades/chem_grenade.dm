@@ -22,7 +22,7 @@
 	attack_self(mob/user as mob)
 		if(!stage || stage==1)
 			if(detonator)
-//				detonator.loc=src.loc
+//				detonator.forceMove(src.loc)
 				detonator.detached()
 				usr.put_in_hands(detonator)
 				detonator=null
@@ -60,7 +60,7 @@
 			user << SPAN_NOTE("You add [W] to the metal casing.")
 			playsound(src.loc, 'sound/items/Screwdriver2.ogg', 25, -3)
 			user.remove_from_mob(det)
-			det.loc = src
+			det.forceMove(src)
 			detonator = det
 			if(istimer(detonator.a_left))
 				var/obj/item/device/assembly/timer/T = detonator.a_left
@@ -189,7 +189,7 @@
 	desc = "An oversized grenade that affects a larger area."
 	icon_state = "large_grenade"
 	allowed_containers = list(/obj/item/weapon/reagent_containers/glass)
-	origin_tech = list(TECH_COMBAT = 3, TECH_MATERIAL = 3)
+	origin_tech = list(TECH(T_COMBAT) = 3, TECH(T_MATERIAL) = 3)
 	affected_area = 4
 
 /obj/item/weapon/grenade/chem_grenade/metalfoam

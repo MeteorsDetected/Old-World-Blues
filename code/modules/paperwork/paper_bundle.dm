@@ -36,7 +36,7 @@
 	else if(istype(W, /obj/item/weapon/paper_bundle))
 		user.drop_from_inventory(W)
 		for(var/obj/O in W)
-			O.loc = src
+			O.forceMove(src)
 			O.add_fingerprint(usr)
 			pages.Add(O)
 
@@ -62,7 +62,7 @@
 		user << SPAN_NOTE("You add [(sheet.name == "photo") ? "the photo" : sheet.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].")
 
 	user.drop_from_inventory(sheet)
-	sheet.loc = src
+	sheet.forceMove(src)
 
 	pages.Insert(index, sheet)
 
@@ -204,7 +204,7 @@
 
 	usr << SPAN_NOTE("You loosen the bundle.")
 	for(var/obj/O in src)
-		O.loc = usr.loc
+		O.forceMove(usr.loc)
 		O.layer = initial(O.layer)
 		O.add_fingerprint(usr)
 	usr.drop_from_inventory(src)

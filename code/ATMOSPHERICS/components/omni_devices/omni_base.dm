@@ -226,7 +226,7 @@
 	return null
 
 /obj/machinery/atmospherics/omni/Destroy()
-	loc = null
+	forceMove(null)
 
 	for(var/datum/omni_port/P in ports)
 		if(P.node)

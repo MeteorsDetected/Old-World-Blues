@@ -763,7 +763,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 /obj/machinery/newscaster/proc/AttachPhoto(mob/user as mob)
 	if(photo_data)
 		if(!photo_data.is_synth)
-			photo_data.photo.loc = src.loc
+			photo_data.photo.forceMove(src.loc)
 			if(!issilicon(user))
 				user.put_in_inactive_hand(photo_data.photo)
 		qdel(photo_data)
@@ -960,7 +960,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		NEWSPAPER.news_content += FC
 	if(news_network.wanted_issue)
 		NEWSPAPER.important_message = news_network.wanted_issue
-	NEWSPAPER.loc = get_turf(src)
+	NEWSPAPER.forceMove(get_turf(src))
 	src.paper_remaining--
 	return
 

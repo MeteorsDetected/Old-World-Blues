@@ -224,6 +224,11 @@ var/global/list/damage_icon_parts = list()
 
 		standing_image.overlays += DI
 
+	if(src.birth)
+		standing_image.overlays += image('icons/mob/alien.dmi', loc = src, icon_state = "burst_stand")
+
+	src.overlays += image('icons/mob/alien.dmi', loc = src, icon_state = "bursted_stand")
+
 	overlays_standing[DAMAGE_LAYER]	= standing_image
 
 	if(update_icons)   update_icons()

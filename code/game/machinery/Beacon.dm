@@ -46,7 +46,7 @@
 			Beacon.invisibility = INVISIBILITY_MAXIMUM
 		if(Beacon)
 			if(Beacon.loc != loc)
-				Beacon.loc = loc
+				Beacon.forceMove(loc)
 
 		updateicon()
 

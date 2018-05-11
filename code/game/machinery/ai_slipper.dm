@@ -21,7 +21,7 @@
 	update_icon()
 
 /obj/machinery/ai_slipper/update_icon()
-	if (stat & NOPOWER || stat & BROKEN)
+	if (stat & (NOPOWER|BROKEN))
 		icon_state = "motion0"
 	else
 		icon_state = disabled ? "motion0" : "motion3"
@@ -48,9 +48,7 @@
 				if (user.machine==src)
 					src.attack_hand(usr)
 		else
-			user << "<span class='warning'>Access denied.</span>"
-			return
-	return
+			user << SPAN_WARN("Access denied.")
 
 /obj/machinery/ai_slipper/attack_ai(mob/user as mob)
 	return attack_hand(user)
@@ -66,13 +64,10 @@
 			return
 
 	user.set_machine(src)
-	var/loc = src.loc
-	if (istype(loc, /turf))
-		loc = loc:loc
-	if (!istype(loc, /area))
-		user << text("Turret badly positioned - loc.loc is [].", loc)
+	var/area/area = get_area(src)
+	if (!istype(area, /area))
+		user << "Turret badly positioned - loc.loc is [loc]."
 		return
-	var/area/area = loc
 	var/t = "<TT><B>AI Liquid Dispenser</B> ([area.name])<HR>"
 
 	if(src.locked && (!issilicon(user)))
@@ -106,7 +101,6 @@
 			return
 
 	src.attack_hand(usr)
-	return
 
 /obj/machinery/ai_slipper/proc/slip_process()
 	while(cooldown_time - world.timeofday > 0)
@@ -123,4 +117,3 @@
 	if (uses >= 0)
 		cooldown_on = 0
 	src.power_change()
-	return

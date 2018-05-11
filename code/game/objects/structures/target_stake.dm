@@ -13,7 +13,7 @@
 		..()
 		// Move the pinned target along with the stake
 		if(pinned_target in view(3, src))
-			pinned_target.loc = loc
+			pinned_target.forceMove(loc)
 
 		else // Sanity check: if the pinned target can't be found in immediate view
 			pinned_target = null
@@ -28,11 +28,10 @@
 			density = 0
 			W.density = 1
 			user.remove_from_mob(W)
-			W.loc = loc
+			W.forceMove(loc)
 			W.layer = 3.1
 			pinned_target = W
 			user << "You slide the target into the stake."
-		return
 
 	attack_hand(mob/user as mob)
 		// taking pinned targets off!

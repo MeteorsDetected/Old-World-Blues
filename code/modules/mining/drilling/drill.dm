@@ -157,7 +157,7 @@
 	if (panel_open && cell)
 		if( !src.Adjacent(usr) ) return 0
 		user << "You take out \the [cell]."
-		cell.loc = get_turf(user)
+		cell.forceMove(get_turf(user))
 		component_parts -= cell
 		cell = null
 		return
@@ -271,7 +271,7 @@
 	var/obj/structure/ore_box/B = locate() in orange(1)
 	if(B)
 		for(var/obj/item/weapon/ore/O in contents)
-			O.loc = B
+			O.forceMove(B)
 		usr << SPAN_NOTE("You unload the drill's storage cache into the ore box.")
 	else
 		usr << SPAN_NOTE("You must move an ore box up to the drill before you can unload it.")

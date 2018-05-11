@@ -10,7 +10,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = ITEM_SIZE_LARGE
-	origin_tech = list(TECH_COMBAT = 1, TECH_PHORON = 1)
+	origin_tech = list(TECH(T_COMBAT) = 1, TECH(T_PHORON) = 1)
 	matter = list(MATERIAL_STEEL = 500)
 	var/status = 0
 	var/throw_amount = 100
@@ -75,13 +75,13 @@
 	if(iswrench(W) && !status)//Taking this apart
 		var/turf/T = get_turf(src)
 		if(weldtool)
-			weldtool.loc = T
+			weldtool.forceMove(T)
 			weldtool = null
 		if(igniter)
-			igniter.loc = T
+			igniter.forceMove(T)
 			igniter = null
 		if(ptank)
-			ptank.loc = T
+			ptank.forceMove(T)
 			ptank = null
 		PoolOrNew(/obj/item/stack/rods, T)
 		qdel(src)

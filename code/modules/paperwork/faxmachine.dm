@@ -6,7 +6,7 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 
 /obj/item/weapon/circuitboard/fax
 	name = T_BOARD("fax macine")
-	origin_tech = list(TECH_DATA = 2)
+	origin_tech = list(TECH(T_DATA) = 2)
 	build_path = /obj/machinery/photocopier/faxmachine
 	board_type = "machine"
 	var/department = ""
@@ -17,7 +17,7 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 /obj/item/weapon/circuitboard/fax/command
 	name = T_BOARD("command fax macine")
 	build_path = /obj/machinery/photocopier/faxmachine/command
-	origin_tech = list(TECH_DATA = 3)
+	origin_tech = list(TECH(T_DATA) = 3)
 	req_components = list(
 		/obj/item/stack/cable_coil = 4,
 		/obj/item/weapon/stock_parts/manipulator = 1,
@@ -207,16 +207,17 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 
 		else if(href_list["remove"])
 			if(copyitem)
-				copyitem.loc = usr.loc
-				usr.put_in_hands(copyitem)
+				copyitem.forceMove(usr.loc)
+				if(!usr.put_in_hands(copyitem))
+					copyitem.forceMove(loc)
 				usr << SPAN_NOTE("You take \the [copyitem] out of \the [src].")
 				copyitem = null
 				updateUsrDialog()
 
 		if(href_list["scan"])
 			if (scan)
-				usr.put_in_hands(scan)
-				scan.forceMove(loc)
+				if(!usr.put_in_hands(scan))
+					scan.forceMove(loc)
 				scan = null
 			else
 				var/obj/item/I = usr.get_active_hand()
@@ -307,7 +308,17 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/obj/item/sent, var/reply_type, font_colour="#006100")
-	var/msg = SPAN_NOTE("<b><font color='[font_colour]'>[faxname]: </font>[key_name(sender, 1)] (<A HREF='?_src_=holder;adminplayeropts=\ref[sender]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[sender]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[sender]'>SM</A>) (<A HREF='?_src_=holder;adminplayerobservejump=\ref[sender]'>JMP</A>) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<a href='?_src_=holder;[reply_type]=\ref[sender];originfax=\ref[src]'>REPLY</a>)</b>: Receiving '[sent.name]' via secure connection ... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>")
+	var/msg = "<b>\
+		<font color='[font_colour]'>[faxname]: </font> [key_name(sender, 1)] \
+		(<A HREF='?_src_=holder;adminplayeropts=\ref[sender]'>PP</A>) \
+		(<A HREF='?_src_=vars;Vars=\ref[sender]'>VV</A>) \
+		(<A HREF='?_src_=holder;subtlemessage=\ref[sender]'>SM</A>) \
+		(<A HREF='?_src_=holder;adminplayerobservejump=\ref[sender]'>JMP</A>) \
+		(<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) \
+		(<a href='?_src_=holder;[reply_type]=\ref[sender];originfax=\ref[src]'>REPLY</a>)</b>: \
+		Receiving '[sent.name]' via secure connection ... \
+		<a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	msg = SPAN_NOTE(msg)
 
 	for(var/client/C in admins)
 		if(R_ADMIN & C.holder.rights)

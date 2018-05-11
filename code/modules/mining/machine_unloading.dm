@@ -27,7 +27,7 @@
 			var/i = 0
 			for (var/obj/item/weapon/ore/O in BOX.contents)
 				BOX.contents -= O
-				O.loc = output.loc
+				O.forceMove(output.loc)
 				i++
 				if (i>=10)
 					return

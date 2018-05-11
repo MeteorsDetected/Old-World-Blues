@@ -22,7 +22,7 @@
 	item_state = "electronic"
 	throw_speed = 4
 	throw_range = 20
-	origin_tech = list(TECH_MAGNET = 1)
+	origin_tech = list(TECH(T_MAGNET) = 1)
 	matter = list(MATERIAL_STEEL = 400)
 
 /obj/item/weapon/locator/attack_self(mob/user as mob)
@@ -133,7 +133,7 @@ Frequency:
 	w_class = ITEM_SIZE_SMALL
 	throw_speed = 3
 	throw_range = 5
-	origin_tech = list(TECH_MAGNET = 1, TECH_BLUESPACE = 3)
+	origin_tech = list(TECH(T_MAGNET) = 1, TECH(T_BLUESPACE) = 3)
 	matter = list(MATERIAL_STEEL = 10000)
 
 /obj/item/weapon/hand_tele/attack_self(mob/user as mob)
@@ -144,7 +144,7 @@ Frequency:
 	var/list/L = list()
 	for(var/obj/machinery/teleport/hub/R in machines)
 		var/obj/machinery/computer/teleporter/com = R.com
-		if (istype(com, /obj/machinery/computer/teleporter) && com.locked && com.locked.is_active() && !com.one_time_use)
+		if (istype(com) && com.locked && com.locked.is_active() && !com.one_time_use)
 			if(R.icon_state == "tele1")
 				L["[com.id] (Active)"] = com.locked.target_obj
 			else
@@ -158,8 +158,8 @@ Frequency:
 		turfs += T
 	if(turfs.len)
 		L["None (Dangerous)"] = pick(turfs)
-	var/t1 = input(user, "Please select a teleporter to lock in on.", "Hand Teleporter") in L
-	if(user.get_active_hand() != src || user.incapacitated())
+	var/t1 = input(user, "Please select a teleporter to lock in on.", "Hand Teleporter") as null|anything in L
+	if(t1 == null || user.get_active_hand() != src || user.incapacitated())
 		return
 	var/count = 0	//num of portals from this teleport in world
 	for(var/obj/effect/portal/PO in world)
@@ -205,7 +205,7 @@ Frequency:
 	w_class = ITEM_SIZE_SMALL
 	throw_speed = 3
 	throw_range = 5
-	origin_tech = list(TECH_MATERIAL = 9, TECH_BLUESPACE = 10, TECH_MAGNET = 8, TECH_POWER = 8, TECH_ARCANE = 4, TECH_ILLEGAL = 5)
+	origin_tech = list(TECH(T_MATERIAL) = 9, TECH(T_BLUESPACE) = 10, TECH(T_MAGNET) = 8, TECH(T_POWER) = 8, TECH(T_ARCANE) = 4, TECH(T_ILLEGAL) = 5)
 	matter = list(MATERIAL_STEEL = 10000, MATERIAL_GLASS = 5000)
 
 /obj/item/weapon/vortex_manipulator/attack_self(mob/user as mob)
@@ -268,7 +268,7 @@ Frequency:
 		else if(istype(W, /obj/item/weapon/screwdriver))
 			if(vcell)
 				vcell.update_icon()
-				vcell.loc = get_turf(src.loc)
+				vcell.forceMove(get_turf(src.loc))
 				vcell = null
 				user << SPAN_NOTE("You remove the cell from the [src].")
 				icon_state = "vm_nocell"

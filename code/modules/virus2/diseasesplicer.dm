@@ -153,7 +153,7 @@
 
 	if(href_list["eject"])
 		if (dish)
-			dish.loc = src.loc
+			dish.forceMove(src.loc)
 			dish = null
 		return 1
 

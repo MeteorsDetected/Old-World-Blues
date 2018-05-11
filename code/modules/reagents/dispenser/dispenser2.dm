@@ -55,7 +55,7 @@
 		user.drop_from_inventory(C)
 		user << SPAN_NOTE("You add \the [C] to \the [src].")
 
-	C.loc = src
+	C.forceMove(src)
 	cartridges[C.label] = C
 	cartridges = sortAssoc(cartridges)
 	nanomanager.update_uis(src)
@@ -87,7 +87,7 @@
 		var/obj/item/weapon/reagent_containers/chem_disp_cartridge/C = remove_cartridge(label)
 		if(C)
 			user << SPAN_NOTE("You remove \the [C] from \the [src].")
-			C.loc = loc
+			C.forceMove(loc)
 
 	else if(istype(W, /obj/item/weapon/reagent_containers/glass) || istype(W, /obj/item/weapon/reagent_containers/food))
 		if(container)
@@ -106,7 +106,7 @@
 
 		container =  RC
 		user.drop_from_inventory(RC)
-		RC.loc = src
+		RC.forceMove(src)
 		user << SPAN_NOTE("You set \the [RC] on \the [src].")
 		nanomanager.update_uis(src) // update all UIs attached to src
 
@@ -162,7 +162,7 @@
 	else if(href_list["ejectBeaker"])
 		if(container)
 			var/obj/item/weapon/reagent_containers/B = container
-			B.loc = loc
+			B.forceMove(loc)
 			container = null
 
 	add_fingerprint(usr)

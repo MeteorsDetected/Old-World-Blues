@@ -30,7 +30,7 @@
 	icon_state = "strange"
 	var/obj/item/weapon/inside
 	var/method = 0// 0 = fire, 1 = brush, 2 = pick
-	origin_tech = list(TECH_MATERIAL = 5)
+	origin_tech = list(TECH(T_MATERIAL) = 5)
 
 /obj/item/weapon/ore/strangerock/New(loc, var/inside_item_type = 0)
 	..(loc)
@@ -51,7 +51,7 @@
 		if(w.isOn())
 			if(w.get_fuel() >= 4 && !src.method)
 				if(inside)
-					inside.loc = get_turf(src)
+					inside.forceMove(get_turf(src))
 					for(var/mob/M in viewers(world.view, user))
 						M.show_message("<span class='info'>[src] burns away revealing [inside].</span>",1)
 				else

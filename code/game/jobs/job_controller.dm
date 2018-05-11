@@ -511,10 +511,10 @@ var/global/datum/controller/occupations/job_master
 		if(!S)
 			S = locate("start*[rank]") // use old stype
 		if(istype(S, /obj/effect/landmark/start) && istype(S.loc, /turf))
-			H.loc = S.loc
+			H.forceMove(S.loc)
 		// Moving wheelchair if they have one
 		if(H.buckled && istype(H.buckled, /obj/structure/material/chair/wheelchair))
-			H.buckled.loc = H.loc
+			H.buckled.forceMove(H.loc)
 			H.buckled.set_dir(H.dir)
 
 	proc/spawnId(var/mob/living/carbon/human/H, rank, title)

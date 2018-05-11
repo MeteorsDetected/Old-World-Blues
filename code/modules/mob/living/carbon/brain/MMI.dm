@@ -4,7 +4,7 @@
 	. = ..()
 	src.brainmob = new(src)
 	src.brainmob.add_language("Robot Talk")
-	src.brainmob.loc = src
+	src.brainmob.forceMove(src)
 	src.brainmob.container = src
 	src.brainmob.stat = 0
 	src.brainmob.silent = 0
@@ -23,7 +23,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi"
 	w_class = ITEM_SIZE_NORMAL
-	origin_tech = list(TECH_BIO = 3)
+	origin_tech = list(TECH(T_BIO) = 3)
 
 	req_access = list(access_robotics)
 
@@ -49,7 +49,7 @@
 
 			brainmob = B.brainmob
 			B.brainmob = null
-			brainmob.loc = src
+			brainmob.forceMove(src)
 			brainmob.container = src
 			brainmob.stat = 0
 			dead_mob_list -= brainmob//Update dem lists
@@ -93,13 +93,13 @@
 			user << SPAN_NOTE("You upend the MMI, spilling the brain onto the floor.")
 			var/obj/item/organ/internal/brain/brain
 			if (brainobj)	//Pull brain organ out of MMI.
-				brainobj.loc = user.loc
+				brainobj.forceMove(user.loc)
 				brain = brainobj
 				brainobj = null
 			else	//Or make a new one if empty.
 				brain = new(user.loc)
-			brainmob.container = null//Reset brainmob mmi var.
-			brainmob.loc = brain//Throw mob into brain.
+			brainmob.container = null //Reset brainmob mmi var.
+			brainmob.forceMove(brain) //Throw mob into brain.
 			living_mob_list -= brainmob//Get outta here
 			brain.brainmob = brainmob//Set the brain to use the brainmob
 			brainmob = null//Set mmi brainmob var to null
@@ -135,7 +135,7 @@
 /obj/item/device/mmi/radio_enabled
 	name = "radio-enabled man-machine interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity. This one comes with a built-in radio."
-	origin_tech = list(TECH_BIO = 4)
+	origin_tech = list(TECH(T_BIO) = 4)
 
 	var/obj/item/device/radio/radio = null//Let's give it a radio.
 

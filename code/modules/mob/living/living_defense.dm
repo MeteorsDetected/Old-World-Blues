@@ -156,13 +156,16 @@
 				var/turf/T = near_wall(dir,2)
 
 				if(T)
-					src.loc = T
-					visible_message("<span class='warning'>[src] is pinned to the wall by [O]!</span>","<span class='warning'>You are pinned to the wall by [O]!</span>")
+					src.forceMove(T)
+					visible_message(
+						SPAN_WARN("[src] is pinned to the wall by [O]!"),
+						SPAN_WARN("You are pinned to the wall by [O]!")
+					)
 					src.anchored = 1
 					src.pinned += O
 
 /mob/living/proc/embed(var/obj/O, var/def_zone=null)
-	O.loc = src
+	O.forceMove(src)
 	src.embedded += O
 	src.verbs += /mob/proc/yank_out_object
 
@@ -197,7 +200,7 @@
 		"was attacked by [key_name(user)]",
 		"attacked"
 	)
-	src.visible_message("<span class='danger'>[user] has [attack_message] [src]!</span>")
+	src.visible_message(SPAN_DANG("[user] has [attack_message] [src]!"))
 	user.do_attack_animation(src)
 	spawn(1) updatehealth()
 	return 1

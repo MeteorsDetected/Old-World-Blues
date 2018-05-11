@@ -13,7 +13,7 @@
 	max_w_class = ITEM_SIZE_NORMAL
 	storage_slots = 0
 	max_storage_space = DEFAULT_LARGEBOX_STORAGE //enough to hold all starting contents
-	origin_tech = list(TECH_COMBAT = 1)
+	origin_tech = list(TECH(T_COMBAT) = 1)
 	attack_verb = list("robusted")
 
 /obj/item/storage/toolbox/emergency
@@ -73,7 +73,7 @@
 	name = "black and red toolbox"
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
-	origin_tech = list(TECH_COMBAT = 1, TECH_ILLEGAL = 1)
+	origin_tech = list(TECH(T_COMBAT) = 1, TECH(T_ILLEGAL) = 1)
 	force = 14
 	preloaded = list(
 		/obj/item/clothing/gloves/yellow,

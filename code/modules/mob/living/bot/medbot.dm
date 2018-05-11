@@ -209,7 +209,7 @@
 
 	else if (href_list["eject"] && (!isnull(reagent_glass)))
 		if(!locked)
-			reagent_glass.loc = get_turf(src)
+			reagent_glass.forceMove(get_turf(src))
 			reagent_glass = null
 		else
 			usr << SPAN_NOTE("You cannot eject the beaker because the panel is locked.")
@@ -249,7 +249,7 @@
 		new /obj/item/robot_parts/l_arm(Tsec)
 
 	if(reagent_glass)
-		reagent_glass.loc = Tsec
+		reagent_glass.forceMove(Tsec)
 		reagent_glass = null
 
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread

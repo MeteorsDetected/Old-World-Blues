@@ -81,3 +81,7 @@
 
 #define FRAME_COMPUTER 1
 #define FRAME_LAPTOP 2
+
+// Chemistry.
+#define CHEM_SYNTH_ENERGY 500 // How much energy does it take to synthesize 1 unit of chemical, in Joules.
+

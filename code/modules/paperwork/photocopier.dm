@@ -192,7 +192,7 @@
 
 /obj/machinery/photocopier/proc/photocopy(var/obj/item/weapon/photo/photocopy)
 	var/obj/item/weapon/photo/p = photocopy.copy()
-	p.loc = src.loc
+	p.forceMove(src.loc)
 
 	var/icon/I = icon(photocopy.icon, photocopy.icon_state)
 	if(toner > 10)	//plenty of toner, go straight greyscale
@@ -224,10 +224,10 @@
 			W = copy(W)
 		else if(istype(W, /obj/item/weapon/photo))
 			W = photocopy(W)
-		W.loc = p
+		W.forceMove(p)
 		p.pages += W
 
-	p.loc = src.loc
+	p.forceMove(src.loc)
 	p.update_icon()
 	p.icon_state = "paper_words"
 	p.name = bundle.name

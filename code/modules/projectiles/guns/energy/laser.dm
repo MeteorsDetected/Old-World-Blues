@@ -7,7 +7,7 @@
 	slot_flags = SLOT_BELT|SLOT_BACK
 	w_class = ITEM_SIZE_LARGE
 	force = 10
-	origin_tech = list(TECH_COMBAT = 3, TECH_MAGNET = 2)
+	origin_tech = list(TECH(T_COMBAT) = 3, TECH(T_MAGNET) = 2)
 	matter = list(MATERIAL_STEEL = 2000)
 	projectile_type = /obj/item/projectile/beam
 	fire_delay = 1 //rapid fire
@@ -52,7 +52,7 @@
 	icon_state = "lasercannon"
 	item_state = null
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
-	origin_tech = list(TECH_COMBAT = 4, TECH_MATERIAL = 3, TECH_POWER = 3)
+	origin_tech = list(TECH(T_COMBAT) = 4, TECH(T_MATERIAL) = 3, TECH(T_POWER) = 3)
 	slot_flags = SLOT_BELT|SLOT_BACK
 	w_class = ITEM_SIZE_HUGE
 	projectile_type = /obj/item/projectile/beam/heavylaser
@@ -72,7 +72,7 @@
 	icon_state = "xray"
 	item_state = "xray"
 	fire_sound = 'sound/weapons/laser3.ogg'
-	origin_tech = list(TECH_COMBAT = 5, TECH_MATERIAL = 3, TECH_MAGNET = 2)
+	origin_tech = list(TECH(T_COMBAT) = 5, TECH(T_MATERIAL) = 3, TECH(T_MAGNET) = 2)
 	projectile_type = /obj/item/projectile/beam/xray
 	w_class = ITEM_SIZE_LARGE
 	charge_cost = 100
@@ -85,7 +85,7 @@
 	icon_state = "sniper"
 	item_state = "laser"
 	fire_sound = 'sound/weapons/marauder.ogg'
-	origin_tech = list(TECH_COMBAT = 6, TECH_MATERIAL = 5, TECH_POWER = 4)
+	origin_tech = list(TECH(T_COMBAT) = 6, TECH(T_MATERIAL) = 5, TECH(T_POWER) = 4)
 	projectile_type = /obj/item/projectile/beam/sniper
 	slot_flags = SLOT_BACK
 	charge_cost = 400
@@ -109,7 +109,7 @@
 	name = "laser tag gun"
 	item_state = "laser"
 	desc = "Standard issue weapon of the Imperial Guard"
-	origin_tech = list(TECH_COMBAT = 1, TECH_MAGNET = 2)
+	origin_tech = list(TECH(T_COMBAT) = 1, TECH(T_MAGNET) = 2)
 	self_recharge = 1
 	matter = list(MATERIAL_STEEL = 2000)
 	fire_sound = 'sound/weapons/Laser.ogg'

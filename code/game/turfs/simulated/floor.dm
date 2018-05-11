@@ -492,7 +492,7 @@ turf/simulated/floor/proc/update_icon()
 			if(is_wood_floor())
 				user << "\red You forcefully pry off the planks, destroying them in the process."
 			else
-				var/obj/item/I = new floor_type(src)
+				var/obj/item/I = new floor_type(src, 1)
 				if(is_light_floor())
 					var/obj/item/stack/tile/light/L = I
 					L.on = get_lightfloor_on()
@@ -510,7 +510,7 @@ turf/simulated/floor/proc/update_icon()
 		else
 			if(is_wood_floor())
 				user << "\red You unscrew the planks."
-				new floor_type(src)
+				new floor_type(src, 1)
 
 		make_plating()
 		playsound(src, 'sound/items/Screwdriver.ogg', 80, 1)

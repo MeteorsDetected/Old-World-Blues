@@ -9,7 +9,7 @@
 	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artefacts power."
 	w_class = ITEM_SIZE_SMALL
 	slot_flags = SLOT_BELT
-	origin_tech = list(TECH_BLUESPACE = 4, TECH_MATERIAL = 4)
+	origin_tech = list(TECH(T_BLUESPACE) = 4, TECH(T_MATERIAL) = 4)
 	var/imprinted = "empty"
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
@@ -137,7 +137,7 @@
 							flick("dust-h", animation)
 							qdel(animation)
 							var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade( T.loc )
-							S.loc = C //put shade in stone
+							S.forceMove(C) //put shade in stone
 							S.status_flags |= GODMODE //So they won't die inside the stone somehow
 							S.canmove = 0//Can't move out of the soul stone
 							S.name = "Shade of [T.real_name]"
@@ -169,7 +169,7 @@
 					if(T.name != C.imprinted)
 						U << "\red <b>Capture failed!</b>: \black The soul stone has already been imprinted with [C.imprinted]'s mind!"
 					else
-						T.loc = C //put shade in stone
+						T.forceMove(C) //put shade in stone
 						T.status_flags |= GODMODE
 						T.canmove = 0
 						T.health = T.maxHealth

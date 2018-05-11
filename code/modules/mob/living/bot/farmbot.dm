@@ -249,7 +249,7 @@
 	new /obj/item/device/analyzer/plant_analyzer(Tsec)
 
 	if(tank)
-		tank.loc = Tsec
+		tank.forceMove(Tsec)
 
 	if(prob(50))
 		new /obj/item/robot_parts/l_arm(Tsec)
@@ -308,7 +308,7 @@
 	var/obj/item/weapon/farmbot_arm_assembly/A = new /obj/item/weapon/farmbot_arm_assembly(loc)
 
 	user << "You add the robot arm to [src]."
-	loc = A //Place the water tank into the assembly, it will be needed for the finished bot
+	forceMove(A) //Place the water tank into the assembly, it will be needed for the finished bot
 	user.drop_from_inventory(S)
 	qdel(S)
 
@@ -340,7 +340,7 @@
 		user << "You complete the Farmbot! Beep boop."
 		var/mob/living/bot/farmbot/S = new /mob/living/bot/farmbot(get_turf(src))
 		for(var/obj/structure/reagent_dispensers/watertank/wTank in contents)
-			wTank.loc = S
+			wTank.forceMove(S)
 			S.tank = wTank
 		S.name = created_name
 		user.remove_from_mob(W)

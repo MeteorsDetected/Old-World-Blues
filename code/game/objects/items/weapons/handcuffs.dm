@@ -10,7 +10,7 @@
 	w_class = ITEM_SIZE_SMALL
 	throw_speed = 2
 	throw_range = 5
-	origin_tech = list(TECH_MATERIAL = 1)
+	origin_tech = list(TECH(T_MATERIAL) = 1)
 	matter = list(MATERIAL_STEEL = 500)
 	var/dispensed_type = 0
 	var/breakouttime = 1200 //Deciseconds = 120s = 2 minutes
@@ -26,7 +26,7 @@
 	flags = CONDUCT
 	throwforce = 0
 	w_class = ITEM_SIZE_NORMAL
-	origin_tech = list(TECH_MATERIAL = 1)
+	origin_tech = list(TECH(T_MATERIAL) = 1)
 	var/breakouttime = 300	//Deciseconds = 30s = 0.5 minute
 
 /obj/item/weapon/handcuffs/on_mob_description(mob/living/carbon/human/H, datum/gender/T, slot)
@@ -108,7 +108,7 @@
 		cuffs = new dispensed_type(get_turf(user))
 	else
 		user.drop_from_inventory(cuffs)
-	cuffs.loc = target
+	cuffs.forceMove(target)
 	target.handcuffed = cuffs
 	target.update_inv_handcuffed()
 	return

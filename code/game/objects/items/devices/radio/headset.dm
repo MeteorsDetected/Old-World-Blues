@@ -64,12 +64,12 @@
 	return -1
 
 /obj/item/device/radio/headset/syndicate
-	origin_tech = list(TECH_ILLEGAL = 2)
+	origin_tech = list(TECH(T_ILLEGAL) = 2)
 	syndie = 1
 	ks1type = /obj/item/device/encryptionkey/syndicate
 
 /obj/item/device/radio/headset/binary
-	origin_tech = list(TECH_ILLEGAL = 2)
+	origin_tech = list(TECH(T_ILLEGAL) = 2)
 	ks1type = /obj/item/device/encryptionkey/binary
 
 /obj/item/device/radio/headset/sec
@@ -264,13 +264,13 @@
 			if(keyslot1)
 				var/turf/T = get_turf(user)
 				if(T)
-					keyslot1.loc = T
+					keyslot1.forceMove(T)
 					keyslot1 = null
 
 			if(keyslot2)
 				var/turf/T = get_turf(user)
 				if(T)
-					keyslot2.loc = T
+					keyslot2.forceMove(T)
 					keyslot2 = null
 
 			recalculateChannels()

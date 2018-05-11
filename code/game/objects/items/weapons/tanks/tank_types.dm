@@ -99,8 +99,7 @@
 		src.master = F
 		F.ptank = src
 		user.remove_from_mob(src)
-		src.loc = F
-	return
+		src.forceMove(F)
 
 /*
  * Emergency Oxygen

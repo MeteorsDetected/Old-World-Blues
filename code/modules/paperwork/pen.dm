@@ -77,7 +77,7 @@
 /obj/item/weapon/pen/reagent
 	flags = OPENCONTAINER
 	slot_flags = SLOT_BELT
-	origin_tech = list(TECH_MATERIAL = 2, TECH_ILLEGAL = 5)
+	origin_tech = list(TECH(T_MATERIAL) = 2, TECH(T_ILLEGAL) = 5)
 
 /obj/item/weapon/pen/reagent/initialize()
 	create_reagents(30)
@@ -102,7 +102,7 @@
  */
 /obj/item/weapon/pen/reagent/sleepy
 	desc = "It's a black ink pen with a sharp point and a carefully engraved \"Waffle Co.\""
-	origin_tech = list(TECH_MATERIAL = 2, TECH_ILLEGAL = 5)
+	origin_tech = list(TECH(T_MATERIAL) = 2, TECH(T_ILLEGAL) = 5)
 
 /obj/item/weapon/pen/reagent/sleepy/initialize()
 	. = ..()
@@ -114,7 +114,7 @@
  * Parapens
  */
 /obj/item/weapon/pen/reagent/paralysis
-	origin_tech = list(TECH_MATERIAL = 2, TECH_ILLEGAL = 5)
+	origin_tech = list(TECH(T_MATERIAL) = 2, TECH(T_ILLEGAL) = 5)
 
 /obj/item/weapon/pen/reagent/paralysis/initialize()
 	. = ..()
