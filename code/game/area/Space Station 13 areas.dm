@@ -1880,6 +1880,23 @@ area/crew_quarters/barman
 	name = "naki post and shuttle, huh"
 	icon_state = "green"
 
+//SHUTTLES
+
+/area/shuttles
+	name = "area for shuttle"
+
+
+/area/shuttles/Nameless
+	name = "Nameless shuttle"
+
+
+/area/shuttles/unknown1
+	name = "unknown shuttle one"
+
+
+/area/shuttles/unknown2
+	name = "unknown shuttle two"
+
 //TEAM
 
 /area/derelict/away/team
