@@ -1919,5 +1919,4 @@
 #include "maps\exodus\Olivia.dmm"
 #include "maps\exodus\pirat_base.dmm"
 #include "maps\exodus\trader.dmm"
-#include "maps\exodus\way.dmm"
 // END_INCLUDE
