@@ -205,3 +205,13 @@
 	anchored = 1
 	density = 0
 	wall_mounted = 1
+
+//Wallcocker
+/obj/structure/closet/wallcocker
+	name = "Wall Locker"
+	desc = "A wall mounted storage locker."
+	icon_state = "wall-locker"
+	icon_opened = "wall-lockeropen"
+	anchored = 1
+	density = 0
+	wall_mounted = 1
