@@ -39,12 +39,10 @@
 			stop_apu(1)
 
 		var/blind = 0
-		var/area/loc = null
-		if (istype(T, /turf))
-			forceMove(T.loc)
-			if (istype(loc, /area))
-				if (!loc.power_equip && !istype(src.loc,/obj/item) && !APU_power)
-					blind = 1
+		var/area/my_area = get_area(src)
+		if (istype(my_area))
+			if (!my_area.power_equip && !istype(src.loc,/obj/item) && !APU_power)
+				blind = 1
 
 		if (!blind)
 			src.sight |= SEE_TURFS
@@ -92,7 +90,7 @@
 					spawn(20)
 						src << "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection."
 						sleep(50)
-						if (loc.power_equip)
+						if (my_area.power_equip)
 							if (!istype(T, /turf/space))
 								src << "Alert cancelled. Power has been restored without our assistance."
 								aiRestorePowerRoutine = 0
@@ -122,7 +120,7 @@
 									else src << "Lost connection with the APC!"
 								src:aiRestorePowerRoutine = 2
 								return
-							if (loc.power_equip)
+							if (my_area.power_equip)
 								if (!istype(T, /turf/space))
 									src << "Alert cancelled. Power has been restored without our assistance."
 									aiRestorePowerRoutine = 0
