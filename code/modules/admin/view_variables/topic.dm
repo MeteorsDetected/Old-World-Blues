@@ -150,6 +150,26 @@
 		H.ChangeToSkeleton()
 		href_list["datumrefresh"] = href_list["make_skeleton"]
 
+	else if(href_list["reagents"])
+		var/datum/reagents/Holder = locate(href_list["reagents"])
+		switch(href_list["act"])
+			if("add")
+				var/selected = input("Select reagent for remove", "Select reagent") as null|anything in chemical_reagents_list
+				if(selected)
+					var/amount = input("Select amount", "Value") as null|num
+					if(amount)
+						Holder.add_reagent(selected, amount)
+			if("remove")
+				var/selected = input("Select reagent for remove", "Select reagent") as null|anything in Holder.reagent_list
+				if(selected)
+					var/amount = input("Select amount", "Value") as null|num
+					if(amount)
+						Holder.remove_reagent(selected, amount)
+			if("del")
+				var/selected = input("Select reagent for remove", "Select reagent") as null|anything in Holder.reagent_list
+				if(selected)
+					Holder.del_reagent(selected)
+
 	else if(href_list["delall"])
 		if(!check_rights(R_DEBUG|R_SERVER))	return
 
