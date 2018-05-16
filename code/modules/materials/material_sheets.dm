@@ -26,7 +26,8 @@
 
 /obj/item/stack/material/New(loc, var/amount, var/material)
 	..(loc, amount)
-	src.material = material
+	if(material)
+		src.material = material
 
 
 /obj/item/stack/material/initialize()
