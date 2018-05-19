@@ -247,7 +247,7 @@
 	if(istype(W, /obj/item/stack/cable_coil) && !terminal && !building_terminal)
 		building_terminal = 1
 		var/obj/item/stack/cable_coil/CC = W
-		if (CC.get_amount() <= 10)
+		if (CC.get_amount() < 10)
 			user << SPAN_WARN("You need more cables.")
 			building_terminal = 0
 			return 0
