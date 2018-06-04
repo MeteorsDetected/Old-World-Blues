@@ -10,7 +10,7 @@
 		/obj/item/seeds/bloodtomatoseed,
 		/obj/item/storage/pill_bottle/zoom,
 		/obj/item/storage/pill_bottle/happy,
-		/obj/item/weapon/reagent_containers/glass/drinks/bottle/pwine
+		/obj/item/weapon/reagent_containers/glass/drinks/bottle/pwine //I will add something more here later
 	)
 
 	name = "Contraband crate"
@@ -24,11 +24,11 @@
 	name = "Special Ops supplies"
 	contains = list(
 		/obj/item/storage/box/emps,
-		/obj/item/weapon/grenade/smokebomb = 3,
+		/obj/item/weapon/melee/energy/sword,
 		/obj/item/weapon/pen/reagent/paralysis,
-		/obj/item/weapon/grenade/chem_grenade/incendiary
+		/obj/item/weapon/grenade/chem_grenade/incendiary //I will add something more here later
 	)
-	cost = 25
+	cost = 35
 	containertype = /obj/structure/closet/crate
 	containername = "Special Ops crate"
 	hidden = 1

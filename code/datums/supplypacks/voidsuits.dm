@@ -5,11 +5,11 @@
 
 
 /datum/supply_packs/voidsuits
-	group = "Voidsuits"
-	
+	group = "EVA Equipment"
+
 /datum/supply_packs/randomised/voidsuits
-	group = "Voidsuits"
-	
+	group = "EVA Equipment"
+
 /datum/supply_packs/voidsuits/atmos
 	name = "Atmospheric voidsuits"
 	contains = list(
@@ -77,7 +77,7 @@
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Mining voidsuit crate"
 	access = access_mining
-	
+
 /datum/supply_packs/randomised/voidsuits/surplus
 	name = "Surplus EVA equipment"
 	num_contained = 7
@@ -98,11 +98,6 @@
 		/obj/item/clothing/head/helmet/space/syndicate/black,
 		/obj/item/clothing/suit/space/syndicate/black/engie,
 		/obj/item/clothing/head/helmet/space/syndicate/black/engie,
-		/obj/item/clothing/mask/breath,
-		/obj/item/clothing/mask/breath,
-		/obj/item/clothing/mask/breath,
-		/obj/item/clothing/mask/breath,
-		/obj/item/clothing/mask/breath,
 		/obj/item/clothing/shoes/magboots/toggleable,
 		/obj/item/clothing/shoes/magboots/toggleable,
 		/obj/item/weapon/tank/emergency_oxygen/double,
@@ -110,9 +105,22 @@
 		/obj/item/weapon/tank/emergency_oxygen/double,
 		/obj/item/weapon/tank/jetpack/oxygen,
 		/obj/item/weapon/tank/oxygen,
-		/obj/item/weapon/tank/oxygen,
 		/obj/item/weapon/tank/oxygen
 	)
 	cost = 60
 	containertype = /obj/structure/closet/crate
 	containername = "Surplus EVA crate"
+
+/datum/supply_packs/voidsuits/rig_modules
+	name = "Hardsuit modules"
+	contains = list(
+		/obj/item/rig_module/ai_container,
+		/obj/item/rig_module/device/plasmacutter,
+		/obj/item/rig_module/device/rcd,
+		/obj/item/rig_module/chem_dispenser,
+		/obj/item/rig_module/maneuvering_jets,
+		/obj/item/rig_module/vision/nvg
+	)
+	cost = 80
+	containertype = /obj/structure/closet/crate
+	containername = "Hardsuit modules crate"
