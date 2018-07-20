@@ -224,8 +224,8 @@ var/global/datum/shuttle_controller/shuttle_controller
 		)
 
 	VS.announcer = "AI Molly"
-	VS.arrival_message = "Attention, Exodus, we just tracked a small target bypassing our defensive perimeter. Can't fire on it without hitting the station - you've got incoming visitors, like it or not."
-	VS.departure_message = "The entered course is incorrect. Search for alternatives .... Found 1 solutions. The laying of the march is carried out to the cryo base 891."
+	VS.arrival_message = "The entered course is incorrect. Search for alternatives .... Found 1 solutions. The laying of the march is carried out to the cryo base 891."
+	VS.departure_message = "Have you decided to return? Really? You're clearly not particularly smart at this, are you?"
 	VS.interim = locate(/area/skipjack_station/transit)
 
 	VS.warmup_time = 0
