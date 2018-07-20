@@ -1,7 +1,7 @@
 //This is a holder for things like the Skipjack and Nuke shuttle.
 /datum/shuttle/multi_shuttle
 
-	var/cloaked = 1
+	var/cloaked = 0
 	var/at_origin = 1
 	var/returned_home = 0
 	var/move_time = 240

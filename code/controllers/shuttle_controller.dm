@@ -178,7 +178,7 @@ var/global/datum/shuttle_controller/shuttle_controller
 	process_shuttles += shuttle
 
 	shuttle = new()
-	shuttle.warmup_time = 10
+	shuttle.warmup_time = 40
 	shuttle.area_offsite = locate(/area/shuttle/research/outpost)
 	shuttle.area_station = locate(/area/shuttle/research/station)
 	shuttle.docking_controller_tag = "research_shuttle"
@@ -217,19 +217,15 @@ var/global/datum/shuttle_controller/shuttle_controller
 
 	//Skipjack.
 	var/datum/shuttle/multi_shuttle/VS = new/datum/shuttle/multi_shuttle()
-	VS.origin = locate(/area/skipjack_station/start)
+	VS.origin = locate(/area/skipjack_station/southwest_solars)
 
 	VS.destinations = list(
-		"Fore Starboard Solars" = locate(/area/skipjack_station/northeast_solars),
-		"Fore Port Solars" = locate(/area/skipjack_station/northwest_solars),
-		"Aft Starboard Solars" = locate(/area/skipjack_station/southeast_solars),
-		"Aft Port Solars" = locate(/area/skipjack_station/southwest_solars),
-		"Mining asteroid" = locate(/area/skipjack_station/mining)
+		"Facility 713" = locate(/area/skipjack_station/start)
 		)
 
-	VS.announcer = "NDV Icarus"
+	VS.announcer = "AI Molly"
 	VS.arrival_message = "Attention, Exodus, we just tracked a small target bypassing our defensive perimeter. Can't fire on it without hitting the station - you've got incoming visitors, like it or not."
-	VS.departure_message = "Your guests are pulling away, Exodus - moving too fast for us to draw a bead on them. Looks like they're heading out of the system at a rapid clip."
+	VS.departure_message = "The entered course is incorrect. Search for alternatives .... Found 1 solutions. The laying of the march is carried out to the cryo base 891."
 	VS.interim = locate(/area/skipjack_station/transit)
 
 	VS.warmup_time = 0
