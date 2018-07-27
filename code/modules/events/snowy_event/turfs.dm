@@ -11,7 +11,7 @@
 	name = "snow"
 	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	icon_state = "snow_turf"
-	temperature = T0C-20
+	temperature = T0C-30
 
 	New()
 		..()
