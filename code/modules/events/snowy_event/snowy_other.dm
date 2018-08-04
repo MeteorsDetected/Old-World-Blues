@@ -139,16 +139,18 @@
 	power_environ = 0
 	ambience = list(
 		'sound/effects/wind/wind_2_1.ogg','sound/effects/wind/wind_2_2.ogg','sound/effects/wind/wind_3_1.ogg',
-		'sound/effects/wind/wind_4_1.ogg','sound/effects/wind/wind_4_2.ogg','sound/effects/wind/wind_5_1.ogg'
+		'sound/effects/wind/wind_4_1.ogg','sound/effects/wind/wind_4_2.ogg','sound/effects/wind/wind_5_1.ogg',
+		'sound/effects/snowy/music/into_the_Fray.ogg','sound/effects/snowy/music/writing_the_letter.ogg','sound/effects/snowy/music/frozen_silence.ogg'
 	)
-
 
 /area/indoor
 	name = "Indoor"
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = "indoor_area"
 	lighting_use_dynamic = 1
-	ambience = list()
+	ambience = list(
+		'sound/effects/snowy/music/we_keep_going.ogg','sound/effects/snowy/music/no_good_choice.ogg','sound/effects/snowy/music/frozen_silence.ogg'
+	)
 
 
 
