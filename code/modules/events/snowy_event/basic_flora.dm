@@ -6,7 +6,7 @@
 /obj/structure/flora
 	var/loot_left = 3
 	var/loot_chance = 25
-	var/goodloot_chance = 10
+	var/goodloot_chance = 5
 	var/list/loot_list = list(/obj/item/weapon/reagent_containers/food/snacks/bug,
 								/obj/item/weapon/reagent_containers/food/snacks/bug/firefly,
 								/obj/item/weapon/reagent_containers/food/snacks/bug/godeater,
@@ -15,25 +15,39 @@
 								/obj/item/weapon/reagent_containers/food/snacks/bug/icespiderling,
 								/obj/item/weapon/spider_silk) //there need some special loot. But i make it later
 
+	var/list/good_loot_list = list(/obj/item/weapon/beartrap,
+									/obj/item/weapon/wrench,
+									/obj/item/weapon/screwdriver,
+									/obj/item/weapon/wirecutters,
+									/obj/item/weapon/crowbar/red,
+									/obj/item/weapon/material/butterfly,
+									/obj/item/weapon/material/knife/ritual,
+									/obj/item/blueprints/ckit,
+									/obj/item/clothing/head/ushanka) //just add stuff here
+
+
+
 
 
 /obj/structure/flora/attack_hand(var/mob/user as mob)
 	if(user.a_intent == I_DISARM)
-		if(loot_left)
+		if(loot_left > 0)
 			if(prob(loot_chance))
 				user << SPAN_NOTE("You found something.")
 				var/loot =  pick(loot_list)
 				new loot(user.loc)
 				loot_left--
+				return
+
+			if(prob(goodloot_chance)) //Well... This was bad idea - make this with typesof. They abuse this, so now only the list!
+				//var/list/new_l = typesof(/obj/item/weapon)
+				//new_l.Remove(/obj/item/weapon)
+				//var/L = pick(new_l)
+				var/L = pick(good_loot_list)
+				new L(user.loc)
+				user << SPAN_NOTE("You found something interesting!")
 			else
-				if(prob(goodloot_chance))
-					var/list/new_l = typesof(/obj/item/weapon)
-					new_l.Remove(/obj/item/weapon)
-					var/L = pick(new_l)
-					new L(user.loc)
-					user << SPAN_NOTE("You found something interesting!")
-				else
-					user << SPAN_WARN("You find nothing.")
+				user << SPAN_WARN("You find nothing.")
 			loot_left--
 		else
 			user << SPAN_WARN("You check all possible places, but nothing.")

@@ -25,6 +25,23 @@
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "skin"
 
+/obj/item/weapon/skin/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/weapon/needle) && src.type != /obj/item/weapon/skin/bad)
+		var/obj/item/weapon/needle/N = W
+		if (N.charges > 0)
+			var/making_obj = input(user, "Make what?") in list("Deer hat", "Wolf mask")
+			var/obj/item/weapon/unfinishedfurs/U = new(get_turf(src))
+			U.makeThings(making_obj)
+			qdel(src)
+		else
+			user << SPAN_WARN("You need threads to start it.")
+	if(W.sharp)
+		for(var/i=1, i <= 3, i++)
+			new /obj/item/weapon/leatherstripes(get_turf(src))
+		user << SPAN_NOTE("You slice skin into the stripes of almost perfect leather.")
+		qdel(src)
+
+
 /obj/item/weapon/skin/bad
 	name = "bad skin"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
@@ -39,13 +56,18 @@
 	name = "bone"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "bone"
+	var/list/carvable_stuff = list("Fishing hook" = /obj/item/weapon/hook/boned,
+									"Sewing needle" = /obj/item/weapon/needle)
 
 
 /obj/item/weapon/bone/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(W.sharp)
-		user << SPAN_NOTE("You carve hook from the bone.")
-		new /obj/item/weapon/hook/boned(user.loc)
-		qdel(src)
+		var/choosed = input(user, "Carve what?") in carvable_stuff
+		if (choosed)
+			user << SPAN_NOTE("You carve [choosed] from the bone.")
+			var/obj/C = carvable_stuff[choosed]
+			new C(user.loc)
+			qdel(src)
 
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/liver
 	name = "liver"
