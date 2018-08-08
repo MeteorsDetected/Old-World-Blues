@@ -47,7 +47,7 @@
 				new L(user.loc)
 				user << SPAN_NOTE("You found something interesting!")
 			else
-				user << SPAN_WARN("You find nothing.")
+				user << SPAN_WARN("You found nothing.")
 			loot_left--
 		else
 			user << SPAN_WARN("You check all possible places, but nothing.")

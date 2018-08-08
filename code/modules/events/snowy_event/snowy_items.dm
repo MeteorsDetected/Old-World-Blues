@@ -237,149 +237,6 @@
 	qdel(src) //need to place here some nice effects later
 
 
-//Sewing stuff. Temporary here
-
-/obj/item/weapon/spindle
-	name = "Spindle"
-	desc = "Spindle with some threads. Take off your finger from it!"
-	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
-	icon_state = "spindle"
-	w_class = ITEM_SIZE_TINY
-	var/charges = 5
-
-/obj/item/weapon/needle
-	name = "bone needle"
-	desc = "Looks sharp but crooked."
-	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
-	icon_state = "bone_needle"
-	w_class = ITEM_SIZE_TINY
-	var/thread = 0
-	var/charges = 3
-
-
-/obj/item/weapon/needle/update_icon()
-	overlays.Cut()
-	if(thread)
-		overlays += "needle_thread"
-
-
-/obj/item/weapon/needle/attackby(obj/item/weapon/O as obj, mob/user as mob)
-	if(thread)
-		if(charges > 0)
-			return
-	if(istype(O, /obj/item/weapon/spindle))
-		var/obj/item/weapon/spindle/S = O
-		user << SPAN_NOTE("You put the thread through the needle eye.")
-		if(S.charges > 0)
-			thread = 1
-			charges = 3
-			S.charges--
-			update_icon()
-			if(S.charges < 1)
-				qdel(S)
-				new /obj/item/weapon/stick(get_turf(src))
-
-
-/obj/item/weapon/unfinishedfurs
-	name = "Unfinished"
-	desc = "Fur, leather, threads. This is how it begins."
-	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
-	icon_state = "fur_stuff"
-	w_class = ITEM_SIZE_SMALL
-	var/stripes = 0
-	var/obj/item/weapon/head/head = null
-	var/tendons = 0
-	var/obj/item/weapon/skin/skin = null
-	var/creating_obj = null
-	var/required_thread = 0
-
-
-/obj/item/weapon/unfinishedfurs/proc/makeThings(var/choosed_obj)
-	if(choosed_obj == "Deer hat")
-		stripes = 2
-		tendons = 5
-		src.name = "[src.name] deer hat."
-	else
-		stripes = 5
-		tendons = 2
-		src.name = "[src.name] wolf mask."
-	creating_obj = choosed_obj
-
-
-/obj/item/weapon/unfinishedfurs/examine(mob/user as mob)
-	..()
-	if(required_thread)
-		user << SPAN_NOTE("Need to sew this.")
-	else
-		if(tendons > 0)
-			user << SPAN_NOTE("[tendons] tendons left.")
-		if(stripes > 0)
-			user << SPAN_NOTE("[stripes] leather stripes left.")
-		if(!skin)
-			user << SPAN_NOTE("good skin required.")
-		if(!head)
-			if(creating_obj == "Deer hat")
-				user << SPAN_NOTE("Deer's head required.")
-			else
-				user << SPAN_NOTE("Wolf's head required.")
-
-
-/obj/item/weapon/unfinishedfurs/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(required_thread)
-		if(istype(W, /obj/item/weapon/needle))
-			var/obj/item/weapon/needle/N = W
-			if(N.charges > 0)
-				user.visible_message(
-						SPAN_NOTE("[user] sews something with needle."),
-						SPAN_NOTE("You sew the [name].")
-					)
-				N.charges--
-				N.update_icon()
-				required_thread = 0
-			else
-				user << SPAN_WARN("You need threads.")
-		else
-			user << SPAN_WARN("You need to sew this first.")
-	else
-		if(istype(W, /obj/item/weapon/leatherstripes) && stripes > 0)
-			qdel(W)
-			stripes--
-			required_thread = 1
-		if(istype(W, /obj/item/weapon/tendon) && tendons > 0)
-			qdel(W)
-			tendons--
-			required_thread = 1
-		if(istype(W, /obj/item/weapon/head) && !head)
-			if(creating_obj == "Deer hat" && W.type == /obj/item/weapon/head)
-				head = W
-				user.drop_from_inventory(W, src)
-				required_thread = 1
-			else if(creating_obj == "Wolf mask" && W.type == /obj/item/weapon/head/wolf)
-				head = W
-				user.drop_from_inventory(W, src)
-				required_thread = 1
-		if(istype(W, /obj/item/weapon/skin) && !skin)
-			skin = W
-			user.drop_from_inventory(W, src)
-			required_thread = 1
-	if(tendons == 0 && stripes == 0 && skin && head && !required_thread)
-		if(creating_obj == "Deer hat")
-			new /obj/item/clothing/head/deerhat(get_turf(src))
-			qdel(src)
-		else
-			new /obj/item/clothing/mask/wolfmask(get_turf(src))
-			qdel(src)
-
-
-
-/obj/item/weapon/leatherstripes
-	name = "Leather stripes"
-	desc = "Inaccurate, but still useful. Looks like a bacon but this is not!"
-	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
-	icon_state = "leather_stripes"
-	w_class = ITEM_SIZE_TINY
-
-
 //Room building. Temporary method. Maybe later i make roof building as part of construction
 //Or rework this and make trough atmos's zones
 //Or i drink some coffee and will never touch that shit
@@ -498,7 +355,7 @@
 //some clothes
 
 /obj/item/clothing/head/deerhat
-	name = "Deer hat"
+	name = "deer hat"
 	desc = "Handmade hat from deer's head with some furs and leather. You can see a various junk at horns: stripes, cones, branches."
 	icon_state = "deerhat"
 	item_state = "deerhat"
@@ -508,11 +365,37 @@
 	min_cold_protection_temperature = 35
 
 /obj/item/clothing/mask/wolfmask
-	name = "Wolf mask"
+	name = "wolf mask"
 	desc = "You tricked me, Meat, Ignoring my request has a price. Do not think you can do whatever you like. \red IT'S MY FUCKING FOREST!"
 	icon_state = "wolfmask"
 	item_state = "wolfmask"
 	flags_inv = HIDEFACE|BLOCKHAIR
 	body_parts_covered = HEAD|FACE
 	cold_protection = HEAD|FACE
-	min_cold_protection_temperature = 25
+	min_cold_protection_temperature = 35
+
+/obj/item/clothing/suit/storage/furcape
+	name = "fur cloak"
+	desc = "This one can give you a chance for survive at the windstorm. Warm and soft."
+	icon_state = "furcape"
+	item_state = "furcape"
+	armor = list(melee = 30, bullet = 15, laser = 5, energy = 5, bomb = 15, bio = 0, rad = 0)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|HANDS|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|HANDS|ARMS
+	min_cold_protection_temperature = 55
+
+/obj/item/storage/belt/wildpouch
+	name = "wild pouch"
+	desc = "Brushwood, herbs, bones or cones. No matter. This pouch can handle this. Your new best friend."
+	icon_state = "wildpouch"
+	storage_slots = 18
+	max_storage_space = 32
+
+/obj/item/clothing/shoes/jackboots/furboots
+	name = "fur boots"
+	desc = "Tough, high, warm and soft. These boots handmaded but the work is really impressive."
+	icon_state = "furboots"
+	force = 3
+	armor = list(melee = 45, bullet = 10, laser = 3, energy = 3, bomb = 5, bio = 0, rad = 0)
+	cold_protection = LEGS|FEET
+	min_cold_protection_temperature = 35

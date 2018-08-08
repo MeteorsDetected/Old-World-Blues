@@ -20,27 +20,11 @@
 	icon_state = "wolf_head"
 
 
+//check sewing.dm for skin's attackby
 /obj/item/weapon/skin
 	name = "skin"
 	icon = 'icons/obj/snowy_event/butchering_icons.dmi'
 	icon_state = "skin"
-
-/obj/item/weapon/skin/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/weapon/needle) && src.type != /obj/item/weapon/skin/bad)
-		var/obj/item/weapon/needle/N = W
-		if (N.charges > 0)
-			var/making_obj = input(user, "Make what?") in list("Deer hat", "Wolf mask")
-			var/obj/item/weapon/unfinishedfurs/U = new(get_turf(src))
-			U.makeThings(making_obj)
-			qdel(src)
-		else
-			user << SPAN_WARN("You need threads to start it.")
-	if(W.sharp)
-		for(var/i=1, i <= 3, i++)
-			new /obj/item/weapon/leatherstripes(get_turf(src))
-		user << SPAN_NOTE("You slice skin into the stripes of almost perfect leather.")
-		qdel(src)
-
 
 /obj/item/weapon/skin/bad
 	name = "bad skin"
