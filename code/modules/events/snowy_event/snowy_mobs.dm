@@ -415,3 +415,246 @@
 	..()
 	new /obj/structure/butcherable/wolf(src.loc)
 	qdel(src)
+
+
+
+//Experimental
+//Unfinished. Need to polish some procs
+//Need to add: friend list, passive behaviour, good sprite and animations, more specialized commands (like search by fingerprints), hunger, sounds, simple teach menu.
+
+
+/mob/living/simple_animal/smartdog
+	name = "Bark"
+	desc = "A wolf? A dog? A smart doggy!"
+	icon = 'icons/obj/snowy_event/mobs_icons.dmi'
+	icon_state = "wolf"
+	icon_living = "wolf"
+	icon_dead = "wolf"
+	pass_flags = PASSTABLE
+	small = 0
+
+	speak = list()
+	speak_emote = list()
+	emote_hear = list()
+	emote_see = list()
+
+	speak_chance = 1//1% (1 in 100) chance every tick; So about once per 150 seconds, assuming an average tick is 1.5s
+	turns_per_move = 5
+
+	response_help  = "pets"
+	response_disarm = "gently moves aside"
+	response_harm   = "swats"
+	stop_automated_movement = 1
+	universal_speak = 1
+	var/atom/Target = null
+	var/task = null
+	var/playing = 0
+	var/mob/Master = null
+	var/friendship = 1
+	var/list/commands = list("voice" = list("голос!", "пошуми!"),
+							"sit" = list("сидеть!", "сесть!"),
+							"calm" = list("отдыхай!", "свободен!", "нельзя!"),
+							"master" = list("хозяин!"),
+							"play" = list("аборт!"),
+							"follow" = list("за мной!", "рядом!"),
+							"overwatch" = list("охранять!", "следить!"),
+							"haul" = list("принеси!", "неси!"),
+							"attack" = list("взять!"),
+							"to me" = list("ко мне!"),
+							"go to" = list("туда!")
+							)
+
+	//helpers
+	var/turf/last_loc = null
+
+
+/mob/living/simple_animal/smartdog/death()
+	..()
+	new /obj/structure/butcherable/wolf(src.loc)
+	qdel(src)
+
+
+/mob/living/simple_animal/smartdog/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/alt_name = "", var/italics = 0, var/mob/speaker = null, var/sound/speech_sound, var/sound_vol)
+	if(message && !istype(speaker, /mob/living/simple_animal/smartdog)) //another doges not required
+		for(var/C in commands)
+			var/list/v_cmds = commands[C]
+			for(var/word in v_cmds)
+				if(findtextEx(rlowertext(sanitize(message)), rlowertext(sanitize(word))))
+					task = C
+					if(task == "master")
+						cmd_setMaster(speaker)
+
+		..(message,verb,language,alt_name,italics,speaker)
+
+
+/mob/living/simple_animal/smartdog/proc/register(var/mob/living/L, var/atom/T)
+	if(task == "haul" && istype(T, /obj/item))
+		Target = T
+	else if(task == "attack" && (istype(T, /mob/living) || istype(T, /obj/mecha)))
+		if(T == Master)
+			say("Aww...") // :c
+			return
+		Target = T
+	else if(task == "go to")
+		Target = T
+	else
+		say("Woof?")
+
+
+/mob/living/simple_animal/smartdog/attackby(obj/item/I as obj, mob/user as mob)
+	if(user.a_intent == I_HELP)
+		if(Master && Master == user)
+			visible_message(SPAN_NOTE("<b>[src.name]</b> sniffs the [I.name]"))
+			Target = I
+			return
+		else
+			say("Gr-r-r...")
+			if(prob(30))
+				user.attack_generic(src, rand(5, 10), "bites the hand of")
+				return
+	else
+		if(Master != user)
+			Target = user
+			task = "attack"
+		..(I, user)
+
+
+/mob/living/simple_animal/smartdog/attack_hand(mob/living/carbon/human/M as mob)
+	if(M.a_intent == I_HELP)
+		if(!Master || !Master == M)
+			say("Gr-r-r...")
+			if(prob(30))
+				M.attack_generic(src, rand(5, 10), "bites the hand of")
+				return
+		else
+			..(M)
+	else
+		if(Master != M)
+			Target = M
+			task = "attack"
+		..(M)
+
+
+
+/mob/living/simple_animal/smartdog/Life()
+	if(!..())
+		return
+
+
+
+	switch(task)
+		if("voice") 	cmd_getVoice()
+//		if("sit")   	cmd_sit()
+		if("follow")  	cmd_follow()
+		if("calm")  	cmd_calm()
+		if("play")		cmd_play()
+		if("overwatch")	cmd_overwatch()
+		if("haul")		cmd_haul()
+		if("attack")	cmd_attack()
+		if("to me")		cmd_to_me()
+		if("go to")		cmd_goTo()
+		else
+			if(prob(5))
+				var/me = pick("sits on the floor and looks around.", "laying at floor and gnawing the bone", "stick out the tongue and wags with his tail.")
+				visible_message("<b>[src.name]</b> [me].")
+			if(prob(1))
+				playsound(src.loc, 'sound/effects/snowy/wolf_howl.ogg', 90, rand(-70, 70), 90, 1)
+
+	last_loc = get_turf(src)
+
+
+/mob/living/simple_animal/smartdog/proc/is_stopped()
+	return (last_loc == get_turf(src))
+
+
+////////////////////////COMMANDS>>>
+
+/mob/living/simple_animal/smartdog/proc/cmd_getVoice()
+	say("bark!")
+	task = null
+
+
+//mob/living/simple_animal/smartdog/proc/cmd_sit()
+//	visible_message(SPAN_NOTE("<b>[src.name]</b> sits on the ground and looking on [Master.name]"))
+//	task = null
+
+
+/mob/living/simple_animal/smartdog/proc/cmd_calm()
+	say("Woof...")
+	task = null
+	Target = null
+
+/mob/living/simple_animal/smartdog/proc/cmd_setMaster(var/mob/M as mob)
+	say("Bark-bark!")
+	Master = M
+
+/mob/living/simple_animal/smartdog/proc/cmd_to_me()
+	if(Master && !(src in range(1, Master)))
+		walk_to(src, get_turf(Master), 1, 5)
+	else
+		Target = null
+		task = null
+
+
+/mob/living/simple_animal/smartdog/proc/cmd_follow()
+	if(Master && !(src in range(1, Master)))
+		walk_to(src, get_turf(Master), 1, 5)
+
+
+/mob/living/simple_animal/smartdog/proc/cmd_overwatch()
+	if(Master)
+		for(var/mob/living/L in view(12, src))
+			if(!(istype(L, /mob/living/simple_animal/smartdog)) && L != Master && isliving(Target))
+				say(pick("BARK! BARK! BARK!", "BARK! WOOF! WOOF!", "BARK! BARK!", "WOOOOF! WOOF! BARK! WUF!"))
+				break
+		if(prob(5))
+			visible_message("<b>[src.name]</b> looks around.")
+
+
+/mob/living/simple_animal/smartdog/proc/cmd_haul()
+	if(Master)
+		if(Target && !(locate(Target) in range(1, Master)) && istype(Target, /obj/item))
+			pick_and_send()
+			if(locate(Target) in range(1, Master) && !(Target in src))
+				task = null
+				Target = null
+
+
+/mob/living/simple_animal/smartdog/proc/cmd_play()
+	if(Target && Master && !(locate(Target) in range(1, Master)) && istype(Target, /obj/item))
+		pick_and_send()
+
+//src.do_attack_animation(target)
+/mob/living/simple_animal/smartdog/proc/cmd_attack()
+	if(Master)
+		if(Target)
+			if(src in range(1, Target))
+				if(isliving(Target))
+					var/mob/living/L = Target
+					L.attack_generic(src, rand(15, 25), "bites with the mad anger")
+				if(istype(Target, /obj/mecha))
+					var/obj/mecha/M = Target
+					M.attack_generic(src, rand(15, 25), "rip and tear the weakest spots of")
+				say("RAWR-R-R!", "OUR-RW-W!", "OUGR-R!")
+			else
+				walk_to(src, get_turf(Target), 1, 5)
+
+
+/mob/living/simple_animal/smartdog/proc/cmd_goTo()
+	if(Master)
+		if(Target)
+			walk_to(src, get_turf(Target), 1, 5)
+			task = null
+			Target = null
+
+
+/mob/living/simple_animal/smartdog/proc/pick_and_send()
+	var/obj/item/T = locate(Target) in Target.loc
+	walk_to(src, get_turf(T), 1, 5)
+	if(locate(src) in range(1, T))
+		if(!(T in src))
+			T.loc = src
+			walk_to(src, get_turf(Master), 1, 5)
+	if(T.loc == src && locate(src) in range(1, Master))
+		T.loc = src.loc
+		say(pick("Woof!", "Wuf!", "Rawwrwoof!", "Barrk!"))

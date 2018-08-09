@@ -18,6 +18,10 @@
 		return FALSE
 
 	usr.visible_message("<b>[src]</b> points to [A]")
+
+	for(var/mob/living/simple_animal/smartdog/S in view()) //Snowy Event smart dog
+		S.register(src, A)
+
 	return TRUE
 
 /*
