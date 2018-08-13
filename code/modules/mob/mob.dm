@@ -401,7 +401,7 @@
 
 		if(client.holder)
 			if(statpanel("Status"))
-				stat("Location:", "([x], [y], [z]) [loc]")
+				stat("Location:", "([x], [y], [getLevelName(z)]:[z]) [loc]")
 				stat("CPU:","[world.cpu]")
 				stat("Instances:","[world.contents.len]")
 

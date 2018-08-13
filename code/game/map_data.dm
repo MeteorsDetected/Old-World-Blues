@@ -27,6 +27,13 @@ var/datum/maps_data/maps_data = new
 	var/turf/T = get_turf(A)
 	return T && isAdminLevel(T.z)
 
+/proc/getLevelName(var/level)
+	if(!level)
+		return "NullSpace"
+	ASSERT(level <= maps_data.all_levels.len)
+	var/obj/map_data/MD = maps_data.all_levels[level]
+	return MD && MD.name
+
 /proc/max_default_z_level()
 	return maps_data.all_levels.len
 
