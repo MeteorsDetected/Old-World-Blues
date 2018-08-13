@@ -42,6 +42,11 @@ var/global/pipe_processing_killed = 0
 
 
 /datum/controller/game_controller/proc/setup_objects()
+
+	//admin_notice("<span class='danger'>Snowy map generating...</span>", R_DEBUG) //turn it off for next update
+	//sleep(-1)
+	//snowyMapGeneration() //snowy map generation
+
 	admin_notice("<span class='danger'>Initializing objects</span>", R_DEBUG)
 	sleep(-1)
 	for(var/atom/movable/object in world)

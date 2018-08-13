@@ -1139,6 +1139,7 @@
 #include "code\modules\events\snowy_event\fishing_fishes.dm"
 #include "code\modules\events\snowy_event\fishing_items.dm"
 #include "code\modules\events\snowy_event\lootables.dm"
+#include "code\modules\events\snowy_event\map_generation.dm"
 #include "code\modules\events\snowy_event\sewing.dm"
 #include "code\modules\events\snowy_event\snowy_items.dm"
 #include "code\modules\events\snowy_event\snowy_mobs.dm"

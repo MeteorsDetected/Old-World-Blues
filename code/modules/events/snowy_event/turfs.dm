@@ -87,7 +87,7 @@
 	icon_state = "snow_forest"
 	var/bush_factor = 1 //helper. Dont change or use it please
 
-	New()
+/*	New()
 		..()
 		spawn(4)
 			if(src)
@@ -95,7 +95,7 @@
 								list(/obj/structure/flora/snowybush/deadbush, /obj/structure/flora/snowybush), 10, 40,
 								list(/obj/structure/flora/stump/fallen, /obj/structure/flora/stump, /obj/structure/lootable/mushroom_hideout), 20,
 								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 3, /obj/structure/lootable/chunk = 2, /obj/structure/butcherable = "very rare"))
-
+*/
 
 
 //I know, all of that and previous generation is shit and needed to coded separatly with masks. But i have't so much time to dig it up
