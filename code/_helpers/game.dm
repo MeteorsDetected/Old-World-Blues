@@ -7,9 +7,7 @@
 
 /proc/get_area(O)
 	var/turf/loc = get_turf(O)
-	if(loc)
-		var/area/res = loc.loc
-		.= res
+	return loc && loc.loc
 
 /proc/get_area_name(N) //get area by its name
 	for(var/area/A in all_areas)
