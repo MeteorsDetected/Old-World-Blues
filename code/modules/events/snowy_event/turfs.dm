@@ -11,6 +11,7 @@
 	name = "snow"
 	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	icon_state = "snow_turf"
+	icon_plating = "snow_turf"
 	temperature = T0C-30
 
 	New()
@@ -292,6 +293,7 @@
 	name = "ice"
 	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	icon_state = "ice1"
+	icon_plating = "ice1"
 
 	New()
 		..()

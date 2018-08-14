@@ -1,8 +1,9 @@
 //Experimental thing. Careful with that
 
 //TODO:
-//	Add forest random generation. Perlin noise or based on equator lines
+//	Forest based on equator lines that split map onto biomes
 //	Polish all the stuff
+//	Add options to templates sets. And base it on map size
 
 proc/snowyMapGeneration()
 
@@ -23,20 +24,32 @@ proc/snowyMapGeneration()
 	usable_turfs = shuffle(usable_turfs)
 
 
-	//Here will be rivers rocks random generation
-	var/river_count = riverGeneration(usable_turfs, 40, 10, "big", 5)
-	spawn(30)
-		world << SPAN_NOTE("<BIG>Water pool created. <b>[river_count]<b> turfs.</BIG>")
 
-	var/chasm_counts = chasmAndRocksGeneration(usable_turfs, 0, 20, 2, 3) //chasms
-	spawn(30)
-		world << SPAN_NOTE("<BIG>Dreadful chasm created. Beware! <b>[chasm_counts]<b> turfs.</BIG>")
+	var/chasm_counts = chasmAndRocksGeneration(usable_turfs, 0, 20, 1, 3) //chasms
+	if(chasm_counts)
+		spawn(30)
+			world << SPAN_NOTE("<BIG>Dreadful chasm created. Beware! <b>[chasm_counts]<b> turfs.</BIG>")
+	else
+		spawn(30)
+			world << SPAN_WARN("<BIG>There's no chasms! Relax.</BIG>")
 
-	var/rocks_counts = chasmAndRocksGeneration(usable_turfs, 1, 20, 2, 7) //rocks
-	spawn(30)
-		world << SPAN_NOTE("<BIG>Tall rocks added. Tons of minerals or no luck? <b>[rocks_counts]<b> turfs.</BIG>")
 
 	usable_turfs = snowyChunkInsert(usable_turfs) //Insert chunks
+
+	var/rocks_counts = chasmAndRocksGeneration(usable_turfs, 1, 20, 2, 7) //rocks
+	if(rocks_counts)
+		spawn(30)
+			world << SPAN_NOTE("<BIG>Tall rocks added. Tons of minerals or no luck? <b>[rocks_counts]<b> turfs.</BIG>")
+	else
+		spawn(30)
+			world << SPAN_WARN("<BIG>There's no rocks! A big problem.</BIG>")
+
+	var/river_count = riverGeneration(usable_turfs, 45, 10, "big", 3)
+	spawn(30)
+		if(river_count)
+			world << SPAN_NOTE("<BIG>Water pool created. <b>[river_count]<b> turfs.</BIG>")
+		else
+			world << SPAN_WARN("<BIG>There's no rivers!</BIG>")
 
 
 
@@ -198,30 +211,50 @@ proc/snowyLoadChunk(var/dmm_file as file, var/startx as num, var/starty as num, 
 //Dirty and shitty. I don't use any algorithm, only leapfrog of lists and bresenham. I'm too lazy to write perlin noize here. So meeeh
 //Interpolation not used too, i smooth corners with a simple method of fill and prob()
 //Looks ugly, but it's ok. Maybe later i make a perlin noise here or find a good library and rewrite this, but for now - lazy and tons of tasks
-proc/riverGeneration(var/list/usables = list(), var/min_length = 30, var/distortion_radius = 10, var/river_type = "big", var/outfalls = 0, var/turf/start = null)
+proc/riverGeneration(var/list/usables = list(), var/min_length = 30, var/distortion_radius = 10, var/river_type = "thin", var/outfalls = 0, var/turf/start = null, var/turf/end = null)
+	if((min_length >= world.maxx-10) || (min_length >= world.maxy-10)) //length is too big
+		min_length = (world.maxx+world.maxy)/2-20
+
+	usables = getPossiblePoints(min_length)
+
+	var/again = 0
 	if(start == null)
 		start = pick(usables)
-	var/turf/end = null
-	for(var/turf/T in usables)
-		if(T != start && get_dist(start, T) > 30)
-			end = T
-			break
-	if(end == null)
-		return //no river for you :(  (That means there's a bug
+	Again
+	if(!end)
+		for(var/turf/T in usables)
+			if((T != start) && (get_dist(start, T) >= min_length) && istype(T, /turf/simulated/floor/plating/snow))
+				end = T
+				break
+		if(end == null)
+			if(!again) //let's try again
+				again = 1
+				start = pick(usables)
+				goto Again
+			else
+				return  //no river for you :(  (Map too small or just no luck
 
 	var/list/path = getline(start, end) //creating raw stuff, a simple line
 	var/list/distorted_path = list()
-	var/C = 2
-	for(var/turf/cross_point in path) //takes every third point
-		C++
-		if(C == 3)
+	var/dis_count = 2
+	var/dis_target = 3
+	var/midpoint_target = 2
+
+	if(min_length >= 30)
+		dis_target = dis_target*2
+		dis_count = dis_target-1
+		midpoint_target = midpoint_target*2
+
+	for(var/turf/cross_point in path) //takes every third or nine point
+		dis_count++
+		if(dis_count == dis_target)
 			distorted_path.Add(cross_point)
-			C = 0
+			dis_count = 0
 	var/midpoint_count = 1
 	var/list/temPath = list()
 	for(var/turf/distorted in distorted_path) //distort the midpoint(every second)
 		midpoint_count++
-		if(midpoint_count == 2)
+		if(midpoint_count == midpoint_target)
 			var/count = 1
 			while(count < 30)
 				var/randX = rand(distorted.x-distortion_radius, distorted.x+distortion_radius)
@@ -249,33 +282,76 @@ proc/riverGeneration(var/list/usables = list(), var/min_length = 30, var/distort
 
 
 	var/riverCount = path.len
-	for(var/turf/Point in path) //path is ready, now create points from list and smooth corner (this method is not a panacea)
-		Point.ChangeTurf(/turf/simulated/floor/plating/ice)
-		riverCount++
-		if(river_type == "big") //well, i make better smoothing later maybe
-			for(var/D in alldirs)
-				var/turf/S = get_step(Point, D)
-				if(istype(S, /turf/simulated/floor/plating/snow) && S.contents.len == 0)
-					if(prob(70)) //a little randomize them
-						S.ChangeTurf(/turf/simulated/floor/plating/ice)
-						riverCount++
+	for(var/turf/Point in path) //path is ready, now create points from list and smooth corners
+		if(istype(Point, /turf/simulated/floor/plating/snow))
+			Point.ChangeTurf(/turf/simulated/floor/plating/ice)
+			riverCount++
+			var/next = 0 //small loop controller. If we reach needed condition, we just skip all of that to next point in path
+			if(river_type == "thin")
+				for(var/D in list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
+					if(next)
+						break
+					var/turf/S = get_step(Point, D)
+					if(istype(S, /turf/simulated/floor/plating/ice))
+						for(var/c in cardinal) //maybe we have ice here? Let's check it
+							var/turf/I = get_step(Point, c)
+							if(istype(I, /turf/simulated/floor/plating/ice))
+								next = 1
+								break
+						if(!next)
+							var/list/A = getAdjacentDir(D) // no ice, smooth the corner
+							if((A != null) && (A.len > 0))
+								for(var/t in A)
+									var/turf/P = get_step(Point, t)
+									if(istype(P, /turf/simulated/floor/plating/snow))
+										P.ChangeTurf(/turf/simulated/floor/plating/ice)
+										riverCount++
+										break
+			else if(river_type == "big")
+				for(var/d in alldirs)
+					if(prob(70))
+						var/turf/S = get_step(Point, d)
+						if((S != null) && (istype(S, /turf/simulated/floor/plating/snow)))
+							S.ChangeTurf(/turf/simulated/floor/plating/ice)
+							riverCount++
 
 	//now add the outfalls of river
 	if(outfalls > 0)
 		for(var/i=1, outfalls >= i, i++)
-			var/rcount = riverGeneration(usables, 15, 5, "thin", 0, pick(temPath))
+			var/turf/start_point = pick(temPath)
+			var/turf/end_point = null
+			for(var/d in alldirs)
+				var/turf/T = get_step(start_point, d)
+				if(istype(T, /turf/simulated/floor/plating/ice))
+					var/angle = dir2angle(d)
+					if(prob(50))
+						angle += 30
+					else
+						angle += -30
+					if(prob(50))
+						angle += 90
+					else
+						angle += -90
+					var/target_dir = angle2dir(angle)
+					end_point = get_ranged_target_turf(start_point, target_dir, rand(Floor(min_length/3), Floor(min_length/2)))
+					if(end_point && istype(end_point, /turf/simulated/floor/plating/snow))
+						break
+
+			var/rcount = riverGeneration(usables, min_length/2, distortion_radius/2, "thin", 0, pick(temPath), end_point)
 			riverCount += rcount
 
 	return riverCount
 
-
+//need to round that box
 proc/chasmAndRocksGeneration(var/list/usables = list(), var/spawn_type = 1, var/min_length = 30, var/min_radius = 1, var/max_radius = 1)
 	var/counter = 0
 
+	usables = getPossiblePoints(min_length)
+	usables = shuffle(usables)
 	var/turf/start = null
 	var/turf/end = null
 	for(var/turf/T in usables)
-		if(!istype(T, /turf/simulated/floor/plating/chasm) && !istype(T, /turf/simulated/floor/plating/ice) && !istype(T, /turf/simulated/rock))
+		if(istype(T, /turf/simulated/floor/plating/snow))
 			if(!start)
 				start = T
 			if(get_dist(T, start) > min_length && (T != start) && (T != null))
@@ -286,21 +362,54 @@ proc/chasmAndRocksGeneration(var/list/usables = list(), var/spawn_type = 1, var/
 	var/list/path = getline(start, end)
 
 	for(var/turf/T in path)
+		if(prob(10))
+			continue
 		var/radius = rand(min_radius, max_radius)+1
 		for(var/y=T.y-radius, T.y+radius >= y, y++)
 			for(var/x=T.x-radius, T.x+radius >= x, x++)
 				if((x >= world.maxx) || (y >= world.maxy) || (x <= 0) || (y <= 0))
 					continue
 				var/turf/Here = locate(x, y, 1)
-				if(get_dist(T, Here) <= radius-1)
+				if(get_dist(T, Here) <= radius-2)
 					if(spawn_type)
-						if(!istype(Here, /turf/simulated/floor/plating/chasm) && !istype(Here, /turf/simulated/floor/plating/ice) && !istype(Here, /turf/simulated/rock))
+						if(istype(Here, /turf/simulated/floor/plating/snow))
 							Here.ChangeTurf(/turf/simulated/rock)
 							counter++
 					else
 						Here.ChangeTurf(/turf/simulated/floor/plating/chasm)
 						counter++
 	return counter
+
+
+//helper
+//takes dir and return adjacent directions
+//didn't find this proc, so write my own
+proc/getAdjacentDir(var/dir)
+	var/list/dirs_by_rotate = list(NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST)
+	for(var/i=1, dirs_by_rotate.len >= i, i++)
+		if(dir == dirs_by_rotate[i])
+			var/first
+			var/second
+			if(i == 1)
+				first = dirs_by_rotate[dirs_by_rotate.len]
+			else if(i == dirs_by_rotate.len)
+				second = dirs_by_rotate[1]
+			if(!first)
+				first = dirs_by_rotate[i-1]
+			if(!second)
+				second = dirs_by_rotate[i+1]
+			return list(first, second)
+
+
+proc/getPossiblePoints(var/length)
+	var/list/points = list()
+	for(var/y=2, world.maxy-1 >= y, y++)
+		for(var/x=2, world.maxx-1 >= x, x++)
+			if((y > length || y < world.maxy-length) || (x > length || x < world.maxx-length))
+				var/turf/T = locate(x, y, 1)
+				points.Add(T)
+	return points
+
 
 ///////////////>>>TEMPLATES<<<\\\\\\\\\\\\\\\
 //Urgent templates place in scenario set first
