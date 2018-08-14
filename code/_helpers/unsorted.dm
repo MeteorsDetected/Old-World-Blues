@@ -1704,24 +1704,6 @@ var/global/list/common_tools = list(
 	/obj/item/weapon/crowbar
 )
 
-#define istool(O) is_type_in_list(O, common_tools)
-
-#define iswrench(O) istype(O, /obj/item/weapon/wrench)
-
-#define iswelder(O) istype(O, /obj/item/weapon/weldingtool)
-
-#define iscoil(O) istype(O, /obj/item/stack/cable_coil)
-
-#define iswirecutter(O) istype(O, /obj/item/weapon/wirecutters)
-
-#define isscrewdriver(O) istype(O, /obj/item/weapon/screwdriver)
-
-#define ismultitool(O) istype(O, /obj/item/device/multitool)
-
-#define iscrowbar(O) istype(O, /obj/item/weapon/crowbar)
-
-#define iswire(O) istype(O, /obj/item/stack/cable_coil)
-
 /proc/is_hot(obj/item/W as obj)
 	switch(W.type)
 		if(/obj/item/weapon/weldingtool)

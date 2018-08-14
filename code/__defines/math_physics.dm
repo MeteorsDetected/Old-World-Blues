@@ -34,3 +34,6 @@
 #define SIMPLE_SIGN(X) ((X) < 0 ? -1 : 1)
 #define SIGN(X)        ((X) ? SIMPLE_SIGN(X) : 0)
 
+#define Clamp(value, low, high) 	(value <= low ? low : (value >= high ? high : value))
+#define CLAMP01(x) 		(Clamp(x, 0, 1))
+

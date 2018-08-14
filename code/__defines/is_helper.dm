@@ -1,19 +1,3 @@
-#define subtypesof(type) (typesof(type) - type)
-
-#define SPAN_NOTE(text) "<span class='notice'>[text]</span>"
-#define SPAN_WARN(text) "<span class='warning'>[text]</span>"
-#define SPAN_DANG(text) "<span class='danger'>[text]</span>"
-
-#define ADMIN_VERB_ADD(path, params...)\
-	world/registrate_verbs() {..(); cmd_registrate_verb(path, params);}
-
-
-#define Clamp(value, low, high) 	(value <= low ? low : (value >= high ? high : value))
-#define CLAMP01(x) 		(Clamp(x, 0, 1))
-
-#define get_turf(A) get_step(A,0)
-
-
 //MOB LEVEL
 
 #define ismob(A) istype(A, /mob) //istype\(([a-z0-9:._]+), ?/mob\)
@@ -59,8 +43,6 @@
 #define isdrone(A) istype(A, /mob/living/silicon/robot/drone)
 
 
-//---------------------------------------------------
-
 //OBJECT LEVEL
 #define isobj(A) istype(A, /obj)
 
@@ -70,4 +52,21 @@
 
 #define isorgan(A) istype(A, /obj/item/organ/external)
 
-#define RANDOM_BLOOD_TYPE pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
+#define istool(O) is_type_in_list(O, common_tools)
+//---------------------------------------------------
+
+#define iswrench(O) istype(O, /obj/item/weapon/wrench)
+
+#define iswelder(O) istype(O, /obj/item/weapon/weldingtool)
+
+#define iscoil(O) istype(O, /obj/item/stack/cable_coil)
+
+#define iswirecutter(O) istype(O, /obj/item/weapon/wirecutters)
+
+#define isscrewdriver(O) istype(O, /obj/item/weapon/screwdriver)
+
+#define ismultitool(O) istype(O, /obj/item/device/multitool)
+
+#define iscrowbar(O) istype(O, /obj/item/weapon/crowbar)
+
+#define iswire(O) istype(O, /obj/item/stack/cable_coil)

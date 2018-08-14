@@ -1,6 +1,8 @@
 #define DEBUG
 
-#define T_BOARD(name)	"circuit board (" + (name) + ")"
+#define subtypesof(type) (typesof(type) - type)
+
+#define get_turf(A) get_step(A,0)
 
 // Turf-only flags.
 #define NOJAUNT 1 // This is used in literally one place, turf.dm, to block ethereal jaunt.
@@ -23,9 +25,6 @@
 
 #define SEE_INVISIBLE_MINIMUM 5
 #define INVISIBILITY_MAXIMUM 100
-
-// Some arbitrary defines to be used by self-pruning global lists. (see master_controller)
-#define PROCESS_KILL 26 // Used to trigger removal from a processing list.
 
 // For secHUDs and medHUDs and variants. The number is the location of the image on the list hud_list of humans.
 #define      HEALTH_HUD 1 // A simple line rounding the mob's number health.
@@ -100,13 +99,6 @@
 #define WAIT_ARRIVE  3
 #define WAIT_FINISH  4
 
-// Setting this much higher than 1024 could allow spammers to DOS the server easily.
-#define MAX_MESSAGE_LEN       1024
-#define MAX_PAPER_MESSAGE_LEN 12288
-#define MAX_BOOK_MESSAGE_LEN  36864
-#define MAX_LNAME_LEN         64
-#define MAX_NAME_LEN          52
-
 // Event defines.
 #define EVENT_LEVEL_MUNDANE  1
 #define EVENT_LEVEL_MODERATE 2
@@ -137,10 +129,7 @@
     locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
 )
 
-#define LIST_OF_CONSONANT list(\
-	"b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z",\
-	"á","â","ã","ä","æ","ç","é","ê","ë","ì","í","ï","ð","ñ","ò","ô","õ","ö","÷","ø","ù"\
-)
+#define RANDOM_BLOOD_TYPE pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 
 //Grid for Item Placement
 #define CELLS 8								//Amount of cells per row/column in grid
@@ -161,3 +150,4 @@
 
 #define WALL_CAN_OPEN 1
 #define WALL_OPENING 2
+
