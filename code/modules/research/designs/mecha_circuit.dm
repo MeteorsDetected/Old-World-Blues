@@ -1,4 +1,4 @@
-datum/design/circuit/mechacontrol
+/datum/design/circuit/mechacontrol
 	name = "exosuit control console"
 	id = "mechacontrol"
 	category = "Mechas"

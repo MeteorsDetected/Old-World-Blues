@@ -382,7 +382,7 @@
 		"Emergency Response Team",
 		"Emergency Response Team Leader")
 
-proc/GetIdCard(var/mob/living/carbon/human/H)
+/proc/GetIdCard(var/mob/living/carbon/human/H)
 	if(H.wear_id)
 		var/id = H.wear_id.GetID()
 		if(id)
@@ -391,13 +391,13 @@ proc/GetIdCard(var/mob/living/carbon/human/H)
 		var/obj/item/I = H.get_active_hand()
 		return I.GetID()
 
-proc/FindNameFromID(var/mob/living/carbon/human/H)
+/proc/FindNameFromID(var/mob/living/carbon/human/H)
 	ASSERT(istype(H))
 	var/obj/item/weapon/card/id/C = GetIdCard(H)
 	if(C)
 		return C.registered_name
 
-proc/get_all_job_icons() //For all existing HUD icons
+/proc/get_all_job_icons() //For all existing HUD icons
 	return joblist + list("Prisoner")
 
 /obj/proc/GetJobName() //Used in secHUD icon generation

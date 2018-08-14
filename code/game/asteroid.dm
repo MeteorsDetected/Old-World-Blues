@@ -17,7 +17,7 @@ var/global/list/spawned_surprises = list()
 
 var/global/max_secret_rooms = 3
 
-proc/spawn_room(var/atom/start_loc,var/x_size,var/y_size,var/wall,var/floor , var/clean = 0 , var/name)
+/proc/spawn_room(var/atom/start_loc,var/x_size,var/y_size,var/wall,var/floor , var/clean = 0 , var/name)
 	var/list/room_turfs = list("walls"=list(),"floors"=list())
 
 	//world << "Room spawned at [start_loc.x],[start_loc.y],[start_loc.z]"
@@ -58,7 +58,7 @@ proc/spawn_room(var/atom/start_loc,var/x_size,var/y_size,var/wall,var/floor , va
 
 	return room_turfs
 
-proc/admin_spawn_room_at_pos()
+/proc/admin_spawn_room_at_pos()
 	var/wall
 	var/floor
 	var/x = input("X position","X pos",usr.x)
@@ -88,7 +88,7 @@ proc/admin_spawn_room_at_pos()
 
 
 
-proc/make_mining_asteroid_secret(var/size = 5)
+/proc/make_mining_asteroid_secret(var/size = 5)
 	var/valid = 0
 	var/turf/T = null
 	var/sanity = 0

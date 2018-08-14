@@ -1,4 +1,4 @@
-datum/preferences
+/datum/preferences
 	var/icon/preview_icon  = null
 	var/icon/preview_south = null
 	var/icon/preview_north = null

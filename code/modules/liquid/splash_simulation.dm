@@ -4,10 +4,10 @@ var/liquid_delay = 4
 
 var/list/datum/puddle/puddles = list()
 
-datum/puddle
+/datum/puddle
 	var/list/obj/effect/liquid/liquid_objects = list()
 
-datum/puddle/proc/process()
+/datum/puddle/proc/process()
 	//world << "DEBUG: Puddle process!"
 	for(var/obj/effect/liquid/L in liquid_objects)
 		L.spread()
@@ -18,17 +18,17 @@ datum/puddle/proc/process()
 	if(liquid_objects.len == 0)
 		qdel(src)
 
-datum/puddle/New()
+/datum/puddle/New()
 	..()
 	puddles += src
 
-datum/puddle/Destroy()
+/datum/puddle/Destroy()
 	puddles -= src
 	for(var/obj/O in liquid_objects)
 		qdel(O)
 	..()
 
-client/proc/splash()
+/client/proc/splash()
 	var/volume = input("Volume?","Volume?", 0 ) as num
 	if(!isnum(volume)) return
 	if(volume <= LIQUID_TRANSFER_THRESHOLD) return
@@ -36,7 +36,7 @@ client/proc/splash()
 	if(!isturf(T)) return
 	trigger_splash(T, volume)
 
-proc/trigger_splash(turf/epicenter as turf, volume as num)
+/proc/trigger_splash(turf/epicenter as turf, volume as num)
 	if(!epicenter)
 		return
 	if(volume <= 0)

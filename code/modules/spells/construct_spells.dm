@@ -1,6 +1,6 @@
 //////////////////////////////Construct Spells/////////////////////////
 
-proc/findNullRod(var/atom/target)
+/proc/findNullRod(var/atom/target)
 	if(istype(target,/obj/item/weapon/nullrod))
 		var/turf/T = get_turf(target)
 		T.turf_animation('icons/effects/96x96.dmi',"nullding",-32,-32,MOB_LAYER+1,'sound/piano/Ab7.ogg')

@@ -1,6 +1,6 @@
 
 
-datum/species/human/vatgrown
+/datum/species/human/vatgrown
 	name = "Vat-grown Human"
 	name_plural = "Vat-grown Humans"
 	blurb = "With cloning on the forefront of human scientific advancement, cheap mass production \
@@ -25,7 +25,7 @@ datum/species/human/vatgrown
 	return SPECIES_HUMAN
 
 
-datum/species/human/android
+/datum/species/human/android
 	name = "Synth"
 	name_plural = "Synths"
 	blurb = "Synths are an artificial life forms designed to look and act like a human.\

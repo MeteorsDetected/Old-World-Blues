@@ -35,7 +35,7 @@ world/New()
 		free_channels += i
 	..()
 
-proc/n2t(key) // Used in of num2text for faster access in sample_map
+/proc/n2t(key) // Used in of num2text for faster access in sample_map
 	if (!n2t_int.len)
 		for (var/i=1, i<=127, i++)
 			n2t_int += num2text(i)

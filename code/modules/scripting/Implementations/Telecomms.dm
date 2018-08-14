@@ -206,7 +206,7 @@
 
 /*  -- Actual language proc code --  */
 
-datum/signal
+/datum/signal
 
 	proc/mem(var/address, var/value)
 

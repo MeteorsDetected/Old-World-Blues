@@ -28,7 +28,7 @@ ADMIN_VERB_ADD(/client/proc/ChangeIcarusPosition, R_SPAWN)
 
 var/icarus_position = SOUTH
 
-proc/Icarus_FireCannon(var/turf/target)
+/proc/Icarus_FireCannon(var/turf/target)
 	// Find the world edge to fire from.
 	var/x = icarus_position & EAST ? world.maxx : icarus_position & WEST ? 1 : target.x
 	var/y = icarus_position & NORTH ? world.maxy : icarus_position & SOUTH ? 1 : target.y
@@ -65,7 +65,7 @@ proc/Icarus_FireCannon(var/turf/target)
 	spawn(0)
 		walk_towards(projectile, projectile.dest, 1)
 
-proc/Icarus_SetPosition(var/user)
+/proc/Icarus_SetPosition(var/user)
 	var/global/list/directions = list("North" = 1, "North East" = 5, "East" = 4, "South East" = 6, "South" = 2, "South West" = 10, "West" = 8, "North West" = 9)
 	var/direction = input(user, "Where should the Icarus fire from?", "Icarus Comms") as null|anything in directions
 	if(!direction)

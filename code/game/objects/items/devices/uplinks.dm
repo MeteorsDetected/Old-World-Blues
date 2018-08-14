@@ -13,14 +13,14 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 	var/reference = ""
 	var/description = ""
 
-datum/uplink_item/New(var/itemPath, var/itemCost, var/itemName, var/itemReference, var/itemDescription)
+/datum/uplink_item/New(var/itemPath, var/itemCost, var/itemName, var/itemReference, var/itemDescription)
 	cost = itemCost
 	path = itemPath
 	name = itemName
 	reference = itemReference
 	description = itemDescription
 
-datum/uplink_item/proc/description()
+/datum/uplink_item/proc/description()
 	if(!description)
 		// Fallback description
 		var/obj/temp = src.path
@@ -36,7 +36,7 @@ datum/uplink_item/proc/description()
 			L += new item_path(newloc)
 	return L
 
-datum/nano_item_lists
+/datum/nano_item_lists
 	var/list/items_nano
 	var/list/items_reference
 

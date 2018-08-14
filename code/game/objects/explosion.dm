@@ -15,7 +15,7 @@ var/list/explosions_log = list()
 //TODO: Flash range does nothing currently
 
 ///// Z-Level Stuff
-proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, z_transfer = 1)
+/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, z_transfer = 1)
 ///// Z-Level Stuff
 	src = null	//so we don't abort once src is deleted
 	spawn(0)
@@ -132,12 +132,12 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 
 
 
-proc/secondaryexplosion(turf/epicenter, range)
+/proc/secondaryexplosion(turf/epicenter, range)
 	for(var/turf/tile in RANGE_TURFS(range, epicenter))
 		tile.ex_act(2)
 
 ///// Z-Level Stuff
-proc/explosion_z_transfer(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, up = 1, down = 1)
+/proc/explosion_z_transfer(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, up = 1, down = 1)
 	var/turf/controllerlocation = locate(1, 1, epicenter.z)
 	for(var/obj/effect/landmark/zcontroller/controller in controllerlocation)
 		if(controller.down)

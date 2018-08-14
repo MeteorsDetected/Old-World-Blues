@@ -143,18 +143,18 @@ var/global/list/newscaster_standard_feeds = list(
 	/datum/news_announcement/food_riots
 )
 
-proc/process_newscaster()
+/proc/process_newscaster()
 	check_for_newscaster_updates(ticker.mode.newscaster_announcements)
 
 var/global/tmp/announced_news_types = list()
-proc/check_for_newscaster_updates(type)
+/proc/check_for_newscaster_updates(type)
 	for(var/subtype in typesof(type)-type)
 		var/datum/news_announcement/news = new subtype()
 		if(news.round_time * 10 <= world.time && !(subtype in announced_news_types))
 			announced_news_types += subtype
 			announce_newscaster_news(news)
 
-proc/announce_newscaster_news(datum/news_announcement/news)
+/proc/announce_newscaster_news(datum/news_announcement/news)
 	var/datum/feed_channel/sendto
 	for(var/datum/feed_channel/FC in news_network.network_channels)
 		if(FC.channel_name == news.channel_name)

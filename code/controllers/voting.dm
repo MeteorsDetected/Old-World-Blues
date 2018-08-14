@@ -2,7 +2,7 @@ var/datum/controller/vote/vote = new()
 
 var/global/list/round_voters = list() //Keeps track of the individuals voting for a given round, for use in forcedrafting.
 
-datum/controller/vote
+/datum/controller/vote
 	var/initiator = null
 	var/started_time = null
 	var/time_remaining = 0
