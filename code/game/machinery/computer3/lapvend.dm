@@ -118,7 +118,7 @@
 
 
 /obj/machinery/lapvend/Topic(href, href_list)
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
+	if ((usr.contents.Find(src) || (IN_RANGE(src, usr) && istype(src.loc, /turf))))
 		usr.set_machine(src)
 	switch(href_list["choice"])
 		if("single_add")

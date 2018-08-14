@@ -112,7 +112,7 @@
 	qdel(src)
 
 /obj/item/weapon/ducttape/afterattack(var/A, mob/user, flag, params)
-	if(!in_range(user, A) || istype(A, /obj/machinery/door) || !stuck)
+	if(!IN_RANGE(user, A) || istype(A, /obj/machinery/door) || !stuck)
 		return
 
 	var/turf/target_turf = get_turf(A)

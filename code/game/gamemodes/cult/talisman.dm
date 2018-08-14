@@ -76,7 +76,7 @@
 
 
 	Topic(href, href_list)
-		if (usr.incapacitated() || !in_range(src, usr))
+		if (usr.incapacitated() || !IN_RANGE(src, usr))
 			return
 
 		if (href_list["rune"])

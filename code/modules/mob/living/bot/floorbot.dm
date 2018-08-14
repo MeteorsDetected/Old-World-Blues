@@ -343,7 +343,7 @@
 		var/t = sanitizeSafe(input(user, "Enter new robot name", name, created_name), MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, user) && loc != user)
+		if(!IN_RANGE(src, user) && loc != user)
 			return
 		created_name = t
 
@@ -373,6 +373,6 @@
 		var/t = sanitizeSafe(input(user, "Enter new robot name", name, created_name), MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, user) && loc != user)
+		if(!IN_RANGE(src, user) && loc != user)
 			return
 		created_name = t

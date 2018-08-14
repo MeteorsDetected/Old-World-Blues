@@ -43,7 +43,7 @@
 	if(contents.len)
 		var/obj/item/weapon/book/choice = input("Which book would you like to remove from the shelf?") as null|obj in contents
 		if(choice)
-			if(usr.incapacitated() || !in_range(loc, usr))
+			if(usr.incapacitated() || !IN_RANGE(loc, usr))
 				return
 			if(!user.put_in_hands(choice))
 				choice.forceMove(get_turf(src))

@@ -152,7 +152,7 @@ What a mess.*/
 		return 1
 	if (!( data_core.general.Find(active1) ))
 		active1 = null
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (issilicon(usr)))
+	if ((usr.contents.Find(src) || (IN_RANGE(src, usr) && istype(loc, /turf))) || (issilicon(usr)))
 		usr.set_machine(src)
 		switch(href_list["choice"])
 // SORTING!
@@ -211,7 +211,7 @@ What a mess.*/
 //RECORD FUNCTIONS
 			if("Search Records")
 				var/t1 = input("Search String: (Partial Name or ID or Fingerprints or Rank)", "Secure. records", null, null)  as text
-				if ((!t1 || usr.incapacitated() || !authenticated || !in_range(src, usr)))
+				if ((!t1 || usr.incapacitated() || !authenticated || !IN_RANGE(src, usr)))
 					return
 				Perp = new/list()
 				t1 = rlowertext(t1)
@@ -248,7 +248,7 @@ What a mess.*/
 
 /*			if ("Search Fingerprints")
 				var/t1 = input("Search String: (Fingerprint)", "Secure. records", null, null)  as text
-				if ((!t1 || usr.incapacitated() || !authenticated || (!in_range(src, usr)) && (!issilicon(usr))))
+				if ((!t1 || usr.incapacitated() || !authenticated || (!IN_RANGE(src, usr)) && (!issilicon(usr))))
 					return
 				active1 = null
 				t1 = rlowertext(t1)
@@ -311,19 +311,19 @@ What a mess.*/
 					if("name")
 						if (istype(active1, /datum/data/record))
 							var/t1 = sanitizeName(input("Please input name:", "Secure. records", active1.fields["name"], null)  as text)
-							if ((!( t1 ) || !length(trim(t1)) || !( authenticated ) || usr.incapacitated() || (!in_range(src, usr) && (!issilicon(usr)))) || active1 != a1)
+							if ((!( t1 ) || !length(trim(t1)) || !( authenticated ) || usr.incapacitated() || (!IN_RANGE(src, usr) && (!issilicon(usr)))) || active1 != a1)
 								return
 							active1.fields["name"] = t1
 					if("id")
 						if (istype(active1, /datum/data/record))
 							var/t1 = sanitize(input("Please input id:", "Secure. records", active1.fields["id"], null)  as text)
-							if ((!( t1 ) || !( authenticated ) || usr.incapacitated() || (!in_range(src, usr) && (!issilicon(usr))) || active1 != a1))
+							if ((!( t1 ) || !( authenticated ) || usr.incapacitated() || (!IN_RANGE(src, usr) && (!issilicon(usr))) || active1 != a1))
 								return
 							active1.fields["id"] = t1
 					if("fingerprint")
 						if (istype(active1, /datum/data/record))
 							var/t1 = sanitize(input("Please input fingerprint hash:", "Secure. records", active1.fields["fingerprint"], null)  as text)
-							if ((!( t1 ) || !( authenticated ) || usr.incapacitated() || (!in_range(src, usr) && (!issilicon(usr))) || active1 != a1))
+							if ((!( t1 ) || !( authenticated ) || usr.incapacitated() || (!IN_RANGE(src, usr) && (!issilicon(usr))) || active1 != a1))
 								return
 							active1.fields["fingerprint"] = t1
 					if("sex")
@@ -335,7 +335,7 @@ What a mess.*/
 					if("age")
 						if (istype(active1, /datum/data/record))
 							var/t1 = input("Please input age:", "Secure. records", active1.fields["age"], null)  as num
-							if ((!( t1 ) || !( authenticated ) || usr.incapacitated() || (!in_range(src, usr) && (!issilicon(usr))) || active1 != a1))
+							if ((!( t1 ) || !( authenticated ) || usr.incapacitated() || (!IN_RANGE(src, usr) && (!issilicon(usr))) || active1 != a1))
 								return
 							active1.fields["age"] = t1
 					if("rank")
@@ -352,7 +352,7 @@ What a mess.*/
 					if("species")
 						if (istype(active1, /datum/data/record))
 							var/t1 = sanitize(input("Please enter race:", "General records", active1.fields["species"], null)  as message)
-							if ((!( t1 ) || !( authenticated ) || usr.incapacitated() || (!in_range(src, usr) && (!issilicon(usr))) || active1 != a1))
+							if ((!( t1 ) || !( authenticated ) || usr.incapacitated() || (!IN_RANGE(src, usr) && (!issilicon(usr))) || active1 != a1))
 								return
 							active1.fields["species"] = t1
 

@@ -333,7 +333,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	var/mob/M = loc
 	if(M.incapacitated())
 		return 0
-	if((src in M.contents) || ( istype(loc, /turf) && in_range(src, M) ))
+	if((src in M.contents) || ( istype(loc, /turf) && IN_RANGE(src, M) ))
 		return 1
 	else
 		return 0
@@ -575,7 +575,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
 	var/mob/living/U = usr
 	//Looking for master was kind of pointless since PDAs don't appear to have one.
-	//if ((src in U.contents) || ( istype(loc, /turf) && in_range(src, U) ) )
+	//if ((src in U.contents) || ( istype(loc, /turf) && IN_RANGE(src, U) ) )
 	if (usr.stat == DEAD)
 		return 0
 	if(!can_use()) //Why reinvent the wheel? There's a proc that does exactly that.
@@ -679,7 +679,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 		if ("Edit")
 			var/n = input(U, "Please enter message", name, notehtml) as message
-			if (in_range(src, U) && loc == U)
+			if (IN_RANGE(src, U) && loc == U)
 				n = sanitizeSafe(n, extra = 0)
 				if (mode == 1)
 					note = cp1251_to_utf8(rhtml_decode(n))
@@ -711,7 +711,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 		if("Ringtone")
 			var/t = input(U, "Please enter new ringtone", name, ttone) as text
-			if (in_range(src, U) && loc == U)
+			if (IN_RANGE(src, U) && loc == U)
 				if (t)
 					if(src.hidden_uplink && hidden_uplink.check_trigger(U, lowertext(t), lowertext(lock_code)))
 						U << "The PDA softly beeps."
@@ -724,7 +724,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				return 0
 		if("Newstone")
 			var/t = input(U, "Please enter new news tone", name, newstone) as text
-			if (in_range(src, U) && loc == U)
+			if (IN_RANGE(src, U) && loc == U)
 				if (t)
 					t = sanitize(t, 20)
 					newstone = t
@@ -976,7 +976,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	t = replace_characters(t, list("&#34;" = "\""))
 	if (!t || !istype(P))
 		return
-	if (!in_range(src, U) && loc != U)
+	if (!IN_RANGE(src, U) && loc != U)
 		return
 
 	if (isnull(P)||P.toff || toff)

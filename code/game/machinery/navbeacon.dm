@@ -194,7 +194,7 @@ Transponder Codes:<UL>"}
 		..()
 		if (usr.incapacitated())
 			return
-		if ((in_range(src, usr) && istype(src.loc, /turf)) || (issilicon(usr)))
+		if ((IN_RANGE(src, usr) && istype(src.loc, /turf)) || (issilicon(usr)))
 			if(open && !locked)
 				usr.set_machine(src)
 

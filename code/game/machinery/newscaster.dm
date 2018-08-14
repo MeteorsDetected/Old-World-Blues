@@ -883,7 +883,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 /obj/item/weapon/newspaper/Topic(href, href_list)
 	var/mob/living/U = usr
 	..()
-	if ((src in U.contents) || ( istype(loc, /turf) && in_range(src, U) ))
+	if ((src in U.contents) || ( istype(loc, /turf) && IN_RANGE(src, U) ))
 		U.set_machine(src)
 		if(href_list["next_page"])
 			if(curr_page==src.pages+1)
@@ -921,7 +921,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			s = sanitize(s)
 			if (!s)
 				return
-			if (!in_range(src, usr) && src.loc != usr)
+			if (!IN_RANGE(src, usr) && src.loc != usr)
 				return
 			src.scribble_page = src.curr_page
 			src.scribble = s

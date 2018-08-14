@@ -40,7 +40,7 @@
 		var/t = input(user, "What would you like the label to be?", text("[]", src.name), null)  as text
 		if (user.get_active_hand() != W)
 			return
-		if (!in_range(src, user) && src.loc != user)
+		if (!IN_RANGE(src, user) && src.loc != user)
 			return
 		t = sanitizeSafe(t, MAX_NAME_LEN)
 		if (t)
@@ -69,7 +69,7 @@
 
 /obj/structure/closet/body_bag/MouseDrop(over_object, src_location, over_location)
 	..()
-	if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
+	if((over_object == usr && (IN_RANGE(src, usr) || usr.contents.Find(src))))
 		if(!ishuman(usr))	return
 		if(opened)	return 0
 		if(contents.len)	return 0

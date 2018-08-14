@@ -95,7 +95,7 @@
 		temp = "If you got caught sneaking a peak from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not."
 		return
 
-	if(loc == H || (in_range(src, H) && istype(loc, /turf)))
+	if(loc == H || (IN_RANGE(src, H) && istype(loc, /turf)))
 		H.set_machine(src)
 		if(href_list["spell_choice"])
 			if(href_list["spell_choice"] == "rememorize")

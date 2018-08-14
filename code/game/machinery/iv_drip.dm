@@ -43,7 +43,7 @@
 /obj/machinery/iv_drip/MouseDrop(over_object, src_location, over_location)
 	if(!ishuman(usr) && !isrobot(usr) || usr.incapacitated())
 		return
-	if(in_range(src, usr) && ishuman(over_object) && get_dist(over_object, src) <= 1)
+	if(IN_RANGE(src, usr) && ishuman(over_object) && get_dist(over_object, src) <= 1)
 		if(attached)
 			visible_message("[src.attached] is detached from \the [src]")
 			src.attached = null

@@ -242,7 +242,7 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 		return 1
 	var/mob/user = usr
 	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
-	if ((usr.contents.Find(src.loc) || (in_range(src.loc, usr) && istype(src.loc.loc, /turf))))
+	if ((usr.contents.Find(src.loc) || (IN_RANGE(src.loc, usr) && istype(src.loc.loc, /turf))))
 		usr.set_machine(src)
 		if(..(href, href_list))
 			return 1

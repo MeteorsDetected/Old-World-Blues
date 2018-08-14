@@ -218,7 +218,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 	if(..())
 		return 1
 
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (issilicon(usr)))
+	if ((usr.contents.Find(src) || (IN_RANGE(src, usr) && istype(loc, /turf))) || (issilicon(usr)))
 		usr.set_machine(src)
 
 	if (href_list["sendtodock"])

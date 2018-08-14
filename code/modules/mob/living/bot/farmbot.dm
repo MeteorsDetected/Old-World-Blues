@@ -352,7 +352,7 @@
 		t = sanitize(t, MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, usr) && loc != usr)
+		if(!IN_RANGE(src, usr) && loc != usr)
 			return
 
 		created_name = t

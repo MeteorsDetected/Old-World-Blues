@@ -90,7 +90,7 @@
 
 /obj/structure/roller_bed/MouseDrop(over_object, src_location, over_location)
 	..()
-	if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
+	if((over_object == usr && (IN_RANGE(src, usr) || usr.contents.Find(src))))
 		if(!ishuman(usr) || buckled_mob)
 			return 0
 		visible_message("[usr] collapses \the [src.name].")

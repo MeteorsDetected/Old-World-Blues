@@ -41,7 +41,7 @@
 			var/t = ""
 			do
 				t = html_encode(input(usr, "Please paste the entire song, formatted:", text("[]", name), t)  as message)
-				if(!in_range(src, usr))
+				if(!IN_RANGE(src, usr))
 					return
 
 				if(lentext(t) >= 2*maximum_lines*maximum_line_length)
@@ -97,7 +97,7 @@
 		else if(href_list["newline"])
 			send_control = 0
 			var/newline = html_encode(input("Enter your line: ", src.name) as text|null)
-			if(!newline || !in_range(src, usr))
+			if(!newline || !IN_RANGE(src, usr))
 				return
 			if(player.song.lines.len > maximum_lines)
 				return
@@ -116,7 +116,7 @@
 			send_control = 0
 			var/num = round(text2num(href_list["modifyline"]),1)
 			var/content = html_encode(input("Enter your line: ", src.name, player.song.lines[num]) as text|null)
-			if(!content || !in_range(src, usr))
+			if(!content || !IN_RANGE(src, usr))
 				return
 			if(lentext(content) > maximum_line_length)
 				content = copytext(content, 1, maximum_line_length)
@@ -179,7 +179,7 @@
 			var/t = ""
 			do
 				t = html_encode(input(usr, "Please paste the entire song, formatted:", text("[]", name), t)  as message)
-				if(!in_range(src, usr))
+				if(!IN_RANGE(src, usr))
 					return
 
 				if(lentext(t) >= 2*maximum_lines*maximum_line_length)
@@ -235,7 +235,7 @@
 		else if(href_list["newline"])
 			send_control = 0
 			var/newline = html_encode(input("Enter your line: ", src.name) as text|null)
-			if(!newline || !in_range(src, usr))
+			if(!newline || !IN_RANGE(src, usr))
 				return
 			if(player.song.lines.len > maximum_lines)
 				return
@@ -254,7 +254,7 @@
 			send_control = 0
 			var/num = round(text2num(href_list["modifyline"]),1)
 			var/content = html_encode(input("Enter your line: ", src.name, player.song.lines[num]) as text|null)
-			if(!content || !in_range(src, usr))
+			if(!content || !IN_RANGE(src, usr))
 				return
 			if(lentext(content) > maximum_line_length)
 				content = copytext(content, 1, maximum_line_length)

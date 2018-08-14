@@ -108,7 +108,7 @@
 		return 1
 
 /*
-	if(in_range(src, usr) || issilicon(usr))
+	if(IN_RANGE(src, usr) || issilicon(usr))
 		usr.set_machine(src)
 */
 

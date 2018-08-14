@@ -120,7 +120,7 @@
 /obj/machinery/space_heater/Topic(href, href_list)
 	if (usr.incapacitated())
 		return
-	if ((in_range(src, usr) && istype(src.loc, /turf)) || (issilicon(usr)))
+	if ((IN_RANGE(src, usr) && istype(src.loc, /turf)) || (issilicon(usr)))
 		usr.set_machine(src)
 
 		switch(href_list["op"])

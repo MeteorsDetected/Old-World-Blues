@@ -110,7 +110,7 @@ var/global/all_solved_wires = list() //Solved wire associative list, eg; all_sol
 
 /datum/wires/Topic(href, href_list)
 	..()
-	if(in_range(holder, usr) && isliving(usr))
+	if(IN_RANGE(holder, usr) && isliving(usr))
 
 		var/mob/living/L = usr
 		if(CanUse(L) && href_list["action"])

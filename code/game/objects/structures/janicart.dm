@@ -99,7 +99,7 @@
 		ui.open()
 
 /obj/structure/janitorialcart/Topic(href, href_list)
-	if(!in_range(src, usr))
+	if(!IN_RANGE(src, usr))
 		return
 	if(!isliving(usr))
 		return

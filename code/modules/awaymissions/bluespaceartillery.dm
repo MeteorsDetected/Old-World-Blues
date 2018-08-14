@@ -34,7 +34,7 @@
 	..()
 	if (usr.incapacitated())
 		return
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
+	if ((usr.contents.Find(src) || (IN_RANGE(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
 		var/A
 		A = input("Area to jump bombard", "Open Fire", A) in teleportlocs
 		var/area/thearea = teleportlocs[A]
@@ -42,7 +42,7 @@
 			return
 		if(src.reload < 180)
 			return
-		if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
+		if ((usr.contents.Find(src) || (IN_RANGE(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
 			command_announcement.Announce("Bluespace artillery fire detected. Brace for impact.")
 			message_admins("[key_name_admin(usr)] has launched an artillery strike.", 1)
 			var/list/L = list()

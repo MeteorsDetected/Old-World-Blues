@@ -839,7 +839,7 @@ var/list/turret_icons
 		var/t = sanitizeSafe(input(user, "Enter new turret name", name, finish_name) as text, MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, usr) && loc != usr)
+		if(!IN_RANGE(src, usr) && loc != usr)
 			return
 
 		finish_name = t

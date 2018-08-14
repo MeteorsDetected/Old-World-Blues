@@ -111,7 +111,7 @@
 
 /obj/structure/material/chair/wheelchair/MouseDrop(over_object, src_location, over_location)
 	..()
-	if(over_object == usr && in_range(src, usr))
+	if(over_object == usr && IN_RANGE(src, usr))
 		if(!ishuman(usr))	return
 		if(usr == buckled_mob)
 			usr << "\red You realize you are unable to push the wheelchair you sit in."

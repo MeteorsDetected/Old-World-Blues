@@ -281,7 +281,7 @@
 /obj/machinery/computer/turbine_computer/Topic(href, href_list)
 	if(..())
 		return
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
+	if ((usr.contents.Find(src) || (IN_RANGE(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
 		usr.machine = src
 
 		if(href_list["view"] )

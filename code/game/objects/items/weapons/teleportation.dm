@@ -52,7 +52,7 @@ Frequency:
 	if(!current_location||current_location.z==2)//If turf was not found or they're on z level 2.
 		usr << "The [src] is malfunctioning."
 		return
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))))
+	if ((usr.contents.Find(src) || (IN_RANGE(src, usr) && istype(src.loc, /turf))))
 		usr.set_machine(src)
 		if (href_list["refresh"])
 			src.temp = "<B>Persistent Signal Locator</B><HR>"
@@ -287,7 +287,7 @@ Frequency:
 	if (!ishuman(usr))
 		return 1
 	var/mob/living/carbon/human/H = usr
-	if ((H == src.loc || (in_range(src, H) && istype(src.loc, /turf))))
+	if ((H == src.loc || (IN_RANGE(src, H) && istype(src.loc, /turf))))
 		usr.set_machine(src)
 		if(!vcell)
 			return
@@ -585,7 +585,7 @@ Frequency:
 	var/area/thearea = beacon_locations[A]
 	if (user.incapacitated())
 		return
-	if(!((user == loc || (in_range(src, user) && istype(src.loc, /turf)))))
+	if(!((user == loc || (IN_RANGE(src, user) && istype(src.loc, /turf)))))
 		return
 	if(user && user.buckled)
 		user.buckled.unbuckle_mob()
@@ -621,7 +621,7 @@ Frequency:
 	var/area/thearea = teleportlocs[A]
 	if (user.incapacitated())
 		return
-	if(!((user == loc || (in_range(src, user) && istype(src.loc, /turf)))))
+	if(!((user == loc || (IN_RANGE(src, user) && istype(src.loc, /turf)))))
 		return
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(thearea.type))

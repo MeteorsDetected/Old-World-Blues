@@ -361,7 +361,7 @@
 /mob/living/carbon/human/Topic(href, href_list)
 
 	if (href_list["refresh"])
-		if(machine && in_range(src, machine))
+		if(machine && IN_RANGE(src, machine))
 			var/mob/living/L = machine
 			L.show_inv(src)
 

@@ -905,7 +905,7 @@
 				user << SPAN_DANG("\The [src] have AI control disabled!")
 			return 0
 	else
-		if ((!in_range(src, user) || !istype(src.loc, /turf) || hacker)) // AI-hacked APCs cannot be controlled by other AIs, unlinked cyborgs or humans.
+		if ((!IN_RANGE(src, user) || !istype(src.loc, /turf) || hacker)) // AI-hacked APCs cannot be controlled by other AIs, unlinked cyborgs or humans.
 			return 0
 	var/mob/living/carbon/human/H = user
 	if (istype(H))

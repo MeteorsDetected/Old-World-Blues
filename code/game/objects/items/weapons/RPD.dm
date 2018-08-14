@@ -167,7 +167,7 @@ RPD
 	return
 
 /obj/item/weapon/rpd/Topic(href, href_list)
-	if(usr.incapacitated() || !in_range(loc, usr))
+	if(usr.incapacitated() || !IN_RANGE(loc, usr))
 		usr << browse(null, "window=rpd")
 		return
 	usr.set_machine(src)

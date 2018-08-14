@@ -295,7 +295,7 @@
 		return
 	if(!isliving(usr))
 		return
-	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
+	if ((usr.contents.Find(src) || (IN_RANGE(src, usr) && istype(src.loc, /turf))) || (issilicon(usr)))
 		//Authenticate
 		if (href_list["auth"])
 			if(auth)

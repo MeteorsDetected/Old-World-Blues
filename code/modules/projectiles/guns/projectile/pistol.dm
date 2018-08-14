@@ -25,7 +25,7 @@
 
 	var/input = sanitizeSafe(input("What do you want to name the gun?", ,""), MAX_NAME_LEN)
 
-	if(src && input && !M.incapacitated() && in_range(M,src))
+	if(src && input && !M.incapacitated() && IN_RANGE(M,src))
 		name = input
 		M << "You name the gun [input]. Say hello to your new friend."
 		return 1

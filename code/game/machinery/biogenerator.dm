@@ -213,7 +213,7 @@
 	return 1
 
 /obj/machinery/biogenerator/Topic(href, href_list)
-	if(stat & BROKEN || usr.incapacitated() || !in_range(src, usr)) return
+	if(stat & BROKEN || usr.incapacitated() || !IN_RANGE(src, usr)) return
 
 	usr.set_machine(src)
 

@@ -75,7 +75,7 @@
 /obj/machinery/pipedispenser/Topic(href, href_list)
 	if(..())
 		return
-	if(unwrenched || usr.incapacitated() || !in_range(loc, usr))
+	if(unwrenched || usr.incapacitated() || !IN_RANGE(loc, usr))
 		usr << browse(null, "window=pipedispenser")
 		return
 	usr.set_machine(src)
@@ -199,7 +199,7 @@ Nah
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(href_list["dmake"])
-		if(unwrenched || usr.incapacitated() || !in_range(loc, usr))
+		if(unwrenched || usr.incapacitated() || !IN_RANGE(loc, usr))
 			usr << browse(null, "window=pipedispenser")
 			return
 		if(!wait)

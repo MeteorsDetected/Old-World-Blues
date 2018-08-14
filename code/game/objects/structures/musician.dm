@@ -310,7 +310,7 @@
 
 /obj/structure/device/piano/Topic(href, href_list)
 
-	if(!in_range(src, usr) || issilicon(usr) || !anchored || !usr.canmove || usr.restrained())
+	if(!IN_RANGE(src, usr) || issilicon(usr) || !anchored || !usr.canmove || usr.restrained())
 		usr << browse(null, "window=piano;size=700x300")
 		onclose(usr, "piano")
 		return
@@ -377,7 +377,7 @@
 			var/t = ""
 			do
 				t = html_encode(input(usr, "Please paste the entire song, formatted:", src.name, t)  as message)
-				if (!in_range(src, usr))
+				if (!IN_RANGE(src, usr))
 					return
 
 				if(lentext(t) >= 3072)

@@ -130,7 +130,7 @@ var/global/photo_count = 0
 					H.put_in_l_hand(src)
 		add_fingerprint(usr)
 		return
-	if(over_object == H && in_range(src, H) || H.contents.Find(src))
+	if(over_object == H && IN_RANGE(src, H) || H.contents.Find(src))
 		if(H.s_active)
 			H.s_active.close(H)
 		show_to(H)

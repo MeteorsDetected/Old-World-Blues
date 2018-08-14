@@ -140,7 +140,7 @@ FLOOR SAFES
 
 		var/obj/item/P = locate(href_list["retrieve"]) in src
 		if(open)
-			if(P && in_range(src, user))
+			if(P && IN_RANGE(src, user))
 				user.put_in_hands(P)
 				updateUsrDialog()
 

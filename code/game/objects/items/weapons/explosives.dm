@@ -47,7 +47,7 @@
 		return
 	user << "Planting explosives..."
 
-	if(do_after(user, 50) && in_range(user, target))
+	if(do_after(user, 50) && IN_RANGE(user, target))
 		user.drop_from_inventory(src)
 		src.target = target
 		forceMove(null)

@@ -84,7 +84,7 @@
 
 	Topic(href, href_list)
 		if(..()) return 1
-		if(usr.incapacitated() || !in_range(loc, usr))
+		if(usr.incapacitated() || !IN_RANGE(loc, usr))
 			usr << browse(null, "window=timer")
 			onclose(usr, "timer")
 			return

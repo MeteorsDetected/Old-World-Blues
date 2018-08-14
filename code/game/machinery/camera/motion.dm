@@ -24,7 +24,7 @@
 			// If not detecting with motion camera...
 			if (!area_motion)
 				// See if the camera is still in range
-				if(!in_range(src, target))
+				if(!IN_RANGE(src, target))
 					// If they aren't in range, lose the target.
 					lostTarget(target)
 
