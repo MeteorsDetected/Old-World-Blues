@@ -23,6 +23,7 @@
 	. = ..()
 	radio = new(src)
 	camera = new(src)
+	add_hearing()
 
 /obj/item/device/spy_bug/examine(mob/user, return_dist = 1)
 	. = ..()
@@ -63,6 +64,7 @@
 /obj/item/device/spy_monitor/initialize()
 	. = ..()
 	radio = new(src)
+	add_hearing()
 
 /obj/item/device/spy_monitor/examine(mob/user, return_dist = 1)
 	. = ..()

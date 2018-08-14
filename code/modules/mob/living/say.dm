@@ -99,7 +99,7 @@ var/list/channel_to_radio_key = new
 /mob/living/say(var/message, var/datum/language/speaking = null, var/verb="says", var/alt_name="")
 	if(client)
 		if(client.prefs.muted&MUTE_IC)
-			src << "\red You cannot speak in IC (Muted)."
+			src << SPAN_WARN("You cannot speak in IC (Muted).")
 			return
 
 	if(stat)
@@ -108,7 +108,7 @@ var/list/channel_to_radio_key = new
 		return
 
 	if(is_muzzled())
-		src << "<span class='danger'>You're muzzled and cannot speak!</span>"
+		src << SPAN_DANG("You're muzzled and cannot speak!")
 		return
 
 	var/message_mode = parse_message_mode(message, "headset")
@@ -225,27 +225,17 @@ var/list/channel_to_radio_key = new
 			italics = 1
 			sound_vol *= 0.5
 
-		var/list/hear = hear(message_range, T)
-		var/list/hearturfs = list()
+		var/list/hearturfs = hear_turfs(message_range, T)
 
-		for(var/I in hear)
-			if(istype(I, /mob/))
-				var/mob/M = I
-				listening += M
-				hearturfs += M.locs[1]
-				for(var/obj/O in M.contents)
-					listening_obj |= O
-			else if(istype(I, /obj/))
-				var/obj/O = I
-				hearturfs += O.locs[1]
-				listening_obj |= O
-
-		for(var/mob/M in player_list)
-			if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTEARS))
-				listening |= M
-				continue
+		for(var/mob/M in mob_list)
 			if(M.loc && M.locs[1] in hearturfs)
 				listening |= M
+			else if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTEARS))
+				listening |= M
+
+		for(var/obj/O in hearing_objects)
+			if(O.loc && O.locs[1] in hearturfs)
+				listening_obj |= O
 
 	var/speech_bubble_test = say_test(message)
 	var/image/speech_bubble = image('icons/mob/talk.dmi', src, "h[speech_bubble_test]")
@@ -264,7 +254,7 @@ var/list/channel_to_radio_key = new
 	if(!usr || usr == src)
 		log_say("[key]/[name] : [message]")
 	else
-		log_say("[key]/[name] (forced by [key_name(usr)]) : [message]")
+		log_say("[key]/[name] (usr: [key_name(usr)]) : [message]")
 	return TRUE
 
 /mob/living/proc/say_signlang(var/message, var/verb="gestures", var/datum/language/language)
@@ -287,7 +277,7 @@ var/list/channel_to_radio_key = new
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
 		if(!language || !language.flags&INNATE)
 			if(speaker == src)
-				src << "<span class='warning'>You cannot hear yourself speak!</span>"
+				src << SPAN_WARN("You cannot hear yourself speak!")
 			else
 				src << "<span class='name'>[speaker.name]</span>[alt_name] talks but you cannot hear \him."
 		return
@@ -335,7 +325,7 @@ var/list/channel_to_radio_key = new
 
 	if(sdisabilities&DEAF || ear_deaf)
 		if(prob(20))
-			src << "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>"
+			src << SPAN_WARN("You feel your headset vibrate but can hear nothing from it!")
 		return
 
 	if(sleeping || stat == UNCONSCIOUS) //If unconscious or sleeping

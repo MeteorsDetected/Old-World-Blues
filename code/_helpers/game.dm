@@ -1,9 +1,7 @@
 /proc/is_on_same_plane_or_station(var/z1, var/z2)
 	if(z1 == z2)
 		return 1
-	if(isStationLevel(z1) && isStationLevel(z2))
-		return 1
-	return 0
+	return isStationLevel(z1) && isStationLevel(z2)
 
 /proc/get_area(O)
 	var/turf/loc = get_turf(O)
@@ -20,19 +18,14 @@
 	if (isarea(A))
 		return A
 
-	return 0 //not in range and not telekinetic
-
 // Like view but bypasses luminosity check
-
 /proc/hear(var/range, var/atom/source)
+	return view(range, get_turf(source))
 
-	var/lum = source.luminosity
-	source.luminosity = 6
-
-	var/list/heard = view(range, source)
-	source.luminosity = lum
-
-	return heard
+/proc/hear_turfs(var/range, var/atom/source)
+	. = list()
+	for(var/turf/T in view(range, get_turf(source)))
+		. += T
 
 /proc/circlerange(center=usr,radius=3)
 

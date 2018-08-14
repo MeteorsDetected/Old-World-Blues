@@ -14,6 +14,10 @@
 	var/obj/item/device/assembly/a_right = null
 	var/obj/special_assembly = null
 
+	initialize()
+		. = ..()
+		add_hearing()
+
 	proc/attach(var/obj/item/device/D, var/obj/item/device/D2, var/mob/user)
 		return
 

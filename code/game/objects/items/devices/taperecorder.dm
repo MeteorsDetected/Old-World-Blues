@@ -20,6 +20,10 @@
 	throw_speed = 4
 	throw_range = 20
 
+/obj/item/device/taperecorder/initialize()
+	. = ..()
+	add_hearing()
+
 /obj/item/device/taperecorder/hear_talk(mob/living/M as mob, msg, var/verb="says", datum/language/speaking=null)
 	if(recording)
 		timestamp += timerecorded

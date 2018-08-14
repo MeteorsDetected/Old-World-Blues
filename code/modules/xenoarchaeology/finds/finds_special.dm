@@ -24,6 +24,7 @@
 /obj/item/clothing/mask/gas/poltergeist/initialize()
 	. = ..()
 	processing_objects |= src
+	add_hearing()
 
 /obj/item/clothing/mask/gas/poltergeist/process()
 	if(heard_talk.len && isliving(src.loc) && prob(10))
@@ -58,6 +59,7 @@
 /obj/item/weapon/vampiric/initialize()
 	. = ..()
 	processing_objects.Add(src)
+	add_hearing()
 
 /obj/item/weapon/vampiric/process()
 	//see if we've identified anyone nearby

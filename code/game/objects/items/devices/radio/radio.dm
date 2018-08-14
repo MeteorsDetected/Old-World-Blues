@@ -42,6 +42,7 @@
 /obj/item/device/radio/initialize()
 	. = ..()
 	wires = new(src)
+	add_hearing()
 
 /obj/item/device/radio/Destroy()
 	qdel(wires)

@@ -7,6 +7,9 @@
 	var/listening = 0
 	var/recorded	//the activation message
 
+/obj/item/device/assembly/voice/initialize()
+	add_hearing()
+
 /obj/item/device/assembly/voice/hear_talk(mob/living/M as mob, msg)
 	if(listening)
 		recorded = msg

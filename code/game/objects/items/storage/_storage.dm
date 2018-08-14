@@ -467,12 +467,6 @@
 		src.quick_empty()
 		return 1
 
-/obj/item/storage/hear_talk(mob/M as mob, text, verb, datum/language/speaking)
-	for (var/atom/A in src)
-		if(istype(A,/obj/))
-			var/obj/O = A
-			O.hear_talk(M, text, verb, speaking)
-
 /obj/item/storage/proc/make_exact_fit()
 	storage_slots = contents.len
 

@@ -29,10 +29,6 @@
 	pockets.emp_act(severity)
 	..()
 
-/obj/item/clothing/suit/storage/hear_talk(mob/M, var/msg, verb, datum/language/speaking)
-	pockets.hear_talk(M, msg, verb, speaking)
-	..()
-
 //New Vest 4 pocket storage and badge toggles, until suit accessories are a thing.
 /obj/item/clothing/suit/storage/vest/heavy/initialize()
 	. = ..()

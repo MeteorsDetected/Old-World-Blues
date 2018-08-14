@@ -75,41 +75,34 @@
 		else
 			src << "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> [verb], <span class='message'><span class='body'>\"[message]\"</span></span></span></i>"
 
-		//This is so pAI's and people inside lockers/boxes,etc can hear the AI Holopad, the alternative being recursion through contents.
-		//This is much faster.
-		var/list/listening = list()
-		var/list/listening_obj = list()
 		var/turf/T = get_turf(H)
 
 		if(T)
-			var/list/hear = hear(7, T)
-			var/list/hearturfs = list()
+			var/list/listening = list()
+			var/list/listening_obj = list()
+			var/list/hearturfs = hear_turfs(7, T)
 
-			for(var/I in hear)
-				if(istype(I, /mob/))
-					var/mob/M = I
-					listening += M
-					hearturfs += M.locs[1]
-					for(var/obj/O in M.contents)
-						listening_obj |= O
-				else if(istype(I, /obj/))
-					var/obj/O = I
-					hearturfs += O.locs[1]
+			for(var/mob/M in mob_list)
+				if(M.loc && M.locs[1] in hearturfs)
+					listening |= M
+				else if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTEARS))
+					listening |= M
+
+			for(var/obj/O in hearing_objects)
+				if(O.loc && O.locs[1] in hearturfs)
 					listening_obj |= O
 
-
-			for(var/mob/M in player_list)
+			for(var/mob/M in listening)
 				if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTEARS))
 					M.hear_say(message,verb,speaking,null,null, src)
 					continue
 				if(M.loc && M.locs[1] in hearturfs)
 					M.hear_say(message,verb,speaking,null,null, src)
 
-
 	else
 		src << "No holopad connected."
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /mob/living/silicon/ai/proc/holopad_emote(var/message) //This is called when the AI uses the 'me' verb while using a holopad.
 

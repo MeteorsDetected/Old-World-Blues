@@ -12,6 +12,10 @@
 	icon_state = "implant_evil"
 	implant_color = "r"
 
+	initialize()
+		. = ..()
+		add_hearing()
+
 	get_data()
 		var/dat = {"
 			<b>Implant Specifications:</b><BR>
