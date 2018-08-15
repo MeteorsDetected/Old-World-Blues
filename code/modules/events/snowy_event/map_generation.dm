@@ -89,7 +89,6 @@ proc/snowyMapGeneration()
 								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 3, /obj/structure/lootable/chunk = 2, /obj/structure/butcherable = "very rare"))
 
 	new /datum/random_map(null,1,1,1,world.maxx,world.maxy)
-	new /datum/random_map/ore(null,1,1,1,world.maxx,world.maxy)
 
 
 
@@ -307,7 +306,7 @@ proc/riverGeneration(var/min_length = 30, var/distortion_radius = 10, var/river_
 							if((A != null) && (A.len > 0))
 								for(var/t in A)
 									var/turf/P = get_step(Point, t)
-									if(istype(P, /turf/simulated/floor/plating/snow))
+									if(istype(P, /turf/simulated/floor/plating/snow) && (P in usables))
 										P.ChangeTurf(/turf/simulated/floor/plating/ice)
 										riverCount++
 										break
@@ -315,7 +314,7 @@ proc/riverGeneration(var/min_length = 30, var/distortion_radius = 10, var/river_
 				for(var/d in alldirs)
 					if(prob(90))
 						var/turf/S = get_step(Point, d)
-						if((S != null) && (istype(S, /turf/simulated/floor/plating/snow)))
+						if((S != null) && (S in usables) && (istype(S, /turf/simulated/floor/plating/snow)))
 							S.ChangeTurf(/turf/simulated/floor/plating/ice)
 							riverCount++
 
@@ -376,7 +375,7 @@ proc/chasmAndRocksGeneration(var/spawn_type = 1, var/min_length = 30, var/min_ra
 			radius = 1
 		var/list/circle_turfs = circlerange(T, radius)
 		for(var/turf/Here in circle_turfs)
-			if(Here != null)
+			if(Here != null && (Here in usables))
 				if(spawn_type)
 					if(istype(Here, /turf/simulated/floor/plating/snow))
 						Here.ChangeTurf(/turf/unsimulated/mask)

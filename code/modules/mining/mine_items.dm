@@ -235,7 +235,8 @@
 	var/obj/item/stack/flag/F = locate() in get_turf(src)
 
 	var/turf/T = get_turf(src)
-	if(!T || !istype(T,/turf/simulated/floor/plating/asteroid))
+	//if(!T || !istype(T,/turf/simulated/floor/plating/asteroid)) //snowy
+	if(!T || !istype(T,/turf/simulated/floor/plating/asteroid) || !istype(T,/turf/simulated/floor/plating/snow) || !istype(T,/turf/simulated/floor/plating/ice))
 		user << "The flag won't stand up in this terrain."
 		return
 

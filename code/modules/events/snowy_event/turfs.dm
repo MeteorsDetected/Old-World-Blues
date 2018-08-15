@@ -209,7 +209,7 @@
 
 	New()
 		..()
-		spawn(4)
+		spawn(10)
 			if(src)
 				update_icon()
 				for(var/direction in list(1,2,4,8,5,6,9,10))
@@ -383,3 +383,28 @@
 	check_relatives()
 
 	ChangeTurf(/turf/simulated/floor/plating/wooden) //Hm. Need to memory last tile...
+
+
+//mining stuff
+
+//can't find where ore actually spawns. Ore data list is empty. There's no docs or something like ref. So go fuck this pile of shit.
+//i'm just make my own. Very fast. Very simple.
+
+//need to find some frozen stones for this
+/turf/simulated/mineral/random/snowy
+	mineralSpawnChanceList = list(/ore/uranium = 5, /ore/platinum = 5, /ore/hematite = 35, /ore/coal = 35, /ore/diamond = 1, /ore/gold = 5, /ore/silver = 5, /ore/phoron = 10)
+	mineralChance = 10
+
+/turf/simulated/mineral/random/snowy/New()
+	if (prob(mineralChance) && !mineral)
+		var/mineral_path
+		for(var/O in mineralSpawnChanceList)
+			if(prob(mineralSpawnChanceList[O]))
+				mineral_path = O
+		if (mineral_path && (mineral_path in mineralSpawnChanceList))
+			mineral = new mineral_path
+			UpdateMineral()
+			MineralSpread()
+
+	. = ..()
+
