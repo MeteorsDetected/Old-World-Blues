@@ -139,7 +139,8 @@ var/global/list/random_maps = list()
 		return
 	switch(map[current_cell])
 		if(1)
-			T.ChangeTurf(/turf/simulated/floor/plating/asteroid)
+			//T.ChangeTurf(/turf/simulated/floor/plating/asteroid)
+			T.ChangeTurf(/turf/simulated/floor/plating/snow) //snowy
 		if(2)
 			T.ChangeTurf(/turf/simulated/mineral)
 		if(3)

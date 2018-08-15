@@ -1,11 +1,14 @@
 //Experimental thing. Careful with that
 
 //TODO:
-//	Forest based on equator lines that split map onto biomes
 //	Polish all the stuff
 //	Add options to templates sets. And base it on map size
+//	Split forest onto biomes
+//	Add cave generation?
 
 proc/snowyMapGeneration()
+	var/S = pick(scenarios)
+	var/datum/snowy_scenario/Scenario = new S
 
 	var/list/usable_turfs = list()
 
@@ -23,9 +26,10 @@ proc/snowyMapGeneration()
 						usable_turfs.Add(T)
 	usable_turfs = shuffle(usable_turfs)
 
-
-
-	var/chasm_counts = chasmAndRocksGeneration(usable_turfs, 0, 20, 1, 3) //chasms
+	var/chasm_counts = 0
+	for(var/list/C in Scenario.options)
+		if(C["chasm"])
+			chasm_counts = chasmAndRocksGeneration(C["type"], C["length"], C["min_radius"], C["max_radius"]) //chasms
 	if(chasm_counts)
 		spawn(30)
 			world << SPAN_NOTE("<BIG>Dreadful chasm created. Beware! <b>[chasm_counts]<b> turfs.</BIG>")
@@ -34,9 +38,16 @@ proc/snowyMapGeneration()
 			world << SPAN_WARN("<BIG>There's no chasms! Relax.</BIG>")
 
 
-	usable_turfs = snowyChunkInsert(usable_turfs) //Insert chunks
+	usable_turfs = snowyChunkInsert(usable_turfs, Scenario) //Insert chunks
 
-	var/rocks_counts = chasmAndRocksGeneration(usable_turfs, 1, 20, 2, 7) //rocks
+	var/rocks_counts = 0
+	var/river_count = 0
+	for(var/list/R in Scenario.options)
+		if(R["rocks"])
+			rocks_counts = chasmAndRocksGeneration(R["type"], R["length"], R["min_radius"], R["max_radius"]) //rocks
+		else if(R["river"])
+			river_count = riverGeneration(R["length"], R["distortion"], R["type"], R["outfalls"])
+
 	if(rocks_counts)
 		spawn(30)
 			world << SPAN_NOTE("<BIG>Tall rocks added. Tons of minerals or no luck? <b>[rocks_counts]<b> turfs.</BIG>")
@@ -44,7 +55,6 @@ proc/snowyMapGeneration()
 		spawn(30)
 			world << SPAN_WARN("<BIG>There's no rocks! A big problem.</BIG>")
 
-	var/river_count = riverGeneration(usable_turfs, 45, 10, "big", 3)
 	spawn(30)
 		if(river_count)
 			world << SPAN_NOTE("<BIG>Water pool created. <b>[river_count]<b> turfs.</BIG>")
@@ -78,6 +88,9 @@ proc/snowyMapGeneration()
 								list(/obj/structure/flora/stump/fallen, /obj/structure/flora/stump, /obj/structure/lootable/mushroom_hideout), 20,
 								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 3, /obj/structure/lootable/chunk = 2, /obj/structure/butcherable = "very rare"))
 
+	new /datum/random_map(null,1,1,1,world.maxx,world.maxy)
+	new /datum/random_map/ore(null,1,1,1,world.maxx,world.maxy)
+
 
 
 
@@ -85,14 +98,11 @@ proc/snowyMapGeneration()
 //i think rectangle packing algorithm is not needed here. So there's a simple version
 //Looks stable and works fine with small maps
 
-proc/snowyChunkInsert(var/list/usables = list())
+proc/snowyChunkInsert(var/list/usables = list(), var/datum/snowy_scenario/Scenario)
 
-
-	var/S = pick(snowy_map_templates)
-	var/list/template_list = snowy_map_templates[S]
 
 	var/chunk_placement_count = 0
-	for(var/t in template_list)
+	for(var/t in Scenario.templates)
 		var/datum/snowy_template/ST = new t
 		for(var/turf/start_point in usables) //This one can be slow, but reliable
 			var/can_generate = 1
@@ -105,7 +115,7 @@ proc/snowyChunkInsert(var/list/usables = list())
 					for(var/x=startX, startX+ST.sizeW+1 >= x, x++)
 						var/turf/T = locate(x, y, 1)
 						used_turfs.Add(T) //memorized used turfs
-						if((!(istype(T, /turf/simulated/floor/plating/snow)) && !(istype(T, /turf/simulated/floor/plating/ice)) && !(istype(T, /turf/simulated/rock)) && !(istype(T, /turf/simulated/floor/plating/chasm))) || !(T.contents.len == 0))
+						if((!(istype(T, /turf/simulated/floor/plating/snow)) && !(istype(T, /turf/simulated/floor/plating/ice)) && !(istype(T, /turf/unsimulated/mask)) && !(istype(T, /turf/simulated/floor/plating/chasm))) || !(T.contents.len == 0))
 							can_generate = 0
 			else
 				can_generate = 0
@@ -116,8 +126,8 @@ proc/snowyChunkInsert(var/list/usables = list())
 				chunk_placement_count++
 				break
 	spawn(30)
-		world << SPAN_NOTE("Chunks loaded! [chunk_placement_count]/[template_list.len] chunks placed.")
-		world << SPAN_NOTE("<BIG>Current scenario: <b>[S]</b></BIG>")
+		world << SPAN_NOTE("Chunks loaded! [chunk_placement_count]/[Scenario.templates.len] chunks placed.")
+		world << SPAN_NOTE("<BIG>Current scenario: <b>[Scenario.name]</b></BIG>")
 
 	return usables
 
@@ -211,28 +221,22 @@ proc/snowyLoadChunk(var/dmm_file as file, var/startx as num, var/starty as num, 
 //Dirty and shitty. I don't use any algorithm, only leapfrog of lists and bresenham. I'm too lazy to write perlin noize here. So meeeh
 //Interpolation not used too, i smooth corners with a simple method of fill and prob()
 //Looks ugly, but it's ok. Maybe later i make a perlin noise here or find a good library and rewrite this, but for now - lazy and tons of tasks
-proc/riverGeneration(var/list/usables = list(), var/min_length = 30, var/distortion_radius = 10, var/river_type = "thin", var/outfalls = 0, var/turf/start = null, var/turf/end = null)
+proc/riverGeneration(var/min_length = 30, var/distortion_radius = 10, var/river_type = "thin", var/outfalls = 0, var/turf/start = null, var/turf/end = null)
 	if((min_length >= world.maxx-10) || (min_length >= world.maxy-10)) //length is too big
 		min_length = (world.maxx+world.maxy)/2-20
 
-	usables = getPossiblePoints(min_length)
+	var/list/usables = getPossiblePoints(min_length)
+	usables = shuffle(usables)
 
-	var/again = 0
-	if(start == null)
-		start = pick(usables)
-	Again
 	if(!end)
 		for(var/turf/T in usables)
-			if((T != start) && (get_dist(start, T) >= min_length) && istype(T, /turf/simulated/floor/plating/snow))
+			if(!start)
+				start = T
+			if((T != start) && (getDistance(start, T) >= min_length) && istype(T, /turf/simulated/floor/plating/snow))
 				end = T
 				break
 		if(end == null)
-			if(!again) //let's try again
-				again = 1
-				start = pick(usables)
-				goto Again
-			else
-				return  //no river for you :(  (Map too small or just no luck
+			return  //no river for you :(  (Map too small or just no luck
 
 	var/list/path = getline(start, end) //creating raw stuff, a simple line
 	var/list/distorted_path = list()
@@ -309,7 +313,7 @@ proc/riverGeneration(var/list/usables = list(), var/min_length = 30, var/distort
 										break
 			else if(river_type == "big")
 				for(var/d in alldirs)
-					if(prob(70))
+					if(prob(90))
 						var/turf/S = get_step(Point, d)
 						if((S != null) && (istype(S, /turf/simulated/floor/plating/snow)))
 							S.ChangeTurf(/turf/simulated/floor/plating/ice)
@@ -337,16 +341,18 @@ proc/riverGeneration(var/list/usables = list(), var/min_length = 30, var/distort
 					if(end_point && istype(end_point, /turf/simulated/floor/plating/snow))
 						break
 
-			var/rcount = riverGeneration(usables, min_length/2, distortion_radius/2, "thin", 0, pick(temPath), end_point)
+			var/rcount = riverGeneration(min_length/2, distortion_radius/2, "thin", 0, pick(temPath), end_point)
 			riverCount += rcount
 
 	return riverCount
 
-//need to round that box
-proc/chasmAndRocksGeneration(var/list/usables = list(), var/spawn_type = 1, var/min_length = 30, var/min_radius = 1, var/max_radius = 1)
-	var/counter = 0
 
-	usables = getPossiblePoints(min_length)
+proc/chasmAndRocksGeneration(var/spawn_type = 1, var/min_length = 30, var/min_radius = 1, var/max_radius = 1)
+	var/counter = 0
+	if((min_length >= world.maxx-10) || (min_length >= world.maxy-10))
+		min_length = (world.maxx+world.maxy)/2-20
+
+	var/list/usables = getPossiblePoints(min_length)
 	usables = shuffle(usables)
 	var/turf/start = null
 	var/turf/end = null
@@ -354,30 +360,30 @@ proc/chasmAndRocksGeneration(var/list/usables = list(), var/spawn_type = 1, var/
 		if(istype(T, /turf/simulated/floor/plating/snow))
 			if(!start)
 				start = T
-			if(get_dist(T, start) > min_length && (T != start) && (T != null))
+			if((getDistance(start, T) >= min_length) && (T != start) && (T != null))
 				end = T
 	if((end == null) || (start == null))
 		return
 
 	var/list/path = getline(start, end)
 
-	for(var/turf/T in path)
-		if(prob(10))
+	for(var/i=1, path.len >= i, i++)
+		var/turf/T = path[i]
+		if(prob(25))
 			continue
 		var/radius = rand(min_radius, max_radius)+1
-		for(var/y=T.y-radius, T.y+radius >= y, y++)
-			for(var/x=T.x-radius, T.x+radius >= x, x++)
-				if((x >= world.maxx) || (y >= world.maxy) || (x <= 0) || (y <= 0))
-					continue
-				var/turf/Here = locate(x, y, 1)
-				if(get_dist(T, Here) <= radius-2)
-					if(spawn_type)
-						if(istype(Here, /turf/simulated/floor/plating/snow))
-							Here.ChangeTurf(/turf/simulated/rock)
-							counter++
-					else
-						Here.ChangeTurf(/turf/simulated/floor/plating/chasm)
+		if(radius < 1)
+			radius = 1
+		var/list/circle_turfs = circlerange(T, radius)
+		for(var/turf/Here in circle_turfs)
+			if(Here != null)
+				if(spawn_type)
+					if(istype(Here, /turf/simulated/floor/plating/snow))
+						Here.ChangeTurf(/turf/unsimulated/mask)
 						counter++
+				else
+					Here.ChangeTurf(/turf/simulated/floor/plating/chasm)
+					counter++
 	return counter
 
 
@@ -403,22 +409,44 @@ proc/getAdjacentDir(var/dir)
 
 proc/getPossiblePoints(var/length)
 	var/list/points = list()
-	for(var/y=2, world.maxy-1 >= y, y++)
-		for(var/x=2, world.maxx-1 >= x, x++)
-			if((y > length || y < world.maxy-length) || (x > length || x < world.maxx-length))
+	for(var/y=2, world.maxy-2 >= y, y++)
+		for(var/x=2, world.maxx-2 >= x, x++)
+			if((y < length || y > world.maxy-length) || (x < length || x > world.maxx-length))
 				var/turf/T = locate(x, y, 1)
 				points.Add(T)
 	return points
+
+//Default get_dist have cap at 127
+//So i write here my own. Didn't found another. Maybe just failed my search
+proc/getDistance(var/turf/S, var/turf/E)
+	if(S && E)
+		return sqrt((S.x-E.x)*(S.x-E.x) + (S.y-E.y)*(S.y-E.y))
 
 
 ///////////////>>>TEMPLATES<<<\\\\\\\\\\\\\\\
 //Urgent templates place in scenario set first
 //Make sure that sizes of template and datum has match
 
-var/list/snowy_map_templates = list(
-	"Silent trees" = list(/datum/snowy_template/oldvillage, /datum/snowy_template, /datum/snowy_template),
-	"Old lake" = list(/datum/snowy_template, /datum/snowy_template, /datum/snowy_template, /datum/snowy_template, /datum/snowy_template, /datum/snowy_template, /datum/snowy_template, /datum/snowy_template, /datum/snowy_template, /datum/snowy_template),
-	)
+var/list/scenarios = list(/datum/snowy_scenario, /datum/snowy_scenario/silent_trees)
+
+/datum/snowy_scenario
+	var/name = "Old lake"
+	var/list/templates = list(/datum/snowy_template/oldvillage, /datum/snowy_template, /datum/snowy_template)
+	var/list/options = list(	list("river" = 1, "length" = 95, "distortion" = 15, "type" = "big", "outfalls" = 4),
+								list("river" = 1, "length" = 120, "distortion" = 10, "type" = "big", "outfalls" = 7),
+								list("rocks" = 1, "type" = 1, "length" = 195, "min_radius" = 1, "max_radius" = 15),
+								list("chasm" = 1, "type" = 0, "length" = 135, "min_radius" = 1, "max_radius" = 9)
+							)
+
+/datum/snowy_scenario/silent_trees
+	name = "Silent trees"
+	templates = list(/datum/snowy_template, /datum/snowy_template, /datum/snowy_template,
+					/datum/snowy_template, /datum/snowy_template, /datum/snowy_template)
+	options = list(		list("river" = 1, "length" = 95, "distortion" = 15, "type" = "big", "outfalls" = 4),
+						list("river" = 1, "length" = 120, "distortion" = 10, "type" = "big", "outfalls" = 7),
+						list("rocks" = 1, "type" = 1, "length" = 195, "min_radius" = 1, "max_radius" = 15),
+						list("chasm" = 1, "type" = 0, "length" = 135, "min_radius" = 1, "max_radius" = 9)
+					)
 
 
 /datum/snowy_template

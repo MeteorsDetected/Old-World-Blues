@@ -1910,5 +1910,5 @@
 #include "code\ZAS\Zone.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
-#include "maps\snowy_path.dmm"
+#include "maps\snowy_test_big.dmm"
 // END_INCLUDE
