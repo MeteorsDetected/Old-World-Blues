@@ -225,17 +225,17 @@ var/list/channel_to_radio_key = new
 			italics = 1
 			sound_vol *= 0.5
 
-		var/list/hearturfs = hear_turfs(message_range, T)
+		var/list/hearturfs = hear(message_range, T)
 
 		for(var/mob/M in mob_list)
 			if(M.loc && M.locs[1] in hearturfs)
-				listening |= M
+				listening += M
 			else if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTEARS))
-				listening |= M
+				listening += M
 
 		for(var/obj/O in hearing_objects)
 			if(O.loc && O.locs[1] in hearturfs)
-				listening_obj |= O
+				listening_obj += O
 
 	var/speech_bubble_test = say_test(message)
 	var/image/speech_bubble = image('icons/mob/talk.dmi', src, "h[speech_bubble_test]")
