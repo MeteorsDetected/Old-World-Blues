@@ -80,17 +80,17 @@
 		if(T)
 			var/list/listening = list()
 			var/list/listening_obj = list()
-			var/list/hearturfs = hear_turfs(7, T)
+			var/list/hearturfs = hear(7, T)
 
 			for(var/mob/M in mob_list)
 				if(M.loc && M.locs[1] in hearturfs)
-					listening |= M
+					listening += M
 				else if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTEARS))
-					listening |= M
+					listening += M
 
 			for(var/obj/O in hearing_objects)
 				if(O.loc && O.locs[1] in hearturfs)
-					listening_obj |= O
+					listening_obj += O
 
 			for(var/mob/M in listening)
 				if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTEARS))
