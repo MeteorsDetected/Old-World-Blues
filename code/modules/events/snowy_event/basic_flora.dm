@@ -62,6 +62,7 @@
 	icon_state = "old_wood"
 	anchored = 1
 	density = 1
+	opacity = 1
 	pixel_x = 0 //use -16 for big sprites like at old trees
 	layer = 9
 	var/max_health = 20

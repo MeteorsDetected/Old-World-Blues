@@ -64,8 +64,8 @@ proc/snowyMapGeneration()
 
 
 	//forest generation. Temporary. Need to make through perlin noise
-	var/biome_equator_num = Floor(world.maxx/3)
-	for(var/i=1, 3 >= i, i++)
+	var/biome_equator_num = Floor(world.maxx/4)
+	for(var/i=1, 4 >= i, i++)
 		for(var/y=biome_equator_num*i-biome_equator_num, biome_equator_num*i > y, y++)
 			for(var/x=1, world.maxx > x, x++)
 				var/turf/T = locate(x, y, 1)
@@ -87,6 +87,11 @@ proc/snowyMapGeneration()
 								list(/obj/structure/flora/snowybush/deadbush, /obj/structure/flora/snowybush), 20, 40,
 								list(/obj/structure/flora/stump/fallen, /obj/structure/flora/stump, /obj/structure/lootable/mushroom_hideout), 20,
 								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 3, /obj/structure/lootable/chunk = 2, /obj/structure/butcherable = "very rare"))
+						if(4)
+							LF.forest_gen(45, list(/obj/structure/flora/snowytree/high), 35,
+								list(/obj/structure/flora/snowybush/deadbush), 15, 30,
+								list(/obj/structure/lootable/mushroom_hideout), 30,
+								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 6, /obj/structure/lootable/chunk = 2, /obj/structure/butcherable = "very rare"))
 
 	new /datum/random_map(null,1,1,1,world.maxx,world.maxy)
 

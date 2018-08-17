@@ -10,6 +10,7 @@
 	icon_state = "rock"
 	anchored = 1
 	density = 1
+	opacity = 1
 
 	New()
 		icon_state = "rock[rand(1, 2)]"

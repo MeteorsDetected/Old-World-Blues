@@ -134,6 +134,14 @@
 					"throw [O] to"
 				)
 
+			if(Pet) //snowy
+				Pet.protect_from(thrower)
+			if(istype(src, /mob/living/simple_animal/smartdog))
+				var/mob/living/simple_animal/smartdog/S = src
+				if(thrower != S.Master)
+					S.Target = thrower
+					S.task = "attack"
+
 		// Begin BS12 momentum-transfer code.
 		var/mass = 1.5
 		if(istype(O, /obj/item))

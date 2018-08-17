@@ -165,6 +165,15 @@
 
 	self_attack_log(user, "shot [target] ([target.x],[target.y],[target.z]) with [src]", 1)
 
+	if(istype(target, /mob/living))
+		var/mob/living/L = target
+		if(L.Pet) //snowy
+			L.Pet.protect_from(user)
+	if(istype(target, /mob/living/simple_animal/smartdog))
+		var/mob/living/simple_animal/smartdog/S = target
+		S.Target = user
+		S.task = "attack"
+
 	//unpack firemode data
 	var/datum/firemode/firemode = firemodes[sel_mode]
 	var/_burst = firemode.burst

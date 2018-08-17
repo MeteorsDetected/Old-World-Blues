@@ -88,15 +88,6 @@
 	icon_state = "snow_forest"
 	var/bush_factor = 1 //helper. Dont change or use it please
 
-/*	New()
-		..()
-		spawn(4)
-			if(src)
-				forest_gen(20, list(/obj/structure/flora/snowytree/big/another, /obj/structure/flora/snowytree/big, /obj/structure/flora/snowytree), 40,
-								list(/obj/structure/flora/snowybush/deadbush, /obj/structure/flora/snowybush), 10, 40,
-								list(/obj/structure/flora/stump/fallen, /obj/structure/flora/stump, /obj/structure/lootable/mushroom_hideout), 20,
-								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 3, /obj/structure/lootable/chunk = 2, /obj/structure/butcherable = "very rare"))
-*/
 
 
 //I know, all of that and previous generation is shit and needed to coded separatly with masks. But i have't so much time to dig it up
@@ -158,47 +149,6 @@
 					K.bush_factor = src.bush_factor + 1
 					new bush(K)
 					bush_gen()
-
-
-/turf/simulated/floor/plating/snow/light_forest/pines
-	icon_state = "snow_pines"
-
-	New()
-		..()
-		spawn(4)
-			if(src)
-				forest_gen(45, list(/obj/structure/flora/snowytree/high), 35,
-								list(/obj/structure/flora/snowybush/deadbush), 15, 30,
-								list(/obj/structure/lootable/mushroom_hideout), 30,
-								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 6, /obj/structure/lootable/chunk = 2, /obj/structure/butcherable = "very rare"))
-
-
-/turf/simulated/floor/plating/snow/light_forest/mixed
-	icon_state = "snow_mixed"
-
-	New()
-		..()
-		spawn(4)
-			if(src)
-				forest_gen(40, list(/obj/structure/flora/snowytree/high, /obj/structure/flora/snowytree/big/another, /obj/structure/flora/snowytree/big, /obj/structure/flora/snowytree), 35,
-								list(/obj/structure/flora/snowybush/deadbush, /obj/structure/flora/snowybush), 20, 40,
-								list(/obj/structure/flora/stump/fallen, /obj/structure/flora/stump, /obj/structure/lootable/mushroom_hideout), 20,
-								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 3, /obj/structure/lootable/chunk = 2, /obj/structure/butcherable = "very rare"))
-
-
-/turf/simulated/floor/plating/snow/light_forest/bushes
-	icon_state = "snow_bushes"
-	New()
-		..()
-		spawn(4)
-			if(src)
-				forest_gen(25, list(/obj/structure/flora/snowytree), 10,
-								list(/obj/structure/flora/snowybush/deadbush, /obj/structure/flora/snowybush), rand(10, 20), rand(20, 60),
-								list(/obj/structure/lootable/mushroom_hideout), 30,
-								list(/obj/item/weapon/branches = 20, /obj/structure/rock = 3, /obj/structure/lootable/chunk = 2, /obj/structure/butcherable = "very rare"))
-
-
-
 
 
 /turf/simulated/floor/plating/chasm
@@ -330,13 +280,14 @@
 			A.Weaken(2)
 			var/direction = pick(alldirs)
 			step(A, direction)
+	..(A)
 
 
 /turf/unsimulated/snow
 	name = "snow"
 	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	icon_state = "freezer"
-	temperature = T0C - 25
+	temperature = T0C - 30
 
 	New()
 		..()

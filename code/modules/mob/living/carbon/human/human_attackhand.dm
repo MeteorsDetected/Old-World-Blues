@@ -56,6 +56,9 @@
 
 			visible_message("\red <B>[H] has punched [src]!</B>")
 
+			if(M.Pet) //snowy
+				M.Pet.protect_from(src)
+
 			apply_damage(damage, HALLOSS, affecting, armor_block)
 			if(damage >= 9)
 				visible_message("\red <B>[H] has weakened [src]!</B>")
@@ -113,6 +116,9 @@
 					return
 			if(w_uniform)
 				w_uniform.add_fingerprint(M)
+
+			if(Pet) //snowy
+				Pet.protect_from(M)
 
 			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src)
 			if(buckled)
@@ -267,6 +273,9 @@
 			)
 			M.do_attack_animation(src)
 
+			if(Pet) //snowy
+				Pet.protect_from(M)
+
 			if(w_uniform)
 				w_uniform.add_fingerprint(M)
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
@@ -328,6 +337,9 @@
 	)
 	src.visible_message("<span class='danger'>[user] has [attack_message] [src]!</span>")
 	user.do_attack_animation(src)
+
+	if(Pet) //snowy
+		Pet.protect_from(user)
 
 	var/dam_zone = pick(organs_by_name)
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))

@@ -171,6 +171,9 @@ emp_act
 /mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
 
+	if(Pet) //snowy
+		Pet.protect_from(user)
+
 	var/target_zone = def_zone? check_zone(def_zone) : get_zone_with_miss_chance(user.zone_sel.selecting, src)
 
 	if(user == src) // Attacking yourself can't miss
@@ -317,9 +320,12 @@ emp_act
 		if(armor < 2)
 			apply_damage(throw_damage, dtype, zone, armor, is_sharp(O), has_edge(O), O)
 
+
 		if(ismob(O.thrower))
 			var/mob/M = O.thrower
 			var/client/assailant = M.client
+			if(Pet) //snowy
+				Pet.protect_from(thrower)
 			if(assailant)
 				admin_attack_log(M, src,
 					"Hit [key_name(src)] with a thrown [O]",
