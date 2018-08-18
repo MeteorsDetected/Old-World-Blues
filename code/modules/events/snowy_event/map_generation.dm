@@ -69,8 +69,8 @@ proc/snowyMapGeneration()
 		for(var/y=biome_equator_num*i-biome_equator_num, biome_equator_num*i > y, y++)
 			for(var/x=1, world.maxx > x, x++)
 				var/turf/T = locate(x, y, 1)
-				if(istype(T, /turf/simulated/floor/plating/snow/light_forest))
-					var/turf/simulated/floor/plating/snow/light_forest/LF = T
+				if(istype(T, /turf/simulated/floor/plating/snow/generable))
+					var/turf/simulated/floor/plating/snow/generable/LF = T
 					switch(i)
 						if(1)
 							LF.forest_gen(25, list(/obj/structure/flora/snowytree), 10,
@@ -236,7 +236,7 @@ proc/riverGeneration(var/min_length = 30, var/distortion_radius = 10, var/river_
 		for(var/turf/T in usables)
 			if(!start)
 				start = T
-			if((T != start) && (getDistance(start, T) >= min_length) && istype(T, /turf/simulated/floor/plating/snow))
+			if((T != start) && (getDistance(start, T) >= min_length) && istype(T, /turf/simulated/floor/plating/snow/generable))
 				end = T
 				break
 		if(end == null)
@@ -268,7 +268,7 @@ proc/riverGeneration(var/min_length = 30, var/distortion_radius = 10, var/river_
 				var/randX = rand(distorted.x-distortion_radius, distorted.x+distortion_radius)
 				var/randY = rand(distorted.y-distortion_radius, distorted.y+distortion_radius)
 				var/turf/candidate = locate(randX, randY, 1)
-				if(istype(candidate, /turf/simulated/floor/plating/snow))
+				if(istype(candidate, /turf/simulated/floor/plating/snow/generable))
 					temPath.Add(candidate)
 					break
 				count++
@@ -291,7 +291,7 @@ proc/riverGeneration(var/min_length = 30, var/distortion_radius = 10, var/river_
 
 	var/riverCount = path.len
 	for(var/turf/Point in path) //path is ready, now create points from list and smooth corners
-		if(istype(Point, /turf/simulated/floor/plating/snow))
+		if(istype(Point, /turf/simulated/floor/plating/snow/generable))
 			Point.ChangeTurf(/turf/simulated/floor/plating/ice)
 			riverCount++
 			var/next = 0 //small loop controller. If we reach needed condition, we just skip all of that to next point in path
@@ -311,7 +311,7 @@ proc/riverGeneration(var/min_length = 30, var/distortion_radius = 10, var/river_
 							if((A != null) && (A.len > 0))
 								for(var/t in A)
 									var/turf/P = get_step(Point, t)
-									if(istype(P, /turf/simulated/floor/plating/snow) && (P in usables))
+									if(istype(P, /turf/simulated/floor/plating/snow/generable) && (P in usables))
 										P.ChangeTurf(/turf/simulated/floor/plating/ice)
 										riverCount++
 										break
@@ -319,7 +319,7 @@ proc/riverGeneration(var/min_length = 30, var/distortion_radius = 10, var/river_
 				for(var/d in alldirs)
 					if(prob(90))
 						var/turf/S = get_step(Point, d)
-						if((S != null) && (S in usables) && (istype(S, /turf/simulated/floor/plating/snow)))
+						if((S != null) && (S in usables) && (istype(S, /turf/simulated/floor/plating/snow/generable)))
 							S.ChangeTurf(/turf/simulated/floor/plating/ice)
 							riverCount++
 
@@ -342,7 +342,7 @@ proc/riverGeneration(var/min_length = 30, var/distortion_radius = 10, var/river_
 						angle += -90
 					var/target_dir = angle2dir(angle)
 					end_point = get_ranged_target_turf(start_point, target_dir, rand(Floor(min_length/3), Floor(min_length/2)))
-					if(end_point && istype(end_point, /turf/simulated/floor/plating/snow))
+					if(end_point && istype(end_point, /turf/simulated/floor/plating/snow/generable))
 						break
 
 			var/rcount = riverGeneration(min_length/2, distortion_radius/2, "thin", 0, pick(temPath), end_point)
@@ -361,7 +361,7 @@ proc/chasmAndRocksGeneration(var/spawn_type = 1, var/min_length = 30, var/min_ra
 	var/turf/start = null
 	var/turf/end = null
 	for(var/turf/T in usables)
-		if(istype(T, /turf/simulated/floor/plating/snow))
+		if(istype(T, /turf/simulated/floor/plating/snow/generable))
 			if(!start)
 				start = T
 			if((getDistance(start, T) >= min_length) && (T != start) && (T != null))
@@ -382,7 +382,7 @@ proc/chasmAndRocksGeneration(var/spawn_type = 1, var/min_length = 30, var/min_ra
 		for(var/turf/Here in circle_turfs)
 			if(Here != null && (Here in usables))
 				if(spawn_type)
-					if(istype(Here, /turf/simulated/floor/plating/snow))
+					if(istype(Here, /turf/simulated/floor/plating/snow/generable))
 						Here.ChangeTurf(/turf/unsimulated/mask)
 						counter++
 				else

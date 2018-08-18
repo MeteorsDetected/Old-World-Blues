@@ -84,7 +84,7 @@
 
 
 
-/turf/simulated/floor/plating/snow/light_forest
+/turf/simulated/floor/plating/snow/generable
 	icon_state = "snow_forest"
 	var/bush_factor = 1 //helper. Dont change or use it please
 
@@ -94,8 +94,8 @@
 //Sorry. Maybe i remake it to good version
 
 //Another long shit. Hell!
-/turf/simulated/floor/plating/snow/light_forest/proc/forest_gen(spawn_chance, trees, tree_chance, bushes, bush_chance, bush_density, stumps, stump_chance, additions)
-	if(!istype(src, /turf/simulated/floor/plating/snow/light_forest))
+/turf/simulated/floor/plating/snow/generable/proc/forest_gen(spawn_chance, trees, tree_chance, bushes, bush_chance, bush_density, stumps, stump_chance, additions)
+	if(!istype(src, /turf/simulated/floor/plating/snow/generable))
 		return
 	if(locate(/obj) in src) //If something here, return
 		return
@@ -140,10 +140,10 @@
 			new to_spawn(src)
 
 
-/turf/simulated/floor/plating/snow/light_forest/proc/bush_gen(var/chance, var/bush) //play with this carefully
+/turf/simulated/floor/plating/snow/generable/proc/bush_gen(var/chance, var/bush) //play with this carefully
 	for(var/dir in alldirs)
-		if(istype(get_step(src, dir), /turf/simulated/floor/plating/snow/light_forest))
-			var/turf/simulated/floor/plating/snow/light_forest/K = get_step(src, dir)
+		if(istype(get_step(src, dir), /turf/simulated/floor/plating/snow/generable))
+			var/turf/simulated/floor/plating/snow/generable/K = get_step(src, dir)
 			if(!(locate(/obj) in K))
 				if(prob(chance/src.bush_factor))
 					K.bush_factor = src.bush_factor + 1

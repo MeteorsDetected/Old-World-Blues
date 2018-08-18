@@ -400,7 +400,7 @@
 	if(..()) // critical exploit prevention, do not remove unless you replace it -walter0o
 		return
 
-	var/datum/topic_input/filter = new /datum/topic_input(href,href_list)
+	var/datum/topic_input/Filter = new /datum/topic_input(href,href_list)
 	if(href_list["category"])
 		var/tcategory = href_list["category"]
 		if(!tcategory || tcategory=="clean")
@@ -433,7 +433,7 @@
 		return update_queue_on_page()
 
 	if(href_list["remove_from_queue"])
-		remove_from_queue(filter.getNum("remove_from_queue"))
+		remove_from_queue(Filter.getNum("remove_from_queue"))
 		return update_queue_on_page()
 
 	if(href_list["partset_to_queue"])
@@ -452,8 +452,8 @@
 		temp = null
 
 	if(href_list["queue_move"] && href_list["index"])
-		var/index = filter.getNum("index")
-		var/new_index = index + filter.getNum("queue_move")
+		var/index = Filter.getNum("index")
+		var/new_index = index + Filter.getNum("queue_move")
 		if(isnum(index) && isnum(new_index))
 			if(InRange(new_index,1,queue.len))
 				queue.Swap(index,new_index)
