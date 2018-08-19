@@ -16,7 +16,8 @@ var/global/datum/controller/occupations/job_master
 	var/initial_players_to_assign = 0
 
 
-	proc/SetupOccupations(var/faction = "Station")
+	//proc/SetupOccupations(var/faction = "Station")
+	proc/SetupOccupations(var/faction = "Colony") //snowy
 		occupations.Cut()
 		occupations_by_name.Cut()
 		var/list/all_jobs = typesof(/datum/job)
@@ -283,12 +284,14 @@ var/global/datum/controller/occupations/job_master
 
 		//People who wants to be assistants, sure, go on.
 		Debug("DO, Running Assistant Check 1")
-		var/datum/job/assist = GetJob("Assistant")
+		//var/datum/job/assist = GetJob("Assistant")
+		var/datum/job/assist = GetJob("Worker") //snowy
 		var/list/assistant_candidates = FindOccupationCandidates(assist, 3)
 		Debug("AC1, Candidates: [assistant_candidates.len]")
 		for(var/mob/new_player/player in assistant_candidates)
 			Debug("AC1 pass, Player: [player]")
-			AssignRole(player, "Assistant")
+			//AssignRole(player, "Assistant")
+			AssignRole(player, "Worker") //snowy
 			assistant_candidates -= player
 		Debug("DO, AC1 end")
 
@@ -362,7 +365,8 @@ var/global/datum/controller/occupations/job_master
 		for(var/mob/new_player/player in unassigned)
 			if(player.client.prefs.alternate_option == BE_ASSISTANT)
 				Debug("AC2 Assistant located, Player: [player]")
-				AssignRole(player, "Assistant")
+				//AssignRole(player, "Assistant")
+				AssignRole(player, "Worker") //snowy
 
 		//For ones returning to lobby
 		for(var/mob/new_player/player in unassigned)

@@ -110,8 +110,10 @@
 			dat += "<br><u><a href='?src=\ref[src];act=random'>\
 				<font color=green>Get random job if preferences unavailable</font></a></u><br>"
 		if(BE_ASSISTANT)
-			dat += "<br><u><a href='?src=\ref[src];act=random'>\
+			//dat += "<br><u><a href='?src=\ref[src];act=random'>\
 				<font color=red>Be assistant if preference unavailable</font></a></u><br>"
+			dat += "<br><u><a href='?src=\ref[src];act=random'>\
+				<font color=red>Be worker if preference unavailable</font></a></u><br>" //snowy
 		if(RETURN_TO_LOBBY)
 			dat += "<br><u><a href='?src=\ref[src];act=random'>\
 				<font color=purple>Return to lobby if preference unavailable</font></a></u><br>"

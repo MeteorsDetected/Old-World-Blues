@@ -399,3 +399,30 @@
 	armor = list(melee = 45, bullet = 10, laser = 3, energy = 3, bomb = 5, bio = 0, rad = 0)
 	cold_protection = LEGS|FEET
 	min_cold_protection_temperature = 35
+
+//captain's stuff
+
+/obj/item/clothing/head/snowycapthat
+	name = "colony captain's hat"
+	icon_state = "snowycap"
+	desc = "Fine looking hat maded special for inspections."
+	item_state = "snowycap"
+
+
+/obj/item/clothing/under/rank/snowycaptain
+	desc = "Clear and ironed uniform of colony captain. Smells like coffee and tobacco."
+	name = "colony captain's jumpsuit"
+	icon_state = "snowy_cap"
+	item_state = "snowy_cap"
+	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	min_cold_protection_temperature = 15
+
+
+/obj/item/clothing/suit/snowycapcoat
+	name = "colony captain's coat"
+	desc = "Warm and comfy fine looking longcoat."
+	icon_state = "snowy_cap_coat"
+	item_state = "snowy_cap_coat"
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	min_cold_protection_temperature = 30
+
