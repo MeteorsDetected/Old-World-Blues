@@ -6,6 +6,8 @@
 	flags_inv = HIDEFACE|BLOCKHAIR
 	body_parts_covered = FACE|HEAD
 	w_class = ITEM_SIZE_SMALL
+	cold_protection = FACE|HEAD
+	min_cold_protection_temperature = T0C-30
 
 /obj/item/clothing/mask/balaclava/tactical
 	name = "green balaclava"

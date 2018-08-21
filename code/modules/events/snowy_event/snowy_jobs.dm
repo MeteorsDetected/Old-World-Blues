@@ -6,11 +6,7 @@
 
 
 //Need to add to him:
-//warm clothes
 //robo version of smartdog?
-//flaregun
-//special discipline stick
-//special hand clock
 //some kind of good revolver
 //special bottle of best stuff
 datum/job/captain/snowy
@@ -25,12 +21,14 @@ datum/job/captain/snowy
 
 	implanted = 0
 	uniform = /obj/item/clothing/under/rank/snowycaptain
-	shoes = /obj/item/clothing/shoes/men_shoes
+	shoes = /obj/item/clothing/shoes/men_shoes/snowy_shoes
 	pda = /obj/item/device/pda
 	hat = /obj/item/clothing/head/snowycapthat
 	ear = /obj/item/device/radio/headset/heads/captain
 	glasses = null
-	suit = /obj/item/clothing/suit/snowycapcoat
+	suit = /obj/item/clothing/suit/storage/snowycapcoat
+	gloves = /obj/item/clothing/gloves/brown/warm
+	hand = /obj/item/weapon/melee/discipstick
 
 	backpack  = /obj/item/storage/backpack/captain
 	satchel_j = /obj/item/storage/backpack/satchel/cap
@@ -38,14 +36,14 @@ datum/job/captain/snowy
 
 	put_in_backpack = list(
 		/obj/item/device/radio,
-		/obj/item/storage/box/ids \
+		/obj/item/storage/box/ids,
+		/obj/item/ammo_casing/sflare/red,
+		/obj/item/weapon/gun/projectile/flaregun
 		)
+	adv_survival_gear = 0
 
 //Need to add to him:
 //warm clothes
-//hand clock
-//flaregun
-//special discipline stick
 //a big knife. A REAL BIG KNIFE
 /datum/job/hop/chief_mate
 	title = "Chief Mate"
@@ -53,7 +51,7 @@ datum/job/captain/snowy
 	supervisors = "the colony captain and common sense"
 	selection_color = "#ddddff"
 	idtype = /obj/item/weapon/card/id/silver
-	alt_titles = list()
+	alt_titles = null
 	minimal_player_age = 10
 	economic_modifier = 10
 
@@ -62,15 +60,21 @@ datum/job/captain/snowy
 
 	implanted = 0
 	uniform = /obj/item/clothing/under/rank/warden/dnavy
-	shoes = /obj/item/clothing/shoes/men_shoes
+	shoes = /obj/item/clothing/shoes/men_shoes/snowy_shoes
 	pda = /obj/item/device/pda
 	ear = /obj/item/device/radio/headset
+	suit = /obj/item/clothing/suit/storage/snowycm
+	gloves = /obj/item/clothing/gloves/brown/warm
+	hand = /obj/item/weapon/melee/discipstick
 
 
 	put_in_backpack = list(
 		/obj/item/device/radio,
-		/obj/item/storage/box/ids
+		/obj/item/storage/box/ids,
+		/obj/item/ammo_casing/sflare/red,
+		/obj/item/weapon/gun/projectile/flaregun
 	)
+	adv_survival_gear = 0
 
 //Need to add to him:
 //warm clothes
@@ -87,16 +91,18 @@ datum/job/captain/snowy
 	)
 
 	uniform = /obj/item/clothing/under/assistantformal
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/men_shoes/snowy_shoes
 	pda = /obj/item/device/pda
-	gloves = /obj/item/clothing/gloves/black
+	gloves = /obj/item/clothing/gloves/brown/warm
 	ear = /obj/item/device/radio/headset
 	hand = /obj/item/weapon/clipboard
 	glasses = null
+	hat = /obj/item/clothing/head/winterhat
 
 	put_in_backpack = list(
 		/obj/item/device/radio
 	)
+	adv_survival_gear = 0
 
 
 //Need to add to him:
@@ -109,16 +115,17 @@ datum/job/captain/snowy
 	selection_color = "#ffeeaa"
 
 	uniform = /obj/item/clothing/under/rank/chief_engineer
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/workboots/warm
 	pda = /obj/item/device/pda
 	hat = /obj/item/clothing/head/hardhat/white
-	gloves = /obj/item/clothing/gloves/black
+	gloves = /obj/item/clothing/gloves/brown/warm
 	belt = /obj/item/storage/belt/utility/full
 	ear = /obj/item/device/radio/headset
 
 	put_in_backpack = list(
 		/obj/item/device/radio
 	)
+	adv_survival_gear = 0
 
 
 //Need to add to him:
@@ -133,13 +140,14 @@ datum/job/captain/snowy
 	uniform = /obj/item/clothing/under/rank/research_director
 	pda = /obj/item/device/pda
 	ear = /obj/item/device/radio/headset
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/men_shoes/snowy_shoes
 	suit = /obj/item/clothing/suit/storage/toggle/labcoat
 	hand = /obj/item/weapon/clipboard
 
 	put_in_backpack = list(
 		/obj/item/device/radio
 	)
+	adv_survival_gear = 0
 
 
 //Need to add to him:
@@ -161,7 +169,7 @@ datum/job/captain/snowy
 	ideal_character_age = 38
 
 	uniform = /obj/item/clothing/under/pants/sweaterj
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/men_shoes/snowy_shoes
 	pda = /obj/item/device/pda/heads/cmo
 	suit = /obj/item/clothing/suit/storage/toggle/labcoat
 	suit_store = /obj/item/device/flashlight/pen
@@ -171,6 +179,7 @@ datum/job/captain/snowy
 	put_in_backpack = list(
 		/obj/item/device/radio
 	)
+	adv_survival_gear = 0
 
 
 //Need to add to him:
@@ -183,16 +192,19 @@ datum/job/captain/snowy
 	selection_color = "#dddddd"
 	economic_modifier = 1
 	minimal_access = list(access_maint_tunnels)
-	alt_titles = list()
+	alt_titles = null
 
 	uniform = /obj/item/clothing/under/serviceoveralls
 	pda = /obj/item/device/pda
 	ear = null
-	shoes = /obj/item/clothing/shoes/workboots
+	shoes = /obj/item/clothing/shoes/workboots/warm
+	gloves = /obj/item/clothing/gloves/brown/warm
+	hat = /obj/item/clothing/head/winterhat
 
 	put_in_backpack = list(
 		/obj/item/device/radio
 	)
+	adv_survival_gear = 0
 
 
 //Need to add to him:
@@ -203,10 +215,10 @@ datum/job/captain/snowy
 	supervisors = "the colony captain, chief mate and quartermaster"
 	selection_color = "#dddddd"
 	minimal_access = list(access_kitchen, access_bar, access_hydroponics, access_maint_tunnels)
-	alt_titles = list()
+	alt_titles = null
 
 	uniform = /obj/item/clothing/under/rank/chef
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/men_shoes/snowy_shoes
 	pda = /obj/item/device/pda/chef
 	hat = /obj/item/clothing/head/chefhat
 	suit = /obj/item/clothing/suit/chef
@@ -215,6 +227,7 @@ datum/job/captain/snowy
 	put_in_backpack = list(
 		/obj/item/device/radio
 	)
+	adv_survival_gear = 0
 
 
 //Need to add to him:
@@ -232,10 +245,10 @@ datum/job/captain/snowy
 		access_eva, access_engine, access_engine_equip, access_tech_storage,
 		access_maint_tunnels, access_external_airlocks, access_construction
 	)
-	alt_titles = list()
+	alt_titles = null
 
 	uniform = /obj/item/clothing/under/rank/engineer
-	shoes = /obj/item/clothing/shoes/workboots
+	shoes = /obj/item/clothing/shoes/workboots/warm
 	pda = /obj/item/device/pda
 	hat = /obj/item/clothing/head/hardhat
 	belt = /obj/item/storage/belt/utility/full
@@ -245,6 +258,7 @@ datum/job/captain/snowy
 		/obj/item/device/radio,
 		/obj/item/device/t_scanner
 	)
+	adv_survival_gear = 0
 
 
 //Need to add to him:
@@ -258,10 +272,11 @@ datum/job/captain/snowy
 	economic_modifier = 7
 	addcional_access = list(access_robotics, access_xenobiology)
 	minimal_access = list(access_tox, access_tox_storage, access_research, access_xenoarch)
-	alt_titles = list()
+	alt_titles = null
 
 	minimal_player_age = 14
 
+	shoes = /obj/item/clothing/shoes/men_shoes/snowy_shoes
 	suit = /obj/item/clothing/suit/storage/toggle/labcoat
 	uniform = /obj/item/clothing/under/rank/scientist
 	pda = /obj/item/device/pda
@@ -270,22 +285,17 @@ datum/job/captain/snowy
 	put_in_backpack = list(
 		/obj/item/device/radio
 	)
+	adv_survival_gear = 0
 
 
 //Need to add to him:
-//flaregun
-//nice warm coat
-//old gun Krauzer-801
-//folding hatchet
-//balaclava
-//some warm clothes
 //special zippo lighter
 /datum/job/security/officer/jaeger
 	title = "Jaeger"
 	flag = OFFICER
 	faction = "Colony"
 	supervisors = "the colony captain and chief mate"
-	alt_titles = list()
+	alt_titles = null
 	addcional_access = list(access_morgue)
 	minimal_access = list(
 		access_security, access_eva, access_sec_doors, access_brig, access_court, access_maint_tunnels,
@@ -298,10 +308,30 @@ datum/job/captain/snowy
 	minimum_character_age = 20
 	uniform = /obj/item/clothing/under/rank/tactical
 	pda = /obj/item/device/pda
-	shoes = /obj/item/clothing/shoes/workboots
-	gloves = /obj/item/clothing/gloves/black
+	shoes = /obj/item/clothing/shoes/men_shoes/snowy_shoes
+	gloves = /obj/item/clothing/gloves/brown/warm
 	ear = null
+	suit = /obj/item/clothing/suit/storage/jaegercoat
+	belt = /obj/item/storage/belt/beltbags
 
-	put_in_backpack = list(
-		/obj/item/device/radio
-	)
+	backpack = /obj/item/weapon/gun/projectile/heavysniper/krauzer
+	satchel   = /obj/item/weapon/gun/projectile/heavysniper/krauzer
+	satchel_j = /obj/item/weapon/gun/projectile/heavysniper/krauzer
+	dufflebag = /obj/item/weapon/gun/projectile/heavysniper/krauzer
+	messenger = /obj/item/weapon/gun/projectile/heavysniper/krauzer
+
+	put_in_backpack = list()
+	adv_survival_gear = 0
+
+	equip(var/mob/living/carbon/human/H)
+		..()
+		var/obj/item/storage/belt/beltbags/B = locate() in H //yeah, that's rude
+		if(B)
+			new /obj/item/device/radio(B)
+			new /obj/item/weapon/gun/projectile/flaregun(B)
+			new /obj/item/weapon/material/hatchet/folding(B)
+			new /obj/item/ammo_casing/sflare/red(B)
+			new /obj/item/ammo_casing/sflare/blue(B)
+			new /obj/item/ammo_casing/sflare/blue(B)
+			new /obj/item/ammo_magazine/cs762(B)
+			new /obj/item/clothing/mask/balaclava/tactical(B)

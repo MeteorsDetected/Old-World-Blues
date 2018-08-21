@@ -76,6 +76,7 @@
 							/obj/item/weapon/material/sword = 4,
 							/obj/item/weapon/melee/energy/axe = 15,
 							/obj/item/weapon/melee/energy/sword = 10,
+							/obj/item/weapon/material/hatchet/folding = 6
 							)
 
 	New()

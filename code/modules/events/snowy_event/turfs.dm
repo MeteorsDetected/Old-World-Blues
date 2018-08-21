@@ -159,7 +159,7 @@
 
 	New()
 		..()
-		spawn(10)
+		spawn(4)
 			if(src)
 				update_icon()
 				for(var/direction in list(1,2,4,8,5,6,9,10))
@@ -201,6 +201,8 @@
 
 
 /turf/simulated/floor/plating/chasm/proc/eat(atom/movable/M as mob|obj)
+	if(istype(M, /obj/item/projectile))
+		return
 	var/obj/structure/bridge/Bridge = locate() in src
 	if(Bridge && Bridge.planks >= 5)
 		Bridge.stepped(M)

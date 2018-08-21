@@ -119,7 +119,7 @@ obj/item/clothing/head/welding/blue
 	item_state = "ushankadown"
 	flags_inv = HIDEEARS
 	cold_protection = HEAD
-	min_cold_protection_temperature = 40
+	min_cold_protection_temperature = T0C-40
 
 /obj/item/clothing/head/ushanka/attack_self(mob/user as mob)
 	if(src.icon_state == "ushankadown")

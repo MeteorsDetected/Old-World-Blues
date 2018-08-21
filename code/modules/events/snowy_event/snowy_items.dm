@@ -352,6 +352,315 @@
 
 
 
+//folding hatchet
+/obj/item/weapon/material/hatchet/folding
+	name = "folding hatchet"
+	desc = "Useful tool that jaegers uses in patrols. When needed this can be transformed into hatchet in one move. Somebody use him as shovel."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "folding_hatchet-closed"
+	var/opened_icon = "folding_hatchet-opened"
+	var/closed = 1
+	w_class = ITEM_SIZE_SMALL
+	force = 5
+	throwforce = 5
+	sharp = 0
+	edge = 0
+
+/obj/item/weapon/material/hatchet/folding/proc/use(mob/user)
+	if(closed)
+		closed = !closed
+		icon_state = opened_icon
+		sharp = 1
+		edge = 1
+		force = 30
+		throwforce = 15
+		w_class = ITEM_SIZE_LARGE
+	else
+		icon_state = initial(icon_state)
+		closed = !closed
+		sharp = 0
+		edge = 0
+		force = initial(force)
+		throwforce = initial(throwforce)
+		w_class = initial(w_class)
+
+
+/obj/item/weapon/material/hatchet/folding/attack_self(mob/living/user as mob)
+	use()
+
+//stick
+//discipline stuff
+/obj/item/weapon/melee/discipstick
+	name = "disciplinary whipstick"
+	desc = "When somebody did not respect your laws and orders. You reinforce your authority with this."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "whipstick"
+	item_state = "baton"
+	w_class = ITEM_SIZE_SMALL
+
+/obj/item/weapon/melee/discipstick/attack(var/mob/living/carbon/C, var/mob/living/user)
+	C.attack_generic(user, rand(2, 5), "whips the")
+	playsound(src.loc, 'sound/effects/snap.ogg', 60, rand(-70, 70))
+	var/pain_word = pick("OUCH!", "FSSS!", "UUGH!")
+	C << "\red <big> [pain_word] </big>"
+	shake_camera(C, 3, 1)
+
+
+
+
+//a few guns
+
+/obj/item/weapon/gun/projectile/heavysniper/krauzer
+	name = "krauzer 801"
+	desc = "An old but powerful krauzer rifle. Even your grandpa remembers this one. If he works at the museum. Have a small chance of jam."
+	icon_state = "krauzer"
+	item_state = "krauzer"
+	origin_tech = list(TECH_COMBAT = 6, TECH_MATERIAL = 3)
+	max_shells = 5
+	caliber = "a762"
+	ammo_type = /obj/item/ammo_casing/a762
+
+	var/jammed = 0
+	var/jam_chance = 5
+
+
+
+/obj/item/weapon/gun/projectile/heavysniper/krauzer/update_icon()
+	overlays.Cut()
+	if(bolt_open)
+		overlays += "krauzer-openedbolt"
+	else
+		overlays += "krauzer-closedbolt"
+
+
+/obj/item/weapon/gun/projectile/heavysniper/krauzer/special_check(mob/user)
+	if(loaded.len)
+		if(prob(jam_chance))
+			jammed = 1
+		if(jammed)
+			user.visible_message("*click click*", "<span class='danger'>*click*</span>")
+			playsound(src.loc, 'sound/weapons/empty.ogg', 100, 1)
+			user << "\red<big><b>[name]</b> is jammed!</big>"
+			return 0
+	return ..()
+
+
+/obj/item/weapon/gun/projectile/heavysniper/krauzer/attack_self(mob/user as mob)
+	if(user.a_intent == I_GRAB)
+		if(jammed)
+			user << SPAN_WARN("You need to remove the jam first!")
+			return
+		else
+			unload_ammo(user)
+	if(jammed)
+		playsound(src.loc, 'sound/weapons/flipblade.ogg', 50, 1)
+		bolt_open = !bolt_open
+		if(prob(50))
+			jammed = 0
+			user << SPAN_NOTE("GOT IT!")
+		else
+			user << SPAN_WARN("You moves the bolt in attempt to remove the jam.")
+		return
+	else
+		..(user)
+
+/obj/item/weapon/gun/projectile/heavysniper/krauzer/scope()
+	set hidden = 1
+
+
+/obj/item/ammo_magazine/cs762
+	name = "speedloader (.762)"
+	desc = "A speedloader for .762 guns. Like old krauzer."
+	icon_state = "145mm"
+	caliber = "a762"
+	matter = list(MATERIAL_STEEL = 360)
+	ammo_type = /obj/item/ammo_casing/a762
+	max_ammo = 5
+	multiple_sprites = 1
+
+//flaregun
+/obj/item/weapon/gun/projectile/flaregun
+	name = "flaregun"
+	desc = "Polar flaregun. The red barrel of it means that's emergency item. So use this at EMERGENCY situations."
+	max_shells = 1
+	ammo_type = /obj/item/ammo_casing/sflare
+	load_method = 1 //singe casing
+	handle_casings = 0 //hold casing
+	icon_state = "flaregun"
+	caliber = "flare"
+	origin_tech = list(TECH_COMBAT = 2, TECH_MATERIAL = 2)
+	fire_sound = 'sound/weapons/spiderlunge.ogg'
+	var/barrel_opened = 0
+
+	New()
+		..()
+		loaded = list() //spawns empty
+		update_icon()
+
+
+/obj/item/weapon/gun/projectile/flaregun/update_icon()
+	overlays.Cut()
+	if(barrel_opened)
+		icon_state = "flaregun_opened"
+		var/O
+		if(loaded.len && !chambered)
+			O = "flaregun-flare"
+		else if(loaded.len && chambered)
+			O = "flaregun-flareshotted"
+		if(O)
+			var/obj/item/ammo_casing/sflare/SF = loaded[1]
+			if(SF.flare_color)
+				var/icon/I = new(icon, O)
+				I.Blend(rgb(SF.flare_color["r"], SF.flare_color["g"], SF.flare_color["b"]), ICON_ADD)
+				overlays += I
+			else
+				overlays += O
+	else
+		icon_state = "flaregun"
+
+
+
+
+/obj/item/weapon/gun/projectile/flaregun/attack_self(mob/user as mob)
+	if(!barrel_opened && loaded.len && loaded[1].BB)
+		if(user.a_intent == I_DISARM)
+			user.visible_message("\red <b>[user.name]</b> sublimely rises hand with [src] upward and shot!")
+			playsound(user.loc, fire_sound, 50, 1)
+			if(istype(get_area(user), /area/outdoor))
+				var/turf/P = get_turf(user)
+				var/obj/item/ammo_casing/sflare/SF = loaded[1]
+				spawn(30)
+					playsound(P, 'sound/effects/meteorimpact.ogg', 40, 1)
+					P.visible_message("<big>\blue Bright [SF.display_color] flash has illuminate the sky.</big>")
+					for(var/mob/living/L in range(50, P))
+						if(L in view(P) || L == user)
+							continue
+						if(istype(get_area(L), /area/outdoor))
+							var/d = get_dir(L, P)
+							user << "\blue <big> You see the [SF.display_color] flare at [dir2text(d)] from your current position! <big>"
+							user << playsound(src.loc, 'sound/effects/explosionfar.ogg', 30, 1)
+				spawn(120)
+					dropFlare(P)
+			else
+				playsound(user.loc, 'sound/effects/meteorimpact.ogg', 60, 1)
+				for(var/mob/living/carbon/M in viewers(user.loc, 3))
+					if(M.eyecheck() < 1)
+						flick("e_flash", M.flash)
+						if(M == user)
+							M.Stun(2)
+							M.Weaken(10)
+					dropFlare(user.loc)
+
+
+			consume_next_projectile()
+			if(chambered)
+				chambered.expend()
+				process_chambered()
+	playsound(src.loc, 'sound/weapons/flipblade.ogg', 50, 1)
+	barrel_opened = !barrel_opened
+	add_fingerprint(user)
+	update_icon()
+
+
+/obj/item/weapon/gun/projectile/flaregun/proc/dropFlare(var/turf/T)
+	var/obj/item/device/flashlight/flare/F = new /obj/item/device/flashlight/flare(T)
+	F.on = !F.on
+	F.force = F.on_damage
+	F.damtype = "fire"
+	processing_objects += F
+	F.update_icon()
+
+
+/obj/item/weapon/gun/projectile/flaregun/special_check(mob/user)
+	if(barrel_opened)
+		user << "<span class='warning'>You can't fire [src] while barrel is open!</span>"
+		return 0
+	return ..()
+
+
+/obj/item/weapon/gun/projectile/flaregun/unload_ammo(mob/user, var/allow_dump = 0)
+	if(barrel_opened)
+		..()
+		update_icon()
+	else
+		user << SPAN_WARN("You need to open barrel first!")
+
+
+/obj/item/weapon/gun/projectile/flaregun/load_ammo(var/obj/item/A, mob/user)
+	if(!barrel_opened)
+		return
+	..()
+	update_icon()
+
+
+//flares
+
+/obj/item/ammo_casing/sflare
+	desc = "A round signal flare."
+	caliber = "flare"
+	projectile_type = /obj/item/projectile/energy/sflare
+	icon_state = "flare"
+	spent_icon = "flare_shotted"
+	var/display_color = "white"
+	var/flare_color
+
+	New()
+		..()
+		update_icon()
+
+
+/obj/item/ammo_casing/sflare/update_icon()
+	icon = initial(icon)
+	if(!BB)
+		icon_state = spent_icon
+	if(flare_color)
+		icon += rgb(flare_color["r"], flare_color["g"], flare_color["b"])
+
+
+/obj/item/ammo_casing/sflare/red
+	desc = "A round red signal flare."
+	display_color = "red"
+	flare_color = list("r" = 40, "g" = 0, "b" = 0)
+
+/obj/item/ammo_casing/sflare/green
+	desc = "A round green signal flare."
+	display_color = "green"
+	flare_color = list("r" = 0, "g" = 40, "b" = 0)
+
+/obj/item/ammo_casing/sflare/blue
+	desc = "A round blue signal flare."
+	display_color = "blue"
+	flare_color = list("r" = 0, "g" = 0, "b" = 40)
+
+
+/obj/item/projectile/energy/sflare
+	name ="signal flare"
+	icon_state= "bolter"
+	damage = 5 //chponk. Shot is almost harmless
+	check_armour = "bullet"
+	penetrating = 0
+
+	on_impact(var/atom/A)
+		var/turf/T = get_turf(A)
+		if(!istype(T)) return
+
+		if(istype(A, /mob/living))
+			var/mob/living/L = A
+			L.Stun(2)
+			L.Weaken(10)
+
+		for(var/mob/living/carbon/M in viewers(T, 3))
+			if(M.eyecheck() < 1)
+				flick("e_flash", M.flash)
+
+		playsound(src.loc, 'sound/effects/meteorimpact.ogg', 50, 1)
+		var/obj/item/device/flashlight/flare/F = new /obj/item/device/flashlight/flare(src.loc)
+		F.on = !F.on
+		F.force = F.on_damage
+		F.damtype = "fire"
+		processing_objects += F
+		F.update_icon()
+
 //some clothes
 
 /obj/item/clothing/head/deerhat
@@ -362,7 +671,7 @@
 	w_class = ITEM_SIZE_NORMAL
 	body_parts_covered = HEAD|FACE
 	cold_protection = HEAD|FACE
-	min_cold_protection_temperature = 35
+	min_cold_protection_temperature = T0C-35
 
 /obj/item/clothing/mask/wolfmask
 	name = "wolf mask"
@@ -372,7 +681,7 @@
 	flags_inv = HIDEFACE|BLOCKHAIR
 	body_parts_covered = HEAD|FACE
 	cold_protection = HEAD|FACE
-	min_cold_protection_temperature = 35
+	min_cold_protection_temperature = T0C-35
 
 /obj/item/clothing/suit/storage/furcape
 	name = "fur cloak"
@@ -382,7 +691,7 @@
 	armor = list(melee = 30, bullet = 15, laser = 5, energy = 5, bomb = 15, bio = 0, rad = 0)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|HANDS|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|HANDS|ARMS
-	min_cold_protection_temperature = 55
+	min_cold_protection_temperature = T0C-55
 
 /obj/item/storage/belt/wildpouch
 	name = "wild pouch"
@@ -398,7 +707,24 @@
 	force = 3
 	armor = list(melee = 45, bullet = 10, laser = 3, energy = 3, bomb = 5, bio = 0, rad = 0)
 	cold_protection = LEGS|FEET
-	min_cold_protection_temperature = 35
+	min_cold_protection_temperature = T0C-35
+
+
+
+/obj/item/clothing/shoes/men_shoes/snowy_shoes
+	name = "winter boots"
+	desc = "Warm but heavyweight winter boots."
+	cold_protection = LEGS|FEET
+	min_cold_protection_temperature = T0C-30
+
+/obj/item/clothing/shoes/workboots/warm
+	cold_protection = LEGS|FEET
+	min_cold_protection_temperature = T0C-30
+
+/obj/item/clothing/gloves/brown/warm
+	name = "warm brown gloves"
+	cold_protection = HANDS
+	min_cold_protection_temperature = T0C-30
 
 //captain's stuff
 
@@ -415,14 +741,58 @@
 	icon_state = "snowy_cap"
 	item_state = "snowy_cap"
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	min_cold_protection_temperature = 15
+	min_cold_protection_temperature = T0C-15
 
 
-/obj/item/clothing/suit/snowycapcoat
+/obj/item/clothing/suit/storage/snowycapcoat
 	name = "colony captain's coat"
 	desc = "Warm and comfy fine looking longcoat."
 	icon_state = "snowy_cap_coat"
 	item_state = "snowy_cap_coat"
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
-	min_cold_protection_temperature = 30
+	min_cold_protection_temperature = T0C-30
 
+
+//chief mate
+/obj/item/clothing/suit/storage/snowycm
+	name = "chief mate's coat"
+	desc = "Warm and comfy fine looking longcoat."
+	icon_state = "snowy_cap_coat"
+	item_state = "snowy_cm_coat"
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	min_cold_protection_temperature = T0C-30
+
+
+//jaeger's stuff
+
+/obj/item/storage/belt/beltbags
+	name = "beltbags"
+	desc = "Many bags at the belt. Hold much more than other belts. Jaegers use this as alternative to backpacks. "
+	icon_state = "beltbags"
+	storage_slots = 16
+	max_storage_space = DEFAULT_BACKPACK_STORAGE
+	max_w_class = ITEM_SIZE_NORMAL
+	slot_flags = SLOT_BELT
+	attack_verb = list("whipped", "lashed", "disciplined")
+
+
+/obj/item/clothing/suit/storage/jaegercoat
+	name = "jaeger's coat"
+	desc = "Thi coat guaranteed almost perfect protect from cold."
+	icon_state = "jaeger_coat"
+	item_state = "jaeger_coat"
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	min_cold_protection_temperature = T0C-35
+
+
+//worker stuff
+
+/obj/item/clothing/head/winterhat
+	name = "worker hat"
+	desc = "Black winter hat. Workers use this when they work."
+	icon_state = "winterhat"
+	item_state = "winterhat"
+	w_class = ITEM_SIZE_NORMAL
+	body_parts_covered = HEAD
+	cold_protection = HEAD
+	min_cold_protection_temperature = T0C-30

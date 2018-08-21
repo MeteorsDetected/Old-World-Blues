@@ -601,7 +601,7 @@ var/list/name_to_material
 	name = MATERIAL_WOOD
 	icon_state = "sheet-wood"
 	icon_colour = "#8B471D"
-	integrity = 25
+	integrity = 180
 	icon_base = "solid"
 	icon_reinf = "reinf_wood"
 	explosion_resistance = 2

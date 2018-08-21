@@ -216,10 +216,11 @@
 	if(J && J.adv_survival_gear)
 		gear = /obj/item/storage/box/engineer
 
-	if(H.back && istype(H.back,/obj/item/storage))
-		H.equip_to_slot_or_del(new gear(H.back), slot_in_backpack)
-	else
-		H.equip_to_slot_or_del(new gear(H), slot_r_hand)
+	if(J.adv_survival_gear) //snowy. Later just remove this check
+		if(H.back && istype(H.back,/obj/item/storage))
+			H.equip_to_slot_or_del(new gear(H.back), slot_in_backpack)
+		else
+			H.equip_to_slot_or_del(new gear(H), slot_r_hand)
 
 /datum/species/proc/hug(var/mob/living/carbon/human/H,var/mob/living/target)
 
