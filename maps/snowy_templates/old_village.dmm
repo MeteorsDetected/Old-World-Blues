@@ -42,6 +42,7 @@
 "P" = (/obj/structure/table/rack,/obj/random/tech_supply,/turf/simulated/floor/wood{tag = "icon-wood-broken"; icon_state = "wood-broken"},/area/outdoor)
 "Q" = (/obj/structure/table/rack,/obj/random/tech_supply,/turf/simulated/floor/wood{tag = "icon-wood-broken2"; icon_state = "wood-broken2"},/area/outdoor)
 "R" = (/obj/structure/barricade,/turf/simulated/floor/wood,/area/outdoor)
+"S" = (/obj/effect/landmark/start{name = "Dweller"},/turf/simulated/floor/wood,/area/outdoor)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaa
@@ -64,7 +65,7 @@ aeDibebeeeaaaeEbbbey
 aebbbebnEeaaaqbfbbea
 acbbbbbbbpaaaeeebeea
 abebbeeeeeaaaelbdbsa
-aaaaaaaaaaaaacbbbbca
+aaaaaaaaaaaaacbbSbca
 aaaaaaaaaaaaacfbblea
 abbbeeeeeaaaaeebbbea
 abblFebieaaaaaayyyya

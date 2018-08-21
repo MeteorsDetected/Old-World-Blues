@@ -746,10 +746,11 @@
 	Target = null
 
 /mob/living/simple_animal/smartdog/proc/cmd_setMaster(var/mob/living/M as mob)
-	bark()
-	Master = M
-	M.Pet = src
-	Master << SPAN_NOTE(sanitize("Теперь у меня есть любимец - [name]!"))
+	if(!Master)
+		bark()
+		Master = M
+		M.Pet = src
+		Master << SPAN_NOTE(sanitize("Теперь у меня есть любимец - [name]!"))
 
 /mob/living/simple_animal/smartdog/proc/cmd_to_me()
 	if(Master && !(src in range(1, Master)))

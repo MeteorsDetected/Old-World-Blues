@@ -388,8 +388,8 @@
 /obj/item/weapon/material/hatchet/folding/attack_self(mob/living/user as mob)
 	use()
 
-//stick
 //discipline stuff
+
 /obj/item/weapon/melee/discipstick
 	name = "disciplinary whipstick"
 	desc = "When somebody did not respect your laws and orders. You reinforce your authority with this."
@@ -405,6 +405,62 @@
 	C << "\red <big> [pain_word] </big>"
 	shake_camera(C, 3, 1)
 
+
+//tool-multitool
+//Well, all attackby uses path at istype so here we have no choice yet
+
+//there are crowbar, wrench and wirecutters by price of one item. Compact. Useful. Conveniently.
+///obj/item/weapon/crowbar
+///obj/item/weapon/wrench
+///obj/item/weapon/wirecutters
+
+/obj/item/weapon/crowbar/multi
+	name = "multitool-crowbar"
+	desc = "Compact and useful multitool. There are crowbar, wrench and wirecutters."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "multi-crowbar"
+
+/obj/item/weapon/wrench/multi
+	name = "multitool-wrench"
+	desc = "Compact and useful multitool. There are crowbar, wrench and wirecutters."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "multi-wrench"
+
+/obj/item/weapon/wirecutters/multi
+	name = "multitool-wirecutters"
+	desc = "Compact and useful multitool. There are crowbar, wrench and wirecutters."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "multi-wirecutters"
+
+
+/obj/item/weapon/crowbar/multi/attack_self(mob/living/carbon/user as mob)
+	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
+	user.drop_from_inventory(src)
+	var/obj/item/weapon/wirecutters/multi/W = new /obj/item/weapon/wirecutters/multi
+	user.put_in_active_hand(W)
+	W.icon_state = "multi-wirecutters" //there are some kind of bug. Hmm
+	user << SPAN_NOTE("You change the [src.name] to [W.name].")
+	playsound(src.loc, 'sound/weapons/flipblade.ogg', 70, 1) //multitool is loud
+	qdel(src)
+
+/obj/item/weapon/wirecutters/multi/attack_self(mob/living/carbon/user as mob)
+	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
+	user.drop_from_inventory(src)
+	var/obj/item/weapon/wrench/multi/W = new /obj/item/weapon/wrench/multi
+	user.put_in_active_hand(W)
+	user << SPAN_NOTE("You change the [src.name] to [W.name].")
+	playsound(src.loc, 'sound/weapons/flipblade.ogg', 70, 1)
+	qdel(src)
+
+
+/obj/item/weapon/wrench/multi/attack_self(mob/living/carbon/user as mob)
+	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
+	user.drop_from_inventory(src)
+	var/obj/item/weapon/crowbar/multi/C = new /obj/item/weapon/crowbar/multi
+	user.put_in_active_hand(C)
+	user << SPAN_NOTE("You change the [src.name] to [C.name].")
+	playsound(src.loc, 'sound/weapons/flipblade.ogg', 70, 1)
+	qdel(src)
 
 
 
@@ -535,10 +591,10 @@
 					for(var/mob/living/L in range(50, P))
 						if(L in view(P) || L == user)
 							continue
-						if(istype(get_area(L), /area/outdoor))
-							var/d = get_dir(L, P)
-							user << "\blue <big> You see the [SF.display_color] flare at [dir2text(d)] from your current position! <big>"
-							user << playsound(src.loc, 'sound/effects/explosionfar.ogg', 30, 1)
+						//if(istype(get_area(L), /area/outdoor)) //well, i think without this will be better
+						var/d = get_dir(L, P)
+						user << "\blue <big> You see the [SF.display_color] flare at [dir2text(d)] from your current position! <big>"
+						user << playsound(src.loc, 'sound/effects/explosionfar.ogg', 30, 1)
 				spawn(120)
 					dropFlare(P)
 			else
@@ -710,7 +766,6 @@
 	min_cold_protection_temperature = T0C-35
 
 
-
 /obj/item/clothing/shoes/men_shoes/snowy_shoes
 	name = "winter boots"
 	desc = "Warm but heavyweight winter boots."
@@ -724,6 +779,23 @@
 /obj/item/clothing/gloves/brown/warm
 	name = "warm brown gloves"
 	cold_protection = HANDS
+	min_cold_protection_temperature = T0C-30
+
+
+/obj/item/clothing/suit/storage/toggleable_hood/wintercoat
+	name = "winter coat"
+	desc = "Warm winter coat. With all of that fur neck around you don't need any scarfs."
+	icon_state = "wintercoat"
+	item_state = "wintercoat"
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	min_cold_protection_temperature = T0C-30
+	hood_type = /obj/item/clothing/head/toggleable_hood/wintercoathood
+
+
+/obj/item/clothing/head/toggleable_hood/wintercoathood
+	name = "winter coat's hood"
+	icon_state = "wintercoathood"
+	cold_protection = HEAD|FACE
 	min_cold_protection_temperature = T0C-30
 
 //captain's stuff
@@ -776,13 +848,20 @@
 	attack_verb = list("whipped", "lashed", "disciplined")
 
 
-/obj/item/clothing/suit/storage/jaegercoat
+/obj/item/clothing/suit/storage/toggleable_hood/jaegercoat
 	name = "jaeger's coat"
 	desc = "Thi coat guaranteed almost perfect protect from cold."
 	icon_state = "jaeger_coat"
 	item_state = "jaeger_coat"
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	min_cold_protection_temperature = T0C-35
+	hood_type = /obj/item/clothing/head/toggleable_hood/jaeger_coat_hood
+
+/obj/item/clothing/head/toggleable_hood/jaeger_coat_hood
+	name = "jaeger hood"
+	icon_state = "jaegerhood"
+	cold_protection = HEAD
+	min_cold_protection_temperature = T0C-30
 
 
 //worker stuff
