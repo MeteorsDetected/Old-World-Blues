@@ -13,7 +13,7 @@
 
 /obj/machinery/space_heater/New()
 	..()
-	cell = new(src)
+	cell = new /obj/item/weapon/cell/device(src) //let's make this more durable
 	update_icon()
 
 /obj/machinery/space_heater/update_icon()

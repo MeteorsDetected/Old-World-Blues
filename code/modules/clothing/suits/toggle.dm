@@ -60,7 +60,7 @@
 	icon_state = "bomber"
 	body_parts_covered = UPPER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|ARMS
-	min_cold_protection_temperature = T0C - 20
+	min_cold_protection_temperature = T0C - 30
 	siemens_coefficient = 0.7
 
 /obj/item/clothing/suit/storage/toggle/bomber/niels
@@ -125,7 +125,7 @@
 	desc = "A warm, grey sweatshirt."
 	icon_state = "grey_hoodie"
 	item_state = "grey_hoodie"
-	min_cold_protection_temperature = T0C - 20
+	min_cold_protection_temperature = T0C - 30
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/suit/storage/toggle/hoodie/black

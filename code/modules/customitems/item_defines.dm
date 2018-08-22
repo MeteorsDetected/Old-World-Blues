@@ -217,4 +217,4 @@
 	icon_state = "leatherboots"
 
 	cold_protection = FEET
-	min_cold_protection_temperature = SHOE_MIN_COLD_PROTECTION_TEMPERATURE
+	min_cold_protection_temperature = T0C - 30

@@ -233,6 +233,8 @@
 	allowed = list( /obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,\
 					/obj/item/weapon/gun/projectile,/obj/item/ammo_magazine,/obj/item/ammo_casing,\
 					/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs)
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	min_cold_protection_temperature = T0C-35
 
 /obj/item/clothing/suit/storage/militaryjacket
 	name = "military jacket"
@@ -344,7 +346,7 @@
 	icon_state = "orange_bomber"
 	body_parts_covered = UPPER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|ARMS
-	min_cold_protection_temperature = T0C - 20
+	min_cold_protection_temperature = T0C - 30
 	siemens_coefficient = 0.7
 
 /obj/item/clothing/suit/storage/native

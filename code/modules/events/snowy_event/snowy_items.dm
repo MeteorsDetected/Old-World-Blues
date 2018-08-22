@@ -797,6 +797,7 @@
 	icon_state = "wintercoathood"
 	cold_protection = HEAD|FACE
 	min_cold_protection_temperature = T0C-30
+	flags_inv = HIDEFACE|BLOCKHAIR
 
 //captain's stuff
 

@@ -772,6 +772,7 @@
 
 /obj/machinery/vending/snack/wallmounted
 	icon_state = "snack_wall"
+	density = 0
 
 
 /obj/machinery/vending/cola
@@ -817,6 +818,7 @@
 
 /obj/machinery/vending/cola/soda
 	icon_state = "soda"
+	density = 0
 
 //This one's from bay12
 /obj/machinery/vending/cart
@@ -878,6 +880,7 @@
 
 /obj/machinery/vending/cigarette/wallmounted
 	icon_state = "cigs_wall"
+	density = 0
 
 /obj/machinery/vending/medical
 	name = "NanoMed Plus"
@@ -1326,3 +1329,42 @@
 	vend_delay = 10
 	density = 1
 
+
+//Voldirs stuff. Thanks!
+/obj/machinery/vending/clothing
+	name = "Colonial Clothing"
+	desc = "All warm clothes that you need to survive a harsh winter!"
+	slogan_list = list(
+		"Feels cold? Let me warm you up!",
+		"Snowfall? Thunder? It does not make difference now!",
+		"Want looking nice? You got to a wrong place then!",
+		"Get a goddamn scarf and strangle the winter itself with it!",
+		"Why did you come back here?"
+	)
+	icon_state = "thundervendor"
+	products = list(
+		/obj/item/clothing/suit/storage/orange_bomber = 8,
+		/obj/item/clothing/suit/storage/toggle/bomber = 8,
+		/obj/item/clothing/suit/storage/toggle/hoodie = 8,
+		/obj/item/clothing/suit/storage/toggle/hoodie/black = 8,
+		/obj/item/clothing/suit/storage/toggleable_hood/wintercoat = 25,
+		/obj/item/clothing/head/ushanka = 30,
+		/obj/item/clothing/head/winterhat = 15,
+		/obj/item/clothing/shoes/leatherboots = 30,
+		/obj/item/clothing/gloves/brown/warm = 30,
+		/obj/item/clothing/mask/scarf/blue = 4,
+		/obj/item/clothing/mask/scarf/green = 4,
+		/obj/item/clothing/mask/scarf/long_blue = 4,
+		/obj/item/clothing/mask/scarf/long_green = 4,
+		/obj/item/clothing/mask/scarf/long_red = 4,
+		/obj/item/clothing/mask/scarf/red = 4,
+		/obj/item/clothing/mask/scarf/redwhite = 4,
+		)
+	contraband = list(
+		/obj/item/clothing/mask/scarf/ninja = 4,
+		/obj/item/clothing/mask/muzzle/ballgag = 1,
+		/obj/item/clothing/head/feathertrilby = 2,
+		/obj/item/clothing/shoes/jackboots/combat = 1,
+		/obj/item/clothing/suit/straight_jacket = 1,
+		/obj/item/clothing/suit/storage/leathercoatsec = 1,
+		)

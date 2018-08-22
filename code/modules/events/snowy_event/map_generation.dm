@@ -11,6 +11,7 @@ proc/snowyMapGeneration()
 	var/datum/snowy_scenario/Scenario = new S
 
 	var/list/usable_turfs = list()
+	var/list/cool_turfs = list() //need for send to master the cooler turfs
 
 	//borders making
 	for(var/y=1, world.maxy >= y, y++)
@@ -18,6 +19,7 @@ proc/snowyMapGeneration()
 			if((y < 2 || y > world.maxy-1) || (x < 2 || x > world.maxx-1))
 				var/turf/Border = locate(x, y, 1)
 				Border.ChangeTurf(/turf/unsimulated/snow)
+				cool_turfs.Add(Border)
 				new /obj/structure/flora/tree/dead(Border)
 			else
 				var/turf/T = locate(x, y, 1)
@@ -95,6 +97,13 @@ proc/snowyMapGeneration()
 
 	new /datum/random_map(null,1,1,1,world.maxx,world.maxy)
 
+	//snowy master work
+	if(SnowyMaster)
+		for(var/turf/T in usable_turfs)
+			if(istype(T, /turf/simulated/mineral) || istype(T, /turf/simulated/floor/plating/chasm))
+				usable_turfs.Remove(T)
+		SnowyMaster.spawnable_turfs = usable_turfs
+		SnowyMaster.coolers = cool_turfs
 
 
 

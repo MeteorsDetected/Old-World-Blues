@@ -94,6 +94,8 @@
 	item_flags = FLEXIBLEMATERIAL
 	w_class = ITEM_SIZE_SMALL
 	gas_transfer_coefficient = 0.90
+	cold_protection = FACE
+	min_cold_protection_temperature = T0C-30
 
 /obj/item/clothing/mask/scarf/blue
 	name = "blue neck scarf"

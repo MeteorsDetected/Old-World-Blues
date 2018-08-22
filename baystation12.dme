@@ -1143,6 +1143,7 @@
 #include "code\modules\events\snowy_event\sewing.dm"
 #include "code\modules\events\snowy_event\snowy_items.dm"
 #include "code\modules\events\snowy_event\snowy_jobs.dm"
+#include "code\modules\events\snowy_event\snowy_master.dm"
 #include "code\modules\events\snowy_event\snowy_mobs.dm"
 #include "code\modules\events\snowy_event\snowy_other.dm"
 #include "code\modules\events\snowy_event\turfs.dm"
@@ -1911,5 +1912,5 @@
 #include "code\ZAS\Zone.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
-#include "maps\snowy_small.dmm"
+#include "maps\colonial_camp2.dmm"
 // END_INCLUDE

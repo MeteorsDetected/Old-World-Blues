@@ -5,6 +5,9 @@
 //And yes. Coded in one day. Uh holy deers... I know, this is shit and need to rework it later
 //For now, used as test
 //Need to add moving proc...
+
+//Time to simplify this lagish piece of shit
+
 /mob/living/simple_animal/snowy_animal
 	name = "snowy animal"
 	icon = 'icons/obj/snowy_event/mobs_icons.dmi'
@@ -18,15 +21,8 @@
 	speak_emote = list()
 	emote_hear = list("howls")
 	emote_see = list("looks around with care")
-	health = 350
-	maxHealth = 350
-	//Memorization is not done yet. I make it later
-	//"enemy" - panic run
-	//"mate" - ignore. For now...
-//	var/list/memorized_mobs = list(/mob/living/carbon/human = "enemy", /mob/living/simple_animal/snowy_animal = "mate")
-	var/list/flock = list() //mobs of one type can bond into groups. This need to optimize all of it. And for something else
-	var/list/migration_path = list()
-	var/list/allowed_food = list(/obj/structure/flora/snowybush)
+	health = 80
+	maxHealth = 80
 	var/list/sound_list = list(
 				howl = list('sound/effects/snowy/deer_howl1.ogg', 'sound/effects/snowy/deer_howl2.ogg'),
 				damage = 'sound/effects/snowy/deer_damage.ogg',
@@ -36,15 +32,8 @@
 	var/turf/new_place
 	var/go_away_ticks = 60 //then this lower to 0, animal will go away to another place
 	var/ticks_to_move = 60
+	var/howl_ticks = 0
 //	var/footprints
-	var/last_m_detection = 0
-
-	nutrition = 0
-	var/nutrition_max = 50
-	var/chew_ticks = 0
-	var/howl_ticks = 38
-
-	var/sleep_need = 48
 	var/bleeding = 0
 
 	var/turf/last_pos
@@ -71,93 +60,36 @@
 	if(!..())
 		return
 
-	if(locate(/mob/living/carbon/human) in range(hearing, src))
-		mobDetection()
-		switch(life_mode)
-			if("panic")
-				panicRun(target)
-				update_icon()
-			if("hungry")
-				hungry()
-			if("sleep")
-				sleeping()
-			if("living")
-				living()
+	mobDetection()
+	switch(life_mode)
+		if("panic")
+			panicRun(target)
+			//eating and sleeping no need. They are just the shooting targets now. Maybe this will changed later
+		if("living")
+			living()
 
-		if(bleeding)
-			health--
-			if(prob(50))
-				var/obj/effect/decal/cleanable/blood/drip/D = new(src.loc)
-				spawn(1200)
-					qdel(D)
+	if(bleeding)
+		health--
+		if(prob(50))
+			var/obj/effect/decal/cleanable/blood/drip/D = new(src.loc)
+			spawn(1200)
+				qdel(D)
 
-		for(var/turf/simulated/floor/plating/chasm/C in range(1, src)) //Beware the chasms!
-			walk_away(src, C, 1, speed)
-		for(var/obj/structure/fence/F in range(1, src)) //And this. Yeah, i rework all of this later
-			walk_away(src, F, 1, speed)
+	for(var/turf/simulated/floor/plating/chasm/C in range(1, src)) //Beware the chasms!
+		walk_away(src, C, 1, speed)
+	for(var/obj/structure/fence/F in range(1, src)) //And this. Yeah, i rework all of this later
+		walk_away(src, F, 1, speed)
 
 	howl_ticks++
 	if(howl_ticks >= 40)
 		howl()
 
 
-/mob/living/simple_animal/snowy_animal/proc/hungry()
-	if(chew_ticks)
-		chew_ticks--
-		if(prob(35))
-			src.visible_message("<b>[name]</b> chews.")
-	else
-		if(nutrition >= nutrition_max)
-			life_mode = "living"
-			return
-		for(var/F in allowed_food)
-			var/obj/feed = locate(F) in view(vision, src)
-			if(feed)
-				if(feed in range(1, src))
-					src.visible_message("<b>[name]</b> puts his head into the [feed] and eat some roots.")
-					nutrition = nutrition + 5
-					chew_ticks = 3
-				else
-					walk_to(src, feed, 1, speed)
-				break
-			else
-				//go_away_ticks = 0 //temporary
-				life_mode = "living"
-	update_icon()
-
-
-/mob/living/simple_animal/snowy_animal/proc/sleeping()
-	sleep_need--
-	if(health >= maxHealth)
-		bleeding = 0
-		health = maxHealth
-	else
-		health = health+2
-	if(sleep_need <= 0)
-		sleep_need = 0
-		life_mode = "living"
-	update_icon()
-
-
 /mob/living/simple_animal/snowy_animal/proc/living()
-	if(sleep_need >= 50)
-		life_mode = "sleep"
-		icon_state = icon_sleep
-		src.visible_message("<b>[name]</b> lay down and close eyes.")
-		walk(src, 0)
-		update_icon()
-		return
-	else
-		sleep_need++
 	if(go_away_ticks && !bleeding)
 		go_away_ticks--
 	else
 		new_place = getNewPlace(12)
-	if(nutrition)
-		nutrition--
-	else
-		if(!new_place)
-			life_mode = "hungry"
 	if(new_place)
 		walk_to(src, new_place, 0, speed) //I know, no need to call walks every time, but i remake it later
 		for(var/turf/simulated/floor/plating/chasm/C in range(1, src))
@@ -221,14 +153,6 @@
 		Calm()
 
 
-
-/mob/living/simple_animal/snowy_animal/proc/targetIsVisible(var/atom/T)
-	if(T in view(vision, src))
-		return 1
-	return 0
-
-
-
 /mob/living/simple_animal/snowy_animal/proc/selfDefense(var/atom/target)
 	if(istype(target, /mob/living))
 		var/mob/living/L = target
@@ -243,23 +167,21 @@
 
 
 /mob/living/simple_animal/snowy_animal/proc/mobDetection()
-	for(var/mob/living/L in view(vision, src))
-		if(L != src)
-			if(!istype(L, /mob/living/simple_animal/snowy_animal) && !(locate(/obj/structure/flora/snowybush) in L.loc))
-				setPanic(L)
-				return 1
-
-	if(!(life_mode == "panic"))
-		for(var/mob/living/L in range(hearing, src))
-			if(L != src)
-				if(istype(L, /mob/living/carbon/human))
-					var/mob/living/carbon/human/H = L
-					if(H.m_intent == "run") //Where is my freaking brain!?
-						setPanic(L)
-						return 1
-				else if(!istype(L, /mob/living/simple_animal/snowy_animal))
+	for(var/mob/living/L in view(hearing, src))
+		if(!istype(L, /mob/living/simple_animal/snowy_animal))
+			if(istype(L, /mob/living/carbon/human))
+				var/mob/living/carbon/human/H = L
+				if(H.m_intent == "run")
 					setPanic(L)
 					return 1
+				else
+					if(get_dist(src, H) <= vision)
+						if(!(locate(/obj/structure/flora/snowybush) in L.loc))
+							setPanic(L)
+							return 1
+			else
+				setPanic(L)
+				return 1
 	return 0
 
 
@@ -288,16 +210,9 @@
 	var/turf/new_place
 	var/our_dirs = shuffle(alldirs)
 	for(var/D in our_dirs)
-		new_place = get_ranged_target_turf(src, D, step_dist)
-		if(isReachable(new_place))
+		new_place = get_ranged_target_turf(src, D, step_dist) //A* is too slow for us, so...
+		if(new_place)
 			return new_place
-
-
-/mob/living/simple_animal/snowy_animal/proc/isReachable(var/turf/to_T)
-	var/list/path = AStar(src.loc, to_T, /turf/proc/AdjacentTurfsSnowy, /turf/proc/Distance, max_nodes=25)
-	if(path && path[path.len] == to_T)
-		return 1
-	return 0
 
 
 /mob/living/simple_animal/snowy_animal/proc/howl()
@@ -352,9 +267,7 @@
 
 	New()
 		..()
-		nutrition = rand(10, 60)
 		howl_ticks = rand(10, 30)
-		sleep_need = rand(10, 30)
 		go_away_ticks = rand(25, 60)
 
 
@@ -373,8 +286,8 @@
 	icon_state = "wolf"
 	icon_living = "wolf"
 	icon_dead = ""
-	health = 160
-	maxHealth = 160
+	health = 60
+	maxHealth = 60
 	melee_damage_lower = 15
 	melee_damage_upper = 25
 	see_in_dark = 8

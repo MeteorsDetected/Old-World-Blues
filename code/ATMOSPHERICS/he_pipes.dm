@@ -47,6 +47,9 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging
 			qdel(src)
 			return
 
+		var/turf/T = get_turf(src)
+		if(level == 1 && !T.is_plating()) hide(1)
+
 		update_icon()
 		return
 
@@ -143,6 +146,9 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
 		if(!node1&&!node2)
 			qdel(src)
 			return
+
+		var/turf/T = get_turf(src)
+		if(level == 1 && !T.is_plating()) hide(1)
 
 		update_icon()
 		return

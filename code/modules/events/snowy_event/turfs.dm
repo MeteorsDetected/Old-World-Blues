@@ -12,7 +12,7 @@
 	icon = 'icons/obj/snowy_event/snowy_turfs.dmi'
 	icon_state = "snow_turf"
 	icon_plating = "snow_turf"
-	temperature = T0C-30
+	temperature = T0C-25
 
 	New()
 		..()
@@ -201,6 +201,7 @@
 
 
 /turf/simulated/floor/plating/chasm/proc/eat(atom/movable/M as mob|obj)
+	world << "[M] eated"
 	if(istype(M, /obj/item/projectile))
 		return
 	var/obj/structure/bridge/Bridge = locate() in src
@@ -278,7 +279,7 @@
 			if(A.m_intent == "walk")
 				return
 		if(prob(30) && istype(A, /mob/living/carbon/human))
-			A << SPAN_WARN("You are slipping away!")
+			A << SPAN_WARN("You slipped!")
 			A.Weaken(2)
 			var/direction = pick(alldirs)
 			step(A, direction)
