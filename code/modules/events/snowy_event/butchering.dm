@@ -217,11 +217,12 @@
 
 /obj/structure/butcherable/examine(mob/user as mob)
 	..()
-	for(var/part in external_organs)
-		var/datum/animal_organ/O = external_organs[part]
-		if(O.needed_organ == user.zone_sel.selecting)
-			if(!skin && O.meat_left && O.tendons_left)
-				user << SPAN_NOTE("You look at unskinned animal's part and see [O.tendons_left] tendons here.")
+	if(istype(user, /mob/living/carbon))
+		for(var/part in external_organs)
+			var/datum/animal_organ/O = external_organs[part]
+			if(O.needed_organ == user.zone_sel.selecting)
+				if(!skin && O.meat_left && O.tendons_left)
+					user << SPAN_NOTE("You look at unskinned animal's part and see [O.tendons_left] tendons here.")
 
 
 /obj/structure/butcherable/update_icon()

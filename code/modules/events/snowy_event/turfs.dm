@@ -168,6 +168,9 @@
 						FF.update_icon()
 
 
+/turf/simulated/floor/plating/chasm/ex_act(severity)
+	return
+
 /turf/simulated/floor/plating/chasm/update_icon()
 	overlays.Cut()
 	var/nums = 0
@@ -201,7 +204,6 @@
 
 
 /turf/simulated/floor/plating/chasm/proc/eat(atom/movable/M as mob|obj)
-	world << "[M] eated"
 	if(istype(M, /obj/item/projectile))
 		return
 	var/obj/structure/bridge/Bridge = locate() in src
@@ -252,6 +254,9 @@
 		..()
 		icon_state = "ice[rand(1, 5)]"
 
+
+/turf/simulated/floor/plating/ice/ex_act(severity)
+	return
 
 //need to add effects and sound here
 /turf/simulated/floor/plating/ice/attackby(obj/item/weapon/W as obj, mob/user as mob)

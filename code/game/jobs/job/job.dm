@@ -116,15 +116,18 @@ For copy-pasting:
 
 	//Belt and PDA
 	if(H.belt)
-		H.equip_to_slot_or_del(new pda (H), slot_l_store)
+		if(pda) //pda checks
+			H.equip_to_slot_or_del(new pda (H), slot_l_store)
 		if(belt)
 			H.equip_to_slot_or_del(new belt (H), slot_in_backpack)
 	else
 		if(belt)
 			H.equip_to_slot_or_del(new belt (H), slot_belt)
-			H.equip_to_slot_or_del(new pda (H), slot_l_store)
+			if(pda)
+				H.equip_to_slot_or_del(new pda (H), slot_l_store)
 		else
-			H.equip_to_slot_or_del(new pda (H), slot_belt)
+			if(pda)
+				H.equip_to_slot_or_del(new pda (H), slot_belt)
 
 	if(!H.back || !istype(H.back, /obj/item/storage/backpack))
 		var/list/slots = list( slot_belt, slot_r_store, slot_l_store, slot_r_hand, slot_l_hand, slot_s_store )

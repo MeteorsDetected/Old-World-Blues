@@ -138,10 +138,10 @@
 						SPAN_NOTE("You remove \the [cell] from \the [src].")
 					)
 					cell.update_icon()
-					cell = null
 					power_change()
 					cell.add_fingerprint(usr)
-					usr.put_in_hands(cell)
+					usr.put_in_active_hand(cell)
+					cell = null
 
 
 			if("cellinstall")

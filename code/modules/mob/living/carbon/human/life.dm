@@ -701,13 +701,14 @@
 	if (species.body_temperature == null)
 		return //this species doesn't have metabolic thermoregulation
 
-	var/datum/gas_mixture/env = loc.return_air() //Needed for snowy event //Delete from here
-	var/env_temp = env.temperature
-	if(env_temp <= T0C && env_temp >= T0C-90)
-		if(bodytemperature < species.cold_level_1)
-			if(nutrition >= 2)
-				nutrition -= 2
-		return //to here after it pass
+	if(istype(loc, /turf))	//Needed for snowy event //Delete from here
+		var/datum/gas_mixture/env = loc.return_air()
+		var/env_temp = env.temperature
+		if(env_temp <= T0C && env_temp >= T0C-90)
+			if(bodytemperature < species.cold_level_1)
+				if(nutrition >= 2)
+					nutrition -= 2
+			return //to here after it pass
 
 
 	var/body_temperature_difference = species.body_temperature - bodytemperature

@@ -528,7 +528,8 @@ var/global/datum/controller/occupations/job_master
 		var/datum/job/job = GetJob(rank)
 
 		if(job)
-			C = new job.idtype(H)
+			if(job.idtype) //id check
+				C = new job.idtype(H)
 			C.access = job.get_access()
 		else
 			C = new /obj/item/weapon/card/id(H)

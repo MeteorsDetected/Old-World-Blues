@@ -251,7 +251,10 @@
 				UpdateFactionList(character)
 
 		//Find our spawning point.
-		var/join_message
+
+		SnowyMaster.latejoin_handler(character) //snowy. Uncomment stuff below
+
+		/*var/join_message
 		var/datum/spawnpoint/S
 
 		if(spawning_at)
@@ -283,7 +286,7 @@
 			matchmaker.do_matchmaking()
 			AnnounceArrival(character, rank, join_message)
 		else
-			AnnounceCyborg(character, rank, join_message)
+			AnnounceCyborg(character, rank, join_message)*/
 
 		qdel(src)
 

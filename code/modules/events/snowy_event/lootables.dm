@@ -24,6 +24,7 @@
 	var/list/messages_by_stages = list() //Here you can store messages for every stage. Well... In future
 	anchored = 1
 	density = 1
+	opacity = 1
 
 	New()
 		if(randomize_tools == "yes")
@@ -138,6 +139,11 @@
 		..()
 
 
+/obj/structure/lootable/container
+	name = "Container's debris"
+	desc = "It's hard to say what this was before. But for now - just a junk."
+	icon_state = "debris_container"
+
 
 /obj/structure/lootable/mushroom_hideout
 	name = "Mushrooms"
@@ -156,6 +162,7 @@
 	rand_stages = "no"
 	randomize_tools = "no"
 	density = 0
+	opacity = 0
 	ultimate_tool = null
 	ultimate_tool_can_be_used = 0
 

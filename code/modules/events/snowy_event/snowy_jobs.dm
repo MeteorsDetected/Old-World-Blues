@@ -368,16 +368,3 @@ datum/job/captain/snowy
 			var/mob/living/simple_animal/smartdog/SD = new /mob/living/simple_animal/smartdog(get_turf(H))
 			SD.cmd_setMaster(H)
 		H << SPAN_NOTE("Colonists are not your friends and not the enemies. Only you decide who are they for you. With your loyal dog Barky you made a long and difficult way to this place. Now you lives here. This is your land. You can choose your own path.")
-
-
-
-//Alternative late spawns
-
-//Well, i want four scenarios
-//1: drop in container on surface of planet. Injured, but have some extra loot
-//2: just go in from border of map //Lose some items. But some of new found
-//3: wakes up in bushes completely drunk //Lose some items, almost naked but have flaregun, hatchet and some booze
-//4: after battle with wolfes. Injured, but have some loot around
-//All of this must be a bit challenging to make start diffirent and form the story of character
-
-//Need special controller for that

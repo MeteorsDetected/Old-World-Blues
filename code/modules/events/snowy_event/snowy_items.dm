@@ -593,8 +593,8 @@
 							continue
 						//if(istype(get_area(L), /area/outdoor)) //well, i think without this will be better
 						var/d = get_dir(L, P)
-						user << "\blue <big> You see the [SF.display_color] flare at [dir2text(d)] from your current position! <big>"
-						user << playsound(src.loc, 'sound/effects/explosionfar.ogg', 30, 1)
+						L << "\blue <big> You see the [SF.display_color] flare at [dir2text(d)] from your current position! <big>"
+						L << playsound(src.loc, 'sound/effects/explosionfar.ogg', 30, 1)
 				spawn(120)
 					dropFlare(P)
 			else
@@ -717,7 +717,67 @@
 		processing_objects += F
 		F.update_icon()
 
-//some clothes
+
+//supply
+/obj/item/storage/box/sflares_red
+	name = "box of red signal flares"
+
+/obj/item/storage/box/sflares_red/New()
+	..()
+	for(var/i = 1 to 7)
+		new /obj/item/ammo_casing/sflare/red(src)
+
+
+/obj/item/storage/box/sflares_green
+	name = "box of green signal flares"
+
+/obj/item/storage/box/sflares_green/New()
+	..()
+	for(var/i = 1 to 7)
+		new /obj/item/ammo_casing/sflare/green(src)
+
+
+/obj/item/storage/box/sflares_blue
+	name = "box of blue signal flares"
+
+/obj/item/storage/box/sflares_blue/New()
+	..()
+	for(var/i = 1 to 7)
+		new /obj/item/ammo_casing/sflare/blue(src)
+
+
+/obj/item/storage/box/krauzerammo
+	name = "box of krauzer's ammo"
+	desc = "At the side of box you can see 2116 number. Maybe that's mean year?"
+
+/obj/item/storage/box/krauzerammo/New()
+	..()
+	for(var/i = 1 to 6)
+		new /obj/item/ammo_magazine/cs762(src)
+
+
+/obj/item/storage/box/randomsnacks
+	name = "box of something delicious"
+	desc = "Here you can see the sign of some kind of restaurant."
+
+/obj/item/storage/box/randomsnacks/New()
+	..()
+	var/randSnack = pick(subtypesof(/obj/item/weapon/reagent_containers/food/snacks))
+	for(var/i = 1 to 6)
+		new randSnack(src)
+
+
+/obj/item/storage/box/randomseeds
+	name = "box of seeds"
+	desc = "You see an image of the big dome. That's one from space farm."
+
+/obj/item/storage/box/randomseeds/New()
+	..()
+	var/randSeed = pick(subtypesof(/obj/item/seeds))
+	for(var/i = 1 to 7)
+		new randSeed(src)
+
+//some clothesc
 
 /obj/item/clothing/head/deerhat
 	name = "deer hat"
@@ -725,7 +785,7 @@
 	icon_state = "deerhat"
 	item_state = "deerhat"
 	w_class = ITEM_SIZE_NORMAL
-	body_parts_covered = HEAD|FACE
+	body_parts_covered = HEAD
 	cold_protection = HEAD|FACE
 	min_cold_protection_temperature = T0C-35
 

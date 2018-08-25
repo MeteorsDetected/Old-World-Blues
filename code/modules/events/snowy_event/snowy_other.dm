@@ -294,7 +294,6 @@
 			pulling_out(user)
 
 
-
 /obj/structure/fence
 	name = "Metal fence"
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
@@ -333,6 +332,8 @@
 
 
 /obj/structure/fence/CanPass(atom/movable/O as mob|obj, turf/target, height=0, air_group=0)
+	if(air_group || (height==0))
+		return 1
 	if(get_dir(loc, target) == dir)
 		if(cutted || (opened && door))
 			return 1
