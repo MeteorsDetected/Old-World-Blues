@@ -280,7 +280,7 @@
 //Wolf. Without my shit-like ai. Maybe it's better
 /mob/living/simple_animal/hostile/creature/wolf
 	name = "Enraged wolf"
-	desc = "Wolf-like creature that loosed own mind."
+	desc = "Wolf-like creature that lost own mind."
 	icon = 'icons/obj/snowy_event/mobs_icons.dmi'
 	speak_emote = list("howl", "barks")
 	icon_state = "wolf"

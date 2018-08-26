@@ -255,9 +255,9 @@ var/list/mob/living/forced_ambiance_list = new
 		L << sound(null, channel = 1)
 		forced_ambiance_list -= L
 
-	if(!L.client.ambience_playing)
-		L.client.ambience_playing = 1
-		L << sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = 2)
+	//if(!L.client.ambience_playing)
+	//	L.client.ambience_playing = 1
+	//	L << sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = 2) //snowy
 
 	if(forced_ambience)
 		if(forced_ambience.len)
@@ -266,7 +266,7 @@ var/list/mob/living/forced_ambiance_list = new
 		else
 			L << sound(null, channel = 1)
 	else if(src.ambience.len && prob(35))
-		if((world.time >= L.client.played + 600))
+		if((world.time >= L.client.played + 600) || istype(src, /area/outdoor))
 			var/sound = pick(ambience)
 			L << sound(sound, repeat = 0, wait = 0, volume = 25, channel = 1)
 			L.client.played = world.time

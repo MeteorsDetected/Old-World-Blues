@@ -1597,6 +1597,7 @@
 #include "code\modules\power\antimatter\containment_jar.dm"
 #include "code\modules\power\antimatter\control.dm"
 #include "code\modules\power\antimatter\shielding.dm"
+#include "code\modules\power\sensors\apc_control.dm"
 #include "code\modules\power\sensors\powernet_sensor.dm"
 #include "code\modules\power\sensors\sensor_monitoring.dm"
 #include "code\modules\power\singularity\act.dm"

@@ -395,7 +395,7 @@
 	desc = "When somebody did not respect your laws and orders. You reinforce your authority with this."
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = "whipstick"
-	item_state = "baton"
+	item_state = "whipstick"
 	w_class = ITEM_SIZE_SMALL
 
 /obj/item/weapon/melee/discipstick/attack(var/mob/living/carbon/C, var/mob/living/user)
@@ -467,7 +467,7 @@
 //a few guns
 
 /obj/item/weapon/gun/projectile/heavysniper/krauzer
-	name = "krauzer 801"
+	name = "Krauzer 801"
 	desc = "An old but powerful krauzer rifle. Even your grandpa remembers this one. If he works at the museum. Have a small chance of jam."
 	icon_state = "krauzer"
 	item_state = "krauzer"
@@ -525,8 +525,8 @@
 
 
 /obj/item/ammo_magazine/cs762
-	name = "speedloader (.762)"
-	desc = "A speedloader for .762 guns. Like old krauzer."
+	name = "clip (.762)"
+	desc = "An ammo clip for 7.62mm guns. Like old krauzer."
 	icon_state = "145mm"
 	caliber = "a762"
 	matter = list(MATERIAL_STEEL = 360)

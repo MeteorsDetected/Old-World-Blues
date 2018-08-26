@@ -15,10 +15,10 @@ var/global/datum/shuttle_controller/shuttle_controller
 
 //This is called by gameticker after all the machines and radio frequencies have been properly initialized
 /datum/shuttle_controller/proc/setup_shuttle_docks()
-	for(var/shuttle_tag in shuttles)
-		var/datum/shuttle/shuttle = shuttles[shuttle_tag]
-		shuttle.init_docking_controllers()
-		shuttle.dock() //makes all shuttles docked to something at round start go into the docked state
+	//for(var/shuttle_tag in shuttles)			//snowy just uncomment this later
+		//var/datum/shuttle/shuttle = shuttles[shuttle_tag]
+		//shuttle.init_docking_controllers()
+		//shuttle.dock() //makes all shuttles docked to something at round start go into the docked state
 
 	for(var/obj/machinery/embedded_controller/C in machines)
 		if(istype(C.program, /datum/computer/file/embedded_program/docking))

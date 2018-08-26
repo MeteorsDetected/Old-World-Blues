@@ -140,9 +140,8 @@
 	power_environ = 0
 	ambience = list(
 		'sound/effects/wind/wind_2_1.ogg','sound/effects/wind/wind_2_2.ogg','sound/effects/wind/wind_3_1.ogg',
-		'sound/effects/wind/wind_4_1.ogg','sound/effects/wind/wind_4_2.ogg','sound/effects/wind/wind_5_1.ogg',
-		'sound/effects/snowy/music/into_the_Fray.ogg','sound/effects/snowy/music/writing_the_letter.ogg','sound/effects/snowy/music/frozen_silence.ogg'
-	)
+		'sound/effects/wind/wind_4_1.ogg','sound/effects/wind/wind_4_2.ogg','sound/effects/wind/wind_5_1.ogg'
+	) //only wind here
 
 /area/indoor
 	name = "Indoor"
@@ -701,37 +700,46 @@
 	var/list/clothes = list(head, wear_mask, wear_suit, w_uniform, gloves, shoes)
 	for(var/obj/item/clothing/C in clothes)
 		var/t = 1
-		if(istype(C, /obj/item/clothing/suit/space))
-			return 0
-		if(C.cold_protection && C.min_cold_protection_temperature >= env_temp)
-			t = 0.1
-		else if(C.cold_protection && C.min_cold_protection_temperature < env_temp)
-			t = 0.3
-		else
+		if(istype(C, /obj/item/clothing/suit/space) || istype(C, /obj/item/clothing/head/helmet/space))
+			t = 0
+		else if(C.cold_protection && C.min_cold_protection_temperature > env_temp)
 			t = 0.5
+		else if(C.cold_protection && C.min_cold_protection_temperature <= env_temp)
+			t = 0.1
 		for(var/list/p in parts)
-			if(C.body_parts_covered & p["flag"])
-				p["temp"] = t*2 //Yeah. Let's make this harder. Later i rework all of that and made it based on env temperature
+			if(C.cold_protection & p["flag"])
+				if(p["temp"] > t)
+					p["temp"] = t
 
 
-	if(bodytemperature <= T0C-5 && bodytemperature > T0C-10 && !(species.name == SPECIES_TAJARA))
+	if(bodytemperature <= T0C-15 && bodytemperature > T0C && !(species.name == SPECIES_TAJARA))
 		if(prob(10))
 			src << SPAN_WARN("You feel your limbs badly. Chill bites into the skin.")
-	else if(bodytemperature <= T0C-10 && bodytemperature > T0C-20 && !(species.name == SPECIES_TAJARA))
+	else if(bodytemperature <= T0C && bodytemperature > T0C-10 && !(species.name == SPECIES_TAJARA))
 		if(prob(10))
 			src << SPAN_WARN("You almost not feel your limbs. Your eyelids close...")
 
-	var/G = 0
+	//now we remove double parts
+	for(var/n = 1 to parts.len)
+		if(n > 1)
+			if(parts[n-1]["flag"] == parts[n]["flag"])
+				parts.Remove(parts[n])
+
+	var/exposed = 0
 	for(var/list/part in parts)
+		var/part_dam = part["temp"] * 0.5
 		if(species.name == SPECIES_TAJARA && bodytemperature <= T0C-55)
 			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-				apply_damage(part["temp"],  BURN, part["part"],  0, 0, "Freeze")
-		else if(bodytemperature <= T0C-20 && !(species.name == SPECIES_TAJARA))
+				apply_damage(part_dam,  BURN, part["part"],  0, 0, "Freeze")
+		else if(bodytemperature <= T0C-25 && !(species.name == SPECIES_TAJARA))
 			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-				apply_damage(part["temp"],  BURN, part["part"],  0, 0, "Freeze")
-		G += part["temp"]
+				apply_damage(part_dam,  BURN, part["part"],  0, 0, "Freeze")
+		exposed += part["temp"]
+
 	last_chill_tick = 0
-	G = G/parts.len
+//this one is good, but i need a constant number based on exposed parts. This one is good enough for air and bodies irl, but not for ss13 body
+//	var/G = exposed * STEFAN_BOLTZMANN_CONSTANT * ((bodytemperature - env_temp)**4.5)
+	var/G =  env_temp / bodytemperature * exposed //simple and works nice
 	return G
 
 

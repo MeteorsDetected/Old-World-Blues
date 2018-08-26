@@ -190,10 +190,8 @@ proc/createSnowyMaster()
 		if(3)
 			var/randItem = pick(subtypesof(/obj/item/weapon))
 			var/obj/item/weapon/W = new randItem(character)
-			if(character.get_active_hand())
-				W.loc = character.loc
-			else
-				character.put_in_active_hand(W)
+			W.loc = character.loc
+			character.put_in_active_hand(W)
 			character << SPAN_NOTE("[pick(foundlist)][W.name]")
 
 

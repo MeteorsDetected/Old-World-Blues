@@ -173,21 +173,28 @@
 		update_icon()
 
 	if(tree_health <= 0)
-		src.visible_message(SPAN_WARN("<b>[src.name] falling down!</b>"))
-		playsound(src.loc, 'sound/effects/snowy/falling_tree.ogg', 45, rand(-50, 50), 40, 1)
-		var/d = pick(alldirs)
-		var/t = get_step(src, d)
-		for(var/i = 1, i<=wood_amount, i++) //In the memory of Jarlo, my old partner who makes tree falling almost like there. Thank you
-			var/obj/structure/fshadow/L = new /obj/structure/fshadow(t)
-			L.objs_holder.Add(new /obj/structure/material/chair/office/log(L))
-			for(var/q = 1, q<=branch_factor*i, q++)
-				L.objs_holder.Add(new /obj/item/weapon/branches(L))
-			t = get_step(t, d)
-		icon = initial(icon) //clear icon from colors here
-		new /obj/structure/flora/stump(src.loc)
-		qdel(src)
+		fall()
 
 
+/obj/structure/flora/snowytree/proc/fall()
+	src.visible_message(SPAN_WARN("<b>[src.name] falling down!</b>"))
+	playsound(src.loc, 'sound/effects/snowy/falling_tree.ogg', 45, rand(-50, 50), 40, 1)
+	var/d = pick(alldirs)
+	var/t = get_step(src, d)
+	for(var/i = 1, i<=wood_amount, i++) //In the memory of Jarlo, my old partner who makes tree falling almost like there. Thank you
+		var/obj/structure/fshadow/L = new /obj/structure/fshadow(t)
+		L.objs_holder.Add(new /obj/structure/material/chair/office/log(L))
+		for(var/q = 1, q<=branch_factor*i, q++)
+			L.objs_holder.Add(new /obj/item/weapon/branches(L))
+		t = get_step(t, d)
+	icon = initial(icon) //clear icon from colors here
+	new /obj/structure/flora/stump(src.loc)
+	qdel(src)
+
+
+/obj/structure/flora/snowytree/ex_act(var/severity)
+	if(severity > 2)
+		fall()
 
 
 /obj/structure/flora/snowybush
@@ -237,6 +244,10 @@
 		var/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries/F = new berry(src) //Hm. Maybe tmp var is better idea
 		berries_color = F.berry_color
 		qdel(F)
+
+
+/obj/structure/flora/snowybush/ex_act()
+	qdel(src)
 
 
 /obj/structure/flora/snowybush/deadbush/examine(var/mob/user as mob)
