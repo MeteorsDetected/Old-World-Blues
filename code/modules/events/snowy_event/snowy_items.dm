@@ -911,18 +911,18 @@
 
 /obj/item/clothing/suit/storage/toggleable_hood/jaegercoat
 	name = "jaeger's coat"
-	desc = "Thi coat guaranteed almost perfect protect from cold."
+	desc = "Thick coat guaranteed almost perfect protect from cold."
 	icon_state = "jaeger_coat"
 	item_state = "jaeger_coat"
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
-	min_cold_protection_temperature = T0C-35
+	min_cold_protection_temperature = T0C-40
 	hood_type = /obj/item/clothing/head/toggleable_hood/jaeger_coat_hood
 
 /obj/item/clothing/head/toggleable_hood/jaeger_coat_hood
 	name = "jaeger hood"
 	icon_state = "jaegerhood"
 	cold_protection = HEAD
-	min_cold_protection_temperature = T0C-30
+	min_cold_protection_temperature = T0C-40
 
 
 //worker stuff

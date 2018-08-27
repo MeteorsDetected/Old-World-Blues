@@ -320,6 +320,8 @@
 		icon_state = "fence_cutted"
 	if(door && opened)
 		icon_state = "fence_opened"
+	if(!door && !cutted)
+		icon_state = "fence"
 
 
 /obj/structure/fence/CheckExit(atom/movable/O as mob|obj, target as turf)
@@ -348,6 +350,10 @@
 				SPAN_NOTE("You cut the [src] with your [T.name]")
 			)
 			cutted = 1
+		var/obj/structure/cable/C = locate() in src.loc
+		if(C && C.powernet)
+			if(C.powernet.avail)
+				C.shock(user, 85)
 	if(istype(T, /obj/item/device/multitool) && door && !opened && locked)
 		user.visible_message(
 				SPAN_NOTE("[user] trying to pick lock with [T.name]."),
@@ -361,6 +367,16 @@
 				user << SPAN_NOTE("Lock is picked!")
 		else
 			user << SPAN_WARN("You need to stay still.")
+	if(istype(T, /obj/item/weapon/weldingtool) && cutted)
+		var/obj/item/weapon/weldingtool/W = T
+		playsound(src, 'sound/items/Welder.ogg', 100, 1)
+		user << SPAN_NOTE("You fix damaged sections of fence with your [T.name].")
+		W.remove_fuel(10, user)
+		cutted = 0
+	if(istype(T, /obj/item/weapon/fencedoorkey) && door)
+		locked = !locked
+		playsound(src.loc, 'sound/weapons/flipblade.ogg', 50, 1)
+		user << SPAN_NOTE("You [locked ? "locked" : "unlocked"] the door.")
 	update_icon()
 
 
@@ -380,6 +396,16 @@
 	update_icon()
 
 
+//key for fence
+
+/obj/item/weapon/fencedoorkey
+	name = "an old rusty key"
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "rusty_key"
+	w_class = ITEM_SIZE_TINY
+
+
+//girders
 /obj/structure/girder/wooden
 	name = "wooden wall girders"
 	desc = "reliable girders for wall."
@@ -739,8 +765,7 @@
 	last_chill_tick = 0
 //this one is good, but i need a constant number based on exposed parts. This one is good enough for air and bodies irl, but not for ss13 body
 //	var/G = exposed * STEFAN_BOLTZMANN_CONSTANT * ((bodytemperature - env_temp)**4.5)
-	var/G =  env_temp / bodytemperature * exposed //simple and works nice
-	return G
+	return (env_temp / bodytemperature) * (exposed / 2) //simple and works nice
 
 
 

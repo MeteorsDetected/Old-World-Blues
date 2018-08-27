@@ -8,6 +8,7 @@ proc/createSnowyMaster()
 //events based on it
 //game master panel
 /datum/snowy_master
+	var/animal_spawn = 1
 	var/deer_pop = 3 //how many deers must be on the map. For small maps use small amounts. Deers are unoptimized shit
 	var/wolf_pop = 3 //how many wolfs must be on the map. Later i make this param for scenarios
 	var/deers_to_spawn = 0 //helper
@@ -90,7 +91,7 @@ proc/createSnowyMaster()
 	SnowyMaster.pop_tick--
 	if(SnowyMaster.spawnable_turfs.len < 1)
 		SnowyMaster.makeSpawnableTurfsList()
-	if(SnowyMaster.pop_tick <= 0)
+	if(SnowyMaster.pop_tick <= 0 && SnowyMaster.animal_spawn)
 		SnowyMaster.checkPopulation()
 
 
@@ -117,6 +118,83 @@ proc/createSnowyMaster()
 		for(var/P in loot)
 			new P(pick(space_around))
 		explosion(land_point, 0, 0, 1, 2)
+
+
+
+//Snowy master panel
+
+/datum/snowy_master/proc/interact(var/mob/user)
+	user.set_machine(src)
+	var/t = "<body bgcolor='#aaaaaa'><br>"
+	t += "<center><font size='6'>SNOWY MASTER PANEL</font></center><br>"
+	t += "Deers max population: "
+	t += "<A href='?src=\ref[src];cmd=deer_pop'>[deer_pop]</A><br>"
+	t += "Wolfs max population: "
+	t += "<A href='?src=\ref[src];cmd=wolf_pop'>[wolf_pop]</A><br>"
+	t += "Animal spawn "
+	t += "<A href='?src=\ref[src];cmd=animal_spawn'>[animal_spawn ? "enabled" : "disabled"]</A><br>"
+	t += "Current temperature: "
+	t += "<A href='?src=\ref[src];cmd=temp_set'>[current_temperature-T0C]</A><br>"
+	t += "</body>"
+	user << browse(t, "window=snowy_master;size=300x400")
+	onclose(user, "snowy_master")
+
+
+/datum/snowy_master/Topic(href, href_list)
+
+	switch(href_list["cmd"])
+
+		if("deer_pop")
+			var/P = input(usr, "Input number of population. Please, not set too much", "Deers population")
+			P = text2num(P)
+			if(isnum(P))
+				if(P < 0 || P > 50)
+					usr << SPAN_WARN("Number must be 0 or more but lower then 50")
+				else
+					deer_pop = P
+			else
+				usr <<  SPAN_WARN("Only number required")
+
+		if("wolf_pop")
+			var/P = input(usr, "Input number of population. Please, not set too much", "Wolfs population")
+			P = text2num(P)
+			if(isnum(P))
+				if(P < 0 || P > 50)
+					usr << SPAN_WARN("Number must be 0 or more but lower then 50")
+				else
+					wolf_pop = P
+			else
+				usr <<  SPAN_WARN("Only number required")
+
+		if("animal_spawn")
+			animal_spawn = !animal_spawn
+			usr << "Spawn of animals now [animal_spawn ? "enabled" : "disabled"]"
+
+		if("temp_set")
+			var/T = input(usr, "Input new temperature. Set the value between -15 and -50, please.", "Temperature control")
+			T = text2num(T)
+			if(isnum(T))
+				if((T <= -15) && (T >= -50))
+					setTemperature(T)
+				else
+					usr << SPAN_WARN("This number is not lay between -15 and -50. Can you read, please?")
+			else
+				usr <<  SPAN_WARN("Only number required")
+	if((usr.machine == src))
+		src.interact(usr)
+
+
+/datum/snowy_master/proc/check_eye(mob/user)
+	return -1
+
+
+ADMIN_VERB_ADD(/client/proc/snowy_master_panel, R_ADMIN)
+/client/proc/snowy_master_panel()
+	set name = "Snowy panel"
+	set category = "Admin"
+	if(SnowyMaster)
+		SnowyMaster.interact(usr)
+	return
 
 
 

@@ -81,7 +81,7 @@
 
 //temperature shift
 /datum/event/tempshift
-	announceWhen = 0
+	announceWhen = 4
 	endWhen = 10
 	var/fail = 0
 	var/shift = 0

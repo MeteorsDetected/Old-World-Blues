@@ -55,6 +55,9 @@
 		if(T.get_amount() < 1)
 			qdel(T)
 		return
+	if(istype(C, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/coil = C
+		coil.turf_place(src, user)
 
 
 

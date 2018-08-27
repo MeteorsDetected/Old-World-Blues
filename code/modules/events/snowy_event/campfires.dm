@@ -96,21 +96,19 @@
 			if(!W.welding)
 				return
 		if(fire_stage == 0)
-			fire_stage = 1
-			processing_objects.Add(src)
-			update_icon()
-			set_light(fire_stage*2, 1, "#FF8000")
+			setFire(1)
 
 	if(istype(T, /obj/item/weapon/reagent_containers/food/snacks/bug/firefly))
 		if(fire_stage == 0)
 			user << SPAN_NOTE("You put firefly into campfire and she's burn away than awakes.")
-			fire_stage = 2
-			burning_temp = 200
-			processing_objects.Add(src)
-			update_icon()
-			set_light(fire_stage*2, 1, "#FF8000")
+			setFire(2, 200)
 			qdel(T)
 			return
+
+	if(istype(T, /obj/item/device/flashlight/flare))
+		var/obj/item/device/flashlight/flare/F = T
+		if(F.on)
+			setFire(1)
 
 
 	if(istype(T, /obj/item/weapon/holder_stick))
@@ -230,6 +228,17 @@
 /obj/structure/campfire/proc/firingUp()
 	fire_stage++
 	update_icon()
+
+
+/obj/structure/campfire/proc/setFire(var/stage, var/temperature)
+	if(!stage)
+		stage = 1
+	if(temperature)
+		burning_temp = temperature
+	fire_stage = stage
+	processing_objects.Add(src)
+	update_icon()
+	set_light(fire_stage*2, 1, "#FF8000")
 
 
 /obj/structure/campfire/proc/soundAndEffects()
