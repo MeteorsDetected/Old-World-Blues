@@ -155,6 +155,16 @@
 	w_class = ITEM_SIZE_TINY
 
 
+/obj/item/weapon/holder_stick/attackby(obj/item/weapon/O as obj, mob/user as mob)
+	if(istype(O, /obj/item/weapon/spider_silk))
+		var/obj/item/weapon/material/hatchet/stone/S = new(get_turf(src))
+		S.broke()
+		if(O.loc == user)
+			user.put_in_inactive_hand(S)
+		qdel(O)
+		qdel(src)
+
+
 /obj/item/weapon/wgrill
 	name = "Grill"
 	desc = "Wooden makeshift grill."
@@ -350,6 +360,33 @@
 	qdel(A)
 	qdel(src)
 
+
+//stone hatchet
+/obj/item/weapon/material/hatchet/stone
+	name = "stone hatchet"
+	desc = "Not a very sharp hatchet, unreliable, but most available surviving tool."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "stone_hatchet"
+	origin_tech = list()
+	var/hits_left = 15 //there are hits count before weapon will broke
+	var/unfinished = 0
+
+
+/obj/item/weapon/material/hatchet/stone/afterattack(atom/A, mob/user, proximity)
+	..()
+	if(!istype(A, /turf))
+		hits_left--
+		if(hits_left <= 0)
+			hits_left = 0
+			if(prob(30))
+				broke()
+				user << SPAN_WARN("Your [name] is now out of order!")
+
+
+/obj/item/weapon/material/hatchet/stone/proc/broke()
+	unfinished = 1
+	icon_state = "stone_hatchet-unfinished"
+	name = "unfinished stone hatchet"
 
 
 //folding hatchet

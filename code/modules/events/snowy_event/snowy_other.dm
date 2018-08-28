@@ -16,6 +16,21 @@
 		icon_state = "rock[rand(1, 2)]"
 
 
+/obj/structure/rock/attackby(obj/item/weapon/O as obj, mob/user as mob)
+	if(istype(O, /obj/item/weapon/material/hatchet/stone))
+		var/obj/item/weapon/material/hatchet/stone/S = O
+		if(S.unfinished)
+			if(prob(70))
+				user << SPAN_NOTE("You found a nice small rock nearby this one.")
+				S.unfinished = 0
+				S.name = "stone hatchet"
+				S.hits_left = 15
+				S.icon_state = "stone_hatchet"
+			else
+				user << SPAN_WARN("You dig the snow under this one, but can't find a good small rock.")
+
+
+
 //Some special effects for that event based on steam effects
 /obj/effect/effect/steam/flinders
 	name = "flinders"
@@ -138,10 +153,8 @@
 	power_light = 0
 	power_equip = 0
 	power_environ = 0
-	ambience = list(
-		'sound/effects/wind/wind_2_1.ogg','sound/effects/wind/wind_2_2.ogg','sound/effects/wind/wind_3_1.ogg',
-		'sound/effects/wind/wind_4_1.ogg','sound/effects/wind/wind_4_2.ogg','sound/effects/wind/wind_5_1.ogg'
-	) //only wind here
+	forced_ambience = list('sound/effects/snowy/wind_long.ogg')
+
 
 /area/indoor
 	name = "Indoor"

@@ -2,6 +2,8 @@ var/global/datum/snowy_master/SnowyMaster
 
 proc/createSnowyMaster()
 	SnowyMaster = new /datum/snowy_master
+	SnowyMaster.berriesAndShroomsRand()
+	SnowyMaster.makeSafeItemsList()
 
 //Need to add:
 //weather
@@ -20,6 +22,11 @@ proc/createSnowyMaster()
 
 	var/list/coolers = list()
 	var/current_temperature = T0C-30
+
+	var/list/shrooms = list() //pregenerated stuff
+	var/list/berries = list()
+
+	var/list/safe_items_list = list() //this one is just a list of path to weapon items, but cleared off spellbooks and other such stuff
 
 
 //this one makes our cooling turfs in one list
@@ -118,6 +125,39 @@ proc/createSnowyMaster()
 		for(var/P in loot)
 			new P(pick(space_around))
 		explosion(land_point, 0, 0, 1, 2)
+
+
+
+//Berries and shrooms randomizer
+//This one shot once after Snowy Master creation and used before creation
+/datum/snowy_master/proc/berriesAndShroomsRand()
+	//shrooms
+	shrooms = subtypesof(/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom)
+	for(var/S in shrooms) //there we setup
+		var/list/P = list()
+		P["i_state"] = "shroom_upper1"
+		if(prob(60))
+			P["icon_bottom"] = "shroom_bottom1"
+		if(prob(60) && P["icon_bottom"])
+			P["icon_ring"] = "shroom_ring1"
+		P["bottom_color"] = list(r = rand(120), g = rand(120), b = rand(120))
+		P["head_color"] = list(r = rand(120), g = rand(120), b = rand(120))
+		P["ring_color"] = list(r = rand(120), g = rand(120), b = rand(120))
+		shrooms[S] = P
+
+	//berries
+	berries = subtypesof(/obj/item/weapon/reagent_containers/food/snacks/ingredient/berries)
+	for(var/B in berries) //there we have only one option - color, so much easier then shrooms
+		berries[B] = list(r = rand(160), g = rand(160), b = rand(160))
+
+
+//Creates safe list of items. Later it will grow, cause i'm sure, i forgot something urge
+/datum/snowy_master/proc/makeSafeItemsList()
+	safe_items_list = subtypesof(/obj/item/weapon)
+	var/list/spellbooks = typesof(/obj/item/weapon/spellbook)
+	for(var/P in spellbooks)
+		safe_items_list.Remove(P)
+	safe_items_list.Remove(/obj/item/weapon/banhammer)
 
 
 
@@ -258,15 +298,15 @@ ADMIN_VERB_ADD(/client/proc/snowy_master_panel, R_ADMIN)
 		if(1)
 			var/randSuit = pick(subtypesof(/obj/item/clothing/suit))
 			var/obj/item/clothing/suit/S = new randSuit(character)
-			character.equip_to_slot_or_del(S, slot_wear_suit)
+			character.put_in_active_hand(S)
 			character << SPAN_NOTE("[pick(foundlist)][S.name]")
 		if(2)
 			var/randHat = pick(subtypesof(/obj/item/clothing/head))
 			var/obj/item/clothing/head/H = new randHat(character)
-			character.equip_to_slot_or_del(H, slot_head)
+			character.put_in_active_hand(H)
 			character << SPAN_NOTE("[pick(foundlist)][H.name]")
 		if(3)
-			var/randItem = pick(subtypesof(/obj/item/weapon))
+			var/randItem = pick(safe_items_list)
 			var/obj/item/weapon/W = new randItem(character)
 			W.loc = character.loc
 			character.put_in_active_hand(W)

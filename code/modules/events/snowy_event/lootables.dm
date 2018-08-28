@@ -133,8 +133,7 @@
 			..()
 			return
 		if(prob(70))
-			possible_loot = typesof(/obj/item/weapon) //This can be a big mistake, but... It's make all of that a bit interesting...
-			possible_loot.Remove(/obj/item/weapon)
+			possible_loot = SnowyMaster.safe_items_list
 			amount_of_loot = rand(1, 10)
 		..()
 

@@ -1,0 +1,36 @@
+"a" = (/turf/simulated/floor/plating/snow/generable,/area/outdoor)
+"b" = (/turf/simulated/wall/wood,/area/indoor{name = "dweller house"})
+"c" = (/obj/structure/girder/wooden,/obj/structure/window/basic{icon_state = "window"; dir = 5},/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"d" = (/obj/structure/bookcase/manuals/medical,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"e" = (/obj/structure/trophy/monkey{anchored = 1; pixel_y = 32},/obj/structure/table/woodentable,/obj/item/storage/fancy/candle_box,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"f" = (/obj/structure/trophy/alien{anchored = 1; pixel_y = 32},/obj/structure/material/bed,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"g" = (/obj/structure/clock,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"h" = (/obj/structure/curtain/black{pixel_y = 32},/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"i" = (/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"j" = (/obj/machinery/light/small{icon_state = "bulb1"; dir = 1},/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"k" = (/obj/structure/closet,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"l" = (/obj/structure/grille,/obj/structure/campfire,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"m" = (/obj/structure/material/chair/comfy/brown{icon_state = "comfychair_preview"; dir = 8},/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"n" = (/obj/structure/table/woodentable,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"o" = (/obj/structure/material/chair/wood{icon_state = "wooden_chair"; dir = 8},/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"p" = (/obj/structure/table/woodentable,/obj/item/weapon/snowy_woodchunks,/obj/item/weapon/snowy_woodchunks,/obj/item/weapon/snowy_woodchunks,/obj/item/weapon/snowy_woodchunks,/obj/item/weapon/snowy_woodchunks,/obj/item/storage/box/matches,/obj/item/storage/box/matches,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"q" = (/obj/structure/curtain/black{pixel_x = 32},/obj/structure/table/woodentable,/obj/item/storage/fancy/candle_box,/obj/item/storage/fancy/candle_box,/obj/item/storage/box/matches,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"r" = (/obj/machinery/light/small{dir = 8},/obj/structure/table/woodentable,/obj/item/weapon/pickaxe,/obj/item/weapon/beartrap,/obj/item/weapon/beartrap,/obj/item/weapon/material/hatchet,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"s" = (/obj/item/weapon/skin,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"t" = (/obj/item/weapon/staff/broom,/obj/item/weapon/soap/deluxe,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"u" = (/obj/structure/curtain/black{pixel_y = -32},/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"v" = (/obj/structure/simple_door/wood,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"w" = (/obj/machinery/power/apc{dir = 1; name = "north bump"; pixel_y = 24},/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/item/storage/toolbox/mechanical,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"x" = (/obj/machinery/light/small{icon_state = "bulb1"; dir = 1},/obj/machinery/power/port_gen/pacman{anchored = 1},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/item/stack/material/phoron,/obj/item/stack/material/phoron,/obj/item/stack/material/phoron,/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+"y" = (/obj/effect/landmark/start{name = "Dweller"},/turf/simulated/floor/wood,/area/indoor{name = "dweller house"})
+
+(1,1,1) = {"
+abbbbbcbbbba
+abdefghijkba
+ablmiiinioba
+abpiiyiniqca
+abriisibbbba
+abtuiiivwxba
+abbcbvbbbbba
+aaaaaaaaaaaa
+"}

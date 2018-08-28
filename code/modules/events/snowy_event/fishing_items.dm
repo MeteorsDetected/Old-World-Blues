@@ -337,7 +337,7 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 /obj/structure/ice_hole/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(W.sharp && freezing_stage)
 		freezing_stage--
-		user << SPAN_NOTE("You cracks trough ice with [W.name].")
+		user << SPAN_NOTE("You cracks through the ice with [W.name].")
 		update_icon()
 
 
@@ -354,8 +354,7 @@ var/list/fishing_fishes = list(		/obj/item/weapon/reagent_containers/food/snacks
 		qdel(src)
 	var/list/pos_loot = list()
 	if(prob(50))
-		pos_loot = typesof(/obj/item/weapon)
-		pos_loot.Remove(/obj/item/weapon)
+		pos_loot = SnowyMaster.safe_items_list
 		pos_loot.Remove(/obj/item/weapon/kelpedloot)
 	else
 		pos_loot = typesof(/obj/item/device)

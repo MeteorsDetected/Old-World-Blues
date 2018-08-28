@@ -10,6 +10,9 @@
 //Make all of this not boring and not too hard or realistic
 
 
+//All of this stuff need to simplify and rewrite
+//Vaporize and blending mechanics good, but need better wrapper
+
 
 /obj/structure/cooker
 	name = "Cooking place"
@@ -381,6 +384,7 @@
 	name = "ingredient"
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
 	icon_state = ""
+	var/real_name = ""
 	bitesize = 3
 	bitecount = 0
 	trash = null
@@ -412,6 +416,13 @@
 		updateDescAndIcon()
 		processing_objects.Add(src) //I know. There we need separate process for ingredients. I'm working on it...
 		processing = 1
+
+
+
+/obj/item/weapon/reagent_containers/food/snacks/ingredient/examine(mob/user as mob)
+	..()
+	if(user.mind.assigned_role == "Dweller")
+		user << SPAN_NOTE("This is [real_name].")
 
 
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/proc/updateDescAndIcon()
@@ -516,20 +527,6 @@
 	..()
 
 
-//Ingredient for tests. Will be removed later
-/obj/item/weapon/reagent_containers/food/snacks/ingredient/testos
-	icon_state = "dustbomb"
-//	nutriment_amt = 1
-	reagents_to_vaporize = list("water")
-	reagents_to_change = list("honey" = "tramadol")
-
-	New()
-		..()
-		reagents.add_reagent("honey", 10)
-		reagents.add_reagent("ethanol", 15)
-		bitesize = 5
-
-
 //shrooms
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom
 	name = "mushroom"
@@ -544,6 +541,19 @@
 
 	New()
 		..()
+		if(SnowyMaster)
+			if(src.type in SnowyMaster.shrooms)
+				var/list/L = SnowyMaster.shrooms[src.type]
+				real_name = name
+				name = "an odd"
+				icon_state = L["i_state"]
+				if(L["icon_bottom"])
+					icon_bottom = L["icon_bottom"]
+				if(L["icon_ring"])
+					icon_ring = L["icon_ring"]
+				bottom_color = L["bottom_color"]
+				head_color = L["head_color"]
+				ring_color = L["ring_color"]
 		update_icon()
 		bitesize = 4
 		name = "[name] shroom"
@@ -721,6 +731,11 @@
 
 	New()
 		..()
+		if(SnowyMaster)
+			if(src.type in SnowyMaster.berries)
+				real_name = name
+				name = "an odd berries"
+				berry_color = SnowyMaster.berries[src.type]
 		icon += rgb(berry_color["r"], berry_color["g"], berry_color["b"])
 
 
@@ -794,3 +809,31 @@
 		reagents.add_reagent("cornoil", 8)
 
 
+
+//Paste maker
+//Converter from ingredients to eateble paste for colonists
+//temporary thing, maybe
+/obj/machinery/paste_maker
+	name = "Paste Maker"
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "paste_maker"
+	density = 1
+	anchored = 1
+	var/state = 0 //1 is on, 0 is off
+
+
+/obj/machinery/paste_maker/attackby(/obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks/ingredient/I))
+		if(!state)
+			user.drop_from_inventory(I, src)
+			user << SPAN_NOTE("You place [I.name] into the [name].")
+		else
+			user << SPAN_WARN("[name] is working now.")
+	if(istype(W, /obj/item/weapon/wrench))
+		if(!state)
+			user << SPAN_NOTE("You [anchored ? "unscrew" : "screw up"] the bolts at [name]'s platform.")
+			anchored = !anchored
+
+
+/obj/machinery/paste_maker/attack_hand(mob/user as mob)
+	//if(istype(

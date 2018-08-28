@@ -94,6 +94,8 @@ proc/snowyMapGeneration()
 								list(/obj/structure/flora/snowybush/deadbush), 15, 30,
 								list(/obj/structure/lootable/mushroom_hideout), 30,
 								list(/obj/item/weapon/branches = 10, /obj/structure/rock = 6, /obj/structure/lootable/chunk = 2, /obj/structure/butcherable = "very rare"))
+				if(T)
+					T.lighting_build_overlays()//don't forget to build our lights. This one needs for chunks, but some lamps can be outside and touch the landscape, so we make it here
 
 	new /datum/random_map(null,1,1,1,world.maxx,world.maxy)
 
@@ -395,8 +397,9 @@ proc/chasmAndRocksGeneration(var/spawn_type = 1, var/min_length = 30, var/min_ra
 						Here.ChangeTurf(/turf/unsimulated/mask)
 						counter++
 				else
-					Here.ChangeTurf(/turf/simulated/floor/plating/chasm)
-					counter++
+					if(istype(Here, /turf/simulated/floor/plating/snow/generable) || istype(Here, /turf/simulated/floor/plating/ice))
+						Here.ChangeTurf(/turf/simulated/floor/plating/chasm)
+						counter++
 	return counter
 
 
@@ -444,7 +447,7 @@ var/list/scenarios = list(/datum/snowy_scenario, /datum/snowy_scenario/silent_tr
 
 /datum/snowy_scenario
 	var/name = "Old lake"
-	var/list/templates = list(/datum/snowy_template/oldvillage, /datum/snowy_template, /datum/snowy_template)
+	var/list/templates = list(/datum/snowy_template/oldvillage, /datum/snowy_template/dweller_house, /datum/snowy_template)
 	var/list/options = list(	list("river" = 1, "length" = 95, "distortion" = 15, "type" = "big", "outfalls" = 4),
 								list("river" = 1, "length" = 120, "distortion" = 10, "type" = "big", "outfalls" = 7),
 								list("rocks" = 1, "type" = 1, "length" = 195, "min_radius" = 1, "max_radius" = 15),
@@ -453,7 +456,7 @@ var/list/scenarios = list(/datum/snowy_scenario, /datum/snowy_scenario/silent_tr
 
 /datum/snowy_scenario/silent_trees
 	name = "Silent trees"
-	templates = list(/datum/snowy_template, /datum/snowy_template, /datum/snowy_template,
+	templates = list(/datum/snowy_template, /datum/snowy_template/dweller_house, /datum/snowy_template,
 					/datum/snowy_template, /datum/snowy_template, /datum/snowy_template)
 	options = list(		list("river" = 1, "length" = 95, "distortion" = 15, "type" = "big", "outfalls" = 4),
 						list("river" = 1, "length" = 120, "distortion" = 10, "type" = "big", "outfalls" = 7),
@@ -473,3 +476,9 @@ var/list/scenarios = list(/datum/snowy_scenario, /datum/snowy_scenario/silent_tr
 	map_file = 'maps/snowy_templates/old_village.dmm'
 	sizeW = 20
 	sizeH = 30
+
+/datum/snowy_template/dweller_house
+	name = "dweller's house"
+	map_file = 'maps/snowy_templates/wild_house.dmm'
+	sizeW = 12
+	sizeH = 8

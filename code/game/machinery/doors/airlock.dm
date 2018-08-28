@@ -32,6 +32,7 @@
 	var/datum/wires/airlock/wires = null
 
 	var/open_sound_powered = 'sound/machines/airlock.ogg'
+	var/open_sound_powered_external = 'sound/machines/airlock_ext.ogg'
 	var/open_sound_unpowered = 'sound/machines/airlock_creaking.ogg'
 
 /obj/machinery/door/airlock/attack_generic(var/mob/user, var/damage)
@@ -856,7 +857,11 @@ About the new airlock wires panel:
 
 	//if the door is unpowered then it doesn't make sense to hear the woosh of a pneumatic actuator
 	if(arePowerSystemsOn())
-		playsound(src.loc, open_sound_powered, 100, 1)
+		//playsound(src.loc, open_sound_powered, 100, 1)
+		if(is_external() && open_sound_powered_external)
+			playsound(src.loc, open_sound_powered_external, 100, 1)
+		else
+			playsound(src.loc, open_sound_powered, 100, 1)
 	else
 		playsound(src.loc, open_sound_unpowered, 100, 1)
 
@@ -950,7 +955,11 @@ About the new airlock wires panel:
 	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
 	has_beeped = 0
 	if(arePowerSystemsOn())
-		playsound(src.loc, open_sound_powered, 100, 1)
+		//playsound(src.loc, open_sound_powered, 100, 1)
+		if(is_external() && open_sound_powered_external)
+			playsound(src.loc, open_sound_powered_external, 100, 1)
+		else
+			playsound(src.loc, open_sound_powered, 100, 1)
 	else
 		playsound(src.loc, open_sound_unpowered, 100, 1)
 	for(var/turf/turf in locs)
@@ -1078,3 +1087,25 @@ About the new airlock wires panel:
 		src.open()
 		src.lock()
 	return
+
+
+//external_check
+/obj/machinery/door/airlock/proc/is_external()
+	var/turf/first //sides from airlock
+	var/turf/second
+	for(var/dir in list(1, 2, 4, 8))
+		var/turf/T = get_step(src, dir)
+		if(!T.density)
+			if(!first)
+				first = T
+				continue
+			if(!second)
+				second = T
+	if(first.air && second.air) //compare() is not good here, we make it through temperature
+		var/difference = abs(first.air.temperature - second.air.temperature)
+		if(difference <= 20)
+			return 0
+		else
+			return 1
+	else
+		return 1

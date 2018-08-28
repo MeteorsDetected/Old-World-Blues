@@ -39,10 +39,7 @@
 				loot_left--
 				return
 
-			if(prob(goodloot_chance)) //Well... This was bad idea - make this with typesof. They abuse this, so now only the list!
-				//var/list/new_l = typesof(/obj/item/weapon)
-				//new_l.Remove(/obj/item/weapon)
-				//var/L = pick(new_l)
+			if(prob(goodloot_chance))
 				var/L = pick(good_loot_list)
 				new L(user.loc)
 				user << SPAN_NOTE("You found something interesting!")

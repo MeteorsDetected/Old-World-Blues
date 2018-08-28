@@ -81,22 +81,37 @@
 
 	//very long, i know, sorry
 	if(istype(T, /obj/item/weapon/flame) || istype(T, /obj/item/weapon/weldingtool) || istype(T, /obj/item/clothing/mask/smokable/cigarette) || istype(T, /obj/item/device/flashlight/flare))
+		if(fire_stage > 0 && !istype(T, /obj/item/clothing/mask/smokable/cigarette))
+			return
+
 		if(istype(T, /obj/item/weapon/flame))
 			var/obj/item/weapon/flame/F = T
-			if(!F.lit)
+			if(F.lit)
+				setFire(1)
 				return
-		else if(istype(T, /obj/item/clothing/mask/smokable/cigarette))
+
+		if(istype(T, /obj/item/clothing/mask/smokable/cigarette))
 			var/obj/item/clothing/mask/smokable/cigarette/C = T
 			if(!C.lit)
 				if(fire_stage > 1)
 					C.light(SPAN_NOTE("[user] light his [C.name] with fire."))
-				return
-		else
+					return
+			else
+				if(fire_stage == 0)
+					setFire(1)
+					return
+
+		if(istype(T, /obj/item/weapon/weldingtool))
 			var/obj/item/weapon/weldingtool/W = T
-			if(!W.welding)
+			if(W.welding)
+				setFire(1)
 				return
-		if(fire_stage == 0)
-			setFire(1)
+
+		if(istype(T, /obj/item/device/flashlight/flare))
+			var/obj/item/device/flashlight/flare/F = T
+			if(F.on)
+				setFire(1)
+				return
 
 	if(istype(T, /obj/item/weapon/reagent_containers/food/snacks/bug/firefly))
 		if(fire_stage == 0)
@@ -104,11 +119,6 @@
 			setFire(2, 200)
 			qdel(T)
 			return
-
-	if(istype(T, /obj/item/device/flashlight/flare))
-		var/obj/item/device/flashlight/flare/F = T
-		if(F.on)
-			setFire(1)
 
 
 	if(istype(T, /obj/item/weapon/holder_stick))
