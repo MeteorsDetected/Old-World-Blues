@@ -98,6 +98,7 @@ proc/snowyMapGeneration()
 					T.lighting_build_overlays()//don't forget to build our lights. This one needs for chunks, but some lamps can be outside and touch the landscape, so we make it here
 
 	new /datum/random_map(null,1,1,1,world.maxx,world.maxy)
+	makepowernets() //powernets we setup too
 
 	//snowy master work
 	if(SnowyMaster)

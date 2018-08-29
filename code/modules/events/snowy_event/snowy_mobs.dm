@@ -360,8 +360,8 @@
 	response_harm   = "swats"
 	stop_automated_movement = 1
 	universal_speak = 1
-	health = 220
-	maxHealth = 220
+	health = 360
+	maxHealth = 360
 	var/hunger = 30
 	var/energy = 100
 	var/atom/Target = null
@@ -548,7 +548,8 @@
 			if(maxHealth < 220)
 				maxHealth = 220
 	if(hunger >= 80)
-		find_for_food()
+		if(!chill)
+			find_for_food()
 
 
 /mob/living/simple_animal/smartdog/proc/energy_tick()

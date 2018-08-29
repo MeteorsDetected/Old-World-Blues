@@ -385,6 +385,7 @@
 
 /obj/item/weapon/material/hatchet/stone/proc/broke()
 	unfinished = 1
+	sharp = 0
 	icon_state = "stone_hatchet-unfinished"
 	name = "unfinished stone hatchet"
 

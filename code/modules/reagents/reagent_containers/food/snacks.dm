@@ -50,7 +50,8 @@
 	if(iscarbon(M))
 		//TODO: replace with standard_feed_mob() call.
 
-		var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
+		//var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
+		var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 15) //let's eat a bit more, snowy
 		if(M == user)								//If you're eating it yourself
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M

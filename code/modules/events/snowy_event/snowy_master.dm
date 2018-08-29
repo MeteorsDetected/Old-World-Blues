@@ -20,6 +20,8 @@ proc/createSnowyMaster()
 	var/pop_tick_interval = 10 //interval between population checks to make this less laggy
 	var/pop_tick = 0
 
+	var/spawn_turfs_upd_ticks = 30
+
 	var/list/coolers = list()
 	var/current_temperature = T0C-30
 
@@ -53,7 +55,7 @@ proc/createSnowyMaster()
 	for(var/y=2, world.maxy-2 >= y, y++)
 		for(var/x=2, world.maxx-2 >= x, x++)
 			var/turf/T = locate(x, y, 1)
-			if(!istype(T, /turf/simulated/mineral) && !istype(T, /turf/simulated/floor/plating/chasm))
+			if(istype(T, /turf/simulated/floor/plating/snow/generable))
 				spawnable_turfs.Add(T)
 
 
@@ -96,10 +98,14 @@ proc/createSnowyMaster()
 
 /datum/controller/process/snowy/doWork()
 	SnowyMaster.pop_tick--
+	SnowyMaster.spawn_turfs_upd_ticks--
 	if(SnowyMaster.spawnable_turfs.len < 1)
 		SnowyMaster.makeSpawnableTurfsList()
 	if(SnowyMaster.pop_tick <= 0 && SnowyMaster.animal_spawn)
 		SnowyMaster.checkPopulation()
+	if(SnowyMaster.spawn_turfs_upd_ticks <= 0) //spawnable areas update
+		SnowyMaster.makeSpawnableTurfsList()
+		SnowyMaster.spawn_turfs_upd_ticks = 30
 
 
 
@@ -155,8 +161,11 @@ proc/createSnowyMaster()
 /datum/snowy_master/proc/makeSafeItemsList()
 	safe_items_list = subtypesof(/obj/item/weapon)
 	var/list/spellbooks = typesof(/obj/item/weapon/spellbook)
+	var/list/staves = typesof(/obj/item/weapon/gun/energy/staff)
 	for(var/P in spellbooks)
 		safe_items_list.Remove(P)
+	for(var/S in staves)
+		safe_items_list.Remove(S)
 	safe_items_list.Remove(/obj/item/weapon/banhammer)
 
 
@@ -330,7 +339,7 @@ ADMIN_VERB_ADD(/client/proc/snowy_master_panel, R_ADMIN)
 
 
 	character << SPAN_NOTE("You've been worked at the ship of [ship_class] class. Your ship carried [cargo] and your employer was [employer]. But something going wrong. [happen] You've runned to one of the pod, takes a seat and pressed the button. After ADS shot you from the ship you've seen [last_thing]")
-	character << "\red <big>GET READY FOR IMPACT IN TEN SECONDS!</big>"
+	character << "\red <big>GET READY FOR AN IMPACT IN TEN SECONDS!</big>"
 	character.loc = SnowyMaster //Let's hide player before impact
 	container_drop(start_point, list(/obj/item/storage/firstaid/adv), character)
 	command_announcement.Announce("Something small approaching to the surface!", "Bright flash in the sky")

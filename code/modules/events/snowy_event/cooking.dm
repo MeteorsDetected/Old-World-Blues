@@ -811,8 +811,10 @@
 
 
 //Paste maker
-//Converter from ingredients to eateble paste for colonists
+//Converter from ingredients to eatable paste for colonists
 //temporary thing, maybe
+//This machine takes ingredients, filter approved reagents and makes paste with nutriments
+//Simple, but maybe later, with rework of cooking i make something interesting
 /obj/machinery/paste_maker
 	name = "Paste Maker"
 	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
@@ -820,13 +822,21 @@
 	density = 1
 	anchored = 1
 	var/state = 0 //1 is on, 0 is off
+	var/list/tank = list()
+	var/list/approved_reagents = list("limejuice", "cherryjelly", "berryjuice", "water", "carrotjuice",
+								"sugar", "blood", "cream", "coco", "rice", "egg", "protein") //this will be optional in game later
+	var/processed = 0
 
 
-/obj/machinery/paste_maker/attackby(/obj/item/weapon/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks/ingredient/I))
+/obj/machinery/paste_maker/attackby(var/obj/item/weapon/W, var/mob/user)
+	if(istype(W, /obj/item/weapon/reagent_containers/food/snacks))
 		if(!state)
-			user.drop_from_inventory(I, src)
-			user << SPAN_NOTE("You place [I.name] into the [name].")
+			if(tank.len >= 10)
+				user << SPAN_WARN("[name] is full.")
+				return
+			user.drop_from_inventory(W, src)
+			tank.Add(W)
+			user << SPAN_NOTE("You place [W.name] into the [name].")
 		else
 			user << SPAN_WARN("[name] is working now.")
 	if(istype(W, /obj/item/weapon/wrench))
@@ -836,4 +846,44 @@
 
 
 /obj/machinery/paste_maker/attack_hand(mob/user as mob)
-	//if(istype(
+	if(!state)
+		if(!tank.len)
+			user << SPAN_WARN("You need to load ingredients first.")
+		state = 1
+		user << SPAN_NOTE("You turn on the [name].")
+		icon_state = "paste_maker-working"
+
+
+/obj/machinery/paste_maker/process()
+	if(state)
+		if(!processed)
+			for(var/i=1 to Floor(tank.len/2)) //a little bit dirty all of that, but i think it's a better way for now
+				var/obj/item/weapon/reagent_containers/food/snacks/nutripaste/Paste = new(src)
+				for(var/obj/item/weapon/reagent_containers/food/snacks/S in tank)
+					for(var/datum/reagent/R in S.reagents.reagent_list)
+						if(R.id in approved_reagents)
+							Paste.reagents.add_reagent(R.id, 2)
+				Paste.reagents.add_reagent("protein", 2)
+			for(var/obj/item/weapon/reagent_containers/food/snacks/S in tank)
+				qdel(S)
+			tank = list()
+			processed = 1
+		else
+			var/obj/item/weapon/reagent_containers/food/snacks/nutripaste/N = locate() in src
+			if(N)
+				N.loc = src.loc
+			else
+				state = 0
+				processed = 0
+				icon_state = "paste_maker"
+
+//paste
+/obj/item/weapon/reagent_containers/food/snacks/nutripaste
+	name = "nutrition paste"
+	desc = "Wow, well. Just don't look at it, close your eyes and think about hot chicken."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "paste"
+
+	New()
+		..()
+		bitesize = 5

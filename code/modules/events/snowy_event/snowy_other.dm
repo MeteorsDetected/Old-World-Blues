@@ -26,8 +26,14 @@
 				S.name = "stone hatchet"
 				S.hits_left = 15
 				S.icon_state = "stone_hatchet"
+				S.sharp = 1
 			else
 				user << SPAN_WARN("You dig the snow under this one, but can't find a good small rock.")
+	if(istype(O, /obj/item/weapon/branches))
+		user << SPAN_NOTE("You found nice rockish place at the stone and sharpen the [O.name].")
+		var/obj/item/weapon/stick/S = new(user.loc)
+		qdel(O)
+		user.put_in_active_hand(S)
 
 
 
