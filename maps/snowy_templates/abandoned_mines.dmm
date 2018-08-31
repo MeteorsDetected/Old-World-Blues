@@ -1,0 +1,69 @@
+"a" = (/turf/simulated/floor/plating/snow,/area/outdoor)
+"b" = (/turf/simulated/mineral/random/snowy,/area/outdoor)
+"c" = (/turf/simulated/mineral/random/snowy,/area/asteroid/cave)
+"d" = (/obj/structure/girder/wooden,/turf/simulated/floor/plating/wooden,/area/asteroid/cave)
+"e" = (/obj/structure/simple_door/wood,/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"f" = (/obj/item/weapon/ore/phoron,/obj/item/weapon/ore,/turf/simulated/floor/plating/asteroid,/area/asteroid/cave)
+"g" = (/obj/structure/lootable/wooden,/turf/simulated/floor/plating/asteroid,/area/asteroid/cave)
+"h" = (/turf/simulated/floor/plating/asteroid,/area/asteroid/cave)
+"i" = (/obj/structure/lootable/rocky,/turf/simulated/floor/plating/asteroid,/area/asteroid/cave)
+"j" = (/obj/item/weapon/ore,/turf/simulated/floor/plating/asteroid,/area/asteroid/cave)
+"k" = (/obj/item/weapon/ore/coal,/turf/simulated/floor/plating/asteroid,/area/asteroid/cave)
+"l" = (/obj/item/clothing/glasses/material,/obj/item/weapon/pickaxe,/obj/item/device/flashlight/lantern,/turf/simulated/floor/plating/asteroid,/area/asteroid/cave)
+"m" = (/obj/item/weapon/ore/diamond,/obj/structure/deadman/sleeping{name = "Miner's body"},/turf/simulated/floor/plating/asteroid,/area/asteroid/cave)
+"n" = (/obj/structure/closet,/obj/item/clothing/under/rank/miner,/obj/item/weapon/pickaxe,/obj/item/storage/bag/ore,/obj/item/weapon/shovel,/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"o" = (/obj/machinery/artifact{name = "Old world eye"},/turf/simulated/floor/plating/asteroid,/area/asteroid/cave)
+"p" = (/turf/simulated/floor/wood{icon_state = "wood-broken"},/area/indoor{name = "Mining station 864"})
+"q" = (/obj/structure/closet,/obj/item/storage/bag/ore,/obj/machinery/light/small/emergency{icon_state = "bulb1"; dir = 8},/obj/item/device/flashlight/lantern,/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"r" = (/obj/structure/closet/crate/miningcar,/obj/item/weapon/ore/silver,/obj/item/weapon/ore/silver,/obj/item/weapon/ore/silver,/obj/item/weapon/ore/uranium,/obj/item/weapon/ore/glass,/obj/item/weapon/ore/glass,/obj/item/weapon/ore/glass,/obj/item/weapon/ore/glass,/obj/item/weapon/ore/glass,/obj/item/weapon/ore/glass,/obj/item/weapon/ore/phoron,/turf/simulated/floor/plating/snow,/area/outdoor)
+"s" = (/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"t" = (/obj/structure/closet,/obj/item/weapon/ore/iron,/obj/item/weapon/ore/iron,/obj/item/weapon/ore/iron,/obj/item/weapon/material/hatchet,/obj/item/device/flashlight/lantern,/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"u" = (/obj/structure/simple_door/wood{name = "Abandoned mines"},/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"v" = (/obj/effect/decal/cleanable/gangtag{desc = "Where's our food, u bastards!?"; name = "miner's message"; pixel_y = 26},/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"w" = (/obj/structure/table/rack,/obj/item/clothing/head/winterhat,/obj/item/storage/box/lights,/obj/machinery/light/small{dir = 1},/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"x" = (/obj/structure/ore_box,/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"y" = (/obj/structure/ore_box,/turf/simulated/floor/wood{icon_state = "wood-broken"},/area/indoor{name = "Mining station 864"})
+"z" = (/obj/structure/ore_box,/obj/machinery/light/small{dir = 1},/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"A" = (/turf/simulated/floor/wood{tag = "icon-wood-broken5"; icon_state = "wood-broken5"},/area/indoor{name = "Mining station 864"})
+"B" = (/turf/simulated/floor/wood{tag = "icon-wood-broken"; icon_state = "wood-broken"},/area/indoor{name = "Mining station 864"})
+"C" = (/obj/structure/table/rack,/obj/item/clothing/suit/storage/toggleable_hood/wintercoat,/obj/item/device/flashlight/flare,/obj/item/clothing/gloves/brown/warm,/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"D" = (/obj/structure/table/standard,/obj/item/weapon/paper_bin,/obj/item/weapon/ore/gold,/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"E" = (/obj/structure/table/standard,/obj/item/weapon/pen/blue,/obj/item/toy/figure/miner,/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"F" = (/obj/machinery/power/apc{dir = 1; name = "north bump"; pixel_y = 24},/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"G" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/wood{icon_state = "wood-broken6"},/area/indoor{name = "Mining station 864"})
+"H" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"I" = (/obj/machinery/shower{pixel_y = 16},/turf/simulated/floor/carpet,/area/indoor{name = "Mining station 864"})
+"J" = (/turf/simulated/floor/wood{icon_state = "wood-broken6"},/area/indoor{name = "Mining station 864"})
+"K" = (/obj/structure/material/chair/wood{icon_state = "wooden_chair"; dir = 1},/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"L" = (/obj/machinery/light/small,/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"M" = (/obj/structure/table/standard,/obj/item/storage/box/cups,/obj/item/weapon/packageWrap,/obj/item/weapon/tape_piece,/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"N" = (/obj/structure/table/standard,/obj/machinery/reagentgrinder{name = "An old coffeemaker"; pixel_y = 8},/turf/simulated/floor/wood{tag = "icon-wood-broken7"; icon_state = "wood-broken7"},/area/indoor{name = "Mining station 864"})
+"O" = (/obj/structure/material/bed,/obj/structure/material/bed{pixel_y = 16},/obj/item/weapon/bedsheet/brown,/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"P" = (/obj/structure/material/bed,/obj/structure/material/bed{pixel_y = 16},/obj/item/weapon/bedsheet/brown,/obj/item/storage/backpack/dufflebag,/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"Q" = (/obj/machinery/space_heater,/obj/item/storage/fancy/cigarettes/nebelherz,/obj/item/storage/box/matches,/turf/simulated/floor/wood{tag = "icon-wood-broken5"; icon_state = "wood-broken5"},/area/indoor{name = "Mining station 864"})
+"R" = (/obj/structure/toilet{desc = "Oh crap, this one full of shit."; dir = 8; icon_state = "toilet00"; name = "clogged toilet"},/obj/item/weapon/wrench{desc = "Looks like shit. Smells like shit. Shit!"; name = "shit covered wrench"},/turf/simulated/floor/wood,/area/indoor{name = "Mining station 864"})
+"S" = (/turf/simulated/wall,/area/indoor{name = "Mining station 864"})
+"T" = (/turf/simulated/floor/plating/snow/generable,/area/outdoor)
+
+(1,1,1) = {"
+TTTbbbTTTTTTTbbbTTTT
+TTbcccbTTbbbbcccbTTT
+TTbccccbbcccccccbTTT
+TTbcccccccccccccbbTT
+TTTbcccdfgdccccccbTT
+TTTbcchiffjidcccccbT
+TTbccdhdccdihkccccbT
+TbcccihgicccdidccbTT
+TbcccchiiiccckkcccbT
+TbcccccigliccghcccbT
+TTbbcccimoicSSeScbbT
+TTarbccciiccSnpScbTT
+TTbbccccccccSqsScbTT
+TSSSSSSSSSSSStsScbTT
+ausvwSxyzxAsesBSccbT
+TSCpsesssssSSSSSSSSb
+TSSSSSDEssseBFGeHISb
+TTbccSJKLMNSOOPSQRSb
+TTbbbSSSSSSSSSSSSSSb
+TTTTbbbbbbbbbTTbbbbT
+"}

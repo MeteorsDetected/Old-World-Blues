@@ -878,3 +878,10 @@ obj/machinery/lightrail/process()
 	New()
 		..()
 		info = russian_to_utf8(info)
+
+
+/obj/machinery/power/solar/broken
+
+
+/obj/machinery/power/solar/broken/New()
+	broken()

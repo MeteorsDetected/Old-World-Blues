@@ -1,0 +1,62 @@
+"a" = (/turf/simulated/floor/plating/snow,/area/outdoor)
+"b" = (/turf/simulated/wall,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"c" = (/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"d" = (/obj/machinery/autolathe,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"e" = (/obj/structure/table/standard,/obj/item/stack/material/phoron{amount = 15},/obj/item/storage/box/donut,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"f" = (/obj/machinery/computer/power_monitor,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"g" = (/obj/machinery/computer/drone_control,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"h" = (/obj/item/device/paicard,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"i" = (/obj/item/weapon/circuitboard/pacman,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"j" = (/turf/simulated/floor{icon_state = "floorscorched1"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"k" = (/turf/simulated/floor{icon_state = "loadingareadirty2"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"l" = (/obj/item/weapon/circuitboard/protolathe,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"m" = (/obj/item/weapon/reagent_containers/rag,/obj/item/weapon/screwdriver,/obj/item/weapon/wrench,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"n" = (/obj/machinery/button/remote/blast_door{id = "garage242"; name = "Garage Shutters Control"; pixel_x = 26; pixel_y = 0},/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"o" = (/obj/machinery/door/airlock/glass_engineering,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"p" = (/obj/random/single/oil,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"q" = (/obj/structure/table/standard,/obj/item/weapon/circuitboard/solar_control,/obj/item/weapon/circuitboard/solar_control,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"r" = (/obj/structure/table/standard,/obj/item/weapon/circuitboard/mecha/ripley/main,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"s" = (/obj/machinery/light/small{dir = 4},/mob/living/simple_animal/shrooman,/turf/simulated/floor{icon_state = "damaged5"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"t" = (/obj/machinery/light/small/emergency{icon_state = "bulb1"; dir = 8},/turf/simulated/floor{icon_state = "damaged3"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"u" = (/obj/motorcycle{name = "Snow"},/turf/simulated/floor{icon_state = "loadingareadirty1"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"v" = (/obj/machinery/door/blast/shutters{dir = 2; id = "garage242"; layer = 3.3; name = "Garage Shutters"},/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"w" = (/obj/structure/table/rack,/obj/item/storage/toolbox,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"x" = (/obj/motorcycle{color = "aa0303"; name = "Ice"},/obj/random/single/oil,/turf/simulated/floor{icon_state = "loadingareadirty1"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"y" = (/obj/effect/decal/cleanable/blood,/obj/effect/decal/cleanable/blood/gibs/body,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"z" = (/obj/machinery/light/small,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"A" = (/obj/effect/decal/cleanable/blood/drip,/obj/effect/decal/cleanable/blood/drip,/obj/effect/decal/cleanable/blood/drip,/mob/living/simple_animal/tomato,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"B" = (/obj/machinery/power/apc{dir = 8; name = "west bump"; pixel_x = -24},/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"C" = (/turf/simulated/floor{icon_state = "floorscorched2"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"D" = (/turf/simulated/floor{icon_state = "damaged5"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"E" = (/turf/simulated/floor{icon_state = "damaged3"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"F" = (/turf/simulated/floor{icon_state = "delivery"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"G" = (/obj/item/device/flashlight,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"H" = (/obj/machinery/door/airlock/engineering{name = "Maintenance Station 244"; req_access = list(32)},/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"I" = (/turf/simulated/floor/plating/snow/generable,/area/outdoor)
+"J" = (/obj/structure/table/standard,/obj/item/weapon/circuitboard/arcade,/obj/item/weapon/circuitboard/arcade,/obj/item/storage/box/lights,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"K" = (/obj/machinery/space_heater,/turf/simulated/floor{icon_state = "floorscorched2"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"L" = (/obj/structure/table/standard,/obj/item/storage/toolbox,/obj/item/device/multitool,/obj/machinery/light/small,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"M" = (/obj/structure/table/woodentable{icon_state = "metal_flip0"; flipped = 1},/obj/effect/decal/cleanable/blood/drip,/obj/effect/decal/cleanable/blood/drip,/turf/simulated/floor{icon_state = "damaged3"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"N" = (/obj/structure/table/woodentable{icon_state = "metal_flip0"; flipped = 1},/turf/simulated/floor{icon_state = "floorscorched2"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"O" = (/obj/structure/table/woodentable{icon_state = "metal_flip0"; flipped = 1},/turf/simulated/floor{icon_state = "floorscorched1"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"P" = (/obj/structure/table/rack,/obj/item/storage/toolbox,/obj/item/storage/toolbox,/obj/item/clothing/suit/storage/toggleable_hood/wintercoat,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"Q" = (/obj/effect/decal/cleanable/blood/drip,/obj/effect/decal/cleanable/blood/drip,/turf/simulated/floor{icon_state = "damaged3"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"R" = (/obj/effect/decal/cleanable/blood,/turf/simulated/floor{icon_state = "floorscorched2"},/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"S" = (/obj/structure/table/standard,/obj/item/weapon/circuitboard/crew,/obj/item/weapon/flame/lighter,/obj/item/taperoll/engineering,/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"T" = (/obj/effect/decal/cleanable/blood,/obj/effect/decal/cleanable/blood/gibs/limb,/obj/effect/decal/cleanable/blood/gibs/limb,/obj/item/weapon/material/twohanded/fireaxe,/obj/machinery/light/small/emergency{icon_state = "bulb1"; dir = 1},/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+"U" = (/obj/structure/table/rack,/obj/item/weapon/circuitboard/mecha/ripley/peripherals,/obj/item/clothing/suit/storage/toggleable_hood/wintercoat,/obj/machinery/light/small{dir = 8},/turf/simulated/floor,/area/engineering{ambience = list(); name = "Maintenance Station 244"})
+
+(1,1,1) = {"
+IIIIIIIIIIIIIIII
+IbbbbbbbbbbbbbbI
+IbcdefghijbkuxbI
+IbBclccjCsbtmnbI
+IbFccccCEcoCjcbI
+IbFpzqrJLSbbvvba
+Ibbobbbbbbbaaaaa
+IbwjEKbyTAbaaaaI
+IbUcRDbMNObaIIII
+IbPcccoCQGbaIIII
+IbbbbbbbbHbaIIII
+IIIIIIIIaaaaIIII
+"}

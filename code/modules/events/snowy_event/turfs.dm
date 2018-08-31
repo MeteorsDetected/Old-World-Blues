@@ -62,6 +62,7 @@
 
 
 /turf/simulated/floor/plating/snow/Entered(mob/living/user as mob)
+	..()
 	if(!floor_type)
 		if(istype(user, /mob/living))
 			if(prob(15))
@@ -76,6 +77,7 @@
 
 
 /turf/simulated/floor/plating/snow/Exited(mob/living/user as mob)
+	..()
 	if(!floor_type)
 		if(istype(user, /mob/living))
 			var/image/I = image(icon, "footprint[2]", dir = user.dir)
@@ -163,7 +165,7 @@
 	New()
 		..()
 		spawn(4)
-			if(src)
+			if(src && istype(src, /turf/simulated/floor/plating/chasm))
 				update_icon()
 				for(var/direction in list(1,2,4,8,5,6,9,10))
 					if(istype(get_step(src,direction),/turf/simulated/floor/plating/chasm))

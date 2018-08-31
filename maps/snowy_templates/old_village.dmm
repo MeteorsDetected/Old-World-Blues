@@ -1,77 +1,157 @@
-"a" = (/turf/simulated/floor/plating/snow,/area/outdoor)
-"b" = (/turf/simulated/floor/wood,/area/outdoor)
-"c" = (/obj/structure/girder/wooden,/turf/simulated/floor/wood,/area/outdoor)
-"d" = (/turf/simulated/floor/wood{tag = "icon-wood-broken7"; icon_state = "wood-broken7"},/area/outdoor)
-"e" = (/turf/simulated/wall/wood,/area/outdoor)
-"f" = (/turf/simulated/floor/wood{tag = "icon-wood-broken5"; icon_state = "wood-broken5"},/area/outdoor)
-"g" = (/obj/effect/decal/cleanable/blood,/turf/simulated/floor/wood,/area/outdoor)
-"h" = (/obj/structure/girder/wooden,/obj/structure/barricade,/turf/simulated/floor/wood,/area/outdoor)
-"i" = (/turf/simulated/floor/wood{tag = "icon-wood-broken"; icon_state = "wood-broken"},/area/outdoor)
-"j" = (/obj/effect/decal/cleanable/blood,/turf/simulated/floor/wood{tag = "icon-wood-broken"; icon_state = "wood-broken"},/area/outdoor)
-"k" = (/obj/structure/table/woodentable,/obj/random/armor,/turf/simulated/floor/wood{tag = "icon-wood-broken"; icon_state = "wood-broken"},/area/outdoor)
-"l" = (/obj/structure/table/woodentable,/turf/simulated/floor/wood,/area/outdoor)
-"m" = (/obj/structure/table/rack,/turf/simulated/floor/wood{tag = "icon-wood-broken2"; icon_state = "wood-broken2"},/area/outdoor)
-"n" = (/obj/structure/table/rack,/obj/random/tech_supply,/turf/simulated/floor/wood,/area/outdoor)
-"o" = (/obj/structure/table/rack,/obj/random/tool,/turf/simulated/floor/wood,/area/outdoor)
-"p" = (/obj/structure/simple_door/wood,/turf/simulated/floor/wood,/area/outdoor)
-"q" = (/obj/structure/simple_door/wood,/obj/structure/barricade,/turf/simulated/floor/wood,/area/outdoor)
-"r" = (/obj/structure/fence{tag = "icon-fence (WEST)"; icon_state = "fence"; dir = 8},/turf/simulated/floor/plating/snow,/area/outdoor)
-"s" = (/turf/simulated/floor/wood{tag = "icon-wood-broken2"; icon_state = "wood-broken2"},/area/outdoor)
-"t" = (/obj/structure/table/woodentable,/turf/simulated/floor/wood{tag = "icon-wood-broken7"; icon_state = "wood-broken7"},/area/outdoor)
-"u" = (/obj/structure/table/woodentable,/obj/random/contraband,/turf/simulated/floor/wood,/area/outdoor)
-"v" = (/obj/item/weapon/beartrap,/turf/simulated/floor/wood,/area/outdoor)
-"w" = (/obj/structure/toilet{dir = 4},/turf/simulated/floor/wood{tag = "icon-wood-broken2"; icon_state = "wood-broken2"},/area/outdoor)
-"x" = (/obj/structure/fence,/turf/simulated/floor/plating/snow,/area/outdoor)
-"y" = (/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating/snow,/area/outdoor)
-"z" = (/obj/effect/decal/cleanable/blood,/turf/simulated/floor/wood{tag = "icon-wood-broken7"; icon_state = "wood-broken7"},/area/outdoor)
-"A" = (/obj/structure/table/woodentable,/turf/simulated/floor/wood{tag = "icon-wood-broken5"; icon_state = "wood-broken5"},/area/outdoor)
-"B" = (/obj/structure/closet/cabinet/underwear,/turf/simulated/floor/wood,/area/outdoor)
-"C" = (/obj/structure/table/rack,/obj/random/tool,/turf/simulated/floor/wood{tag = "icon-wood-broken2"; icon_state = "wood-broken2"},/area/outdoor)
-"D" = (/obj/structure/table/woodentable,/obj/random/action_figure,/turf/simulated/floor/wood,/area/outdoor)
-"E" = (/obj/structure/table/rack,/turf/simulated/floor/wood,/area/outdoor)
-"F" = (/obj/structure/table/woodentable,/turf/simulated/floor/wood{tag = "icon-wood-broken2"; icon_state = "wood-broken2"},/area/outdoor)
-"G" = (/obj/item/weapon/branches,/turf/simulated/floor/plating/snow,/area/outdoor)
-"H" = (/obj/structure/table/rack,/obj/random/firstaid,/turf/simulated/floor/wood,/area/outdoor)
-"I" = (/obj/structure/closet,/turf/simulated/floor/wood,/area/outdoor)
-"J" = (/obj/structure/table/rack,/obj/random/toolbox,/turf/simulated/floor/wood,/area/outdoor)
-"K" = (/obj/item/weapon/branches,/turf/simulated/floor/wood,/area/outdoor)
-"L" = (/obj/item/weapon/branches,/obj/item/weapon/branches,/turf/simulated/floor/wood,/area/outdoor)
-"M" = (/obj/random/contraband,/turf/simulated/floor/wood,/area/outdoor)
-"N" = (/obj/item/weapon/branches,/obj/item/weapon/branches,/obj/item/weapon/branches,/turf/simulated/floor/plating/snow,/area/outdoor)
-"O" = (/obj/structure/table/rack,/obj/random/medical,/obj/random/medical,/turf/simulated/floor/wood,/area/outdoor)
-"P" = (/obj/structure/table/rack,/obj/random/tech_supply,/turf/simulated/floor/wood{tag = "icon-wood-broken"; icon_state = "wood-broken"},/area/outdoor)
-"Q" = (/obj/structure/table/rack,/obj/random/tech_supply,/turf/simulated/floor/wood{tag = "icon-wood-broken2"; icon_state = "wood-broken2"},/area/outdoor)
-"R" = (/obj/structure/barricade,/turf/simulated/floor/wood,/area/outdoor)
+"aa" = (/turf/simulated/floor/plating/snow/generable,/area/outdoor)
+"ab" = (/turf/simulated/wall/wood,/area/outdoor)
+"ac" = (/turf/simulated/wall/wood,/area/indoor{name = "lovers house"})
+"ad" = (/obj/structure/girder/wooden,/turf/simulated/floor/wood{tag = "icon-wood-broken"; icon_state = "wood-broken"},/area/indoor{name = "lovers house"})
+"ae" = (/obj/structure/girder/wooden,/obj/item/weapon/material/shard,/obj/structure/barricade,/turf/simulated/floor/plating/wooden,/area/indoor{name = "lovers house"})
+"af" = (/turf/simulated/wall/wood,/area/indoor{name = "madman home"})
+"ag" = (/obj/structure/material/bed,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"ah" = (/obj/structure/table/woodentable,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"ai" = (/obj/structure/closet/crate/bin,/obj/item/weapon/reagent_containers/chem_disp_cartridge/radium,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"aj" = (/obj/structure/girder/wooden,/obj/structure/barricade,/turf/simulated/floor/plating/wooden,/area/indoor{name = "madman home"})
+"ak" = (/obj/item/weapon/material/shard,/turf/simulated/floor/wood,/area/indoor{name = "madman home"})
+"al" = (/obj/structure/sofa/brown/left,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"am" = (/turf/simulated/floor/wood,/area/indoor{name = "madman home"})
+"an" = (/obj/structure/sofa/brown/right,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"ao" = (/obj/structure/girder/wooden,/obj/structure/barricade,/turf/simulated/floor/plating/wooden,/area/indoor{name = "lovers house"})
+"ap" = (/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"aq" = (/obj/item/weapon/material/shard,/turf/simulated/floor/wood{icon_state = "wood-broken"},/area/indoor{name = "lovers house"})
+"ar" = (/obj/item/weapon/material/shard,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"as" = (/obj/snowfloor_mask,/turf/simulated/floor/plating/wooden,/area/outdoor)
+"at" = (/obj/item/weapon/material/shard,/turf/simulated/floor/plating/snow/generable,/area/outdoor)
+"au" = (/obj/structure/table/woodentable,/turf/simulated/floor/wood{tag = "icon-wood-broken"; icon_state = "wood-broken"},/area/indoor{name = "lovers house"})
+"av" = (/obj/structure/table/woodentable,/obj/item/weapon/paper/pamphlet,/obj/item/weapon/material/kitchen/utensil/fork,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"aw" = (/obj/structure/girder/wooden,/obj/structure/window/basic{icon_state = "window"; dir = 6},/obj/structure/barricade,/turf/simulated/floor/plating/wooden,/area/indoor{name = "lovers house"})
+"ax" = (/obj/structure/girder/wooden,/turf/simulated/floor/wood{tag = "icon-wood-broken5"; icon_state = "wood-broken5"},/area/indoor{name = "lovers house"})
+"ay" = (/obj/structure/closet,/turf/simulated/floor/wood{icon_state = "wood-broken3"},/area/indoor{name = "lovers house"})
+"az" = (/obj/structure/lootable/wooden,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"aA" = (/obj/structure/roller_bed,/turf/simulated/floor/wood,/area/indoor{name = "madman home"})
+"aB" = (/obj/structure/closet,/obj/item/weapon/weldingtool,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"aC" = (/obj/structure/grille,/obj/structure/campfire,/obj/item/weapon/reagent_containers/glass/beaker/cauldron,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"aD" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza/mushroompizza,/obj/item/weapon/material/knife,/obj/item/storage/box/matches,/turf/simulated/floor/wood{tag = "icon-wood-broken2"; icon_state = "wood-broken2"},/area/indoor{name = "lovers house"})
+"aE" = (/turf/simulated/floor/wood{icon_state = "wood-broken"},/area/indoor{name = "lovers house"})
+"aF" = (/obj/structure/fence{icon_state = "fence"; dir = 4},/turf/simulated/floor/plating/snow/generable,/area/outdoor)
+"aG" = (/obj/item/weapon/material/shard,/turf/simulated/floor/wood{tag = "icon-wood-broken7"; icon_state = "wood-broken7"},/area/indoor{name = "lovers house"})
+"aH" = (/obj/structure/closet/athletic_mixed,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"aI" = (/obj/structure/simple_door/wood,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"aJ" = (/obj/structure/reagent_dispensers/water_cooler,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"aK" = (/turf/simulated/floor/wood{tag = "icon-wood-broken"; icon_state = "wood-broken"},/area/indoor{name = "lovers house"})
+"aL" = (/obj/structure/fence,/turf/simulated/floor/plating/snow/generable,/area/outdoor)
+"aM" = (/obj/structure/simple_door/wood{name = "nice door"},/turf/simulated/floor/plating/wooden,/area/outdoor)
+"aN" = (/obj/structure/table/rack,/turf/simulated/floor/wood,/area/indoor{name = "madman home"})
+"aO" = (/obj/structure/table/woodentable,/turf/simulated/floor/wood{tag = "icon-wood-broken5"; icon_state = "wood-broken5"},/area/indoor{name = "madman home"})
+"aP" = (/turf/simulated/floor/wood{icon_state = "wood-broken6"},/area/indoor{name = "madman home"})
+"aQ" = (/obj/snowfloor_mask,/obj/structure/lootable/wooden,/turf/simulated/floor/plating/wooden,/area/outdoor)
+"aR" = (/obj/structure/lootable/wooden,/turf/simulated/floor/wood,/area/indoor{name = "madman home"})
+"aS" = (/obj/structure/table/woodentable,/turf/simulated/floor/wood,/area/indoor{name = "madman home"})
+"aT" = (/obj/structure/curtain/black,/turf/simulated/floor/wood,/area/indoor{name = "madman home"})
+"aU" = (/turf/simulated/floor/wood{icon_state = "wood-broken3"},/area/indoor{name = "madman home"})
+"aV" = (/obj/structure/table/woodentable,/obj/item/weapon/tape_roll,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"aW" = (/turf/simulated/floor/wood{tag = "icon-wood-broken7"; icon_state = "wood-broken7"},/area/indoor{name = "lovers house"})
+"aX" = (/obj/item/weapon/soap/deluxe,/obj/structure/table/woodentable,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"aY" = (/obj/structure/table/woodentable,/obj/item/weapon/newspaper,/turf/simulated/floor/wood{icon_state = "wood-broken"},/area/indoor{name = "lovers house"})
+"aZ" = (/obj/structure/toilet{dir = 4},/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"ba" = (/obj/structure/table/woodentable,/obj/item/storage/box/matches,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"bb" = (/obj/item/weapon/skin/bad,/turf/simulated/floor/wood{icon_state = "wood-broken3"},/area/indoor{name = "lovers house"})
+"bc" = (/obj/structure/simple_door/wood,/obj/structure/barricade,/turf/simulated/floor/wood,/area/indoor{name = "lovers house"})
+"bd" = (/turf/simulated/wall/wood,/area/indoor{name = "forager house"})
+"be" = (/obj/structure/table/woodentable,/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"bf" = (/obj/structure/material/chair/wood{icon_state = "wooden_chair"; dir = 8},/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"bg" = (/obj/snowfloor_mask,/obj/structure/table/woodentable,/turf/simulated/floor/plating/wooden,/area/outdoor)
+"bh" = (/obj/structure/simple_door/wood,/obj/structure/barricade,/turf/simulated/floor/wood,/area/indoor{name = "madman home"})
+"bi" = (/obj/structure/closet/crate/secure/loot,/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"bj" = (/obj/structure/closet,/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"bk" = (/turf/simulated/floor/wood{icon_state = "wood-broken6"},/area/indoor{name = "forager house"})
+"bl" = (/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"bm" = (/obj/item/weapon/branches,/obj/item/device/flashlight,/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"bn" = (/obj/structure/simple_door/wood{name = "mushroom party"},/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"bo" = (/obj/structure/girder/wooden,/turf/simulated/floor/plating/wooden,/area/indoor{name = "forager house"})
+"bp" = (/obj/item/weapon/branches,/turf/simulated/floor/wood{icon_state = "wood-broken3"},/area/indoor{name = "forager house"})
+"bq" = (/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/mind,/obj/structure/lootable/mushroom_hideout,/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"br" = (/obj/structure/lootable/mushroom_hideout,/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"bs" = (/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/dumb,/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/dumb,/obj/structure/lootable/mushroom_hideout,/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"bt" = (/obj/structure/lootable/mushroom_hideout/tree_mush{pixel_x = 32},/obj/structure/lootable/mushroom_hideout/tree_mush{pixel_x = 32},/obj/structure/lootable/mushroom_hideout/tree_mush{pixel_x = 32},/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"bu" = (/obj/structure/table/woodentable,/obj/item/storage/backpack/messenger/black,/obj/item/clothing/glasses/welding,/turf/simulated/floor/wood,/area/indoor{name = "madman home"})
+"bv" = (/obj/structure/lootable/mushroom_hideout,/mob/living/simple_animal/mushroom,/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"bw" = (/obj/structure/lootable/mushroom_hideout,/mob/living/simple_animal/shrooman,/turf/simulated/floor/wood{tag = "icon-wood-broken2"; icon_state = "wood-broken2"},/area/indoor{name = "forager house"})
+"bx" = (/turf/simulated/floor/wood{tag = "icon-wood-broken2"; icon_state = "wood-broken2"},/area/indoor{name = "madman home"})
+"by" = (/obj/snowfloor_mask,/obj/item/weapon/branches,/turf/simulated/floor/plating/wooden,/area/outdoor)
+"bz" = (/obj/snowfloor_mask,/obj/item/weapon/branches,/obj/item/weapon/branches,/turf/simulated/floor/plating/wooden,/area/outdoor)
+"bA" = (/obj/snowfloor_mask,/obj/item/weapon/branches,/obj/item/weapon/branches,/obj/item/weapon/branches,/obj/item/weapon/branches,/turf/simulated/floor/plating/wooden,/area/outdoor)
+"bB" = (/turf/simulated/wall/wood,/area/indoor{name = "brothers house"})
+"bC" = (/obj/structure/closet{anchored = 1; name = "bar closet"; pixel_x = -32},/obj/item/weapon/reagent_containers/glass/drinks/bottle/vodka,/obj/item/weapon/reagent_containers/glass/drinks/bottle/vodka,/obj/item/weapon/reagent_containers/glass/drinks/bottle/kahlua,/obj/item/weapon/reagent_containers/glass/drinks/bottle/specialwhiskey,/obj/item/weapon/reagent_containers/glass/drinks/bottle/cognac,/obj/item/weapon/reagent_containers/glass/drinks/bottle/absinthe,/obj/item/weapon/reagent_containers/glass/drinks/bottle/whiskey,/obj/item/weapon/reagent_containers/glass/drinks/bottle/tequilla,/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"bD" = (/obj/item/weapon/material/shard,/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"bE" = (/obj/structure/simple_door/wood,/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"bF" = (/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"bG" = (/obj/structure/lootable/wooden,/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"bH" = (/obj/structure/girder/wooden,/obj/structure/barricade,/turf/simulated/floor/plating/wooden,/area/indoor{name = "brothers house"})
+"bI" = (/obj/structure/table/woodentable,/obj/item/weapon/material/ashtray/bronze,/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"bJ" = (/obj/structure/table/woodentable,/obj/item/weapon/material/shard,/turf/simulated/floor/wood{icon_state = "wood-broken3"},/area/indoor{name = "brothers house"})
+"bK" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/glass/drinks/bottle/limejuice,/turf/simulated/floor/wood{tag = "icon-wood-broken5"; icon_state = "wood-broken5"},/area/indoor{name = "brothers house"})
+"bL" = (/obj/item/weapon/branches,/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"bM" = (/obj/item/weapon/branches,/obj/structure/lootable/wooden,/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"bN" = (/obj/structure/simple_door/wood,/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"bO" = (/obj/structure/material/chair/wood{icon_state = "wooden_chair"; dir = 1},/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"bP" = (/obj/item/weapon/branches,/obj/item/weapon/branches,/obj/structure/lootable/wooden,/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"bQ" = (/obj/item/weapon/branches,/obj/item/weapon/branches,/obj/item/weapon/branches,/obj/structure/lootable/wooden,/turf/simulated/floor/wood{icon_state = "wood-broken6"},/area/indoor{name = "brothers house"})
+"bR" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/ale,/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"bS" = (/obj/structure/table/woodentable,/obj/item/storage/belt/utility,/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"bT" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/rad,/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/rad,/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"bU" = (/obj/structure/lootable/mushroom_hideout/tree_mush{pixel_x = 32},/obj/structure/lootable/mushroom_hideout/tree_mush{pixel_x = 32},/obj/structure/lootable/mushroom_hideout/tree_mush{pixel_x = 32},/turf/simulated/floor/wood{icon_state = "wood-broken6"},/area/indoor{name = "forager house"})
+"bV" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom/rad,/turf/simulated/floor/wood,/area/indoor{name = "forager house"})
+"bW" = (/obj/structure/lootable/mushroom_hideout,/mob/living/simple_animal/mushroom,/turf/simulated/floor/wood{tag = "icon-wood-broken5"; icon_state = "wood-broken5"},/area/indoor{name = "forager house"})
+"bX" = (/turf/simulated/wall/wood,/area/indoor{name = "village warehouse"})
+"bY" = (/obj/structure/table/rack,/obj/item/seeds/random,/obj/item/seeds/random,/obj/item/seeds/random,/obj/item/seeds/random,/obj/item/seeds/random,/obj/random/contraband,/obj/random/contraband,/turf/simulated/floor/wood,/area/indoor{name = "village warehouse"})
+"bZ" = (/obj/structure/table/rack,/obj/item/seeds/random,/obj/item/seeds/random,/obj/item/seeds/random,/turf/simulated/floor/wood{icon_state = "wood-broken3"},/area/indoor{name = "village warehouse"})
+"ca" = (/obj/structure/table/rack,/obj/random/firstaid,/obj/random/firstaid,/turf/simulated/floor/wood,/area/indoor{name = "village warehouse"})
+"cb" = (/obj/structure/table/rack,/obj/random/powercell,/turf/simulated/floor/wood,/area/indoor{name = "village warehouse"})
+"cc" = (/obj/structure/table/rack,/obj/item/weapon/flame/lighter/random,/obj/item/weapon/flame/lighter/random,/turf/simulated/floor/wood,/area/indoor{name = "village warehouse"})
+"cd" = (/obj/structure/simple_door/wood,/turf/simulated/floor/wood,/area/indoor{name = "village warehouse"})
+"ce" = (/turf/simulated/floor/wood,/area/indoor{name = "village warehouse"})
+"cf" = (/obj/random/medical,/turf/simulated/floor/wood,/area/indoor{name = "village warehouse"})
+"cg" = (/turf/simulated/floor/wood{icon_state = "wood-broken6"},/area/indoor{name = "village warehouse"})
+"ch" = (/obj/structure/lootable/wooden,/turf/simulated/floor/wood,/area/indoor{name = "village warehouse"})
+"ci" = (/obj/structure/table/rack,/obj/item/stack/cable_coil/random,/obj/item/stack/cable_coil/random,/turf/simulated/floor/wood,/area/indoor{name = "village warehouse"})
+"cj" = (/obj/structure/table/rack,/obj/random/toolbox,/turf/simulated/floor/wood,/area/indoor{name = "village warehouse"})
+"ck" = (/obj/structure/table/rack,/obj/random/medical,/turf/simulated/floor/wood,/area/indoor{name = "village warehouse"})
+"cl" = (/obj/structure/table/rack,/obj/item/stack/cable_coil/random,/turf/simulated/floor/wood{tag = "icon-wood-broken2"; icon_state = "wood-broken2"},/area/indoor{name = "village warehouse"})
+"cm" = (/obj/structure/table/rack,/obj/random/contraband,/turf/simulated/floor/wood,/area/indoor{name = "village warehouse"})
+"cn" = (/turf/simulated/floor/wood{icon_state = "wood-broken6"},/area/indoor{name = "brothers house"})
+"co" = (/obj/machinery/computer/security/wooden_tv{desc = "Covered with dust and layer of snow."; name = "An Old TV"},/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"cp" = (/obj/structure/girder/wooden,/obj/structure/window/basic{icon_state = "window"; dir = 6},/turf/simulated/floor/plating/wooden,/area/indoor{name = "brothers house"})
+"cq" = (/obj/structure/material/bed,/obj/item/weapon/bedsheet/lime,/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"cr" = (/obj/structure/table/woodentable,/turf/simulated/floor/wood{tag = "icon-wood-broken2"; icon_state = "wood-broken2"},/area/indoor{name = "brothers house"})
+"cs" = (/obj/structure/material/bed,/obj/item/weapon/bedsheet/teal,/obj/item/clothing/glasses/eyepatch,/turf/simulated/floor/wood,/area/indoor{name = "brothers house"})
+"ct" = (/obj/structure/girder/wooden,/turf/simulated/floor/plating/wooden,/area/indoor{name = "brothers house"})
 
 (1,1,1) = {"
-aaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaabbcdeeebba
-aaaaaaaaaaefbbbgggha
-aeeeeeeaaabbbiebgjea
-aeklbmeaaaebnoebblea
-aebbdbpaaaeqeeebblea
-abbbboeaaaraaaesbtea
-abbeebbaaaraaaebbuea
-aebbdbiaaaaaaaeeveea
-aefbbbbaaaaaaaewbgea
-abcceeeaaaaaaaebggda
-aaaaaaaaaaaaxxeebbba
-aaaaayyaaaaaaaaaaaaa
-aeeehgceeeaaaaaaayya
-aellbzbbseaaaeebgeea
-aeAbggbbBeaaaeCbgjgy
-aeDibebeeeaaaeEbbbey
-aebbbebnEeaaaqbfbbea
-acbbbbbbbpaaaeeebeea
-abebbeeeeeaaaelbdbsa
-aaaaaaaaaaaaacbbbbca
-aaaaaaaaaaaaacfbblea
-abbbeeeeeaaaaeebbbea
-abblFebieaaaaaayyyya
-aedbbebbeaaaeeggeeea
-aelibbbbpaaGeHEnIIea
-aelbfeEJeaaabKLbbMea
-aeeeeeeeeaaNeOPHQbRa
-aaaaaaaaaaaaeeeefbea
-aaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaacacadaeacacacacacaaaaaaaaaaaaaaaaaaaa
+aaacagahagacaialanacaaaaaaaaaaaaaaaaaaaa
+aaaoapaqaracapauavawaaaaabaaabaaaaababab
+aaaxarapayacapapapacaaaaaaaaasaaaaaQasab
+atadazaraBacaCaDaEacaaaaaabybyaaaaasasas
+aaaoaGapaHacacacapacaaaaabbzbAaaaaaaasab
+aaacapapapaIapapapacaaaaabaabzbgasaaaaaa
+aaacacaIacacacaIacacaaaaabaaaaababaaaaab
+aaacaJaKacaVaWapacaaaaaaaaaaaaabaaaaaaaF
+aaacaXaKacaYapapacaaaaaaabaQasaMaaaaaaaF
+aaacaZapacbaapbbbcaaaaaaabasasabaaaaaaaa
+aaacacacacacawacacaaaaaaababasaaaaaLaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaatataaaaaaaaaaaaaabdbdbdbdbdbdbdaaaa
+aaafafajafafafafafaaaabdbebfbibjbjbdaaaa
+aaafakamaAafaNaOafaaaabdbebkblblblbdaaaa
+aaafaPaRaRafamamafaaaabdbmblbdbdbnbdbdbd
+aaafaSamamaTaUambhaaaabobpblbdbqbrbsbtbd
+aaafbuambxafamamafaaaabdblblbdbrbvbwbtbd
+aabBbBbBbBbBbBbBbBaaaabdbdbEbdbTbqbqbUbd
+aabBbCbDbFbFbGbFbBaaaaaaaaaabdbebVbWbtbd
+aabHbIbJbKbLbMbMbNaaaaaaaaaabdbdbdbdbdbd
+aabBbDbObObPbQbMbBaaaaaaaaaaaaaaaaaaaaaa
+aabBbFbFbFbRbSbFbBaaaaaabXbXbXbXbXbXbXbX
+aabBbFbFcncobBbBbBaaaaaabXbYbZcacbcccbbX
+aacpbFbFbFbGbBaaaaaaaaaacdcececfcgcechbX
+aabBcqcrcsbGctaaaaaaaaaabXcicjcjckclcmbX
+aabBbBbBbBbBbBaaaaaaaaaabXbXbXbXbXbXbXbX
 "}

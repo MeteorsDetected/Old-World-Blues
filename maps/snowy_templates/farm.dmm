@@ -1,0 +1,95 @@
+"aa" = (/turf/simulated/floor/plating/snow,/area/outdoor)
+"ab" = (/turf/simulated/wall,/area/hydroponics{name = "Botanics post"})
+"ac" = (/obj/structure/grille,/obj/structure/window/reinforced{icon_state = "rwindow"; dir = 6},/turf/simulated/floor/plating,/area/hydroponics{name = "Botanics post"})
+"ad" = (/obj/structure/table/standard,/obj/item/weapon/material/hatchet,/obj/item/weapon/material/hatchet,/obj/item/seeds/bananaseed,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Botanics post"})
+"ae" = (/obj/machinery/light/small{dir = 1},/obj/structure/table/standard,/obj/item/clothing/suit/apron/overalls,/obj/item/clothing/suit/apron/overalls,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Botanics post"})
+"af" = (/obj/structure/table/standard,/obj/item/clothing/head/winterhat,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Botanics post"})
+"ag" = (/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Botanics post"})
+"ah" = (/obj/structure/closet/crate/freezer/rations,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/hydroponics{name = "Botanics post"})
+"ai" = (/obj/machinery/power/solar_control,/obj/structure/cable{icon_state = "0-2"; d2 = 2},/turf/simulated/floor/plating,/area/hydroponics{name = "Botanics post"})
+"aj" = (/obj/item/clothing/shoes/leather,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Botanics post"})
+"ak" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plating/snow,/area/outdoor)
+"al" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating/snow,/area/outdoor)
+"am" = (/turf/simulated/floor/plating/snow/generable,/area/outdoor)
+"an" = (/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/hydroponics{name = "Botanics post"})
+"ao" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating/snow,/area/outdoor)
+"ap" = (/obj/machinery/power/solar/broken,/obj/structure/cable{icon_state = "0-2"; d2 = 2},/obj/snowfloor_mask,/turf/simulated/floor/plating,/area/outdoor)
+"aq" = (/obj/machinery/power/solar,/obj/structure/cable{icon_state = "0-2"; d2 = 2},/obj/snowfloor_mask,/turf/simulated/floor/plating,/area/outdoor)
+"ar" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating/snow,/area/outdoor)
+"as" = (/obj/structure/fence{icon_state = "fence"; dir = 1},/turf/simulated/floor/plating/snow,/area/outdoor)
+"at" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/table/standard,/obj/item/trash/candle,/obj/item/trash/cheesie,/obj/item/weapon/reagent_containers/food/snacks/beans,/obj/item/weapon/material/kitchen/utensil/spoon,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/hydroponics{name = "Botanics post"})
+"au" = (/obj/structure/grille,/obj/structure/window/reinforced{icon_state = "rwindow"; dir = 6},/obj/machinery/light/small{dir = 8; pixel_x = 26},/turf/simulated/floor/plating,/area/hydroponics{name = "Botanics post"})
+"av" = (/obj/structure/material/bed,/obj/item/weapon/bedsheet/green,/obj/item/weapon/reagent_containers/food/snacks/bug,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Botanics post"})
+"aw" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plating/snow,/area/outdoor)
+"ax" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating/snow,/area/outdoor)
+"ay" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plating/snow,/area/outdoor)
+"az" = (/obj/structure/closet,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Botanics post"})
+"aA" = (/obj/structure/material/bed,/obj/item/weapon/bedsheet/green,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Botanics post"})
+"aB" = (/obj/machinery/power/apc{dir = 4; name = "east bump"; pixel_x = 24},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/table/standard,/obj/item/trash/sosjerky,/obj/item/trash/sosjerky,/obj/item/trash/sosjerky,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/hydroponics{name = "Botanics post"})
+"aC" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/light/small{dir = 4},/obj/structure/table/standard,/obj/item/clothing/suit/storage/toggleable_hood/wintercoat,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/hydroponics{name = "Botanics post"})
+"aD" = (/obj/structure/simple_door/iron,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Botanics post"})
+"aE" = (/obj/machinery/power/tracker,/obj/structure/cable{icon_state = "0-2"; d2 = 2},/obj/snowfloor_mask,/turf/simulated/floor/plating,/area/outdoor)
+"aF" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/hydroponics{name = "Botanics post"})
+"aG" = (/obj/structure/grille,/obj/structure/window/reinforced{icon_state = "rwindow"; dir = 6},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/hydroponics{name = "Botanics post"})
+"aH" = (/turf/simulated/wall,/area/hydroponics{name = "Chamber A"})
+"aI" = (/obj/machinery/power/solar,/obj/structure/cable,/obj/snowfloor_mask,/turf/simulated/floor/plating,/area/outdoor)
+"aJ" = (/obj/machinery/power/solar/broken,/obj/structure/cable,/obj/snowfloor_mask,/turf/simulated/floor/plating,/area/outdoor)
+"aK" = (/obj/item/stack/cable_coil/red,/turf/simulated/floor/plating/snow,/area/outdoor)
+"aL" = (/obj/structure/grille,/obj/structure/window/reinforced{icon_state = "rwindow"; dir = 6},/turf/simulated/floor/plating,/area/hydroponics{name = "Chamber A"})
+"aM" = (/turf/simulated/wall,/area/hydroponics{name = "Chamber B"})
+"aN" = (/obj/structure/grille,/obj/structure/window/reinforced{icon_state = "rwindow"; dir = 6},/turf/simulated/floor/plating,/area/hydroponics{name = "Chamber B"})
+"aO" = (/obj/machinery/portable_atmospherics/hydroponics,/obj/machinery/light{icon_state = "tube1"; dir = 1},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber A"})
+"aP" = (/obj/machinery/portable_atmospherics/hydroponics,/obj/item/seeds/cabbageseed,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber A"})
+"aQ" = (/obj/machinery/portable_atmospherics/hydroponics,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber B"})
+"aR" = (/obj/machinery/portable_atmospherics/hydroponics,/obj/machinery/light{icon_state = "tube1"; dir = 1},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber B"})
+"aS" = (/obj/snowfloor_mask,/turf/simulated/floor{icon_state = "floorgrime"},/area/outdoor)
+"aT" = (/obj/machinery/portable_atmospherics/hydroponics,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber A"})
+"aU" = (/obj/item/trash/candy,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber A"})
+"aV" = (/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber A"})
+"aW" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber A"})
+"aX" = (/obj/machinery/door/airlock/glass_research{name = "Botanic chamber A"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber A"})
+"aY" = (/obj/machinery/door/airlock/glass_research{name = "Botanic chamber B"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber B"})
+"aZ" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber B"})
+"ba" = (/obj/item/weapon/material/shard,/obj/item/weapon/reagent_containers/food/snacks/badrecipe,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber B"})
+"bb" = (/obj/item/seeds/cherryseed,/turf/simulated/floor/plating,/area/hydroponics{name = "Chamber B"})
+"bc" = (/obj/structure/lootable/chunk,/turf/simulated/floor/plating,/area/hydroponics{name = "Chamber B"})
+"bd" = (/obj/machinery/portable_atmospherics/hydroponics,/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber A"})
+"be" = (/obj/machinery/power/apc{dir = 4; name = "east bump"; pixel_x = 24},/obj/structure/cable,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber A"})
+"bf" = (/obj/machinery/power/apc{dir = 8; name = "west bump"; pixel_x = -24},/obj/structure/cable,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber B"})
+"bg" = (/obj/item/weapon/reagent_containers/food/snacks/badrecipe,/turf/simulated/floor/plating,/area/hydroponics{name = "Chamber B"})
+"bh" = (/obj/machinery/light{dir = 4},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber A"})
+"bi" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/obj/item/weapon/material/shard,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber B"})
+"bj" = (/obj/item/weapon/material/shard,/turf/simulated/floor/plating,/area/hydroponics{name = "Chamber B"})
+"bk" = (/obj/item/seeds/cornseed,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber A"})
+"bl" = (/obj/machinery/portable_atmospherics/hydroponics,/obj/item/weapon/material/shard,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber B"})
+"bm" = (/obj/structure/closet/crate/hydroponics,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber A"})
+"bn" = (/turf/simulated/floor/plating,/area/hydroponics{name = "Chamber B"})
+"bo" = (/obj/structure/lootable/wooden,/turf/simulated/floor/plating,/area/hydroponics{name = "Chamber B"})
+"bp" = (/obj/structure/reagent_dispensers/watertank,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Chamber A"})
+"bq" = (/obj/structure/reagent_dispensers/watertank,/turf/simulated/floor/plating,/area/hydroponics{name = "Chamber B"})
+"br" = (/obj/structure/fence{icon_state = "fence"; dir = 1},/obj/structure/fence{icon_state = "fence"; dir = 4},/turf/simulated/floor/plating/snow,/area/outdoor)
+"bs" = (/obj/structure/fence{icon_state = "fence"; dir = 4},/turf/simulated/floor/plating/snow,/area/outdoor)
+"bt" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/fence{icon_state = "fence"; dir = 4},/turf/simulated/floor/plating/snow,/area/outdoor)
+"bu" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/fence{icon_state = "fence"; dir = 4},/turf/simulated/floor/plating/snow,/area/outdoor)
+"bv" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/structure/fence{icon_state = "fence"; dir = 4},/turf/simulated/floor/plating/snow,/area/outdoor)
+
+(1,1,1) = {"
+amababababacabababamamasasasasasasbr
+amabadaeafagahaiabamaaapapaqaqapaqbs
+aaacagagajaganatauamakalalalalalalbt
+amabavazaAabanaBabamaoaqapapapaEaqbu
+amabababababanaCabamaoakarararararbv
+amamamaaaaaDanaFabamaoaIaJaJaIaJaJbs
+amamamaaaaababaGabamaoaKaaaaaaaaaaam
+amamamaaaaaaaaawaxaxayaaaaaaamamamam
+amamaHaHaLaHaaaaamamaoamaMaNaMaMamam
+amaHaHaOaPaHaHaaamaaaoaMaMaQaRaMaMam
+amaHaTaUaVaWaXaSaSaSaSaYaZbabbbcaMam
+amaHbdaVaTbeaHaaaaaaamaMbfbcbgbcaMam
+amaHaTaVaTbhaHaaamamamaMbiaQbjbcaMam
+amaHbdbkaTaVaHamamamamaMbgbcbjblaMam
+amaHaTaVbkbmaHamamamamaMbnbobobcaMam
+amaHaHbpbpaHaHamamamamaMaMbqbnaMaMam
+amamaHaHaHaHamamamamamamaMaMaMaMamam
+amamamamamamamamamamamamamamamamamam
+"}

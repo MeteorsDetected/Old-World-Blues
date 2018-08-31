@@ -286,7 +286,7 @@
 					return
 				else if(istype(object,/turf/simulated/floor))
 					var/turf/T = object
-					T.ChangeTurf(/turf/space)
+					T.ChangeTurf(world.turf)
 					return
 				else if(isobj(object))
 					qdel(object)

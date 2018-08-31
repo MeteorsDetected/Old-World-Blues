@@ -760,3 +760,91 @@
 	if(T.loc == src && locate(src) in range(1, Master))
 		T.loc = src.loc
 		bark()
+
+
+
+
+
+//shrooman
+//hostile, actually
+/mob/living/simple_animal/shrooman
+	name = "strange shroom"
+	icon = 'icons/obj/snowy_event/mobs_icons.dmi'
+	icon_state = "shrooman_sleep"
+	icon_living = "shrooman"
+	icon_dead = ""
+
+	speak = list()
+	speak_emote = list()
+	emote_hear = list()
+	emote_see = list()
+	stop_automated_movement = 1
+	universal_speak = 1
+	health = 120
+	maxHealth = 120
+	var/mob/living/Target
+	var/list/mucilage = list("amatoxin", "psilocybin")
+	var/mucilage_amount = 25
+	var/fused = 0
+
+
+/mob/living/simple_animal/shrooman/New()
+	..()
+	update_icon()
+
+
+/mob/living/simple_animal/shrooman/proc/update_icon()
+	if(fused)
+		icon_state = "shrooman"
+		name = "shrooman"
+	else
+		icon_state = "shrooman_sleep"
+		name = "strange shroom"
+
+
+/mob/living/simple_animal/shrooman/Life()
+	if(!..())
+		return
+
+	for(var/mob/living/L in view(5, src))
+		if(!istype(L, /mob/living/simple_animal/mushroom) && !istype(L, /mob/living/simple_animal/shrooman))
+			Target = L
+
+	if(Target && !fused)
+		fused = 1
+		update_icon()
+		playsound(src.loc, 'sound/effects/snowy/shrooman.ogg', 50, rand(-30, 30), 20, 1)
+		spawn(50)
+			if(src)
+				death()
+
+	if(fused)
+		if(Target)
+			walk_to(src, Target, 1, 6)
+			if(prob(70))
+				var/list/shrooms = subtypesof(/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom)
+				var/amount = rand(2, 4)
+				for(var/i=1 to amount)
+					var/S = pick(shrooms)
+					new S(get_step(src.loc, pick(alldirs)))
+
+
+
+/mob/living/simple_animal/shrooman/death()
+	..()
+	create_reagents(200)
+	for(var/ID in mucilage)
+		reagents.add_reagent(ID, mucilage_amount)
+	for(var/mob/living/carbon/L in view(4, src))
+		L << SPAN_WARN("Mucilage of [name] covers you!")
+		if(istype(L, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = L
+			if(prob(50))
+				H.bloody_body(src)
+		reagents.trans_to_mob(L, mucilage_amount, CHEM_BLOOD, 1, 1)
+	for(var/turf/T in view(3, src))
+		if(!T.density && !istype(T, /turf/simulated/floor/plating/chasm))
+			if(prob(30))
+				new /obj/effect/decal/cleanable/blood(T)
+	explosion(src.loc, 0, 1, 3, 0)
+	qdel(src)

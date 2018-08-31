@@ -28,6 +28,8 @@ proc/snowyMapGeneration()
 						usable_turfs.Add(T)
 	usable_turfs = shuffle(usable_turfs)
 
+	usable_turfs = snowyChunkInsert(usable_turfs, Scenario) //Insert chunks
+
 	var/chasm_counts = 0
 	for(var/list/C in Scenario.options)
 		if(C["chasm"])
@@ -39,8 +41,6 @@ proc/snowyMapGeneration()
 		spawn(30)
 			world << SPAN_WARN("<BIG>There's no chasms! Relax.</BIG>")
 
-
-	usable_turfs = snowyChunkInsert(usable_turfs, Scenario) //Insert chunks
 
 	var/rocks_counts = 0
 	var/river_count = 0
@@ -444,42 +444,67 @@ proc/getDistance(var/turf/S, var/turf/E)
 //Urgent templates place in scenario set first
 //Make sure that sizes of template and datum has match
 
-var/list/scenarios = list(/datum/snowy_scenario, /datum/snowy_scenario/silent_trees)
+var/list/scenarios = list(/datum/snowy_scenario/frozen_lowland)
 
 /datum/snowy_scenario
-	var/name = "Old lake"
-	var/list/templates = list(/datum/snowy_template/oldvillage, /datum/snowy_template/dweller_house, /datum/snowy_template)
-	var/list/options = list(	list("river" = 1, "length" = 95, "distortion" = 15, "type" = "big", "outfalls" = 4),
+	var/name = "Old woods"
+	var/list/templates = list(/datum/snowy_template/dweller_house, /datum/snowy_template/oldvillage)
+	var/list/options = list(	list("river" = 1, "length" = 65, "distortion" = 8, "type" = "big", "outfalls" = 4),
+								list("rocks" = 1, "type" = 1, "length" = 110, "min_radius" = 1, "max_radius" = 15),
+								list("chasm" = 1, "type" = 0, "length" = 75, "min_radius" = 1, "max_radius" = 9)
+							)
+
+/datum/snowy_scenario/frozen_lowland
+	name = "Frozen lowland"
+	templates = list(/datum/snowy_template/colonial_base, /datum/snowy_template/dweller_house, /datum/snowy_template/oldvillage,
+							/datum/snowy_template/maint_station244, /datum/snowy_template/farm, /datum/snowy_template/mines_abandoned)
+	options = list(	list("river" = 1, "length" = 95, "distortion" = 15, "type" = "big", "outfalls" = 4),
 								list("river" = 1, "length" = 120, "distortion" = 10, "type" = "big", "outfalls" = 7),
-								list("rocks" = 1, "type" = 1, "length" = 195, "min_radius" = 1, "max_radius" = 15),
+								list("rocks" = 1, "type" = 1, "length" = 190, "min_radius" = 1, "max_radius" = 15),
+								list("rocks" = 1, "type" = 1, "length" = 120, "min_radius" = 2, "max_radius" = 8),
 								list("chasm" = 1, "type" = 0, "length" = 135, "min_radius" = 1, "max_radius" = 9)
 							)
 
-/datum/snowy_scenario/silent_trees
-	name = "Silent trees"
-	templates = list(/datum/snowy_template, /datum/snowy_template/dweller_house, /datum/snowy_template,
-					/datum/snowy_template, /datum/snowy_template, /datum/snowy_template)
-	options = list(		list("river" = 1, "length" = 95, "distortion" = 15, "type" = "big", "outfalls" = 4),
-						list("river" = 1, "length" = 120, "distortion" = 10, "type" = "big", "outfalls" = 7),
-						list("rocks" = 1, "type" = 1, "length" = 195, "min_radius" = 1, "max_radius" = 15),
-						list("chasm" = 1, "type" = 0, "length" = 135, "min_radius" = 1, "max_radius" = 9)
-					)
-
 
 /datum/snowy_template
-	var/name = "ruins"
+	var/name = "Ruins"
 	var/map_file = 'maps/snowy_templates/testbox.dmm'
 	var/sizeW = 10
 	var/sizeH = 10
 
 /datum/snowy_template/oldvillage
-	name = "old village"
+	name = "Old village"
 	map_file = 'maps/snowy_templates/old_village.dmm'
 	sizeW = 20
 	sizeH = 30
 
 /datum/snowy_template/dweller_house
-	name = "dweller's house"
+	name = "Dweller's house"
 	map_file = 'maps/snowy_templates/wild_house.dmm'
 	sizeW = 12
 	sizeH = 8
+
+/datum/snowy_template/maint_station244
+	name = "Maintenance station 244"
+	map_file = 'maps/snowy_templates/maint_station244.dmm'
+	sizeW = 16
+	sizeH = 12
+
+/datum/snowy_template/mines_abandoned
+	name = "Abandoned mines"
+	map_file = 'maps/snowy_templates/abandoned_mines.dmm'
+	sizeW = 20
+	sizeH = 20
+
+/datum/snowy_template/farm
+	name = "An old private farm"
+	map_file = 'maps/snowy_templates/farm.dmm'
+	sizeW = 18
+	sizeH = 18
+
+//Great thanks to Voldirs for that nice one!
+/datum/snowy_template/colonial_base
+	name = "Colonial camp"
+	map_file = 'maps/snowy_templates/colonial_camp.dmm'
+	sizeW = 60
+	sizeH = 52

@@ -10,7 +10,7 @@
 datum/job/captain/snowy
 	title = "Colony Captain"
 	faction = "Colony"
-	supervisors = "Common sense"
+	supervisors = "common sense"
 	minimal_player_age = 26
 	economic_modifier = 20
 
@@ -333,7 +333,7 @@ datum/job/captain/snowy
 	department_flag = CIVILIAN
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Common sense"
+	supervisors = "common sense"
 	selection_color = "#33aa33"
 	minimum_character_age = 0
 	ideal_character_age = 46

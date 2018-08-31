@@ -20,7 +20,7 @@ proc/createSnowyMaster()
 	var/pop_tick_interval = 10 //interval between population checks to make this less laggy
 	var/pop_tick = 0
 
-	var/spawn_turfs_upd_ticks = 30
+	var/spawn_turfs_upd_ticks = 3600 //can be laggish, but i change this later. Too tired, meh
 
 	var/list/coolers = list()
 	var/current_temperature = T0C-30
@@ -105,7 +105,7 @@ proc/createSnowyMaster()
 		SnowyMaster.checkPopulation()
 	if(SnowyMaster.spawn_turfs_upd_ticks <= 0) //spawnable areas update
 		SnowyMaster.makeSpawnableTurfsList()
-		SnowyMaster.spawn_turfs_upd_ticks = 30
+		SnowyMaster.spawn_turfs_upd_ticks = 3600
 
 
 

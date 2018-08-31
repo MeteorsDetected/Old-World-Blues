@@ -1,38 +1,15 @@
 "a" = (/turf/simulated/wall/wood,/area/outdoor)
-"b" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/structure/cable/blue{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/wall/wood,/area/outpost/research/eva)
-"c" = (/obj/structure/cable/blue{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/atmospherics/unary/vent_scrubber/on{dir = 1},/turf/simulated/wall/wood,/area/outpost/research/eva)
-"d" = (/obj/structure/cable/blue{d2 = 8; icon_state = "0-8"},/obj/machinery/power/apc{dir = 4; name = "east bump"; pixel_x = 24},/obj/machinery/atmospherics/pipe/simple/hidden/universal,/turf/simulated/wall/wood,/area/outpost/research/eva)
-"e" = (/turf/simulated/wall,/area/outpost/research/eva)
-"f" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 9},/turf/simulated/floor,/area/outpost/research/eva)
-"g" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 8},/turf/simulated/floor,/area/outpost/research/eva)
-"h" = (/obj/machinery/atmospherics/binary/pump/on{dir = 2; target_pressure = 200},/turf/simulated/floor,/area/outpost/research/eva)
-"i" = (/obj/machinery/recharge_station,/turf/simulated/floor,/area/outpost/research/eva)
-"j" = (/obj/structure/window/reinforced{dir = 1},/obj/machinery/atmospherics/portables_connector{dir = 4},/obj/machinery/door/window{dir = 4; name = "Air Tank Access"; req_one_access = list(47,10,24)},/obj/machinery/portable_atmospherics/canister/air/airlock,/turf/simulated/floor,/area/outpost/research/eva)
-"k" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4},/turf/simulated/floor,/area/outpost/research/eva)
-"l" = (/obj/machinery/atmospherics/pipe/manifold/hidden{dir = 4; icon_state = "map"},/turf/simulated/floor,/area/outpost/research/eva)
-"m" = (/obj/item/storage/box/excavation,/obj/item/weapon/pickaxe,/obj/machinery/status_display{layer = 4; pixel_x = 32},/obj/item/weapon/wrench,/obj/item/device/measuring_tape,/obj/item/stack/flag/yellow,/obj/structure/table/steel,/turf/simulated/floor,/area/outpost/research/eva)
-"n" = (/obj/machinery/door/window{dir = 4; name = "Air Tank Access"; req_one_access = list(47,10,24)},/obj/machinery/atmospherics/portables_connector{dir = 4},/obj/machinery/portable_atmospherics/canister/air/airlock,/turf/simulated/floor,/area/outpost/research/eva)
-"o" = (/obj/machinery/access_button{command = "cycle_interior"; frequency = 1379; master_tag = "research_airlock"; name = "interior access button"; pixel_x = -25; pixel_y = -25; req_one_access = list(13,65)},/obj/machinery/atmospherics/pipe/manifold/hidden{dir = 4; icon_state = "map"},/turf/simulated/floor,/area/outpost/research/eva)
-"p" = (/obj/item/storage/box/excavation,/obj/item/weapon/pickaxe,/obj/item/weapon/wrench,/obj/item/device/measuring_tape,/obj/item/stack/flag/green,/obj/structure/table/steel,/turf/simulated/floor,/area/outpost/research/eva)
-"q" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/obj/structure/grille,/obj/machinery/door/firedoor/border_only{dir = 2},/turf/simulated/floor/plating,/area/outpost/research/eva)
-"r" = (/obj/machinery/door/firedoor/border_only{dir = 2},/obj/machinery/door/airlock/external{frequency = 1379; icon_state = "door_locked"; id_tag = "research_inner"; locked = 1; name = "Research Outpost External Access"},/obj/machinery/atmospherics/pipe/simple/hidden,/turf/simulated/floor,/area/outpost/research/eva)
-"s" = (/obj/machinery/light/small{dir = 8},/obj/machinery/embedded_controller/radio/airlock/airlock_controller{tag_airpump = "research_pump"; tag_exterior_door = "research_outer"; frequency = 1379; id_tag = "research_airlock"; tag_interior_door = "research_inner"; pixel_x = -25; tag_chamber_sensor = "research_sensor"},/obj/machinery/atmospherics/unary/vent_pump/high_volume{dir = 4; frequency = 1379; id_tag = "research_pump"},/turf/simulated/floor,/area/outpost/research/eva)
-"t" = (/obj/machinery/atmospherics/pipe/manifold4w/hidden,/turf/simulated/floor,/area/outpost/research/eva)
-"u" = (/obj/machinery/atmospherics/unary/vent_pump/high_volume{dir = 8; frequency = 1379; id_tag = "research_pump"},/obj/structure/closet/walllocker/emerglocker/east,/turf/simulated/floor,/area/outpost/research/eva)
-"v" = (/obj/machinery/airlock_sensor{frequency = 1379; id_tag = "research_sensor"; pixel_x = -25},/obj/machinery/atmospherics/unary/vent_pump/high_volume{dir = 4; frequency = 1379; id_tag = "research_pump"},/obj/machinery/camera/network/research_outpost{c_tag = "Research Outpost Expedition Airlock"; dir = 4},/turf/simulated/floor{icon_state = "warning"},/area/outpost/research/eva)
-"w" = (/obj/machinery/atmospherics/pipe/manifold/hidden,/turf/simulated/floor{icon_state = "warning"},/area/outpost/research/eva)
-"x" = (/obj/structure/ore_box,/obj/machinery/atmospherics/unary/vent_pump/high_volume{dir = 8; frequency = 1379; id_tag = "research_pump"},/obj/structure/sign/vacuum{pixel_x = 32},/turf/simulated/floor{icon_state = "warning"},/area/outpost/research/eva)
-"y" = (/obj/machinery/door/firedoor/border_only{dir = 2},/obj/machinery/door/airlock/external{frequency = 1379; icon_state = "door_locked"; id_tag = "research_outer"; locked = 1; name = "Research Outpost External Access"; req_access = list(10,13)},/turf/simulated/floor/plating,/area/outpost/research/eva)
+"b" = (/turf/simulated/floor/plating/snow,/area/outdoor)
 
 (1,1,1) = {"
 aaaaaaaaaa
-aabcdeeaaa
-aafghieaaa
-aajklmeaaa
-aankopeaaa
-aaeqrqeaaa
-aaestueaaa
-aaevwxeaaa
-aaeqyqeaaa
+abbbbbbbba
+abbabbabba
+abaabbaaba
+abbbbbbbba
+abbbaabbba
+ababbbbaba
+abbaaaabba
+abbbaabbba
 aaaaaaaaaa
 "}

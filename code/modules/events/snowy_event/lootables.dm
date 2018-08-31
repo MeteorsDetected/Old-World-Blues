@@ -29,7 +29,7 @@
 	New()
 		if(randomize_tools == "yes")
 			tools = shuffle(tools) //let's make it random
-		if(rand_stages == "yes")
+		if(rand_stages == "yes" && tools.len)
 			var/L = rand(1, 5)
 			for(var/i = 1, i<=L, i++)
 				var/repeat = pick(tools)
@@ -185,3 +185,64 @@
 	New()
 		..()
 		icon_state = "shrooms_trees[rand(1, 3)]"
+
+
+/obj/structure/lootable/wooden
+	name = "Wooden blockage"
+	desc = "Bunch of almost useless wooden details. Maybe under layers of wood can be something."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "wooden_debris1"
+	ultimate_tool = /obj/item/weapon/shovel
+	ultimate_tool_message = "You dig up the blockage with"
+	del_when_harvested = 0
+	tools = list()
+	tools_messages = list()
+	item_message = list()
+	var/loot_chance = 30
+
+
+/obj/structure/lootable/wooden/New()
+	possible_loot = SnowyMaster.safe_items_list
+	..()
+	icon_state = "wooden_debris[rand(1, 2)]"
+
+
+/obj/structure/lootable/wooden/after_harvest(var/mob/user as mob)
+	var/wood_amount = rand(1, 4)
+	for(var/i=1 to wood_amount)
+		new /obj/item/weapon/snowy_woodchunks(src.loc)
+	qdel(src)
+
+
+/obj/structure/lootable/wooden/harvest(var/mob/user as mob)
+	user << SPAN_NOTE("You taking apart that [name]...")
+	if(do_after(user, 30))
+		if(src && prob(loot_chance) && loot)
+			for(var/i=1 to amount_of_loot)
+				new loot(src.loc)
+			loot = null
+			user << SPAN_NOTE("You found something!")
+			after_harvest(user)
+
+
+/obj/structure/lootable/rocky
+	name = "Stone blockage"
+	desc = "This is what happens, when you digging wrong."
+	icon = 'icons/obj/snowy_event/snowy_icons.dmi'
+	icon_state = "rocky_debris"
+	amount_of_loot = 3
+	ultimate_tool = /obj/item/weapon/pickaxe
+	ultimate_tool_message = "You dig up the blockage with"
+	del_when_harvested = 0
+	tools = list(/obj/item/weapon/shovel, /obj/item/weapon/crowbar)
+	tools_messages = list(/obj/item/weapon/shovel = list("You digging up the", "Need to dig it."),
+								/obj/item/weapon/crowbar = list("You pried the", "Need something to pry it.")
+								)
+	item_message = list("tricky rocks", "crushed rocks with metal wreckages", "covered with dirt medium-sized rocks")
+	del_when_harvested = 1
+
+
+/obj/structure/lootable/rocky/New()
+	possible_loot = subtypesof(/obj/item/weapon/ore)
+	..()
+	amount_of_loot = rand(2, 5)

@@ -824,7 +824,7 @@
 	var/state = 0 //1 is on, 0 is off
 	var/list/tank = list()
 	var/list/approved_reagents = list("limejuice", "cherryjelly", "berryjuice", "water", "carrotjuice",
-								"sugar", "blood", "cream", "coco", "rice", "egg", "protein") //this will be optional in game later
+								"sugar", "blood", "cream", "coco", "rice", "egg", "protein", "fish") //this will be optional in game later
 	var/processed = 0
 
 

@@ -626,7 +626,7 @@
 				spawn(30)
 					playsound(P, 'sound/effects/meteorimpact.ogg', 40, 1)
 					P.visible_message("<big>\blue Bright [SF.display_color] flash has illuminate the sky.</big>")
-					for(var/mob/living/L in range(50, P))
+					for(var/mob/living/L in range(120, P)) //rised from 50
 						if(L in view(P) || L == user)
 							continue
 						//if(istype(get_area(L), /area/outdoor)) //well, i think without this will be better
