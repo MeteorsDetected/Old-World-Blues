@@ -100,10 +100,11 @@ proc/snowyMapGeneration()
 	new /datum/random_map(null,1,1,1,world.maxx,world.maxy)
 	makepowernets() //powernets we setup too
 
+
 	//snowy master work
 	if(SnowyMaster)
 		for(var/turf/T in usable_turfs)
-			if(istype(T, /turf/simulated/mineral) || istype(T, /turf/simulated/floor/plating/chasm))
+			if(!istype(T, /turf/simulated/floor/plating/snow/generable))
 				usable_turfs.Remove(T)
 		SnowyMaster.spawnable_turfs = usable_turfs
 		SnowyMaster.coolers = cool_turfs

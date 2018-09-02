@@ -161,7 +161,8 @@ var/list/donator_icons
 			if (S.name != "AI")
 				qdel(S)
 		world << "<FONT color='blue'><B>Enjoy the game!</B></FONT>"
-		world << sound('sound/AI/welcome.ogg') // Skie
+		//world << sound('sound/AI/welcome.ogg') // Skie
+		//snowy
 		//Holiday Round-start stuff	~Carn
 		Holiday_Game_Start()
 

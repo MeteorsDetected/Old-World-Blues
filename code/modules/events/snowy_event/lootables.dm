@@ -7,7 +7,6 @@
 	var/amount_of_loot = 1
 	var/list/possible_loot = list()
 	var/ultimate_tool = /obj/item/weapon/weldingtool
-	var/ultimate_tool_can_be_used = 1
 	var/ultimate_tool_message = "You slice metal debris with"
 	var/del_when_harvested = 0
 	var/harvested = 0
@@ -21,7 +20,8 @@
 								/obj/item/weapon/crowbar = list("You pried that", "Need to pry that bulky stuff here"),
 								) //tool path = list(msg1, msg2) //msg1 - act_message, msg2 - examine_message
 	var/list/item_message = list("bolts of huge steel plate", "panel with some wires and screws", "steel grille with panel at the bottom")
-	var/list/messages_by_stages = list() //Here you can store messages for every stage. Well... In future
+	var/list/messages_by_stages = list()
+	//var/tool_delay
 	anchored = 1
 	density = 1
 	opacity = 1
@@ -71,7 +71,7 @@
 /obj/structure/lootable/proc/junk_harvest(var/mob/user as mob, var/obj/item/weapon/W)
 	if(istype(W, /obj/item/weapon/weldingtool))
 		var/obj/item/weapon/weldingtool/WT = W
-		if(WT.welding == 1)
+		if(WT.welding)
 			playsound(src, 'sound/items/Welder.ogg', 100, 1)
 			user << SPAN_NOTE("You slice a [src.name] into a few lists of metal")
 			WT.remove_fuel(10, user)
@@ -102,7 +102,7 @@
 			user << SPAN_WARN("You doing something wrong. Oops.")
 			src.visible_message(SPAN_WARN("[src.name] colapses!"))
 			after_harvest(user)
-	else if(istype(T, ultimate_tool) && ultimate_tool_can_be_used)
+	else if(ultimate_tool && istype(T, ultimate_tool))
 		if(!harvested)
 			if(prob(95))
 				user << SPAN_NOTE("[ultimate_tool_message] [T.name]")
@@ -163,7 +163,6 @@
 	density = 0
 	opacity = 0
 	ultimate_tool = null
-	ultimate_tool_can_be_used = 0
 
 	New()
 		..()

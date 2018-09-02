@@ -111,12 +111,13 @@
 			type = src.type
 		new /obj/structure/grille(src)
 		var/obj/structure/window/reinforced/W = null
-		for(var/dir in cardinal)
-			if(!istype(get_step(src,dir), type))
-				W = new border_type(src)
-				W.dir = dir
-				if(src.id && tint)
-					W:id = src.id
+		spawn(6)
+			for(var/dir in cardinal)
+				if(!istype(get_step(src,dir), type))
+					W = new border_type(src)
+					W.dir = dir
+					if(src.id && tint)
+						W:id = src.id
 		blocks_air = 0
 
 /turf/simulated/floor/plating/with_grille/reinforced

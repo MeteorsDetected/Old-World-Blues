@@ -328,5 +328,13 @@ var/global/dmm_suite/preloader/_preloader = null
 
 /dmm_suite/preloader/proc/load(atom/what)
 	for(var/attribute in attributes)
-		what.vars[attribute] = attributes[attribute]
+		var/value = attributes[attribute]
+		if(islist(value))
+			if(istype(what, /obj/machinery/door/airlock)) //crap-like access fix. Temporary. Fresh version of reader will be soon
+				if(attribute == "req_access")
+					var/list/access_list = list()
+					for(var/N in value)
+						access_list += text2num(N)
+					value = access_list
+		what.vars[attribute] = value
 	Del()
