@@ -841,7 +841,7 @@
 			var/mob/living/carbon/human/H = L
 			if(prob(50))
 				H.bloody_body(src)
-		reagents.trans_to_mob(L, mucilage_amount, CHEM_BLOOD, 1, 1)
+		reagents.trans_to_mob(L, mucilage_amount, CHEM_BLOOD, 2, 1)
 	for(var/turf/T in view(3, src))
 		if(!T.density && !istype(T, /turf/simulated/floor/plating/chasm))
 			if(prob(30))

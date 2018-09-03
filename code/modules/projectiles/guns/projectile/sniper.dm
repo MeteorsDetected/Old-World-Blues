@@ -37,7 +37,16 @@
 			loaded -= chambered
 			chambered = null
 		else
-			user << SPAN_NOTE("You work the bolt open.")
+			if(istype(src, /obj/item/weapon/gun/projectile/heavysniper/krauzer)) //snowy
+				if(loaded.len)
+					var/obj/item/ammo_casing/AC = loaded[1]
+					AC.loc = get_turf(src)
+					loaded.Remove(loaded[1])
+					user << SPAN_NOTE("You work the bolt open, ejecting [AC]!")
+				else
+					user << SPAN_NOTE("You work the bolt open.")
+			else
+				user << SPAN_NOTE("You work the bolt open.")
 	else
 		user << SPAN_NOTE("You work the bolt closed.")
 		bolt_open = 0

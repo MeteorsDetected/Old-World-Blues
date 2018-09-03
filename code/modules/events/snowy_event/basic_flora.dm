@@ -59,7 +59,6 @@
 	icon_state = "old_wood"
 	anchored = 1
 	density = 1
-	opacity = 1
 	pixel_x = 0 //use -16 for big sprites like at old trees
 	layer = 9
 	var/max_health = 20
@@ -94,6 +93,7 @@
 	wood_amount = 2
 	toughness = 1
 	branch_factor = 2
+	opacity = 1
 
 	New()
 		icon_state = "tree_[rand(1, 3)]"
@@ -106,6 +106,7 @@
 	wood_amount = 2
 	toughness = 1
 	branch_factor = 3
+	opacity = 0
 
 	New()
 		icon_state = "tree_[rand(3, 6)]"
@@ -122,6 +123,7 @@
 	wood_amount = 3
 	toughness = 2
 	branch_factor = 3
+	opacity = 1
 
 
 	New()

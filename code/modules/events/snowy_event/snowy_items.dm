@@ -509,9 +509,10 @@
 	desc = "An old but powerful krauzer rifle. Even your grandpa remembers this one. If he works at the museum. Have a small chance of jam."
 	icon_state = "krauzer"
 	item_state = "krauzer"
-	origin_tech = list(TECH_COMBAT = 6, TECH_MATERIAL = 3)
+	origin_tech = list(TECH_COMBAT = 4, TECH_MATERIAL = 2)
 	max_shells = 5
 	caliber = "a762"
+	load_method = 1|2 //that means single bullets and speedloaders (defines not working here)
 	ammo_type = /obj/item/ammo_casing/a762
 
 	var/jammed = 0
@@ -552,6 +553,17 @@
 		if(prob(50))
 			jammed = 0
 			user << SPAN_NOTE("GOT IT!")
+			bolt_open = 0
+			if(chambered)
+				chambered.loc = get_turf(src)
+				loaded.Remove(chambered)
+				user << SPAN_WARN("Jammed [chambered] has ejected!")
+			else
+				if(loaded.len)
+					var/obj/item/ammo_casing/AC = loaded[1]
+					AC.loc = get_turf(src)
+					loaded.Remove(loaded[1])
+					user << SPAN_WARN("Jammed [AC] has ejected!")
 		else
 			user << SPAN_WARN("You moves the bolt in attempt to remove the jam.")
 		return
@@ -560,6 +572,10 @@
 
 /obj/item/weapon/gun/projectile/heavysniper/krauzer/scope()
 	set hidden = 1
+
+
+/obj/item/weapon/gun/projectile/heavysniper/load_ammo(var/obj/item/A, mob/user) //unload with bolt moving
+	return
 
 
 /obj/item/ammo_magazine/cs762
@@ -627,12 +643,12 @@
 					playsound(P, 'sound/effects/meteorimpact.ogg', 40, 1)
 					P.visible_message("<big>\blue Bright [SF.display_color] flash has illuminate the sky.</big>")
 					for(var/mob/living/L in range(120, P)) //rised from 50
-						if(L in view(P) || L == user)
+						if(L in view(7, P))
 							continue
 						//if(istype(get_area(L), /area/outdoor)) //well, i think without this will be better
 						var/d = get_dir(L, P)
 						L << "\blue <big> You see the [SF.display_color] flare at [dir2text(d)] from your current position! <big>"
-						L << playsound(src.loc, 'sound/effects/explosionfar.ogg', 30, 1)
+						L << playsound(src.loc, 'sound/effects/explosionfar.ogg', 45, 1)
 				spawn(120)
 					dropFlare(P)
 			else

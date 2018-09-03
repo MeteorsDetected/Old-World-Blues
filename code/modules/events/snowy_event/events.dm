@@ -93,7 +93,6 @@
 	if(SnowyMaster)
 		shift = rand(minShift, maxShift)
 		var/t = SnowyMaster.current_temperature+shift-T0C
-		world << t
 		if((t >= -50) && (t <= -15))
 			SnowyMaster.setTemperature(t)
 		else

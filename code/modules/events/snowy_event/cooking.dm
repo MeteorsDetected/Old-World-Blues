@@ -849,6 +849,7 @@
 	if(!state)
 		if(!tank.len)
 			user << SPAN_WARN("You need to load ingredients first.")
+			return
 		state = 1
 		user << SPAN_NOTE("You turn on the [name].")
 		icon_state = "paste_maker-working"
