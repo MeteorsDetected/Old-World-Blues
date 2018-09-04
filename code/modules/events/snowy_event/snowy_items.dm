@@ -574,7 +574,7 @@
 	set hidden = 1
 
 
-/obj/item/weapon/gun/projectile/heavysniper/load_ammo(var/obj/item/A, mob/user) //unload with bolt moving
+/obj/item/weapon/gun/projectile/heavysniper/unload_ammo(var/obj/item/A, mob/user) //unload with bolt moving
 	return
 
 

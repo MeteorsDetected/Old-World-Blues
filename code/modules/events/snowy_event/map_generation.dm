@@ -110,6 +110,10 @@ proc/snowyMapGeneration()
 		SnowyMaster.coolers = cool_turfs
 		SnowyMaster.generation_complete = 1
 
+		//some easter eggs here. Temporary
+		var/turf/T = pick(SnowyMaster.spawnable_turfs)
+		new /obj/structure/deadman/johnny(T)
+
 
 
 //there we insert our chunks into the map randomly

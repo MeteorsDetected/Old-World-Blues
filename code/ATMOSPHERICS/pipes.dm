@@ -268,10 +268,8 @@
 	if(SnowyMaster) //temporary fix. Don't want to touch that shit, maybe later //snowy
 		if(SnowyMaster.generation_complete)
 			checkNodesInit()
-			return
 	else
 		checkNodesInit()
-		return
 	if(node1 && node2)
 		overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, "[pipe_icon]intact[icon_connect_type]")
 	else
@@ -532,10 +530,8 @@
 	if(SnowyMaster) //snowy
 		if(SnowyMaster.generation_complete)
 			checkNodesInit()
-			return
 	else
 		checkNodesInit()
-		return
 	if(node1 || node2 || node3)
 		overlays.Cut()
 		overlays += icon_manager.get_atmos_icon("manifold", , pipe_color, "core" + icon_connect_type)
@@ -794,10 +790,8 @@
 	if(SnowyMaster) //snowy
 		if(SnowyMaster.generation_complete)
 			checkNodesInit()
-			return
 	else
 		checkNodesInit()
-		return
 	if(node1 || node2 || node3 || node4)
 		overlays.Cut()
 		overlays += icon_manager.get_atmos_icon("manifold", , pipe_color, "4way" + icon_connect_type)

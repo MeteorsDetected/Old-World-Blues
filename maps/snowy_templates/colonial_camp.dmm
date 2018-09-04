@@ -13,7 +13,7 @@
 "am" = (/obj/machinery/computer/security,/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 10; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "dark"},/area/bridge{name = "Chief Post"})
 "an" = (/obj/structure/table/steel,/obj/item/storage/box/ids,/obj/item/device/megaphone,/obj/item/device/radio,/obj/item/weapon/paper/monitorkey,/turf/simulated/floor{icon_state = "dark"},/area/bridge{name = "Chief Post"})
 "ao" = (/obj/structure/table/steel,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
-"ap" = (/obj/structure/fence/door{icon_state = "fence_door"; dir = 1},/obj/snowfloor_mask,/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
+"ap" = (/obj/snowfloor_mask,/obj/structure/fence/door,/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
 "aq" = (/obj/machinery/camera/network/security{c_tag = "Perimeter - NNW"; dir = 10; icon_state = "camera"; name = "perimeter security camera"; pixel_y = -4},/turf/simulated/floor/plating/snow,/area/outdoor)
 "ar" = (/obj/structure/table/steel,/obj/machinery/microwave{pixel_x = -3; pixel_y = 6},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "as" = (/obj/structure/table/steel,/obj/machinery/reagentgrinder,/obj/machinery/light{icon_state = "tube1"; dir = 1},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})

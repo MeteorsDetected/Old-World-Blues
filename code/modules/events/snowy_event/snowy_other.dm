@@ -871,6 +871,32 @@ obj/machinery/lightrail/process()
 		pixel_y = pixel_y-29
 
 
+/obj/structure/deadman/johnny
+	desc = "Here's Johnny!"
+	icon_state = "johnny"
+	var/obj/item/weapon/material/twohanded/fireaxe/axe
+
+/obj/structure/deadman/johnny/New()
+	..()
+	axe = new(src)
+	update_icon()
+
+/obj/structure/deadman/johnny/update_icon()
+	overlays.Cut()
+	if(axe)
+		overlays += "johnny-axe"
+
+/obj/structure/deadman/johnny/attack_hand(var/mob/living/carbon/user as mob)
+	if(axe)
+		user << SPAN_NOTE("You takes the [axe.name] from cold hands of Johnny. He's dead now. Maybe.")
+		user.put_in_active_hand(axe)
+		axe = null
+		update_icon()
+	else
+		user << SPAN_WARN("Axe is missing. Somebody stole it! WE-E-E-E-ENDY-Y-Y-Y!!!")
+
+
+
 /obj/item/weapon/paper/snowy_ru
 	name = ""
 	info = ""
@@ -885,3 +911,5 @@ obj/machinery/lightrail/process()
 
 /obj/machinery/power/solar/broken/New()
 	broken()
+
+
