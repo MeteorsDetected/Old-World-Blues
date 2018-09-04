@@ -30,6 +30,8 @@ proc/createSnowyMaster()
 
 	var/list/safe_items_list = list() //this one is just a list of path to weapon items, but cleared off spellbooks and other such stuff
 
+	var/generation_complete = 0
+
 
 //this one makes our cooling turfs in one list
 /datum/snowy_master/proc/makeAtmosTurfsList()

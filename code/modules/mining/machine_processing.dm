@@ -8,13 +8,22 @@
 	anchored = 1
 
 	var/obj/machinery/mineral/processing_unit/machine = null
-	var/machinedir = EAST
+	//var/machinedir = EAST //no, this is a bad idea, let's make it through id
+	var/connect_id
 	var/show_all_ores = 0
 
 /obj/machinery/mineral/processing_unit_console/New()
 	..()
 	spawn(7)
-		src.machine = locate(/obj/machinery/mineral/processing_unit, get_step(src, machinedir))
+		if(connect_id)
+			for(var/obj/machinery/mineral/processing_unit/PU in world)
+				if(PU.connect_id == connect_id)
+					src.machine = PU
+		if(!machine)
+			for(var/d in alldirs) //more classic variation
+				src.machine = locate(/obj/machinery/mineral/processing_unit, get_step(src, d))
+				if(machine)
+					break
 		if (machine)
 			machine.console = src
 		else
@@ -122,6 +131,7 @@
 	var/list/ores_stored[0]
 	var/static/list/alloy_data
 	var/active = 0
+	var/connect_id
 
 /obj/machinery/mineral/processing_unit/New()
 	..()

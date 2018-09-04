@@ -245,14 +245,9 @@
 	if(node2)
 		node2.update_underlays()
 
-/obj/machinery/atmospherics/pipe/simple/update_icon(var/safety = 0)
-	if(!check_icon_cache())
-		return
-
-	alpha = 255
-
-	overlays.Cut()
-
+//Please, at next time place things at places where they must be, not where you want. This makes work harder
+//And make the nodes through the list, these node1, node2 ... noden makes much of copypaste code
+/obj/machinery/atmospherics/pipe/simple/proc/checkNodesInit() //this one need to place where it's needed, not into every update icon!
 	if(!node1 && !node2)
 		var/turf/T = get_turf(src)
 		new /obj/item/pipe(loc, make_from=src)
@@ -261,7 +256,23 @@
 				new /obj/item/pipe_meter(T)
 				qdel(meter)
 		qdel(src)
-	else if(node1 && node2)
+
+/obj/machinery/atmospherics/pipe/simple/update_icon(var/safety = 0)
+	if(!check_icon_cache())
+		return
+
+	alpha = 255
+
+	overlays.Cut()
+
+	if(SnowyMaster) //temporary fix. Don't want to touch that shit, maybe later //snowy
+		if(SnowyMaster.generation_complete)
+			checkNodesInit()
+			return
+	else
+		checkNodesInit()
+		return
+	if(node1 && node2)
 		overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, "[pipe_icon]intact[icon_connect_type]")
 	else
 		overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, "[pipe_icon]exposed[node1?1:0][node2?1:0][icon_connect_type]")
@@ -500,12 +511,8 @@
 	if(node3)
 		node3.update_underlays()
 
-/obj/machinery/atmospherics/pipe/manifold/update_icon(var/safety = 0)
-	if(!check_icon_cache())
-		return
 
-	alpha = 255
-
+/obj/machinery/atmospherics/pipe/manifold/proc/checkNodesInit() //snowy
 	if(!node1 && !node2 && !node3)
 		var/turf/T = get_turf(src)
 		new /obj/item/pipe(loc, make_from=src)
@@ -514,7 +521,22 @@
 				new /obj/item/pipe_meter(T)
 				qdel(meter)
 		qdel(src)
+		return
+
+/obj/machinery/atmospherics/pipe/manifold/update_icon(var/safety = 0)
+	if(!check_icon_cache())
+		return
+
+	alpha = 255
+
+	if(SnowyMaster) //snowy
+		if(SnowyMaster.generation_complete)
+			checkNodesInit()
+			return
 	else
+		checkNodesInit()
+		return
+	if(node1 || node2 || node3)
 		overlays.Cut()
 		overlays += icon_manager.get_atmos_icon("manifold", , pipe_color, "core" + icon_connect_type)
 		overlays += icon_manager.get_atmos_icon("manifold", , , "clamps" + icon_connect_type)
@@ -753,12 +775,7 @@
 	if(node4)
 		node4.update_underlays()
 
-/obj/machinery/atmospherics/pipe/manifold4w/update_icon(var/safety = 0)
-	if(!check_icon_cache())
-		return
-
-	alpha = 255
-
+/obj/machinery/atmospherics/pipe/manifold4w/proc/checkNodesInit() //snowy
 	if(!node1 && !node2 && !node3 && !node4)
 		var/turf/T = get_turf(src)
 		new /obj/item/pipe(loc, make_from=src)
@@ -767,7 +784,21 @@
 				new /obj/item/pipe_meter(T)
 				qdel(meter)
 		qdel(src)
+
+/obj/machinery/atmospherics/pipe/manifold4w/update_icon(var/safety = 0)
+	if(!check_icon_cache())
+		return
+
+	alpha = 255
+
+	if(SnowyMaster) //snowy
+		if(SnowyMaster.generation_complete)
+			checkNodesInit()
+			return
 	else
+		checkNodesInit()
+		return
+	if(node1 || node2 || node3 || node4)
 		overlays.Cut()
 		overlays += icon_manager.get_atmos_icon("manifold", , pipe_color, "4way" + icon_connect_type)
 		overlays += icon_manager.get_atmos_icon("manifold", , , "clamps_4way" + icon_connect_type)

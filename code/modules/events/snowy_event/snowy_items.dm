@@ -646,8 +646,8 @@
 						if(L in view(7, P))
 							continue
 						//if(istype(get_area(L), /area/outdoor)) //well, i think without this will be better
-						var/d = get_dir(L, P)
-						L << "\blue <big> You see the [SF.display_color] flare at [dir2text(d)] from your current position! <big>"
+						var/d = get_adir(L.loc, P)
+						L << "\blue <big> You see the [SF.display_color] flare at <b>[lowertext(d)]</b> from your current position! <big>"
 						L << playsound(src.loc, 'sound/effects/explosionfar.ogg', 45, 1)
 				spawn(120)
 					dropFlare(P)

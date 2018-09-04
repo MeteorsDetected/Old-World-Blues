@@ -190,6 +190,9 @@
 		..()
 		new /obj/item/weapon/paper(src)
 		new /obj/item/weapon/pen(src)
+		spawn(6)
+			for(var/obj/item/I in loc)
+				I.loc = src
 
 	attack_hand(mob/user as mob)
 		return attack_self(user)

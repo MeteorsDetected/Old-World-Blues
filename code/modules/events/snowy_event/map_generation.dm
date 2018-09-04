@@ -108,6 +108,7 @@ proc/snowyMapGeneration()
 				usable_turfs.Remove(T)
 		SnowyMaster.spawnable_turfs = usable_turfs
 		SnowyMaster.coolers = cool_turfs
+		SnowyMaster.generation_complete = 1
 
 
 
