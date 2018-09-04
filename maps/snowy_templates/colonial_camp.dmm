@@ -13,7 +13,7 @@
 "am" = (/obj/machinery/computer/security,/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 10; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "dark"},/area/bridge{name = "Chief Post"})
 "an" = (/obj/structure/table/steel,/obj/item/storage/box/ids,/obj/item/device/megaphone,/obj/item/device/radio,/obj/item/weapon/paper/monitorkey,/turf/simulated/floor{icon_state = "dark"},/area/bridge{name = "Chief Post"})
 "ao" = (/obj/structure/table/steel,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
-"ap" = (/obj/snowfloor_mask,/obj/structure/fence/door,/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
+"ap" = (/obj/structure/fence/door{icon_state = "fence_door"; dir = 1},/obj/snowfloor_mask,/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
 "aq" = (/obj/machinery/camera/network/security{c_tag = "Perimeter - NNW"; dir = 10; icon_state = "camera"; name = "perimeter security camera"; pixel_y = -4},/turf/simulated/floor/plating/snow,/area/outdoor)
 "ar" = (/obj/structure/table/steel,/obj/machinery/microwave{pixel_x = -3; pixel_y = 6},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "as" = (/obj/structure/table/steel,/obj/machinery/reagentgrinder,/obj/machinery/light{icon_state = "tube1"; dir = 1},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
@@ -43,13 +43,13 @@
 "aQ" = (/obj/machinery/door/blast/shutters{dir = 4; id = "chiefpost"; layer = 3.1; name = "Chief Post Shutters"},/turf/simulated/floor/plating/with_grille/reinforced,/area/bridge{name = "Chief Post"})
 "aR" = (/obj/structure/table/steel,/obj/item/weapon/reagent_containers/condiment/enzyme{layer = 5},/obj/item/weapon/reagent_containers/glass/beaker{pixel_x = 5},/obj/item/weapon/reagent_containers/glass/beaker{pixel_x = 5},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "aS" = (/obj/structure/cable/yellow{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plating/snow,/area/outdoor)
-"aT" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 6},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
-"aU" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"aT" = (/obj/item/device/flashlight/lantern,/turf/simulated/floor{icon_state = "showroomfloor"},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"aU" = (/obj/effect/landmark/start{name = "Cook"},/turf/simulated/floor{icon_state = "showroomfloor"},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "aV" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "aW" = (/obj/machinery/door/airlock/freezer,/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor{icon_state = "showroomfloor"},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "aX" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor{icon_state = "showroomfloor"},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "aY" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 10; icon_state = "intact"},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor{icon_state = "showroomfloor"},/area/crew_quarters/kitchen{name = "Mess Hall"})
-"aZ" = (/obj/item/device/flashlight/lantern,/turf/simulated/floor{icon_state = "showroomfloor"},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"aZ" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 6; level = 1},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "ba" = (/obj/machinery/door/blast/shutters{dir = 8; id = "jaeger"; layer = 3.3; name = "Jaeger Lodge Shutters"},/turf/simulated/floor/plating/with_grille/reinforced,/area/security/brig{name = "Jaeger Lodge"})
 "bb" = (/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable/yellow{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plating/snow,/area/outdoor)
 "bc" = (/obj/structure/cable/yellow{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plating/snow,/area/outdoor)
@@ -67,7 +67,7 @@
 "bo" = (/obj/machinery/light/small{dir = 8},/obj/machinery/gibber{emagged = 1},/turf/simulated/floor{icon_state = "showroomfloor"},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "bp" = (/obj/machinery/atmospherics/pipe/simple/hidden,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor{icon_state = "showroomfloor"},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "bq" = (/obj/machinery/camera/network/security{c_tag = "Perimeter - NE"; dir = 10; icon_state = "camera"; name = "perimeter security camera"; pixel_y = -2},/turf/simulated/floor/plating/snow,/area/outdoor)
-"br" = (/obj/effect/landmark/start{name = "Cook"},/turf/simulated/floor{icon_state = "showroomfloor"},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"br" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 4; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "bs" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{dir = 1; icon_state = "intact"; level = 1},/obj/effect/landmark/start{name = "Jaeger"},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
 "bt" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{dir = 1; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
 "bu" = (/obj/structure/material/chair/wood,/obj/effect/landmark/start{name = "Jaeger"},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
@@ -85,7 +85,7 @@
 "bG" = (/obj/structure/table/steel,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "bH" = (/obj/structure/table/steel,/obj/item/weapon/reagent_containers/condiment/small/saltshaker{pixel_x = -3},/obj/item/weapon/reagent_containers/condiment/small/peppermill{pixel_x = 3},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "bI" = (/obj/structure/table/steel,/obj/item/device/flashlight/lantern,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
-"bJ" = (/obj/machinery/vending/cigarette,/obj/machinery/camera/autoname{icon_state = "camera"; dir = 8},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"bJ" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{dir = 8; level = 1},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "bK" = (/turf/simulated/wall,/area/hydroponics{name = "Hydroponics"})
 "bL" = (/obj/machinery/door/airlock/freezer,/obj/machinery/atmospherics/pipe/simple/hidden,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
 "bM" = (/obj/machinery/smartfridge,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
@@ -110,16 +110,16 @@
 "cf" = (/obj/structure/table/steel,/obj/machinery/chem_dispenser/beer,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "cg" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{level = 1},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "ch" = (/obj/effect/landmark/start{name = "Worker"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
-"ci" = (/obj/machinery/light{dir = 4},/obj/machinery/newscaster{pixel_x = 32},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"ci" = (/obj/machinery/vending/cigarette,/obj/machinery/camera/autoname{icon_state = "camera"; dir = 8},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "cj" = (/obj/machinery/seed_extractor,/obj/machinery/camera/autoname{icon_state = "camera"; dir = 4},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
 "ck" = (/obj/machinery/atmospherics/pipe/manifold/hidden{dir = 8; icon_state = "map"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
 "cl" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{dir = 4; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
-"cm" = (/obj/structure/sink{pixel_y = 26},/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 10; icon_state = "intact"; level = 1},/mob/living/simple_animal/chicken,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
-"cn" = (/turf/simulated/floor/plating/with_grille/reinforced,/area/hydroponics{name = "Hydroponics"})
+"cm" = (/obj/machinery/light{dir = 4},/obj/machinery/newscaster{pixel_x = 32},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"cn" = (/obj/structure/sink{pixel_y = 26},/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 10; icon_state = "intact"; level = 1},/mob/living/simple_animal/chicken,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
 "co" = (/obj/structure/table/woodentable,/obj/machinery/door/window/westright{req_access = list(1)},/obj/machinery/atmospherics/pipe/simple/hidden{icon_state = "intact"; dir = 4},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
 "cp" = (/obj/structure/table/woodentable,/obj/item/weapon/pen,/obj/item/device/flashlight/lantern{icon_state = "lantern-on"; on = 1},/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 5; level = 1},/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
 "cq" = (/obj/machinery/atmospherics/pipe/manifold/hidden,/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
-"cr" = (/obj/machinery/door/airlock/command{name = "Chief Quarters"; req_access = list(20)},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
+"cr" = (/obj/machinery/door/airlock/command{name = "Chief Quarters"; req_access = list(57)},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
 "cs" = (/obj/machinery/atmospherics/pipe/manifold/hidden{dir = 4; icon_state = "map"},/obj/machinery/meter{pixel_x = -26; pixel_y = 26},/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
 "ct" = (/obj/structure/material/chair/wood{tag = "icon-wooden_chair (EAST)"; icon_state = "wooden_chair"; dir = 4},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
 "cu" = (/obj/structure/table/woodentable,/obj/item/weapon/paper_bin,/obj/item/weapon/fencedoorkey,/obj/item/weapon/folder/blue,/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
@@ -129,13 +129,13 @@
 "cy" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging{level = 1},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "cz" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "cA" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
-"cB" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/apc{dir = 4; name = "east bump"; pixel_x = 26},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"cB" = (/turf/simulated/floor/plating/with_grille/reinforced,/area/hydroponics{name = "Hydroponics"})
 "cC" = (/obj/structure/fence{icon_state = "fence"; dir = 1},/obj/structure/fence{icon_state = "fence"; dir = 4},/turf/simulated/floor/plating/snow,/area/outdoor)
 "cD" = (/obj/machinery/biogenerator,/obj/machinery/light/small{dir = 8},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
 "cE" = (/turf/simulated/wall,/area/medical/reception{name = "Health Center Reception"})
 "cF" = (/turf/simulated/floor/plating/with_grille/reinforced,/area/medical/reception{name = "Health Center Reception"})
 "cG" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 5; icon_state = "intact"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
-"cH" = (/obj/machinery/portable_atmospherics/hydroponics,/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 9; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
+"cH" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/apc{dir = 4; name = "east bump"; pixel_x = 26},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "cI" = (/obj/structure/material/bed/padded,/obj/item/weapon/bedsheet/hop,/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
 "cJ" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 6},/turf/simulated/floor{icon_state = "white"},/area/medical/reception{name = "Health Center Reception"})
 "cK" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{dir = 4; icon_state = "intact"; level = 1},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor{icon_state = "white"},/area/medical/reception{name = "Health Center Reception"})
@@ -147,7 +147,7 @@
 "cQ" = (/obj/machinery/vending/cigarette/wallmounted{pixel_x = -32},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 5; icon_state = "intact"},/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
 "cR" = (/obj/machinery/power/solar,/obj/structure/cable/yellow,/turf/simulated/floor/plating/snow,/area/outdoor)
 "cS" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{dir = 4; icon_state = "intact"; level = 1},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
-"cT" = (/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating/snow,/area/outdoor)
+"cT" = (/obj/machinery/portable_atmospherics/hydroponics,/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 9; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
 "cU" = (/obj/machinery/sleeper{icon_state = "sleeper"; dir = 4},/turf/simulated/floor{icon_state = "white"},/area/medical/reception{name = "Health Center Reception"})
 "cV" = (/obj/machinery/atmospherics/pipe/simple/hidden,/turf/simulated/floor{icon_state = "white"},/area/medical/reception{name = "Health Center Reception"})
 "cW" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor{icon_state = "white"},/area/medical/reception{name = "Health Center Reception"})
@@ -166,7 +166,7 @@
 "dj" = (/obj/structure/closet/crate/hydroponics,/obj/item/weapon/material/minihoe,/obj/item/weapon/material/hatchet,/obj/item/storage/bag/plants,/obj/item/storage/bag/plants,/obj/item/device/analyzer/plant_analyzer,/obj/item/weapon/reagent_containers/glass/beaker/bucket,/obj/item/weapon/reagent_containers/glass/beaker/bottle/diethylamine,/obj/item/weapon/reagent_containers/glass/beaker/bottle/diethylamine,/obj/item/seeds/carrotseed,/obj/item/seeds/potatoseed,/obj/item/seeds/riceseed,/obj/item/seeds/soyaseed,/obj/item/seeds/tomatoseed,/obj/item/seeds/wheatseed,/obj/item/seeds/whitebeetseed,/obj/item/seeds/cabbageseed,/obj/item/seeds/chantermycelium,/obj/item/seeds/eggplantseed,/obj/item/seeds/pumpkinseed,/obj/item/weapon/wirecutters/clippers,/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/machinery/power/apc{dir = 8; name = "west bump"; pixel_x = -24},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
 "dk" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
 "dl" = (/obj/effect/landmark/start{name = "Cook"},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
-"dm" = (/obj/machinery/smartfridge/seeds,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
+"dm" = (/obj/machinery/portable_atmospherics/hydroponics,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
 "dn" = (/turf/simulated/floor{icon_state = "white"},/area/medical/reception{name = "Health Center Reception"})
 "do" = (/obj/structure/cable,/obj/machinery/power/apc{dir = 4; name = "east bump"; pixel_x = 26},/turf/simulated/floor{icon_state = "white"},/area/medical/reception{name = "Health Center Reception"})
 "dp" = (/obj/structure/window/reinforced{dir = 4},/obj/machinery/computer/med_data/laptop,/obj/structure/table/standard,/turf/simulated/floor{icon_state = "white"},/area/medical/reception{name = "Health Center Reception"})
@@ -182,22 +182,22 @@
 "dz" = (/obj/structure/table/steel,/obj/item/weapon/reagent_containers/glass/drinks/teapot,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "dA" = (/obj/machinery/door/blast/shutters{density = 0; dir = 2; icon_state = "shutter0"; id = "chiefroom"; name = "Chief Post Shutters"; opacity = 0},/turf/simulated/floor/plating/with_grille/reinforced,/area/bridge/meeting_room{name = "Chief Meeting Room"})
 "dB" = (/obj/machinery/door/airlock/command{name = "Chief Post"; req_access = list(19)},/obj/machinery/atmospherics/pipe/simple/hidden{icon_state = "intact"; dir = 1},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
-"dC" = (/obj/structure/material/chair{dir = 4},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/effect/landmark/start{name = "Worker"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"dC" = (/obj/machinery/smartfridge/seeds,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
 "dD" = (/obj/structure/table/steel,/obj/item/trash/plate,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "dE" = (/obj/structure/table/steel,/obj/item/storage/box/matches,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "dF" = (/obj/structure/fence{icon_state = "fence"; dir = 4},/turf/simulated/floor/plating/snow,/area/outdoor)
 "dG" = (/obj/structure/table/steel,/obj/item/storage/fancy/cigarettes/Zdravi,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
-"dH" = (/obj/structure/material/chair{dir = 8},/obj/machinery/light{dir = 4},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"dH" = (/obj/structure/table/steel,/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
 "dI" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{dir = 1; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "dJ" = (/obj/structure/table/steel,/obj/item/trash/snack_bowl,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
-"dK" = (/obj/structure/material/chair{dir = 8},/obj/effect/landmark/start{name = "Worker"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
-"dL" = (/obj/structure/simple_door/wood{name = "Mess Hall"},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
-"dM" = (/obj/machinery/atmospherics/pipe/simple/hidden{icon_state = "intact"; dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/meter{pixel_x = -26; pixel_y = 26},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
-"dN" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 9; icon_state = "intact"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"dK" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
+"dL" = (/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
+"dM" = (/obj/structure/material/chair{dir = 8},/obj/machinery/light{dir = 4},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"dN" = (/obj/structure/material/chair{dir = 8},/obj/effect/landmark/start{name = "Worker"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "dO" = (/obj/structure/material/chair{dir = 4},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "dP" = (/turf/simulated/wall,/area/crew_quarters/medbreak{name = "Break Room"})
 "dQ" = (/obj/structure/closet/crate/bin{name = "trash bin"},/obj/structure/extinguisher_cabinet{pixel_x = -32},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
-"dR" = (/obj/machinery/atm{pixel_y = -32},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"dR" = (/obj/machinery/atmospherics/pipe/simple/hidden,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "dS" = (/obj/structure/closet/wardrobe/pjs,/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/crew_quarters/medbreak{name = "Break Room"})
 "dT" = (/obj/structure/cable{icon_state = "0-2"; d2 = 2},/obj/machinery/power/apc{dir = 1; name = "north bump"; pixel_y = 24},/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/crew_quarters/medbreak{name = "Break Room"})
 "dU" = (/obj/structure/roller_bed,/obj/item/weapon/bedsheet,/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/crew_quarters/medbreak{name = "Break Room"})
@@ -417,7 +417,7 @@
 "ia" = (/obj/machinery/dnaforensics{anchored = 0},/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/rnd/research{name = "Research and Development"})
 "ib" = (/obj/snowfloor_mask,/obj/machinery/atmospherics/pipe/simple/hidden{icon_state = "intact"; dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
 "ic" = (/obj/snowfloor_mask,/obj/machinery/atmospherics/pipe/manifold/hidden,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
-"id" = (/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating/snow,/area/outdoor)
+"id" = (/obj/structure/material/chair{dir = 4},/obj/effect/landmark/start{name = "Worker"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "ie" = (/obj/effect/decal/cleanable/generic,/turf/simulated/floor{icon_state = "floorgrime"},/area/quartermaster/storage{name = "Storehouse"})
 "if" = (/obj/structure/table/rack,/obj/item/clothing/accessory/storage/white_vest,/obj/item/clothing/accessory/storage/white_vest,/obj/item/clothing/accessory/storage/white_vest,/obj/item/clothing/accessory/storage/white_vest,/obj/item/clothing/accessory/storage/drop_pouches/white,/obj/item/clothing/accessory/storage/drop_pouches/white,/obj/item/clothing/accessory/storage/drop_pouches/white,/obj/item/storage/belt/medical/emt,/obj/item/storage/belt/medical/emt,/obj/item/storage/belt/medical/emt,/obj/item/storage/belt/medical,/obj/item/storage/belt/medical,/obj/item/storage/belt/medical,/turf/simulated/floor{icon_state = "floorgrime"},/area/quartermaster/storage{name = "Storehouse"})
 "ig" = (/obj/structure/table/rack,/obj/item/storage/belt/security/tactical,/obj/item/storage/belt/security/tactical,/obj/item/storage/belt/security/tactical,/obj/item/storage/belt/security/tactical,/obj/item/storage/belt/security/tactical,/obj/item/storage/box/handcuffs,/obj/item/clothing/accessory/holster/gun/armpit,/obj/item/clothing/accessory/holster/gun/armpit,/obj/item/clothing/accessory/holster/gun/armpit,/obj/item/clothing/accessory/holster/gun/hip,/obj/item/clothing/accessory/holster/gun/hip,/obj/item/clothing/accessory/holster/gun/hip,/obj/item/weapon/melee/classic_baton,/obj/item/weapon/melee/classic_baton,/obj/item/weapon/melee/classic_baton,/obj/item/weapon/melee/classic_baton,/obj/item/weapon/melee/classic_baton,/turf/simulated/floor{icon_state = "floorgrime"},/area/quartermaster/storage{name = "Storehouse"})
@@ -462,7 +462,7 @@
 "iT" = (/obj/snowfloor_mask,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
 "iU" = (/obj/effect/decal/cleanable/dirt,/obj/machinery/atmospherics/pipe/manifold4w/hidden,/turf/simulated/floor/wood{icon_state = "wood-broken6"},/area/crew_quarters/sleep{name = "Dormitories"})
 "iV" = (/obj/snowfloor_mask,/obj/machinery/atmospherics/pipe/simple/hidden,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
-"iW" = (/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable/yellow{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plating/snow,/area/outdoor)
+"iW" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/simple_door/wood{name = "Mess Hall"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "iX" = (/obj/effect/decal/cleanable/dirt,/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 4; icon_state = "intact"; level = 1},/turf/simulated/floor/wood,/area/crew_quarters/sleep{name = "Dormitories"})
 "iY" = (/obj/snowfloor_mask,/obj/snowfloor_mask,/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
 "iZ" = (/obj/effect/decal/cleanable/dirt,/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{dir = 8; level = 1},/turf/simulated/floor/wood,/area/crew_quarters/sleep{name = "Dormitories"})
@@ -499,8 +499,8 @@
 "jE" = (/obj/machinery/door/airlock/glass_research{name = "Research Break Room"; req_access = newlist()},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/wood,/area/rnd/res_break{name = "Research Break Room"})
 "jF" = (/obj/machinery/atmospherics/pipe/manifold/hidden{dir = 1; icon_state = "map"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/wood,/area/rnd/res_break{name = "Research Break Room"})
 "jG" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{dir = 4; icon_state = "intact"; level = 1},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/apc{dir = 1; name = "north bump"; pixel_y = 24},/turf/simulated/floor/wood,/area/rnd/res_break{name = "Research Break Room"})
-"jH" = (/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/fence{icon_state = "fence"; dir = 4},/turf/simulated/floor/plating/snow,/area/outdoor)
-"jI" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 10; icon_state = "intact"; level = 1},/obj/item/storage/secure/safe{contents = newlist(/obj/item/storage/bible/booze,/obj/item/weapon/cane); pixel_y = 32},/turf/simulated/floor/wood,/area/rnd/res_break{name = "Research Break Room"})
+"jH" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"jI" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 10; icon_state = "intact"; level = 1},/obj/item/storage/secure/safe{contents = newlist(/obj/item/storage/bible/booze,/obj/item/weapon/cane); pixel_y = 32},/obj/item/weapon/paper/monitorkey,/turf/simulated/floor/wood,/area/rnd/res_break{name = "Research Break Room"})
 "jJ" = (/obj/structure/material/bed/padded,/obj/item/weapon/bedsheet,/obj/effect/landmark/start{name = "Academician"},/turf/simulated/floor/wood,/area/rnd/res_break{name = "Research Break Room"})
 "jK" = (/obj/item/device/radio/intercom{layer = 4; pixel_x = -30},/turf/simulated/floor{icon_state = "floorgrime"},/area/quartermaster/storage{name = "Storehouse"})
 "jL" = (/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/fence{icon_state = "fence"; dir = 4},/turf/simulated/floor/plating/snow,/area/outdoor)
@@ -778,6 +778,8 @@
 "oX" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 9; icon_state = "intact"},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
 "oY" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{dir = 4; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering/atmos{name = "Heater Room"})
 "oZ" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{dir = 8; level = 1},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering/atmos{name = "Heater Room"})
+"pa" = (/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/beer,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/beer,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/beer,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/beer,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/ale,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/ale,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/ale,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/ale,/obj/item/blueprints,/obj/structure/closet/secure_closet/freezer{name = "refrigerator"; req_access = list(32)},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering/atmos{name = "Heater Room"})
+"pb" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 6},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "pc" = (/obj/machinery/atmospherics/pipe/manifold/hidden,/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering/atmos{name = "Heater Room"})
 "pd" = (/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor{icon_state = "floorgrime"},/area/assembly/chargebay{name = "Mech Garage"})
 "pe" = (/obj/machinery/light,/turf/simulated/floor{icon_state = "floorgrime"},/area/assembly/chargebay{name = "Mech Garage"})
@@ -795,7 +797,7 @@
 "pq" = (/obj/machinery/door/airlock/engineering{name = "Heater Room"; req_access = list(32)},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/atmospherics/pipe/simple/hidden{icon_state = "intact"; dir = 4},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering/atmos{name = "Heater Room"})
 "pr" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 9; icon_state = "intact"},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering/atmos{name = "Heater Room"})
 "ps" = (/obj/structure/material/bed/padded,/obj/item/weapon/bedsheet,/obj/structure/fireaxecabinet{pixel_y = -32},/obj/effect/landmark/start{name = "Colony Engineer"},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering/atmos{name = "Heater Room"})
-"pt" = (/obj/structure/closet/secure_closet/freezer/fridge{req_access = list(32)},/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/beer,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/beer,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/beer,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/beer,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/ale,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/ale,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/ale,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/ale,/obj/item/blueprints,/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering/atmos{name = "Heater Room"})
+"pt" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/door/airlock/glass{name = "Mess Hall"},/obj/machinery/atmospherics/pipe/simple/hidden{icon_state = "intact"; dir = 4},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "pu" = (/obj/machinery/power/port_gen/pacman,/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering{name = "Engineering"})
 "pv" = (/obj/machinery/power/smes/buildable{charge = 1e+007; dir = 1; init_coils = 4; input_attempt = 1; input_level = 500000; output_level = 500000; RCon_tag = "Colony - 1"},/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering{name = "Engineering"})
 "pw" = (/obj/machinery/power/smes/buildable{charge = 1e+007; dir = 1; init_coils = 4; input_attempt = 1; input_level = 500000; output_level = 500000; RCon_tag = "Colony - 2"},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering{name = "Engineering"})
@@ -803,7 +805,7 @@
 "py" = (/obj/machinery/door/airlock/engineering{name = "Engineering"; req_access = list(32)},/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering{name = "Engineering"})
 "pz" = (/obj/structure/table/woodentable,/obj/item/weapon/material/hatchet/tacknife,/obj/item/device/binoculars,/obj/item/weapon/fencedoorkey,/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
 "pA" = (/obj/machinery/computer/security,/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
-"pB" = (/obj/machinery/button/remote/blast_door{id = "chiefpost"; name = "Jaeger Lodge Shutters Control"; pixel_x = 0; pixel_y = -26},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
+"pB" = (/obj/machinery/button/remote/blast_door{id = "jaeger"; name = "Jaeger Lodge Shutters Control"; pixel_x = 0; pixel_y = -26},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
 "pC" = (/obj/effect/decal/cleanable/dirt,/obj/structure/closet/crate,/obj/item/clothing/shoes/sandal/pink,/turf/simulated/floor/wood,/area/crew_quarters/sleep{name = "Dormitories"})
 "pD" = (/obj/effect/decal/cleanable/dirt,/obj/structure/closet/crate,/obj/item/clothing/mask/facehugger/lamarr,/turf/simulated/floor/wood,/area/crew_quarters/sleep{name = "Dormitories"})
 "pE" = (/obj/effect/decal/cleanable/dirt,/obj/item/weapon/reagent_containers/glass/drinks/flask/detflask,/turf/simulated/floor/plating,/area/crew_quarters/sleep{name = "Dormitories"})
@@ -815,27 +817,39 @@
 "pK" = (/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/structure/cable/yellow{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/snowfloor_mask,/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
 "pL" = (/obj/structure/table/glass,/obj/item/weapon/virusdish/random,/obj/item/weapon/virusdish/random,/turf/simulated/floor{icon_state = "white"},/area/medical/virology{name = "Virology"})
 "pM" = (/obj/structure/table/glass,/obj/item/weapon/reagent_containers/glass/drinks/irecup,/turf/simulated/floor{icon_state = "white"},/area/medical/virology{name = "Virology"})
+"pN" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/atmospherics/pipe/simple/hidden{icon_state = "intact"; dir = 4},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"pO" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 9; icon_state = "intact"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"pP" = (/obj/machinery/atm{pixel_y = -32},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"pQ" = (/obj/structure/material/chair{dir = 4},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"pT" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{dir = 4; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"pU" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 9; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"pV" = (/obj/machinery/meter{pixel_x = -26; pixel_y = 26},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"pW" = (/obj/structure/closet,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"pX" = (/obj/structure/closet,/obj/item/clothing/suit/storage/toggle/bomber/niels,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"pZ" = (/obj/structure/fence{icon_state = "fence"; dir = 4},/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plating/snow,/area/outdoor)
+"qa" = (/obj/structure/table/steel,/obj/item/weapon/material/ashtray/bronze,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
+"qb" = (/obj/structure/table/steel,/obj/item/weapon/flame/lighter/zippo,/obj/item/storage/fancy/cigarettes/Zdravi,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 
 (1,1,1) = {"
 phphphaaphaaaaaaphphphphphphphaaphphphaaaaaaaaaaaaphphphphphphphphaaaaaaphphaaaaaaaaaaaaaaaaphphphaaaaphphphphphphphphph
 phaaajaaaaaaaaaaaaaaaaaaaaaaaaaaaaaqaaaaaaaaaaaaaaaaaaaaaaaaaaaaavaaaaaaaaaaaaaagRaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaabqaaph
 phaabwbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSapbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbScCaaph
 phaacMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadFaaph
-aaaacMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacabaaaagRaaadadaeaeaeadadadadadadadaaaaaadFaaaa
-phaacMaaaaaEaEaEaEaEaEaEaEaEaEaEaaafafafafagagagafafaaaaaaababahaiakalamanababaagRaaadaobHazarasatadauawaxadaaaaaadFaaaa
-phaacMaaaSbbbbbbbbbbbbbbbbbbbbbcaaafayaCaFbebObPbjafaaaaaaaHaIaJaKaLaMaNaOaPaQaagRaaadaRaTaUaVaVaVaWaXaYaZadaaaaaadFaaaa
-aaaacMaabUcRcRcRcRcRcRcRcRcRcRcRaababdbdafaBbdbdaDafaaaaaabgbgbgbgbhbgbgbgbgbgaagRaaaebicgbkblbmbnadbobpbradaaaaaadFaaaa
-aaaacMaabUaEaEaEaEaEaEaEaEaEaEaEaababsbtbRbTbtbdaGafaaaabvbvbxbybvbzbAbBbDbEbvaagRaaaebFcybGbHbIbJadbKbLbMbKbKaaaadFaaaa
-aaaacMaaehbbbbbbbbbbbbbbbbbbbbbcaaafbNcecolWoAbtbfafaaaabvbVbWbXbvbYbZcacbcccdaagRaaaecfcybkchbmciadcjckclcmcnaaaadFaaph
-aaaacMaabUcRcRcRcRcRcRcRcRcRcRcRaaafoBafbubeoNoXbfafaaaabvcpbWcqcrcsctcucvcwcdaagRaaadcxcyczcAcAcBadcDcGclcHcnaaaadFaaph
-phaacMaabUaaaaaaaaaaaaaaaaaaaaaaaaaafOafbQpzpApBaGafaaaabvbvbxcIbvcQcSdadcdccdaagRaaaddzcyddaoaodeaddjdkdldmcnaaaadFaaph
-phhlcMaabUaaaaaaaaaaaaaaaaaaaaaaaaaafOafagagagafafafaaaaaabvbvbvbvdrdtdudvdxbvaagRaaaddycydddzaodeadbKcncnbKbKaaaadFgyph
-phaacMaabUaaaaaacEcEcFcFcEcEcFcFcEaafOaaaaaaaaaaaaaaaaaaaaaaaaaabvdAbvdBbvdAbvaagRaaaebmcydCdDaodeadaaaaaaaaaaaaaadFaaph
-phaacMaabUaaaaaacFcJcKcLcNcOcPcUcEaafOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafLgYeyaaaaaagRaaaebmcydddEdGdHadaagZhacTcTcTlfdFaaph
-phaacMaabUaaaaaacFcVcWcXcYcZdbdfdgfhhMfifhfhfhfhfhfhfhfhfhfhfhfhfhhRibicgpgpgAgRiYaaadbmdIddaodJdKaeaagZidgZgZgZgZjHaaph
-aaaacMaSilaaaaaacFcVdhdidndndndocEaaaaipaaaaaaaaaaaaaaaaaaaaaagRgRezgRipgRgRiqfhfhfhdLdMdNdOaoaodeaeaagZidgZgZgZgZjLaaph
-phaacMbUdPdPdPdPdPcVcWdpdqdweIfTcEaaaaipaaaaaaaaaaaaaaaaaaaaaagRgRiRiSiTiSiSiVaaaaaaaddQbmbmbmbmdRadaagZiWdsdsdsdsjLaaaa
-phaacMbUdPdSdTdUdPkhcWcEcEcEcEcEcEdVdVdWdVdVdVaaaaaaaaaaaaaaaaaaaafOaaaaaaaafOaaaaaaadadaeaeaeaeadadaagZilgZgZgZgZkHaaaa
+aaaacMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacabaaaagRaaaaaaadadaeaeaeadadadadadadadaadFaaaa
+phaacMaaaaaEaEaEaEaEaEaEaEaEaEaEaaafafafafagagagafafaaaaaaababahaiakalamanababaagRaaaaaaadaobHazarasatadauawaxadaadFaaaa
+phaacMaaaSbbbbbbbbbbbbbbbbbbbbbcaaafayaCaFbebObPbjafaaaaaaaHaIaJaKaLaMaNaOaPaQaagRaaaaaaadaRaZbrbJaVaVaWaXaYaTadaadFaaaa
+aaaacMaabUcRcRcRcRcRcRcRcRcRcRcRaababdbdafaBbdbdaDafaaaaaabgbgbgbgbhbgbgbgbgbgaagRaaaaaaaebicybkblbmbnadbobpaUadaadFaaaa
+aaaacMaabUaEaEaEaEaEaEaEaEaEaEaEaababsbtbRbTbtbdaGafaaaabvbvbxbybvbzbAbBbDbEbvaagRaaaaaaaebFcybGbHbIciadbKbLbMbKbKdFaaaa
+aaaacMaaehbbbbbbbbbbbbbbbbbbbbbcaaafbNcecolWoAbtbfafaaaabvbVbWbXbvbYbZcacbcccdaagRaaaaaaaecfcybkchbmcmadcjckclcncBdFaaph
+aaaacMaabUcRcRcRcRcRcRcRcRcRcRcRaaafoBafbubeoNoXbfafaaaabvcpbWcqcrcsctcucvcwcdaagRaaaaaaaecxcyczcAcAcHadcDcGclcTcBdFaaph
+phaacMaabUaaaaaaaaaaaaaaaaaaaaaaaaaafOafbQpzpApBaGafaaaabvbvbxcIbvcQcSdadcdccdaagRaaaaaaaddzcyddaoaodeaddHdKdLdmcBdFaaph
+phhlcMaabUaaaaaaaaaaaaaaaaaaaaaaaaaafOafagagagafafafaaaaaabvbvbvbvdrdtdudvdxbvaagRadaeaeaddydIdddzaodeaddjdkdldCbKdFgyph
+phaacMaabUaaaaaacEcEcFcFcEcEcFcFcEaafOaaaaaaaaaaaaaaaaaaaaaaaaaabvdAbvdBbvdAbvaagRadqaqbadbmdRiddDaodeadbKcBcBbKbKdFaaph
+phaacMaabUaaaaaacFcJcKcLcNcOcPcUcEaafOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafLgYeyaaaaaagRaejHpbptpNpOdOdEdGdMadaaaaaaaaaadFaaph
+phaacMaabUaaaaaacFcVcWcXcYcZdbdfdgfhhMfifhfhfhfhfhfhfhfhfhfhfhfhfhhRibicgpgpgAgRiYadbkcgadbmbmpQaodJdNaeaaaaaaaaaadFaaph
+aaaacMaSilaaaaaacFcVdhdidndndndocEaaaaipaaaaaaaaaaaaaaaaaaaaaagRgRezgRipgRgRiqfhfhiWpTpUadpVbmpQaoaodeaeaagZgZgZgZdFaaph
+phaacMbUdPdPdPdPdPcVcWdpdqdweIfTcEaaaaipaaaaaaaaaaaaaaaaaaaaaagRgRiRiSiTiSiSiVaaaaadpWpXaddQbmbmbmbmpPadaaeddsdsdspZaaaa
+phaacMbUdPdSdTdUdPkhcWcEcEcEcEcEcEdVdVdWdVdVdVaaaaaaaaaaaaaaaaaaaafOaaaaaaaafOaaaaadaeaeadadaeaeaeaeadadaagZgZgZgZkHaaaa
 aaaacMbUdXdYdZeadPebeceeefegeiejekdVelemeneoepaaaaaaaaaaaaaaaaaaaafOaaaaaaaafOaaaaaaaaaaaaaaaaaaaaaaaaaaaagZgZgZgZjLaaaa
 aaaacMbUdXeqereseteuevewewexeweAeBdVeCeDeEeFdVaaaaaaaaeGeGeGeGeGaafOaaaaaaaafOaaaaaaaaaaaaaaaaaaaaaaaaaaaaeddsdsdsjLaaaa
 aaaacMbUdXeHeJeJdPeKeceLeMeNeOePeQdVeReSdVeTdVaaaaaaaaeGeUeVeWeGeGeXeGeGaaaafOaaaaaaeYeYeYeYbCeYeYeYeYaaaagZgZgZgZkHaaph
@@ -862,7 +876,7 @@ phaacMldlelelelelfhKmsmsjynAnAnAnAnAnBnAnAaaaaaaaaaaaamCmCmCmCmCmCmCmCfCaaaaezaa
 phaacMaaaaaaaaaabUhKnTmsnUnAnVnWnXnYnZoanAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaezaanyobocodoeofogohoiojolomonooopnzbUdFaaaa
 phaacMaaaaaaaaaabUhKhKhKhKnAoqosotosouovnAaalrhalslrltlslrhalslrhalslrhalsaaezaanyownLoxnwoyozpFpGnzoJoKoLoMpHnzbUdFaaph
 phaacMaaaaaaaaaaldlelelelfnAoOososoPoQosoRaalrlvlslrlwlslrlvlslrlvlslrlvlsaaezaanyoSoToUnwoVoWpIpJnziuoYoZpcpHnzbUdFaaph
-phaacMaaaaaaaaaaaaaaaaaabUnApdosospepfpgpilDlDnjnnnnnonnnnnonnnnnonnnnnonnnnlEaanwpjpkplnwpmpnpopppqproLoLpsptnzbUdFaaaa
+phaacMaaaaaaaaaaaaaaaaaabUnApdosospepfpgpilDlDnjnnnnnonnnnnonnnnnonnnnnonnnnlEaanwpjpkplnwpmpnpopppqproLoLpspanzbUdFaaaa
 aaaacMaaaaaaaaaaaaaaaaaabUnAnAnAnAnAnAnAnAaaaEaEaEaEaEaEaEaEaEaEaEaEaEaEaEaalLaanwnwnynwnwpupvpwpxnznznznznznznzbUdFaaaa
 aaaacMaaaaaaaaaaaaaaaaaaldlelelelelelelelelelPlQlQlQlQlQlQlQlQlQlQlQlQlQlQlelRaaaaaaaaaanwnwnwnwpynwaaaSleleleleildFaaph
 aaaacMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacRcRcRcRcRcRcRcRcRcRcRcRcRcRcRaalUlVlVlVlVlVlVlVlVlVpKlelelXlYaaaaaaaadFaaph
