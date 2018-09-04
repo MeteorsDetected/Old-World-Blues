@@ -42,7 +42,7 @@
 
 /obj/structure/lootable/examine(mob/user as mob)
 	..()
-	if(!harvested)
+	if(!harvested && tools.len)
 		if(tools_messages[tools[stage]][2])
 			user << SPAN_NOTE("You can see [messages_by_stages[stage]] here. [tools_messages[tools[stage]][2]].")
 
