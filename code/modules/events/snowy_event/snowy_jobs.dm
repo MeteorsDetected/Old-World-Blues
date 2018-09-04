@@ -315,7 +315,7 @@ datum/job/captain/snowy
 			new /obj/item/ammo_casing/sflare/red(B)
 			new /obj/item/ammo_casing/sflare/blue(B)
 			new /obj/item/ammo_casing/sflare/blue(B)
-			new /obj/item/ammo_magazine/cs762(B)
+			new /obj/item/ammo_magazine/cs792(B)
 			new /obj/item/clothing/mask/balaclava/tactical(B)
 
 
@@ -356,8 +356,8 @@ datum/job/captain/snowy
 
 	put_in_backpack = list(/obj/item/weapon/flame/lighter/zippo,
 							/obj/item/weapon/material/hatchet,
-							/obj/item/ammo_magazine/cs762,
-							/obj/item/ammo_magazine/cs762,
+							/obj/item/ammo_magazine/cs792,
+							/obj/item/ammo_magazine/cs792,
 							/obj/item/weapon/beartrap,
 							/obj/item/weapon/beartrap
 							)

@@ -503,6 +503,17 @@
 
 
 //a few guns
+/obj/item/projectile/bullet/rifle/a792
+	damage = 55 //slightly more powerful than than slug
+	armor_penetration = 10
+	sharp = 0
+
+/obj/item/ammo_casing/a792
+	desc = "A 7.92x57 bullet casing."
+	caliber = "a792"
+	icon_state = "rifle-casing"
+	spent_icon = "rifle-casing-spent"
+	projectile_type = /obj/item/projectile/bullet/rifle/a792
 
 /obj/item/weapon/gun/projectile/heavysniper/krauzer
 	name = "Krauzer 801"
@@ -511,9 +522,9 @@
 	item_state = "krauzer"
 	origin_tech = list(TECH_COMBAT = 4, TECH_MATERIAL = 2)
 	max_shells = 5
-	caliber = "a762"
+	caliber = "a792"
 	load_method = 1|2 //that means single bullets and speedloaders (defines not working here)
-	ammo_type = /obj/item/ammo_casing/a762
+	ammo_type = /obj/item/ammo_casing/a792
 
 	var/jammed = 0
 	var/jam_chance = 5
@@ -578,13 +589,13 @@
 	return
 
 
-/obj/item/ammo_magazine/cs762
-	name = "clip (.762)"
-	desc = "An ammo clip for 7.62mm guns. Like old krauzer."
+/obj/item/ammo_magazine/cs792
+	name = "clip (7,92x57)"
+	desc = "An ammo clip for 7.92mm guns. Like old krauzer."
 	icon_state = "145mm"
-	caliber = "a762"
+	caliber = "a792"
 	matter = list(MATERIAL_STEEL = 360)
-	ammo_type = /obj/item/ammo_casing/a762
+	ammo_type = /obj/item/ammo_casing/a792
 	max_ammo = 5
 	multiple_sprites = 1
 
@@ -807,7 +818,7 @@
 /obj/item/storage/box/krauzerammo/New()
 	..()
 	for(var/i = 1 to 6)
-		new /obj/item/ammo_magazine/cs762(src)
+		new /obj/item/ammo_magazine/cs792(src)
 
 
 /obj/item/storage/box/randomsnacks
