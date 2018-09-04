@@ -11,7 +11,7 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging
 	var/surface = 2	//surface area in m^2
 	var/icon_temperature = T20C //stop small changes in temperature causing an icon refresh
 
-	minimum_temperature_difference = 20
+	minimum_temperature_difference = 5
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 
 	buckle_lying = RIGHT
@@ -112,8 +112,8 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
 	pipe_icon = "hejunction"
 	level = 2
 	connect_types = CONNECT_TYPE_REGULAR|CONNECT_TYPE_HE
-	minimum_temperature_difference = 300
-	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
+	minimum_temperature_difference = 5
+	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 
 	// BubbleWrap
 	New()
