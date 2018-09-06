@@ -143,14 +143,14 @@ proc/createSnowyMaster()
 	shrooms = subtypesof(/obj/item/weapon/reagent_containers/food/snacks/ingredient/mushroom)
 	for(var/S in shrooms) //there we setup
 		var/list/P = list()
-		P["i_state"] = "shroom_upper1"
+		P["i_state"] = "shroom_upper[rand(3)]"
 		if(prob(60))
-			P["icon_bottom"] = "shroom_bottom1"
+			P["icon_bottom"] = "shroom_bottom[rand(3)]"
 		if(prob(60) && P["icon_bottom"])
-			P["icon_ring"] = "shroom_ring1"
-		P["bottom_color"] = list(r = rand(120), g = rand(120), b = rand(120))
-		P["head_color"] = list(r = rand(120), g = rand(120), b = rand(120))
-		P["ring_color"] = list(r = rand(120), g = rand(120), b = rand(120))
+			P["icon_ring"] = "shroom_ring[rand(3)]"
+		P["bottom_color"] = list(r = rand(80), g = rand(80), b = rand(80))
+		P["head_color"] = list(r = rand(80), g = rand(80), b = rand(80))
+		P["ring_color"] = list(r = rand(80), g = rand(80), b = rand(80))
 		shrooms[S] = P
 
 	//berries
@@ -280,14 +280,14 @@ ADMIN_VERB_ADD(/client/proc/snowy_master_panel, R_ADMIN)
 //4: after battle with wolfes. Injured, but have some loot around
 //All of this must be a bit challenging to make start diffirent and form the story of character
 
-//Need special controller for that
+//Hm. I use these background things too much. Need to make a special generator for that
 
 /datum/snowy_master/proc/latejoinOldRoad(var/mob/living/character, var/turf/start_point)
 	var/list/lostlist = list("When you sleep thiefs stole your ",
 							"At last night wolfes comes to your camp, you run, but forgot ",
 							"You try to make a deal with trader but he robbed you with the gun, taked ",
 							"You thought that's a good idea to shortcut a way through the lake, but ice is cracked! You saved youself, but lost ",
-							"When you cross the bridge under chasm, something fall. This is ")
+							"When you cross a bridge above the chasm, something fall. This is ")
 
 	var/list/foundlist = list("Some guy awakes you at night, says \"Ugr-m-Ba, Da-gha-ramt\" and, before he's run into forest with laugh, gives you ",
 							"When you gather some wood and shrooms, you've seen something on the tree. This was ",

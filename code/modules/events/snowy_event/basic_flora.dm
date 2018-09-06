@@ -192,8 +192,8 @@
 	qdel(src)
 
 
-/obj/structure/flora/snowytree/ex_act(var/severity)
-	if(severity > 2)
+/obj/structure/flora/snowytree/ex_act(severity)
+	if(severity <= 2)
 		fall()
 
 
@@ -250,7 +250,7 @@
 	qdel(src)
 
 
-/obj/structure/flora/snowybush/deadbush/examine(var/mob/user as mob)
+/obj/structure/flora/snowybush/examine(var/mob/user as mob)
 	..()
 	if(dead)
 		user << SPAN_NOTE("That bush is dead or sleeping at this time.")

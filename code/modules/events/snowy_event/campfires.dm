@@ -229,6 +229,14 @@
 			listeners.Remove(M)
 
 
+/obj/structure/campfire/ex_act()
+	if(fire_stage)
+		processing_objects.Remove(src)
+		for(var/mob/M in listeners)
+			M << sound(null, channel = 43)
+	qdel(src)
+
+
 /obj/structure/campfire/proc/fadingFire()
 	fire_stage--
 	burning_temp = burning_temp - 40 //To prevent fast flaming. Need to change all of that crap. Oh crap.

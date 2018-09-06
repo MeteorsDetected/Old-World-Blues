@@ -13,7 +13,7 @@
 	opacity = 1
 
 	New()
-		icon_state = "rock[rand(1, 2)]"
+		icon_state = "rock[rand(3)]"
 
 
 /obj/structure/rock/attackby(obj/item/weapon/O as obj, mob/user as mob)
@@ -772,19 +772,23 @@
 
 	var/exposed = 0
 	for(var/list/part in parts)
-		var/part_dam = part["temp"] * 0.5
-		if(species.name == SPECIES_TAJARA && bodytemperature <= T0C-55)
-			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-				apply_damage(part_dam,  BURN, part["part"],  0, 0, "Freeze")
-		else if(bodytemperature <= T0C-25 && !(species.name == SPECIES_TAJARA))
-			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-				apply_damage(part_dam,  BURN, part["part"],  0, 0, "Freeze")
+		var/part_dam = part["temp"] * 2
+		if(!(stat == DEAD))
+			if(species.name == SPECIES_TAJARA && bodytemperature <= T0C-55)
+				if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+					apply_damage(part_dam,  BURN, part["part"],  0, 0, "Freeze")
+			else if(bodytemperature <= T0C-25 && !(species.name == SPECIES_TAJARA))
+				if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+					apply_damage(part_dam,  BURN, part["part"],  0, 0, "Freeze")
 		exposed += part["temp"]
 
 	last_chill_tick = 0
 //this one is good, but i need a constant number based on exposed parts. This one is good enough for air and bodies irl, but not for ss13 body
 //	var/G = exposed * STEFAN_BOLTZMANN_CONSTANT * ((bodytemperature - env_temp)**4.5)
-	return (env_temp / bodytemperature) * (exposed / 2) //simple and works nice
+	if(bodytemperature < env_temp)
+		return 0
+	else
+		return (env_temp / bodytemperature) * (exposed / 2) //simple and works nice
 
 
 
