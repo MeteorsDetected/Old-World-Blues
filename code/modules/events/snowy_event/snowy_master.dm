@@ -54,6 +54,7 @@ proc/createSnowyMaster()
 
 
 /datum/snowy_master/proc/makeSpawnableTurfsList() //this can be slow or very slow on large maps, so be careful
+	spawnable_turfs = list() //Forgot about clearing the list. Shit!
 	for(var/y=2, world.maxy-2 >= y, y++)
 		for(var/x=2, world.maxx-2 >= x, x++)
 			var/turf/T = locate(x, y, 1)
@@ -107,7 +108,7 @@ proc/createSnowyMaster()
 		SnowyMaster.checkPopulation()
 	if(SnowyMaster.spawn_turfs_upd_ticks <= 0) //spawnable areas update
 		SnowyMaster.makeSpawnableTurfsList()
-		SnowyMaster.spawn_turfs_upd_ticks = 3600
+		SnowyMaster.spawn_turfs_upd_ticks = 9000
 
 
 

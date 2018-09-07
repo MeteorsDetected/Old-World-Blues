@@ -18,7 +18,7 @@
 	pass_flags = PASSTABLE //Sure. Why not?..
 
 	speak = list()
-	speak_emote = list()
+	speak_emote = list("barks") //temporary
 	emote_hear = list("howls")
 	emote_see = list("looks around with care")
 	health = 80
