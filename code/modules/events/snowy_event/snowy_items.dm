@@ -590,7 +590,7 @@
 
 
 /obj/item/ammo_magazine/cs792
-	name = "clip (7,92x57)"
+	name = "clip (7.92x57)"
 	desc = "An ammo clip for 7.92mm guns. Like old krauzer."
 	icon_state = "145mm"
 	caliber = "a792"
@@ -724,6 +724,7 @@
 	spent_icon = "flare_shotted"
 	var/display_color = "white"
 	var/flare_color
+	matter = list(MATERIAL_STEEL = 200)
 
 	New()
 		..()

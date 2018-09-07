@@ -204,6 +204,21 @@
 	path = /obj/item/weapon/reagent_containers/syringe
 	category = "Medical"
 
+/datum/autolathe/recipe/flare_red
+	name = "ammunition (flare, red)"
+	path = /obj/item/ammo_casing/sflare/red
+	category = "Arms and Ammunition"
+
+/datum/autolathe/recipe/flare_green
+	name = "ammunition (flare, green)"
+	path = /obj/item/ammo_casing/sflare/green
+	category = "Arms and Ammunition"
+
+/datum/autolathe/recipe/flare_blue
+	name = "ammunition (flare, blue)"
+	path = /obj/item/ammo_casing/sflare/blue
+	category = "Arms and Ammunition"
+
 /datum/autolathe/recipe/shotgun_blanks
 	name = "ammunition (shotgun, blank)"
 	path = /obj/item/ammo_casing/shotgun/blank
@@ -301,6 +316,13 @@
 	path = /obj/item/ammo_magazine/a357
 	hidden = 1
 	category = "Arms and Ammunition"
+
+/datum/autolathe/recipe/magazine_krauzer
+	name = "ammunition (7.92x57, clip)"
+	path = /obj/item/ammo_magazine/cs792
+	hidden = 1
+	category = "Arms and Ammunition"
+
 
 /datum/autolathe/recipe/magazine_revolver_2
 	name = "ammunition (.45)"

@@ -218,3 +218,13 @@
 
 	cold_protection = FEET
 	min_cold_protection_temperature = T0C - 30
+
+/***************************************/
+/**************Phoenix_Vito*************/
+/***************************************/
+
+/obj/item/weapon/material/twohanded/fireaxe/knock
+	icon_state = "fireaxe-knock0"
+	base_icon = "fireaxe-knock"
+	name = "fire axe"
+	desc = "It is just unpainted fireaxe with sturdy wooden shaft and rubbered grip. Mad girl's tool of choice for resolving any problems"
