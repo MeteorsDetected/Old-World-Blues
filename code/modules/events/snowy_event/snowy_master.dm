@@ -32,6 +32,10 @@ proc/createSnowyMaster()
 
 	var/generation_complete = 0
 
+	//debug things
+	var/cold_mech = 1
+	var/animal_ai = 1
+
 
 //this one makes our cooling turfs in one list
 /datum/snowy_master/proc/makeAtmosTurfsList()
@@ -187,6 +191,11 @@ proc/createSnowyMaster()
 	t += "<A href='?src=\ref[src];cmd=animal_spawn'>[animal_spawn ? "enabled" : "disabled"]</A><br>"
 	t += "Current temperature: "
 	t += "<A href='?src=\ref[src];cmd=temp_set'>[current_temperature-T0C]</A><br>"
+	t += "<center><font size='3'>DEBUG</font></center><br>"
+	t += "Cold: "
+	t += "<A href='?src=\ref[src];cmd=cold'>[cold_mech ? "enabled" : "disabled"]</A><br>"
+	t += "Animal AI: "
+	t += "<A href='?src=\ref[src];cmd=anim_ai'>[animal_ai ? "enabled" : "disabled"]</A><br>"
 	t += "</body>"
 	user << browse(t, "window=snowy_master;size=300x400")
 	onclose(user, "snowy_master")
@@ -232,6 +241,13 @@ proc/createSnowyMaster()
 					usr << SPAN_WARN("This number is not lay between -15 and -50. Can you read, please?")
 			else
 				usr <<  SPAN_WARN("Only number required")
+
+		//debug things
+		if("cold")
+			cold_mech = !cold_mech
+		if("anim_ai")
+			animal_ai = !animal_ai
+
 	if((usr.machine == src))
 		src.interact(usr)
 

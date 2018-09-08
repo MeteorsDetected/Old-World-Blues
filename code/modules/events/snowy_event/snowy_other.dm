@@ -731,6 +731,8 @@
 /mob/living/carbon/human/var/last_chill_tick = 0 //Chill updates every 3 ticks. That's slow enough i think
 
 /mob/living/carbon/human/proc/snowyTemperatureHandler(var/env_temp)
+	if(SnowyMaster && !SnowyMaster.cold_mech) //debug
+		return 0
 	//All of these bitflags and organs hard to tie. Hm.
 	if(stat == DEAD && in_stasis)
 		return

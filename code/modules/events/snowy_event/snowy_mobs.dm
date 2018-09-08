@@ -60,6 +60,9 @@
 	if(!..())
 		return
 
+	if(SnowyMaster && !SnowyMaster.animal_ai) //debug
+		return
+
 	mobDetection()
 	switch(life_mode)
 		if("panic")

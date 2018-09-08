@@ -466,10 +466,11 @@
 //calls each iteration
 /obj/item/weapon/reagent_containers/food/snacks/ingredient/proc/vaporization()
 	for(var/datum/reagent/R in reagents.reagent_list)
-		if(R.id in reagents_to_vaporize)
-			vaporize_reagent(R)
-		if(R.id in reagents_to_change)
-			replace_reagent(R, reagents_to_change[R.id])
+		if(R.id)
+			if(R.id in reagents_to_vaporize)
+				vaporize_reagent(R)
+			if(R.id in reagents_to_change)
+				replace_reagent(R, reagents_to_change[R.id])
 	return
 
 
