@@ -414,8 +414,8 @@
 	New()
 		..()
 		updateDescAndIcon()
-		processing_objects.Add(src) //I know. There we need separate process for ingredients. I'm working on it...
-		processing = 1
+	//	processing_objects.Add(src) //I know. There we need separate process for ingredients. I'm working on it...
+	//	processing = 1
 
 
 
@@ -450,15 +450,16 @@
 	update_icon()
 
 
-/obj/item/weapon/reagent_containers/food/snacks/ingredient/process() //I hope this not hang something
-	if(inside_properties["current_temp"] > standard_temp || properties["current_temp"] > standard_temp)
-		if(inside_properties["current_temp"] > standard_temp)
-			inside_properties["current_temp"] = inside_properties["current_temp"]--
-		if(properties["current_temp"] > standard_temp)
-			properties["current_temp"] = properties["current_temp"] - 2
-	else
-		processing = 0
-		processing_objects.Remove(src)
+//Ugh. An old shit
+//obj/item/weapon/reagent_containers/food/snacks/ingredient/process() //I hope this not hang something
+//	if(inside_properties["current_temp"] > standard_temp || properties["current_temp"] > standard_temp)
+//		if(inside_properties["current_temp"] > standard_temp)
+//			inside_properties["current_temp"] = inside_properties["current_temp"]--
+//		if(properties["current_temp"] > standard_temp)
+//			properties["current_temp"] = properties["current_temp"] - 2
+//	else
+//		processing = 0
+//		processing_objects.Remove(src)
 
 
 

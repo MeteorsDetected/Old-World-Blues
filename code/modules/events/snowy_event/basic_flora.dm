@@ -193,8 +193,7 @@
 
 
 /obj/structure/flora/snowytree/ex_act(severity)
-	if(severity <= 2)
-		fall()
+	fall()
 
 
 /obj/structure/flora/snowybush

@@ -115,6 +115,9 @@
 			junk_harvest(user, T)
 
 
+/obj/structure/lootable/ex_act()
+	qdel(src)
+
 
 /obj/structure/lootable/chunk
 
