@@ -1,4 +1,4 @@
-#if DM_VERSION < 506
+#if DM_VERSION < 511
 #warn This compiler is out of date. You may experience issues with projectile animations.
 #endif
 
