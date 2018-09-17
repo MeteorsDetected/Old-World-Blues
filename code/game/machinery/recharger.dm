@@ -7,7 +7,7 @@ obj/machinery/recharger
 	anchored = 1
 	use_power = 1
 	idle_power_usage = 4
-	active_power_usage = 45000	//45 kW
+	active_power_usage = 65000	//65 kW. These are much more rare at the current map version, so I decided to make these slightly more powerful
 	var/obj/item/charging = null
 	var/list/allowed_devices = list(/obj/item/weapon/gun/energy, /obj/item/weapon/melee/baton, /obj/item/device/laptop, /obj/item/weapon/cell)
 	var/icon_state_charged = "recharger2"
@@ -182,8 +182,8 @@ obj/machinery/recharger/wallcharger
 	name = "wall recharger"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "wrecharger0"
-	active_power_usage = 75000	//75 kW , It's more specialized than the standalone recharger (guns and batons only) so make it more powerful
-	allowed_devices = list(/obj/item/weapon/gun/energy, /obj/item/weapon/melee/baton)
+	active_power_usage = 45000 //45 kW
+	allowed_devices = list(/obj/item/weapon/gun/energy, /obj/item/weapon/melee/baton, /obj/item/device/laptop, /obj/item/weapon/cell)
 	icon_state_charged = "wrecharger2"
 	icon_state_charging = "wrecharger1"
 	icon_state_idle = "wrecharger0"

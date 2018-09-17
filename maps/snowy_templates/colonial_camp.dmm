@@ -13,7 +13,7 @@
 "am" = (/obj/machinery/computer/security,/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 10; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "dark"},/area/bridge{name = "Chief Post"})
 "an" = (/obj/structure/table/steel,/obj/item/storage/box/ids,/obj/item/device/megaphone,/obj/item/device/radio,/obj/item/weapon/paper/monitorkey,/turf/simulated/floor{icon_state = "dark"},/area/bridge{name = "Chief Post"})
 "ao" = (/obj/structure/table/steel,/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
-"ap" = (/obj/structure/fence/door{icon_state = "fence_door"; dir = 1},/obj/snowfloor_mask,/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
+"ap" = (/obj/snowfloor_mask,/obj/structure/fence/door,/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
 "aq" = (/obj/machinery/camera/network/security{c_tag = "Perimeter - NNW"; dir = 10; icon_state = "camera"; name = "perimeter security camera"; pixel_y = -4},/turf/simulated/floor/plating/snow,/area/outdoor)
 "ar" = (/obj/structure/table/steel,/obj/machinery/microwave{pixel_x = -3; pixel_y = 6},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "as" = (/obj/structure/table/steel,/obj/machinery/reagentgrinder,/obj/machinery/light{icon_state = "tube1"; dir = 1},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
@@ -33,7 +33,7 @@
 "aG" = (/obj/structure/material/bed/padded,/obj/effect/landmark/start{name = "Jaeger"},/obj/item/weapon/bedsheet,/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
 "aH" = (/obj/machinery/door/blast/shutters{dir = 8; id = "chiefpost"; layer = 3.3; name = "Chief Post Shutters"},/turf/simulated/floor/plating/with_grille/reinforced,/area/bridge{name = "Chief Post"})
 "aI" = (/obj/machinery/computer/card,/turf/simulated/floor{icon_state = "dark"},/area/bridge{name = "Chief Post"})
-"aJ" = (/obj/machinery/camera/autoname{icon_state = "camera"; dir = 10},/turf/simulated/floor{icon_state = "dark"},/area/bridge{name = "Chief Post"})
+"aJ" = (/obj/structure/fence{dir = 8; icon_state = "fence"; pixel_y = 32},/obj/structure/fence{icon_state = "fence"; dir = 8},/turf/simulated/floor/plating/snow,/area/outdoor)
 "aK" = (/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/machinery/power/apc{dir = 2; name = "south bump"; pixel_y = -24},/turf/simulated/floor{icon_state = "dark"},/area/bridge{name = "Chief Post"})
 "aL" = (/obj/machinery/atmospherics/pipe/manifold/hidden{dir = 8; icon_state = "map"},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor{icon_state = "dark"},/area/bridge{name = "Chief Post"})
 "aM" = (/obj/machinery/button/remote/blast_door{id = "chiefpost"; name = "Chief Post Shutters Control"; pixel_x = 0; pixel_y = -26},/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{dir = 4; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "dark"},/area/bridge{name = "Chief Post"})
@@ -72,7 +72,7 @@
 "bt" = (/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{dir = 1; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
 "bu" = (/obj/structure/material/chair/wood,/obj/effect/landmark/start{name = "Jaeger"},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
 "bv" = (/turf/simulated/wall,/area/bridge/meeting_room{name = "Chief Meeting Room"})
-"bw" = (/obj/structure/fence{icon_state = "fence"; dir = 1},/obj/structure/fence{icon_state = "fence"; dir = 8},/turf/simulated/floor/plating/snow,/area/outdoor)
+"bw" = (/obj/structure/fence{dir = 4; icon_state = "fence"; pixel_y = 32},/obj/structure/fence{icon_state = "fence"; dir = 4},/turf/simulated/floor/plating/snow,/area/outdoor)
 "bx" = (/obj/structure/closet,/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
 "by" = (/obj/structure/material/bed/padded,/obj/item/weapon/bedsheet/captain,/obj/structure/safe/floor{contents = newlist(/obj/item/weapon/card/id/captains_spare)},/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
 "bz" = (/obj/machinery/recharger/wallcharger{pixel_x = -26},/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{level = 1},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
@@ -94,7 +94,7 @@
 "bP" = (/obj/machinery/camera/autoname,/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 10; icon_state = "intact"; level = 1},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
 "bQ" = (/obj/structure/table/woodentable,/obj/item/device/radio,/obj/item/weapon/reagent_containers/glass/drinks/bottle/small/beer,/obj/item/weapon/fencedoorkey,/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
 "bR" = (/turf/simulated/floor/plating/with_grille/reinforced,/area/security/brig{name = "Jaeger Lodge"})
-"bS" = (/obj/structure/fence{icon_state = "fence"; dir = 1},/turf/simulated/floor/plating/snow,/area/outdoor)
+"bS" = (/obj/machinery/camera/autoname{icon_state = "camera"; dir = 10},/obj/item/device/radio/intercom{layer = 4; pixel_x = 0; pixel_y = -30},/turf/simulated/floor{icon_state = "dark"},/area/bridge{name = "Chief Post"})
 "bT" = (/obj/machinery/recharger/wallcharger{pixel_x = -26; pixel_y = 26},/obj/machinery/space_heater,/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
 "bU" = (/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating/snow,/area/outdoor)
 "bV" = (/obj/structure/material/chair/wood,/obj/machinery/atmospherics/pipe/simple/heat_exchanging{dir = 6; level = 1},/obj/structure/mirror{dir = 4; pixel_x = -32},/obj/item/storage/secure/safe{contents = newlist(/obj/item/weapon/bikehorn/rubberducky); pixel_y = 32},/obj/item/weapon/card/id/captains_spare,/turf/simulated/floor/wood,/area/bridge/meeting_room{name = "Chief Meeting Room"})
@@ -130,7 +130,7 @@
 "cz" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "cA" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor{icon_state = "cafeteria"; dir = 5},/area/crew_quarters/kitchen{name = "Mess Hall"})
 "cB" = (/turf/simulated/floor/plating/with_grille/reinforced,/area/hydroponics{name = "Hydroponics"})
-"cC" = (/obj/structure/fence{icon_state = "fence"; dir = 1},/obj/structure/fence{icon_state = "fence"; dir = 4},/turf/simulated/floor/plating/snow,/area/outdoor)
+"cC" = (/obj/machinery/door/airlock/medical{name = "Patient Ward"},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/turf/simulated/floor{icon_state = "white"},/area/medical/medbay{name = "Health Center Hallway"})
 "cD" = (/obj/machinery/biogenerator,/obj/machinery/light/small{dir = 8},/turf/simulated/floor{icon_state = "floorgrime"},/area/hydroponics{name = "Hydroponics"})
 "cE" = (/turf/simulated/wall,/area/medical/reception{name = "Health Center Reception"})
 "cF" = (/turf/simulated/floor/plating/with_grille/reinforced,/area/medical/reception{name = "Health Center Reception"})
@@ -234,8 +234,8 @@
 "ez" = (/obj/snowfloor_mask,/obj/machinery/atmospherics/pipe/simple/hidden,/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
 "eA" = (/obj/machinery/atmospherics/pipe/simple/visible{icon_state = "intact"; dir = 6},/turf/simulated/floor{icon_state = "white"},/area/medical/medbay{name = "Health Center Hallway"})
 "eB" = (/obj/machinery/atmospherics/pipe/manifold/visible{dir = 4},/turf/simulated/floor{icon_state = "white"},/area/medical/medbay{name = "Health Center Hallway"})
-"eC" = (/obj/structure/cable{icon_state = "0-4"; d2 = 4},/obj/machinery/power/apc{dir = 8; name = "west bump"; pixel_x = -24},/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/rnd/research{name = "Research and Development"})
-"eD" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/rnd/research{name = "Research and Development"})
+"eC" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/rnd/research{name = "Research and Development"})
+"eD" = (/obj/machinery/computer/apc_control,/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering{name = "Engineering"})
 "eE" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/light,/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/rnd/research{name = "Research and Development"})
 "eF" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/machinery/guestpass{pixel_x = 32},/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/rnd/research{name = "Research and Development"})
 "eG" = (/turf/simulated/wall,/area/quartermaster/storage{name = "Storehouse"})
@@ -307,7 +307,7 @@
 "fU" = (/turf/simulated/wall,/area/medical/medbay{name = "Health Center Hallway"})
 "fV" = (/obj/structure/table/standard,/turf/simulated/floor{icon_state = "white"},/area/medical/medbay{name = "Health Center Hallway"})
 "fW" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 6},/turf/simulated/floor{icon_state = "white"},/area/medical/medbay{name = "Health Center Hallway"})
-"fX" = (/obj/machinery/door/airlock/medical{name = "Patient Ward"},/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/turf/simulated/floor/plating/snow,/area/medical/medbay{name = "Health Center Hallway"})
+"fX" = (/obj/machinery/power/tracker,/obj/structure/cable/yellow{d2 = 2; icon_state = "0-2"},/turf/simulated/floor/plating/snow,/area/outdoor)
 "fY" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/turf/simulated/floor{icon_state = "white"},/area/medical/medbay{name = "Health Center Hallway"})
 "fZ" = (/obj/machinery/atmospherics/pipe/manifold/hidden,/turf/simulated/floor{icon_state = "white"},/area/medical/medbay{name = "Health Center Hallway"})
 "ga" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 4; icon_state = "intact"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor{icon_state = "white"},/area/medical/medbay{name = "Health Center Hallway"})
@@ -619,8 +619,8 @@
 "lU" = (/obj/snowfloor_mask,/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
 "lV" = (/obj/snowfloor_mask,/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
 "lW" = (/obj/machinery/atmospherics/pipe/simple/hidden{icon_state = "intact"; dir = 4},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/brig{name = "Jaeger Lodge"})
-"lX" = (/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable/yellow{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plating/snow,/area/outdoor)
-"lY" = (/obj/machinery/power/tracker,/obj/structure/cable/yellow{d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plating/snow,/area/outdoor)
+"lX" = (/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable/yellow{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating/snow,/area/outdoor)
+"lY" = (/obj/structure/fence/door,/turf/simulated/floor{icon_state = "showroomfloor"},/area/outdoor)
 "lZ" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 9; icon_state = "intact"},/obj/machinery/meter{pixel_x = 26},/turf/simulated/floor{icon_state = "floorgrime"},/area/quartermaster/storage{name = "Storehouse"})
 "ma" = (/obj/machinery/light/small,/turf/simulated/floor{icon_state = "floorgrime"},/area/quartermaster/storage{name = "Storehouse"})
 "mb" = (/obj/structure/closet/secure_closet/guncabinet{req_access = list(50)},/obj/item/weapon/gun/projectile/revolver/detective,/obj/item/weapon/gun/projectile/revolver/detective,/obj/item/weapon/gun/projectile/revolver/detective,/obj/item/weapon/gun/projectile/revolver/detective,/turf/simulated/floor{icon_state = "floorgrime"},/area/quartermaster/storage{name = "Storehouse"})
@@ -759,7 +759,7 @@
 "oE" = (/obj/structure/fence,/turf/simulated/floor/plating/snow,/area/outdoor)
 "oF" = (/obj/structure/fence{icon_state = "fence"; dir = 4},/obj/structure/fence,/turf/simulated/floor/plating/snow,/area/outdoor)
 "oG" = (/obj/machinery/camera/network/security{c_tag = "Perimeter - South"; dir = 6; icon_state = "camera"; layer = 9; name = "perimeter security camera"; pixel_y = 28},/turf/simulated/floor/plating/snow,/area/outdoor)
-"oH" = (/obj/machinery/camera/network/security{c_tag = "Perimeter - SSE"; dir = 6; icon_state = "camera"; layer = 9; name = "perimeter security camera"; pixel_y = 28},/turf/simulated/floor/plating/snow,/area/outdoor)
+"oH" = (/obj/machinery/camera/network/security{c_tag = "Perimeter - SSE - Entrance"; dir = 6; icon_state = "camera"; layer = 9; name = "perimeter security camera"; pixel_y = 28},/turf/simulated/floor/plating/snow,/area/outdoor)
 "oI" = (/obj/machinery/camera/network/security{c_tag = "Perimeter - SE"; dir = 6; icon_state = "camera"; layer = 9; name = "perimeter security camera"; pixel_y = 28},/turf/simulated/floor/plating/snow,/area/outdoor)
 "oJ" = (/obj/machinery/atmospherics/unary/heater{icon_state = "heater"; dir = 1},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering/atmos{name = "Heater Room"})
 "oK" = (/obj/effect/landmark/start{name = "Colony Engineer"},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering/atmos{name = "Heater Room"})
@@ -810,7 +810,6 @@
 "pD" = (/obj/effect/decal/cleanable/dirt,/obj/structure/closet/crate,/obj/item/clothing/mask/facehugger/lamarr,/turf/simulated/floor/wood,/area/crew_quarters/sleep{name = "Dormitories"})
 "pE" = (/obj/effect/decal/cleanable/dirt,/obj/item/weapon/reagent_containers/glass/drinks/flask/detflask,/turf/simulated/floor/plating,/area/crew_quarters/sleep{name = "Dormitories"})
 "pF" = (/obj/structure/material/chair/office/dark{dir = 4},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering{name = "Engineering"})
-"pG" = (/obj/machinery/computer/apc_control,/obj/structure/cable/yellow{d2 = 2; icon_state = "0-2"},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering{name = "Engineering"})
 "pH" = (/obj/machinery/atmospherics/portables_connector{dir = 8},/obj/machinery/portable_atmospherics/canister/air{maximum_pressure = 15000; start_pressure = 15000},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering/atmos{name = "Heater Room"})
 "pI" = (/obj/machinery/atmospherics/pipe/simple/hidden{icon_state = "intact"; dir = 4},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering{name = "Engineering"})
 "pJ" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 10; icon_state = "intact"},/obj/machinery/power/solar_control,/obj/structure/cable/yellow{d2 = 2; icon_state = "0-2"},/turf/simulated/floor{icon_state = "floorgrime"},/area/engineering{name = "Engineering"})
@@ -832,29 +831,29 @@
 (1,1,1) = {"
 phphphaaphaaaaaaphphphphphphphaaphphphaaaaaaaaaaaaphphphphphphphphaaaaaaphphaaaaaaaaaaaaaaaaphphphaaaaphphphphphphphphph
 phaaajaaaaaaaaaaaaaaaaaaaaaaaaaaaaaqaaaaaaaaaaaaaaaaaaaaaaaaaaaaavaaaaaaaaaaaaaagRaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaabqaaph
-phaabwbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSapbSbSbSbSbSbSbSbSbSbSbSbSbSbSbSbScCaaph
-phaacMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadFaaph
+phaaoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEapoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEaaph
+phaaaJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabwaaph
 aaaacMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabacacacacacacabaaaagRaaaaaaadadaeaeaeadadadadadadadaadFaaaa
 phaacMaaaaaEaEaEaEaEaEaEaEaEaEaEaaafafafafagagagafafaaaaaaababahaiakalamanababaagRaaaaaaadaobHazarasatadauawaxadaadFaaaa
-phaacMaaaSbbbbbbbbbbbbbbbbbbbbbcaaafayaCaFbebObPbjafaaaaaaaHaIaJaKaLaMaNaOaPaQaagRaaaaaaadaRaZbrbJaVaVaWaXaYaTadaadFaaaa
+phaacMaaaSbbbbbbbbbbbbbbbbbbbbbcaaafayaCaFbebObPbjafaaaaaaaHaIbSaKaLaMaNaOaPaQaagRaaaaaaadaRaZbrbJaVaVaWaXaYaTadaadFaaaa
 aaaacMaabUcRcRcRcRcRcRcRcRcRcRcRaababdbdafaBbdbdaDafaaaaaabgbgbgbgbhbgbgbgbgbgaagRaaaaaaaebicybkblbmbnadbobpaUadaadFaaaa
 aaaacMaabUaEaEaEaEaEaEaEaEaEaEaEaababsbtbRbTbtbdaGafaaaabvbvbxbybvbzbAbBbDbEbvaagRaaaaaaaebFcybGbHbIciadbKbLbMbKbKdFaaaa
 aaaacMaaehbbbbbbbbbbbbbbbbbbbbbcaaafbNcecolWoAbtbfafaaaabvbVbWbXbvbYbZcacbcccdaagRaaaaaaaecfcybkchbmcmadcjckclcncBdFaaph
 aaaacMaabUcRcRcRcRcRcRcRcRcRcRcRaaafoBafbubeoNoXbfafaaaabvcpbWcqcrcsctcucvcwcdaagRaaaaaaaecxcyczcAcAcHadcDcGclcTcBdFaaph
-phaacMaabUaaaaaaaaaaaaaaaaaaaaaaaaaafOafbQpzpApBaGafaaaabvbvbxcIbvcQcSdadcdccdaagRaaaaaaaddzcyddaoaodeaddHdKdLdmcBdFaaph
-phhlcMaabUaaaaaaaaaaaaaaaaaaaaaaaaaafOafagagagafafafaaaaaabvbvbvbvdrdtdudvdxbvaagRadaeaeaddydIdddzaodeaddjdkdldCbKdFgyph
-phaacMaabUaaaaaacEcEcFcFcEcEcFcFcEaafOaaaaaaaaaaaaaaaaaaaaaaaaaabvdAbvdBbvdAbvaagRadqaqbadbmdRiddDaodeadbKcBcBbKbKdFaaph
+phaacMaabUaaaaaaaaaaaaaaaaaaaaaaaaaafOafbQpzpApBaGafaaaabvbvbxcIbvcQcSdadcdccdaagRaaaaaaaddzcyddaoaodebKdHdKdLdmcBdFaaph
+phhlcMaabUaaaaaaaaaaaaaaaaaaaaaaaaaafOafagagagafafafaaaaaabvbvbvbvdrdtdudvdxbvaagRadaeaeaddydIdddzaodebKdjdkdldCbKdFgyph
+phaacMaabUaaaaaacEcEcFcFcEcEcFcFcEaafOaaaaaaaaaaaaaaaaaaaaaaaaaabvdAbvdBbvdAbvaagRadqaqbadbmdRiddDaodebKbKcBcBbKbKdFaaph
 phaacMaabUaaaaaacFcJcKcLcNcOcPcUcEaafOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafLgYeyaaaaaagRaejHpbptpNpOdOdEdGdMadaaaaaaaaaadFaaph
 phaacMaabUaaaaaacFcVcWcXcYcZdbdfdgfhhMfifhfhfhfhfhfhfhfhfhfhfhfhfhhRibicgpgpgAgRiYadbkcgadbmbmpQaodJdNaeaaaaaaaaaadFaaph
 aaaacMaSilaaaaaacFcVdhdidndndndocEaaaaipaaaaaaaaaaaaaaaaaaaaaagRgRezgRipgRgRiqfhfhiWpTpUadbmbmpQaoaodeaeaagZgZgZgZdFaaph
 phaacMbUdPdPdPdPdPcVcWdpdqdweIfTcEaaaaipaaaaaaaaaaaaaaaaaaaaaagRgRiRiSiTiSiSiVaaaaadpWpXaddQbmbmbmbmpPadaaeddsdsdspZaaaa
 phaacMbUdPdSdTdUdPkhcWcEcEcEcEcEcEdVdVdWdVdVdVaaaaaaaaaaaaaaaaaaaafOaaaaaaaafOaaaaadaeaeadadaeaeaeaeadadaagZgZgZgZkHaaaa
 aaaacMbUdXdYdZeadPebeceeefegeiejekdVelemeneoepaaaaaaaaaaaaaaaaaaaafOaaaaaaaafOaaaaaaaaaaaaaaaaaaaaaaaaaaaagZgZgZgZjLaaaa
-aaaacMbUdXeqereseteuevewewexeweAeBdVeCeDeEeFdVaaaaaaaaeGeGeGeGeGaafOaaaaaaaafOaaaaaaaaaaaaaaaaaaaaaaaaaaaaeddsdsdsjLaaaa
+aaaacMbUdXeqereseteuevewewexeweAeBdVfBeCeEeFdVaaaaaaaaeGeGeGeGeGaafOaaaaaaaafOaaaaaaaaaaaaaaaaaaaaaaaaaaaaeddsdsdsjLaaaa
 aaaacMbUdXeHeJeJdPeKeceLeMeNeOePeQdVeReSdVeTdVaaaaaaaaeGeUeVeWeGeGeXeGeGaaaafOaaaaaaeYeYeYeYbCeYeYeYeYaaaagZgZgZgZkHaaph
 phaacMbUdPeZfafbdXfcecfefefefefefedVfffgelfjdVaaaaaaaaeGfkflflfmfnfofqeGaaaafOaaaaeYeYfsfteYeYeYftfueYeYaagZgZgZgZjLaaph
 phaacMbUdPdPdPdPdPfvecfefwfxfyfzfefAfBfBfBemfDaaaaaaaaeGfEfFfGfHfIfJfKeGaaaafOaaaaeYgSfMfNfPeYpDfRfNfSeYaafdlQlQlQnGnHph
-phaacMbUfUfVfWfXfYfZgagbgcgdgegfggghgifBfBgjfDaaaaaaaaeGeGgkglgkeGeGgmeGaaaafOaaaaeYgogqfNfSeYgrfNgsfSeYaagZgZgZgZnJaaph
+phaacMbUfUfVfWcCfYfZgagbgcgdgegfggghgifBfBgjfDaaaaaaaaeGeGgkglgkeGeGgmeGaaaafOaaaaeYgogqfNfSeYgrfNgsfSeYaagZgZgZgZnJaaph
 phnKcMbUfUgtgugvewewecfegwgxgzgBfegCgDgEgFgGfDaaaaaaaaeGgHgIgJgKgLgMgNeGaaaafOaaaaeYfQgOgPgQeYhPgOgTgQeYaaaaaaaaaSnOaaph
 phaacMbUfUgUgVgvewewgWfefefefefefegXhbhcemhddVaaaaaaaahehfhfhfhgflflhhheaaaafOaaaaeYpChigThjeYhkhigThmeYeYeYeYaabUdFaaph
 phaacMbUfUhnhohphqhrhshthuhvhwhxhthyhzfBemhAdVaaaaaaaahehfhBhChDhEhFhGheaaaafOaaaaeYeYhHeYeYeYeYhHeYeYeYhIhJeYeYbUdFaaaa
@@ -870,16 +869,16 @@ phaacMbUhKmgmhmimjkDkDkDmkmlmlmlmlmlmmmlmlkNmnmnkNjqaaeGeGeGeGeXeGeGeGkukukukuaa
 phokcMbUhKmrmsmsmsmtmuhKhKmvmwmxmymzmAmBmljqjqjqjqjqaamCmDmEmFmGmHmImJaafpaaoraafOaaeYeYkWeYbCeYeYeYeYaaaaaaaaaabUdFaaph
 phaacMbUhKmKmsmsmsmsmsmspLmvmLmBmMmBmNmOmlaaaaaaaaaaaamPmQmRmSmTmSmUmJaaaafrdFaafOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabUdFaaph
 phaacMbUhKmVmsmsmWmsmsmspMmvmXmBmBmBmYmZmlaaaaaaaaaaaamPnanbncndnenfnggpgpgpgngpkZfhlaaaaaaaaaaaaaaaaaaaaaaaaaaabUdFaaph
-phaacMbUhKhKhKhKhKhKnhninimvnknknlnmnpmZmlaaaaaaaaaaaamCnqnrnsntnunvmCfCaaaaezaanwnwnxnwnwnwnynynwnznznznznznznzbUdFaaaa
-phaacMldlelelelelfhKmsmsjynAnAnAnAnAnBnAnAaaaaaaaaaaaamCmCmCmCmCmCmCmCfCaaaaezaanwnCnDnEnwnFnInLnMnznNnPnQnRnSnzbUdFaaaa
-phaacMaaaaaaaaaabUhKnTmsnUnAnVnWnXnYnZoanAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaezaanyobocodoeofogohoiojolomonooopnzbUdFaaaa
-phaacMaaaaaaaaaabUhKhKhKhKnAoqosotosouovnAaalrhalslrltlslrhalslrhalslrhalsaaezaanyownLoxnwoyozpFpGnzoJoKoLoMpHnzbUdFaaph
+phaacMbUhKhKhKhKhKhKnhninimvnknknlnmnpmZmlaaaafXaaaaaamCnqnrnsntnunvmCfCaaaaezaanwnwnxnwnwnwnynynwnznznznznznznzbUdFaaaa
+phaacMldlelelelelfhKmsmsjynAnAnAnAnAnBnAnAaaaabUaaaaaamCmCmCmCmCmCmCmCfCaaaaezaanwnCnDnEnwnFnInLnMnznNnPnQnRnSnzbUdFaaaa
+phaacMaaaaaaaaaabUhKnTmsnUnAnVnWnXnYnZoanAaaaabUaaaaaaaaaaaaaaaaaaaaaaaaaaaaezaanyobocodoeofogohoiojolomonooopnzbUdFaaaa
+phaacMaaaaaaaaaabUhKhKhKhKnAoqosotosouovnAaalrlXlslrltlslrhalslrhalslrhalsaaezaanyownLoxnwoyozpFeDnzoJoKoLoMpHnzbUdFaaph
 phaacMaaaaaaaaaaldlelelelfnAoOososoPoQosoRaalrlvlslrlwlslrlvlslrlvlslrlvlsaaezaanyoSoToUnwoVoWpIpJnziuoYoZpcpHnzbUdFaaph
 phaacMaaaaaaaaaaaaaaaaaabUnApdosospepfpgpilDlDnjnnnnnonnnnnonnnnnonnnnnonnnnlEaanwpjpkplnwpmpnpopppqproLoLpspanzbUdFaaaa
 aaaacMaaaaaaaaaaaaaaaaaabUnAnAnAnAnAnAnAnAaaaEaEaEaEaEaEaEaEaEaEaEaEaEaEaEaalLaanwnwnynwnwpupvpwpxnznznznznznznzbUdFaaaa
 aaaacMaaaaaaaaaaaaaaaaaaldlelelelelelelelelelPlQlQlQlQlQlQlQlQlQlQlQlQlQlQlelRaaaaaaaaaanwnwnwnwpynwaaaSleleleleildFaaph
-aaaacMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacRcRcRcRcRcRcRcRcRcRcRcRcRcRcRaalUlVlVlVlVlVlVlVlVlVpKlelelXlYaaaaaaaadFaaph
-aaoCoDoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoFaaph
-phaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaoGaaaaaaaaaaaaaaaaaaaaaaaaaaaaoGaaaaaaaaaaaaaaaaaaaaaaaaoHaaaaaaaaaaaaaaaaaaaaaaaaoIaaph
-phphphphphphphphphphphaaaaaaaaaaaaphphphphphphphphphphphphphaaaaaaaaaaaaaaaaaaphphphphphphphaaaaaaaaaaaaaaphphphphphphph
+aaaacMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacRcRcRcRcRcRcRcRcRcRcRcRcRcRcRaalUlVlVlVlVlVlVlVlVlVpKleleilaaaaaaaaaadFaaph
+aaoCoDoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoElYoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoEoFaaph
+phaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaoGaaaaaaaaaaaaaaaaaaaaaaaaaaaaoGaaaaaaaaaaaagRaaaaaaaaaaoHaaaaaaaaaaaaaaaaaaaaaaaaoIaaph
+phphphphphphphphphphphaaaaaaaaaaaaphphphphphphphphphphphphphphaaphaaaaaaaaaaaaaaaaaaphphphphaaaaaaaaaaaaaaphphphphphphph
 "}
