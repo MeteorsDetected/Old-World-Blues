@@ -38,7 +38,7 @@
 				for(var/reaction in D.required_reagents)
 					reaction_ids += reaction
 
-			// Create filters based on each reagent id in the required reagents list
+			// Create Filters based on each reagent id in the required reagents list
 			for(var/id in reaction_ids)
 				if(!chemical_reactions_list[id])
 					chemical_reactions_list[id] = list()

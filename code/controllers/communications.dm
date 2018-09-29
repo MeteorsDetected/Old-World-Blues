@@ -12,7 +12,7 @@
           one device may listen several frequencies, but not same frequency twice.
         new_frequency - see possibly frequencies below;
         filter - thing for optimization. Optional, but recommended.
-                 All filters should be consolidated in this file, see defines later.
+                 All Filters should be consolidated in this file, see defines later.
                  Device without listening filter will receive all signals (on specified frequency).
                  Device with filter will receive any signals sent without filter.
                  Device with filter will not receive any signals sent with different filter.
@@ -172,7 +172,7 @@ var/list/DEPT_FREQS = list(SCI_FREQ, MED_FREQ, ENG_FREQ, SEC_FREQ, SUP_FREQ, SRV
 
 	return "radio"
 
-/* filters */
+/* Filters */
 //When devices register with the radio controller, they might register under a certain filter.
 //Other devices can then choose to send signals to only those devices that belong to a particular filter.
 //This is done for performance, so we don't send signals to lots of machines unnecessarily.

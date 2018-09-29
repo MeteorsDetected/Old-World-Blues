@@ -20,7 +20,7 @@ If the spell_projectile is seeking, it will update its target every process and 
 /spell/targeted/projectile/cast(list/targets, mob/user = usr)
 
 	if(istext(proj_type))
-		proj_type = text2path(proj_type) // sanity filters
+		proj_type = text2path(proj_type) // sanity Filters
 
 	for(var/atom/target in targets)
 		var/obj/item/projectile/projectile = new proj_type(user.loc, user.dir)

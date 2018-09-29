@@ -123,10 +123,10 @@
 
 //Scrubbers
 /obj/machinery/atmospherics/unary/vent_scrubber
-	description_info = "This filters the atmosphere of harmful gas.  Filtered gas goes to the pipes connected to it, typically a scrubber pipe. \
+	description_info = "This Filters the atmosphere of harmful gas.  Filtered gas goes to the pipes connected to it, typically a scrubber pipe. \
 	It can be controlled from an Air Alarm.  It can be configured to drain all air rapidly with a 'panic syphon' from an air alarm."
 
-//Omni filters
+//Omni Filters
 /obj/machinery/atmospherics/omni/filter
 	description_info = "Filters gas from a custom input direction, with up to two filtered outputs and a 'everything else' \
 	output.  The filtered output's arrows glow orange."

@@ -1269,18 +1269,18 @@
 
 		return P
 
-//a three-way junction that filters all wrapped and tagged items
+//a three-way junction that Filters all wrapped and tagged items
 /obj/structure/disposalpipe/sortjunction/wildcard
 	name = "wildcard sorting junction"
-	desc = "An underfloor disposal pipe which filters all wrapped and tagged items."
+	desc = "An underfloor disposal pipe which Filters all wrapped and tagged items."
 	subtype = 1
 	divert_check(var/checkTag)
 		return checkTag != ""
 
-//junction that filters all untagged items
+//junction that Filters all untagged items
 /obj/structure/disposalpipe/sortjunction/untagged
 	name = "untagged sorting junction"
-	desc = "An underfloor disposal pipe which filters all untagged items."
+	desc = "An underfloor disposal pipe which Filters all untagged items."
 	subtype = 2
 	divert_check(var/checkTag)
 		return checkTag == ""

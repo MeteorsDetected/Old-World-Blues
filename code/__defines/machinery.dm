@@ -57,7 +57,7 @@
 #define MAX_SIPHON_FLOWRATE   2500 // L/s. This can be used to balance how fast a room is siphoned. Anything higher than CELL_VOLUME has no effect.
 #define MAX_SCRUBBER_FLOWRATE 200  // L/s. Max flow rate when scrubbing from a turf.
 
-// These balance how easy or hard it is to create huge pressure gradients with pumps and filters.
+// These balance how easy or hard it is to create huge pressure gradients with pumps and Filters.
 // Lower values means it takes longer to create large pressures differences.
 // Has no effect on pumping gasses from high pressure to low, only from low to high.
 #define ATMOS_PUMP_EFFICIENCY   2.5

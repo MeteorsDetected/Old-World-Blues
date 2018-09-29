@@ -172,12 +172,12 @@
 			<b>Power: </b><a href='?src=\ref[src];power=1'>[use_power?"On":"Off"]</a><br>
 			<b>Filtering: </b>[current_filter_type]<br><HR>
 			<h4>Set Filter Type:</h4>
-			<A href='?src=\ref[src];filterset=0'>Phoron</A><BR>
-			<A href='?src=\ref[src];filterset=1'>Oxygen</A><BR>
-			<A href='?src=\ref[src];filterset=2'>Nitrogen</A><BR>
-			<A href='?src=\ref[src];filterset=3'>Carbon Dioxide</A><BR>
-			<A href='?src=\ref[src];filterset=4'>Nitrous Oxide</A><BR>
-			<A href='?src=\ref[src];filterset=-1'>Nothing</A><BR>
+			<A href='?src=\ref[src];Filterset=0'>Phoron</A><BR>
+			<A href='?src=\ref[src];Filterset=1'>Oxygen</A><BR>
+			<A href='?src=\ref[src];Filterset=2'>Nitrogen</A><BR>
+			<A href='?src=\ref[src];Filterset=3'>Carbon Dioxide</A><BR>
+			<A href='?src=\ref[src];Filterset=4'>Nitrous Oxide</A><BR>
+			<A href='?src=\ref[src];Filterset=-1'>Nothing</A><BR>
 			<HR>
 			<B>Set Flow Rate Limit:</B>
 			[src.set_flow_rate]L/s | <a href='?src=\ref[src];set_flow_rate=1'>Change</a><BR>
@@ -193,8 +193,8 @@
 		return 1
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
-	if(href_list["filterset"])
-		filter_type = text2num(href_list["filterset"])
+	if(href_list["Filterset"])
+		filter_type = text2num(href_list["Filterset"])
 
 		filtered_out.Cut()	//no need to create new lists unnecessarily
 		switch(filter_type)
