@@ -482,15 +482,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/M = E/(SPEED_OF_LIGHT_SQ)
 	return M
 
-/proc/cmp_numeric_dsc(a,b)
-	return b - a
-
-/proc/cmp_numeric_asc(a,b)
-	return a - b
-
-/proc/cmp_text_asc(a,b)
-	return sorttext(b,a)
-
 
 
 //Forces a variable to be posative
