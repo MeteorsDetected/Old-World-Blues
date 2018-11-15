@@ -49,6 +49,20 @@
 	containername = "Medical voidsuit crate"
 	access = access_medical_equip
 
+/datum/supply_packs/voidsuits/science
+	name = "Science voidsuits"
+	contains = list(
+		/obj/item/clothing/suit/space/void/science = 2,
+		/obj/item/clothing/head/helmet/space/void/science = 2,
+		/obj/item/clothing/mask/breath = 2,
+		/obj/item/clothing/shoes/magboots/toggleable = 2,
+		/obj/item/weapon/tank/oxygen = 2
+	)
+	cost = 40
+	containertype = /obj/structure/closet/crate/secure
+	containername = "Science voidsuit crate"
+	access = access_research
+
 /datum/supply_packs/voidsuits/security
 	name = "Security voidsuits"
 	contains = list(

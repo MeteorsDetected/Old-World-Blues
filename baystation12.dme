@@ -1072,6 +1072,7 @@
 #include "code\modules\clothing\spacesuits\void\station\engineering.dm"
 #include "code\modules\clothing\spacesuits\void\station\medical.dm"
 #include "code\modules\clothing\spacesuits\void\station\mining.dm"
+#include "code\modules\clothing\spacesuits\void\station\science.dm"
 #include "code\modules\clothing\spacesuits\void\station\security.dm"
 #include "code\modules\clothing\suits\alien.dm"
 #include "code\modules\clothing\suits\armor.dm"
