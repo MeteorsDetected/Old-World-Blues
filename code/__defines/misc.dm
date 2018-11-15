@@ -153,3 +153,6 @@
 #define WALL_CAN_OPEN 1
 #define WALL_OPENING 2
 
+//datum may be null, but it does need to be a typed var
+#define NAMEOF(datum, X) (#X || ##datum.##X)
+
