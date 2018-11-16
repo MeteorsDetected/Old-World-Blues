@@ -105,12 +105,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	icon_state = "pda-tox"
 	ttone = "boom"
 
-/obj/item/device/pda/clown
-	default_cartridge = /obj/item/weapon/cartridge/clown
-	icon_state = "pda-clown"
-	desc = "A portable microcomputer by Thinktronic Systems, LTD. The surface is coated with polytetrafluoroethylene and banana drippings."
-	ttone = "honk"
-
 /obj/item/device/pda/mime
 	default_cartridge = /obj/item/weapon/cartridge/mime
 	icon_state = "pda-mime"
@@ -394,7 +388,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					"access_engine" = cartridge.access_engine,\
 					"access_atmos" = cartridge.access_atmos,\
 					"access_medical" = cartridge.access_medical,\
-					"access_clown" = cartridge.access_clown,\
 					"access_mime" = cartridge.access_mime,\
 					"access_janitor" = cartridge.access_janitor,\
 					"access_quartermaster" = cartridge.access_quartermaster,\
@@ -753,19 +746,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				if(f["name"] == n)
 					active_feed = f
 					mode=61
-		if("Send Honk")//Honk virus
-			if(cartridge && cartridge.access_clown)//Cartridge checks are kind of unnecessary since everything is done through switch.
-				var/obj/item/device/pda/P = locate(href_list["target"])//Leaving it alone in case it may do something useful, I guess.
-				if(!isnull(P))
-					if (!P.toff && cartridge.charges > 0)
-						cartridge.charges--
-						U.show_message(SPAN_NOTE("Virus sent!"), 1)
-						P.honkamt = (rand(15,20))
-				else
-					U << "PDA not found."
-			else
-				ui.close()
-				return 0
 		if("Send Silence")//Silent virus
 			if(cartridge && cartridge.access_mime)
 				var/obj/item/device/pda/P = locate(href_list["target"])
@@ -815,7 +795,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 							difficulty += P.cartridge.access_medical
 							difficulty += P.cartridge.access_security
 							difficulty += P.cartridge.access_engine
-							difficulty += P.cartridge.access_clown
 							difficulty += P.cartridge.access_janitor
 							if(P.hidden_uplink)
 								difficulty += 3
@@ -1337,14 +1316,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if (src.id && prob(90)) //IDs are kept in 90% of the cases
 		src.id.forceMove(get_turf(src.loc))
 	..()
-
-/obj/item/device/pda/clown/Crossed(AM as mob|obj) //Clown PDA is slippery.
-	if (isliving(AM))
-		var/mob/living/M = AM
-
-		if(M.slip("the PDA",8) && M.real_name != src.owner && istype(src.cartridge, /obj/item/weapon/cartridge/clown))
-			if(src.cartridge.charges < 5)
-				src.cartridge.charges++
 
 /obj/item/device/pda/proc/available_pdas()
 	var/list/names = list()
