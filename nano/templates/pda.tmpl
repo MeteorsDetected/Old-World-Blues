@@ -74,17 +74,6 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
         </div>
         <br>
         {{if data.cartridge}}
-            {{if data.cartridge.access.access_clown == 1}}
-                <div class="item">
-                    <div class="itemLabelNarrow">
-                        <b>Clown</b>:
-                    </div>
-                    <div class="itemContent">
-                        {{:helper.link('Honk Synthesizer', 'gear', {'choice' : "Honk"}, null, 'fixedLeftWide')}}
-                    </div>
-                </div>
-                <br>
-            {{/if}}
             {{if data.cartridge.access.access_engine == 1}}
                 <div class="item">
                     <div class="itemLabelNarrow">
@@ -221,7 +210,6 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                     <div class="item">
                         <b>{{:data.cartridge.charges}}
                         {{if data.cartridge.access.access_detonate_pda}} detonation charges left. {{/if}}
-                        {{if data.cartridge.access.access_clown || data.cartridge.access.access_mime}} viral files left. {{/if}}
                         </b>
                         <br><br>
                     </div>
@@ -239,9 +227,6 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                             {{if data.cartridge.access.access_detonate_pda && value.Detonate}}
                                 {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, 'fixedLeft')}}
                             {{/if}}
-                            {{if data.cartridge.access.access_mime}}
-                                {{:helper.link('*Send Virus*', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : value.Reference}, null, 'fixedLeft')}}
-                            {{/if}}
                         {{/if}}
                     </div>
                 {{/for}}
@@ -251,8 +236,6 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
                         {{:helper.link(value.Name, 'circle-arrow-s', {'choice' : "Message", 'target' : value.Reference}, null, value.fixedLeftWider)}}
                         {{if data.cartridge}}
                             {{if data.cartridge.access.access_detonate_pda && value.Detonate}} {{:helper.link('*Detonate*', 'radiation', {'choice' : "Detonate", 'target' : value.Reference}, null, 'fixedLeft')}}  {{/if}}
-                            {{if data.cartridge.access.access_clown}} {{:helper.link('*Send Virus*', 'star', {'choice' : "Send Honk", 'target' : value.Reference}, null, 'fixedLeft')}}  {{/if}}
-                            {{if data.cartridge.access.access_mime}}  {{:helper.link('*Send Virus*', 'circle-arrow-s', {'choice' : "Send Silence", 'target' : value.Reference}, null, 'fixedLeft')}}  {{/if}}
                         {{/if}}
                     </div>
                 {{/for}}

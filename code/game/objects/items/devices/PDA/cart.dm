@@ -11,7 +11,6 @@
 	var/access_engine = 0
 	var/access_atmos = 0
 	var/access_medical = 0
-	var/access_mime = 0
 	var/access_janitor = 0
 //	var/access_flora = 0
 	var/access_reagent_scanner = 0
@@ -79,11 +78,6 @@
 	icon_state = "cart-s"
 	access_security = 1
 
-/obj/item/weapon/cartridge/mime
-	name = "\improper Gestur-O 1000 cartridge"
-	icon_state = "cart-mi"
-	access_mime = 1
-	charges = 5
 /*
 /obj/item/weapon/cartridge/botanist
 	name = "Green Thumb v4.20"
