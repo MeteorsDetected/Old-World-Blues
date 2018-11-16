@@ -105,8 +105,7 @@
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	minimal_access = list(
-		access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mining,
-		access_mining_station
+		access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mining
 	)
 
 	uniform = /obj/item/clothing/under/rank/qm
@@ -129,7 +128,7 @@
 	spawn_positions = 2
 	supervisors = "the quartermaster and the head of personnel"
 	selection_color = "#dddddd"
-	addcional_access = list(access_qm, access_mining, access_mining_station)
+	addcional_access = list(access_qm, access_mining)
 	minimal_access = list(access_maint_tunnels, access_cargo, access_cargo_bot, access_mailsorting)
 
 	uniform = /obj/item/clothing/under/rank/cargoshort
@@ -148,7 +147,7 @@
 	supervisors = "the quartermaster and the head of personnel"
 	selection_color = "#dddddd"
 	addcional_access = list(access_maint_tunnels, access_cargo, access_cargo_bot, access_qm)
-	minimal_access = list(access_mining, access_mining_station, access_mailsorting)
+	minimal_access = list(access_mining, access_mailsorting)
 	alt_titles = list("Drill Technician","Prospector")
 
 	uniform = /obj/item/clothing/under/rank/miner
