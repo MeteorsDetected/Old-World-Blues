@@ -42,27 +42,27 @@ ADMIN_VERB_ADD(/datum/admins/proc/show_player_panel, null, TRUE)
 	body += "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
-		body += "\[<A href='?src=\ref[src];editrights=show'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\]"
+		body += "\[<A href='?_src_=holder;editrights=show'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\]"
 
 	if(isnewplayer(M))
 		body += " <B>Hasn't Entered Game</B> "
 	else
-		body += " \[<A href='?src=\ref[src];revive=\ref[M]'>Heal</A>\] "
+		body += " \[<A href='?_src_=holder;revive=\ref[M]'>Heal</A>\] "
 
 	body += {"
 		<br><br>\[
 		<a href='?_src_=vars;Vars=\ref[M]'>VV</a> -
-		<a href='?src=\ref[src];traitor=\ref[M]'>TP</a> -
+		<a href='?_src_=holder;traitor=\ref[M]'>TP</a> -
 		<a href='?src=\ref[usr];priv_msg=[M.ckey]'>PM</a> -
-		<a href='?src=\ref[src];subtlemessage=\ref[M]'>SM</a> -
-		<a href='?src=\ref[src];adminplayerobservejump=\ref[M]'>JMP</a>\] </b><br>
+		<a href='?_src_=holder;subtlemessage=\ref[M]'>SM</a> -
+		<a href='?_src_=holder;adminplayerobservejump=\ref[M]'>JMP</a>\] </b><br>
 		<b>Mob type</b> = [M.type]<br><br>
 		<b>Inactivity time:</b> [M.client ? "[M.client.inactivity/600] minutes" : "Logged out"]<br/><br/>
-		<A href='?src=\ref[src];boot2=\ref[M]'>Kick</A> |
+		<A href='?_src_=holder;boot2=\ref[M]'>Kick</A> |
 		<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> |
-		<A href='?src=\ref[src];newban=\ref[M]'>Ban</A> |
-		<A href='?src=\ref[src];jobban2=\ref[M]'>Jobban</A> |
-		<A href='?src=\ref[src];notes=show;mob=\ref[M]'>Notes</A>
+		<A href='?_src_=holder;newban=\ref[M]'>Ban</A> |
+		<A href='?_src_=holder;jobban2=\ref[M]'>Jobban</A> |
+		<A href='?_src_=holder;notes=show;mob=\ref[M]'>Notes</A>
 	"}
 
 	if(M.client)
@@ -74,13 +74,13 @@ ADMIN_VERB_ADD(/datum/admins/proc/show_player_panel, null, TRUE)
 
 		var/muted = M.client.prefs.muted
 		body += {"<br><b>Mute: </b>
-			\[<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"blue"]'>IC</font></a> |
-			<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_OOC]'><font color='[(muted & MUTE_OOC)?"red":"blue"]'>OOC</font></a> |
-			<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_LOOC]'><font color='[(muted & MUTE_LOOC)?"red":"blue"]'>LOOC</font></a> |
-			<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_PRAY]'><font color='[(muted & MUTE_PRAY)?"red":"blue"]'>PRAY</font></a> |
-			<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_ADMINHELP]'><font color='[(muted & MUTE_ADMINHELP)?"red":"blue"]'>ADMINHELP</font></a> |
-			<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_DEADCHAT]'><font color='[(muted & MUTE_DEADCHAT)?"red":"blue"]'>DEADCHAT</font></a>\]
-			(<A href='?src=\ref[src];mute=\ref[M];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"blue"]'>toggle all</font></a>)
+			\[<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"blue"]'>IC</font></a> |
+			<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_OOC]'><font color='[(muted & MUTE_OOC)?"red":"blue"]'>OOC</font></a> |
+			<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_LOOC]'><font color='[(muted & MUTE_LOOC)?"red":"blue"]'>LOOC</font></a> |
+			<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_PRAY]'><font color='[(muted & MUTE_PRAY)?"red":"blue"]'>PRAY</font></a> |
+			<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_ADMINHELP]'><font color='[(muted & MUTE_ADMINHELP)?"red":"blue"]'>ADMINHELP</font></a> |
+			<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_DEADCHAT]'><font color='[(muted & MUTE_DEADCHAT)?"red":"blue"]'>DEADCHAT</font></a>\]
+			(<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"blue"]'>toggle all</font></a>)
 		<br><b>Chatbans: </b>
 			<A href='?_src_=holder;jobban3=OOC;jobban4=\ref[M]'><font color=[(jobban_isbanned(M, "OOC"))?"red":"blue"]>OOCBAN</font></A> |
 			<A href='?_src_=holder;jobban3=AHELP;jobban4=\ref[M]'><font color=[(jobban_isbanned(M, "AHELP"))?"red":"blue"]>AHELPBAN</font></A> |
@@ -88,12 +88,12 @@ ADMIN_VERB_ADD(/datum/admins/proc/show_player_panel, null, TRUE)
 
 
 	body += {"<br><br>
-		<A href='?src=\ref[src];jumpto=\ref[M]'><b>Jump to</b></A> |
-		<A href='?src=\ref[src];getmob=\ref[M]'>Get</A>
+		<A href='?_src_=holder;jumpto=\ref[M]'><b>Jump to</b></A> |
+		<A href='?_src_=holder;getmob=\ref[M]'>Get</A>
 		<br><br>
-		[check_rights(R_ADMIN|R_MOD,0) ? "<A href='?src=\ref[src];traitor=\ref[M]'>Traitor panel</A> | " : "" ]
-		<A href='?src=\ref[src];narrateto=\ref[M]'>Narrate to</A> |
-		<A href='?src=\ref[src];subtlemessage=\ref[M]'>Subtle message</A>
+		[check_rights(R_ADMIN|R_MOD,0) ? "<A href='?_src_=holder;traitor=\ref[M]'>Traitor panel</A> | " : "" ]
+		<A href='?_src_=holder;narrateto=\ref[M]'>Narrate to</A> |
+		<A href='?_src_=holder;subtlemessage=\ref[M]'>Subtle message</A>
 	"}
 
 	if (M.client)
@@ -106,73 +106,73 @@ ADMIN_VERB_ADD(/datum/admins/proc/show_player_panel, null, TRUE)
 			if(issmall(M))
 				body += "<B>Monkeyized</B> | "
 			else
-				body += "<A href='?src=\ref[src];monkeyone=\ref[M]'>Monkeyize</A> | "
+				body += "<A href='?_src_=holder;monkeyone=\ref[M]'>Monkeyize</A> | "
 
 			//Corgi
 			if(iscorgi(M))
 				body += "<B>Corgized</B> | "
 			else
-				body += "<A href='?src=\ref[src];corgione=\ref[M]'>Corgize</A> | "
+				body += "<A href='?_src_=holder;corgione=\ref[M]'>Corgize</A> | "
 
 			//AI / Cyborg
 			if(isAI(M))
 				body += "<B>Is an AI</B> "
 			else if(ishuman(M))
-				body += {"<A href='?src=\ref[src];makeai=\ref[M]'>Make AI</A> |
-					<A href='?src=\ref[src];makerobot=\ref[M]'>Make Robot</A> |
-					<A href='?src=\ref[src];makealien=\ref[M]'>Make Alien</A> |
-					<A href='?src=\ref[src];makeslime=\ref[M]'>Make slime</A>
+				body += {"<A href='?_src_=holder;makeai=\ref[M]'>Make AI</A> |
+					<A href='?_src_=holder;makerobot=\ref[M]'>Make Robot</A> |
+					<A href='?_src_=holder;makealien=\ref[M]'>Make Alien</A> |
+					<A href='?_src_=holder;makeslime=\ref[M]'>Make slime</A>
 				"}
 
 			//Simple Animals
 			if(isanimal(M))
-				body += "<A href='?src=\ref[src];makeanimal=\ref[M]'>Re-Animalize</A> | "
+				body += "<A href='?_src_=holder;makeanimal=\ref[M]'>Re-Animalize</A> | "
 			else
-				body += "<A href='?src=\ref[src];makeanimal=\ref[M]'>Animalize</A> | "
+				body += "<A href='?_src_=holder;makeanimal=\ref[M]'>Animalize</A> | "
 
 
 			body += {"<br><br>
 				<b>Rudimentary transformation:</b><font size=2><br>These transformations only create a new mob type and copy stuff over. They do not take into account MMIs and similar mob-specific things. The buttons in 'Transformations' are preferred, when possible.</font><br>
-				<A href='?src=\ref[src];simplemake=observer;mob=\ref[M]'>Observer</A> |
-				\[ Xenos: <A href='?src=\ref[src];simplemake=larva;mob=\ref[M]'>Larva</A>
-				<A href='?src=\ref[src];simplemake=human;species=Xenomorph Drone;mob=\ref[M]'>Drone</A>
-				<A href='?src=\ref[src];simplemake=human;species=Xenomorph Hunter;mob=\ref[M]'>Hunter</A>
-				<A href='?src=\ref[src];simplemake=human;species=Xenomorph Sentinel;mob=\ref[M]'>Sentinel</A>
-				<A href='?src=\ref[src];simplemake=human;species=Xenomorph Queen;mob=\ref[M]'>Queen</A> \] |
-				\[ Crew: <A href='?src=\ref[src];simplemake=human;mob=\ref[M]'>Human</A>
-				<A href='?src=\ref[src];simplemake=human;species=Unathi;mob=\ref[M]'>Unathi</A>
-				<A href='?src=\ref[src];simplemake=human;species=Tajaran;mob=\ref[M]'>Tajaran</A>
-				<A href='?src=\ref[src];simplemake=human;species=Skrell;mob=\ref[M]'>Skrell</A>
-				<A href='?src=\ref[src];simplemake=human;species=Vox;mob=\ref[M]'>Vox</A> \] | \[
-				<A href='?src=\ref[src];simplemake=nymph;mob=\ref[M]'>Nymph</A>
-				<A href='?src=\ref[src];simplemake=human;species='Diona';mob=\ref[M]'>Diona</A> \] |
-				\[ slime: <A href='?src=\ref[src];simplemake=slime;mob=\ref[M]'>Baby</A>,
-				<A href='?src=\ref[src];simplemake=adultslime;mob=\ref[M]'>Adult</A> \]
-				<A href='?src=\ref[src];simplemake=monkey;mob=\ref[M]'>Monkey</A> |
-				<A href='?src=\ref[src];simplemake=robot;mob=\ref[M]'>Cyborg</A> |
-				<A href='?src=\ref[src];simplemake=cat;mob=\ref[M]'>Cat</A> |
-				<A href='?src=\ref[src];simplemake=runtime;mob=\ref[M]'>Runtime</A> |
-				<A href='?src=\ref[src];simplemake=corgi;mob=\ref[M]'>Corgi</A> |
-				<A href='?src=\ref[src];simplemake=ian;mob=\ref[M]'>Ian</A> |
-				<A href='?src=\ref[src];simplemake=crab;mob=\ref[M]'>Crab</A> |
-				<A href='?src=\ref[src];simplemake=coffee;mob=\ref[M]'>Coffee</A> |
-				\[ Construct: <A href='?src=\ref[src];simplemake=constructarmoured;mob=\ref[M]'>Armoured</A> ,
-				<A href='?src=\ref[src];simplemake=constructbuilder;mob=\ref[M]'>Builder</A> ,
-				<A href='?src=\ref[src];simplemake=constructwraith;mob=\ref[M]'>Wraith</A> \]
-				<A href='?src=\ref[src];simplemake=shade;mob=\ref[M]'>Shade</A>
+				<A href='?_src_=holder;simplemake=observer;mob=\ref[M]'>Observer</A> |
+				\[ Xenos: <A href='?_src_=holder;simplemake=larva;mob=\ref[M]'>Larva</A>
+				<A href='?_src_=holder;simplemake=human;species=Xenomorph Drone;mob=\ref[M]'>Drone</A>
+				<A href='?_src_=holder;simplemake=human;species=Xenomorph Hunter;mob=\ref[M]'>Hunter</A>
+				<A href='?_src_=holder;simplemake=human;species=Xenomorph Sentinel;mob=\ref[M]'>Sentinel</A>
+				<A href='?_src_=holder;simplemake=human;species=Xenomorph Queen;mob=\ref[M]'>Queen</A> \] |
+				\[ Crew: <A href='?_src_=holder;simplemake=human;mob=\ref[M]'>Human</A>
+				<A href='?_src_=holder;simplemake=human;species=Unathi;mob=\ref[M]'>Unathi</A>
+				<A href='?_src_=holder;simplemake=human;species=Tajaran;mob=\ref[M]'>Tajaran</A>
+				<A href='?_src_=holder;simplemake=human;species=Skrell;mob=\ref[M]'>Skrell</A>
+				<A href='?_src_=holder;simplemake=human;species=Vox;mob=\ref[M]'>Vox</A> \] | \[
+				<A href='?_src_=holder;simplemake=nymph;mob=\ref[M]'>Nymph</A>
+				<A href='?_src_=holder;simplemake=human;species='Diona';mob=\ref[M]'>Diona</A> \] |
+				\[ slime: <A href='?_src_=holder;simplemake=slime;mob=\ref[M]'>Baby</A>,
+				<A href='?_src_=holder;simplemake=adultslime;mob=\ref[M]'>Adult</A> \]
+				<A href='?_src_=holder;simplemake=monkey;mob=\ref[M]'>Monkey</A> |
+				<A href='?_src_=holder;simplemake=robot;mob=\ref[M]'>Cyborg</A> |
+				<A href='?_src_=holder;simplemake=cat;mob=\ref[M]'>Cat</A> |
+				<A href='?_src_=holder;simplemake=runtime;mob=\ref[M]'>Runtime</A> |
+				<A href='?_src_=holder;simplemake=corgi;mob=\ref[M]'>Corgi</A> |
+				<A href='?_src_=holder;simplemake=ian;mob=\ref[M]'>Ian</A> |
+				<A href='?_src_=holder;simplemake=crab;mob=\ref[M]'>Crab</A> |
+				<A href='?_src_=holder;simplemake=coffee;mob=\ref[M]'>Coffee</A> |
+				\[ Construct: <A href='?_src_=holder;simplemake=constructarmoured;mob=\ref[M]'>Armoured</A> ,
+				<A href='?_src_=holder;simplemake=constructbuilder;mob=\ref[M]'>Builder</A> ,
+				<A href='?_src_=holder;simplemake=constructwraith;mob=\ref[M]'>Wraith</A> \]
+				<A href='?_src_=holder;simplemake=shade;mob=\ref[M]'>Shade</A>
 				<br>
 			"}
 	body += {"<br><br>
 			<b>Other actions:</b>
 			<br>
-			<A href='?src=\ref[src];forcespeech=\ref[M]'>Forcesay</A>
+			<A href='?_src_=holder;forcespeech=\ref[M]'>Forcesay</A>
 			"}
 	if (M.client)
 		body += {" |
-			<A href='?src=\ref[src];tdome=\ref[M];team=one'>Thunderdome 1</A> |
-			<A href='?src=\ref[src];tdome=\ref[M];team=two'>Thunderdome 2</A> |
-			<A href='?src=\ref[src];tdome=\ref[M];team=admin'>Thunderdome Admin</A> |
-			<A href='?src=\ref[src];tdome=\ref[M];team=observe'>Thunderdome Observer</A> |
+			<A href='?_src_=holder;tdome=\ref[M];team=one'>Thunderdome 1</A> |
+			<A href='?_src_=holder;tdome=\ref[M];team=two'>Thunderdome 2</A> |
+			<A href='?_src_=holder;tdome=\ref[M];team=admin'>Thunderdome Admin</A> |
+			<A href='?_src_=holder;tdome=\ref[M];team=observe'>Thunderdome Observer</A> |
 		"}
 	// language toggles
 	body += "<br><br><b>Languages:</b><br>"
@@ -183,9 +183,9 @@ ADMIN_VERB_ADD(/datum/admins/proc/show_player_panel, null, TRUE)
 			if(!f) body += " | "
 			else f = 0
 			if(L in M.languages)
-				body += "<a href='?src=\ref[src];toglang=\ref[M];lang=[rhtml_encode(k)]' style='color:#006600'>[k]</a>"
+				body += "<a href='?_src_=holder;toglang=\ref[M];lang=[rhtml_encode(k)]' style='color:#006600'>[k]</a>"
 			else
-				body += "<a href='?src=\ref[src];toglang=\ref[M];lang=[rhtml_encode(k)]' style='color:#ff0000'>[k]</a>"
+				body += "<a href='?_src_=holder;toglang=\ref[M];lang=[rhtml_encode(k)]' style='color:#ff0000'>[k]</a>"
 
 	body += {"<br>
 		</body></html>
