@@ -236,7 +236,7 @@
 
 /mob/living/carbon/human/tracking_status()
 	//Cameras can't track people wearing an agent card or a ninja hood.
-	if(wear_id && istype(wear_id.GetID(), /obj/item/weapon/card/id/syndicate))
+	if(wear_id && istype(wear_id.GetIdCard(), /obj/item/weapon/card/id/syndicate))
 		return TRACKING_TERMINATE
 	if(istype(head, /obj/item/clothing/head/helmet/space/rig))
 		var/obj/item/clothing/head/helmet/space/rig/helmet = head

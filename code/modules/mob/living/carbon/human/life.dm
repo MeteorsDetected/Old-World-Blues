@@ -1537,12 +1537,9 @@
 
 	if (BITTEST(hud_updateflag, ID_HUD))
 		var/image/holder = hud_list[ID_HUD]
-		if(wear_id)
-			var/obj/item/weapon/card/id/I = wear_id.GetID()
-			if(I)
-				holder.icon_state = "hud[ckey(I.GetJobName())]"
-			else
-				holder.icon_state = "hudunknown"
+		var/obj/item/weapon/card/id/I = GetIdCard(TRUE)
+		if(I)
+			holder.icon_state = "hud[ckey(I.GetJobName())]"
 		else
 			holder.icon_state = "hudunknown"
 
@@ -1553,10 +1550,9 @@
 		var/image/holder = hud_list[WANTED_HUD]
 		holder.icon_state = "hudblank"
 		var/perpname = name
-		if(wear_id)
-			var/obj/item/weapon/card/id/I = wear_id.GetID()
-			if(I)
-				perpname = I.registered_name
+		var/obj/item/weapon/card/id/I = GetIdCard(TRUE)
+		if(I)
+			perpname = I.registered_name
 
 		for(var/datum/data/record/E in data_core.general)
 			if(E.fields["name"] == perpname)

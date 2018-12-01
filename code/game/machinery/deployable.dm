@@ -129,7 +129,7 @@ Barricades
 	icon_state = "barrier[locked]"
 
 /obj/machinery/deployable/barrier/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(W.GetID())
+	if(W.GetIdCard())
 		if(allowed(user))
 			if	(emagged < 2.0)
 				locked = !locked
@@ -137,30 +137,23 @@ Barricades
 				icon_state = "barrier[locked]"
 				if((locked == 1.0) && (emagged < 2.0))
 					user << "Barrier lock toggled on."
-					return
 				else if((locked == 0.0) && (emagged < 2.0))
 					user << "Barrier lock toggled off."
-					return
 			else
 				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 				s.set_up(2, 1, src)
 				s.start()
 				visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
-				return
-		return
 	else if(istype(W, /obj/item/weapon/wrench))
 		if(health < maxhealth)
 			health = maxhealth
 			emagged = 0
 			req_access = list(access_security)
 			visible_message("<span class='warning'>[user] repairs \the [src]!</span>")
-			return
 		else if(emagged > 0)
 			emagged = 0
 			req_access = list(access_security)
 			visible_message("<span class='warning'>[user] repairs \the [src]!</span>")
-			return
-		return
 	else
 		switch(W.damtype)
 			if("fire")

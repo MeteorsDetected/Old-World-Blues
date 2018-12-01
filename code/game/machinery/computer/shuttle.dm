@@ -11,8 +11,8 @@
 		if(stat & (BROKEN|NOPOWER))	return
 		if (!ticker || emergency_shuttle.location() || !user)
 			return
-		if (W.GetID())
-			var/obj/item/weapon/card/id/ID = W.GetID()
+		if (W.GetIdCard())
+			var/obj/item/weapon/card/id/ID = W.GetIdCard()
 			var/list/cardaccess = ID.access
 			if(!istype(cardaccess, /list) || !cardaccess.len) //no access
 				user << "The access level of [W:registered_name]\'s card is not high enough. "

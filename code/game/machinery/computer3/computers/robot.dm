@@ -111,9 +111,7 @@
 			<A href='?src=\ref[src];temp=1'>Cancel</A>"}
 
 		if ("do_killall" in href_list)
-			var/obj/item/weapon/card/id/I = usr.get_active_hand()
-			if (!istype(I) && I.GetID())
-				I = I.GetID()
+			var/obj/item/weapon/card/id/I = usr.GetIdCard()
 			if (istype(I))
 				if(src.check_access(I))
 					if (!status)

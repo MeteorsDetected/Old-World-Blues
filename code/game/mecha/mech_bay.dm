@@ -204,7 +204,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/mech_bay_power_console/attackby(obj/item/I, mob/living/user)
-	if(I.GetID())
+	if(I.GetIdCard())
 		if(allowed(user))
 			locked = !locked
 			user.visible_message(

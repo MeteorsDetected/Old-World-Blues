@@ -314,7 +314,7 @@ var/list/turret_icons
 				update_icon()
 		wrenching = 0
 
-	else if(I.GetID())
+	else if(I.GetIdCard())
 		//Behavior lock/unlock mangement
 		if(allowed(user))
 			locked = !locked

@@ -86,15 +86,15 @@
 	if(stat & BROKEN)
 		return
 
-	if(W.GetID())
+	if(W.GetIdCard())
 		if(allowed(usr))
 			if(emagged)
 				user << SPAN_NOTE("The turret control is unresponsive.")
 			else
 				locked = !locked
 				user << SPAN_NOTE("You [ locked ? "lock" : "unlock"] the panel.")
-		return
-	return ..()
+	else
+		return ..()
 
 /obj/machinery/turretid/emag_act(var/remaining_charges, var/mob/user)
 	if(!emagged)
