@@ -26,8 +26,12 @@ var/const/access_hos = 58
 	id = access_hos
 	desc = "Head of Security"
 
-/var/const/access_sec_doors = 63 // Security front doors
+var/const/access_sec_doors = 63 // Security front doors
 /datum/access/security/sec_doors
 	id = access_sec_doors
 	desc = "Security"
 
+var/const/access_court = 42
+/datum/access/security/courtroom
+	id = access_court
+	desc = "Courtroom"
