@@ -2,23 +2,6 @@
 	var/list/req_access = list()
 	var/list/req_one_access = list()
 
-/*
-//returns 1 if this mob has sufficient access to use this object
-/obj/proc/allowed(mob/M)
-	//check if it doesn't require any access at all
-	if(src.check_access(null))
-		return 1
-	if(issilicon(M))
-		//AI can do whatever he wants
-		return 1
-	else if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		//if they are holding or wearing a card that has access, that works
-		if(src.check_access(H.get_active_hand()) || src.check_access(H.wear_id))
-			return 1
-	return 0
-*/
-
 //returns TRUE if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/living/M)
 	//check if it doesn't require any access at all

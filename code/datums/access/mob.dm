@@ -29,6 +29,9 @@
 /mob/living/silicon/GetAccess()
 	return get_all_accesses()
 
+/proc/get_all_job_icons() //For all existing HUD icons
+	return joblist + list("Prisoner")
+
 /obj/item/weapon/card/id/proc/GetJobName() //Used in secHUD icon generation
 	var/job_icons = get_all_job_icons()
 	if(assignment in job_icons) //Check if the job has a hud icon
