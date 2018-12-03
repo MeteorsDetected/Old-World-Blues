@@ -67,7 +67,7 @@
 	explode()
 
 /mob/living/bot/attackby(var/obj/item/O, var/mob/user)
-	if(O.GetID())
+	if(O.GetIdCard())
 		if(access_scanner.allowed(user) && !open && !emagged)
 			locked = !locked
 			user << SPAN_NOTE("Controls are now [locked ? "locked." : "unlocked."]")

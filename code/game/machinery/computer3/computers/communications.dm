@@ -67,10 +67,8 @@
 			state = STATE_DEFAULT
 		if("login" in href_list)
 			var/mob/M = usr
-			var/obj/item/I = M.get_active_hand()
-			if(I)
-				I = I.GetID()
-			if(I.GetID() && check_access(I.GetID()))
+			var/obj/item/weapon/card/I = M.GetIdCard()
+			if(I && check_access(I))
 				authenticated = 1
 				if(access_captain in I.GetAccess())
 					authenticated = 2
@@ -84,8 +82,7 @@
 
 		if("swipeidseclevel" in href_list)
 			var/mob/M = usr
-			var/obj/item/I = M.get_active_hand()
-			I = I.GetID()
+			var/obj/item/I = M.GetIdCard()
 
 			if(I)
 				if(access_captain in I.GetAccess())

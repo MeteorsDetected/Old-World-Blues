@@ -26,13 +26,13 @@
 
 /obj/machinery/lapvend/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(vendmode == 1)
-		if(W.GetID())
-			var/obj/item/weapon/card/I = W.GetID()
+		if(W.GetIdCard())
+			var/obj/item/weapon/card/I = W.GetIdCard()
 			scan_card(I)
 			vendmode = 0
 	if(vendmode == 3)
-		if(W.GetID())
-			var/obj/item/weapon/card/I = W.GetID()
+		if(W.GetIdCard())
+			var/obj/item/weapon/card/I = W.GetIdCard()
 			if(reimburse(I))
 				vendmode = 0
 	if(vendmode == 0)

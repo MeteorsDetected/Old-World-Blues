@@ -250,7 +250,7 @@
 
 /obj/machinery/access_button/attackby(obj/item/I as obj, mob/user as mob)
 	//Swiping ID on the access button
-	if(I.GetID())
+	if(I.GetIdCard())
 		attack_hand(user)
 		return
 	..()

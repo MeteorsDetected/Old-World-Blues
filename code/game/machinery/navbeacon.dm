@@ -115,12 +115,10 @@ var/global/list/navbeacons			// no I don't like putting this in, but it will do 
 
 		if(istype(I, /obj/item/weapon/screwdriver))
 			open = !open
-
 			user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "You [open ? "open" : "close"] the beacon's cover.")
-
 			updateicon()
 
-		else if(I.GetID())
+		else if(I.GetIdCard())
 			if(open)
 				if (src.allowed(user))
 					src.locked = !src.locked
@@ -130,7 +128,6 @@ var/global/list/navbeacons			// no I don't like putting this in, but it will do 
 				updateDialog()
 			else
 				user << "You must open the cover first!"
-		return
 
 	attack_ai(var/mob/user)
 		interact(user, 1)

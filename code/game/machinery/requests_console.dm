@@ -389,13 +389,13 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		else
 			user << "You can't do much with that."*/
 
-	if (O.GetID())
+	if (O.GetIdCard())
 		if(screen == 9)
-			var/obj/item/weapon/card/id/T = O.GetID()
+			var/obj/item/weapon/card/id/T = O.GetIdCard()
 			msgVerified = text("<font color='green'><b>Verified by [T.registered_name] ([T.assignment])</b></font>")
 			updateUsrDialog()
 		if(screen == 10)
-			var/obj/item/weapon/card/id/ID = O.GetID()
+			var/obj/item/weapon/card/id/ID = O.GetIdCard()
 			if (access_RC_announce in ID.GetAccess())
 				announceAuth = 1
 				announcement.announcer = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name

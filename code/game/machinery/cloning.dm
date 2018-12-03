@@ -199,7 +199,7 @@
 			return
 		if(default_part_replacement(user, W))
 			return
-	if(W.GetID())
+	if(W.GetIdCard())
 		if(!check_access(W))
 			user << "<span class='warning'>Access Denied.</span>"
 			return

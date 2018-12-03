@@ -60,11 +60,8 @@
 			src.state = STATE_DEFAULT
 		if("login")
 			var/mob/M = usr
-			var/obj/item/weapon/card/id/I = M.get_active_hand()
-			if (!I) return
-			if (!istype(I) && I.GetID())
-				I = I.GetID()
-			if (I && istype(I))
+			var/obj/item/weapon/card/id/I = M.GetIdCard()
+			if (istype(I))
 				if(src.check_access(I))
 					authenticated = 1
 				//if(access_captain in I.access)
@@ -76,10 +73,8 @@
 
 		if("swipeidseclevel")
 			var/mob/M = usr
-			var/obj/item/weapon/card/id/I = M.get_active_hand()
-			if (!istype(I) && I.GetID())
-				I = I.GetID()
-			if (I && istype(I))
+			var/obj/item/weapon/card/id/I = M.GetIdCard()
+			if (istype(I))
 				if(access_heads in I.access) //Let heads change the alert level.
 					var/old_level = security_level
 					if(!tmp_alertlevel) tmp_alertlevel = SEC_LEVEL_GREEN
@@ -90,7 +85,7 @@
 						//Only notify the admins if an actual change happened
 						log_game("[key_name(usr)] has changed the security level to [get_security_level()].", src)
 					tmp_alertlevel = 0
-				else:
+				else
 					usr << "You are not authorized to do this."
 					tmp_alertlevel = 0
 				state = STATE_DEFAULT

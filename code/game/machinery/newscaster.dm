@@ -934,19 +934,11 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 
 /obj/machinery/newscaster/proc/scan_user(mob/living/user as mob)
 	if(ishuman(user))                       //User is a human
-		var/mob/living/carbon/human/human_user = user
-		if(human_user.wear_id)                                      //Newscaster scans you
-			if(istype(human_user.wear_id, /obj/item/device/pda) )	//autorecognition, woo!
-				var/obj/item/device/pda/P = human_user.wear_id
-				if(P.id)
-					src.scanned_user = GetNameAndAssignmentFromId(P.id)
-				else
-					src.scanned_user = "Unknown"
-			else if(istype(human_user.wear_id.GetID(), /obj/item/weapon/card/id) )
-				var/obj/item/weapon/card/id/ID = human_user.wear_id.GetID()
-				src.scanned_user = GetNameAndAssignmentFromId(ID)
-			else
-				src.scanned_user ="Unknown"
+		//Newscaster scans you
+		//autorecognition, woo!
+		var/obj/item/weapon/card/id/ID= user.GetIdCard()
+		if(ID)
+			src.scanned_user = GetNameAndAssignmentFromId(ID)
 		else
 			src.scanned_user ="Unknown"
 	else

@@ -59,7 +59,7 @@
 	icon_state = "wallet"
 
 
-/obj/item/storage/wallet/GetID()
+/obj/item/storage/wallet/GetIdCard()
 	return front_id
 
 /obj/item/storage/wallet/GetAccess()

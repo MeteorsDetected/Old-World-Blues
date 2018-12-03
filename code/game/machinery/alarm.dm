@@ -792,7 +792,7 @@
 				update_icon()
 				return
 
-			if (W.GetID())// trying to unlock the interface with an ID card
+			if (W.GetIdCard())// trying to unlock the interface with an ID card
 				if(stat & (NOPOWER|BROKEN))
 					user << "It does nothing"
 					return

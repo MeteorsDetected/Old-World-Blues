@@ -268,7 +268,7 @@
 		else
 			return pda.ownrank
 	else
-		var/obj/item/weapon/card/id/id = get_idcard()
+		var/obj/item/weapon/card/id/id = GetIdCard(TRUE)
 		if(id)
 			return id.rank ? id.rank : if_no_job
 		else
@@ -284,7 +284,7 @@
 		else
 			return pda.ownjob
 	else
-		var/obj/item/weapon/card/id/id = get_idcard()
+		var/obj/item/weapon/card/id/id = GetIdCard(TRUE)
 		if(id)
 			return id.assignment ? id.assignment : if_no_job
 		else
@@ -300,7 +300,7 @@
 		else
 			return pda.owner
 	else
-		var/obj/item/weapon/card/id/id = get_idcard()
+		var/obj/item/weapon/card/id/id = GetIdCard(TRUE)
 		if(id)
 			return id.registered_name
 		else
@@ -328,20 +328,8 @@
 //gets name from ID or PDA itself, ID inside PDA doesn't matter
 //Useful when player is being seen by other mobs
 /mob/living/carbon/human/proc/get_id_name(var/if_no_id = "Unknown")
-	. = if_no_id
-	if(istype(wear_id,/obj/item/device/pda))
-		var/obj/item/device/pda/P = wear_id
-		return P.owner
-	if(wear_id)
-		var/obj/item/weapon/card/id/I = wear_id.GetID()
-		if(I)
-			return I.registered_name
-	return
-
-//gets ID card object from special clothes slot or null.
-/mob/living/carbon/human/proc/get_idcard()
-	if(wear_id)
-		return wear_id.GetID()
+	var/obj/item/weapon/card/id/I = GetIdCard(TRUE)
+	return I ? I.registered_name : if_no_id
 
 //Removed the horrible safety parameter. It was only being used by ninja code anyways.
 //Now checks siemens_coefficient of the affected area by default
@@ -378,15 +366,11 @@
 		if(hasHUD(usr,"security"))
 
 			var/modified = 0
-			var/perpname = "wot"
+			var/perpname = name
 			if(wear_id)
-				var/obj/item/weapon/card/id/I = wear_id.GetID()
+				var/obj/item/weapon/card/id/I = wear_id.GetIdCard()
 				if(I)
 					perpname = I.registered_name
-				else
-					perpname = name
-			else
-				perpname = name
 
 			if(perpname)
 				for (var/datum/data/record/E in data_core.general)

@@ -86,16 +86,14 @@
 			authorised = 0
 		else if( href_list["auth"] )
 			var/mob/M = usr
-			var/obj/item/weapon/card/id/I = M.equipped()
-			if (!istype(I) && I.GetID())
-				I = I.GetID()
-			if (I && istype(I))
-				if(access_captain in I.access)
+			var/obj/item/weapon/card/id/I = M.GetIdCard()
+			if(istype(I))
+				if(istype(I,/obj/item/weapon/card/emag))
+					return I.resolve_attackby(src, M)
+				else if(access_captain in I.access)
 					authorised = 1
 				else if (possibleNets[network] in I.access)
 					authorised = 1
-			if(istype(I,/obj/item/weapon/card/emag))
-				I.resolve_attackby(src, usr)
 		else if( href_list["removeauth"] )
 			authorised = 0
 		updateDialog()

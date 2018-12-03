@@ -89,10 +89,10 @@
 	return TRUE
 
 /obj/machinery/gibber/attackby(var/obj/item/W, var/mob/user)
-	if(W.GetID())
-		if(allowed(usr))
+	if(W.GetIdCard())
+		if(allowed(user))
 			emagged = !emagged
-			usr << "The safety guard is [emagged ? "<span class='danger'>disabled</span>" : "enabled"]."
+			usr << "The safety guard is [emagged ? SPAN_DANG("disabled") : "enabled"]."
 	else
 		..()
 

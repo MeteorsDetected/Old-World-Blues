@@ -782,10 +782,10 @@
 			user << "[src]-MMI interface initialization failed."
 		return
 
-	if(W.GetID())
+	if(W.GetIdCard())
 		if(add_req_access || maint_access)
 			if(internals_access_allowed(usr))
-				output_maintenance_dialog(W.GetID(), user)
+				output_maintenance_dialog(W.GetIdCard(), user)
 				return
 			else
 				user << "\red Invalid ID: Access denied."
