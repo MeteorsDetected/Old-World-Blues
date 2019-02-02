@@ -269,11 +269,12 @@
 	name = "ChemMaster 3000"
 	density = 1
 	anchored = 1
+	circuit = /obj/item/weapon/circuitboard/chemmaster
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
 	use_power = 1
 	idle_power_usage = 20
-	var/beaker = null
+	var/obj/item/weapon/reagent_containers/beaker = null
 	var/obj/item/storage/pill_bottle/loaded_pill_bottle = null
 	var/mode = 0
 	var/condi = 0
@@ -284,19 +285,27 @@
 	var/client/has_sprites = list()
 	var/max_pill_count = 20
 
-/obj/machinery/chem_master/initialize()
+/obj/machinery/chem_master/RefreshParts()
+	if(!reagents)
+		create_reagents(10)
+	reagents.maximum_volume = 0
+	for(var/obj/item/weapon/reagent_containers/glass/G in component_parts)
+		reagents.maximum_volume += G.volume
+		G.reagents.trans_to_holder(reagents, G.volume)
+
+/obj/machinery/chem_master/dismantle()
+	for(var/obj/item/weapon/reagent_containers/glass/G in component_parts)
+		var/amount = G.reagents.get_free_space()
+		reagents.trans_to_holder(G, amount)
 	. = ..()
-	create_reagents(120)
 
 /obj/machinery/chem_master/ex_act(severity)
 	switch(severity)
 		if(1.0)
 			qdel(src)
-			return
 		if(2.0)
 			if (prob(50))
 				qdel(src)
-				return
 
 /obj/machinery/chem_master/blob_act()
 	if (prob(50))
@@ -311,23 +320,22 @@
 		if(src.beaker)
 			user << "A beaker is already loaded into the machine."
 			return
-		if(!user.unEquip(B, src))
-			return
-		src.beaker = B
-		user << "You add the beaker to the machine!"
-		src.updateUsrDialog()
-		icon_state = "mixer1"
+
+		if (usr.unEquip(B, src))
+			src.beaker = B
+			user << "You add the beaker to the machine!"
+			src.updateUsrDialog()
+			icon_state = "mixer1"
 
 	else if(istype(B, /obj/item/storage/pill_bottle))
 		if(src.loaded_pill_bottle)
 			user << "A pill bottle is already loaded into the machine."
 			return
 
-		src.loaded_pill_bottle = B
-		user.drop_from_inventory(B, src)
-		user << "You add the pill bottle into the dispenser slot!"
-		src.updateUsrDialog()
-	return
+		if (user.unEquip(B, src))
+			src.loaded_pill_bottle = B
+			user << "You add the pill bottle into the dispenser slot!"
+			src.updateUsrDialog()
 
 /obj/machinery/chem_master/Topic(href, href_list)
 	if(..())
@@ -344,7 +352,7 @@
 		return
 
 	if(beaker)
-		var/datum/reagents/R = beaker:reagents
+		var/datum/reagents/R = beaker.reagents
 		if (href_list["analyze"])
 			var/dat = ""
 			if(!condi)
@@ -358,22 +366,26 @@
 					var/B = G.data["blood_type"]
 					var/C = G.data["blood_DNA"]
 					dat += {"
-						<TITLE>Chemmaster 3000</TITLE>Chemical infos:<BR><BR>
+						<TITLE>Chemmaster 3000</TITLE>
+						Chemical infos:<BR><BR>
 						Name:<BR>[A]<BR><BR>
-						Description:<BR>Blood Type: [B]<br>
+						Description:<BR>
+						Blood Type: [B]<br>
 						DNA: [C]<BR><BR><BR>
 						<A href='?src=\ref[src];main=1'>(Back)</A>
 					"}
 				else
 					dat += {"
-						<TITLE>Chemmaster 3000</TITLE>Chemical infos:<BR><BR>
+						<TITLE>Chemmaster 3000</TITLE>
+						Chemical infos:<BR><BR>
 						Name:<BR>[href_list["name"]]<BR><BR>
 						Description:<BR>[href_list["desc"]]<BR><BR><BR>
 						<A href='?src=\ref[src];main=1'>(Back)</A>
 					"}
 			else
 				dat += {"
-					<TITLE>Condimaster 3000</TITLE>Condiment infos:<BR><BR>
+					<TITLE>Condimaster 3000</TITLE>
+					Condiment infos:<BR><BR>
 					Name:<BR>[href_list["name"]]<BR><BR>
 					Description:<BR>[href_list["desc"]]<BR><BR><BR>
 					<A href='?src=\ref[src];main=1'>(Back)</A>
@@ -382,36 +394,32 @@
 			return
 
 		else if (href_list["add"])
-
 			if(href_list["amount"])
 				var/id = href_list["add"]
-				var/amount = isgoodnumber(text2num(href_list["amount"]))
+				var/amount = Clamp(text2num(href_list["amount"]), 0, reagents.get_free_space())
 				R.trans_id_to(src, id, amount)
+				if(reagents.get_free_space() < 1)
+					usr << SPAN_WARN("The [name] is full!")
 
 		else if (href_list["addcustom"])
-
-			var/id = href_list["addcustom"]
-			useramount = input("Select the amount to transfer.", 30, useramount) as num
-			useramount = isgoodnumber(useramount)
-			src.Topic(null, list("amount" = "[useramount]", "add" = "[id]"))
+			useramount = input("Select the amount to transfer.", "Amount to transfer", useramount) as null|num
+			src.Topic(null, list("amount" = "[useramount]", "add" = href_list["addcustom"]))
 
 		else if (href_list["remove"])
-
 			if(href_list["amount"])
 				var/id = href_list["remove"]
-				var/amount = isgoodnumber(text2num(href_list["amount"]))
+				var/amount = Clamp(text2num(href_list["amount"]), 0, beaker.reagents.get_free_space())
 				if(mode)
 					reagents.trans_id_to(beaker, id, amount)
+					if(beaker.reagents.get_free_space() < 1)
+						usr << SPAN_WARN("The [name] is full!")
 				else
 					reagents.remove_reagent(id, amount)
 
 
 		else if (href_list["removecustom"])
-
-			var/id = href_list["removecustom"]
-			useramount = input("Select the amount to transfer.", 30, useramount) as num
-			useramount = isgoodnumber(useramount)
-			src.Topic(null, list("amount" = "[useramount]", "remove" = "[id]"))
+			useramount = input("Select the amount to transfer.", "Amount to transfer", useramount) as null|num
+			src.Topic(null, list("amount" = "[useramount]", "remove" = href_list["removecustom"]))
 
 		else if (href_list["toggle"])
 			mode = !mode
@@ -433,10 +441,10 @@
 				return
 
 			if (href_list["createpill_multiple"])
-				count = input("Select the number of pills to make.", 10, pillamount) as num
-
-			if( count < 1 || count > max_pill_count)
-				return
+				count = input("Select the number of pills to make.", "Max [max_pill_count]", pillamount) as null|num
+				if(!count)
+					return
+				count = Clamp(count, 1, max_pill_count)
 
 			if(reagents.total_volume/count < 1) //Sanity checking.
 				return
@@ -444,7 +452,7 @@
 			var/amount_per_pill = reagents.total_volume/count
 			if (amount_per_pill > 60) amount_per_pill = 60
 
-			var/name = sanitizeName(input(usr,"Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill] units)"), MAX_NAME_LEN, 1)
+			var/name = sanitizeName(input(usr,"Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill] units)") as null|text, MAX_NAME_LEN, 1)
 
 			if(!src.Adjacent(usr))
 				usr.unset_machine()
@@ -465,7 +473,7 @@
 
 		else if (href_list["createbottle"])
 			if(!condi)
-				var/name = sanitizeName(input(usr,"Name:","Name your bottle!",reagents.get_master_reagent_name()), MAX_NAME_LEN, 1)
+				var/name = sanitizeName(input(usr,"Name:","Name your bottle!",reagents.get_master_reagent_name()) as null|text, MAX_NAME_LEN, 1)
 				if(!name || !src.Adjacent(usr))
 					usr.unset_machine()
 					return
@@ -532,15 +540,20 @@
 		if(!R.total_volume)
 			dat += "Beaker is empty."
 		else
+			var/free_space = reagents.get_free_space()
 			dat += "Add to buffer:<BR>"
 			for(var/datum/reagent/G in R.reagent_list)
 				dat += "[G.name] , [G.volume] Units - "
 				dat += "<A href='?src=\ref[src];analyze=1;desc=[G.description];name=[G.name]'>(Analyze)</A> "
-				dat += "<A href='?src=\ref[src];add=[G.id];amount=1'>(1)</A> "
-				dat += "<A href='?src=\ref[src];add=[G.id];amount=5'>(5)</A> "
-				dat += "<A href='?src=\ref[src];add=[G.id];amount=10'>(10)</A> "
+				for(var/volume in list(1, 5, 10))
+					if(free_space >= volume)
+						dat += "<A href='?src=\ref[src];add=[G.id];amount=[volume]'>([volume])</A> "
+					else
+						dat += "([volume]) "
 				dat += "<A href='?src=\ref[src];add=[G.id];amount=[G.volume]'>(All)</A> "
 				dat += "<A href='?src=\ref[src];addcustom=[G.id]'>(Custom)</A><BR>"
+			if(free_space < 1)
+				dat += "The [name] is full!"
 
 		dat += "<HR>Transfer to <A href='?src=\ref[src];toggle=1'>[(!mode ? "disposal" : "beaker")]:</A><BR>"
 		if(reagents.total_volume)
@@ -566,12 +579,6 @@
 		user << browse("<TITLE>Condimaster 3000</TITLE>Condimaster menu:<BR><BR>[dat]", "window=chem_master;size=575x400")
 	onclose(user, "chem_master")
 	return
-
-/obj/machinery/chem_master/proc/isgoodnumber(var/num)
-	if(isnum(num))
-		return Clamp(round(num), 0, 200)
-	else
-		return 0
 
 /obj/machinery/chem_master/condimaster
 	name = "CondiMaster 3000"
