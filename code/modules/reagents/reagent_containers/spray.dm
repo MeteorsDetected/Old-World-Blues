@@ -33,9 +33,6 @@
 	if(istype(A, /obj/item/weapon/reagent_containers) || istype(A, /obj/structure/sink))
 		return ..()
 
-	if(istype(A, /spell))
-		return
-
 	if(reagents.total_volume < amount_per_transfer_from_this)
 		user << SPAN_NOTE("\The [src] is empty!")
 		return

@@ -23,8 +23,7 @@
 	return
 
 /obj/item/weapon/reagent_containers/condiment/attack(var/mob/M as mob, var/mob/user as mob, var/def_zone)
-	if(standard_feed_mob(user, M))
-		return
+	standard_feed_mob(user, M)
 
 /obj/item/weapon/reagent_containers/condiment/afterattack(var/obj/target, var/mob/user, var/flag)
 	if(standard_dispenser_refill(user, target))
@@ -131,8 +130,9 @@
 /obj/item/weapon/reagent_containers/condiment/small/on_reagent_change()
 	return
 
-/obj/item/weapon/reagent_containers/condiment/small/saltshaker	//Seperate from above since it's a small shaker
-	name = "salt shaker"										//rather then a large one.
+//Seperate from above since it's a small shaker rather then a large one.
+/obj/item/weapon/reagent_containers/condiment/small/saltshaker
+	name = "salt shaker"
 	desc = "Salt. From space oceans, presumably."
 	icon_state = "saltshakersmall"
 	preloaded = list("sodiumchloride" = 20)

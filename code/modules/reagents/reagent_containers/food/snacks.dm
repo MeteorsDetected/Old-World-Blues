@@ -219,7 +219,7 @@
 	if(contents)
 		for(var/atom/movable/something in contents)
 			something.forceMove(get_turf(src))
-	..()
+	. = ..()
 
 ////////////////////////////////////////////////////////////////////////////////
 /// FOOD END

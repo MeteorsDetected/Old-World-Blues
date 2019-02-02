@@ -303,6 +303,7 @@
 		return
 	if(user.a_intent == "hurt" && ismob(target)) // No instant injecting
 		user << SPAN_NOTE("This syringe is too big to stab someone with it.")
+		return
 	..()
 
 ////////////////////////////////////////////////////////////////////////////////
