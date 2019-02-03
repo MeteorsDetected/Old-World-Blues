@@ -805,7 +805,6 @@
 #include "code\game\objects\items\weapons\tanks\tanks.dm"
 #include "code\game\objects\random\random.dm"
 #include "code\game\objects\structures\_material.dm"
-#include "code\game\objects\structures\bar_shelf.dm"
 #include "code\game\objects\structures\bar_stool.dm"
 #include "code\game\objects\structures\barsign.dm"
 #include "code\game\objects\structures\bedsheet_bin.dm"
