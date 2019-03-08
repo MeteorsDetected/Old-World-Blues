@@ -26,7 +26,6 @@ Please maintain these lists valid. --rastaf0
 	name = "Unknown"
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
-	layer = 10
 	luminosity = 0
 	mouse_opacity = 0
 	var/lightswitch = 1

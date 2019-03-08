@@ -8,10 +8,12 @@
 	var/uid
 	var/tmp/camera_id = 0 // For automatic c_tag setting
 	var/is_escape_location = 0
+	layer = AREA_LAYER
+	plane = BLACKNESS_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
+
 
 /area/New()
 	icon_state = ""
-	layer = 10
 	uid = ++global_uid
 	all_areas += src
 
@@ -118,26 +120,23 @@
 
 /area/proc/readyalert()
 	if(!eject)
-		eject = 1
+		eject = TRUE
 		updateicon()
-	return
 
 /area/proc/readyreset()
 	if(eject)
-		eject = 0
+		eject = FALSE
 		updateicon()
-	return
 
 /area/proc/partyalert()
-	if (!( party ))
-		party = 1
+	if (!party)
+		party = TRUE
 		updateicon()
 		mouse_opacity = 0
-	return
 
 /area/proc/partyreset()
 	if (party)
-		party = 0
+		party = FALSE
 		mouse_opacity = 0
 		updateicon()
 		for(var/obj/machinery/door/firedoor/D in src)
@@ -147,7 +146,6 @@
 				else if(D.density)
 					spawn(0)
 					D.open()
-	return
 
 /area/proc/updateicon()
 	//If it doesn't require power, can still activate this proc.
@@ -186,8 +184,6 @@
 			return power_light
 		if(ENVIRON)
 			return power_environ
-
-	return 0
 
 // called when power status changes
 /area/proc/power_change()

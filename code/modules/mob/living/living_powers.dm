@@ -16,9 +16,16 @@
 	if(stat == DEAD || paralysis || weakened || stunned || restrained())
 		return
 
-	if (layer != 2.45)
-		layer = 2.45 //Just above cables with their 2.44
-		src << SPAN_NOTE("You are now hiding.")
+	if (layer != ABOVE_NORMAL_TURF_LAYER)
+		layer = ABOVE_NORMAL_TURF_LAYER //Just above cables with their 2.44
+		src.visible_message(
+			SPAN_NOTE("[src] scurries to the ground!"),
+			SPAN_NOTE("You are now hiding.")
+		)
+
 	else
 		layer = MOB_LAYER
-		src << SPAN_NOTE("You have stopped hiding.")
+		src.visible_message(
+			SPAN_NOTE("[src] slowly peeks up from the ground..."),
+			SPAN_NOTE("You stop hiding.")
+		)

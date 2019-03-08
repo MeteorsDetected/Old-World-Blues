@@ -277,7 +277,8 @@ Alien plants should do something if theres a lot of poison
 
 	density = 0
 	opacity = 0
-	anchored = 1
+	anchored = TRUE
+	layer = ABOVE_NORMAL_TURF_LAYER
 
 	var/atom/target
 	var/ticks = 0
