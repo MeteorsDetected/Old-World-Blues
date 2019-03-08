@@ -2,6 +2,8 @@
 	icon = 'icons/turf/floors.dmi'
 	level = 1.0
 
+	plane = FLOOR_PLANE
+
 	//for floors, use is_plating(), is_steel_floor() and is_light_floor()
 	var/intact = 1
 
@@ -55,7 +57,7 @@
 		attack_hand(user)
 
 /turf/attack_hand(mob/user)
-	if(!(user.canmove) || user.restrained() || !(user.pulling))
+	if(!user.canmove || user.restrained() || !user.pulling)
 		return 0
 	if(user.pulling.anchored || !isturf(user.pulling.loc))
 		return 0
@@ -154,8 +156,6 @@
 		spawn( 0 )
 			if ((O && A))
 				O.HasProximity(A, 1)
-			return
-	return
 
 /turf/proc/adjacent_fire_act(turf/simulated/floor/source, temperature, volume)
 	return
@@ -191,7 +191,6 @@
 					return
 				M.inertia_dir = M.last_move
 				step(M, M.inertia_dir)
-	return
 
 /turf/proc/levelupdate()
 	for(var/obj/O in src)

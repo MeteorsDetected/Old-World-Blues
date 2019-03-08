@@ -4,6 +4,9 @@
 	density = 0
 	icon_state = "black"
 	pathweight = 100000 //Seriously, don't try and path over this one numbnuts
+
+	plane = FLOOR_PLANE
+
 	var/icon/darkoverlays = null
 	var/turf/floorbelow
 	var/list/overlay_references

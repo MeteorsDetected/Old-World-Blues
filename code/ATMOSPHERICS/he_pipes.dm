@@ -6,7 +6,7 @@
 	color = "#404040"
 	level = 2
 	connect_types = CONNECT_TYPE_HE
-	layer = 2.41
+	layer = LOW_OBJ_LAYER
 	var/initialize_directions_he
 	var/surface = 2	//surface area in m^2
 	var/icon_temperature = T20C //stop small changes in temperature causing an icon refresh

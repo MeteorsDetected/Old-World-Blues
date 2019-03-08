@@ -180,7 +180,7 @@ FLOOR SAFES
 	icon_state = "floorsafe"
 	density = 0
 	level = 1	//underfloor
-	layer = 2.5
+	layer = LOW_OBJ_LAYER
 
 
 /obj/structure/safe/floor/initialize()

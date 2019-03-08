@@ -19,8 +19,10 @@
 
 	connect_types = CONNECT_TYPE_REGULAR|CONNECT_TYPE_SUPPLY //connects to regular and supply pipes
 
-	var/area/initial_loc
 	level = 1
+	layer = GAS_SCRUBBER_LAYER
+
+	var/area/initial_loc
 	var/area_uid
 	var/id_tag = null
 

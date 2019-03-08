@@ -3,11 +3,11 @@
 	desc = "A lightweight support lattice."
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "latticefull"
-	density = 0
-	anchored = 1.0
+	layer = LATTICE_LAYER //under pipes
+	plane = FLOOR_PLANE
+	density = FALSE
+	anchored = TRUE
 	w_class = ITEM_SIZE_NORMAL
-	layer = 2.3 //under pipes
-	//	flags = CONDUCT
 
 /obj/structure/lattice/initialize()
 	. = ..()
@@ -37,23 +37,15 @@
 
 /obj/structure/lattice/blob_act()
 	qdel(src)
-	return
 
 /obj/structure/lattice/ex_act(severity)
 	switch(severity)
 		if(1.0)
 			qdel(src)
-			return
 		if(2.0)
 			qdel(src)
-			return
-		if(3.0)
-			return
-		else
-	return
 
 /obj/structure/lattice/attackby(obj/item/C as obj, mob/user as mob)
-
 	if (istype(C, /obj/item/stack/tile/steel))
 		var/turf/T = get_turf(src)
 		T.attackby(C, user) //BubbleWrap - hand this off to the underlying turf instead
@@ -65,11 +57,7 @@
 		PoolOrNew(/obj/item/stack/rods, src.loc)
 		qdel(src)
 
-	return
-
 /obj/structure/lattice/proc/updateOverlays()
-	//if(!(istype(src.loc, /turf/space)))
-	//	qdel(src)
 	spawn(1)
 		overlays = list()
 
@@ -83,4 +71,3 @@
 					dir_sum += direction
 
 		icon_state = "lattice[dir_sum]"
-		return
