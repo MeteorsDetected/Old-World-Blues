@@ -160,7 +160,7 @@
 #include "code\controllers\ProcessScheduler\core\processScheduler.dm"
 #include "code\controllers\ProcessScheduler\core\updateQueue.dm"
 #include "code\controllers\ProcessScheduler\core\updateQueueWorker.dm"
-#include "code\controllers\subsystem\alarms.dm"
+#include "code\controllers\subsystem-datum\alarms.dm"
 #include "code\datums\ai_law_sets.dm"
 #include "code\datums\ai_laws.dm"
 #include "code\datums\browser.dm"
