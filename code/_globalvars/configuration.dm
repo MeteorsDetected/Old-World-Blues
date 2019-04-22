@@ -1,4 +1,4 @@
-var/datum/configuration/config      = null
+GLOBAL_REAL(config, /datum/controller/configuration)
 
 var/host = null
 var/station_name   = "NSS Exodus"

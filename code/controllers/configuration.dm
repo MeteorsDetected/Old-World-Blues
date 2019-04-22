@@ -1,6 +1,6 @@
 var/list/gamemode_cache = list()
 
-/datum/configuration
+/datum/controller/configuration
 	var/server_name = null				// server name (for world name / status)
 	var/server_group = null				// server group (for world name / status)
 	var/server_group_url = null			// server group site (for status)
@@ -201,7 +201,7 @@ var/list/gamemode_cache = list()
 	var/hard_popcap_message		= "The server is currently serving a high number of users, You cannot currently join. You may wait for the number of living crew to decline, observe, or find alternative servers."
 	var/extreme_popcap_message	= "The server is currently serving a high number of users, find alternative servers."
 
-/datum/configuration/New()
+/datum/controller/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
 	for (var/T in L)
 		// I wish I didn't have to instance the game modes in order to look up
@@ -218,7 +218,7 @@ var/list/gamemode_cache = list()
 					src.votable_modes += M.config_tag
 	src.votable_modes += "secret"
 
-/datum/configuration/proc/load(filename, type = "config") //the type can also be game_options, in which case it uses a different switch. not making it separate to not copypaste code - Urist
+/datum/controller/configuration/proc/load(filename, type = "config") //the type can also be game_options, in which case it uses a different switch. not making it separate to not copypaste code - Urist
 	var/list/Lines = file2list(filename)
 
 	for(var/t in Lines)
@@ -705,7 +705,7 @@ var/list/gamemode_cache = list()
 				else
 					log_misc("Unknown setting in configuration: '[name]'")
 
-/datum/configuration/proc/loadsql(filename)  // -- TLE
+/datum/controller/configuration/proc/loadsql(filename)  // -- TLE
 	var/list/Lines = file2list(filename)
 	for(var/t in Lines)
 		if(!t)	continue
@@ -751,7 +751,7 @@ var/list/gamemode_cache = list()
 			else
 				log_misc("Unknown setting in configuration: '[name]'")
 
-/datum/configuration/proc/loadforumsql(filename)  // -- TLE
+/datum/controller/configuration/proc/loadforumsql(filename)  // -- TLE
 	var/list/Lines = file2list(filename)
 	for(var/t in Lines)
 		if(!t)	continue
@@ -793,7 +793,7 @@ var/list/gamemode_cache = list()
 			else
 				log_misc("Unknown setting in configuration: '[name]'")
 
-/datum/configuration/proc/pick_mode(mode_name)
+/datum/controller/configuration/proc/pick_mode(mode_name)
 	// I wish I didn't have to instance the game modes in order to look up
 	// their information, but it is the only way (at least that I know of).
 	for (var/game_mode in gamemode_cache)
@@ -802,7 +802,7 @@ var/list/gamemode_cache = list()
 			return M
 	return gamemode_cache["extended"]
 
-/datum/configuration/proc/get_runnable_modes()
+/datum/controller/configuration/proc/get_runnable_modes()
 	var/list/runnable_modes = list()
 	for(var/game_mode in gamemode_cache)
 		var/datum/game_mode/M = gamemode_cache[game_mode]
