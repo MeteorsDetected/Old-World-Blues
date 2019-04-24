@@ -57,7 +57,7 @@
 		qdel(assembly)
 		assembly = null
 	qdel(wires)
-	..()
+	. = ..()
 
 /obj/machinery/camera/emp_act(severity)
 	if(!isEmpProof())

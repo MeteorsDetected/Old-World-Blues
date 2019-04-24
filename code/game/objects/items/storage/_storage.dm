@@ -30,7 +30,7 @@
 	close_all()
 	qdel(boxes)
 	qdel(closer)
-	..()
+	. = ..()
 
 /obj/item/storage/MouseDrop(obj/over_object as obj)
 	if(!ishuman(usr))

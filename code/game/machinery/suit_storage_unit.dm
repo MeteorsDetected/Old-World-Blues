@@ -594,7 +594,7 @@
 /obj/machinery/suit_cycler/Destroy()
 	qdel(wires)
 	wires = null
-	return ..()
+	. = ..()
 
 /obj/machinery/suit_cycler/engineering
 	name = "Engineering suit cycler"

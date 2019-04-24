@@ -34,7 +34,7 @@
 
 /obj/item/weapon/reagent_containers/rag/Destroy()
 	processing_objects -= src //so we don't continue turning to ash while gc'd
-	return ..()
+	. = ..()
 
 /obj/item/weapon/reagent_containers/rag/attack_self(mob/user as mob)
 	if(on_fire)

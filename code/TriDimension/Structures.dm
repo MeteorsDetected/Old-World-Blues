@@ -40,7 +40,7 @@
 /obj/multiz/ladder/Destroy()
 	if(target && icon_state == "ladderdown")
 		qdel(target)
-	return ..()
+	. = ..()
 
 /obj/multiz/ladder/attack_hand(var/mob/M)
 	if(!target || !istype(target.loc, /turf))

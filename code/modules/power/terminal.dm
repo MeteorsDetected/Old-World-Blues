@@ -24,7 +24,7 @@
 	if(master)
 		master.disconnect_terminal()
 		master = null
-	return ..()
+	. = ..()
 
 /obj/machinery/power/terminal/hide(var/i)
 	if(i)

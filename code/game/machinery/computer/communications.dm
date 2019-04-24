@@ -555,7 +555,7 @@
 	emergency_shuttle.call_evac()
 	log_game("All the AIs, comm consoles and boards are destroyed. Shuttle called.")
 
-	..()
+	. = ..()
 
 /obj/item/weapon/circuitboard/communications/Destroy()
 
@@ -577,4 +577,4 @@
 	emergency_shuttle.call_evac()
 	log_game("All the AIs, comm consoles and boards are destroyed. Shuttle called.")
 
-	..()
+	. = ..()

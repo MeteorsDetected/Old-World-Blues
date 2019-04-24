@@ -131,13 +131,6 @@ var/list/delayed_garbage = list()
 /turf/finalize_qdel()
 	del(src)
 
-// Default implementation of clean-up code.
-// This should be overridden to remove all references pointing to the object being destroyed.
-// Return true if the the GC controller should allow the object to continue existing. (Useful if pooling objects.)
-/datum/proc/Destroy()
-	tag = null
-	return
-
 #ifdef TESTING
 /client/var/running_find_references
 

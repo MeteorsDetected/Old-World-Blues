@@ -22,7 +22,7 @@
 /obj/item/weapon/plastique/Destroy()
 	qdel(wires)
 	wires = null
-	return ..()
+	. = ..()
 
 /obj/item/weapon/plastique/attackby(var/obj/item/I, var/mob/user)
 	if(istype(I, /obj/item/weapon/screwdriver))

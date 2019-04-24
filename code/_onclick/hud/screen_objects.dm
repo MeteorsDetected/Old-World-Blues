@@ -16,7 +16,7 @@
 
 /obj/screen/Destroy()
 	master = null
-	return ..()
+	. = ..()
 
 /obj/screen/text
 	icon = null
@@ -46,8 +46,8 @@
 	var/obj/item/owner
 
 /obj/screen/item_action/Destroy()
-	..()
 	owner = null
+	. = ..()
 
 /obj/screen/item_action/Click()
 	if(!usr || !owner)

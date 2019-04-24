@@ -20,7 +20,7 @@
 
 /obj/item/weapon/gun/energy/temperature/Destroy()
 	processing_objects.Remove(src)
-	..()
+	. = ..()
 
 
 /obj/item/weapon/gun/energy/temperature/attack_self(mob/living/user as mob)

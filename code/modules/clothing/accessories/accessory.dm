@@ -14,7 +14,7 @@
 /obj/item/clothing/accessory/Destroy()
 	if(has_suit)
 		on_removed()
-	return ..()
+	. = ..()
 
 //when user attached an accessory to S
 /obj/item/clothing/accessory/proc/on_attached(var/obj/item/clothing/S, var/mob/user)

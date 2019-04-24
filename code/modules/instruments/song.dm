@@ -26,10 +26,6 @@
 	instrument.create_full_sample_deviation_map()
 	spawn(1)	occupy_channels()
 
-
-/datum/synthesized_song/Destroy()
-	..()
-
 /datum/synthesized_song/proc/sanitize_tempo(new_tempo) // Identical to datum/song
 	new_tempo = abs(new_tempo)
 	return max(round(new_tempo, world.tick_lag), world.tick_lag)

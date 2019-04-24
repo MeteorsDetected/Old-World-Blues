@@ -68,13 +68,11 @@
 	if(processing)	shutdown_core()
 	visible_message("<span class='warning'>\The [src] melts!</span>")
 	//Might want to have it leave a mess on the floor but no sprites for now
-	..()
-	return
+	. = ..()
 
 
 /obj/machinery/am_shielding/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(air_group || (height==0))	return 1
-	return 0
+	return air_group || (height==0)
 
 
 /obj/machinery/am_shielding/process()

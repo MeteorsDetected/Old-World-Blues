@@ -45,7 +45,7 @@ var/list/organ_cache = list()
 	if(trace_chemicals) trace_chemicals.Cut()
 	processing_objects -= src
 
-	return ..()
+	. = ..()
 
 // Move organ inside new owner and attach it.
 /obj/item/organ/proc/install(mob/living/carbon/human/H, var/redraw_mob = 1)

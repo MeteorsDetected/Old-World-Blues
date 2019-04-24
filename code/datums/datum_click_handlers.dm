@@ -12,11 +12,9 @@
 //datum/click_handler/Prepare(/client/_owner)
 
 /datum/click_handler/Destroy()
-	..()
+	. = ..()
 	if (owner)
 		owner.CH = null
-	return
-//	owner = null
 
 /datum/click_handler/proc/mob_check(mob/living/carbon/human/user) //Check can mob use a ability
 	return

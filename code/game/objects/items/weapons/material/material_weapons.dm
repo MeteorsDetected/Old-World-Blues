@@ -62,7 +62,7 @@
 
 /obj/item/weapon/material/Destroy()
 	processing_objects -= src
-	..()
+	. = ..()
 
 /obj/item/weapon/material/attack()
 	if(!..())

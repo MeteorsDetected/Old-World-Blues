@@ -42,7 +42,7 @@
 	for(var/obj/effect/energy_field/D in field)
 		field.Remove(D)
 		D.forceMove(null)
-	..()
+	. = ..()
 
 /obj/machinery/shield_gen/emag_act(var/remaining_charges, var/mob/user)
 	if(prob(75))

@@ -104,7 +104,7 @@
 	if(wires)
 		qdel(wires)
 		wires = null
-	..()
+	. = ..()
 
 /obj/machinery/alarm/New(var/loc, var/dir, var/building = 0)
 	..()

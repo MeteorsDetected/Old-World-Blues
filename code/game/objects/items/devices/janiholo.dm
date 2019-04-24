@@ -71,7 +71,7 @@
 		qdel(src)
 
 /obj/effect/overlay/janiholo/Destroy()
-	. = ..()
 	processing_objects -= src
 	if(creator)
 		creator.holos -= src
+	. = ..()

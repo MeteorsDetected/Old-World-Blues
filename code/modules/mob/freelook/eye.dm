@@ -38,7 +38,7 @@
 		qdel(ghostimage)
 		ghostimage = null
 		updateallghostimages()
-	..()
+	. = ..()
 
 /mob/observer/eye/Move(n, direct)
 	if(owner == src)

@@ -23,7 +23,7 @@
 		qdel(guts)
 	for(var/food in stomach_contents)
 		qdel(food)
-	return ..()
+	. = ..()
 
 /mob/living/carbon/rejuvenate()
 	bloodstr.clear_reagents()

@@ -17,7 +17,7 @@
 /datum/teleport_target/Destroy()
 	if(master)
 		master.registered_targets -= target_obj
-	return ..()
+	. = ..()
 
 /datum/teleport_target/proc/is_active()
 	return FALSE

@@ -177,7 +177,7 @@ field_generator power level display
 
 /obj/machinery/field_generator/Destroy()
 	src.cleanup()
-	..()
+	. = ..()
 
 
 

@@ -249,7 +249,7 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/Destroy()
 	ai_list -= src
 	qdel(eyeobj)
-	..()
+	. = ..()
 
 /mob/living/silicon/ai/pointed(atom/A as mob|obj|turf in view())
 	set popup_menu = 0

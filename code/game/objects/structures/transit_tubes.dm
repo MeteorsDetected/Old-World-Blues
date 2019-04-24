@@ -51,7 +51,7 @@
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(loc)
 
-	..()
+	. = ..()
 
 
 

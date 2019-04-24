@@ -117,7 +117,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			req_console_assistance -= department
 			req_console_supplies -= department
 			req_console_information -= department
-	..()
+	. = ..()
 
 /obj/machinery/requests_console/attack_hand(user as mob)
 	if(..(user))

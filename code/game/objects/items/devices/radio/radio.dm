@@ -51,7 +51,7 @@
 		radio_controller.remove_object(src, frequency)
 		for (var/ch_name in channels)
 			radio_controller.remove_object(src, radiochannels[ch_name])
-	return ..()
+	. = ..()
 
 
 /obj/item/device/radio/initialize()

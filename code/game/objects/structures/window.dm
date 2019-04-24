@@ -360,7 +360,7 @@
 	density = 0
 	update_nearby_tiles()
 	update_nearby_icons()
-	..()
+	. = ..()
 
 
 /obj/structure/window/Move()

@@ -80,7 +80,7 @@
 	wires = null
 	for(var/obj/nano_module/rcon/R in world)
 		R.FindDevices()
-	return ..()
+	. = ..()
 
 // Proc: process()
 // Parameters: None

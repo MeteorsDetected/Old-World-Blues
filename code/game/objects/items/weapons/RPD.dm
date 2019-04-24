@@ -340,7 +340,7 @@ RPD
 /obj/item/weapon/rpd/Destroy()
 	qdel(spark_system)
 	spark_system = null
-	return ..()
+	. = ..()
 
 /*/obj/item/weapon/rpd/attackby(obj/item/weapon/W, mob/user)
 

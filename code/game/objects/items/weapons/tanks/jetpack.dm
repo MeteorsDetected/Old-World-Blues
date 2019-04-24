@@ -20,7 +20,7 @@
 
 /obj/item/weapon/tank/jetpack/Destroy()
 	qdel(ion_trail)
-	..()
+	. = ..()
 
 /obj/item/weapon/tank/jetpack/examine(mob/user, return_dist = 0)
 	. = ..()

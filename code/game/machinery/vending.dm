@@ -102,7 +102,7 @@
 	for(var/datum/stored_items/vending_products/R in product_records)
 		qdel(R)
 	product_records = null
-	return ..()
+	. = ..()
 
 /obj/machinery/vending/ex_act(severity)
 	switch(severity)

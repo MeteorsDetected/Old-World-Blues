@@ -131,7 +131,7 @@ var/global/list/image/ghost_sightless_images = list() //this is a list of images
 		qdel(ghostimage)
 		ghostimage = null
 		updateallghostimages()
-	..()
+	. = ..()
 
 /mob/observer/dead/verb/abandon_mob()
 	set name = "Respawn"
@@ -449,14 +449,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	for(var/mob/observer/dead/M in following_mobs)
 		M.following = null
 	following_mobs = null
-	return ..()
+	. = ..()
 
 /mob/observer/dead/Destroy()
 	if(ismob(following))
 		var/mob/M = following
 		M.following_mobs -= src
 	following = null
-	return ..()
+	. = ..()
 
 /mob/Move()
 	. = ..()

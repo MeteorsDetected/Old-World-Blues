@@ -12,7 +12,7 @@
 
 /obj/item/weapon/holder/Destroy()
 	processing_objects.Remove(src)
-	..()
+	. = ..()
 
 /obj/item/weapon/holder/process()
 

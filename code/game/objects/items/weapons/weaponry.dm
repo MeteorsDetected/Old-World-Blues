@@ -163,7 +163,7 @@
 		M << "You are free of the net!"
 
 	processing_objects -= src
-	..()
+	. = ..()
 
 /obj/effect/energy_net/proc/healthcheck()
 

@@ -32,7 +32,7 @@
 	qdel(keyslot2)
 	keyslot1 = null
 	keyslot2 = null
-	return ..()
+	. = ..()
 
 /obj/item/device/radio/headset/examine(mob/user, return_dist = 1)
 	. = ..()

@@ -42,7 +42,7 @@
 /obj/structure/simple_door/Destroy()
 	processing_objects -= src
 	update_nearby_tiles()
-	..()
+	. = ..()
 
 /obj/structure/simple_door/get_material()
 	return material

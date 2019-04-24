@@ -25,7 +25,7 @@
 	if(connected)
 		qdel(connected)
 		connected = null
-	return ..()
+	. = ..()
 
 /obj/structure/morgue/proc/get_occupants()
 	occupants.Cut()
@@ -160,12 +160,12 @@
 	if(connected && connected.connected == src)
 		connected.connected = null
 	connected = null
-	return ..()
+	. = ..()
 
 /obj/structure/m_tray/attack_hand(mob/user as mob)
-	if (src.connected)
+	if(src.connected)
 		for(var/atom/movable/A as mob|obj in src.loc)
-			if (!( A.anchored ))
+			if(!A.anchored)
 				A.forceMove(src.connected)
 			//Foreach goto(26)
 		src.connected.connected = null
@@ -173,8 +173,6 @@
 		add_fingerprint(user)
 		//SN src = null
 		qdel(src)
-		return
-	return
 
 /obj/structure/m_tray/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
 	if ((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src) || user.contents.Find(O)))
@@ -211,7 +209,7 @@
 	if(connected)
 		qdel(connected)
 		connected = null
-	return ..()
+	. = ..()
 
 /obj/structure/crematorium/proc/update()
 	if (src.connected)
@@ -387,7 +385,7 @@
 	if(connected && connected.connected == src)
 		connected.connected = null
 	connected = null
-	return ..()
+	. = ..()
 
 /obj/structure/c_tray/attack_hand(mob/user as mob)
 	if (src.connected)

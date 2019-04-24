@@ -95,7 +95,7 @@ var/mob/living/silicon/robot/global/list/redcode_robot_modules = list(
 	qdel(jetpack)
 	emag = null
 	jetpack = null
-	return ..()
+	. = ..()
 
 /obj/item/weapon/robot_module/emp_act(severity)
 	if(modules)

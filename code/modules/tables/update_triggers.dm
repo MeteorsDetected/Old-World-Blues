@@ -13,7 +13,7 @@
 	loc = null
 	updateTables(oldloc)
 	loc = oldloc
-	..()
+	. = ..()
 
 /obj/structure/window/Move()
 	var/oldloc = loc

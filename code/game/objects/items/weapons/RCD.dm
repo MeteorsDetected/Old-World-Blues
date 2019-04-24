@@ -45,7 +45,7 @@
 /obj/item/weapon/rcd/Destroy()
 	qdel(spark_system)
 	spark_system = null
-	return ..()
+	. = ..()
 
 /obj/item/weapon/rcd/attackby(obj/item/weapon/W, mob/user)
 

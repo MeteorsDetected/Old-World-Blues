@@ -38,7 +38,7 @@
 		var/obj/item/device/transfer_valve/TTV = loc
 		TTV.remove_tank(src)
 
-	..()
+	. = ..()
 
 /obj/item/weapon/tank/examine(mob/user, return_dist = 1)
 	. = ..()

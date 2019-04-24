@@ -22,7 +22,7 @@
 		if(T)
 			T.Entered(A)
 		step_rand(A)
-	return ..()
+	. = ..()
 
 /obj/mecha/working/Topic(href, href_list)
 	..()

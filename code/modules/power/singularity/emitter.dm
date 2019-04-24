@@ -44,7 +44,7 @@
 /obj/machinery/power/emitter/Destroy()
 	log_game("Emitter deleted.", src, 0)
 	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z])","singulo")
-	..()
+	. = ..()
 
 /obj/machinery/power/emitter/update_icon()
 	if (active && powernet && avail(active_power_usage))

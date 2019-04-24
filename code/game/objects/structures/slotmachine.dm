@@ -19,9 +19,6 @@
 	slots = list("1" = "Cherry","2" = "Cherry","3" = "Cherry")
 	update_icon()
 
-///obj/structure/slotmachine/Destroy()
-//	return ..()
-
 /obj/structure/slotmachine/update_icon()
 	overlays.Cut()
 	//From left to right
@@ -32,7 +29,6 @@
 		img.pixel_x += offset
 		overlays += img
 		offset += 6
-	return
 
 /obj/structure/slotmachine/proc/check_win()
 	var/win_slot = null
@@ -111,15 +107,3 @@
 		qdel(S)
 	src.add_fingerprint(user)
 	return
-
-/*
-/obj/effect/slotmachine_slot
-	name = "slot"
-	icon = 'icons/obj/bluestuff/slotmachine.dmi'
-	icon_state = "slot_Cherry"
-	invisibility = 60
-	var/slot = "Cherry"
-
-/obj/effect/slotmachine_slot/Destroy()
-	..()
-*/

@@ -170,7 +170,7 @@
 /obj/item/weapon/weldingtool/Destroy()
 	if(welding)
 		processing_objects -= src
-	return ..()
+	. = ..()
 
 /obj/item/weapon/weldingtool/examine(mob/user, return_dist = 1)
 	. = ..()

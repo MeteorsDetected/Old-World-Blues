@@ -424,4 +424,4 @@ var/bomb_set
 	if(blobstart.len > 0)
 		var/obj/D = new /obj/item/weapon/disk/nuclear(pick(blobstart))
 		log_game("[src] has been destroyed. Spawning [D].", D)
-	..()
+	. = ..()

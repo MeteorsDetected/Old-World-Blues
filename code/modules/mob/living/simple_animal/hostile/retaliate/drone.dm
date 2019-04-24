@@ -270,7 +270,7 @@
 			C.name = "Corrupted drone morality core"
 			C.origin_tech = list(TECH(T_ILLEGAL) = rand(3,6))
 
-	..()
+	. = ..()
 
 /obj/item/projectile/beam/drone
 	damage = 15

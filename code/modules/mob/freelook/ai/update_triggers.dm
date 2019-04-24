@@ -44,6 +44,6 @@
 /obj/machinery/camera/Destroy()
 	cameranet.cameras -= src
 	clear_all_networks()
-	..()
+	. = ..()
 
 #undef BORG_CAMERA_BUFFER

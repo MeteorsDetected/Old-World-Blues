@@ -21,7 +21,7 @@
 	known_targets.Cut()
 	qdel(hack_state)
 	hack_state = null
-	return ..()
+	. = ..()
 
 /obj/item/device/multitool/hacktool/attackby(var/obj/W, var/mob/user)
 	if(isscrewdriver(W))
@@ -92,7 +92,7 @@
 
 /datum/topic_state/default/must_hack/Destroy()
 	hacktool = null
-	return ..()
+	. = ..()
 
 /datum/topic_state/default/must_hack/can_use_topic(var/src_object, var/mob/user)
 	if(!hacktool || !hacktool.in_hack_mode || !(src_object in hacktool.known_targets))

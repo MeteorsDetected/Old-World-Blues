@@ -38,13 +38,13 @@
 	if(light)
 		light.destroy()
 		light = null
-	return ..()
+	. = ..()
 
 /atom/movable/Destroy()
 	var/turf/T = loc
 	if(opacity && istype(T))
 		T.reconsider_lights()
-	return ..()
+	. = ..()
 
 /atom/Entered(atom/movable/obj, atom/prev_loc)
 	. = ..()

@@ -61,7 +61,7 @@
 
 /obj/effect/landmark/Destroy()
 	landmarks_list -= src
-	return ..()
+	. = ..()
 
 /obj/effect/landmark/triai
 	name = "triai"

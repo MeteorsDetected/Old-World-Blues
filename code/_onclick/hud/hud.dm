@@ -152,7 +152,6 @@ var/list/global_huds = list(
 	..()
 
 /datum/hud/Destroy()
-	..()
 	grab_intent = null
 	hurt_intent = null
 	disarm_intent = null
@@ -169,6 +168,7 @@ var/list/global_huds = list(
 	hotkeybuttons = null
 	item_action_list = null
 	mymob = null
+	. = ..()
 
 /datum/hud/proc/hidden_inventory_update()
 	if(!mymob) return

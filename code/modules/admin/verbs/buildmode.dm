@@ -27,7 +27,7 @@
 	if(build_master && build_master.client)
 		build_master.client.screen -= src
 	build_master = null
-	return ..()
+	. = ..()
 
 /obj/screen/bmode/builddir
 	icon_state = "build"
@@ -166,7 +166,7 @@
 	buildquit = null
 	throw_atom = null
 	client = null
-	return ..()
+	. = ..()
 
 /obj/screen/bmode/buildmode
 	icon_state = "buildmode1"

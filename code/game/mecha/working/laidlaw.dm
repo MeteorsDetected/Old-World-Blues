@@ -18,7 +18,7 @@
 			T.Entered(A)
 		step_rand(A)
 	cargo.Cut()
-	..()
+	. = ..()
 
 /obj/mecha/working/laydlaw/verb/running_mode()
 	set category = "Exosuit Interface"

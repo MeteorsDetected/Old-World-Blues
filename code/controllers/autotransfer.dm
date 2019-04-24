@@ -9,6 +9,7 @@ var/datum/controller/transfer_controller/transfer_controller
 
 /datum/controller/transfer_controller/Destroy()
 	processing_objects -= src
+	return QDEL_HINT_HARDDEL
 
 /datum/controller/transfer_controller/proc/process()
 	currenttick = currenttick + 1

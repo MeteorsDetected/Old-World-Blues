@@ -1290,7 +1290,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	PDAs -= src
 	if (src.id && prob(90)) //IDs are kept in 90% of the cases
 		src.id.forceMove(get_turf(src.loc))
-	..()
+	. = ..()
 
 /obj/item/device/pda/proc/available_pdas()
 	var/list/names = list()

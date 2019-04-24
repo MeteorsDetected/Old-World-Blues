@@ -48,7 +48,7 @@
 	human_mob_list -= src
 	for(var/organ in organs)
 		qdel(organ)
-	return ..()
+	. = ..()
 
 /mob/living/carbon/human/proc/equip_survival_gear(var/datum/job/J)
 	species.equip_survival_gear(src, J)

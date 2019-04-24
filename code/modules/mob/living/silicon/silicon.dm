@@ -37,7 +37,7 @@
 	silicon_mob_list -= src
 	for(var/datum/alarm_handler/AH in alarm_manager.all_handlers)
 		AH.unregister(src)
-	..()
+	. = ..()
 
 /mob/living/silicon/proc/SetName(pickedName as text)
 	real_name = pickedName

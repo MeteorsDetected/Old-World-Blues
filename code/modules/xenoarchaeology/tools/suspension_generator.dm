@@ -319,7 +319,7 @@
 
 /obj/machinery/suspension_gen/Destroy()
 	deactivate()
-	..()
+	. = ..()
 
 /obj/machinery/suspension_gen/verb/rotate_ccw()
 	set src in view(1)
@@ -351,4 +351,4 @@
 /obj/effect/suspension_field/Destroy()
 	for(var/atom/movable/I in src)
 		I.forceMove(src.loc)
-	..()
+	. = ..()

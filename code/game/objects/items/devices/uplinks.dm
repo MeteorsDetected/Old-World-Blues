@@ -66,7 +66,7 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 
 /obj/item/device/uplink/Destroy()
 	world_uplinks -= src
-	..()
+	. = ..()
 
 /obj/item/device/uplink/proc/generate_items()
 	var/datum/nano_item_lists/IL = generate_item_lists()

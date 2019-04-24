@@ -230,7 +230,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/hologram/holopad/Destroy()
 	for (var/mob/living/silicon/ai/master in masters)
 		clear_holo(master)
-	..()
+	. = ..()
 
 /*
 Holographic project of everything else.

@@ -34,7 +34,7 @@
 		return 1
 	if (src && usr && usr.machine == src)
 		usr << browse(null, "window=stack")
-	return ..()
+	. = ..()
 
 /obj/item/stack/examine(mob/user, return_dist = 1)
 	. = ..()

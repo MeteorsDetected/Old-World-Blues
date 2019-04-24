@@ -26,7 +26,7 @@
 	for(var/mob/living/simple_animal/hostile/blobspore/spore in spores)
 		if(spore.factory == src)
 			spore.factory = null
-	..()
+	. = ..()
 
 /mob/living/simple_animal/hostile/blobspore
 	name = "blob"
@@ -69,4 +69,4 @@
 	if(factory)
 		factory.spores -= src
 		factory = null
-	..()
+	. = ..()

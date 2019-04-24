@@ -240,7 +240,7 @@
 		mmi = null
 	if(connected_ai)
 		connected_ai.connected_robots -= src
-	..()
+	. = ..()
 
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)

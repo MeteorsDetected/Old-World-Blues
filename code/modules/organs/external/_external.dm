@@ -149,7 +149,7 @@
 		owner.organs_by_name[organ_tag] = null
 		owner.bad_external_organs -= src
 
-	return ..()
+	. = ..()
 
 /obj/item/organ/external/removed(mob/living/user, var/redraw_mob = 1)
 	if(!owner)

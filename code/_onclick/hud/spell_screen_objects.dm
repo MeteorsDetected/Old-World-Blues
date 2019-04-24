@@ -13,12 +13,12 @@
 	var/mob/spell_holder
 
 /obj/screen/movable/spell_master/Destroy()
-	..()
 	for(var/obj/screen/spell/spells in spell_objects)
 		spells.spellmaster = null
 	spell_objects.Cut()
 	if(spell_holder)
 		spell_holder.spell_masters -= src
+	. = ..()
 
 /obj/screen/movable/spell_master/ResetVars()
 	..("spell_objects")
@@ -147,7 +147,6 @@
 	var/icon/last_charged_icon
 
 /obj/screen/spell/Destroy()
-	..()
 	spell = null
 	last_charged_icon = null
 	if(spellmaster)
@@ -155,6 +154,7 @@
 	if(spellmaster && !spellmaster.spell_objects.len)
 		qdel(spellmaster)
 	spellmaster = null
+	. = ..()
 
 /obj/screen/spell/proc/update_charge(var/forced_update = 0)
 	if(!spell)

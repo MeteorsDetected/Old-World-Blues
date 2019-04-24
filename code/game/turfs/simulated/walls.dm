@@ -37,7 +37,7 @@ var/list/global/wall_cache = list()
 /turf/simulated/wall/Destroy()
 	processing_turfs -= src
 	dismantle_wall(null,null,1)
-	..()
+	. = ..()
 
 /turf/simulated/wall/process()
 	// Calling parent will kill processing

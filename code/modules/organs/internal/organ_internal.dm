@@ -22,7 +22,7 @@
 		owner.internal_organs_by_name[organ_tag] = null
 	if(parent)
 		parent.internal_organs -= src
-	return ..()
+	. = ..()
 
 /obj/item/organ/internal/removed(mob/living/user)
 	if(!istype(owner)) return

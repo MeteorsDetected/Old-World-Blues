@@ -38,7 +38,7 @@
 
 /obj/item/organ/external/robotic/Destroy()
 	deactivate()
-	..()
+	. = ..()
 
 /obj/item/organ/external/robotic/removed()
 	deactivate(1)

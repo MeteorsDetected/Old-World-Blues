@@ -131,7 +131,7 @@
 /obj/structure/closet/body_bag/cryobag/Destroy()
 	qdel(tank)
 	tank = null
-	..()
+	. = ..()
 
 /obj/structure/closet/body_bag/cryobag/open()
 	. = ..()

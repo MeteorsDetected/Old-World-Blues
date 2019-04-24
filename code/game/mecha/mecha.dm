@@ -152,7 +152,7 @@
 	spark_system = null
 
 	mechas_list -= src //global mech list
-	..()
+	. = ..()
 
 /obj/mecha/update_icon()
 	if (initial_icon)

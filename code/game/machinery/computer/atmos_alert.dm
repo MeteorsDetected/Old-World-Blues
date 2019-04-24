@@ -17,7 +17,7 @@ var/global/list/minor_air_alarms = list()
 
 /obj/machinery/computer/atmos_alert/Destroy()
 	atmosphere_alarm.unregister(src)
-	..()
+	. = ..()
 
 /obj/machinery/computer/atmos_alert/attack_hand(mob/user)
 	ui_interact(user)

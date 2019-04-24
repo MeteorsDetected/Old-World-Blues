@@ -114,6 +114,7 @@ var/global/list/map_sectors = list()
 	if (can_die())
 		testing("Associated zlevel disappeared.")
 		world.maxz--
+	. = ..()
 
 /obj/effect/map/sector/temporary/proc/can_die(var/mob/observer)
 	testing("Checking if sector at [map_z] can die.")

@@ -76,7 +76,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	construction_state = 0
 	if(master)
 		master.part_scan()
-	..()
+	. = ..()
 
 /obj/structure/particle_accelerator/end_cap
 	name = "Alpha Particle Generation Array"
@@ -84,9 +84,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon_state = "end_cap"
 	reference = "end_cap"
 
-/obj/structure/particle_accelerator/update_icon()
-	..()
-	return
 
 
 /obj/structure/particle_accelerator/verb/rotate()

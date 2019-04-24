@@ -15,7 +15,7 @@
 /obj/machinery/portable_atmospherics/Destroy()
 	qdel(air_contents)
 	qdel(holding)
-	..()
+	. = ..()
 
 /obj/machinery/portable_atmospherics/initialize()
 	. = ..()
@@ -37,8 +37,7 @@
 
 /obj/machinery/portable_atmospherics/Destroy()
 	qdel(air_contents)
-
-	..()
+	. = ..()
 
 /obj/machinery/portable_atmospherics/proc/StandardAirMix()
 	return list(

@@ -19,7 +19,7 @@
 	for(var/trail in trails)
 		qdel(trail)
 	carried = null
-	return ..()
+	. = ..()
 
 /obj/item/projectile/spell_projectile/ex_act()
 	return

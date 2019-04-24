@@ -234,7 +234,7 @@
 			qdel(P.network)
 			P.node = null
 
-	..()
+	. = ..()
 
 /obj/machinery/atmospherics/omni/initialize()
 	for(var/datum/omni_port/P in ports)

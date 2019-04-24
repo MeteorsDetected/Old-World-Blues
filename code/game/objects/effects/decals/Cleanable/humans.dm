@@ -38,7 +38,7 @@ var/global/list/image/splatter_cache=list()
 
 /obj/effect/decal/cleanable/blood/Destroy()
 	processing_objects -= src
-	return ..()
+	. = ..()
 
 /obj/effect/decal/cleanable/blood/New()
 	..()

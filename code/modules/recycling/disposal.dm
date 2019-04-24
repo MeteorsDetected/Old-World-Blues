@@ -45,7 +45,7 @@
 	eject()
 	if(trunk)
 		trunk.linked = null
-	return ..()
+	. = ..()
 
 /obj/machinery/disposal/affect_grab(var/mob/living/user, var/mob/living/target)
 	user.visible_message("[user] starts putting [target] into the disposal.")
@@ -611,7 +611,7 @@
 /obj/structure/disposalholder/Destroy()
 	qdel(gas)
 	active = 0
-	return ..()
+	. = ..()
 
 // Disposal pipes
 
@@ -920,7 +920,7 @@
 		// otherwise, do normal expel from turf
 		if(H)
 			expel(H, T, 0)
-	..()
+	. = ..()
 
 // *** TEST verb
 //client/verb/dispstop()

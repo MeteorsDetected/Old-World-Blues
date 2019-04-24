@@ -31,7 +31,7 @@
 
 /obj/Destroy()
 	unbuckle_mob()
-	return ..()
+	. = ..()
 
 
 /obj/proc/buckle_mob(mob/living/M)
