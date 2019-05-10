@@ -8,13 +8,6 @@
 #define ENVIRON 3
 #define TOTAL   4 // For total power used only.
 
-// Bitflags for machine stat variable.
-#define BROKEN   0x1
-#define NOPOWER  0x2
-#define POWEROFF 0x4  // TBD.
-#define MAINT    0x8  // Under maintenance.
-#define EMPED    0x10 // Temporary broken by EMP pulse.
-
 #define AI_CAMERA_LUMINOSITY 6
 
 // Camera networks
