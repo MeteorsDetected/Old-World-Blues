@@ -124,7 +124,7 @@ var/list/VVckey_edit = list("key", "ckey")
 			L[var_value] = mod_list_add_ass() //haha
 		if("No")
 			L += var_value
-	world.log << "### ListVarEdit by [src]: [O.type] [objectvar]: ADDED=[var_value]"
+	log_world("### ListVarEdit by [src]: [O.type] [objectvar]: ADDED=[var_value]")
 	log_admin("[key_name(src)] modified [original_name]'s [objectvar]: ADDED=[var_value]", objectvar)
 
 /client/proc/mod_list(var/list/L, atom/O, original_name, objectvar)
@@ -275,7 +275,7 @@ var/list/VVckey_edit = list("key", "ckey")
 			modify_variables(variable)
 
 		if("DELETE FROM LIST")
-			world.log << "### ListVarEdit by [src]: [O.type] [objectvar]: REMOVED=[html_encode("[variable]")]"
+			log_world("### ListVarEdit by [src]: [O.type] [objectvar]: REMOVED=[html_encode("[variable]")]")
 			log_admin("[key_name(src)] modified [original_name]'s [objectvar]: REMOVED=[variable]", objectvar)
 			L -= variable
 			return
@@ -336,7 +336,7 @@ var/list/VVckey_edit = list("key", "ckey")
 			else
 				L[L.Find(variable)] = new_var
 
-	world.log << "### ListVarEdit by [src]: [O.type] [objectvar]: [original_var]=[new_var]"
+	log_world("### ListVarEdit by [src]: [O.type] [objectvar]: [original_var]=[new_var]")
 	log_admin("[key_name(src)] modified [original_name]'s [objectvar]: [original_var]=[new_var]", objectvar)
 
 /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)
@@ -579,5 +579,5 @@ var/list/VVckey_edit = list("key", "ckey")
 		if("marked datum")
 			O.vars[variable] = holder.marked_datum
 
-	world.log << "### VarEdit by [src]: [O.type] [variable]=[rhtml_encode("[O.vars[variable]]")]"
+	log_world("### VarEdit by [src]: [O.type] [variable]=[rhtml_encode("[O.vars[variable]]")]")
 	log_admin("[key_name(src)] modified [original_name]'s [variable] to [O.vars[variable]]", O)

@@ -21,10 +21,10 @@ var/list/gear_datums = list()
 		if(!use_name) // Basic type
 			continue
 		if(!initial(G.cost))
-			world.log << "Warning: Loadout - Missing cost: [G]"
+			log_world("Warning: Loadout - Missing cost: [G]")
 			continue
 		if(!initial(G.path))
-			world.log << "Loadout - Missing path definition: [G]"
+			log_world("Loadout - Missing path definition: [G]")
 			continue
 
 		if(!loadout_categories[use_category])

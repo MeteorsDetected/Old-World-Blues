@@ -274,7 +274,7 @@ var/list/mechtoys = list(
 					var/list/L = SP.access // access var is a plain var, we need a list
 					A.req_access = L.Copy()
 				else
-					world.log << "ERROR: Supply pack with invalid access [SP.access]. TYPE: [SP.type]"
+					log_world("ERROR: Supply pack with invalid access [SP.access]. TYPE: [SP.type]")
 
 			var/list/contains
 			if(istype(SP,/datum/supply_packs/randomised))

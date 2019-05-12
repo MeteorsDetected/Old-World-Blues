@@ -26,7 +26,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/initialize()
 	if(!plant_controller)
-		world.log << "PLANTS: Plant controller does not exist and [src] requires it. Aborting."
+		log_world("PLANTS: Plant controller does not exist and [src] requires it. Aborting.")
 		qdel(src)
 		return
 

@@ -78,7 +78,7 @@
 			count ++
 
 	if(count != 2)
-		world.log << "ERROR: Shuttle coner ([x],[y],[z]) has [count] neigbors. Must have only 2."
+		log_world("ERROR: Shuttle coner ([x],[y],[z]) has [count] neigbors. Must have only 2.")
 		new /turf/simulated/shuttle/wall(loc)
 		return INITIALIZE_HINT_QDEL
 	else

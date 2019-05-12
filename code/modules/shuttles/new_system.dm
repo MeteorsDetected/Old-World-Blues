@@ -44,11 +44,11 @@
 	set src in view(1)
 
 	if(name == initial(name))
-		world.log << "Failed to init shuttle_marker at ([x],[y],[z])"
+		log_world("Failed to init shuttle_marker at ([x],[y],[z])")
 		return
 	var/datum/shuttle/untethered/shuttle = new(src)
 	if(shuttle)
-		world.log << "Successfully init shuttle: [name]"
+		log_world("Successfully init shuttle: [name]")
 
 		invisibility = 101
 		src.verbs -= /obj/shuttle_marker/verb/setup

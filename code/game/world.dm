@@ -37,7 +37,7 @@ var/global/datum/global_init/init = new ()
 	changelog_hash = md5('html/changelog.html')					//used for telling if the changelog has changed recently
 
 	if(byond_version < RECOMMENDED_VERSION)
-		world.log << "Your server's byond version does not meet the recommended requirements for this server. Please update BYOND"
+		log_world("Your server's byond version does not meet the recommended requirements for this server. Please update BYOND")
 
 	if(config && config.server_name != null && config.server_suffix && world.port > 0)
 		// dumb and hardcoded but I don't care~
@@ -479,9 +479,9 @@ var/failed_db_connections = 0
 
 /hook/startup/proc/connectDB()
 	if(!setup_database_connection())
-		world.log << "Your server failed to establish a connection with the feedback database."
+		log_world("Your server failed to establish a connection with the feedback database.")
 	else
-		world.log << "Feedback database connection established."
+		log_world("Feedback database connection established.")
 	return 1
 
 /proc/setup_database_connection()
@@ -504,7 +504,7 @@ var/failed_db_connections = 0
 		failed_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
 	else
 		failed_db_connections++		//If it failed, increase the failed connections counter.
-		world.log << dbcon.ErrorMsg()
+		log_world(dbcon.ErrorMsg())
 
 	return .
 

@@ -9,17 +9,20 @@
 /var/global/log_end= world.system_type == UNIX ? ascii2text(13) : ""
 
 
+/proc/log_world(text)
+	world.log << text
+
 /proc/error(msg)
-	world.log << "## ERROR: [msg][log_end]"
+	log_world("## ERROR: [msg][log_end]")
 
 #define WARNING(MSG) warning("[MSG] in [__FILE__] at line [__LINE__] src: [src] usr: [usr].")
 //print a warning message to world.log
 /proc/warning(msg)
-	world.log << "## WARNING: [msg][log_end]"
+	log_world("## WARNING: [msg][log_end]")
 
 //print a testing-mode debug message to world.log
 /proc/testing(msg)
-	world.log << "## TESTING: [msg][log_end]"
+	log_world("## TESTING: [msg][log_end]")
 
 /proc/log_generic(var/type, var/message, var/location, var/log_to_diary = 1, var/notify_admin = 1, var/req_toggles = 0)
 	var/turf/T = get_turf(location)

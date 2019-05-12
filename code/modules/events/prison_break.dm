@@ -17,7 +17,7 @@
 	if(prisonAreas && prisonAreas.len > 0)
 		command_announcement.Announce("[pick("Gr3y.T1d3 virus","Malignant trojan")] detected in [station_name()] imprisonment subroutines. Recommend station AI involvement.", "Security Alert")
 	else
-		world.log << "ERROR: Could not initate grey-tide. Unable find prison or brig area."
+		log_world("ERROR: Could not initate grey-tide. Unable find prison or brig area.")
 		kill()
 
 

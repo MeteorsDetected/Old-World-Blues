@@ -71,7 +71,7 @@ var/datum/donations/donations = new()
 		dbcon2.Connect("dbi:mysql:forum2:[sqladdress]:[sqlport]","[sqlfdbklogin]","[sqlfdbkpass]")
 
 		if(!dbcon2.IsConnected())
-			world.log << "Failed to connect to database [dbcon2.ErrorMsg()] in load_donators()."
+			log_world("Failed to connect to database [dbcon2.ErrorMsg()] in load_donators().")
 			diary << "Failed to connect to database in load_donators()."
 			return 0
 

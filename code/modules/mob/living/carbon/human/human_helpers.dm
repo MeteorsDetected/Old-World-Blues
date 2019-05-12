@@ -56,7 +56,7 @@
 		if(gender in BB.genders)
 			body_build = BB
 			return 1
-	world.log << "Can't find possible body_build. Gender = [gender], Species = [species]"
+	log_world("Can't find possible body_build. Gender = [gender], Species = [species]")
 	return 0
 
 /mob/living/carbon/human/proc/get_knockout_message()
