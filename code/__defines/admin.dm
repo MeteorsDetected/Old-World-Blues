@@ -1,9 +1,9 @@
 #define ADMIN_VERB_ADD(path, params...)\
 	world/registrate_verbs() {..(); cmd_registrate_verb(path, params);}
 
-// A set of constants used to determine which type of mute an admin wishes to apply.
-// Please read and understand the muting/automuting stuff before changing these. MUTE_IC_AUTO, etc. = (MUTE_IC << 1)
-// Therefore there needs to be a gap between the flags for the automute flags.
+//A set of constants used to determine which type of mute an admin wishes to apply:
+//Please read and understand the muting/automuting stuff before changing these. MUTE_IC_AUTO etc = (MUTE_IC << 1)
+//Therefore there needs to be a gap between the flags for the automute flags
 #define MUTE_IC        0x1
 #define MUTE_OOC       0x2
 #define MUTE_LOOC      0x4
@@ -12,14 +12,12 @@
 #define MUTE_DEADCHAT  0x20
 #define MUTE_ALL       0xFFFF
 
-// Some constants for DB_Ban
-#define BANTYPE_PERMA       1
-#define BANTYPE_TEMP        2
-#define BANTYPE_JOB_PERMA   3
-#define BANTYPE_JOB_TEMP    4
-#define BANTYPE_ANY_FULLBAN 5 // Used to locate stuff to unban.
-
-#define ROUNDSTART_LOGOUT_REPORT_TIME 6000 // Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
+//Some constants for DB_Ban
+#define BANTYPE_PERMA		1
+#define BANTYPE_TEMP		2
+#define BANTYPE_JOB_PERMA	3
+#define BANTYPE_JOB_TEMP	4
+#define BANTYPE_ANY_FULLBAN	5 //used to locate stuff to unban.
 
 // Admin permissions.
 #define R_BUILDMODE     0x1
@@ -40,4 +38,6 @@
 // Number of identical messages required to get the spam-prevention auto-mute thing to trigger warnings and automutes.
 #define SPAM_TRIGGER_WARNING  5
 #define SPAM_TRIGGER_AUTOMUTE 10
+
+#define ROUNDSTART_LOGOUT_REPORT_TIME	6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
 

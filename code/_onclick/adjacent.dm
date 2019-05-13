@@ -10,7 +10,7 @@
 	Note that in all cases the neighbor is handled simply; this is usually the user's mob, in which case it is up to you
 	to check that the mob is not inside of something
 */
-/atom/proc/Adjacent(var/atom/neighbor) // basic inheritance, unused
+/atom/proc/Adjacent(atom/neighbor) // basic inheritance, unused
 	return 0
 
 // Not a sane use of the function and (for now) indicative of an error elsewhere
@@ -28,15 +28,16 @@
 /turf/Adjacent(var/atom/neighbor, var/atom/target = null)
 	var/turf/T0 = get_turf(neighbor)
 	if(T0 == src)
-		return 1
+		return TRUE
 	if(get_dist(src,T0) > 1 || (src.z!=T0.z))
-		return 0
+		return FALSE
 
+	// Non diagonal case
 	if(T0.x == x || T0.y == y)
 		// Check for border blockages
 		return T0.ClickCross(get_dir(T0,src), border_only = 1) && src.ClickCross(get_dir(src,T0), border_only = 1, target_atom = target)
 
-	// Not orthagonal
+	// Diagonal case
 	var/in_dir = get_dir(neighbor,src) // eg. northwest (1+8)
 	var/d1 = in_dir&(in_dir-1)		// eg west		(1+8)&(8) = 8
 	var/d2 = in_dir - d1			// eg north		(1+8) - 8 = 1
@@ -80,14 +81,17 @@ Quick adjacency (to turf):
 */
 /atom/movable/Adjacent(var/atom/neighbor)
 	if(neighbor == loc) return 1
-	if(!isturf(loc)) return 0
+	if(!isturf(loc))
+		return FALSE
 	for(var/turf/T in locs)
-		if(T.Adjacent(neighbor,src)) return 1
-	return 0
+		if(T.Adjacent(neighbor,src))
+			return TRUE
+	return FALSE
 
 // This is necessary for storage items not on your person.
 /obj/item/Adjacent(var/atom/neighbor, var/recurse = 1)
-	if(neighbor == loc) return 1
+	if(neighbor == loc)
+		return 1
 	if(istype(loc,/obj/item))
 		if(recurse > 0)
 			return loc.Adjacent(neighbor,recurse - 1)

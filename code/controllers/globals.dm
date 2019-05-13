@@ -33,7 +33,7 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 			var/list/expected_global_procs = vars - gvars_datum_in_built_vars
 			for(var/I in global_procs)
 				expected_global_procs -= replacetext("[I]", "InitGlobal", "")
-			world << "Missing procs: [expected_global_procs.Join(", ")]"
+			log_world("Missing procs: [expected_global_procs.Join(", ")]")
 	for(var/I in global_procs)
 		var/start_tick = world.time
 		call(src, I)()
