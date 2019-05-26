@@ -7,13 +7,13 @@ var/global/datum/alarm_handler/motion/motion_alarm			= new()
 var/global/datum/alarm_handler/power/power_alarm			= new()
 
 /datum/subsystem/alarm
-	name = "Alarm"
+	var/name = "Alarm"
 	var/list/datum/alarm/all_handlers
 
 /datum/subsystem/alarm/New()
 	all_handlers = list(atmosphere_alarm, camera_alarm, fire_alarm, motion_alarm, power_alarm)
 
-/datum/subsystem/alarm/fire()
+/datum/subsystem/alarm/proc/fire()
 	for(var/datum/alarm_handler/AH in all_handlers)
 		AH.process()
 
