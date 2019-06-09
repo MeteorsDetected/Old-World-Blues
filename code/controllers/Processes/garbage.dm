@@ -1,6 +1,16 @@
 var/datum/controller/process/garbage_collector/garbage_collector
 var/list/delayed_garbage = list()
 
+/**
+ * var/disposed
+ *
+ * In goonstation, disposed is set to 1 after an object enters the delete queue
+ * or the object is placed in an object pool (effectively out-of-play so to speak)
+ */
+/datum/var/disposed
+// Garbage collection (controller).
+/datum/var/tmp/gc_destroyed
+
 #undef GC_DEBUG
 
 /datum/controller/process/garbage_collector
@@ -56,7 +66,7 @@ var/list/delayed_garbage = list()
 		#ifdef GC_DEBUG
 		testing("GC: [refID] old enough to test: GCd_at_time: [GCd_at_time] time_to_kill: [time_to_kill] current: [world.time]")
 		#endif
-		if(A && A.gcDestroyed == GCd_at_time) // So if something else coincidently gets the same ref, it's not deleted by mistake
+		if(A && A.gc_destroyed == GCd_at_time) // So if something else coincidently gets the same ref, it's not deleted by mistake
 			// Something's still referring to the qdel'd object.  Kill it.
 			//testing("GC: -- \ref[A] | [A.type] was unable to be GC'd and was deleted --")
 			//logging["[A.type]"]++
@@ -70,12 +80,12 @@ var/list/delayed_garbage = list()
 		destroyed.Cut(1, 2)
 
 /datum/controller/process/garbage_collector/proc/AddTrash(datum/A)
-	if(!istype(A) || !isnull(A.gcDestroyed))
+	if(!istype(A) || !isnull(A.gc_destroyed))
 		return
 	#ifdef GC_DEBUG
 	testing("GC: AddTrash(\ref[A] - [A.type])")
 	#endif
-	A.gcDestroyed = world.time
+	A.gc_destroyed = world.time
 	destroyed -= "\ref[A]" // Removing any previous references that were GC'd so that the current object will be at the end of the list.
 	destroyed["\ref[A]"] = world.time
 
@@ -84,7 +94,7 @@ var/list/delayed_garbage = list()
 
 // Tests if an atom has been deleted.
 /proc/deleted(atom/A)
-	return !A || !isnull(A.gcDestroyed)
+	return !A || !isnull(A.gc_destroyed)
 
 // Should be treated as a replacement for the 'del' keyword.
 // Datums passed to this will be given a chance to clean up references to allow the GC to collect them.
@@ -98,7 +108,7 @@ var/list/delayed_garbage = list()
 		if(garbage_collector)
 			garbage_collector.dels++
 			garbage_collector.hard_dels++
-	else if(isnull(A.gcDestroyed))
+	else if(isnull(A.gc_destroyed))
 		// Let our friend know they're about to get collected
 		. = !A.Destroy()
 		if(. && A)
@@ -190,7 +200,7 @@ var/list/delayed_garbage = list()
 	if(garbage_collector)
 		while(garbage_collector.destroyed.len)
 			var/datum/o = locate(garbage_collector.destroyed[1])
-			if(istype(o) && o.gcDestroyed)
+			if(istype(o) && o.gc_destroyed)
 				del(o)
 				garbage_collector.dels++
 			garbage_collector.destroyed.Cut(1, 2)

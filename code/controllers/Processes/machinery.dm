@@ -19,7 +19,7 @@
 /datum/controller/process/machinery/proc/internal_process_machinery()
 	for(last_object in machines)
 		var/obj/machinery/M = last_object
-		if(M && !M.gcDestroyed)
+		if(M && !M.gc_destroyed)
 			if(M.process() == PROCESS_KILL)
 				//M.inMachineList = 0 We don't use this debugging function
 				machines.Remove(M)

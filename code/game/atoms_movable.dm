@@ -23,7 +23,7 @@
 
 /*
 /atom/movable/Del()
-	if(isnull(gcDestroyed) && loc)
+	if(isnull(gc_destroyed) && loc)
 		testing("GC: -- [type] was deleted via del() rather than qdel() --")
 
 		// stick a stack trace in the runtime logs
