@@ -44,7 +44,7 @@ var/list/gamemode_cache = list()
 	var/protect_roles_from_antagonist = 0// If security and such can be traitor/cult/other
 	var/continous_rounds = 0			// Gamemodes which end instantly will instead keep on going until the round ends by escape shuttle or nuke.
 	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
-	var/Ticklag = 0.5
+	var/fps = 30
 	var/list/resource_urls = null
 	var/antag_hud_allowed = 0			// Ghosts can turn on Antagovision to see a HUD of who is the bad guys this round.
 	var/antag_hud_restricted = 0                    // Ghosts that turn on Antagovision cannot rejoin the round.
@@ -506,8 +506,8 @@ var/list/gamemode_cache = list()
 				if("allow_holidays")
 					Holiday = 1
 
-				if("ticklag")
-					Ticklag = text2num(value)
+				if("fps")
+					fps = text2num(fps)
 
 				if("allow_antag_hud")
 					config.antag_hud_allowed = 1

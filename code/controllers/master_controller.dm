@@ -33,7 +33,7 @@ var/global/atomInstantInitialize = FALSE
 	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
 
 /datum/controller/game_controller/proc/setup()
-	world.tick_lag = config.Ticklag
+	world.fps = config.fps
 
 	spawn(20)
 		createRandomZlevel()

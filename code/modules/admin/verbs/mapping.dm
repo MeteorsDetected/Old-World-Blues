@@ -133,7 +133,7 @@ var/list/debug_verbs = list (
 	/client/proc/count_objects_all,
 	/client/proc/cmd_assume_direct_control,
 	/client/proc/startSinglo,
-	/client/proc/ticklag,
+	/client/proc/set_fps,
 	/client/proc/cmd_admin_grantfullaccess,
 	/client/proc/kaboom,
 	/client/proc/cmd_admin_areatest,

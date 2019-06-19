@@ -1,18 +1,19 @@
 //Merged Doohl's and the existing ticklag as they both had good elements about them ~Carn
 
-/client/proc/ticklag()
+/client/proc/set_fps()
 	set category = "Debug"
-	set name = "Set Ticklag"
-	set desc = "Sets a new tick lag. Recommend you don't mess with this too much! Stable, time-tested ticklag value is 0.9"
+	set name = "Set FPS"
+	set desc = "Sets a new fps"
 
-	if(!check_rights(R_DEBUG))	return
+	if(!check_rights(R_DEBUG))
+		return
 
-	var/newtick = input("Sets a new tick lag. Please don't mess with this too much! The stable, time-tested ticklag value is 0.9","Lag of Tick", world.tick_lag) as num|null
+	var/newfps = input("Sets a new fps","Frame per second", world.fps) as num|null
 	//I've used ticks of 2 before to help with serious singulo lags
-	if(newtick && newtick <= 2 && newtick > 0)
-		log_admin("[key_name(src)] has modified world.tick_lag to [newtick]")
-		world.tick_lag = newtick
+	if(newfps && newfps <= 100 && newfps > 14)
+		log_admin("[key_name(src)] has modified world.fps to [newfps]")
+		world.fps = newfps
 	else
-		src << "\red Error: ticklag(): Invalid world.ticklag value. No changes made."
+		src << SPAN_WARN("Error: set_fps(): Invalid world.fps value. No changes made.")
 
 
