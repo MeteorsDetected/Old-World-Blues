@@ -26,7 +26,6 @@ var/global/atomInstantInitialize = FALSE
 	if(!job_master)
 		job_master = new /datum/controller/occupations()
 		job_master.SetupOccupations()
-		job_master.LoadJobs("config/jobs.txt")
 		admin_notice("<span class='danger'>Job setup complete</span>", R_DEBUG)
 
 	if(!Xenoarch)

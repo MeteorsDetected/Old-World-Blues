@@ -66,7 +66,6 @@ var/list/gamemode_cache = list()
 	var/mods_can_job_tempban = 0
 	var/mod_tempban_max = 1440
 	var/mod_job_tempban_max = 1440
-	var/load_jobs_from_txt = 0
 	var/panic_bunker = 0
 	var/ToRban = 0
 	var/automute_on = 0					//enables automuting/spam prevention
@@ -475,9 +474,6 @@ var/list/gamemode_cache = list()
 
 				if("mod_job_tempban_max")
 					config.mod_job_tempban_max = text2num(value)
-
-				if("load_jobs_from_txt")
-					load_jobs_from_txt = 1
 
 				if("alert_red_upto")
 					config.alert_desc_red_upto = value
