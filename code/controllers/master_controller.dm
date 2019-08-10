@@ -29,6 +29,9 @@ var/global/atomInstantInitialize = FALSE
 		job_master.LoadJobs("config/jobs.txt")
 		admin_notice("<span class='danger'>Job setup complete</span>", R_DEBUG)
 
+	if(!Xenoarch)
+		Xenoarch = new()
+
 	if(!syndicate_code_phrase)		syndicate_code_phrase	= generate_code_phrase()
 	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
 
@@ -39,7 +42,7 @@ var/global/atomInstantInitialize = FALSE
 		createRandomZlevel()
 
 	setup_objects()
-	SetupXenoarch()
+	Xenoarch.SetupXenoarch()
 
 	transfer_controller = new
 
