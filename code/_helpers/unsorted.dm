@@ -1304,3 +1304,8 @@ var/mob/dview/dview_mob = new
 			if(5 to 7)
 				out += 3
 		.[dir] = out
+
+/proc/CallAsync(datum/source, proctype, list/arguments)
+	set waitfor = FALSE
+	return call(source, proctype)(arglist(arguments))
+
