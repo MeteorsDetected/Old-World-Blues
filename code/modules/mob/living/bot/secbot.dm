@@ -345,7 +345,7 @@
 		if(threat >= 4)
 			target = M
 			say("Level [threat] infraction alert!")
-			custom_emote(1, "points at [M.name]!")
+			custom_emote(MESSAGE_VISIBLE, "points at [M.name]!")
 			mode = SECBOT_HUNT
 			break
 	return

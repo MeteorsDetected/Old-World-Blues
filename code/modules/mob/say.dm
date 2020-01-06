@@ -28,7 +28,7 @@
 
 	set_typing_indicator(0)
 	if(use_me)
-		usr.custom_emote(usr.emote_type,message)
+		usr.custom_emote(usr.emote_type, message)
 	else
 		usr.emote(message)
 

@@ -117,7 +117,7 @@ var/list/channel_to_radio_key = new
 		if("*")
 			return emote(copytext(message, 2))
 		if("^")
-			return custom_emote(1, copytext(message, 2))
+			return custom_emote(MESSAGE_VISIBLE, copytext(message, 2))
 
 	//parse the radio code and consume it
 	if(message_mode)
@@ -205,7 +205,7 @@ var/list/channel_to_radio_key = new
 	if(speaking)
 		if(speaking.flags&NONVERBAL)
 			if(prob(30))
-				src.custom_emote(1, "[pick(speaking.signlang_verb)].")
+				src.custom_emote(MESSAGE_VISIBLE, "[pick(speaking.signlang_verb)].")
 
 		if(speaking.flags&SIGNLANG)
 			return say_signlang(message, pick(speaking.signlang_verb), speaking)

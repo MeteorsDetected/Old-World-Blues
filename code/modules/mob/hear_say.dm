@@ -138,10 +138,5 @@
 	else
 		message = "<B>[src]</B> [verb]."
 
-	if(src.status_flags & PASSEMOTES)
-		for(var/obj/item/weapon/holder/H in src.contents)
-			H.show_message(message)
-		for(var/mob/living/M in src.contents)
-			M.show_message(message)
 	src.show_message(message)
 

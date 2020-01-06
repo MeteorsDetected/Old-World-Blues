@@ -13,18 +13,6 @@
 /// Returned in PostTransfer to prevent transfer, similar to `COMPONENT_INCOMPATIBLE`
 #define COMPONENT_NOTRANSFER 2
 
-/// Return value to cancel attaching
-#define ELEMENT_INCOMPATIBLE 1
-
-// /datum/element flags
-/// Causes the detach proc to be called when the host object is being deleted
-#define ELEMENT_DETACH		(1 << 0)
-/**
-  * Only elements created with the same arguments given after `id_arg_index` share an element instance
-  * The arguments are the same when the text and number values are the same and all other values have the same ref
-  */
-#define ELEMENT_BESPOKE		(1 << 1)
-
 // How multiple components of the exact same type are handled in the same datum
 /// old component is deleted (default)
 #define COMPONENT_DUPE_HIGHLANDER		0

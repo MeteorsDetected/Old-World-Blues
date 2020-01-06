@@ -155,7 +155,7 @@
 		return
 
 	if(melee_damage_upper == 0 && isliving(A))
-		custom_emote(1,"[friendly] [A]!")
+		custom_emote(MESSAGE_VISIBLE,"[friendly] [A]!")
 		return
 
 	setClickCooldown(DEFAULT_ATTACK_COOLDOWN)

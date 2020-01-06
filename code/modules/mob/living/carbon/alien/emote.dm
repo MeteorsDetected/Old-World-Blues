@@ -1,4 +1,4 @@
-/mob/living/carbon/alien/emote(var/act,var/m_type=1,var/message = null)
+/mob/living/carbon/alien/emote(var/act, var/m_type = MESSAGE_VISIBLE, var/message = null)
 
 	var/param = null
 	if (findtext(act, "-", 1, null))

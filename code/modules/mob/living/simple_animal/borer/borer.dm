@@ -165,10 +165,7 @@
 	host.reset_view(null)
 	host.machine = null
 
-	var/mob/living/H = host
-	H.status_flags &= ~PASSEMOTES
 	host = null
-	return
 
 //Procs for grabbing players.
 /mob/living/simple_animal/borer/proc/request_player()

@@ -49,8 +49,6 @@
 
 	grabber << "You scoop up [src]."
 	src << "[grabber] scoops you up."
-	grabber.status_flags |= PASSEMOTES
-	return
 
 //Mob specific holders.
 /obj/item/weapon/holder/diona

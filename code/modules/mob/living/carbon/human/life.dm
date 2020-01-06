@@ -1396,7 +1396,8 @@
 		src << "<span class='danger'>[pick("It hurts so much", "You really need some painkillers", "Dear god, the pain")]!</span>"
 
 	if(shock_stage >= 30)
-		if(shock_stage == 30) custom_emote(1,"is having trouble keeping their eyes open.")
+		if(shock_stage == 30)
+			custom_emote(MESSAGE_VISIBLE,"is having trouble keeping their eyes open.")
 		eye_blurry = max(2, eye_blurry)
 		stuttering = max(stuttering, 5)
 
@@ -1404,7 +1405,8 @@
 		src << "<span class='danger'>[pick("The pain is excruciating", "Please, just end the pain", "Your whole body is going numb")]!</span>"
 
 	if (shock_stage >= 60)
-		if(shock_stage == 60) custom_emote(1,"'s body becomes limp.")
+		if(shock_stage == 60)
+			custom_emote(MESSAGE_VISIBLE,"'s body becomes limp.")
 		if (prob(2))
 			src << "<span class='danger'>[pick("The pain is excruciating", "Please, just end the pain", "Your whole body is going numb")]!</span>"
 			Weaken(20)
@@ -1416,11 +1418,11 @@
 
 	if(shock_stage >= 120)
 		if (prob(2))
-			src << "<span class='danger'>[pick("You black out", "You feel like you could die any moment now", "You're about to lose consciousness")]!</span>"
+			src << "<span class='danger'>[pick("You black out", "You feel like you could die any moment now", "You're about to lose consciousness")]!"
 			Paralyse(5)
 
 	if(shock_stage == 150)
-		custom_emote(1,"can no longer stand, collapsing!")
+		custom_emote(MESSAGE_VISIBLE,"can no longer stand, collapsing!")
 		Weaken(20)
 
 	if(shock_stage >= 150)

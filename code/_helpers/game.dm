@@ -77,12 +77,14 @@
 	for(var/mob/M in mob_list)
 		if(M.loc && M.locs[1] in T)
 			. += M
+		else if(isnewplayer(M))
+			continue
 		else if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTEARS))
 			. += M
 
-		for(var/obj/O in hearing_objects)
-			if(O.loc && O.locs[1] in T)
-				. += O
+	for(var/obj/O in hearing_objects)
+		if(O.loc && O.locs[1] in T)
+			. += O
 
 
 /proc/get_players_in_view(var/range, var/atom/source)

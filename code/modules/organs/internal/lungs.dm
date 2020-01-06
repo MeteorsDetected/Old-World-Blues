@@ -17,7 +17,7 @@
 
 	if(is_bruised())
 		if(prob(2))
-			spawn owner.custom_emote(1, "coughs up blood!")
+			spawn owner.custom_emote(MESSAGE_VISIBLE, "coughs up blood!")
 			owner.drip(10)
 		if(prob(4))
 			spawn owner.emote("gasp")

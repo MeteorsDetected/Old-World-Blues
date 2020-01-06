@@ -34,7 +34,6 @@ be able to influence the host through various commands.
 	src.host = host
 	src.forceMove(host)
 	host.parasites.Add(src)
-	host.status_flags |= PASSEMOTES
 
 	if(client)
 		client.eye = host

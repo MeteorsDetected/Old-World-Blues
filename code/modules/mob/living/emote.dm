@@ -1,11 +1,11 @@
-/mob/living/custom_emote(var/m_type=1,var/message = null)
+/mob/living/custom_emote(var/m_type = MESSAGE_VISIBLE, var/message = null)
 
 	if(stat || !use_me && usr == src)
 		src << "You are unable to emote."
 		return 0
 
 	if(!message)
-		message = sanitize(input(src,"Choose an emote to display.") as text|null)
+		message = sanitize(input(src, "Choose an emote to display.") as text|null)
 
 	if(!message)
 		return 0
@@ -19,8 +19,8 @@
 
 	var/list/seeing_obj = list() //For objs that need to see emotes.  You can use see_emote(), which is based off of hear_talk()
 
-// Hearing gasp and such every five seconds is not good emotes were not global for a reason.
-// Maybe some people are okay with that.
+	// Hearing gasp and such every five seconds is not good emotes were not global for a reason.
+	// Maybe some people are okay with that.
 
 	for(var/mob/M in player_list)
 		if (!M.client)
@@ -47,14 +47,6 @@
 		//but this saves many headaches down the road, involving mechs and pAIs.
 		//x-ray is so rare these days anyways.
 		for (var/mob/O in viewers(get_turf(src), null))
-			if(O.status_flags & PASSEMOTES)
-
-				for(var/obj/item/weapon/holder/H in O.contents)
-					H.show_message(message, m_type)
-
-				for(var/mob/living/M in O.contents)
-					M.show_message(message, m_type)
-
 			O.show_message(message, m_type)
 
 		for(var/obj/O in seeing_obj)
@@ -66,15 +58,6 @@
 	// of the *LOCATION* -- this is important for AIs/pAIs to be heard
 	else if (m_type & 2)
 		for (var/mob/O in hearers(get_turf(src), null))
-
-			if(O.status_flags & PASSEMOTES)
-
-				for(var/obj/item/weapon/holder/H in O.contents)
-					H.show_message(message, m_type)
-
-				for(var/mob/living/M in O.contents)
-					M.show_message(message, m_type)
-
 			O.show_message(message, m_type)
 
 		for(var/obj/O in seeing_obj)
