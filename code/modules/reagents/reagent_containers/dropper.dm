@@ -27,7 +27,7 @@
 			user << SPAN_NOTE("[target] is full.")
 			return
 
-		if(!target.is_open_container() && !ismob(target) && !istype(target, /obj/item/weapon/reagent_containers/food) && !istype(target, /obj/item/clothing/mask/smokable/cigarette)) //You can inject humans and food but you cant remove the shit.
+		if(!target.is_open_container() && !ismob(target) && !istype(target, /obj/item/weapon/reagent_containers/food) && !istype(target, /obj/item/smokable/cigarette)) //You can inject humans and food but you cant remove the shit.
 			user << SPAN_NOTE("You cannot directly fill this object.")
 			return
 

@@ -44,15 +44,15 @@ var/global/list/ashtray_cache = list()
 /obj/item/weapon/material/ashtray/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (health <= 0)
 		return
-	if (istype(W,/obj/item/weapon/cigbutt) || istype(W,/obj/item/clothing/mask/smokable/cigarette) || istype(W, /obj/item/weapon/flame/match))
+	if (istype(W,/obj/item/weapon/cigbutt) || istype(W,/obj/item/smokable/cigarette) || istype(W, /obj/item/weapon/flame/match))
 		if (contents.len >= max_butts)
 			user << "\The [src] is full."
 			return
 		user.remove_from_mob(W)
 		W.forceMove(src)
 
-		if (istype(W,/obj/item/clothing/mask/smokable/cigarette))
-			var/obj/item/clothing/mask/smokable/cigarette/cig = W
+		if (istype(W,/obj/item/smokable/cigarette))
+			var/obj/item/smokable/cigarette/cig = W
 			if (cig.lit == 1)
 				src.visible_message("[user] crushes [cig] in \the [src], putting it out.")
 				processing_objects.Remove(cig)
@@ -82,7 +82,7 @@ var/global/list/ashtray_cache = list()
 		health = max(0,health - 3)
 		if (contents.len)
 			src.visible_message("<span class='danger'>\The [src] slams into [hit_atom], spilling its contents!</span>")
-		for (var/obj/item/clothing/mask/smokable/cigarette/O in contents)
+		for (var/obj/item/smokable/cigarette/O in contents)
 			O.forceMove(src.loc)
 		if (health < 1)
 			shatter()

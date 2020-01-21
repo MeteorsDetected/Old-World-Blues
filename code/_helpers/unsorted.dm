@@ -1040,7 +1040,7 @@ var/global/list/common_tools = list(
 				return 1000
 			else
 				return 0
-		if(/obj/item/clothing/mask/smokable/cigarette)
+		if(/obj/item/smokable/cigarette)
 			if(W:lit)
 				return 1000
 			else
@@ -1077,7 +1077,7 @@ var/global/list/common_tools = list(
 		/obj/item/weapon/weldingtool,
 		/obj/item/weapon/flame/lighter/zippo,
 		/obj/item/weapon/flame/match,
-		/obj/item/clothing/mask/smokable/cigarette,
+		/obj/item/smokable/cigarette,
 		/obj/item/weapon/shovel \
 	) )
 

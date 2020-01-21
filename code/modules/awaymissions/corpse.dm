@@ -224,7 +224,7 @@
 	corpsesuit = /obj/item/clothing/suit/armor/bulletproof
 	corpseradio = /obj/item/device/radio/headset/heads/captain
 	corpseglasses = /obj/item/clothing/glasses/eyepatch
-	corpsemask = /obj/item/clothing/mask/smokable/cigarette/cigar/cohiba
+	corpsemask = /obj/item/smokable/cigarette/cigar/cohiba
 	corpsehelmet = /obj/item/clothing/head/centhat
 	corpsegloves = /obj/item/clothing/gloves/black/swat
 	corpseshoes = /obj/item/clothing/shoes/jackboots/swat

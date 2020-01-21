@@ -80,7 +80,7 @@ RSF
 
 	switch(mode)
 		if(1)
-			product = new /obj/item/clothing/mask/smokable/cigarette()
+			product = new /obj/item/smokable/cigarette()
 			used_energy = 10
 		if(2)
 			product = new /obj/item/weapon/reagent_containers/glass/drinks/drinkingglass()

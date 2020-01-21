@@ -678,7 +678,7 @@ var/global/list/damage_icon_parts = list()
 		standing.appearance_flags = RESET_COLOR
 		standing.color = wear_mask.color
 
-		if( !istype(wear_mask, /obj/item/clothing/mask/smokable/cigarette) && wear_mask.blood_DNA )
+		if( !istype(wear_mask, /obj/item/smokable/cigarette) && wear_mask.blood_DNA )
 			var/image/bloodsies = image(species.blood_mask, "maskblood[body_build.index]")
 			bloodsies.color = wear_mask.blood_color
 			standing.overlays	+= bloodsies

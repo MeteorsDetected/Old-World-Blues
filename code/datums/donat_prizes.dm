@@ -180,7 +180,7 @@
 
 /datum/donat_stuff/personal/cigar
 	name = "Premium Havanian Cigar"
-	path = /obj/item/clothing/mask/smokable/cigarette/cigar/havana
+	path = /obj/item/smokable/cigarette/cigar/havana
 	cost = 130
 
 /datum/donat_stuff/personal/beer

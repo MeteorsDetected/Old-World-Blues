@@ -46,7 +46,7 @@
 	..()
 	if(istype(W, /obj/item/weapon/circular_saw) || istype(W, /obj/item/weapon/material/hatchet) || istype(W, /obj/item/weapon/material/kitchen/utensil/knife) || istype(W, /obj/item/weapon/material/knife) || istype(W, /obj/item/weapon/material/knife/ritual))
 		user << SPAN_NOTE("You use [W] to fashion a pipe out of the corn cob!")
-		new /obj/item/clothing/mask/smokable/pipe/cobpipe (user.loc)
+		new /obj/item/smokable/pipe/cobpipe (user.loc)
 		qdel(src)
 		return
 

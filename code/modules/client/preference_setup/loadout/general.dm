@@ -64,10 +64,10 @@
 
 /datum/gear/smokingpipe
 	display_name = "smoking pipe"
-	path = /obj/item/clothing/mask/smokable/pipe
+	path = /obj/item/smokable/pipe
 	options = list(
-		"common" = /obj/item/clothing/mask/smokable/pipe,
-		"corn"   = /obj/item/clothing/mask/smokable/pipe/cobpipe
+		"common" = /obj/item/smokable/pipe,
+		"corn"   = /obj/item/smokable/pipe/cobpipe
 	)
 
 /datum/gear/matchbook
