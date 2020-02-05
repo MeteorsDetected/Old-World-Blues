@@ -1914,5 +1914,6 @@
 #include "code\ZAS\Zone.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
+#include "maps\mother.dmm"
 #include "maps\snowy_big.dmm"
 // END_INCLUDE
