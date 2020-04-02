@@ -142,14 +142,27 @@
 	return 0
 
 
+
+/obj/target
+	name  = "targeting"
+	icon  = 'icons/effects/Targeted.dmi'
+	layer = ABOVE_MOB_LAYER
+	mouse_opacity = 0
+
+/obj/target/New(icon_state)
+	src.icon_state = icon_state
+
+
 //Targeting management procs
 /mob/var
 	list/targeted_by
 	target_time = -100
 	last_move_intent = -100
 	last_target_click = -5
-	target_locked = null
 	last_target_radio = -5;
+
+	var/global/obj/target/target_locking = new("locking")
+	var/global/obj/target/target_locked  = new("locked")
 
 /mob/living/proc/Targeted(var/obj/item/weapon/gun/I) //Self explanitory.
 	if(!I.aim_targets)
@@ -174,14 +187,11 @@
 	 so try not to get on their bad side.</span>))"
 
 	if(targeted_by.len == 1)
-		spawn(0)
-			target_locked = image("icon" = 'icons/effects/Targeted.dmi', "icon_state" = "locking")
-			overlays += target_locked
-			spawn(0)
-				sleep(20)
-				if(target_locked)
-					target_locked = image("icon" = 'icons/effects/Targeted.dmi', "icon_state" = "locked")
-					update_targeted()
+		vis_contents += target_locking
+		sleep(20)
+		if(src)
+			vis_contents -= target_locking
+			vis_contents += target_locked
 
 	//Adding the buttons to the controller person
 	var/mob/living/T = I.loc
@@ -235,9 +245,8 @@
 	if(T && ismob(T) && !I.aim_targets && T.client)
 		T.client.remove_gun_icons()
 	if(!targeted_by.len)
-		qdel(target_locked) //Remove the overlay
-		qdel(targeted_by)
-	spawn(1) update_targeted()
+		vis_contents -= target_locked
+		//qdel(targeted_by)
 
 /mob/living/Move()
 	. = ..()

@@ -73,7 +73,6 @@ There are several things that need to be remembered:
 		update_body()	//Handles updating your mob's icon to reflect their gender/race/complexion etc
 		update_hair()	//Handles updating your hair overlay (used to be update_face, but mouth and
 																			...eyes were merged into update_body)
-		update_targeted() // Updates the target overlay when someone points a gun at you
 
 >	All of these procs update our overlays_lying and overlays_standing, and then call update_icons() by default.
 	If you wish to update several overlays at once, you can set the argument to 0 to disable the update and call
@@ -131,8 +130,7 @@ Please contact me on #coderbus IRC. ~Carn x
 #define L_HAND_LAYER			LEGCUFF_LAYER	+ 1
 #define R_HAND_LAYER			L_HAND_LAYER	+ 1
 #define FIRE_LAYER				R_HAND_LAYER	+ 1		//If you're on fire
-#define TARGETED_LAYER			FIRE_LAYER		+ 1		//BS12: Layer for the target overlay from weapon targeting system
-#define TOTAL_LAYERS			TARGETED_LAYER		//
+#define TOTAL_LAYERS			FIRE_LAYER		//	Keep it Updated
 //////////////////////////////////
 
 /mob/living/carbon/human
@@ -353,16 +351,6 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[HAIR_LAYER]	= image(face_standing)
 
 	if(update_icons)   update_icons()
-
-//Call when target overlay should be added/removed
-/mob/living/carbon/human/update_targeted(var/update_icons=1)
-	if (targeted_by && target_locked)
-		overlays_standing[TARGETED_LAYER]	= target_locked
-	else if (!targeted_by && target_locked)
-		qdel(target_locked)
-	if (!targeted_by)
-		overlays_standing[TARGETED_LAYER]	= null
-	if(update_icons)		update_icons()
 
 
 /* --------------------------------------- */

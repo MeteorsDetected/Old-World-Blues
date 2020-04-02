@@ -731,15 +731,6 @@
 		icon_state = "[sprite_data.icon_state]-roll"
 	else
 		icon_state = sprite_data.icon_state
-	return
-
-//Call when target overlay should be added/removed
-/mob/living/silicon/robot/update_targeted()
-	if(!targeted_by && target_locked)
-		qdel(target_locked)
-	updateicon()
-	if (targeted_by && target_locked)
-		overlays += target_locked
 
 /mob/living/silicon/robot/proc/installed_modules()
 	if(weapon_lock)
