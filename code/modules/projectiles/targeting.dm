@@ -239,8 +239,8 @@
 			M << 'sound/weapons/TargetOff.ogg'
 	targeted_by -= I
 	I.aim_targets.Remove(src) //De-target them
-	if(!I.aim_targets.len)
-		qdel(I.aim_targets)
+//	if(!I.aim_targets.len)
+//		qdel(I.aim_targets)
 	var/mob/living/T = I.loc //Remove the targeting icons
 	if(T && ismob(T) && !I.aim_targets && T.client)
 		T.client.remove_gun_icons()
