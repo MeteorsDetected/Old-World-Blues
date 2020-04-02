@@ -164,7 +164,7 @@ Please contact me on #coderbus IRC. ~Carn x
 		for(var/image/I in overlays_standing)
 			overlays += I
 
-	if(lying && !species.prone_icon) //Only rotate them if we're not drawing a specific icon for being prone.
+	if(lying) //Only rotate them if we're not drawing a specific icon for being prone.
 		var/matrix/M = matrix()
 		if(lying == LEFT)
 			M.Turn(-90)
