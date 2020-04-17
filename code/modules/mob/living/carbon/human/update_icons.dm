@@ -105,32 +105,32 @@ Please contact me on #coderbus IRC. ~Carn x
 */
 
 //Human Overlays Indexes/////////
-#define DAMAGE_LAYER			1
-#define SURGERY_LEVEL			DAMAGE_LAYER	+ 1	//bs12 specific.
-#define UNDERWEAR_LAYER			SURGERY_LEVEL	+ 1
-#define UNIFORM_LAYER			UNDERWEAR_LAYER	+ 1
-#define ID_LAYER				UNIFORM_LAYER	+ 1
-#define SHOES_LAYER				ID_LAYER		+ 1
-#define GLOVES_LAYER			SHOES_LAYER		+ 1
-#define BELT_LAYER				GLOVES_LAYER	+ 1
-#define SUIT_LAYER				BELT_LAYER		+ 1
-#define TAIL_LAYER				SUIT_LAYER		+ 1	//bs12 specific. this hack is probably gonna come back to haunt me
-#define GLASSES_LAYER			TAIL_LAYER		+ 1
-#define BELT_LAYER_ALT			GLASSES_LAYER	+ 1
-#define SUIT_STORE_LAYER		BELT_LAYER_ALT	+ 1
-#define BACK_LAYER				SUIT_STORE_LAYER+ 1
-#define HAIR_LAYER				BACK_LAYER		+ 1
-#define EAR_L					HAIR_LAYER		+ 1
-#define EAR_R					EAR_L			+ 1
-#define FACEMASK_LAYER			EAR_R			+ 1
-#define HEAD_LAYER				FACEMASK_LAYER	+ 1
-#define COLLAR_LAYER			HEAD_LAYER		+ 1
-#define HANDCUFF_LAYER			COLLAR_LAYER	+ 1
-#define LEGCUFF_LAYER			HANDCUFF_LAYER	+ 1
-#define L_HAND_LAYER			LEGCUFF_LAYER	+ 1
-#define R_HAND_LAYER			L_HAND_LAYER	+ 1
-#define FIRE_LAYER				R_HAND_LAYER	+ 1		//If you're on fire
-#define TOTAL_LAYERS			FIRE_LAYER		//	Keep it Updated
+#define DAMAGE_LAYER		1
+#define SURGERY_LEVEL		DAMAGE_LAYER	+ 1	//bs12 specific.
+#define UNDERWEAR_LAYER		SURGERY_LEVEL	+ 1
+#define UNIFORM_LAYER		UNDERWEAR_LAYER	+ 1
+#define ID_LAYER			UNIFORM_LAYER	+ 1
+#define SHOES_LAYER			ID_LAYER		+ 1
+#define GLOVES_LAYER		SHOES_LAYER		+ 1
+#define BELT_LAYER			GLOVES_LAYER	+ 1
+#define SUIT_LAYER			BELT_LAYER		+ 1
+#define TAIL_LAYER			SUIT_LAYER		+ 1	//bs12 specific. this hack is probably gonna come back to haunt me
+#define GLASSES_LAYER		TAIL_LAYER		+ 1
+#define BELT_LAYER_ALT		GLASSES_LAYER	+ 1
+#define SUIT_STORE_LAYER	BELT_LAYER_ALT	+ 1
+#define BACK_LAYER			SUIT_STORE_LAYER+ 1
+#define HAIR_LAYER			BACK_LAYER		+ 1
+#define EAR_L				HAIR_LAYER		+ 1
+#define EAR_R				EAR_L			+ 1
+#define FACEMASK_LAYER		EAR_R			+ 1
+#define HEAD_LAYER			FACEMASK_LAYER	+ 1
+#define COLLAR_LAYER		HEAD_LAYER		+ 1
+#define HANDCUFF_LAYER		COLLAR_LAYER	+ 1
+#define LEGCUFF_LAYER		HANDCUFF_LAYER	+ 1
+#define L_HAND_LAYER		LEGCUFF_LAYER	+ 1
+#define R_HAND_LAYER		L_HAND_LAYER	+ 1
+#define FIRE_LAYER			R_HAND_LAYER	+ 1		//If you're on fire
+#define TOTAL_LAYERS		FIRE_LAYER		//	Keep it Updated
 //////////////////////////////////
 
 /mob/living/carbon/human
@@ -164,7 +164,7 @@ Please contact me on #coderbus IRC. ~Carn x
 		for(var/image/I in overlays_standing)
 			overlays += I
 
-	if(lying) //Only rotate them if we're not drawing a specific icon for being prone.
+	if(lying)
 		var/matrix/M = matrix()
 		if(lying == LEFT)
 			M.Turn(-90)
@@ -291,13 +291,13 @@ var/global/list/damage_icon_parts = list()
 		if(!skeleton && husk)
 			base_icon.ColorTone(husk_color_mod)
 
-		//Handle husk overlay.
-		if(husk && ("overlay_husk" in icon_states(species.icobase)))
-			var/icon/mask = new(base_icon)
-			var/icon/husk_over = new(species.icobase,"overlay_husk")
-			mask.MapColors(0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,0)
-			husk_over.Blend(mask, ICON_ADD)
-			base_icon.Blend(husk_over, ICON_OVERLAY)
+			//Handle husk overlay.
+			if("overlay_husk" in icon_states(species.icobase))
+				var/icon/mask = new(base_icon)
+				var/icon/husk_over = new(species.icobase,"overlay_husk")
+				mask.MapColors(0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,0)
+				husk_over.Blend(mask, ICON_ADD)
+				base_icon.Blend(husk_over, ICON_OVERLAY)
 
 		human_icon_cache[icon_key] = base_icon
 
@@ -317,17 +317,19 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[HAIR_LAYER]	= null
 
 	var/obj/item/organ/external/head/head_organ = get_organ(BP_HEAD)
-	if(!head_organ || head_organ.is_stump() || (SKELETON & status_flags))
-		if(update_icons)   update_icons()
+	if(!head_organ || head_organ.is_stump() || (status_flags & SKELETON))
+		if(update_icons)
+			update_icons()
 		return
 
 	//masks and helmets can obscure our hair.
 	if( (head && (head.flags_inv & BLOCKHAIR)) || (wear_mask && (wear_mask.flags_inv & BLOCKHAIR)))
-		if(update_icons)   update_icons()
+		if(update_icons)
+			update_icons()
 		return
 
 	//base icons
-	var/icon/face_standing	= new /icon('icons/mob/hair.dmi',"bald")
+	var/icon/face_standing = new /icon('icons/mob/hair.dmi',"bald")
 	var/icon/hair
 
 	if(f_style)
