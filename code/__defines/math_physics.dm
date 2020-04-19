@@ -1,6 +1,9 @@
 // Math constants.
-#define M_PI    3.14159265
-#define INFINITY             1.#INF
+
+#define NUM_E 2.71828183
+
+#define PI						3.1416
+#define INFINITY				1e31	//closer then enough
 
 #define SPEED_OF_LIGHT       3e8    // Approximate.
 #define SPEED_OF_LIGHT_SQ    9e16
@@ -36,4 +39,9 @@
 
 #define Clamp(value, low, high) 	(value <= low ? low : (value >= high ? high : value))
 #define CLAMP01(x) 		(Clamp(x, 0, 1))
+
+#define CEILING(x, y) ( -round(-(x) / (y)) * (y) )
+
+// round() acts like floor(x, 1) by default but can't handle other values
+#define FLOOR(x, y) ( round((x) / (y)) * (y) )
 
