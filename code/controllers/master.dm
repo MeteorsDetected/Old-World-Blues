@@ -8,6 +8,7 @@
  **/
 
 //This is the ABSOLUTE ONLY THING that should init globally like this
+//2019 update: the failsafe,config and Global controllers also do it
 GLOBAL_REAL(Master, /datum/controller/master) = new
 
 //THIS IS THE INIT ORDER
@@ -91,3 +92,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	// Tell qdel() to Del() this object.
 	return QDEL_HINT_HARDDEL_NOW
 
+/datum/controller/master/Shutdown()
+	processing = FALSE
+	sortTim(subsystems, /proc/cmp_subsystem_init)
+	reverseRange(subsystems)
+	for(var/datum/controller/subsystem/ss in subsystems)
+		log_world("Shutting down [ss.name] subsystem...")
+		ss.Shutdown()
+	log_world("Shutdown complete")

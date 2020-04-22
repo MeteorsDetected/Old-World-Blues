@@ -128,36 +128,15 @@
 		eject = FALSE
 		updateicon()
 
-/area/proc/partyalert()
-	if (!party)
-		party = TRUE
-		updateicon()
-		mouse_opacity = 0
-
-/area/proc/partyreset()
-	if (party)
-		party = FALSE
-		mouse_opacity = 0
-		updateicon()
-		for(var/obj/machinery/door/firedoor/D in src)
-			if(!D.blocked)
-				if(D.operating)
-					D.nextstate = OPEN
-				else if(D.density)
-					spawn(0)
-					D.open()
-
 /area/proc/updateicon()
 	//If it doesn't require power, can still activate this proc.
-	if ((fire || eject || party) && (!requires_power||power_environ) && !istype(src, /area/space))
-		if(fire && !eject && !party)
+	if ((fire || eject) && (!requires_power||power_environ) && !istype(src, /area/space))
+		if(fire && !eject)
 			icon_state = "blue"
-		/*else if(atmosalm && !fire && !eject && !party)
+		/*else if(atmosalm && !fire && !eject)
 			icon_state = "bluenew"*/
-		else if(!fire && eject && !party)
+		else if(!fire && eject)
 			icon_state = "red"
-		else if(party && !fire && !eject)
-			icon_state = "party"
 		else
 			icon_state = "blue-red"
 	else
@@ -189,7 +168,7 @@
 /area/proc/power_change()
 	for(var/obj/machinery/M in src)	// for each machine in the area
 		M.power_change()			// reverify power status (to update icons etc.)
-	if (fire || eject || party)
+	if (fire || eject)
 		updateicon()
 
 /area/proc/usage(var/chan)
