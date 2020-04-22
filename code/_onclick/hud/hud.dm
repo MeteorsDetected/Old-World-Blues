@@ -35,7 +35,8 @@ var/list/global_huds = list(
 	screen.screen_loc = "1,1"
 	screen.icon = 'icons/obj/hud_full.dmi'
 	screen.icon_state = icon_state
-	screen.layer = SCREEN_LAYER
+	screen.layer = FULLSCREEN_LAYER
+	screen.plane = HUD_PLANE
 	screen.mouse_opacity = 0
 	return screen
 

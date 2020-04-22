@@ -791,8 +791,8 @@
 	screen_loc = "1,1"
 	icon = 'icons/obj/rig_boot.dmi'
 	icon_state = ""
-	layer = SCREEN_LAYER
-//	plane = PLANE_FULLSCREEN
+	layer = FULLSCREEN_LAYER
+	plane = HUD_PLANE
 	mouse_opacity = 0
 	alpha = 20 //Animated up when loading
 
