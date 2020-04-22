@@ -582,7 +582,6 @@
 
 		if(src.connected.occupant)
 			if (prob(80 + (src.radiation_duration / 2)))
-				var/real_SE_block=selected_se_block
 				block = miniscramble(block, src.radiation_intensity, src.radiation_duration)
 
 				src.connected.occupant.radiation += (src.radiation_intensity+src.radiation_duration)
