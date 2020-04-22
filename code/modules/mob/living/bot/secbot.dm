@@ -421,7 +421,6 @@
 
 	var/datum/signal/signal = new()
 	signal.source = secbot
-	signal.transmission_method = 1
 	signal.data = keyval.Copy()
 
 	if(signal.data["findbeacon"])

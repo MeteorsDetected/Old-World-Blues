@@ -137,8 +137,8 @@ var/list/ANTAG_FREQS = list(SYND_FREQ)
 //depenging helpers
 var/list/DEPT_FREQS = list(SCI_FREQ, MED_FREQ, ENG_FREQ, SEC_FREQ, SUP_FREQ, SRV_FREQ, ERT_FREQ, SYND_FREQ, DTH_FREQ)
 
-#define TRANSMISSION_WIRE	0
-#define TRANSMISSION_RADIO	1
+#define TRANSMISSION_RADIO	0
+#define TRANSMISSION_SUBSPACE	1
 
 /proc/frequency_span_class(var/frequency)
 	// Antags!
@@ -298,15 +298,15 @@ var/global/datum/controller/radio/radio_controller
 /datum/signal
 	var/obj/source
 
-	var/transmission_method = 0 //unused at the moment
-	//0 = wire
-	//1 = radio transmission
-	//2 = subspace transmission
+	var/transmission_method = TRANSMISSION_RADIO
 
 	var/list/data = list()
 	var/encryption
 
 	var/frequency = 0
+
+/datum/signal/subspace
+	transmission_method = TRANSMISSION_SUBSPACE
 
 /datum/signal/proc/copy_from(datum/signal/model)
 	source = model.source

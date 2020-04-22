@@ -51,7 +51,6 @@
 
 		var/datum/signal/signal = new
 		signal.source = src
-		signal.transmission_method = 1
 		signal.data = list(
 			"tag" = id,
 			"device" = "AM",

@@ -296,9 +296,7 @@
 
 
 		// First, we want to generate a new radio signal
-		var/datum/signal/signal = new
-		signal.transmission_method = 2 // 2 would be a subspace transmission.
-									   // transmission_method could probably be enumerated through #define. Would be neater.
+		var/datum/signal/subspace/signal = new
 
 		// --- Finally, tag the actual signal with the appropriate values ---
 		signal.data = list(

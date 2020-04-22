@@ -22,7 +22,6 @@
 
 		var/datum/signal/signal = new()
 		signal.source = src
-		signal.transmission_method = 1
 		signal.data[key] = value
 		if(key2)
 			signal.data[key2] = value2

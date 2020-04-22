@@ -95,7 +95,6 @@
 
 					var/datum/signal/signal = new()
 					signal.source = src
-					signal.transmission_method = 1
 					signal.data = list("findbeakon" = "patrol")
 					frequency.post_signal(src, signal, filter = RADIO_NAVBEACONS)
 					signal_sent = world.time

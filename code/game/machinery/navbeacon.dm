@@ -99,7 +99,6 @@ var/global/list/navbeacons			// no I don't like putting this in, but it will do 
 
 		var/datum/signal/signal = new()
 		signal.source = src
-		signal.transmission_method = 1
 		signal.data["beacon"] = location
 
 		for(var/key in codes)
