@@ -84,10 +84,10 @@
 "bF" = (/obj/structure/closet/radiation,/turf/simulated/floor,/area/space)
 "bG" = (/obj/structure/closet/firecloset,/turf/simulated/floor,/area/space)
 "bH" = (/obj/machinery/light{dir = 1},/turf/simulated/floor,/area/space)
-"bI" = (/obj/structure/table/standard,/turf/simulated/floor{icon_state = "white"},/area/space)
+"bI" = (/obj/structure/table/standard,/obj/item/stack/medical/bruise_pack/advanced,/obj/item/weapon/retractor,/obj/machinery/light{dir = 8; icon_state = "tube1"},/obj/item/device/radio/intercom{dir = 0; name = "Station Intercom (General)"; pixel_x = -27},/obj/item/weapon/circular_saw{pixel_y = 8},/obj/item/weapon/scalpel,/obj/item/weapon/surgicaldrill,/obj/item/weapon/FixOVein,/turf/simulated/floor{icon_state = "white"},/area/space)
 "bJ" = (/obj/machinery/light{dir = 8; icon_state = "tube1"},/turf/simulated/floor,/area/space)
 "bK" = (/obj/machinery/optable,/turf/simulated/floor{icon_state = "white"},/area/space)
-"bL" = (/obj/structure/table/standard,/obj/machinery/light,/turf/simulated/floor{icon_state = "white"},/area/space)
+"bL" = (/obj/structure/closet/secure_closet/medical2,/turf/simulated/floor{icon_state = "white"},/area/space)
 "bM" = (/obj/machinery/cryopod/right,/obj/machinery/light{dir = 1},/obj/machinery/light{dir = 1},/turf/simulated/floor{icon_state = "white"},/area/space)
 "bN" = (/obj/machinery/cryopod,/obj/machinery/light{dir = 1},/obj/machinery/light{dir = 1},/turf/simulated/floor{icon_state = "white"},/area/space)
 "bO" = (/obj/machinery/photocopier,/turf/simulated/floor,/area/space)
@@ -119,6 +119,28 @@
 "co" = (/obj/machinery/door/firedoor/multi_tile{dir = 1},/turf/simulated/floor{icon_state = "white"},/area/space)
 "cp" = (/obj/machinery/door/firedoor/border_only,/obj/machinery/door/airlock/external,/turf/simulated/floor{icon_state = "vault"; dir = 5},/area/space)
 "cq" = (/obj/machinery/door/unpowered/shuttle,/turf/simulated/floor/plating,/area/space)
+"cr" = (/obj/machinery/light{dir = 8; icon_state = "tube1"},/obj/structure/material/chair/comfy/black{dir = 4},/turf/simulated/floor,/area/space)
+"ct" = (/obj/structure/window/reinforced{dir = 1},/obj/item/weapon/paper_bin,/obj/item/weapon/folder/white,/obj/item/weapon/pen,/obj/structure/table/standard,/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor{icon_state = "white"},/area/space)
+"cu" = (/obj/item/weapon/reagent_containers/spray/cleaner{pixel_x = -5},/obj/structure/table/standard,/turf/simulated/floor{icon_state = "white"},/area/space)
+"cv" = (/obj/structure/table/standard,/obj/item/device/radio{anchored = 1; broadcasting = 0; canhear_range = 7; frequency = 1487; icon = 'icons/obj/items.dmi'; icon_state = "red_phone"; listening = 1; name = "Surgery Emergency Phone"},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor{icon_state = "white"},/area/space)
+"cw" = (/obj/structure/material/chair/comfy/black{dir = 4},/turf/simulated/floor,/area/space)
+"cx" = (/obj/structure/table/standard,/obj/item/weapon/hemostat,/obj/item/weapon/cautery,/turf/simulated/floor{icon_state = "white"},/area/space)
+"cy" = (/obj/structure/table/standard,/obj/item/weapon/bonesetter,/obj/item/weapon/bonegel,/obj/machinery/light,/turf/simulated/floor{icon_state = "white"},/area/space)
+"cz" = (/obj/structure/sofa/left,/turf/simulated/floor/carpet,/area/space)
+"cA" = (/obj/machinery/vending/coffee,/obj/machinery/vending/cola/soda,/turf/simulated/floor{icon_state = "wood_new_dark"},/area/space)
+"cB" = (/obj/structure/table/wooden_reinforced,/obj/item/weapon/material/ashtray/bronze{pixel_x = -1; pixel_y = 1},/obj/item/storage/fancy/cigarettes/dromedaryco,/obj/item/weapon/flame/lighter/zippo,/obj/machinery/light/small{dir = 1},/turf/simulated/floor{icon_state = "wood_new_dark"},/area/space)
+"cC" = (/obj/machinery/vending/cigarette,/turf/simulated/floor{icon_state = "wood_new_dark"},/area/space)
+"cD" = (/obj/structure/table/wooden_reinforced,/obj/item/device/flashlight/lamp/green,/turf/simulated/floor/carpet,/area/space)
+"cE" = (/turf/simulated/floor{icon_state = "wood_new_dark"},/area/outdoor)
+"cF" = (/obj/structure/sofa/left{dir = 1},/turf/simulated/floor/carpet,/area/space)
+"cG" = (/turf/simulated/floor/carpet,/area/space)
+"cH" = (/obj/structure/bar_stool,/turf/simulated/floor/carpet,/area/space)
+"cI" = (/obj/item/toy/tv,/obj/structure/table/wooden_reinforced,/turf/simulated/floor/carpet,/area/space)
+"cJ" = (/obj/structure/table/wooden_reinforced,/turf/simulated/floor/plating/snow,/area/space)
+"cK" = (/obj/machinery/vending/boozeomat,/turf/simulated/wall,/area/space)
+"cL" = (/obj/item/weapon/book/manual/barman_recipes,/obj/item/clothing/head/that{pixel_x = 4; pixel_y = 6},/obj/structure/table/wooden_reinforced,/turf/simulated/floor/carpet,/area/space)
+"cM" = (/obj/machinery/light/small{dir = 4},/turf/simulated/floor{icon_state = "wood_new_dark"},/area/space)
+"cN" = (/obj/structure/closet,/obj/item/weapon/reagent_containers/glass/drinks/shaker,/obj/item/storage/box/drinkingglasses{pixel_x = 1; pixel_y = 4},/obj/machinery/light_construct/small{icon_state = "bulb-construct-stage1"; dir = 4},/obj/item/clothing/under/phantom,/obj/item/clothing/gloves/white,/turf/simulated/floor/plating,/area/space)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -147,20 +169,20 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaRaSaeaecfcgaeaeaebEabaSaSabadbFbGabababababab
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaRaSaeaeaeaeaeaeaeaeabchadabacabababadbHaTadadababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaeaeaeaeaeaeaeaeaeadadadadbHadaSadadadadadaSaRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababawababaeaeaeaecoadadadadadadaSadadadadadaSaRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababbIaeaeabaeaeaeaeabbJadadadadadabadadadadadaSaRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaRaSaeaeaeaSaeaeaeaeabadadadadadadacadadadadadaSaRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababbKaeaeaSaeaeaeaeabababbcadabababadadadbDadabababaRaRababababaaaaabababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababbIbLaeabaeaeaeaeabadadadadadadabababbxabababababaSaSababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababapababababadadadadadaIabbHadadadbGabaVbMadadbNaYabaZaZaZaZaZababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababafagahaibOajakababadadadadadadaSadadadadadabaVaWadadbaaYabaZaZaZaZaZababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaladadadadadamanaoabadadadadadadaSadadadadadabaVbbadadbaaYabaZaZaZaZaZababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaqadadadaradadadadabadadadadadadabadadadadciabaVbbadadbaaYabbPaZaZaZaZababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababasadadatauauadadavabababbJadadadabababckaxabababaScladaSababaSaZaZaZaZababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababayadazauadauaAadadabadaTadadadadadaTbHaBaBadadadadadadadadadaZaZaZaZaZababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaCadaraDadauaAadadacadadadadadadadadadadadadadadadadadadadadcmaZaZaZaZababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababbIaebLabaeaeaeaeabcradadadadadabadadadadadaSaRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaRaSaeaeaeaSaectcucvabcwadadadadadacadadadadadaSaRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababbKaeaeaSaeaeaeaeabababbcadabababadadadbDadabababaRaRabababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababcxcyaeabaeaeaeaeabadadadadadadabababbxabababababaSaSababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababapababababadadadadadaIabbHadadadbGabaVbMadadbNaYabczaZcAcBcCababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababafagahaibOajakababadadadadadadaSadadadadadabaVaWadadbaaYabcDaZcEaZaZababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaladadadadadamanaoabadadadadadadaSadadadadadabaVbbadadbaaYabcFaZaZaZaZababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaqadadadaradadadadabadadadadadadabadadadadciabaVbbadadbaaYabbPaZcGcHcHababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababasadadatauauadadavabababbJadadadabababckaxabababaScladaSababaSaZcHcIcDababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababayadazauadauaAadadabadaTadadadadadaTbHaBaBadadadadadadadadadaZaZcHcJaZcKabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaCadaraDadauaAadadacadadadadadadadadadadadadadadadadadadadadcmaZcHcLcMababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaEadaFauadbQaAadadabadadadadadadadadadadadadadadbDadadadadadaSaZaZaZaZababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaGadazaHadauaAadaIababaSaSababbcadababbGazbRaAbSabaqadadadadababcnababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaJadadauauauadadbSabbdbebfbTabadadabababaSaSaSabababadadadadabbUbhbhbVababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaJadadauauauadadbSabbdbebfbTabadadabababaSaSaSabababadadadadabbUbhbhcNababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababaKaKadadaLadadadbSabbiamadbjacadadabababaRaRaRabababadadadadabbVbhbhbWaSaRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababaKadadadadadadababbkblbmbnabadadababaaaaaaaaaaababadadadadabbVbhbhbXaSaRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababaMbYaOaPaQababababababababadadababaaaaaaaaaaababadadadaIabbZcacbccababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
