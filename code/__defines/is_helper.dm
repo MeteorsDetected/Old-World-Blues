@@ -1,6 +1,8 @@
+#define isatom(A) istype(A, /atom)
+
 //MOB LEVEL
 
-#define ismob(A) istype(A, /mob) //istype\(([a-z0-9:._]+), ?/mob\)
+#define ismob(A) isloc(A)
 
 #define isobserver(A) istype(A, /mob/observer/dead)
 
