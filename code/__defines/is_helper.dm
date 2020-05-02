@@ -2,7 +2,7 @@
 
 //MOB LEVEL
 
-#define ismob(A) isloc(A)
+#define isatom(A) isloc(A)
 
 #define isobserver(A) istype(A, /mob/observer/dead)
 
