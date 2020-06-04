@@ -41,7 +41,7 @@
 	else if(findtext(msg," ")==0)
 		return
 	else
-		/*var/l = lentext(msg)
+		/*var/l = length(msg)
 		if(findtext(msg," ",l,l+1)==0)
 			msg+=" "*/
 		seperate = splittext(msg, " ")
@@ -86,7 +86,7 @@
 		text = "[pick(heard_words)]"
 	else
 		text = pick(splittext(word, " "))
-	if(lentext(text)==1)
+	if(length(text)==1)
 		text=ruppertext(text)
 	else
 		text=capitalize(text)

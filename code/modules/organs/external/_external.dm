@@ -818,7 +818,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		W.germ_level = 0
 	return rval
 
-/obj/item/organ/external/proc/clamp()
+/obj/item/organ/external/proc/clamp_wounds()
 	var/rval = 0
 	src.stopBleeding()
 	for(var/datum/wound/W in wounds)

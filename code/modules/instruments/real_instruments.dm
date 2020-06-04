@@ -44,11 +44,11 @@
 				if(!IN_RANGE(src, usr))
 					return
 
-				if(lentext(t) >= 2*maximum_lines*maximum_line_length)
+				if(length(t) >= 2*maximum_lines*maximum_line_length)
 					var/cont = input(usr, "Your message is too long! Would you like to continue editing it?", "", "yes") in list("yes", "no")
 					if(cont == "no")
 						break
-			while(lentext(t) > 2*maximum_lines*maximum_line_length)
+			while(length(t) > 2*maximum_lines*maximum_line_length)
 
 			//split into lines
 			spawn()
@@ -66,7 +66,7 @@
 					player.song.lines.Cut(maximum_lines+1)
 				var/linenum = 1
 				for(var/l in player.song.lines)
-					if(lentext(l) > maximum_line_length)
+					if(length(l) > maximum_line_length)
 						usr << "Line [linenum] too long!"
 						player.song.lines.Remove(l)
 					else
@@ -101,7 +101,7 @@
 				return
 			if(player.song.lines.len > maximum_lines)
 				return
-			if(lentext(newline) > maximum_line_length)
+			if(length(newline) > maximum_line_length)
 				newline = copytext(newline, 1, maximum_line_length)
 			player.song.lines.Add(newline)
 
@@ -118,7 +118,7 @@
 			var/content = html_encode(input("Enter your line: ", src.name, player.song.lines[num]) as text|null)
 			if(!content || !IN_RANGE(src, usr))
 				return
-			if(lentext(content) > maximum_line_length)
+			if(length(content) > maximum_line_length)
 				content = copytext(content, 1, maximum_line_length)
 			if(num > player.song.lines.len || num < 1)
 				return
@@ -182,11 +182,11 @@
 				if(!IN_RANGE(src, usr))
 					return
 
-				if(lentext(t) >= 2*maximum_lines*maximum_line_length)
+				if(length(t) >= 2*maximum_lines*maximum_line_length)
 					var/cont = input(usr, "Your message is too long! Would you like to continue editing it?", "", "yes") in list("yes", "no")
 					if(cont == "no")
 						break
-			while(lentext(t) > 2*maximum_lines*maximum_line_length)
+			while(length(t) > 2*maximum_lines*maximum_line_length)
 
 			//split into lines
 			spawn()
@@ -204,7 +204,7 @@
 					player.song.lines.Cut(maximum_lines+1)
 				var/linenum = 1
 				for(var/l in player.song.lines)
-					if(lentext(l) > maximum_line_length)
+					if(length(l) > maximum_line_length)
 						usr << "Line [linenum] too long!"
 						player.song.lines.Remove(l)
 					else
@@ -239,7 +239,7 @@
 				return
 			if(player.song.lines.len > maximum_lines)
 				return
-			if(lentext(newline) > maximum_line_length)
+			if(length(newline) > maximum_line_length)
 				newline = copytext(newline, 1, maximum_line_length)
 			player.song.lines.Add(newline)
 
@@ -256,7 +256,7 @@
 			var/content = html_encode(input("Enter your line: ", src.name, player.song.lines[num]) as text|null)
 			if(!content || !IN_RANGE(src, usr))
 				return
-			if(lentext(content) > maximum_line_length)
+			if(length(content) > maximum_line_length)
 				content = copytext(content, 1, maximum_line_length)
 			if(num > player.song.lines.len || num < 1)
 				return

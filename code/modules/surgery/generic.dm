@@ -59,7 +59,7 @@
 			affected.setBleeding()
 
 		affected.createwound(CUT, 1)
-		affected.clamp()
+		affected.clamp_wounds()
 		spread_germs_to_organ(affected, user)
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -105,7 +105,7 @@
 			affected.setBleeding()
 
 		affected.createwound(CUT, 1)
-		affected.clamp()
+		affected.clamp_wounds()
 		affected.open = 2
 
 	fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -196,7 +196,7 @@
 			SPAN_NOTE("[user] clamps bleeders in [target]'s [affected.name] with \the [tool]."),
 			SPAN_NOTE("You clamp bleeders in [target]'s [affected.name] with \the [tool].")
 		)
-		affected.clamp()
+		affected.clamp_wounds()
 		spread_germs_to_organ(affected, user)
 		playsound(target.loc, 'sound/items/Welder.ogg', 50, 1)
 

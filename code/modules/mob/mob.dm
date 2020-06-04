@@ -203,7 +203,7 @@
 	if (flavor_text && flavor_text != "")
 		var/msg = trim(replacetext(flavor_text, "\n", " "))
 		if(!msg) return ""
-		if(lentext(msg) <= 40)
+		if(length(msg) <= 40)
 			return SPAN_NOTE(msg)
 		else
 			return SPAN_NOTE("[copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a>")

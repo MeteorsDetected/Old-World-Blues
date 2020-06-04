@@ -45,6 +45,7 @@
 #include "code\__defines\text.dm"
 #include "code\__defines\time.dm"
 #include "code\__defines\xenoarcheaology.dm"
+#include "code\_compatibility\512.dm"
 #include "code\_globalvars\configuration.dm"
 #include "code\_globalvars\game_modes.dm"
 #include "code\_globalvars\gameState.dm"
