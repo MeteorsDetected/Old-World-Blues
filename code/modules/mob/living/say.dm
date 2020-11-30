@@ -1,9 +1,25 @@
+var/global/list/rkeys = list(
+	"а" = "f", "в" = "d", "г" = "u", "д" = "l",
+	"е" = "t", "з" = "p", "и" = "b", "й" = "q",
+	"к" = "r", "л" = "k", "м" = "v", "н" = "y",
+	"о" = "j", "п" = "g", "р" = "h", "с" = "c",
+	"т" = "n", "у" = "e", "ф" = "a", "ц" = "w",
+	"ч" = "x", "ш" = "i", "щ" = "o", "ы" = "s",
+	"ь" = "m", "я" = "z"
+)
+
+//Transform keys from russian keyboard layout to eng analogues and lowertext it.
+/proc/sanitize_key(t)
+	t = rlowertext(t)
+	return (t in rkeys)?rkeys[t]:t
+
+
 var/list/department_radio_keys = list(
 	"r" = "right ear",
 	"l" = "left ear",
 	"i" = "intercom",
 	"h" = "department",
-	"+" = "special",		//activate radio-specific special functions
+	"+" = "special",	//activate radio-specific special functions
 	"c" = "Command",
 	"n" = "Science",
 	"m" = "Medical",
@@ -30,6 +46,7 @@ var/list/channel_to_radio_key = new
 		channel_to_radio_key[channel] = key
 
 	return key
+
 
 /mob/living/proc/binarycheck()
 

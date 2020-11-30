@@ -88,22 +88,6 @@
 	return post_edit_utf8(msg)
 
 
-var/global/list/rkeys = list(
-	"à" = "f", "â" = "d", "ã" = "u", "ä" = "l",
-	"å" = "t", "ç" = "p", "è" = "b", "é" = "q",
-	"ê" = "r", "ë" = "k", "ì" = "v", "í" = "y",
-	"î" = "j", "ï" = "g", "ð" = "h", "ñ" = "c",
-	"ò" = "n", "ó" = "e", "ô" = "a", "ö" = "w",
-	"÷" = "x", "ø" = "i", "ù" = "o", "û" = "s",
-	"ü" = "m", "ÿ" = "z"
-)
-
-//Transform keys from russian keyboard layout to eng analogues and lowertext it.
-/proc/sanitize_key(t)
-	t = rlowertext(t)
-	if(t in rkeys) return rkeys[t]
-	return (t)
-
 //TEXT MODS RUS
 /proc/capitalize_cp1251(var/t as text)
 	var/s = 2
