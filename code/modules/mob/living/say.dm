@@ -140,9 +140,9 @@ var/list/channel_to_radio_key = new
 	if(message_mode)
 		//it would be really nice if the parse procs could do this for us.
 		if(message_mode == "headset")
-			message = copytext(message, 2)
+			message = copytext_char(message, 2)
 		else
-			message = copytext(message, 3)
+			message = copytext_char(message, 3)
 
 	message = trim_left(message)
 
@@ -153,7 +153,7 @@ var/list/channel_to_radio_key = new
 	if(!speaking)
 		speaking = parse_language(message)
 	if(speaking)
-		message = copytext(message, 2 + length(speaking.key))
+		message = copytext_char(message, 2 + length(speaking.key))
 	else
 		speaking = get_default_language()
 
@@ -199,7 +199,7 @@ var/list/channel_to_radio_key = new
 	var/sound_vol = handle_v[2]
 
 	var/italics = FALSE
-	var/message_range = (copytext(message, length(message))=="!") ? world.view+4 : world.view
+	var/message_range = (message[length(message)]=="!") ? world.view+4 : world.view
 
 	//speaking into radios
 	if(used_radios.len)
