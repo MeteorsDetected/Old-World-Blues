@@ -130,11 +130,11 @@ var/list/channel_to_radio_key = new
 
 	var/message_mode = parse_message_mode(message, "headset")
 
-	switch(copytext(message, 1, 2))
+	switch(message[1])
 		if("*")
-			return emote(copytext(message, 2))
+			return emote(copytext_char(message, 2))
 		if("^")
-			return custom_emote(MESSAGE_VISIBLE, copytext(message, 2))
+			return custom_emote(MESSAGE_VISIBLE, copytext_char(message, 2))
 
 	//parse the radio code and consume it
 	if(message_mode)
@@ -175,7 +175,7 @@ var/list/channel_to_radio_key = new
 		if(speaking.flags & COMMON_VERBS)
 			verb = say_quote(message)
 		else
-			verb = speaking.get_spoken_verb(copytext(message, length(message)))
+			verb = speaking.get_spoken_verb(message[length(message)])
 	else
 		verb = say_quote(message)
 
@@ -381,10 +381,10 @@ var/list/channel_to_radio_key = new
 		var/list/messages = splittext(message, " ")
 		var/R = rand(1, messages.len)
 		var/heardword = messages[R]
-		if(copytext(heardword, 1, 1) in punctuation)
-			heardword = copytext(heardword, 2)
-		if(copytext(heardword, -1) in punctuation)
-			heardword = copytext(heardword, 1, length(heardword))
+		if(heardword[1] in punctuation)
+			heardword = copytext_char(heardword, 2)
+		if(heardword[length(heardword)] in punctuation)
+			heardword = copytext_char(heardword, 1, length(heardword)-1)
 		heard = "<span class = 'game_say'>...You hear something about...[heardword]</span>"
 
 	else
