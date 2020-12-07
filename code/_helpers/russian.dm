@@ -86,18 +86,3 @@
 			msg = input(user, message, title, default) as text
 	msg = russian_to_utf8(msg)
 	return post_edit_utf8(msg)
-
-
-//TEXT MODS RUS
-/proc/capitalize_cp1251(var/t as text)
-	var/s = 2
-	if (copytext(t,1,2) == ";")
-		s += 1
-	else if (copytext(t,1,2) == ":")
-		s += 2
-	return ruppertext(copytext(t, 1, s)) + copytext(t, s)
-
-/proc/intonation(text)
-	if (copytext(text,-1) == "!")
-		text = "<b>[text]</b>"
-	return text
