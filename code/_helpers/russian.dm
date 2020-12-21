@@ -12,32 +12,6 @@
 	return msg
 
 
-//UPPER/LOWER TEXT + RUS TO CP1251 TODO: OVERRIDE uppertext
-/proc/ruppertext(text as text)
-	text = uppertext(text)
-	var/t = ""
-	for(var/i = 1, i <= length(text), i++)
-		var/a = text2ascii(text, i)
-		if (a > 223)
-			t += ascii2text(a - 32)
-		else if (a == 184)
-			t += ascii2text(168)
-		else t += ascii2text(a)
-	t = replacetext(t,"&#255;","ß")
-	return t
-
-/proc/rlowertext(text as text)
-	text = lowertext(text)
-	var/t = ""
-	for(var/i = 1, i <= length(text), i++)
-		var/a = text2ascii(text, i)
-		if (a > 191 && a < 224)
-			t += ascii2text(a + 32)
-		else if (a == 168)
-			t += ascii2text(184)
-		else t += ascii2text(a)
-	return t
-
 
 //RUS CONVERTERS
 /proc/russian_to_cp1251(var/msg)//CHATBOX

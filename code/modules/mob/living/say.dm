@@ -10,7 +10,7 @@ var/global/list/rkeys = list(
 
 //Transform keys from russian keyboard layout to eng analogues and lowertext it.
 /proc/sanitize_key(t)
-	t = rlowertext(t)
+	t = lowertext(t)
 	return (t in rkeys)?rkeys[t]:t
 
 
