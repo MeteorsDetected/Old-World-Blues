@@ -1447,7 +1447,7 @@
 		src.Secrets(AC)
 
 	else if(href_list["ac_set_new_message"])
-		src.admincaster_feed_message.body = rhtml_encode(input_utf8(usr, "Write your Feed story", "Network Channel Handler", "", "message"))
+		src.admincaster_feed_message.body = html_encode(input_utf8(usr, "Write your Feed story", "Network Channel Handler", "", "message"))
 		src.access_news_network()
 
 	else if(href_list["ac_submit_new_message"])

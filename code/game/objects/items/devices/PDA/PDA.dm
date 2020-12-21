@@ -666,7 +666,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			if (IN_RANGE(src, U) && loc == U)
 				n = sanitizeSafe(n, extra = 0)
 				if (mode == 1)
-					note = cp1251_to_utf8(rhtml_decode(n))
+					note = cp1251_to_utf8(html_decode(n))
 					notehtml = note
 					note = replacetext(note, "\n", "<br>")
 			else

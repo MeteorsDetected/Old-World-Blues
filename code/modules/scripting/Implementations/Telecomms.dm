@@ -235,7 +235,7 @@
 		else
 			message = russian_to_cp1251(message)
 		if(!source)
-			source = rhtml_encode(uppertext(S.id))
+			source = html_encode(uppertext(S.id))
 			hradio = new // sets the hradio as a radio intercom
 		if(!freq)
 			freq = PUB_FREQ
@@ -250,7 +250,7 @@
 		if(source in S.stored_names)
 			newsign.data["name"] = source
 		else
-			newsign.data["name"] = "<i>[rhtml_encode(uppertext(source))]</i>"
+			newsign.data["name"] = "<i>[html_encode(uppertext(source))]</i>"
 		newsign.data["realname"] = newsign.data["name"]
 		newsign.data["job"] = job
 		newsign.data["compression"] = 0

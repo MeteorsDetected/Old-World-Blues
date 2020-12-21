@@ -36,7 +36,7 @@
 			else
 				msg = input_cp1251(usr,"Set the flavor text for your [task].","Flavor Text",flav)
 
-		flavor_texts[task] = rhtml_encode(msg)
+		flavor_texts[task] = html_encode(msg)
 
 	else if(href_list["robot_flavor"])
 		var/task = href_list["robot_flavor"]
@@ -45,4 +45,4 @@
 
 		msg = input_cp1251(usr,"Set the flavor text for your [task].","Flavor Text",flav)
 
-		flavor_texts_robot[task] = rhtml_encode(msg)
+		flavor_texts_robot[task] = html_encode(msg)

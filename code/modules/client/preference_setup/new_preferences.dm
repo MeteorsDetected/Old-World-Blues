@@ -312,6 +312,14 @@
 
 	return dat
 
+/datum/preferences/proc/inputMessage(mob/user, title, desc)
+	var/msg = html_decode(edit_utf8(med_record)) as message
+	msg = sanitize(input(user, desc, title, msg), MAX_PAPER_MESSAGE_LEN, extra = 0)
+	if(msg)
+		return cp1251_to_utf8(post_edit_utf8(msg))
+
+
+
 /datum/preferences/proc/HandleRecordsTopic(mob/user, list/href_list)
 	if(href_list["name"]) switch(href_list["name"])
 		if("input")
@@ -497,28 +505,24 @@
 
 	else if(href_list["records"]) switch(href_list["records"])
 		if("med")
-			var/medmsg = sanitize(input(usr,"Set your medical notes here.","Medical Records",\
-						rhtml_decode(edit_utf8(med_record))) as message, MAX_PAPER_MESSAGE_LEN, extra = 0)
+			var/medmsg = inputMessage(usr, "Medical Records", "Set your medical notes here.")
 			if(medmsg != null)
-				med_record = cp1251_to_utf8(post_edit_utf8(medmsg))
+				med_record = medmsg
 
 		if("sec")
-			var/secmsg = sanitize(input(usr,"Set your security notes here.","Security Records",\
-						rhtml_decode(edit_utf8(sec_record))) as message, MAX_PAPER_MESSAGE_LEN, extra = 0)
+			var/secmsg = inputMessage(usr, "Security Records", "Set your security notes here.")
 			if(secmsg != null)
-				sec_record = cp1251_to_utf8(post_edit_utf8(secmsg))
+				sec_record = secmsg
 
 		if("gen")
-			var/genmsg = sanitize(input(usr,"Set your employment notes here.","Employment Records",\
-						rhtml_decode(edit_utf8(gen_record))) as message, MAX_PAPER_MESSAGE_LEN, extra = 0)
+			var/genmsg = inputMessage(usr, "Employment Records", "Set your employment notes here.")
 			if(genmsg != null)
-				gen_record = cp1251_to_utf8(post_edit_utf8(genmsg))
+				gen_record = genmsg
 
 		if("exp")
-			var/expmsg = sanitize(input(usr,"Set exploitable information about you here.","Exploitable Information",\
-						rhtml_decode(edit_utf8(exploit_record))) as message, MAX_PAPER_MESSAGE_LEN, extra = 0)
+			var/expmsg = inputMessage(usr, "Exploitable Information", "Set exploitable information about you here.")
 			if(expmsg != null)
-				exploit_record = cp1251_to_utf8(post_edit_utf8(expmsg))
+				exploit_record = expmsg
 
 	else if(href_list["inventory"]) switch(href_list["inventory"])
 		if("back")

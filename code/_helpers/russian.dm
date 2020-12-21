@@ -1,18 +1,3 @@
-//HTML ENCODE/DECODE + RUS TO CP1251 TODO: OVERRIDE html_encode after fix
-/proc/rhtml_encode(var/msg)
-	msg = replacetext(msg, "<", "&lt;")
-	msg = replacetext(msg, ">", "&gt;")
-	msg = replacetext(msg, "ÿ", "&#255;")
-	return msg
-
-/proc/rhtml_decode(var/msg)
-	msg = replacetext(msg, "&gt;", ">")
-	msg = replacetext(msg, "&lt;", "<")
-	msg = replacetext(msg, "&#255;", "ÿ")
-	return msg
-
-
-
 //RUS CONVERTERS
 /proc/russian_to_cp1251(var/msg)//CHATBOX
 	return replacetext(msg, "ÿ", "&#255;")

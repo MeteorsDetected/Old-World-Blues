@@ -157,7 +157,7 @@
 /mob/living/carbon/human/blob_act()
 	if(stat == DEAD)
 		return
-	show_message("\red The blob attacks you!")
+	show_message(SPAN_WARN("The blob attacks you!"))
 	var/dam_zone = pick(BP_CHEST, BP_L_HAND, BP_R_HAND, BP_L_LEG, BP_R_LEG)
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 	apply_damage(rand(30,40), BRUTE, affecting, run_armor_check(affecting, "melee"))
@@ -166,7 +166,7 @@
 /mob/living/carbon/human/meteorhit(O as obj)
 	for(var/mob/M in viewers(src, null))
 		if ((M.client && !(M.blinded)))
-			M.show_message("\red [src] has been hit by [O]", 1)
+			M.show_message(SPAN_WARN("[src] has been hit by [O]"), 1)
 	if (health > 0)
 		var/obj/item/organ/external/affecting = get_organ(pick(BP_CHEST, BP_CHEST, BP_CHEST, BP_HEAD))
 		if(!affecting)	return
@@ -395,7 +395,7 @@
 												U.handle_regular_hud_updates()
 
 			if(!modified)
-				usr << "\red Unable to locate a data core entry for this person."
+				usr << SPAN_WARN("Unable to locate a data core entry for this person.")
 
 	if (href_list["secrecord"])
 		if(hasHUD(usr,"security"))
@@ -425,7 +425,7 @@
 								read = 1
 
 			if(!read)
-				usr << "\red Unable to locate a data core entry for this person."
+				usr << SPAN_WARN("Unable to locate a data core entry for this person.")
 
 	if (href_list["secrecordComment"])
 		if(hasHUD(usr,"security"))
@@ -455,7 +455,7 @@
 								usr << "<a href='?src=\ref[src];secrecordadd=`'>\[Add comment\]</a>"
 
 			if(!read)
-				usr << "\red Unable to locate a data core entry for this person."
+				usr << SPAN_WARN("Unable to locate a data core entry for this person.")
 
 	if (href_list["secrecordadd"])
 		if(hasHUD(usr,"security"))
@@ -523,7 +523,7 @@
 											U.handle_regular_hud_updates()
 
 			if(!modified)
-				usr << "\red Unable to locate a data core entry for this person."
+				usr << SPAN_WARN("Unable to locate a data core entry for this person.")
 
 	if (href_list["medrecord"])
 		if(hasHUD(usr,"medical"))
@@ -554,7 +554,7 @@
 								read = 1
 
 			if(!read)
-				usr << "\red Unable to locate a data core entry for this person."
+				usr << SPAN_WARN("Unable to locate a data core entry for this person.")
 
 	if (href_list["medrecordComment"])
 		if(hasHUD(usr,"medical"))
@@ -584,7 +584,7 @@
 								usr << "<a href='?src=\ref[src];medrecordadd=`'>\[Add comment\]</a>"
 
 			if(!read)
-				usr << "\red Unable to locate a data core entry for this person."
+				usr << SPAN_WARN("Unable to locate a data core entry for this person.")
 
 	if (href_list["medrecordadd"])
 		if(hasHUD(usr,"medical"))
@@ -631,18 +631,15 @@
 		switch(href_list["flavor_change"])
 			if("done")
 				src << browse(null, "window=flavor_changes")
-				return
 			if("general")
-				var/msg = input(usr,"Update the general description of your character. This will be shown regardless of clothing, and may include OOC notes and preferences.","Flavor Text",rhtml_decode(edit_cp1251(flavor_texts["general"]))) as message
+				var/msg = input(usr,"Update the general description of your character. This will be shown regardless of clothing, and may include OOC notes and preferences.","Flavor Text",html_decode(edit_cp1251(flavor_texts["general"]))) as message
 				flavor_texts[href_list["flavor_change"]] = post_edit_cp1251(sanitize(msg, extra = 0))
-				return
 			else
-				var/msg = input(usr,"Update the flavor text for your [href_list["flavor_change"]].","Flavor Text",rhtml_decode(edit_cp1251(flavor_texts[href_list["flavor_change"]]))) as message
+				var/msg = input(usr,"Update the flavor text for your [href_list["flavor_change"]].","Flavor Text",html_decode(edit_cp1251(flavor_texts[href_list["flavor_change"]]))) as message
 				flavor_texts[href_list["flavor_change"]] = post_edit_cp1251(sanitize(msg, extra = 0))
 				set_flavor()
-				return
+		return
 	..()
-	return
 
 ///eyecheck()
 ///Returns a number between -1 to 2
@@ -712,9 +709,9 @@
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)
 		visible_message(
-			"\red \The [src] begins playing \his ribcage like a xylophone. It's quite spooky.",
+			SPAN_WARN("\The [src] begins playing \his ribcage like a xylophone. It's quite spooky."),
 			SPAN_NOTE("You begin to play a spooky refrain on your ribcage."),
-			"\red You hear a spooky xylophone melody."
+			SPAN_WARN("You hear a spooky xylophone melody.")
 		)
 		var/song = pick('sound/effects/xylophone1.ogg','sound/effects/xylophone2.ogg','sound/effects/xylophone3.ogg')
 		playsound(loc, song, 50, 1, -1)
@@ -828,7 +825,7 @@
 	visible_message(
 		SPAN_NOTE("\The [src] morphs and changes [get_visible_gender() == MALE ? "his" : get_visible_gender() == FEMALE ? "her" : "their"] appearance!"),
 		SPAN_NOTE("You change your appearance!"),
-		"\red Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!"
+		SPAN_WARN("Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!")
 	)
 
 /mob/living/carbon/human/proc/remotesay()

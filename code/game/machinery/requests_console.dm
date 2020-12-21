@@ -230,7 +230,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	if(reject_bad_text(href_list["write"]))
 		dpt = ckey(href_list["write"]) //write contains the string of the receiving department's name
 
-		var/new_message = rhtml_encode(input_utf8(usr, "Write your message:", "Awaiting Input", "", "message"))
+		var/new_message = html_encode(input_utf8(usr, "Write your message:", "Awaiting Input", "", "message"))
 		if(new_message)
 			message = cp1251_to_utf8(new_message)
 			screen = 9
@@ -245,7 +245,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			priority = -1
 
 	if(href_list["writeAnnouncement"])
-		var/new_message = rhtml_encode(input_utf8(usr, "Write your message:", "Awaiting Input", "", "message"))
+		var/new_message = html_encode(input_utf8(usr, "Write your message:", "Awaiting Input", "", "message"))
 		if(new_message)
 			message = new_message
 			switch(href_list["priority"])

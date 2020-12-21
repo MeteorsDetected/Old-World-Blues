@@ -75,7 +75,7 @@ var/list/channel_to_radio_key = new
 	return 0
 
 /mob/living/proc/handle_speech_problems(var/message, var/verb)
-	message = rhtml_decode(message)
+	message = html_decode(message)
 	var/list/returns[3]
 	var/speech_problem_flag = 0
 

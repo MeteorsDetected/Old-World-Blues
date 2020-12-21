@@ -295,7 +295,7 @@
 /datum/species/proc/handle_accent(n)
 	if(!accent.len && !accentFL.len)
 		return n
-	var/te = rhtml_decode(n)
+	var/te = html_decode(n)
 	var/t = ""
 	n = length(n)
 	var/new_word = 1
