@@ -349,10 +349,14 @@ var/list/name_to_material
 	resilience = 36
 	reflectance = 5
 
-/material/steel/holographic
-	name = "holo" + MATERIAL_STEEL
+/material/steel/fgraphic
+	name = "holosteel"
 	display_name = MATERIAL_STEEL
 	shard_type = SHARD_NONE
+
+/material/steel/holographic/New()
+	. = ..()
+	name = "holo[MATERIAL_STEEL]"
 
 /material/steel/holographic/place_sheet()
 	return
