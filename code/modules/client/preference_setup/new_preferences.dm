@@ -312,9 +312,10 @@
 
 	return dat
 
-/datum/preferences/proc/inputMessage(mob/user, title, desc)
-	var/default_msg = html_decode(med_record) as message
-	return sanitize(input(user, desc, title, default_msg), MAX_PAPER_MESSAGE_LEN, extra = 0)
+/datum/preferences/proc/textInput(mob/user, title, desc, default_text)
+	default_text = html_decode(default_text)
+	var/input_message = input(usr,"Set your employment notes here.","Employment Records", default_text) as message
+	return sanitize(input_message, MAX_PAPER_MESSAGE_LEN, extra = 0)
 
 
 
@@ -503,22 +504,22 @@
 
 	else if(href_list["records"]) switch(href_list["records"])
 		if("med")
-			var/medmsg = inputMessage(usr, "Medical Records", "Set your medical notes here.")
+			var/medmsg = textInput(usr, "Medical Records", "Set your medical notes here.", med_record)
 			if(medmsg != null)
 				med_record = medmsg
 
 		if("sec")
-			var/secmsg = inputMessage(usr, "Security Records", "Set your security notes here.")
+			var/secmsg = textInput(usr, "Security Records", "Set your security notes here.", sec_record)
 			if(secmsg != null)
 				sec_record = secmsg
 
 		if("gen")
-			var/genmsg = inputMessage(usr, "Employment Records", "Set your employment notes here.")
+			var/genmsg = textInput(usr, "Employment Records", "Set your employment notes here.", gen_record)
 			if(genmsg != null)
 				gen_record = genmsg
 
 		if("exp")
-			var/expmsg = inputMessage(usr, "Exploitable Information", "Set exploitable information about you here.")
+			var/expmsg = textInput(usr, "Exploitable Information", "Set exploitable information about you here.", exploit_record)
 			if(expmsg != null)
 				exploit_record = expmsg
 
@@ -691,7 +692,10 @@
 	"}
 
 	for(var/role in special_roles)
-		if(jobban_isbanned(user, role) || (role == "positronic brain" && jobban_isbanned(user, "AI") && jobban_isbanned(user, "Cyborg")) || (role == "pAI candidate" && jobban_isbanned(user, "pAI")))
+		if(jobban_isbanned(user, role) || \
+			(role == "positronic brain" && jobban_isbanned(user, "AI") && jobban_isbanned(user, "Cyborg")) || \
+			(role == "pAI candidate" && jobban_isbanned(user, "pAI")) \
+		)
 			dat += "Be [role]: <font color=red><b> \[BANNED]</b></font><br>"
 		else
 			dat += "Be [role]: <a href='?src=\ref[src];be_special=[role]'><b>[(role in special_toggles) ? "Yes" : "No"]</b></a><br>"
@@ -782,7 +786,11 @@
 
 	if(restricted)
 		if(restricted == 1)
-			dat += "<font color='red'><b>You cannot play as this species.</br><small>If you wish to be whitelisted, you can make an application post on <a href='?src=\ref[src];preference=open_whitelist_forum'>the forums</a>.</small></b></font></br>"
+			dat += SPAN_WARN({"
+				<b>You cannot play as this species.</br>
+				<small>If you wish to be whitelisted, you can make an application post on
+				<a href='?src=\ref[src];preference=open_whitelist_forum'>the forums</a>.</small></b></br>
+			"})
 		else if(restricted == 2)
 			dat += "<font color='red'><b>You cannot play as this species.</br><small>This species is not available for play as a station race..</small></b></font></br>"
 	if(!restricted || check_rights(R_ADMIN, 0))
