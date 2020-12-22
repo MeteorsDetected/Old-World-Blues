@@ -582,7 +582,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			src.updateUsrDialog()
 
 		else if(href_list["set_wanted_desc"])
-			src.msg = html_encode(input(usr, "Provide the a description of the Wanted person and any other details you deem important", "Network Security Handler") as "message)
+			src.msg = html_encode(input(usr, "Provide the a description of the Wanted person and any other details you deem important", "Network Security Handler") as message)
 			src.updateUsrDialog()
 
 		else if(href_list["submit_wanted"])

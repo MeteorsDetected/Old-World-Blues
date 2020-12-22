@@ -245,7 +245,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			priority = -1
 
 	if(href_list["writeAnnouncement"])
-		var/new_message = html_encode(input(usr, "Write your message:", "Awaiting Input") as "message)
+		var/new_message = html_encode(input(usr, "Write your message:", "Awaiting Input") as message)
 		if(new_message)
 			message = new_message
 			switch(href_list["priority"])
