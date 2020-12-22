@@ -38,5 +38,5 @@
 	HTML += "<br>"
 	HTML += "<hr />"
 	HTML +="<a href='?src=\ref[src];flavor_change=done'>\[Done\]</a>"
-	HTML += "<tt>"
+	HTML += "</tt>"
 	src << browse(HTML, "window=flavor_changes;size=430x300")

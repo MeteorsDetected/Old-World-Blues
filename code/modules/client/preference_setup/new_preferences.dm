@@ -314,7 +314,7 @@
 
 /datum/preferences/proc/textInput(mob/user, title, desc, default_text)
 	default_text = html_decode(default_text)
-	var/input_message = input(usr,"Set your employment notes here.","Employment Records", default_text) as message
+	var/input_message = input(user, desc, title, default_text) as message
 	return sanitize(input_message, MAX_PAPER_MESSAGE_LEN, extra = 0)
 
 

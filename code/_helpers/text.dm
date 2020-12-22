@@ -28,7 +28,7 @@
 		return
 
 	if(max_length)
-		input = copytext(input,1,max_length)
+		input = copytext_char(input,1,max_length)
 
 	if(extra)
 		input = replace_characters(input, list("\n"=" ","\t"=" "))
@@ -36,7 +36,8 @@
 	if(encode)
 		//In addition to processing html, html_encode removes byond formatting codes like "\red", "\i" and other.
 		//It is important to avoid double-encode text, it can "break" quotes and some other characters.
-		//Also, keep in mind that escaped characters don't work in the interface (window titles, lower left corner of the main window, etc.)
+		//Also, keep in mind that escaped characters don't work in the interface
+		//	(window titles, lower left corner of the main window, etc.)
 		input = html_encode(input)
 	else
 		//If not need encode text, simply remove < and >
@@ -115,7 +116,8 @@
 	if(last_char_group == 1)
 		output = copytext(output,1,length(output))	//removes the last character (in this case a space)
 
-	for(var/bad_name in list("space","floor","wall","r-wall","monkey","unknown","inactive ai","plating"))	//prevents these common metagamey names
+	//prevents these common metagamey names
+	for(var/bad_name in list("space","floor","wall","r-wall","monkey","unknown","inactive ai","plating"))
 		if(cmptext(output,bad_name))	return	//(not case sensitive)
 
 	return output
@@ -286,8 +288,9 @@
 //Used in preferences' SetFlavorText and human's set_flavor verb
 //Previews a string of len or less length
 /proc/TextPreview(var/string,var/len=40)
-	if(length(string) <= len)
-		if(!length(string))
+	var/line_len = length_char(string)
+	if(line_len <= len)
+		if(!line_len)
 			return "\[...\]"
 		else
 			return string
@@ -296,7 +299,7 @@
 
 //alternative copytext() for encoded text, doesn't break html entities (&#34; and other)
 /proc/copytext_preserve_html(var/text, var/first, var/last)
-	return html_encode(copytext(html_decode(text), first, last))
+	return html_encode(copytext_char(html_decode(text), first, last))
 
 //For generating neat chat tag-images
 //The icon var could be local in the proc, but it's a waste of resources

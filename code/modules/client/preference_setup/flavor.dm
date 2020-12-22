@@ -32,7 +32,11 @@
 
 		switch(task)
 			if("general")
-				msg = input(usr,"Give a general description of your character. This will be shown regardless of clothing, and may include OOC notes and preferences.","Flavor Text", flav) as message
+				var/description = {"
+					Give a general description of your character. \
+					This will be shown regardless of clothing, and may include OOC notes and preferences.
+				"}
+				msg = input(usr, description,"Flavor Text", flav) as message
 			else
 				msg = input(usr,"Set the flavor text for your [task].","Flavor Text",flav) as message
 
