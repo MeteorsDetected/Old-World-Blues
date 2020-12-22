@@ -10,7 +10,7 @@
 
 /obj/item/weapon/picket_sign/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/weapon/pen))
-		var/input = russian_to_cp1251(input(usr, "What would you like to write on the sign", "Label Sigh"))
+		var/input = input(usr, "What would you like to write on the sign", "Label Sigh")
 		if(input)
 			label = input
 			src.name = "[label] sign"

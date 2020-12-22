@@ -485,7 +485,7 @@ ADMIN_VERB_ADD(/client/proc/cmd_admin_create_centcom_report, R_ADMIN)
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
 			P.name = "'[command_name()] Update.'"
 			P.info = replacetext(input, "\n", "<br/>")
-			P.info = cp1251_to_utf8(input)
+			P.info = input
 			P.update_space(P.info)
 			P.update_icon()
 			C.messagetitle.Add("[command_name()] Update")

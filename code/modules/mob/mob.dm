@@ -298,14 +298,12 @@
 		src << browse(null, t1)
 
 	if(href_list["flavor_more"])
-		var/dat = cp1251_to_utf8(replacetext(flavor_text, "\n", "<BR>"))
+		var/dat = replacetext(flavor_text, "\n", "<BR>")
 		if(src in view(usr))
 			usr << browse("<html><body><tt>[dat]</tt></body></html>", "window=[name];size=500x200")
 			onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()
-//	..()
-	return
 
 
 /mob/proc/pull_damage()

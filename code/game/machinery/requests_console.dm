@@ -181,7 +181,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 			if(9)	//authentication before sending
 				dat += text("<B>Message Authentication</B><BR><BR>")
-				dat += text("<b>Message for [dpt]: </b>[cp1251_to_utf8(message)]<BR><BR>")
+				dat += text("<b>Message for [dpt]: </b>[message]<BR><BR>")
 				dat += text("You may authenticate your message now by scanning your ID or your stamp<BR><BR>")
 				dat += text("Validated by: [msgVerified]<br>");
 				dat += text("Stamped by: [msgStamped]<br>");
@@ -194,7 +194,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 					dat += text("<b>Authentication accepted</b><BR><BR>")
 				else
 					dat += text("Swipe your card to authenticate yourself.<BR><BR>")
-				dat += text("<b>Message: </b>[cp1251_to_utf8(message)] <A href='?src=\ref[src];writeAnnouncement=1'>Write</A><BR><BR>")
+				dat += text("<b>Message: </b>[message] <A href='?src=\ref[src];writeAnnouncement=1'>Write</A><BR><BR>")
 				if (announceAuth && message)
 					dat += text("<A href='?src=\ref[src];sendAnnouncement=1'>Announce</A><BR>");
 				dat += text("<BR><A href='?src=\ref[src];setScreen=0'>Back</A><BR>")
@@ -230,9 +230,9 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	if(reject_bad_text(href_list["write"]))
 		dpt = ckey(href_list["write"]) //write contains the string of the receiving department's name
 
-		var/new_message = html_encode(input_utf8(usr, "Write your message:", "Awaiting Input", "", "message"))
+		var/new_message = html_encode(input(usr, "Write your message:", "Awaiting Input") as message)
 		if(new_message)
-			message = cp1251_to_utf8(new_message)
+			message = new_message
 			screen = 9
 			switch(href_list["priority"])
 				if("2")	priority = 2
@@ -245,7 +245,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			priority = -1
 
 	if(href_list["writeAnnouncement"])
-		var/new_message = html_encode(input_utf8(usr, "Write your message:", "Awaiting Input", "", "message"))
+		var/new_message = html_encode(input(usr, "Write your message:", "Awaiting Input") as "message)
 		if(new_message)
 			message = new_message
 			switch(href_list["priority"])
@@ -258,7 +258,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	if(href_list["sendAnnouncement"])
 		if(!announcementConsole)	return
 		log_game("[key_name(usr)] use [src] for annonce \"[message]\"", src.loc, FALSE)
-		announcement.Announce(utf8_to_cp1251(message), msg_sanitized = 1)
+		announcement.Announce(message, msg_sanitized = 1)
 		reset_announce()
 		screen = 0
 

@@ -88,7 +88,7 @@ var/list/channel_to_radio_key = new
 		verb = pick("stammers","stutters")
 		speech_problem_flag = 1
 
-	returns[1] = russian_to_cp1251(message)
+	returns[1] = message
 	returns[2] = verb
 	returns[3] = speech_problem_flag
 	return returns

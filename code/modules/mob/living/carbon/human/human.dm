@@ -632,11 +632,12 @@
 			if("done")
 				src << browse(null, "window=flavor_changes")
 			if("general")
-				var/msg = input(usr,"Update the general description of your character. This will be shown regardless of clothing, and may include OOC notes and preferences.","Flavor Text",html_decode(edit_cp1251(flavor_texts["general"]))) as message
-				flavor_texts[href_list["flavor_change"]] = post_edit_cp1251(sanitize(msg, extra = 0))
+				var/desc = "Update the general description of your character. This will be shown regardless of clothing, and may include OOC notes and preferences."
+				var/msg = input(usr,desc,"Flavor Text",html_decode(flavor_texts["general"])) as message
+				flavor_texts[href_list["flavor_change"]] = sanitize(msg, extra = 0)
 			else
-				var/msg = input(usr,"Update the flavor text for your [href_list["flavor_change"]].","Flavor Text",html_decode(edit_cp1251(flavor_texts[href_list["flavor_change"]]))) as message
-				flavor_texts[href_list["flavor_change"]] = post_edit_cp1251(sanitize(msg, extra = 0))
+				var/msg = input(usr,"Update the flavor text for your [href_list["flavor_change"]].","Flavor Text",html_decode(flavor_texts[href_list["flavor_change"]])) as message
+				flavor_texts[href_list["flavor_change"]] = sanitize(msg, extra = 0)
 				set_flavor()
 		return
 	..()

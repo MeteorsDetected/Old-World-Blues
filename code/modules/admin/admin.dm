@@ -646,7 +646,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/announce, R_ADMIN)
 	set desc="Announce your desires to the world"
 	if(!check_rights(0))	return
 
-	var/message = russian_to_cp1251(input("Global message to send:", "Admin Announce", null, null)  as message)
+	var/message = input("Global message to send:", "Admin Announce", null, null)  as message
 	if(message)
 		if(!check_rights(R_SERVER,0))
 			message = sanitize(message, 500, extra = 0)

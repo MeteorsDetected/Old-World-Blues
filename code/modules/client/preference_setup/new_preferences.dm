@@ -313,10 +313,8 @@
 	return dat
 
 /datum/preferences/proc/inputMessage(mob/user, title, desc)
-	var/msg = html_decode(edit_utf8(med_record)) as message
-	msg = sanitize(input(user, desc, title, msg), MAX_PAPER_MESSAGE_LEN, extra = 0)
-	if(msg)
-		return cp1251_to_utf8(post_edit_utf8(msg))
+	var/default_msg = html_decode(med_record) as message
+	return sanitize(input(user, desc, title, default_msg), MAX_PAPER_MESSAGE_LEN, extra = 0)
 
 
 
