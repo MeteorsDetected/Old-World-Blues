@@ -64,6 +64,7 @@
 
 	var/dat = {"
 		<html><head>
+		<meta charset="UTF-8">
 		<script language='javascript'>
 			[js_byjax]
 			function set(param, value) {window.location='?src=\ref[src];'+param+'='+value;}
