@@ -1,4 +1,5 @@
-//The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
+//The list of slots by priority. equip_to_appropriate_slot() uses this list.
+//Doesn't matter if a mob type doesn't have a slot.
 var/list/slot_equipment_priority = list(
 	slot_back,
 	slot_wear_id,
@@ -59,12 +60,14 @@ var/list/slot_equipment_priority = list(
 	equip_to_slot(W, slot, redraw_mob) //This proc should not ever fail.
 	return 1
 
-//This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on whether you can or can't eqip need to be done before! Use mob_can_equip() for that task.
+//This is an UNSAFE proc. It merely handles the actual job of equipping.
+//All the checks on whether you can or can't eqip need to be done before! Use mob_can_equip() for that task.
 //In most cases you will want to use equip_to_slot_if_possible()
 /mob/proc/equip_to_slot(obj/item/W as obj, slot)
 	return
 
-//This is just a commonly used configuration for the equip_to_slot_if_possible() proc, used to equip people when the rounds tarts and when events happen and such.
+//This is just a commonly used configuration for the equip_to_slot_if_possible() proc,
+// used to equip people when the rounds tarts and when events happen and such.
 /mob/proc/equip_to_slot_or_del(obj/item/W as obj, slot)
 	return equip_to_slot_if_possible(W, slot, 1, 1, 0)
 
@@ -97,7 +100,7 @@ var/list/slot_equipment_priority = list(
 			newitem.forceMove(S)
 			return S
 
-//These procs handle putting s tuff in your hand. It's probably best to use these rather than setting l_hand = ...etc
+//These procs handle putting s tuff in your hand. It's probably best to use these rather than setting l_hand = X
 //as they handle all relevant stuff like adding it to the player's screen and updating their overlays.
 
 //Returns the thing in our active hand
@@ -170,7 +173,8 @@ var/list/slot_equipment_priority = list(
 	return
 
 //This differs from remove_from_mob() in that it checks if the item can be unequipped first.
-/mob/proc/unEquip(obj/item/I, var/atom/Target) //Force overrides NODROP for things like wizarditis and admin undress.
+//Force overrides NODROP for things like wizarditis and admin undress.
+/mob/proc/unEquip(obj/item/I, var/atom/Target)
 	if(!I) //If there's nothing to drop, the drop is automatically successful.
 		return 1
 

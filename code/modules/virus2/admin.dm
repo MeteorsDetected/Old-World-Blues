@@ -97,24 +97,26 @@ ADMIN_VERB_ADD(/client/proc/virus2_editor, R_SPAWN)
 			else f = 0
 			H += "<a href='?src=\ref[src];what=species;toggle=[k]' style='color:[(k in species) ? "#006600" : "#ff0000"]'>[k]</a>"
 		H += {"
-		<a href="?src=\ref[src];what=species;reset=1" style="color:#0000aa">Reset</a>
-		<br />
-		<b>Infection Chance:</b> <a href="?src=\ref[src];what=ichance">[infectionchance]</a><br />
-		<b>Spread Type:</b> <a href="?src=\ref[src];what=stype">[spreadtype]</a><br />
-		<b>Speed:</b> <a href="?src=\ref[src];what=speed">[speed]</a><br />
-		<br />
+			<a href="?src=\ref[src];what=species;reset=1" style="color:#0000aa">Reset</a>
+			<br />
+			<b>Infection Chance:</b> <a href="?src=\ref[src];what=ichance">[infectionchance]</a><br />
+			<b>Spread Type:</b> <a href="?src=\ref[src];what=stype">[spreadtype]</a><br />
+			<b>Speed:</b> <a href="?src=\ref[src];what=speed">[speed]</a><br />
+			<br />
 		"}
 		f = 1
 		for(var/k in ALL_ANTIGENS)
-			if(!f) H += " | "
-			else f = 0
+			if(!f)
+				H += " | "
+			else
+				f = 0
 			H += "<a href='?src=\ref[src];what=antigen;toggle=[k]' style='color:[(k in antigens) ? "#006600" : "#ff0000"]'>[k]</a>"
 		H += {"
-		<a href="?src=\ref[src];what=antigen;reset=1" style="color:#0000aa">Reset</a>
-		<br />
-		<hr />
-		<b>Initial infectee:</b> <a href="?src=\ref[src];what=infectee">[infectee ? infectee : "(choose)"]</a>
-		<a href="?src=\ref[src];what=go" style="color:#ff0000">RELEASE</a>
+			<a href="?src=\ref[src];what=antigen;reset=1" style="color:#0000aa">Reset</a>
+			<br />
+			<hr />
+			<b>Initial infectee:</b> <a href="?src=\ref[src];what=infectee">[infectee ? infectee : "(choose)"]</a>
+			<a href="?src=\ref[src];what=go" style="color:#ff0000">RELEASE</a>
 		"}
 
 		user << browse(H, "window=virus2edit")

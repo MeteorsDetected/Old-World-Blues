@@ -186,7 +186,6 @@
 
 	user << browse("<HEAD><TITLE>[src.name] control</TITLE></HEAD><TT>[dat]</TT>", "window=atmo_filter")
 	onclose(user, "atmo_filter")
-	return
 
 /obj/machinery/atmospherics/trinary/filter/Topic(href, href_list) // -- TLE
 	if(..())

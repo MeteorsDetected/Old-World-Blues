@@ -37,7 +37,6 @@
 		dat +="<BR>Please insert a new toner cartridge!"
 	user << browse(dat, "window=copier")
 	onclose(user, "copier")
-	return
 
 /obj/machinery/photocopier/Topic(href, href_list)
 	if(href_list["copy"])

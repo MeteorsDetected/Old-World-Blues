@@ -20,8 +20,4 @@ ADMIN_VERB_ADD(/client/proc/view_chemical_reaction_logs, R_ADMIN|R_MOD)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
-	var/html = ""
-	for(var/entry in chemical_reaction_logs)
-		html += "[entry]<br>"
-
-	usr << browse(html, "window=chemlogs")
+	usr << browse(chemical_reaction_logs.Join("<br>"), "window=chemlogs")

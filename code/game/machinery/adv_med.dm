@@ -200,7 +200,7 @@
 	if (src.delete && src.temphtml) //Window in buffer but its just simple message, so nothing
 		src.delete = src.delete
 	else if (!src.delete && src.temphtml) //Window in buffer - its a menu, dont add clear message
-		dat = text("[]<BR><BR><A href='?src=\ref[];clear=1'>Main Menu</A>", src.temphtml, src)
+		dat = "[src.temphtml]<BR><BR><A href='?src=\ref[src];clear=1'>Main Menu</A>"
 	else
 		if (src.connected) //Is something connected?
 			dat = format_occupant_data(src.connected.get_occupant_data())
@@ -210,7 +210,6 @@
 
 	dat += text("<BR><A href='?src=\ref[];mach_close=scanconsole'>Close</A>", user)
 	user << browse(dat, "window=scanconsole;size=430x600")
-	return
 
 
 /obj/machinery/body_scanconsole/Topic(href, href_list)

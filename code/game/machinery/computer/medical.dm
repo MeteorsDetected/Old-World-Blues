@@ -160,7 +160,7 @@
 						dat += "<br>[bdat]"
 		else
 			dat += text("<A href='?src=\ref[];login=1'>{Log In}</A>", src)
-	user << browse(text("<HEAD><TITLE>Medical Records</TITLE></HEAD><TT>[]</TT>", dat), "window=med_rec")
+	user << browse("<HEAD><meta charset=\"utf-8\"><TITLE>Medical Records</TITLE></HEAD><TT>[dat]</TT>", "window=med_rec")
 	onclose(user, "med_rec")
 
 /obj/machinery/computer/med_data/Topic(href, href_list)

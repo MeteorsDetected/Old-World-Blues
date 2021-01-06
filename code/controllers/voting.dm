@@ -274,7 +274,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 				trialmin = 1 // don't know why we use both of these it's really weird, but I'm 2 lasy to refactor this all to use just admin.
 		voting |= C
 
-		. = "<html><head><title>Voting Panel</title></head><body>"
+		. = "<html><head><meta charset=\"utf-8\"><title>Voting Panel</title></head><body>"
 		if(mode)
 			if(question)	. += "<h2>Vote: '[question]'</h2>"
 			else			. += "<h2>Vote: [capitalize(mode)]</h2>"

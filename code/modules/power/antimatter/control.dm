@@ -296,10 +296,8 @@
 		dat += "- Injecting: [fuel_injection] units<BR>"
 		dat += "- <A href='?src=\ref[src];strengthdown=1'>--</A>|<A href='?src=\ref[src];strengthup=1'>++</A><BR><BR>"
 
-
 	user << browse(dat, "window=AMcontrol;size=420x500")
 	onclose(user, "AMcontrol")
-	return
 
 
 /obj/machinery/power/am_control_unit/Topic(href, href_list)

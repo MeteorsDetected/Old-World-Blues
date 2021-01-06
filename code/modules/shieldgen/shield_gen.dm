@@ -107,8 +107,16 @@
 	if(locked)
 		t += "<i>Swipe your ID card to begin.</i>"
 	else
-		t += "[owned_capacitor ? "<font color=green>Charge capacitor connected.</font>" : "<font color=red>Unable to locate charge capacitor!</font>"]<br>"
-		t += "This generator is: [active ? "<font color=green>Online</font>" : "<font color=red>Offline</font>" ] <a href='?src=\ref[src];toggle=1'>[active ? "\[Deactivate\]" : "\[Activate\]"]</a><br>"
+		if(owned_capacitor)
+			t += "<font color=green>Charge capacitor connected.</font>"
+		else
+			t += "<font color=red>Unable to locate charge capacitor!</font>"
+		t += "<br>This generator is: "
+		if(active)
+			t += "<font color=green>Online</font>"
+		else
+			t += "<font color=red>Offline</font>"
+		t += " <a href='?src=\ref[src];toggle=1'>[active ? "\[Deactivate\]" : "\[Activate\]"]</a><br>"
 		t += "Field Status: [time_since_fail > 2 ? "<font color=green>Stable</font>" : "<font color=red>Unstable</font>"]<br>"
 		t += "Coverage Radius (restart required): \
 		<a href='?src=\ref[src];change_radius=-50'>---</a> \
@@ -118,7 +126,8 @@
 		<a href='?src=\ref[src];change_radius=1'>+</a> \
 		<a href='?src=\ref[src];change_radius=5'>++</a> \
 		<a href='?src=\ref[src];change_radius=50'>+++</a><br>"
-		t += "Overall Field Strength: [round(average_field_strength, 0.01)] Renwick ([target_field_strength ? round(100 * average_field_strength / target_field_strength, 0.1) : "NA"]%)<br>"
+		t += "Overall Field Strength: [round(average_field_strength, 0.01)] "
+		t += "Renwick ([target_field_strength ? round(100 * average_field_strength / target_field_strength, 0.1) : "NA"]%)<br>"
 		t += "Upkeep Power: [round(field.len * max(average_field_strength * dissipation_rate, min_dissipation) / energy_conversion_rate)] W<br>"
 		t += "Charge Rate: <a href='?src=\ref[src];strengthen_rate=-0.1'>--</a> \
 		[strengthen_rate] Renwick/s \

@@ -77,7 +77,6 @@
 		dat += "Please swipe your card to authorize the following event: <b>[event]</b>"
 		dat += "<p><A href='?src=\ref[src];reset=1'>Back</A>"
 		user << browse(dat, "window=keycard_auth;size=500x250")
-	return
 
 
 /obj/machinery/keycard_auth/Topic(href, href_list)
