@@ -51,9 +51,7 @@
 	icon_off = "seeds-off"
 
 /obj/machinery/smartfridge/seeds/accept_check(var/obj/item/O as obj)
-	if(istype(O,/obj/item/seeds/))
-		return 1
-	return 0
+	return istype(O,/obj/item/seeds/)
 
 /obj/machinery/smartfridge/secure/extract
 	name = "\improper Biological Sample Storage"
@@ -61,9 +59,7 @@
 	req_access = list(access_research)
 
 /obj/machinery/smartfridge/secure/extract/accept_check(var/obj/item/O as obj)
-	if(istype(O,/obj/item/slime_extract))
-		return 1
-	return 0
+	return istype(O,/obj/item/slime_extract)
 
 /obj/machinery/smartfridge/secure/medbay
 	name = "\improper Refrigerated Medicine Storage"
@@ -115,8 +111,12 @@
 	desc = "A refrigerated storage unit for tasty tasty alcohol."
 
 /obj/machinery/smartfridge/drinks/accept_check(var/obj/item/O as obj)
-	if(istype(O,/obj/item/weapon/reagent_containers/glass) || istype(O,/obj/item/weapon/reagent_containers/glass/drinks) || istype(O,/obj/item/weapon/reagent_containers/condiment))
-		return 1
+	var/valid_types = list(
+		/obj/item/weapon/reagent_containers/glass,
+		/obj/item/weapon/reagent_containers/glass/drinks,
+		/obj/item/weapon/reagent_containers/condiment,
+	)
+	return is_type_in_list(O, valid_types)
 
 /obj/machinery/smartfridge/drying_rack
 	name = "\improper Drying Rack"
@@ -175,7 +175,10 @@
 /obj/machinery/smartfridge/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(istype(O, /obj/item/weapon/screwdriver))
 		panel_open = !panel_open
-		user.visible_message("[user] [panel_open ? "opens" : "closes"] the maintenance panel of \the [src].", "You [panel_open ? "open" : "close"] the maintenance panel of \the [src].")
+		user.visible_message(
+			"[user] [panel_open ? "opens" : "closes"] the maintenance panel of \the [src].",
+			"You [panel_open ? "open" : "close"] the maintenance panel of \the [src]."
+		)
 		overlays.Cut()
 		if(panel_open)
 			overlays += image(icon, icon_panel)
@@ -202,7 +205,10 @@
 				item_quants[O.name]++
 			else
 				item_quants[O.name] = 1
-			user.visible_message(SPAN_NOTE("[user] has added \the [O] to \the [src]."), SPAN_NOTE("You add \the [O] to \the [src]."))
+			user.visible_message(
+				SPAN_NOTE("[user] has added \the [O] to \the [src]."),
+				SPAN_NOTE("You add \the [O] to \the [src].")
+			)
 
 			nanomanager.update_uis(src)
 
@@ -223,7 +229,10 @@
 					plants_loaded++
 		if(plants_loaded)
 
-			user.visible_message(SPAN_NOTE("[user] loads \the [src] with \the [P]."), SPAN_NOTE("You load \the [src] with \the [P]."))
+			user.visible_message(
+				SPAN_NOTE("[user] loads \the [src] with \the [P]."),
+				SPAN_NOTE("You load \the [src] with \the [P].")
+			)
 			if(P.contents.len > 0)
 				user << SPAN_NOTE("Some items are refused.")
 

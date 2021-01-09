@@ -57,7 +57,7 @@
 		if(!interactable())
 			return
 
-		if (computer.z > 6)
+		if(!isOnPlayerLevel(src))
 			usr << "<span class='danger'>Unable to establish a connection:</span> You're too far away from the station!"
 			return
 		var/dat

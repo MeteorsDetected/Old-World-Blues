@@ -39,7 +39,7 @@
 /obj/machinery/computer/skills/attack_hand(mob/user as mob)
 	if(..())
 		return
-	if (src.z > 6)
+	if(!isOnPlayerLevel(src))
 		user << "<span class='danger'>Unable to establish a connection:</span> You're too far away from the station!"
 		return
 

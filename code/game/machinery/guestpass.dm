@@ -89,7 +89,6 @@
 
 	user.set_machine(src)
 	var/dat
-
 	if (mode == 1) //Logs
 		dat += "<h3>Activity log</h3><br>"
 		for (var/entry in internal_log)
@@ -112,7 +111,7 @@
 				dat += "<a href='?src=\ref[src];choice=access;access=[A]'>[area]</a><br>"
 		dat += "<br><a href='?src=\ref[src];action=issue'>Issue pass</a><br>"
 
-	user << browse(dat, "window=guestpass;size=400x520")
+	user << browse("<html><head><meta charset=\"utf-8\"></head><body>[dat]</body></html>", "window=guestpass;size=400x520")
 	onclose(user, "guestpass")
 
 
@@ -192,4 +191,3 @@
 				else
 					usr << "\red Cannot issue pass without issuing ID."
 	updateUsrDialog()
-	return

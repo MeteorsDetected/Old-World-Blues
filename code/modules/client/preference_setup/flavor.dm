@@ -13,7 +13,7 @@
 	dat += "<br><hr />"
 
 	dat += "<center><b>Set Robot Flavour Text</b> <hr /></center>"
-	dat += "<a href ='?src=\ref[src];preference=flavour_text_robot;task=Default'>Default:</a> "
+	dat += "<a href ='?src=\ref[src];robot_flavor=Default'>Default:</a> "
 	dat += TextPreview(flavor_texts_robot["Default"])
 	dat += "<br>"
 	for(var/module in robot_modules)

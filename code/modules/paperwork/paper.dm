@@ -78,29 +78,21 @@
 		user << SPAN_NOTE("You have to go closer if you want to read it.")
 
 /obj/item/weapon/paper/proc/show_content(var/mob/user, var/flags)
-	user << "Entering proc. Flags: [flags]"
 	var/body
 	var/head = "<head><meta charset=utf-8><title>[name]</title></head>"
 
 	var/typecheck = ishuman(user) || isobserver(user) || issilicon(user)
 
-	user << "Gonna checks"
 	if(!(flags&FORSESTAR) && ((flags&FORSESHOW) || typecheck))
-		user << "Enter show"
 		if(flags&SHOWLINKS)
-			user << "Enter links. Links: [info_links]"
 			body = info_links
 		else
-			user << "Enter info. Info: [info]"
 			body = info
 	else
-		user << "Enter stars"
 		body = stars(info)
-	user << "End checks"
 
 	user << browse("<html>[head]<body>[body][stamps]</body></html>", "window=[name]")
 	onclose(user, "[name]")
-	user << "Exit proc"
 
 /obj/item/weapon/paper/verb/rename()
 	set name = "Rename paper"
