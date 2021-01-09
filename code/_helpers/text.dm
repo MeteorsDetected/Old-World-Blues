@@ -28,7 +28,7 @@
 		return
 
 	if(max_length)
-		input = copytext(input,1,max_length)
+		input = copytext_char(input,1,max_length)
 
 	if(extra)
 		input = replace_characters(input, list("\n"=" ","\t"=" "))
@@ -36,8 +36,9 @@
 	if(encode)
 		//In addition to processing html, html_encode removes byond formatting codes like "\red", "\i" and other.
 		//It is important to avoid double-encode text, it can "break" quotes and some other characters.
-		//Also, keep in mind that escaped characters don't work in the interface (window titles, lower left corner of the main window, etc.)
-		input = rhtml_encode(input)
+		//Also, keep in mind that escaped characters don't work in the interface
+		//	(window titles, lower left corner of the main window, etc.)
+		input = html_encode(input)
 	else
 		//If not need encode text, simply remove < and >
 		//note: we can also remove here byond formatting codes: 0xFF + next byte
@@ -49,7 +50,7 @@
 
 	return input
 
-//Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after rhtml_encode().
+//Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after html_encode().
 //Best used for sanitize object names, window titles.
 //If you have a problem with sanitize() in chat, when quotes and >, < are displayed as html entites -
 //this is a problem of double-encode(when & becomes &amp;), use sanitize() with encode=0, but not the sanitizeSafe()!
@@ -115,7 +116,8 @@
 	if(last_char_group == 1)
 		output = copytext(output,1,length(output))	//removes the last character (in this case a space)
 
-	for(var/bad_name in list("space","floor","wall","r-wall","monkey","unknown","inactive ai","plating"))	//prevents these common metagamey names
+	//prevents these common metagamey names
+	for(var/bad_name in list("space","floor","wall","r-wall","monkey","unknown","inactive ai","plating"))
 		if(cmptext(output,bad_name))	return	//(not case sensitive)
 
 	return output
@@ -136,7 +138,7 @@
 
 //Old variant. Haven't dared to replace in some places.
 /proc/sanitize_old(var/t,var/list/repl_chars = list("\n"="#","\t"="#"))
-	return rhtml_encode(replace_characters(t,repl_chars))
+	return html_encode(replace_characters(t,repl_chars))
 
 /*
  * Text searches
@@ -217,7 +219,7 @@
 
 //Returns a string with the first element of the string capitalized.
 /proc/capitalize(var/t as text)
-	return ruppertext(copytext(t, 1, 2)) + copytext(t, 2)
+	return uppertext(t[1]) + copytext_char(t, 2)
 
 //This proc strips html properly, remove < > and all text between
 //for complete text sanitizing should be used sanitize()
@@ -286,8 +288,9 @@
 //Used in preferences' SetFlavorText and human's set_flavor verb
 //Previews a string of len or less length
 /proc/TextPreview(var/string,var/len=40)
-	if(length(string) <= len)
-		if(!length(string))
+	var/line_len = length_char(string)
+	if(line_len <= len)
+		if(!line_len)
 			return "\[...\]"
 		else
 			return string
@@ -296,7 +299,7 @@
 
 //alternative copytext() for encoded text, doesn't break html entities (&#34; and other)
 /proc/copytext_preserve_html(var/text, var/first, var/last)
-	return rhtml_encode(copytext(rhtml_decode(text), first, last))
+	return html_encode(copytext_char(html_decode(text), first, last))
 
 //For generating neat chat tag-images
 //The icon var could be local in the proc, but it's a waste of resources
@@ -314,54 +317,4 @@
 /proc/strip_improper(var/text)
 	return replacetext(replacetext(text, "\proper", ""), "\improper", "")
 
-/proc/l33t(T as text)
-//	T = ruppertext(T)
-	var/output = ""
-	for(var/i = 1, i <= length(T), i++)
-		var/a = text2ascii(T, i)
-		switch (a)
-			if(65,97,192,224) output += "4"//A =rus
-			if(66,98,194,226) output += "8"//B =rus
-			if(67,99,209,241) output += "("//C =rus
-			if(68,100,196,228) output += "|)"//D  = Ä
-			if(69,101,197,229,168,184) output += "3"//E =rus = ¨
-			if(70,102)        output += "|="//F
-			if(71,103,193,225) output += "6"//G = Á
-			if(72,104,205,237) output += "|-|"//H = rus
-			if(73,105,200,232,201,233)        output += "!"//I = È = É
-			if(74,106)        output += ")"//J
-			if(75,107,202,234) output += "|<"//K = rus
-			if(76,108,203, 235)        output += "1"//L = Ë
-			if(77,109,204,236) output += "|\\/|"//M = rus
-			if(78,110)        output += "|\\|"//N
-			if(79,111,206,238) output += "0"//O = rus
-			if(80,112,208,240) output += "|>"//P = rus
-			if(81,113,223,255)        output += "9"//Q = ß
-			if(82,114)        output += "|2"//R
-			if(83,115)        output += "5"//S
-			if(84,116,210,242) output += "7"//T = rus
-			if(85,117)        output += "|_|"//U
-			if(86,118)        output += "\\/"//V
-			if(87,119)        output += "\\X/"//W
-			if(88,120,213,245) output += "><"//X = rus
-			if(89,121,211,243) output += "'/"//Y = Ó
-			if(90,122) output += "2"//Z
-			if(195,227) output += "r"//Ã
-			if(198,230) output += ">|<"//Æ
-			if(199,231) output += "z"//Ç
-			if(207,239) output += "||"//Ï
-			if(212,244) output += "<|>"//Ô
-			if(214,246) output += "|_|_"//Ö
-			if(215,246) output += "4"//Ö
-			if(216,248) output += "LLI"//Ø
-			if(217,249) output += "LLL"//Ù
-			if(218,250) output += "'b"//Ú
-			if(219,251) output += "b|"//Û
-			if(220,252) output += "b"//Ü
-			if(221,253) output += "-)"//Ý
-			if(222,254) output += "|-O"//Þ
-
-			else          output += ascii2text(a)
-	world << output
-	return output
 

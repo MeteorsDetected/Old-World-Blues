@@ -286,7 +286,6 @@
 			dat += "<HR><A href='?src=\ref[src];main=1'>Main Menu</A>"
 	user << browse("<TITLE>R&D Server Control</TITLE><HR>[dat]", "window=server_control;size=575x400")
 	onclose(user, "server_control")
-	return
 
 /obj/machinery/computer/rdservercontrol/emag_act(var/remaining_charges, var/mob/user)
 	if(!emagged)

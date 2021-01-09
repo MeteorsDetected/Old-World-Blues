@@ -64,6 +64,7 @@
 
 	var/dat = {"
 		<html><head>
+		<meta charset="UTF-8">
 		<script language='javascript'>
 			[js_byjax]
 			function set(param, value) {window.location='?src=\ref[src];'+param+'='+value;}
@@ -312,6 +313,13 @@
 
 	return dat
 
+/datum/preferences/proc/textInput(mob/user, title, desc, default_text)
+	default_text = html_decode(default_text)
+	var/input_message = input(user, desc, title, default_text) as message
+	return sanitize(input_message, MAX_PAPER_MESSAGE_LEN, extra = 0)
+
+
+
 /datum/preferences/proc/HandleRecordsTopic(mob/user, list/href_list)
 	if(href_list["name"]) switch(href_list["name"])
 		if("input")
@@ -497,28 +505,24 @@
 
 	else if(href_list["records"]) switch(href_list["records"])
 		if("med")
-			var/medmsg = sanitize(input(usr,"Set your medical notes here.","Medical Records",\
-						rhtml_decode(edit_utf8(med_record))) as message, MAX_PAPER_MESSAGE_LEN, extra = 0)
+			var/medmsg = textInput(usr, "Medical Records", "Set your medical notes here.", med_record)
 			if(medmsg != null)
-				med_record = cp1251_to_utf8(post_edit_utf8(medmsg))
+				med_record = medmsg
 
 		if("sec")
-			var/secmsg = sanitize(input(usr,"Set your security notes here.","Security Records",\
-						rhtml_decode(edit_utf8(sec_record))) as message, MAX_PAPER_MESSAGE_LEN, extra = 0)
+			var/secmsg = textInput(usr, "Security Records", "Set your security notes here.", sec_record)
 			if(secmsg != null)
-				sec_record = cp1251_to_utf8(post_edit_utf8(secmsg))
+				sec_record = secmsg
 
 		if("gen")
-			var/genmsg = sanitize(input(usr,"Set your employment notes here.","Employment Records",\
-						rhtml_decode(edit_utf8(gen_record))) as message, MAX_PAPER_MESSAGE_LEN, extra = 0)
+			var/genmsg = textInput(usr, "Employment Records", "Set your employment notes here.", gen_record)
 			if(genmsg != null)
-				gen_record = cp1251_to_utf8(post_edit_utf8(genmsg))
+				gen_record = genmsg
 
 		if("exp")
-			var/expmsg = sanitize(input(usr,"Set exploitable information about you here.","Exploitable Information",\
-						rhtml_decode(edit_utf8(exploit_record))) as message, MAX_PAPER_MESSAGE_LEN, extra = 0)
+			var/expmsg = textInput(usr, "Exploitable Information", "Set exploitable information about you here.", exploit_record)
 			if(expmsg != null)
-				exploit_record = cp1251_to_utf8(post_edit_utf8(expmsg))
+				exploit_record = expmsg
 
 	else if(href_list["inventory"]) switch(href_list["inventory"])
 		if("back")
@@ -689,7 +693,10 @@
 	"}
 
 	for(var/role in special_roles)
-		if(jobban_isbanned(user, role) || (role == "positronic brain" && jobban_isbanned(user, "AI") && jobban_isbanned(user, "Cyborg")) || (role == "pAI candidate" && jobban_isbanned(user, "pAI")))
+		if(jobban_isbanned(user, role) || \
+			(role == "positronic brain" && jobban_isbanned(user, "AI") && jobban_isbanned(user, "Cyborg")) || \
+			(role == "pAI candidate" && jobban_isbanned(user, "pAI")) \
+		)
 			dat += "Be [role]: <font color=red><b> \[BANNED]</b></font><br>"
 		else
 			dat += "Be [role]: <a href='?src=\ref[src];be_special=[role]'><b>[(role in special_toggles) ? "Yes" : "No"]</b></a><br>"
@@ -780,7 +787,11 @@
 
 	if(restricted)
 		if(restricted == 1)
-			dat += "<font color='red'><b>You cannot play as this species.</br><small>If you wish to be whitelisted, you can make an application post on <a href='?src=\ref[src];preference=open_whitelist_forum'>the forums</a>.</small></b></font></br>"
+			dat += SPAN_WARN({"
+				<b>You cannot play as this species.</br>
+				<small>If you wish to be whitelisted, you can make an application post on
+				<a href='?src=\ref[src];preference=open_whitelist_forum'>the forums</a>.</small></b></br>
+			"})
 		else if(restricted == 2)
 			dat += "<font color='red'><b>You cannot play as this species.</br><small>This species is not available for play as a station race..</small></b></font></br>"
 	if(!restricted || check_rights(R_ADMIN, 0))

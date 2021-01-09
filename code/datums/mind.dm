@@ -102,7 +102,7 @@
 			output += "<B>Objective #[obj_count]</B>: <div>[objective.explanation_text]</div>"
 			obj_count++
 
-	recipient << browse(output, "window=memory")
+	recipient << browse("<html><head><meta charset=\"utf-8\"><title>Memory</title></head><body>[output]</body>", "window=memory")
 
 /datum/mind/proc/edit_memory()
 	if(!ticker || !ticker.mode)
@@ -138,7 +138,7 @@
 	else
 		out += "None."
 	out += "<br><a href='?src=\ref[src];obj_add=1'>\[add\]</a>"
-	usr << browse(out, "window=edit_memory[src]")
+	usr << browse("<html><head><meta charset=\"utf-8\"></head><body>[out]</body></html>", "window=edit_memory[src]")
 
 /datum/mind/Topic(href, href_list)
 	if(!check_rights(R_ADMIN))	return
@@ -291,7 +291,7 @@
 		var/obj_count = 1
 		current << SPAN_NOTE("Your current objectives:")
 		for(var/datum/objective/objective in objectives)
-			current << "<B>Objective #[obj_count]</B>: [utf8_to_cp1251(objective.explanation_text)]"
+			current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 			obj_count++
 	edit_memory()
 

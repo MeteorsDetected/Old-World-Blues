@@ -38,7 +38,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/show_player_panel, null, TRUE)
 		usr << "Error: you are not an admin!"
 		return
 
-	var/body = "<html><head><title>Options for [M.key]</title></head>"
+	var/body = "<html><head><meta charset=\"utf-8\"><title>Options for [M.key]</title></head>"
 	body += "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
@@ -183,9 +183,9 @@ ADMIN_VERB_ADD(/datum/admins/proc/show_player_panel, null, TRUE)
 			if(!f) body += " | "
 			else f = 0
 			if(L in M.languages)
-				body += "<a href='?_src_=holder;toglang=\ref[M];lang=[rhtml_encode(k)]' style='color:#006600'>[k]</a>"
+				body += "<a href='?_src_=holder;toglang=\ref[M];lang=[html_encode(k)]' style='color:#006600'>[k]</a>"
 			else
-				body += "<a href='?_src_=holder;toglang=\ref[M];lang=[rhtml_encode(k)]' style='color:#ff0000'>[k]</a>"
+				body += "<a href='?_src_=holder;toglang=\ref[M];lang=[html_encode(k)]' style='color:#ff0000'>[k]</a>"
 
 	body += {"<br>
 		</body></html>
@@ -646,7 +646,7 @@ ADMIN_VERB_ADD(/datum/admins/proc/announce, R_ADMIN)
 	set desc="Announce your desires to the world"
 	if(!check_rights(0))	return
 
-	var/message = russian_to_cp1251(input("Global message to send:", "Admin Announce", null, null)  as message)
+	var/message = input("Global message to send:", "Admin Announce", null, null)  as message
 	if(message)
 		if(!check_rights(R_SERVER,0))
 			message = sanitize(message, 500, extra = 0)

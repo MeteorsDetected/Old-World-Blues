@@ -240,7 +240,6 @@
 
 	user << browse("<HEAD><TITLE>Mulebot [suffix ? "([suffix])" : ""]</TITLE></HEAD>[dat]", "window=mulebot;size=350x500")
 	onclose(user, "mulebot")
-	return
 
 /obj/machinery/bot/mulebot/Topic(href, href_list)
 	if(..())

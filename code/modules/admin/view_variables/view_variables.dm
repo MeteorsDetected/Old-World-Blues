@@ -30,6 +30,7 @@ ADMIN_VERB_ADD(/client/proc/debug_variables, null, TRUE)
 	var/html = {"
 		<html>
 		<head>
+			<meta charset="utf-8">
 			<script src='view_variables.js'></script>
 			<title>[D] (\ref[D] - [D.type])</title>
 			<style>

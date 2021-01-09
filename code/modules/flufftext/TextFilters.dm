@@ -1,7 +1,7 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
 /proc/Intoxicated(phrase)
-	phrase = rhtml_decode(phrase)
+	phrase = html_decode(phrase)
 	var/leng=length(phrase)
 	var/counter=length(phrase)
 	var/newphrase=""
@@ -14,8 +14,8 @@
 			if(lowertext(newletter)=="a")	newletter="ah"
 			if(lowertext(newletter)=="c")	newletter="k"
 		switch(rand(1,7))
-			if(1,3,5,8)	newletter="[rlowertext(newletter)]"
-			if(2,4,6,15)	newletter="[ruppertext(newletter)]"
+			if(1,3,5,8)	newletter=lowertext(newletter)
+			if(2,4,6,15)	newletter=uppertext(newletter)
 			if(7)	newletter+="'"
 			//if(9,10)	newletter="<b>[newletter]</b>"
 			//if(11,12)	newletter="<big>[newletter]</big>"
@@ -24,7 +24,7 @@
 	return newphrase
 
 /proc/NewStutter(phrase,stunned)
-	phrase = rhtml_decode(phrase)
+	phrase = html_decode(phrase)
 
 	var/list/split_phrase = splittext(phrase," ") //Split it up into words.
 

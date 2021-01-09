@@ -1150,10 +1150,10 @@
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
 
 		//todo: sanitize
-		var/input = russian_to_utf8(input(src.owner, "Please enter a message to reply to [key_name(sender)] via secure connection. NOTE: BBCode does not work, but HTML tags do! Use <br> for line breaks.", "Outgoing message from Centcomm", "") as message|null)
+		var/input = input(src.owner, "Please enter a message to reply to [key_name(sender)] via secure connection. NOTE: BBCode does not work, but HTML tags do! Use <br> for line breaks.", "Outgoing message from Centcomm", "") as message|null
 		if(!input)	return
 
-		var/customname = russian_to_utf8(input(src.owner, "Pick a title for the report", "Title") as text|null)
+		var/customname = input(src.owner, "Pick a title for the report", "Title") as text|null
 
 		// Create the reply message
 		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( null ) //hopefully the null loc won't cause trouble for us
@@ -1447,7 +1447,7 @@
 		src.Secrets(AC)
 
 	else if(href_list["ac_set_new_message"])
-		src.admincaster_feed_message.body = rhtml_encode(input_utf8(usr, "Write your Feed story", "Network Channel Handler", "", "message"))
+		src.admincaster_feed_message.body = html_encode(input(usr, "Write your Feed story", "Network Channel Handler") as message)
 		src.access_news_network()
 
 	else if(href_list["ac_submit_new_message"])

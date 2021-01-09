@@ -272,7 +272,6 @@ var/specops_shuttle_timeleft = 0
 
 	user << browse(dat, "window=computer;size=575x450")
 	onclose(user, "computer")
-	return
 
 /obj/machinery/computer/specops_shuttle/Topic(href, href_list)
 	if(..())

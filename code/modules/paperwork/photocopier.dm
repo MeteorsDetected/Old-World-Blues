@@ -37,7 +37,6 @@
 		dat +="<BR>Please insert a new toner cartridge!"
 	user << browse(dat, "window=copier")
 	onclose(user, "copier")
-	return
 
 /obj/machinery/photocopier/Topic(href, href_list)
 	if(href_list["copy"])
@@ -159,7 +158,7 @@
 		c.info = "<font color = #101010>"
 	else			//no toner? shitty copies for you!
 		c.info = "<font color = #808080>"
-	var/copied = rhtml_decode(copy.info)
+	var/copied = html_decode(copy.info)
 	copied = replacetext(copied, "<font face=\"[c.deffont]\" color=", "<font face=\"[c.deffont]\" nocolor=")	//state of the art techniques in action
 	copied = replacetext(copied, "<font face=\"[c.crayonfont]\" color=", "<font face=\"[c.crayonfont]\" nocolor=")	//This basically just breaks the existing color tag, which we need to do because the innermost tag takes priority.
 	c.info += copied

@@ -579,5 +579,5 @@ var/list/VVckey_edit = list("key", "ckey")
 		if("marked datum")
 			O.vars[variable] = holder.marked_datum
 
-	log_world("### VarEdit by [src]: [O.type] [variable]=[rhtml_encode("[O.vars[variable]]")]")
+	log_world("### VarEdit by [src]: [O.type] [variable]=[html_encode("[O.vars[variable]]")]")
 	log_admin("[key_name(src)] modified [original_name]'s [variable] to [O.vars[variable]]", O)

@@ -39,35 +39,37 @@
 /obj/machinery/computer/skills/attack_hand(mob/user as mob)
 	if(..())
 		return
-	if (src.z > 6)
+	if(!isOnPlayerLevel(src))
 		user << "<span class='danger'>Unable to establish a connection:</span> You're too far away from the station!"
 		return
-	var/dat
+
+	var/dat = "<html><head><meta charset=\"utf-8\"></head><body>"
 
 	if (temp)
-		dat = text("<TT>[]</TT><BR><BR><A href='?src=\ref[];choice=Clear Screen'>Clear Screen</A>", temp, src)
+		dat += text("<TT>[]</TT><BR><BR><A href='?src=\ref[];choice=Clear Screen'>Clear Screen</A>", temp, src)
 	else
-		dat = text("Confirm Identity: <A href='?src=\ref[];choice=Confirm Identity'>[]</A><HR>", src, (scan ? text("[]", scan.name) : "----------"))
-		if (authenticated)
+		dat += text("Confirm Identity: <A href='?src=\ref[];choice=Confirm Identity'>[]</A><HR>", src, (scan ? text("[]", scan.name) : "----------"))
+		if (!authenticated)
+			dat += text("<A href='?src=\ref[];choice=Log In'>{Log In}</A>", src)
+		else
 			switch(screen)
 				if(1.0)
 					dat += "<p style='text-align:center;'>"
 					dat += text("<A href='?src=\ref[];choice=Search Records'>Search Records</A><BR>", src)
 					dat += text("<A href='?src=\ref[];choice=New Record (General)'>New Record</A><BR>", src)
 					dat += {"
-</p>
-<table style="text-align:center;" cellspacing="0" width="100%">
-<tr>
-<th>Records:</th>
-</tr>
-</table>
-<table style="text-align:center;" border="1" cellspacing="0" width="100%">
-<tr>
-<th><A href='?src=\ref[src];choice=Sorting;sort=name'>Name</A></th>
-<th><A href='?src=\ref[src];choice=Sorting;sort=id'>ID</A></th>
-<th><A href='?src=\ref[src];choice=Sorting;sort=rank'>Rank</A></th>
-<th><A href='?src=\ref[src];choice=Sorting;sort=fingerprint'>Fingerprints</A></th>
-</tr>"}
+						</p>
+						<table style="text-align:center;" cellspacing="0" width="100%">
+						<tr> <th>Records:</th> </tr>
+						</table>
+						<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+						<tr>
+						<th><A href='?src=\ref[src];choice=Sorting;sort=name'>Name</A></th>
+						<th><A href='?src=\ref[src];choice=Sorting;sort=id'>ID</A></th>
+						<th><A href='?src=\ref[src];choice=Sorting;sort=rank'>Rank</A></th>
+						<th><A href='?src=\ref[src];choice=Sorting;sort=fingerprint'>Fingerprints</A></th>
+						</tr>
+					"}
 					if(!isnull(data_core.general))
 						for(var/datum/data/record/R in sortRecord(data_core.general, sortBy, order))
 							for(var/datum/data/record/E in data_core.security)
@@ -109,19 +111,15 @@
 						dat += text("ERROR.  String could not be located.<br><br><A href='?src=\ref[];choice=Return'>Back</A>", src)
 					else
 						dat += {"
-<table style="text-align:center;" cellspacing="0" width="100%">
-<tr>					"}
-						dat += text("<th>Search Results for '[]':</th>", tempname)
-						dat += {"
-</tr>
-</table>
-<table style="text-align:center;" border="1" cellspacing="0" width="100%">
-<tr>
-<th>Name</th>
-<th>ID</th>
-<th>Rank</th>
-<th>Fingerprints</th>
-</tr>					"}
+							<table style="text-align:center;" cellspacing="0" width="100%"><tr>
+							<th>Search Results for '[tempname]':</th>
+							</tr>
+							</table>
+							<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+							<tr>
+							<th>Name</th> <th>ID</th> <th>Rank</th> <th>Fingerprints</th>
+							</tr>
+						"}
 						for(var/i=1, i<=Perp.len, i += 2)
 							var/crimstat = ""
 							var/datum/data/record/R = Perp[i]
@@ -137,12 +135,8 @@
 							dat += text("<td>[]</td></tr>", crimstat)
 						dat += "</table><hr width='75%' />"
 						dat += text("<br><A href='?src=\ref[];choice=Return'>Return to index.</A>", src)
-				else
-		else
-			dat += text("<A href='?src=\ref[];choice=Log In'>{Log In}</A>", src)
-	user << browse(text("<HEAD><TITLE>Employment Records</TITLE></HEAD><TT>[]</TT>", dat), "window=secure_rec;size=600x400")
+	user << browse("<HEAD><META charset=\"utf-8\"><TITLE>Employment Records</TITLE></HEAD><TT>[dat]</TT>", "window=secure_rec;size=600x400")
 	onclose(user, "secure_rec")
-	return
 
 /*Revised /N
 I can't be bothered to look more of the actual code outside of switch but that probably needs revising too.
@@ -214,7 +208,7 @@ What a mess.*/
 				if ((!t1 || usr.incapacitated() || !authenticated || !IN_RANGE(src, usr)))
 					return
 				Perp = new/list()
-				t1 = rlowertext(t1)
+				t1 = lowertext(t1)
 				var/list/components = splittext(t1, " ")
 				if(components.len > 5)
 					return //Lets not let them search too greedily.
@@ -251,9 +245,9 @@ What a mess.*/
 				if ((!t1 || usr.incapacitated() || !authenticated || (!IN_RANGE(src, usr)) && (!issilicon(usr))))
 					return
 				active1 = null
-				t1 = rlowertext(t1)
+				t1 = lowertext(t1)
 				for(var/datum/data/record/R in data_core.general)
-					if (rlowertext(R.fields["fingerprint"]) == t1)
+					if (lowertext(R.fields["fingerprint"]) == t1)
 						active1 = R
 				if (!( active1 ))
 					temp = text("Could not locate record [].", t1)

@@ -106,7 +106,8 @@
 	if(!signal || signal.encryption) return
 
 	var/id_tag = signal.data["tag"]
-	if(!id_tag || !sensors.Find(id_tag)) return
+	if(!id_tag || !sensors.Find(id_tag))
+		return
 
 	sensor_information[id_tag] = signal.data
 
@@ -143,8 +144,7 @@
 	else
 		sensor_data = "No sensors connected."
 
-	var/output = {"<B>[name]</B><HR>
-<B>Sensor Data:</B><HR><HR>[sensor_data]"}
+	var/output = "<B>[name]</B><HR><B>Sensor Data:</B><HR><HR>[sensor_data]"
 
 	return output
 

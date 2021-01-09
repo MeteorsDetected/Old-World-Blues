@@ -182,9 +182,8 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 			if(copyitem)
 				dat += "<a href ='byond://?src=\ref[src];remove=1'>Remove Item</a><br>"
 
-	user << browse(dat, "window=copier")
+	user << browse("<html><head><meta charset=\"utf-8\"></head><body>[dat]</body></html>", "window=copier")
 	onclose(user, "copier")
-	return
 
 /obj/machinery/photocopier/faxmachine/Topic(href, href_list)
 	if(href_list["department"])

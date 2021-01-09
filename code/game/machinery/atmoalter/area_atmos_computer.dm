@@ -27,39 +27,16 @@
 		var/dat = {"
 		<html>
 			<head>
+				<meta charset="utf-8">
 				<style type="text/css">
-					a.green:link
-					{
-						color:#00CC00;
-					}
-					a.green:visited
-					{
-						color:#00CC00;
-					}
-					a.green:hover
-					{
-						color:#00CC00;
-					}
-					a.green:active
-					{
-						color:#00CC00;
-					}
-					a.red:link
-					{
-						color:#FF0000;
-					}
-					a.red:visited
-					{
-						color:#FF0000;
-					}
-					a.red:hover
-					{
-						color:#FF0000;
-					}
-					a.red:active
-					{
-						color:#FF0000;
-					}
+					a.green:link	{color:#00CC00;}
+					a.green:visited	{color:#00CC00;}
+					a.green:hover	{color:#00CC00;}
+					a.green:active	{color:#00CC00;}
+					a.red:link		{color:#FF0000;}
+					a.red:visited	{color:#FF0000;}
+					a.red:hover		{color:#FF0000;}
+					a.red:active	{color:#FF0000;}
 				</style>
 			</head>
 			<body>
@@ -87,7 +64,7 @@
 				<i>[zone]</i>
 			</body>
 		</html>"}
-		user << browse("[dat]", "window=miningshuttle;size=400x400")
+		user << browse(dat, "window=miningshuttle;size=400x400")
 		status = ""
 
 	Topic(href, href_list)

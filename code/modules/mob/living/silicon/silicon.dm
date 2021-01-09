@@ -226,7 +226,7 @@
 			else
 				default_str = " - <a href='byond://?src=\ref[src];default_lang=\ref[L]'>set default</a>"
 
-			var/key = russian_to_utf8(get_key_by_value(language_keys, L))
+			var/key = get_key_by_value(language_keys, L)
 			if(!key) key = "no key"
 			else key = ":[key]"
 

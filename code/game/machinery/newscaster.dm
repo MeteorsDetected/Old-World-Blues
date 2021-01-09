@@ -234,7 +234,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	if(ishuman(user) || issilicon(user))
 		var/mob/living/human_or_robot_user = user
 		var/dat
-		dat = text("<HEAD><TITLE>Newscaster</TITLE></HEAD><H3>Newscaster Unit #[src.unit_no]</H3>")
+		dat = "<HEAD><META CHARSET=\"UTF-8\"><TITLE>Newscaster</TITLE></HEAD><H3>Newscaster Unit #[src.unit_no]</H3>"
 
 		src.scan_user(human_or_robot_user) //Newscaster scans you
 
@@ -477,7 +477,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	if ((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (issilicon(usr)))
 		usr.set_machine(src)
 		if(href_list["set_channel_name"])
-			src.channel_name = cp1251_to_utf8(sanitizeSafe(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", ""), MAX_LNAME_LEN))
+			src.channel_name = sanitizeSafe(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", ""), MAX_LNAME_LEN)
 			src.updateUsrDialog()
 			//src.update_icon()
 
@@ -520,7 +520,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			src.updateUsrDialog()
 
 		else if(href_list["set_new_message"])
-			src.msg = sanitize(input_utf8(usr, "Write your Feed story", "Network Channel Handler", "", "message"))
+			src.msg = sanitize(input(usr, "Write your Feed story", "Network Channel Handler") as message)
 			src.updateUsrDialog()
 
 		else if(href_list["set_attachment"])
@@ -578,11 +578,11 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			src.updateUsrDialog()
 
 		else if(href_list["set_wanted_name"])
-			src.channel_name = russian_to_utf8(sanitizeSafe(input(usr, "Provide the name of the Wanted person", "Network Security Handler", ""), MAX_LNAME_LEN))
+			src.channel_name = sanitizeSafe(input(usr, "Provide the name of the Wanted person", "Network Security Handler", ""), MAX_LNAME_LEN)
 			src.updateUsrDialog()
 
 		else if(href_list["set_wanted_desc"])
-			src.msg = rhtml_encode(input_utf8(usr, "Provide the a description of the Wanted person and any other details you deem important", "Network Security Handler", "", "message"))
+			src.msg = html_encode(input(usr, "Provide the a description of the Wanted person and any other details you deem important", "Network Security Handler") as message)
 			src.updateUsrDialog()
 
 		else if(href_list["submit_wanted"])
@@ -917,7 +917,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		if(src.scribble_page == src.curr_page)
 			user << "<FONT COLOR='blue'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</FONT>"
 		else
-			var/s = cp1251_to_utf8(sanitize(input(user, "Write something", "Newspaper", "")))
+			var/s = sanitize(input(user, "Write something", "Newspaper", ""))
 			s = sanitize(s)
 			if (!s)
 				return

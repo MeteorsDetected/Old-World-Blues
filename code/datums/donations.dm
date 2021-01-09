@@ -27,9 +27,9 @@ var/datum/donations/donations = new()
 
 		var/money = (user.ckey in donators) ? donators[user.ckey] : "0"
 
-		var/dat = "<title>Donator panel</title>"
+		var/dat = "<meta charset=\"utf-8\"><title>Donator panel</title>"
 		dat += "You have [money] points<br>"
-		usr << browse(dat+donation_cached, "window=donatorpanel;size=250x400")
+		user << browse(dat+donation_cached, "window=donatorpanel;size=250x400")
 
 	Topic(href, href_list)
 		var/datum/donat_stuff/item = locate(href_list["item"])

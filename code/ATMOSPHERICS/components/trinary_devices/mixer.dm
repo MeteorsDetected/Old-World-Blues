@@ -147,7 +147,6 @@
 
 	user << browse("<HEAD><TITLE>[src.name] control</TITLE></HEAD><TT>[dat]</TT>", "window=atmo_mixer")
 	onclose(user, "atmo_mixer")
-	return
 
 /obj/machinery/atmospherics/trinary/mixer/Topic(href,href_list)
 	if(..()) return 1

@@ -71,7 +71,8 @@ nanoui is used to open and update nano browser uis
   *
   * @return /nanoui new nanoui object
   */
-/datum/nanoui/New(nuser, nsrc_object, nui_key, ntemplate_filename, ntitle = 0, nwidth = 0, nheight = 0, var/atom/nref = null, var/datum/nanoui/master_ui = null, var/datum/topic_state/state = default_state)
+/datum/nanoui/New(nuser, nsrc_object, nui_key, ntemplate_filename, ntitle = 0, nwidth = 0, nheight = 0, \
+			var/atom/nref = null, var/datum/nanoui/master_ui = null, var/datum/topic_state/state = default_state)
 	user = nuser
 	src_object = nsrc_object
 	ui_key = nui_key
@@ -354,7 +355,7 @@ nanoui is used to open and update nano browser uis
 	return {"
 <!DOCTYPE html>
 <html>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset="utf-8">
 	<head>
 		<script type='text/javascript'>
 			function receiveUpdateData(jsonString)

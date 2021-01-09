@@ -252,4 +252,3 @@
 
 	user << browse(dat, "window=pacontrol;size=420x500")
 	onclose(user, "pacontrol")
-	return

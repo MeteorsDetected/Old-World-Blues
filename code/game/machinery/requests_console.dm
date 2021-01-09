@@ -12,7 +12,8 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	anchored = 1
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "req_comp0"
-	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
+	var/department = "Unknown"  //The list of all departments on the station (Determined from this variable on each unit)
+								//Set this to the same thing if you want several consoles in one department
 	var/list/messages = list() //List of all messages
 	var/departmentType = 0
 		// 0 = none (not listed, can only repeplied to)
@@ -123,7 +124,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	if(..(user))
 		return
 	var/dat
-	dat = text("<HEAD><TITLE>Requests Console</TITLE></HEAD><H3>[department] Requests Console</H3>")
+	dat = "<HEAD><META CHARSET=\"UTF-8\"><TITLE>Requests Console</TITLE></HEAD><H3>[department] Requests Console</H3>"
 	if(!open)
 		switch(screen)
 			if(1)	//req. assistance
@@ -181,7 +182,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 			if(9)	//authentication before sending
 				dat += text("<B>Message Authentication</B><BR><BR>")
-				dat += text("<b>Message for [dpt]: </b>[cp1251_to_utf8(message)]<BR><BR>")
+				dat += text("<b>Message for [dpt]: </b>[message]<BR><BR>")
 				dat += text("You may authenticate your message now by scanning your ID or your stamp<BR><BR>")
 				dat += text("Validated by: [msgVerified]<br>");
 				dat += text("Stamped by: [msgStamped]<br>");
@@ -194,7 +195,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 					dat += text("<b>Authentication accepted</b><BR><BR>")
 				else
 					dat += text("Swipe your card to authenticate yourself.<BR><BR>")
-				dat += text("<b>Message: </b>[cp1251_to_utf8(message)] <A href='?src=\ref[src];writeAnnouncement=1'>Write</A><BR><BR>")
+				dat += text("<b>Message: </b>[message] <A href='?src=\ref[src];writeAnnouncement=1'>Write</A><BR><BR>")
 				if (announceAuth && message)
 					dat += text("<A href='?src=\ref[src];sendAnnouncement=1'>Announce</A><BR>");
 				dat += text("<BR><A href='?src=\ref[src];setScreen=0'>Back</A><BR>")
@@ -230,9 +231,9 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	if(reject_bad_text(href_list["write"]))
 		dpt = ckey(href_list["write"]) //write contains the string of the receiving department's name
 
-		var/new_message = rhtml_encode(input_utf8(usr, "Write your message:", "Awaiting Input", "", "message"))
+		var/new_message = html_encode(input(usr, "Write your message:", "Awaiting Input") as message)
 		if(new_message)
-			message = cp1251_to_utf8(new_message)
+			message = new_message
 			screen = 9
 			switch(href_list["priority"])
 				if("2")	priority = 2
@@ -245,7 +246,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			priority = -1
 
 	if(href_list["writeAnnouncement"])
-		var/new_message = rhtml_encode(input_utf8(usr, "Write your message:", "Awaiting Input", "", "message"))
+		var/new_message = html_encode(input(usr, "Write your message:", "Awaiting Input") as message)
 		if(new_message)
 			message = new_message
 			switch(href_list["priority"])
@@ -258,7 +259,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	if(href_list["sendAnnouncement"])
 		if(!announcementConsole)	return
 		log_game("[key_name(usr)] use [src] for annonce \"[message]\"", src.loc, FALSE)
-		announcement.Announce(utf8_to_cp1251(message), msg_sanitized = 1)
+		announcement.Announce(message, msg_sanitized = 1)
 		reset_announce()
 		screen = 0
 
@@ -294,7 +295,8 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 									playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
 									for (var/mob/O in hearers(5, Console.loc))
 										O.show_message(text("\icon[Console] *The Requests Console beeps: 'PRIORITY Alert in [department]'"))
-								Console.messages += "<B><FONT color='red'>High Priority message from <A href='?src=\ref[Console];write=[ckey(department)]'>[department]</A></FONT></B><BR>[sending]"
+								Console.messages += "<B><FONT color='red'>High Priority message from \
+									<A href='?src=\ref[Console];write=[ckey(department)]'>[department]</A></FONT></B><BR>[sending]"
 
 		//					if("3")		//Not implemanted, but will be 		//Removed as it doesn't look like anybody intends on implimenting it ~Carn
 		//						if(Console.newmessagepriority < 3)
@@ -363,9 +365,9 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		else	silent = 0
 
 	updateUsrDialog()
-	return
 
-					//err... hacking code, which has no reason for existing... but anyway... it's supposed to unlock priority 3 messanging on that console (EXTREME priority...) the code for that actually exists.
+//err... hacking code, which has no reason for existing... but anyway...
+// it's supposed to unlock priority 3 messanging on that console (EXTREME priority...) the code for that actually exists.
 /obj/machinery/requests_console/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob)
 	/*
 	if (istype(O, /obj/item/weapon/crowbar))

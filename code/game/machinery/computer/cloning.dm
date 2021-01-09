@@ -194,7 +194,6 @@
 
 	user << browse(dat, "window=cloning")
 	onclose(user, "cloning")
-	return
 
 /obj/machinery/computer/cloning/Topic(href, href_list)
 	if(..())

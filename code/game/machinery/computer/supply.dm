@@ -145,7 +145,7 @@
 		if(!istype(P))	return
 
 		var/timeout = world.time + 600
-		var/reason = cp1251_to_utf8( sanitize(input(usr,"Reason:","Why do you require this item?","") as null|text,MAX_MESSAGE_LEN,1) )
+		var/reason = sanitize(input(usr,"Reason:","Why do you require this item?","") as null|text,MAX_MESSAGE_LEN,1)
 		if(world.time > timeout)	return
 		if(!reason)	return
 

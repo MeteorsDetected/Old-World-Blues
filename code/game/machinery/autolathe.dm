@@ -74,7 +74,7 @@
 		shock(user, 50)
 
 	var/dat = "<style>span.box{display: inline-block; width: 20px; height: 10px; border:1px solid #000;}\
-			   span.deficiency{color: red}</style>"
+				span.deficiency{color: red}</style>"
 	dat += "<center><h1>Autolathe Control Panel</h1><hr/>"
 
 	if(!disabled)

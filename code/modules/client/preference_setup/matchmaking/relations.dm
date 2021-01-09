@@ -31,7 +31,7 @@
 		return
 	if(href_list["relation_info"])
 		var/R = href_list["relation_info"]
-		var/info = input_utf8(user, "Character info", "What would you like the other party for this connection to know about your character?", relations_info[R], "message")
+		var/info = input(user, "Character info", "What would you like the other party for this connection to know about your character?", relations_info[R]) as message
 		if(info)
 			relations_info[R] = info
 		return

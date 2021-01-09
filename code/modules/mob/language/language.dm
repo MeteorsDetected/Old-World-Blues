@@ -193,7 +193,7 @@
 
 	for(var/datum/language/L in languages)
 		if(!(L.flags & NONGLOBAL))
-			var/key = russian_to_utf8(get_key_by_value(language_keys, L))
+			var/key = get_key_by_value(language_keys, L)
 			if(!key) key = "no key"
 			else key = ":[key]"
 			dat += "<b>[L.name] (<a href='byond://?src=\ref[src];set_key=\ref[L]'>[key]</a>)</b>"

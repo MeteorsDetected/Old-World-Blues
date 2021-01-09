@@ -100,7 +100,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 		if(greatest_votes)
 			for(var/option in choices)
 				if(choices[option] == greatest_votes)
-					. += utf8_to_cp1251(option)
+					. += option
 		return .
 
 	proc/announce_result()
@@ -232,10 +232,10 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 							choices.Add(antag.role_text)
 					choices.Add("None")
 				if("custom")
-					question = cp1251_to_utf8(rhtml_encode(input(usr,"What is the vote for?") as text|null))
+					question = html_encode(input(usr,"What is the vote for?") as text|null)
 					if(!question)	return 0
 					for(var/i=1,i<=10,i++)
-						var/option = cp1251_to_utf8(capitalize(rhtml_encode(input(usr,"Please enter an option or hit cancel to finish") as text|null)))
+						var/option = capitalize(html_encode(input(usr,"Please enter an option or hit cancel to finish") as text|null))
 						if(!option || mode || !usr.client)	break
 						choices.Add(option)
 				else
@@ -245,7 +245,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 			started_time = world.time
 			var/text = "[capitalize(mode)] vote started by [initiator]."
 			if(mode == "custom")
-				text += "\n[utf8_to_cp1251(question)]"
+				text += "\n[question]"
 
 			log_vote(text)
 			world << "<font color='purple'><b>[text]</b>\nType <b>vote</b> or click <a href='?src=\ref[src]'>here</a> to place your votes.\nYou have [config.vote_period/10] seconds to vote.</font>"
@@ -274,7 +274,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 				trialmin = 1 // don't know why we use both of these it's really weird, but I'm 2 lasy to refactor this all to use just admin.
 		voting |= C
 
-		. = "<html><head><title>Voting Panel</title></head><body>"
+		. = "<html><head><meta charset=\"utf-8\"><title>Voting Panel</title></head><body>"
 		if(mode)
 			if(question)	. += "<h2>Vote: '[question]'</h2>"
 			else			. += "<h2>Vote: [capitalize(mode)]</h2>"

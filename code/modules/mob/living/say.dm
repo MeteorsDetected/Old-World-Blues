@@ -1,9 +1,25 @@
+var/global/list/rkeys = list(
+	"а" = "f", "в" = "d", "г" = "u", "д" = "l",
+	"е" = "t", "з" = "p", "и" = "b", "й" = "q",
+	"к" = "r", "л" = "k", "м" = "v", "н" = "y",
+	"о" = "j", "п" = "g", "р" = "h", "с" = "c",
+	"т" = "n", "у" = "e", "ф" = "a", "ц" = "w",
+	"ч" = "x", "ш" = "i", "щ" = "o", "ы" = "s",
+	"ь" = "m", "я" = "z"
+)
+
+//Transform keys from russian keyboard layout to eng analogues and lowertext it.
+/proc/sanitize_key(t)
+	t = lowertext(t)
+	return (t in rkeys)?rkeys[t]:t
+
+
 var/list/department_radio_keys = list(
 	"r" = "right ear",
 	"l" = "left ear",
 	"i" = "intercom",
 	"h" = "department",
-	"+" = "special",		//activate radio-specific special functions
+	"+" = "special",	//activate radio-specific special functions
 	"c" = "Command",
 	"n" = "Science",
 	"m" = "Medical",
@@ -30,6 +46,7 @@ var/list/channel_to_radio_key = new
 		channel_to_radio_key[channel] = key
 
 	return key
+
 
 /mob/living/proc/binarycheck()
 
@@ -58,7 +75,7 @@ var/list/channel_to_radio_key = new
 	return 0
 
 /mob/living/proc/handle_speech_problems(var/message, var/verb)
-	message = rhtml_decode(message)
+	message = html_decode(message)
 	var/list/returns[3]
 	var/speech_problem_flag = 0
 
@@ -71,7 +88,7 @@ var/list/channel_to_radio_key = new
 		verb = pick("stammers","stutters")
 		speech_problem_flag = 1
 
-	returns[1] = russian_to_cp1251(message)
+	returns[1] = message
 	returns[2] = verb
 	returns[3] = speech_problem_flag
 	return returns
@@ -113,19 +130,19 @@ var/list/channel_to_radio_key = new
 
 	var/message_mode = parse_message_mode(message, "headset")
 
-	switch(copytext(message, 1, 2))
+	switch(message[1])
 		if("*")
-			return emote(copytext(message, 2))
+			return emote(copytext_char(message, 2))
 		if("^")
-			return custom_emote(MESSAGE_VISIBLE, copytext(message, 2))
+			return custom_emote(MESSAGE_VISIBLE, copytext_char(message, 2))
 
 	//parse the radio code and consume it
 	if(message_mode)
 		//it would be really nice if the parse procs could do this for us.
 		if(message_mode == "headset")
-			message = copytext(message, 2)
+			message = copytext_char(message, 2)
 		else
-			message = copytext(message, 3)
+			message = copytext_char(message, 3)
 
 	message = trim_left(message)
 
@@ -136,7 +153,7 @@ var/list/channel_to_radio_key = new
 	if(!speaking)
 		speaking = parse_language(message)
 	if(speaking)
-		message = copytext(message, 2 + length(speaking.key))
+		message = copytext_char(message, 2 + length(speaking.key))
 	else
 		speaking = get_default_language()
 
@@ -158,7 +175,7 @@ var/list/channel_to_radio_key = new
 		if(speaking.flags & COMMON_VERBS)
 			verb = say_quote(message)
 		else
-			verb = speaking.get_spoken_verb(copytext(message, length(message)))
+			verb = speaking.get_spoken_verb(message[length(message)])
 	else
 		verb = say_quote(message)
 
@@ -182,7 +199,7 @@ var/list/channel_to_radio_key = new
 	var/sound_vol = handle_v[2]
 
 	var/italics = FALSE
-	var/message_range = (copytext(message, length(message))=="!") ? world.view+4 : world.view
+	var/message_range = (message[length(message)]=="!") ? world.view+4 : world.view
 
 	//speaking into radios
 	if(used_radios.len)
@@ -364,10 +381,10 @@ var/list/channel_to_radio_key = new
 		var/list/messages = splittext(message, " ")
 		var/R = rand(1, messages.len)
 		var/heardword = messages[R]
-		if(copytext(heardword, 1, 1) in punctuation)
-			heardword = copytext(heardword, 2)
-		if(copytext(heardword, -1) in punctuation)
-			heardword = copytext(heardword, 1, length(heardword))
+		if(heardword[1] in punctuation)
+			heardword = copytext_char(heardword, 2)
+		if(heardword[length(heardword)] in punctuation)
+			heardword = copytext_char(heardword, 1, length(heardword)-1)
 		heard = "<span class = 'game_say'>...You hear something about...[heardword]</span>"
 
 	else

@@ -166,8 +166,6 @@
 	user << browse(t, "window=turbine")
 	onclose(user, "turbine")
 
-	return
-
 /obj/machinery/power/turbine/Topic(href, href_list)
 	..()
 	if(stat & BROKEN)
@@ -258,23 +256,23 @@
 	user.machine = src
 	var/dat
 	if(src.compressor)
-		dat += {"<BR><B>Gas turbine remote control system</B><HR>
-		\nTurbine status: [ src.compressor.starter ? "<A href='?src=\ref[src];str=1'>Off</A> <B>On</B>" : "<B>Off</B> <A href='?src=\ref[src];str=1'>On</A>"]
-		\n<BR>
-		\nTurbine speed: [src.compressor.rpm]rpm<BR>
-		\nPower currently being generated: [src.compressor.turbine.lastgen]W<BR>
-		\nInternal gas temperature: [src.compressor.gas_contained.temperature]K<BR>
-		\nVent doors: [ src.door_status ? "<A href='?src=\ref[src];doors=1'>Closed</A> <B>Open</B>" : "<B>Closed</B> <A href='?src=\ref[src];doors=1'>Open</A>"]
-		\n</PRE><HR><A href='?src=\ref[src];view=1'>View</A>
-		\n</PRE><HR><A href='?src=\ref[src];close=1'>Close</A>
-		\n<BR>
-		\n"}
+		dat += {"
+			<BR><B>Gas turbine remote control system</B><HR>
+			Turbine status: [ src.compressor.starter ? "<A href='?src=\ref[src];str=1'>Off</A> <B>On</B>" : "<B>Off</B> <A href='?src=\ref[src];str=1'>On</A>"]
+			<BR>
+			Turbine speed: [src.compressor.rpm]rpm<BR>
+			Power currently being generated: [src.compressor.turbine.lastgen]W<BR>
+			Internal gas temperature: [src.compressor.gas_contained.temperature]K<BR>
+			Vent doors: [ src.door_status ? "<A href='?src=\ref[src];doors=1'>Closed</A> <B>Open</B>" : "<B>Closed</B> <A href='?src=\ref[src];doors=1'>Open</A>"]
+			</PRE><HR><A href='?src=\ref[src];view=1'>View</A>
+			</PRE><HR><A href='?src=\ref[src];close=1'>Close</A>
+			<BR>
+		"}
 	else
-		dat += "\red<B>No compatible attached compressor found."
+		dat += SPAN_WARN("<B>No compatible attached compressor found.")
 
 	user << browse(dat, "window=computer;size=400x500")
 	onclose(user, "computer")
-	return
 
 
 
@@ -305,7 +303,6 @@
 
 		src.add_fingerprint(usr)
 	src.updateUsrDialog()
-	return
 
 /obj/machinery/computer/turbine_computer/process()
 	src.updateDialog()

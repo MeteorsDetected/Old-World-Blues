@@ -59,7 +59,7 @@
 	Topic(var/href, var/list/href_list)
 		if(!interactable() || !computer.radio || ..(href,href_list) )
 			return
-		if (computer.z > 1)
+		if (!isOnStationLevel(computer))
 			usr << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 			return
 

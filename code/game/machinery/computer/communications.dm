@@ -272,7 +272,7 @@
 		return
 
 	user.set_machine(src)
-	var/dat = "<head><title>Communications Console</title></head><body>"
+	var/dat = "<head><meta charset=\"utf-8\"><title>Communications Console</title></head><body>"
 	if (emergency_shuttle.has_eta())
 		var/timeleft = emergency_shuttle.estimate_arrival_time()
 		dat += "<B>Emergency shuttle</B>\n<BR>\nETA: [timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]<BR>"
