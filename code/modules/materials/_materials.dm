@@ -40,16 +40,14 @@ var/list/name_to_material
 
 // Builds the datum list above.
 /proc/populate_material_list(force_remake=0)
-	if(name_to_material && !force_remake) return // Already set up!
+	if(name_to_material && !force_remake)
+		return // Already set up!
 	name_to_material = list()
-	world.log << "Generate materials"
 	for(var/type in typesof(/material) - /material)
 		var/material/new_mineral = new type
 		if(!new_mineral.name)
 			continue
-		world.log << "- material [new_mineral.name]"
 		name_to_material[lowertext(new_mineral.name)] = new_mineral
-	world.log << "Generate materials end"
 	return 1
 
 // Safety proc to make sure the material list exists before trying to grab from it.
