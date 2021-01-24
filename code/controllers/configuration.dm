@@ -1,10 +1,10 @@
-var/list/gamemode_cache = list()
-
 /datum/controller/configuration
 	var/server_name = null				// server name (for world name / status)
 	var/server_group = null				// server group (for world name / status)
 	var/server_group_url = null			// server group site (for status)
 	var/server_suffix = 0				// generate numeric suffix based on server port
+
+	var/list/gamemode_cache = list()
 
 	var/log_ooc = 0						// log OOC channel
 	var/log_access = 0					// log login/logout

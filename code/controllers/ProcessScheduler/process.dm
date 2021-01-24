@@ -1,5 +1,15 @@
 // Process
 
+// Process time thresholds
+#define PROCESS_DEFAULT_HANG_WARNING_TIME	300	// 30 seconds
+#define PROCESS_DEFAULT_HANG_ALERT_TIME 	600	// 60 seconds
+#define PROCESS_DEFAULT_HANG_RESTART_TIME	900	// 90 seconds
+#define PROCESS_DEFAULT_SCHEDULE_INTERVAL	50	// 50 ticks
+#define PROCESS_DEFAULT_SLEEP_INTERVAL		2	// 2 ticks
+#define PROCESS_DEFAULT_CPU_THRESHOLD		90	// 90%
+
+
+
 /datum/controller/process
 	/**
 	 * State vars
@@ -322,3 +332,13 @@
 	if(isnull(caught) || !istype(caught) || !isnull(caught.gc_destroyed))
 		return // Only bother with types we can identify and that don't belong
 	log_debug("Type [caught.type] does not belong in process' queue")
+
+#undef PROCESS_DEFAULT_HANG_WARNING_TIME
+#undef PROCESS_DEFAULT_HANG_ALERT_TIME
+#undef PROCESS_DEFAULT_HANG_RESTART_TIME
+#undef PROCESS_DEFAULT_SCHEDULE_INTERVAL
+#undef PROCESS_DEFAULT_SLEEP_INTERVAL
+#undef PROCESS_DEFAULT_CPU_THRESHOLD
+
+
+

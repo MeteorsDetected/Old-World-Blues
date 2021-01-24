@@ -204,7 +204,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 						return 0
 					choices.Add(config.votable_modes)
 					for (var/F in choices)
-						var/datum/game_mode/M = gamemode_cache[F]
+						var/datum/game_mode/M = config.gamemode_cache[F]
 						if(!M)
 							continue
 						gamemode_names[M.config_tag] = capitalize(M.name) //It's ugly to put this here but it works
