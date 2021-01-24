@@ -100,7 +100,7 @@ var/list/donator_icons
 			var/list/weighted_modes = list()
 			for(var/datum/game_mode/GM in runnable_modes)
 				weighted_modes[GM.config_tag] = config.probabilities[GM.config_tag]
-			src.mode = gamemode_cache[pickweight(weighted_modes)]
+			src.mode = config.gamemode_cache[pickweight(weighted_modes)]
 	else
 		src.mode = config.pick_mode(master_mode)
 
