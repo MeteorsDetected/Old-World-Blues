@@ -349,11 +349,10 @@ ADMIN_VERB_ADD(/client/proc/kill_air, R_DEBUG)
 	set category = "Debug"
 	set name = "Kill Air"
 	set desc = "Toggle Air Processing"
-	if(air_processing_killed)
-		air_processing_killed = 0
+	air_processing_killed = !air_processing_killed
+	if(!air_processing_killed)
 		usr << "<b>Enabled air processing.</b>"
 	else
-		air_processing_killed = 1
 		usr << "<b>Disabled air processing.</b>"
 	log_admin("[usr.key] used 'kill air'.")
 

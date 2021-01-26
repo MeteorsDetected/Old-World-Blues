@@ -61,11 +61,8 @@
 // Ported from unstable r355
 
 /turf/space/Entered(atom/movable/A as mob|obj)
-	if(movement_disabled)
-		usr << "\red Movement is admin-disabled." //This is to identify lag problems
-		return
 	..()
-	if ((!(A) || src != A.loc))	return
+	if (!A || src != A.loc)	return //Is that possible?
 
 	inertial_drift(A)
 

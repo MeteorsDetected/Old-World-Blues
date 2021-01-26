@@ -74,12 +74,8 @@
 	return 1
 
 /turf/Enter(atom/movable/mover as mob|obj, atom/forget as mob|obj|turf|area)
-	if(movement_disabled && usr.ckey != movement_disabled_exception)
-		usr << "\red Movement is admin-disabled." //This is to identify lag problems
-		return
 	if (!mover || !isturf(mover.loc))
 		return 1
-
 
 	//First, check objects to block exit that are not on the border
 	for(var/obj/obstacle in mover.loc)
@@ -117,9 +113,6 @@
 
 
 /turf/Entered(atom/atom as mob|obj)
-	if(movement_disabled)
-		usr << "\red Movement is admin-disabled." //This is to identify lag problems
-		return
 	..()
 //vvvvv Infared beam stuff vvvvv
 
