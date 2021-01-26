@@ -143,7 +143,6 @@ var/list/debug_verbs = list (
 	/client/proc/break_all_air_groups,
 	/client/proc/regroup_all_air_groups,
 	/client/proc/kill_pipe_processing,
-	/client/proc/disable_communication,
 	/client/proc/Zone_Info,
 	/client/proc/Test_ZAS_Connection,
 	/client/proc/ZoneTick,
@@ -375,18 +374,4 @@ var/global/prevent_airgroup_regroup = 0
 		message_admins("[src.ckey] used 'kill pipe processing', stopping all pipe processing.")
 	else
 		message_admins("[src.ckey] used 'kill pipe processing', restoring all pipe processing.")*/
-
-//This proc is intended to detect lag problems relating to communication procs
-var/global/say_disabled = 0
-/client/proc/disable_communication()
-	set category = "Mapping"
-	set name = "Disable all communication verbs"
-
-	usr << "\red Proc disabled."
-
-	/*say_disabled = !say_disabled
-	if(say_disabled)
-		message_admins("[src.ckey] used 'Disable all communication verbs', killing all communication methods.")
-	else
-		message_admins("[src.ckey] used 'Disable all communication verbs', restoring all communication methods.")*/
 

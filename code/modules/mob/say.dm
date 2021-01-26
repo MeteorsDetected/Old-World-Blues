@@ -9,9 +9,6 @@
 /mob/verb/say_verb(message as text)
 	set name = "Say"
 	set category = "IC"
-	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "\red Speech is currently admin-disabled."
-		return
 
 	set_typing_indicator(0)
 	usr.say(message)
@@ -19,10 +16,6 @@
 /mob/verb/me_verb(message as text)
 	set name = "Me"
 	set category = "IC"
-
-	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "\red Speech is currently admin-disabled."
-		return
 
 	message = sanitize(message)
 
@@ -33,10 +26,6 @@
 		usr.emote(message)
 
 /mob/proc/say_dead(var/message)
-	if(say_disabled)	//This is here to try to identify lag problems
-		usr << "<span class='danger'>Speech is currently admin-disabled.</span>"
-		return
-
 	if(!src.client.holder)
 		if(!config.dsay_allowed)
 			src << "<span class='danger'>Deadchat is globally muted.</span>"
