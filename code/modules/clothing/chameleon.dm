@@ -55,7 +55,6 @@ var/global/list/chameleons_categories = list(
 
 	C.body_parts_covered = initial(new_type.body_parts_covered)
 	C.flags_inv = initial(new_type.flags_inv)
-	C.description_info = initial(new_type.description_info)
 
 /obj/item/chameleon
 	name = "chameleon module"
