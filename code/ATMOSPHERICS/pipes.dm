@@ -1,5 +1,4 @@
 /obj/machinery/atmospherics/pipe
-
 	var/datum/gas_mixture/air_temporary // used when reconstructing a pipeline that broke
 	var/datum/pipeline/parent
 	var/volume = 0
@@ -149,7 +148,9 @@
 /obj/machinery/atmospherics/pipe/simple
 	icon = 'icons/atmos/pipes.dmi'
 	icon_state = ""
-	var/pipe_icon = "" //what kind of pipe it is and from which dmi is the icon manager getting its icons, "" for simple pipes, "hepipe" for HE pipes, "hejunction" for HE junctions
+	//what kind of pipe it is and from which dmi is the icon manager getting its icons,
+	//    "" for simple pipes, "hepipe" for HE pipes, "hejunction" for HE junctions
+	var/pipe_icon = ""
 	name = "pipe"
 	desc = "A one meter section of regular pipe"
 
@@ -166,6 +167,38 @@
 	alert_pressure = 55*ONE_ATMOSPHERE
 
 	level = 1
+
+BUILD_COLORBASED_SUBTYPES(/obj/machinery/atmospherics/pipe/simple)
+
+/obj/machinery/atmospherics/pipe/simple/visible
+	icon_state = "intact"
+
+/obj/machinery/atmospherics/pipe/simple/visible/scrubbers
+	name = "Scrubbers pipe"
+	desc = "A one meter section of scrubbers pipe"
+	icon_state = "intact-scrubbers"
+	layer = 2.38
+
+/obj/machinery/atmospherics/pipe/simple/visible/supply
+	name = "Air supply pipe"
+	desc = "A one meter section of supply pipe"
+	icon_state = "intact-supply"
+	layer = 2.39
+
+/obj/machinery/atmospherics/pipe/simple/hidden
+	icon_state = "intact"
+
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers
+	name = "Scrubbers pipe"
+	desc = "A one meter section of scrubbers pipe"
+	icon_state = "intact-scrubbers"
+	layer = 2.38
+
+/obj/machinery/atmospherics/pipe/simple/hidden/supply
+	name = "Air supply pipe"
+	desc = "A one meter section of supply pipe"
+	icon_state = "intact-supply"
+	layer = 2.39
 
 /obj/machinery/atmospherics/pipe/simple/New()
 	..()
@@ -317,93 +350,6 @@
 	update_icon()
 
 	return null
-
-/obj/machinery/atmospherics/pipe/simple/visible
-	icon_state = "intact"
-	level = 2
-
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers
-	name = "Scrubbers pipe"
-	desc = "A one meter section of scrubbers pipe"
-	icon_state = "intact-scrubbers"
-	connect_types = CONNECT_TYPE_SCRUBBER
-	layer = 2.38
-	icon_connect_type = "-scrubbers"
-	color = PIPE_COLOR_RED
-
-/obj/machinery/atmospherics/pipe/simple/visible/supply
-	name = "Air supply pipe"
-	desc = "A one meter section of supply pipe"
-	icon_state = "intact-supply"
-	connect_types = CONNECT_TYPE_SUPPLY
-	layer = 2.39
-	icon_connect_type = "-supply"
-	color = PIPE_COLOR_BLUE
-
-/obj/machinery/atmospherics/pipe/simple/visible/yellow
-	color = PIPE_COLOR_YELLOW
-
-/obj/machinery/atmospherics/pipe/simple/visible/cyan
-	color = PIPE_COLOR_CYAN
-
-/obj/machinery/atmospherics/pipe/simple/visible/green
-	color = PIPE_COLOR_GREEN
-
-/obj/machinery/atmospherics/pipe/simple/visible/black
-	color = PIPE_COLOR_BLACK
-
-/obj/machinery/atmospherics/pipe/simple/visible/red
-	color = PIPE_COLOR_RED
-
-/obj/machinery/atmospherics/pipe/simple/visible/blue
-	color = PIPE_COLOR_BLUE
-
-/obj/machinery/atmospherics/pipe/simple/visible/purple
-	color = PIPE_COLOR_PURPLE
-
-/obj/machinery/atmospherics/pipe/simple/hidden
-	icon_state = "intact"
-	level = 1
-	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
-
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers
-	name = "Scrubbers pipe"
-	desc = "A one meter section of scrubbers pipe"
-	icon_state = "intact-scrubbers"
-	connect_types = CONNECT_TYPE_SCRUBBER
-	layer = 2.38
-	icon_connect_type = "-scrubbers"
-	color = PIPE_COLOR_RED
-
-/obj/machinery/atmospherics/pipe/simple/hidden/supply
-	name = "Air supply pipe"
-	desc = "A one meter section of supply pipe"
-	icon_state = "intact-supply"
-	connect_types = CONNECT_TYPE_SUPPLY
-	layer = 2.39
-	icon_connect_type = "-supply"
-	color = PIPE_COLOR_BLUE
-
-/obj/machinery/atmospherics/pipe/simple/hidden/yellow
-	color = PIPE_COLOR_YELLOW
-
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan
-	color = PIPE_COLOR_CYAN
-
-/obj/machinery/atmospherics/pipe/simple/hidden/green
-	color = PIPE_COLOR_GREEN
-
-/obj/machinery/atmospherics/pipe/simple/hidden/black
-	color = PIPE_COLOR_BLACK
-
-/obj/machinery/atmospherics/pipe/simple/hidden/red
-	color = PIPE_COLOR_RED
-
-/obj/machinery/atmospherics/pipe/simple/hidden/blue
-	color = PIPE_COLOR_BLUE
-
-/obj/machinery/atmospherics/pipe/simple/hidden/purple
-	color = PIPE_COLOR_PURPLE
 
 /obj/machinery/atmospherics/pipe/simple/insulated
 	icon = 'icons/obj/atmospherics/red_pipe.dmi'
@@ -589,92 +535,36 @@
 	if(level == 1 && !T.is_plating()) hide(1)
 	update_icon()
 
+BUILD_COLORBASED_SUBTYPES(/obj/machinery/atmospherics/pipe/manifold)
+
 /obj/machinery/atmospherics/pipe/manifold/visible
 	icon_state = "map"
-	level = 2
 
 /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers
 	name="Scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map-scrubbers"
-	connect_types = CONNECT_TYPE_SCRUBBER
 	layer = 2.38
-	icon_connect_type = "-scrubbers"
-	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold/visible/supply
 	name="Air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map-supply"
-	connect_types = CONNECT_TYPE_SUPPLY
 	layer = 2.39
-	icon_connect_type = "-supply"
-	color = PIPE_COLOR_BLUE
-
-/obj/machinery/atmospherics/pipe/manifold/visible/yellow
-	color = PIPE_COLOR_YELLOW
-
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan
-	color = PIPE_COLOR_CYAN
-
-/obj/machinery/atmospherics/pipe/manifold/visible/green
-	color = PIPE_COLOR_GREEN
-
-/obj/machinery/atmospherics/pipe/manifold/visible/black
-	color = PIPE_COLOR_BLACK
-
-/obj/machinery/atmospherics/pipe/manifold/visible/red
-	color = PIPE_COLOR_RED
-
-/obj/machinery/atmospherics/pipe/manifold/visible/blue
-	color = PIPE_COLOR_BLUE
-
-/obj/machinery/atmospherics/pipe/manifold/visible/purple
-	color = PIPE_COLOR_PURPLE
-
 /obj/machinery/atmospherics/pipe/manifold/hidden
 	icon_state = "map"
-	level = 1
-	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers
 	name="Scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map-scrubbers"
-	connect_types = CONNECT_TYPE_SCRUBBER
 	layer = 2.38
-	icon_connect_type = "-scrubbers"
-	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply
 	name="Air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map-supply"
-	connect_types = CONNECT_TYPE_SUPPLY
 	layer = 2.39
-	icon_connect_type = "-supply"
-	color = PIPE_COLOR_BLUE
-
-/obj/machinery/atmospherics/pipe/manifold/hidden/yellow
-	color = PIPE_COLOR_YELLOW
-
-/obj/machinery/atmospherics/pipe/manifold/hidden/cyan
-	color = PIPE_COLOR_CYAN
-
-/obj/machinery/atmospherics/pipe/manifold/hidden/green
-	color = PIPE_COLOR_GREEN
-
-/obj/machinery/atmospherics/pipe/manifold/hidden/black
-	color = PIPE_COLOR_BLACK
-
-/obj/machinery/atmospherics/pipe/manifold/hidden/red
-	color = PIPE_COLOR_RED
-
-/obj/machinery/atmospherics/pipe/manifold/hidden/blue
-	color = PIPE_COLOR_BLUE
-
-/obj/machinery/atmospherics/pipe/manifold/hidden/purple
-	color = PIPE_COLOR_PURPLE
 
 /obj/machinery/atmospherics/pipe/manifold4w
 	icon = 'icons/atmos/manifold.dmi'
@@ -850,53 +740,25 @@
 	if(level == 1 && !T.is_plating()) hide(1)
 	update_icon()
 
+BUILD_COLORBASED_SUBTYPES(/obj/machinery/atmospherics/pipe/manifold4w)
+
 /obj/machinery/atmospherics/pipe/manifold4w/visible
 	icon_state = "map_4way"
-	level = 2
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/scrubbers
 	name="4-way scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map_4way-scrubbers"
-	connect_types = CONNECT_TYPE_SCRUBBER
 	layer = 2.38
-	icon_connect_type = "-scrubbers"
-	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/supply
 	name="4-way air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map_4way-supply"
-	connect_types = CONNECT_TYPE_SUPPLY
 	layer = 2.39
-	icon_connect_type = "-supply"
-	color = PIPE_COLOR_BLUE
-
-/obj/machinery/atmospherics/pipe/manifold4w/visible/yellow
-	color = PIPE_COLOR_YELLOW
-
-/obj/machinery/atmospherics/pipe/manifold4w/visible/cyan
-	color = PIPE_COLOR_CYAN
-
-/obj/machinery/atmospherics/pipe/manifold4w/visible/green
-	color = PIPE_COLOR_GREEN
-
-/obj/machinery/atmospherics/pipe/manifold4w/visible/black
-	color = PIPE_COLOR_BLACK
-
-/obj/machinery/atmospherics/pipe/manifold4w/visible/red
-	color = PIPE_COLOR_RED
-
-/obj/machinery/atmospherics/pipe/manifold4w/visible/blue
-	color = PIPE_COLOR_BLUE
-
-/obj/machinery/atmospherics/pipe/manifold4w/visible/purple
-	color = PIPE_COLOR_PURPLE
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden
 	icon_state = "map_4way"
-	level = 1
-	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers
 	name="4-way scrubbers pipe manifold"
@@ -905,7 +767,6 @@
 	connect_types = CONNECT_TYPE_SCRUBBER
 	layer = 2.38
 	icon_connect_type = "-scrubbers"
-	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply
 	name="4-way air supply pipe manifold"
@@ -914,28 +775,6 @@
 	connect_types = CONNECT_TYPE_SUPPLY
 	layer = 2.39
 	icon_connect_type = "-supply"
-	color = PIPE_COLOR_BLUE
-
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/yellow
-	color = PIPE_COLOR_YELLOW
-
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/cyan
-	color = PIPE_COLOR_CYAN
-
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/green
-	color = PIPE_COLOR_GREEN
-
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/black
-	color = PIPE_COLOR_BLACK
-
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/red
-	color = PIPE_COLOR_RED
-
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/blue
-	color = PIPE_COLOR_BLUE
-
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/purple
-	color = PIPE_COLOR_PURPLE
 
 /obj/machinery/atmospherics/pipe/cap
 	name = "pipe endcap"
@@ -1141,8 +980,10 @@
 	air_temporary.volume = volume
 	air_temporary.temperature = T20C
 
-	air_temporary.adjust_multi("oxygen",  (start_pressure*O2STANDARD)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature), \
-	                           "nitrogen",(start_pressure*N2STANDARD)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature))
+	air_temporary.adjust_multi(
+		"oxygen",  (start_pressure*O2STANDARD)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature), \
+		"nitrogen",(start_pressure*N2STANDARD)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
+	)
 
 
 	..()
@@ -1391,7 +1232,8 @@
 		add_underlay_adapter(T, , direction, "-scrubbers")
 		add_underlay_adapter(T, , direction, "")
 
-/obj/machinery/atmospherics/proc/add_underlay_adapter(var/turf/T, var/obj/machinery/atmospherics/node, var/direction, var/icon_connect_type) //modified from add_underlay, does not make exposed underlays
+//modified from add_underlay, does not make exposed underlays
+/obj/machinery/atmospherics/proc/add_underlay_adapter(var/turf/T, var/obj/machinery/atmospherics/node, var/direction, var/icon_connect_type)
 	if(node)
 		if(!T.is_plating() && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
 			underlays += icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
