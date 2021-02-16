@@ -1,6 +1,5 @@
 /turf
 	icon = 'icons/turf/floors.dmi'
-	level = 1.0
 
 	plane = FLOOR_PLANE
 

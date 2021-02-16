@@ -21,7 +21,6 @@ Please maintain these lists valid. --rastaf0
 	var/atmos = 1
 	var/atmosalm = 0
 	var/poweralm = 1
-	level = null
 	name = "Unknown"
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"

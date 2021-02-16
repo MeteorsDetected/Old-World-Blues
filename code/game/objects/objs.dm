@@ -3,6 +3,8 @@
 	var/list/matter
 	var/w_class // Size of the object.
 
+	var/level = 2
+
 	var/tmp/reliability = 100	//Used by SOME devices to determine how reliable they are.
 	var/crit_fail = 0
 	var/unacidable = 0 //universal "unacidabliness" var, here so you can use it in any obj.
