@@ -18,7 +18,14 @@
 	if(!proximity)
 		return
 
-	if(!istype(A,/obj/machinery/atmospherics/pipe) || istype(A,/obj/machinery/atmospherics/pipe/tank) || istype(A,/obj/machinery/atmospherics/pipe/vent) || istype(A,/obj/machinery/atmospherics/pipe/simple/heat_exchanging) || istype(A,/obj/machinery/atmospherics/pipe/simple/insulated) || !IN_RANGE(user, A))
+	var/list/restricted_types = list(
+		/obj/machinery/atmospherics/pipe/tank,
+		/obj/machinery/atmospherics/pipe/vent,
+		/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+		/obj/machinery/atmospherics/pipe/simple/insulated,
+	)
+
+	if(!user.Adjacent(src) || !istype(A,/obj/machinery/atmospherics/pipe) || is_type_in_list(A,restricted_types))
 		return
 	var/obj/machinery/atmospherics/pipe/P = A
 
