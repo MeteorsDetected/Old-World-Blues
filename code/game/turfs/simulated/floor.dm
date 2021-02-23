@@ -39,7 +39,6 @@ var/list/wood_icons = list("wood","wood-broken")
 
 	thermal_conductivity = 0.040
 	heat_capacity = 10000
-	var/mineral = MATERIAL_STEEL
 	var/lightfloor_state // for light floors, this is the state of the tile. 0-7, 0x4 is on-bit - use the helper procs below
 
 	//To remove
