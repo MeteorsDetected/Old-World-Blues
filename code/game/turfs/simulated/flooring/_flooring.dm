@@ -1,3 +1,15 @@
+var/global/list/flooring_list
+/proc/get_flooring(type)
+	if(!flooring_list)
+		flooring_list = new
+
+	if(! type in flooring_list)
+		flooring_list[type] = new type
+
+	return flooring_list[type]
+
+
+
 /datum/flooring
 	var/name
 	var/desc

@@ -24,6 +24,9 @@
 	remove_hearing()
 	. = ..()
 
+/obj/proc/hides_under_flooring()
+	return level == 1
+
 /obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())
@@ -44,8 +47,6 @@
 
 /obj/proc/CouldNotUseTopic(var/mob/user)
 	// Nada
-
-/obj/item/proc/is_used_on(obj/O, mob/user)
 
 /obj/proc/process()
 	processing_objects.Remove(src)
