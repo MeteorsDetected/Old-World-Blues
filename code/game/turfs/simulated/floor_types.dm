@@ -31,20 +31,6 @@
 	icon_state = "wood"
 	floor_type = /obj/item/stack/tile/wood
 
-/turf/simulated/floor/vault
-	icon_state = "rockvault"
-
-	New(location,type)
-		..()
-		icon_state = "[type]vault"
-
-/turf/simulated/wall/vault
-	icon_state = "rockvault"
-
-	New(location,type)
-		..()
-		icon_state = "[type]vault"
-
 /turf/simulated/floor/engine
 	name = "reinforced floor"
 	icon_state = "engine"
