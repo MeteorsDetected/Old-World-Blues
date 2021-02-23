@@ -1,11 +1,3 @@
-#define LIGHTFLOOR_ON_BIT 4
-
-#define LIGHTFLOOR_STATE_OK 0
-#define LIGHTFLOOR_STATE_FLICKER 1
-#define LIGHTFLOOR_STATE_BREAKING 2
-#define LIGHTFLOOR_STATE_BROKEN 3
-#define LIGHTFLOOR_STATE_BITS 3
-
 //This is so damaged or burnt tiles or platings don't get remembered as the default tile
 var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","damaged4",
 				"damaged5","panelscorched","floorscorched1","floorscorched2","platingdmg1","platingdmg2",
@@ -27,40 +19,34 @@ var/list/plating_icons = list("plating","platingdmg1","platingdmg2","platingdmg3
 var/list/wood_icons = list("wood","wood-broken")
 
 /turf/simulated/floor
-
-	//Note to coders, the 'intact' var can no longer be used to determine if the floor is a plating or not.
-	//Use the is_plating(), is_steel_floor() and is_light_floor() procs instead. --Errorage
-	name = "floor"
+	name = "plating"
 	icon = 'icons/turf/floors.dmi'
-	icon_state = "floor"
+	icon_state = "plating"
 
-	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
-	var/icon_plating = "plating"
+	// Damage to flooring.
+	var/broken
+	var/burnt
+
+	// Plating data.
+	var/base_name = "plating"
+	var/base_desc = "The naked hull."
+	var/base_icon = 'icons/turf/floors.dmi'
+	var/base_icon_state = "plating"
+
+	// Flooring data.
+	var/initial_flooring
+	var/datum/flooring/flooring
+
 	thermal_conductivity = 0.040
 	heat_capacity = 10000
-	var/broken = 0
-	var/burnt = 0
 	var/mineral = MATERIAL_STEEL
-	var/floor_type = /obj/item/stack/tile/steel
 	var/lightfloor_state // for light floors, this is the state of the tile. 0-7, 0x4 is on-bit - use the helper procs below
 
-	proc/get_lightfloor_state()
-		return lightfloor_state & LIGHTFLOOR_STATE_BITS
+	//To remove
+	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
+	var/icon_plating = "plating"
+	var/floor_type = /obj/item/stack/tile/steel
 
-	proc/get_lightfloor_on()
-		return lightfloor_state & LIGHTFLOOR_ON_BIT
-
-	proc/set_lightfloor_state(n)
-		lightfloor_state = get_lightfloor_on() | (n & LIGHTFLOOR_STATE_BITS)
-
-	proc/set_lightfloor_on(n)
-		if(n)
-			lightfloor_state |= LIGHTFLOOR_ON_BIT
-		else
-			lightfloor_state &= ~LIGHTFLOOR_ON_BIT
-
-	proc/toggle_lightfloor_on()
-		lightfloor_state ^= LIGHTFLOOR_ON_BIT
 
 /turf/simulated/floor/New()
 	..()
@@ -129,7 +115,7 @@ var/list/wood_icons = list("wood","wood-broken")
 /turf/simulated/floor/blob_act()
 	return
 
-turf/simulated/floor/proc/update_icon()
+/turf/simulated/floor/proc/update_icon()
 	if(is_steel_floor())
 		if(!broken && !burnt)
 			icon_state = icon_regular_floor
@@ -137,24 +123,7 @@ turf/simulated/floor/proc/update_icon()
 		if(!broken && !burnt)
 			icon_state = icon_plating //Because asteroids are 'platings' too.
 	else if(is_light_floor())
-		if(get_lightfloor_on())
-			switch(get_lightfloor_state())
-				if(LIGHTFLOOR_STATE_OK)
-					icon_state = "light_on"
-					set_light(5)
-				if(LIGHTFLOOR_STATE_FLICKER)
-					var/num = pick("1","2","3","4")
-					icon_state = "light_on_flicker[num]"
-					set_light(5)
-				if(LIGHTFLOOR_STATE_BREAKING)
-					icon_state = "light_on_broken"
-					set_light(5)
-				if(LIGHTFLOOR_STATE_BROKEN)
-					icon_state = "light_off"
-					set_light(0)
-		else
-			set_light(0)
-			icon_state = "light_off"
+		update_lightfloor_icon()
 	else if(is_grass_floor())
 		if(!broken && !burnt)
 			if(!(icon_state in list("grass1","grass2","grass3","grass4")))
@@ -592,11 +561,3 @@ turf/simulated/floor/proc/update_icon()
 					broken = 0
 				else
 					user << SPAN_NOTE("You need more welding fuel to complete this task.")
-
-#undef LIGHTFLOOR_ON_BIT
-
-#undef LIGHTFLOOR_STATE_OK
-#undef LIGHTFLOOR_STATE_FLICKER
-#undef LIGHTFLOOR_STATE_BREAKING
-#undef LIGHTFLOOR_STATE_BROKEN
-#undef LIGHTFLOOR_STATE_BITS
