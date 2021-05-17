@@ -787,11 +787,12 @@
 
 	if(restricted)
 		if(restricted == 1)
-			dat += SPAN_WARN({"
+			var/msg = {"
 				<b>You cannot play as this species.</br>
 				<small>If you wish to be whitelisted, you can make an application post on
 				<a href='?src=\ref[src];preference=open_whitelist_forum'>the forums</a>.</small></b></br>
-			"})
+			"}
+			dat += SPAN_WARN(msg)
 		else if(restricted == 2)
 			dat += "<font color='red'><b>You cannot play as this species.</br><small>This species is not available for play as a station race..</small></b></font></br>"
 	if(!restricted || check_rights(R_ADMIN, 0))
