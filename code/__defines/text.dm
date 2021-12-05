@@ -1,6 +1,6 @@
-#define SPAN_NOTE(text) "<span class='notice'>[text]</span>"
-#define SPAN_WARN(text) "<span class='warning'>[text]</span>"
-#define SPAN_DANG(text) "<span class='danger'>[text]</span>"
+#define SPAN_NOTE(text) ("<span class='notice'>" + text + "</span>")
+#define SPAN_WARN(text) ("<span class='warning'>" + text + "</span>")
+#define SPAN_DANG(text) ("<span class='danger'>" + text + "</span>")
 
 #define LIST_OF_CONSONANT list(\
 	"b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z",\

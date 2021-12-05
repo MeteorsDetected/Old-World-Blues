@@ -86,12 +86,10 @@
 		src.occupied = 0
 		src.add_fingerprint(user)
 		update_icon()
-		return
 	else
-		usr << text(SPAN_NOTE("You kick the display case."))
+		usr << SPAN_NOTE("You kick the display case.")
 		for(var/mob/O in oviewers())
 			if ((O.client && !( O.blinded )))
 				O << text("\red [] kicks the display case.", usr)
 		src.health -= 2
 		healthcheck()
-		return

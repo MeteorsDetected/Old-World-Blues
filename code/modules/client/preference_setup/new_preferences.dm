@@ -692,12 +692,13 @@
 		<b>ANTAGONISTS:</b><br>
 	"}
 
+	var/banned = SPAN_DANG("\[BANNED]")
 	for(var/role in special_roles)
 		if(jobban_isbanned(user, role) || \
 			(role == "positronic brain" && jobban_isbanned(user, "AI") && jobban_isbanned(user, "Cyborg")) || \
 			(role == "pAI candidate" && jobban_isbanned(user, "pAI")) \
 		)
-			dat += "Be [role]: <font color=red><b> \[BANNED]</b></font><br>"
+			dat += "Be [role]: [banned]<br>"
 		else
 			dat += "Be [role]: <a href='?src=\ref[src];be_special=[role]'><b>[(role in special_toggles) ? "Yes" : "No"]</b></a><br>"
 
@@ -706,7 +707,7 @@
 	else
 		for (var/role in all_antag_types)
 			if(jobban_isbanned(user, role))
-				dat += "Be [role]: <font color=red><b> \[BANNED]</b></font><br>"
+				dat += "Be [role]: [banned]<br>"
 			else
 				dat += "Be [role]: <a href='?src=\ref[src];be_special=[role]'><b>[(role in special_toggles) ? "Yes" : "No"]</b></a><br>"
 	dat += "</span>"

@@ -1185,7 +1185,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				if (!istype(C:dna, /datum/dna))
 					user << SPAN_NOTE("No fingerprints found on [C]")
 				else
-					user << text(SPAN_NOTE("\The [C]'s Fingerprints: [md5(C:dna.uni_identity)]"))
+					user << SPAN_NOTE("\The [C]'s Fingerprints: [md5(C:dna.uni_identity)]")
 				if ( !(C:blood_DNA) )
 					user << SPAN_NOTE("No blood found on [C]")
 					if(C:blood_DNA)
