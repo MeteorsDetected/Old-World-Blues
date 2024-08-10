@@ -567,7 +567,6 @@ By design, d1 is the smallest direction and d2 is the highest
 		src.use(15)
 	else
 		usr << SPAN_NOTE("You cannot do that.")
-	..()
 
 /obj/item/stack/cable_coil/cyborg/verb/set_colour()
 	set name = "Change Colour"

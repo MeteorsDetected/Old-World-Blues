@@ -204,21 +204,22 @@
 					else
 						src.healths.icon_state = "health6"
 			else
-				switch(health)
-					if(200 to INFINITY)
-						src.healths.icon_state = "health0"
-					if(150 to 200)
-						src.healths.icon_state = "health1"
-					if(100 to 150)
-						src.healths.icon_state = "health2"
-					if(50 to 100)
-						src.healths.icon_state = "health3"
-					if(0 to 50)
-						src.healths.icon_state = "health4"
-					if(config.health_threshold_dead to 0)
+				if (health < 0)
+					if (health > config.health_threshold_dead)
 						src.healths.icon_state = "health5"
 					else
 						src.healths.icon_state = "health6"
+				else switch(health)
+					if(201 to INFINITY)
+						src.healths.icon_state = "health0"
+					if(151 to 200)
+						src.healths.icon_state = "health1"
+					if(101 to 150)
+						src.healths.icon_state = "health2"
+					if(51 to 100)
+						src.healths.icon_state = "health3"
+					if(0 to 50)
+						src.healths.icon_state = "health4"
 		else
 			src.healths.icon_state = "health7"
 

@@ -42,7 +42,6 @@
 		dismantle_wall(1)
 
 /turf/simulated/wall/proc/try_touch(var/mob/user, var/rotting)
-
 	if(rotting)
 		if(reinf_material)
 			user << "<span class='danger'>\The [reinf_material.display_name] feels porous and crumbly.</span>"
@@ -50,8 +49,6 @@
 			user << "<span class='danger'>\The [material.display_name] crumbles under your touch!</span>"
 			dismantle_wall()
 			return 1
-
-	if(..()) return 1
 
 	if(!can_open)
 		user << SPAN_NOTE("You push the wall, but nothing happens.")
