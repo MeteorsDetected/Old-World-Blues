@@ -92,13 +92,13 @@ var/global/atomInstantInitialize = FALSE
 	for(var/atom/movable/A in atoms)
 		initAtom(A, TRUE)
 		++count
-	admin_notice(SPAN_DANG("Initialized [count] atoms"), R_DEBUG)
+	admin_notice(SPAN_DANGER("Initialized [count] atoms"), R_DEBUG)
 
 	if(late_loaders && late_loaders.len)
 		for(var/I in late_loaders)
 			var/atom/movable/A = I
 			A.lateInitialize(TRUE)
-		admin_notice(SPAN_DANG("Late initialized [late_loaders.len] atoms"), R_DEBUG)
+		admin_notice(SPAN_DANGER("Late initialized [late_loaders.len] atoms"), R_DEBUG)
 		late_loaders.Cut()
 
 /datum/controller/game_controller/proc/initAtom(atom/movable/A, maploaded)

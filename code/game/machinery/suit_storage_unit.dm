@@ -637,11 +637,11 @@
 
 /obj/machinery/suit_cycler/affect_grab(var/mob/user, var/mob/target)
 	if(locked)
-		user << SPAN_DANG("The suit cycler is locked.")
+		user << SPAN_DANGER("The suit cycler is locked.")
 		return
 
 	if(contents.len)
-		user << SPAN_DANG("There is no room inside the cycler for [target].")
+		user << SPAN_DANGER("There is no room inside the cycler for [target].")
 		return
 
 	visible_message(SPAN_NOTE("[user] starts putting [target] into the suit cycler."))

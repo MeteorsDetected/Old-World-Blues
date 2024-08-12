@@ -69,7 +69,7 @@
 		if(can_place)
 			place_handcuffs(C, user)
 		else
-			user << SPAN_DANG("You need to have a firm grip on [C] before you can put \the [src] on!")
+			user << SPAN_DANGER("You need to have a firm grip on [C] before you can put \the [src] on!")
 
 /obj/item/weapon/handcuffs/proc/place_handcuffs(var/mob/living/carbon/target, var/mob/user)
 	playsound(src.loc, cuff_sound, 30, 1, -2)
@@ -79,14 +79,14 @@
 		return
 
 	if (!H.has_organ_for_slot(slot_handcuffed))
-		user << SPAN_DANG("\The [H] needs at least two wrists before you can cuff them together!")
+		user << SPAN_DANGER("\The [H] needs at least two wrists before you can cuff them together!")
 		return
 
 	if(istype(H.gloves,/obj/item/clothing/gloves/rig)) // Can't cuff someone who's in a deployed hardsuit.
 		user << "<span class='danger'>The cuffs won't fit around \the [H.gloves]!</span>"
 		return
 
-	user.visible_message(SPAN_DANG("\The [user] is attempting to put [cuff_type] on \the [H]!"))
+	user.visible_message(SPAN_DANGER("\The [user] is attempting to put [cuff_type] on \the [H]!"))
 
 	if(!do_mob(user, target, 30))
 		return

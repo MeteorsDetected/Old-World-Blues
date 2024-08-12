@@ -14,7 +14,7 @@
 	origin_tech = list(TECH(T_ARCANE) = 2)
 
 /obj/item/weapon/scrying/attack_self(mob/living/user)
-	visible_message(SPAN_DANG("[user] stares into [src], their eyes glazing over."))
+	visible_message(SPAN_DANGER("[user] stares into [src], their eyes glazing over."))
 	if(user.is_like_wizard(WIZARD_KNOWLEDGE))
 		user << SPAN_NOTE("You can see... everything!")
 		user.teleop = user.ghostize(1)

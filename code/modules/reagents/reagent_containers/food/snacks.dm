@@ -43,7 +43,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/attack(mob/M as mob, mob/user as mob, def_zone)
 	if(!reagents.total_volume)
-		user << SPAN_DANG("None of [src] left!")
+		user << SPAN_DANGER("None of [src] left!")
 		user.drop_from_inventory(src)
 		qdel(src)
 		return 0
@@ -65,7 +65,7 @@
 
 			user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN) //puts a limit on how fast people can eat/drink things
 			if (fullness <= 50)
-				M << SPAN_DANG("You hungrily chew out a piece of [src] and gobble it!")
+				M << SPAN_DANGER("You hungrily chew out a piece of [src] and gobble it!")
 			if (fullness > 50 && fullness <= 150)
 				M << SPAN_NOTE("You hungrily begin to eat [src].")
 			if (fullness > 150 && fullness <= 350)
@@ -73,7 +73,7 @@
 			if (fullness > 350 && fullness <= 550)
 				M << SPAN_NOTE("You unwillingly chew a bit of [src].")
 			if (fullness > 550)
-				M << SPAN_DANG("You cannot force any more of [src] to go down your throat.")
+				M << SPAN_DANGER("You cannot force any more of [src] to go down your throat.")
 				return 0
 		else
 			if(ishuman(M))
@@ -89,9 +89,9 @@
 			if(!isslime(M))		//If you're feeding it to someone else.
 
 				if (fullness <= (550 * (1 + M.overeatduration / 1000)))
-					user.visible_message(SPAN_DANG("[user] attempts to feed [M] [src]."))
+					user.visible_message(SPAN_DANGER("[user] attempts to feed [M] [src]."))
 				else
-					user.visible_message(SPAN_DANG("[user] cannot force anymore of [src] down [M]'s throat."))
+					user.visible_message(SPAN_DANGER("[user] cannot force anymore of [src] down [M]'s throat."))
 					return 0
 
 			user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
@@ -103,7 +103,7 @@
 				"used [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)]) to fed"
 			)
 
-			user.visible_message(SPAN_DANG("[user] feeds [M] [src]."))
+			user.visible_message(SPAN_DANGER("[user] feeds [M] [src]."))
 
 		if(reagents)			//Handle ingestion of the reagent.
 			playsound(M.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
@@ -887,8 +887,8 @@
 	..()
 	new/obj/effect/decal/cleanable/pie_smudge(src.loc)
 	src.visible_message(
-		SPAN_DANG("\The [src.name] splats."),
-		SPAN_DANG("You hear a splat.")
+		SPAN_DANGER("\The [src.name] splats."),
+		SPAN_DANGER("You hear a splat.")
 	)
 	qdel(src)
 

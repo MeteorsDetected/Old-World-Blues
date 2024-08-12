@@ -54,8 +54,8 @@
 		spawn(0)
 			if(buckle_mob(target))
 				target.visible_message(
-					SPAN_DANG("[target] is buckled to [src] by [user]!"),
-					SPAN_DANG("You are buckled to [src] by [user]!"),
+					SPAN_DANGER("[target] is buckled to [src] by [user]!"),
+					SPAN_DANGER("You are buckled to [src] by [user]!"),
 					SPAN_NOTE("You hear metal clanking.")
 				)
 		return TRUE

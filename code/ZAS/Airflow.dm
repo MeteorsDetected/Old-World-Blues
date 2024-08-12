@@ -99,7 +99,7 @@ Contains helper procs for airflow, handled in /connection_group.
 	if(!src.AirflowCanMove(n))
 		return
 	if(ismob(src))
-		src << SPAN_DANG("You are sucked away by airflow!")
+		src << SPAN_DANGER("You are sucked away by airflow!")
 	last_airflow = world.time
 	var/airflow_falloff = 9 - sqrt((x - airflow_dest.x) ** 2 + (y - airflow_dest.y) ** 2)
 	if(airflow_falloff < 1)
@@ -161,7 +161,7 @@ Contains helper procs for airflow, handled in /connection_group.
 	if(!src.AirflowCanMove(n))
 		return
 	if(ismob(src))
-		src << SPAN_DANG("You are pushed away by airflow!")
+		src << SPAN_DANGER("You are pushed away by airflow!")
 	last_airflow = world.time
 	var/airflow_falloff = 9 - sqrt((x - airflow_dest.x) ** 2 + (y - airflow_dest.y) ** 2)
 	if(airflow_falloff < 1)
@@ -213,9 +213,9 @@ Contains helper procs for airflow, handled in /connection_group.
 
 /mob/living/airflow_hit(atom/A)
 	src.visible_message(
-		SPAN_DANG("The [src] slams into \a [A]!"),
+		SPAN_DANGER("The [src] slams into \a [A]!"),
 		SPAN_WARN("You badly slams into \a [A]!"),
-		SPAN_DANG("You hear a loud slam!")
+		SPAN_DANGER("You hear a loud slam!")
 	)
 	playsound(src.loc, "smash.ogg", 25, 1, -1)
 	var/weak_amt = istype(A,/obj/item) ? A:w_class : rand(1,5) //Heheheh
@@ -224,8 +224,8 @@ Contains helper procs for airflow, handled in /connection_group.
 
 /obj/airflow_hit(atom/A)
 	src.visible_message(
-		SPAN_DANG("The [src] slams into \a [A]!"),
-		SPAN_DANG("You hear a loud slam!")
+		SPAN_DANGER("The [src] slams into \a [A]!"),
+		SPAN_DANGER("You hear a loud slam!")
 	)
 	playsound(src.loc, "smash.ogg", 25, 1, -1)
 	. = ..()

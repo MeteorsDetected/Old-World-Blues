@@ -77,7 +77,7 @@
 				can_grab = 0
 		if(can_grab)
 			src.visible_message(
-				SPAN_DANG("Tendrils lash out from \the [src] and drag \the [victim] in!")
+				SPAN_DANGER("Tendrils lash out from \the [src] and drag \the [victim] in!")
 			)
 			victim.forceMove(src.loc)
 

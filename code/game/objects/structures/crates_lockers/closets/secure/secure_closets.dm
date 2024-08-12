@@ -101,7 +101,7 @@
 					SPAN_WARN("I [locked?"enable":"disable"] the locking modules.")
 				)
 		if(istype(W, /obj/item/weapon/melee/energy/blade))
-			if(emag_act(INFINITY, user, SPAN_DANG("The locker has been sliced open by [user] with \an [W]!"), SPAN_DANG("You hear metal being sliced and sparks flying.")))
+			if(emag_act(INFINITY, user, SPAN_DANGER("The locker has been sliced open by [user] with \an [W]!"), SPAN_DANGER("You hear metal being sliced and sparks flying.")))
 				var/datum/effect/effect/system/spark_spread/spark_system = new()
 				spark_system.set_up(5, 0, src.loc)
 				spark_system.start()

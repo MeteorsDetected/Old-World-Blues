@@ -82,7 +82,7 @@ REAGENT SCANNER
 			for(var/obj/item/organ/external/org in damaged)
 				var/is_robotic = (org.robotic >= ORGAN_ROBOT) ? "(Cybernetic)" : null
 				var/brute = (org.brute_dam > 0) ? SPAN_WARN("[org.brute_dam]") : null
-				var/bleeding = (org.status & ORGAN_BLEEDING)?SPAN_DANG("\[Bleeding\]") : null
+				var/bleeding = (org.status & ORGAN_BLEEDING)?SPAN_DANGER("\[Bleeding\]") : null
 				var/burn = (org.burn_dam > 0) ? "<font color='#FFA500'>[org.burn_dam]</font>" : null
 				user.show_message(SPAN_NOTE("     [capitalize(org.name)][is_robotic]: [brute][bleeding] - [burn]"))
 		else
@@ -184,9 +184,9 @@ REAGENT SCANNER
 			var/blood_type = H.dna.b_type
 			switch(blood_percent)
 				if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_SAFE)
-					user.show_message(SPAN_DANG("Warning: Blood Level LOW: [blood_percent]% [blood_volume]cl.") + SPAN_NOTE("Type: [blood_type]"))
+					user.show_message(SPAN_DANGER("Warning: Blood Level LOW: [blood_percent]% [blood_volume]cl.") + SPAN_NOTE("Type: [blood_type]"))
 				if(-1 to BLOOD_VOLUME_BAD)
-					user.show_message(SPAN_DANG("<i>Warning: Blood Level CRITICAL: [blood_percent]% [blood_volume]cl.</i>") + SPAN_NOTE("Type: [blood_type]"))
+					user.show_message(SPAN_DANGER("<i>Warning: Blood Level CRITICAL: [blood_percent]% [blood_volume]cl.</i>") + SPAN_NOTE("Type: [blood_type]"))
 				else
 					user.show_message(SPAN_NOTE("Blood Level Normal: [blood_percent]% [blood_volume]cl. Type: [blood_type]"))
 		user.show_message(SPAN_NOTE("Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font>"))

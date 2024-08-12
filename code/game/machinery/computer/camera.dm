@@ -105,7 +105,7 @@
 
 	attack_hand(var/mob/user as mob)
 		if(!isOnPlayerLevel(src))
-			user << SPAN_DANG("Unable to establish a connection")+ ": You're too far away from the station!"
+			user << SPAN_DANGER("Unable to establish a connection")+ ": You're too far away from the station!"
 			return
 		if(stat & (NOPOWER|BROKEN))	return
 

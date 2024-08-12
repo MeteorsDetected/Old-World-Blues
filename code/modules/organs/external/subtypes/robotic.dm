@@ -93,7 +93,7 @@
 		return 0
 
 	if(damage_amount >= 15)//ROBOLIMB_REPAIR_CAP)
-		user << SPAN_DANG("The damage is far too severe to patch over externally.")
+		user << SPAN_DANGER("The damage is far too severe to patch over externally.")
 		return 0
 
 	if(user == src.owner)

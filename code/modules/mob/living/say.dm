@@ -125,7 +125,7 @@ var/list/channel_to_radio_key = new
 		return
 
 	if(is_muzzled())
-		src << SPAN_DANG("You're muzzled and cannot speak!")
+		src << SPAN_DANGER("You're muzzled and cannot speak!")
 		return
 
 	var/message_mode = parse_message_mode(message, "headset")

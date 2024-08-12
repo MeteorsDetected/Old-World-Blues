@@ -45,8 +45,8 @@
 		M.Stun(8)
 		M.Weaken(8)
 		M.visible_message(
-			SPAN_DANG("[M] has been beaten with \the [src] by [user]!"),
-			SPAN_DANG("You has been beaten with \the [src] by [user]!"),
+			SPAN_DANGER("[M] has been beaten with \the [src] by [user]!"),
+			SPAN_DANGER("You has been beaten with \the [src] by [user]!"),
 			SPAN_WARN("You hear someone fall")
 		)
 	else
@@ -61,8 +61,8 @@
 		src.add_fingerprint(user)
 
 		M.visible_message(
-			SPAN_DANG("[M] has been stunned with \the [src] by [user]!"),
-			SPAN_DANG("You has been stunned with \the [src] by [user]!"),
+			SPAN_DANGER("[M] has been stunned with \the [src] by [user]!"),
+			SPAN_DANGER("You has been stunned with \the [src] by [user]!"),
 			SPAN_WARN("You hear someone fall")
 		)
 

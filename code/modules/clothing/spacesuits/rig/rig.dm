@@ -213,8 +213,8 @@
 
 	if(!seal_target && !suit_is_deployed())
 		M.visible_message(
-			SPAN_DANG("[M]'s suit flashes an error light."),
-			SPAN_DANG("Your suit flashes an error light. It can't function properly without being fully deployed.")
+			SPAN_DANGER("[M]'s suit flashes an error light."),
+			SPAN_DANGER("Your suit flashes an error light. It can't function properly without being fully deployed.")
 		)
 		failed_to_seal = TRUE
 
@@ -348,13 +348,13 @@
 				if(istype(wearer))
 					if(!canremove)
 						if (offline_slowdown < 3)
-							wearer << SPAN_DANG("Your suit beeps stridently, and suddenly goes dead.")
+							wearer << SPAN_DANGER("Your suit beeps stridently, and suddenly goes dead.")
 						else
-							wearer << SPAN_DANG("Your suit beeps stridently, and suddenly you're wearing a leaden mass of metal and plastic composites instead of a powered suit.")
+							wearer << SPAN_DANGER("Your suit beeps stridently, and suddenly you're wearing a leaden mass of metal and plastic composites instead of a powered suit.")
 					if(offline_vision_restriction == 1)
-						wearer << SPAN_DANG("The suit optics flicker and die, leaving you with restricted vision.")
+						wearer << SPAN_DANGER("The suit optics flicker and die, leaving you with restricted vision.")
 					else if(offline_vision_restriction == 2)
-						wearer << SPAN_DANG("The suit optics drop out completely, drowning you in darkness.")
+						wearer << SPAN_DANGER("The suit optics drop out completely, drowning you in darkness.")
 		if(!offline)
 			offline = 1
 	else
@@ -519,11 +519,11 @@
 		if(user.back != src)
 			return FALSE
 		else if(!src.allowed(user))
-			user << SPAN_DANG("Unauthorized user. Access denied.")
+			user << SPAN_DANGER("Unauthorized user. Access denied.")
 			return FALSE
 
 	else if(!ai_override_enabled)
-		user << SPAN_DANG("Synthetic access disabled. Please consult hardware provider.")
+		user << SPAN_DANGER("Synthetic access disabled. Please consult hardware provider.")
 		return FALSE
 
 	return TRUE
@@ -641,7 +641,7 @@
 			if(current != use_obj)
 				use_obj.forceMove(wearer)
 				if(!wearer.equip_to_slot_if_possible(use_obj, equip_to, 0))
-					H << SPAN_DANG("You are unable to deploy \the [piece] as \the [current] [current.gender == PLURAL ? "are" : "is"] in the way.")
+					H << SPAN_DANGER("You are unable to deploy \the [piece] as \the [current] [current.gender == PLURAL ? "are" : "is"] in the way.")
 					use_obj.forceMove(src)
 				else
 					H << SPAN_NOTE("<b>Your [use_obj.name] [use_obj.gender == PLURAL ? "deploy" : "deploys"] swiftly.</b>")
@@ -762,9 +762,9 @@
 /obj/item/weapon/rig/proc/malfunction_check(var/mob/living/carbon/human/user)
 	if(malfunction_delay)
 		if(offline)
-			user << SPAN_DANG("The suit is completely unresponsive.")
+			user << SPAN_DANGER("The suit is completely unresponsive.")
 		else
-			user << SPAN_DANG("ERROR: Hardware fault. Rebooting interface...")
+			user << SPAN_DANGER("ERROR: Hardware fault. Rebooting interface...")
 		return TRUE
 	return FALSE
 

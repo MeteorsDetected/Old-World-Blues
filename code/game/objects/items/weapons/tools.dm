@@ -368,7 +368,7 @@
 			if(E.damage > 10)
 				E.take_damage(rand(4,10))
 		if(-1)
-			usr << SPAN_DANG("Your thermals intensify the welder's glow. Your eyes itch and burn severely.")
+			usr << SPAN_DANGER("Your thermals intensify the welder's glow. Your eyes itch and burn severely.")
 			E.take_damage(rand(12, 16))
 			user.eye_blurry += rand(12,20)
 	return

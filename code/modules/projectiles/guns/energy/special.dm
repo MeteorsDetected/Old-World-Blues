@@ -130,8 +130,8 @@
 			if(process_projectile(P, user, user, pick(BP_ALL)))
 				handle_post_fire(user, user)
 				user.visible_message(
-					SPAN_DANG("Accidentally [user] shoots \himself in with \the [src]!"),
-					SPAN_DANG("Accidentally you shoot yourself with \the [src]!")
+					SPAN_DANGER("Accidentally [user] shoots \himself in with \the [src]!"),
+					SPAN_DANGER("Accidentally you shoot yourself with \the [src]!")
 				)
 				user.drop_from_inventory(src)
 		else

@@ -69,14 +69,14 @@
 /obj/structure/table/affect_grab(var/mob/living/user, var/mob/living/target, var/state)
 	var/obj/occupied = turf_is_crowded()
 	if(occupied)
-		user << SPAN_DANG("There's \a [occupied] in the way.")
+		user << SPAN_DANGER("There's \a [occupied] in the way.")
 		return
 	if(state < GRAB_AGGRESSIVE || target.loc==src.loc)
 		if(user.a_intent == I_HURT)
 			if(prob(15))
 				target.Weaken(5)
 			target.apply_damage(8,def_zone = BP_HEAD)
-			visible_message(SPAN_DANG("[user] slams [target]'s face against \the [src]!"))
+			visible_message(SPAN_DANGER("[user] slams [target]'s face against \the [src]!"))
 			if(material)
 				playsound(loc, material.tableslam_noise, 50, 1)
 			else
@@ -86,19 +86,19 @@
 			for(var/obj/item/weapon/material/shard/S in L)
 				if(prob(50))
 					target.visible_message(
-						SPAN_DANG("\The [S] slices [target]'s face messily!"),
-						SPAN_DANG("\The [S] slices your face messily!")
+						SPAN_DANGER("\The [S] slices [target]'s face messily!"),
+						SPAN_DANGER("\The [S] slices your face messily!")
 					)
 					target.apply_damage(10, def_zone = BP_HEAD)
 					if(prob(2))
 						target.embed(S, def_zone = BP_HEAD)
 		else
-			user << SPAN_DANG("You need a better grip to do that!")
+			user << SPAN_DANGER("You need a better grip to do that!")
 			return
 	else
 		target.forceMove(loc)
 		target.Weaken(5)
-		visible_message(SPAN_DANG("[user] puts [target] on \the [src]."))
+		visible_message(SPAN_DANGER("[user] puts [target] on \the [src]."))
 	return TRUE
 
 
@@ -113,7 +113,7 @@
 		spark_system.start()
 		playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
 		playsound(src.loc, "sparks", 50, 1)
-		user.visible_message(SPAN_DANG("\The [src] was sliced apart by [user]!"))
+		user.visible_message(SPAN_DANGER("\The [src] was sliced apart by [user]!"))
 		break_to_parts()
 		return
 

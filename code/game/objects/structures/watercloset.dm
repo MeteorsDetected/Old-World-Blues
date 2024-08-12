@@ -20,7 +20,7 @@
 /obj/structure/toilet/attack_hand(mob/living/user as mob)
 	if(swirlie)
 		usr.visible_message(
-			SPAN_DANG("[user] slams the toilet seat onto [swirlie.name]'s head!"),
+			SPAN_DANGER("[user] slams the toilet seat onto [swirlie.name]'s head!"),
 			SPAN_NOTE("You slam the toilet seat onto [swirlie.name]'s head!"),
 			"You hear reverberating porcelain."
 		)
@@ -90,13 +90,13 @@
 		return FALSE
 	if(open && !swirlie)
 		user.visible_message(
-			SPAN_DANG("[user] starts to give [target] a swirlie!"),
+			SPAN_DANGER("[user] starts to give [target] a swirlie!"),
 			SPAN_NOTE("You start to give [target] a swirlie!")
 		)
 		swirlie = target
 		if (do_after(user, 30, src) || !Adjacent(target))
 			user.visible_message(
-				SPAN_DANG("[user] gives [target] a swirlie!"),
+				SPAN_DANGER("[user] gives [target] a swirlie!"),
 				SPAN_NOTE("You give [target] a swirlie!"),
 				"You hear a toilet flushing."
 			)
@@ -105,7 +105,7 @@
 		swirlie = null
 	else
 		user.visible_message(
-			SPAN_DANG("[user] slams [target] into the [src]!"),
+			SPAN_DANGER("[user] slams [target] into the [src]!"),
 			SPAN_NOTE("You slam [target] into the [src]!")
 		)
 		admin_attack_log(user, target,
@@ -134,7 +134,7 @@
 			user << SPAN_NOTE("[target] needs to be on the urinal.")
 			return
 		user.visible_message(
-			SPAN_DANG("[user] slams [target] into the [src]!"),
+			SPAN_DANGER("[user] slams [target] into the [src]!"),
 			SPAN_NOTE("You slam [target] into the [src]!")
 		)
 		admin_attack_log(user, target,

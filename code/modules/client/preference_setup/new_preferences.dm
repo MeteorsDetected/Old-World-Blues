@@ -692,7 +692,7 @@
 		<b>ANTAGONISTS:</b><br>
 	"}
 
-	var/banned = SPAN_DANG("\[BANNED]")
+	var/banned = SPAN_DANGER("\[BANNED]")
 	for(var/role in special_roles)
 		if(jobban_isbanned(user, role) || \
 			(role == "positronic brain" && jobban_isbanned(user, "AI") && jobban_isbanned(user, "Cyborg")) || \

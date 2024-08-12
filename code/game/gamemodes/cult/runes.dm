@@ -39,9 +39,9 @@ var/list/sacrificed = list()
 				else
 					user.whisper("Sas[pick("'","`")]so c'arta forbici!")
 				user.visible_message(
-					SPAN_DANG("[user] disappears in a flash of red light!"),
-					SPAN_DANG("You feel as your body gets dragged through the dimension of Nar-Sie!"),
-					SPAN_DANG("You hear a sickening crunch and sloshing of viscera.")
+					SPAN_DANGER("[user] disappears in a flash of red light!"),
+					SPAN_DANGER("You feel as your body gets dragged through the dimension of Nar-Sie!"),
+					SPAN_DANGER("You hear a sickening crunch and sloshing of viscera.")
 				)
 				user.forceMove(allrunesloc[rand(1,index)])
 				return

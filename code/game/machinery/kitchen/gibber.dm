@@ -67,23 +67,23 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(operating)
-		user << SPAN_DANG("The gibber is locked and running, wait for it to finish.")
+		user << SPAN_DANGER("The gibber is locked and running, wait for it to finish.")
 		return
 	else
 		src.startgibbing(user)
 
 /obj/machinery/gibber/examine()
 	. = ..()
-	usr << "The safety guard is [emagged ? SPAN_DANG("disabled") : "enabled"]."
+	usr << "The safety guard is [emagged ? SPAN_DANGER("disabled") : "enabled"]."
 
 /obj/machinery/gibber/emag_act(var/remaining_charges, var/mob/user)
 	emagged = !emagged
-	user << SPAN_DANG("You [emagged ? "disable" : "enable"] the gibber safety guard.")
+	user << SPAN_DANGER("You [emagged ? "disable" : "enable"] the gibber safety guard.")
 	return 1
 
 /obj/machinery/gibber/affect_grab(var/mob/user, var/mob/target, var/state)
 	if(state < GRAB_NECK)
-		user << SPAN_DANG("You need a better grip to do that!")
+		user << SPAN_DANGER("You need a better grip to do that!")
 		return FALSE
 	move_into_gibber(user, target)
 	return TRUE
@@ -92,7 +92,7 @@
 	if(W.GetIdCard())
 		if(allowed(user))
 			emagged = !emagged
-			usr << "The safety guard is [emagged ? SPAN_DANG("disabled") : "enabled"]."
+			usr << "The safety guard is [emagged ? SPAN_DANGER("disabled") : "enabled"]."
 	else
 		..()
 
@@ -104,23 +104,23 @@
 /obj/machinery/gibber/proc/move_into_gibber(var/mob/user,var/mob/living/victim)
 
 	if(src.occupant)
-		user << SPAN_DANG("The gibber is full, empty it first!")
+		user << SPAN_DANGER("The gibber is full, empty it first!")
 		return
 
 	if(operating)
-		user << SPAN_DANG("The gibber is locked and running, wait for it to finish.")
+		user << SPAN_DANGER("The gibber is locked and running, wait for it to finish.")
 		return
 
 	if(!iscarbon(victim) && !isanimal(victim))
-		user << SPAN_DANG("This is not suitable for the gibber!")
+		user << SPAN_DANGER("This is not suitable for the gibber!")
 		return
 
 	if(ishuman(victim) && !emagged)
-		user << SPAN_DANG("The gibber safety guard is engaged!")
+		user << SPAN_DANGER("The gibber safety guard is engaged!")
 		return
 
 	if(victim.abiotic(1))
-		user << SPAN_DANG("Subject may not have abiotic items on.")
+		user << SPAN_DANGER("Subject may not have abiotic items on.")
 		return
 
 	user.visible_message(SPAN_WARN("[user] starts to put [victim] into the gibber!"))
@@ -161,7 +161,7 @@
 		visible_message("<span class='danger'>You hear a loud metallic grinding sound.</span>")
 		return
 	use_power(1000)
-	visible_message(SPAN_DANG("You hear a loud [occupant.isSynthetic() ? "metallic" : "squelchy"] grinding sound."))
+	visible_message(SPAN_DANGER("You hear a loud [occupant.isSynthetic() ? "metallic" : "squelchy"] grinding sound."))
 	src.operating = 1
 	update_icon()
 

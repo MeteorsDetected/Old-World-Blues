@@ -14,14 +14,14 @@
 
 /obj/structure/kitchenspike/affect_grab(var/mob/user, var/mob/living/target)
 	if(occupied)
-		user << SPAN_DANG("The spike already has something on it, finish collecting its meat first!")
+		user << SPAN_DANGER("The spike already has something on it, finish collecting its meat first!")
 	else
 		if(spike(target))
-			visible_message(SPAN_DANG("[user] has forced [target] onto the spike, killing them instantly!"))
+			visible_message(SPAN_DANGER("[user] has forced [target] onto the spike, killing them instantly!"))
 			qdel(target)
 			return TRUE
 		else
-			user << SPAN_DANG("They are too big for the spike, try something smaller!")
+			user << SPAN_DANGER("They are too big for the spike, try something smaller!")
 
 /obj/structure/kitchenspike/proc/spike(var/mob/living/victim)
 

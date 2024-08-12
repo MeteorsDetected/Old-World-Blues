@@ -75,7 +75,7 @@
 			src.stomach_contents.Remove(M)
 		M.forceMove(src.loc)
 		src.visible_message(
-			SPAN_DANG("[M] bursts out of [src]!")
+			SPAN_DANGER("[M] bursts out of [src]!")
 		)
 	..()
 

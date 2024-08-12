@@ -656,8 +656,8 @@
 				&& prob(20) )
 			opened = 2
 			user.visible_message(
-				SPAN_DANG("The APC cover was knocked down with the [W.name] by [user.name]!"),
-				SPAN_DANG("You knock down the APC cover with your [W.name]!"),
+				SPAN_DANGER("The APC cover was knocked down with the [W.name] by [user.name]!"),
+				SPAN_DANGER("You knock down the APC cover with your [W.name]!"),
 				"You hear bang"
 			)
 			update_icon()
@@ -669,8 +669,8 @@
 				istype(W, /obj/item/weapon/wirecutters) || istype(W, /obj/item/device/assembly/signaler)))
 				return src.attack_hand(user)
 			user.visible_message(
-				SPAN_DANG("The [src.name] has been hit with the [W.name] by [user.name]!"),
-				SPAN_DANG("You hit the [src.name] with your [W.name]!"),
+				SPAN_DANGER("The [src.name] has been hit with the [W.name] by [user.name]!"),
+				SPAN_DANGER("You hit the [src.name] with your [W.name]!"),
 				"You hear bang"
 			)
 
@@ -902,7 +902,7 @@
 
 		if(aidisabled && !permit)
 			if(!loud)
-				user << SPAN_DANG("\The [src] have AI control disabled!")
+				user << SPAN_DANGER("\The [src] have AI control disabled!")
 			return 0
 	else
 		if ((!IN_RANGE(src, user) || !istype(src.loc, /turf) || hacker)) // AI-hacked APCs cannot be controlled by other AIs, unlinked cyborgs or humans.
@@ -910,10 +910,10 @@
 	var/mob/living/carbon/human/H = user
 	if (istype(H))
 		if(H.getBrainLoss() >= 60)
-			H.visible_message(SPAN_DANG("[H] stares cluelessly at [src] and drools."))
+			H.visible_message(SPAN_DANGER("[H] stares cluelessly at [src] and drools."))
 			return 0
 		else if(prob(H.getBrainLoss()))
-			user << SPAN_DANG("You momentarily forget how to use [src].")
+			user << SPAN_DANGER("You momentarily forget how to use [src].")
 			return 0
 	return 1
 
@@ -998,8 +998,8 @@
 			s.set_up(3, 1, src)
 			s.start()
 			visible_message(
-				SPAN_DANG("The [src.name] suddenly lets out a blast of smoke and some sparks!"),
-				SPAN_DANG("You hear sizzling electronics.")
+				SPAN_DANGER("The [src.name] suddenly lets out a blast of smoke and some sparks!"),
+				SPAN_DANGER("You hear sizzling electronics.")
 			)
 
 

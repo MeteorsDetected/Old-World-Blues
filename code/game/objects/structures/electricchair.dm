@@ -68,8 +68,8 @@
 		buckled_mob.burn_skin(85)
 		buckled_mob.Stun(600)
 	visible_message(
-		SPAN_DANG("The electric chair went off!"),
-		SPAN_DANG("You hear a deep sharp shock!")
+		SPAN_DANGER("The electric chair went off!"),
+		SPAN_DANGER("You hear a deep sharp shock!")
 	)
 
 	A.power_light = light

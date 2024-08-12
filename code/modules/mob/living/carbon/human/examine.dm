@@ -176,7 +176,7 @@
 	//Jitters
 	if(is_jittery)
 		if(jitteriness >= 300)
-			msg += SPAN_DANG("[T.He] [T.is] convulsing violently!")
+			msg += SPAN_DANGER("[T.He] [T.is] convulsing violently!")
 		else if(jitteriness >= 200)
 			msg += SPAN_WARN("[T.He] [T.is] extremely jittery.")
 		else if(jitteriness >= 100)
@@ -233,9 +233,9 @@
 		var/datum/organ_description/organ_data = species.has_limbs[organ_tag]
 		var/obj/item/organ/external/E = organs_by_name[organ_tag]
 		if(!E)
-			wound_flavor_text[organ_data.name] = SPAN_DANG("[T.He] [T.is] missing [T.his] [organ_data.name].")
+			wound_flavor_text[organ_data.name] = SPAN_DANGER("[T.He] [T.is] missing [T.his] [organ_data.name].")
 		else if(E.is_stump())
-			wound_flavor_text[organ_data.name] = SPAN_DANG("[T.He] [T.has] a stump where [T.his] [organ_data.name] should be.")
+			wound_flavor_text[organ_data.name] = SPAN_DANGER("[T.He] [T.has] a stump where [T.his] [organ_data.name] should be.")
 		else
 			continue
 
@@ -273,7 +273,7 @@
 			msg += is_bleeding[limb]
 
 	for(var/implant in get_visible_implants(0))
-		msg += SPAN_DANG("[src] [T.has] \a [implant] sticking out of [T.his] flesh!")
+		msg += SPAN_DANGER("[src] [T.has] \a [implant] sticking out of [T.his] flesh!")
 
 	if(digitalcamo)
 		msg += "[T.He] [T.is] repulsively uncanny!"

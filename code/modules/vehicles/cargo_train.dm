@@ -164,7 +164,7 @@
 	if(is_train_head() && ishuman(load))
 		var/mob/living/carbon/human/D = load
 		D << "\red \b You ran over [H]!"
-		visible_message(SPAN_DANG("\The [src] ran over [H]!"))
+		visible_message(SPAN_DANGER("\The [src] ran over [H]!"))
 		attack_log += text("\[[time_stamp()]\] <font color='red'>ran over [key_name(H)], driven by [key_name(D)]</font>")
 		self_attack_log(D, "ran over [key_name(H)].", 1)
 	else

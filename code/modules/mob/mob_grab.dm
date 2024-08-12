@@ -56,7 +56,7 @@
 		if(GRAB_NECK)
 			return SPAN_WARN("[T.He] [T.is] grabbing [affecting] by neck!")
 		if(GRAB_KILL)
-			return SPAN_DANG("[T.He] [T.is] strangling [affecting]!")
+			return SPAN_DANGER("[T.He] [T.is] strangling [affecting]!")
 		else
 			return SPAN_WARN("[T.He] [T.is] holding [affecting] by the hand")
 
@@ -269,11 +269,11 @@
 		affecting.Stun(10) //10 ticks of ensured grab
 
 	else if(state < GRAB_UPGRADING)
-		assailant.visible_message(SPAN_DANG("[assailant] starts to tighten \his grip on [affecting]'s neck!"))
+		assailant.visible_message(SPAN_DANGER("[assailant] starts to tighten \his grip on [affecting]'s neck!"))
 		icon_state = "kill1"
 
 		state = GRAB_KILL
-		assailant.visible_message(SPAN_DANG("[assailant] has tightened \his grip on [affecting]'s neck!"))
+		assailant.visible_message(SPAN_DANGER("[assailant] has tightened \his grip on [affecting]'s neck!"))
 		admin_attack_log(assailant, affecting,
 			"Strangled (kill intent) [affecting.name] ([affecting.ckey])",
 			"Has been strangled (kill intent) by [assailant.name] ([assailant.ckey])",

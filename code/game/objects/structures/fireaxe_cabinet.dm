@@ -173,9 +173,9 @@
 			damage = W.force
 		if(!attack_verb)
 			attack_verb = W.attack_verb ? pick(W.attack_verb) : "hit"
-		visible_message(SPAN_DANG("[user] [attack_verb] the [src] with [W]!"))
+		visible_message(SPAN_DANGER("[user] [attack_verb] the [src] with [W]!"))
 	else
-		visible_message(SPAN_DANG("[user] [attack_verb] the [src]!"))
+		visible_message(SPAN_DANGER("[user] [attack_verb] the [src]!"))
 	user.do_attack_animation(src)
 
 	adjustHealth(damage)

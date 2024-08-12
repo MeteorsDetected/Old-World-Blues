@@ -142,7 +142,7 @@
 					return 1
 				else
 					H.visible_message(
-						SPAN_DANG("[L] has been prodded in the [affecting.name] with [src] by [user]!")
+						SPAN_DANGER("[L] has been prodded in the [affecting.name] with [src] by [user]!")
 					)
 		else
 			if(!status)
@@ -152,7 +152,7 @@
 				return 1
 			else
 				L.visible_message(
-					SPAN_DANG("[L] has been prodded with [src] by [user]!")
+					SPAN_DANGER("[L] has been prodded with [src] by [user]!")
 				)
 
 	//stun effects

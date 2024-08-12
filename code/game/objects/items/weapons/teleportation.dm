@@ -414,7 +414,7 @@ Frequency:
 	H.visible_message(SPAN_NOTE("The Vortex Manipulator malfunctions!"))
 	var/turf/temp_turf = get_turf(H)
 	if(prob(1))
-		H.visible_message(SPAN_DANG("The Vortex Manipulator releases its energy in a large explosion!"))
+		H.visible_message(SPAN_DANGER("The Vortex Manipulator releases its energy in a large explosion!"))
 		explosion(temp_turf, 0, 0, 3, 4)
 		areateleport(H, 1)
 		explosion(temp_turf, 1, 2, 4, 5)
@@ -525,7 +525,7 @@ Frequency:
 	for(var/obj/item/weapon/vortex_manipulator/VM in world)
 		var/H = VM.get_owner()
 		if (ishuman(H) && (VM.active || nonactive_announce))
-			H << SPAN_DANG("Your Vortex Manipulator suddenly announces with voice of [user]: [input]")
+			H << SPAN_DANGER("Your Vortex Manipulator suddenly announces with voice of [user]: [input]")
 	deductcharge(chargecost_beacon)
 
 

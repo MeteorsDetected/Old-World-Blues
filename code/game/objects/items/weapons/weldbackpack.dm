@@ -17,7 +17,7 @@
 		var/obj/item/weapon/weldingtool/T = W
 		if(T.welding & prob(50))
 			log_game("[key_name(user)] triggered a fueltank explosion.", src)
-			user << SPAN_DANG("That was stupid of you.")
+			user << SPAN_DANGER("That was stupid of you.")
 			explosion(get_turf(src),-1,0,2)
 			if(src)
 				qdel(src)

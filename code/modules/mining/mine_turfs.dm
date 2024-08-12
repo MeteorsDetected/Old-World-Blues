@@ -324,7 +324,7 @@
 		var/obj/effect/suspension_field/S = locate() in src
 		if(!S || S.field_type != get_responsive_reagent(F.find_type))
 			if(X)
-				visible_message(SPAN_DANG("[pick("[display_name] crumbles away into dust","[display_name] breaks apart")]."))
+				visible_message(SPAN_DANGER("[pick("[display_name] crumbles away into dust","[display_name] breaks apart")]."))
 				qdel(X)
 
 	finds.Remove(F)

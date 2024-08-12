@@ -192,7 +192,7 @@
 				var/obj/item/stack/cable_coil/C = tool
 				if(!C.can_use(5))
 					//usage amount made more consistent with regular cable repair
-					user << SPAN_DANG("You need ten or more cable pieces to repair this damage.")
+					user << SPAN_DANGER("You need ten or more cable pieces to repair this damage.")
 					return SURGERY_FAILURE
 			return affected && affected.open == 3 && (affected.disfigured || affected.burn_dam > 0) && target_zone != O_MOUTH
 
@@ -209,7 +209,7 @@
 			var/obj/item/stack/cable_coil/C = tool
 			if(!C.can_use(5))
 				//usage amount made more consistent with regular cable repair
-				user << SPAN_DANG("You need ten or more cable pieces to repair this damage.")
+				user << SPAN_DANGER("You need ten or more cable pieces to repair this damage.")
 				return SURGERY_FAILURE
 			C.use(5)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -431,19 +431,19 @@
 			return 0
 
 		if(!M.brainmob || !M.brainmob.client || !M.brainmob.ckey || M.brainmob.stat >= DEAD)
-			user << SPAN_DANG("That brain is not usable.")
+			user << SPAN_DANGER("That brain is not usable.")
 			return SURGERY_FAILURE
 
 		if(!(affected.robotic >= ORGAN_ROBOT))
-			user << SPAN_DANG("You cannot install a computer brain into a meat skull.")
+			user << SPAN_DANGER("You cannot install a computer brain into a meat skull.")
 			return SURGERY_FAILURE
 
 		if(!target.should_have_organ("brain"))
-			user << SPAN_DANG("You're pretty sure [target.species.name_plural] don't normally have a brain.")
+			user << SPAN_DANGER("You're pretty sure [target.species.name_plural] don't normally have a brain.")
 			return SURGERY_FAILURE
 
 		if(!isnull(target.internal_organs["brain"]))
-			user << SPAN_DANG("Your subject already has a brain.")
+			user << SPAN_DANGER("Your subject already has a brain.")
 			return SURGERY_FAILURE
 
 		return 1
