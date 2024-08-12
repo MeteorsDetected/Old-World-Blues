@@ -88,3 +88,16 @@
 	)
 
 
+//// Runner ////
+
+/obj/item/organ/external/robotic/limb/runner
+	icon = 'icons/mob/human_races/cyberlimbs/runner.dmi'
+	max_damage = 45
+	min_broken_damage = 30
+	w_class = ITEM_SIZE_NORMAL
+	tally = -0.25
+
+/obj/item/organ/external/robotic/limb/runner/tiny
+	tally = 0
+	min_broken_damage = 15
+	w_class = ITEM_SIZE_SMALL
