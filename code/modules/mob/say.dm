@@ -1,10 +1,8 @@
 /mob/proc/say()
-	return
 
 /mob/verb/whisper()
 	set name = "Whisper"
 	set category = "IC"
-	return
 
 /mob/verb/say_verb(message as text)
 	set name = "Say"
@@ -35,7 +33,8 @@
 		usr << "<span class='danger'>You have deadchat muted.</span>"
 		return
 
-	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers")], <span class='message'>\"[message]\"</span>", src)
+	var/act = pick("complains", "moans", "whines", "laments", "blubbers")
+	say_dead_direct("[act], <span class='message'>\"[message]\"</span>", src)
 
 /mob/proc/say_understands(var/mob/other, var/datum/language/speaking = null)
 

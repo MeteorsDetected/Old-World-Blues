@@ -9,35 +9,36 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "brain1"
 
-	initialize()
-		create_reagents(1000)
-		. = ..()
+/mob/living/carbon/brain/initialize()
+	create_reagents(1000)
+	. = ..()
 
-	Destroy()
-		if(key)				//If there is a mob connected to this thing. Have to check key twice to avoid false death reporting.
-			if(stat!=DEAD)	//If not dead.
-				death(1)	//Brains can die again. AND THEY SHOULD AHA HA HA HA HA HA
-			ghostize()		//Ghostize checks for key so nothing else is necessary.
-		..()
+/mob/living/carbon/brain/Destroy()
+	if(key)				//If there is a mob connected to this thing. Have to check key twice to avoid false death reporting.
+		if(stat!=DEAD)	//If not dead.
+			death(1)	//Brains can die again. AND THEY SHOULD AHA HA HA HA HA HA
+		ghostize()		//Ghostize checks for key so nothing else is necessary.
+	..()
 
-	say_understands(var/other)//Goddamn is this hackish, but this say code is so odd
-		if (issilicon(other))
-			if(!(container && istype(container, /obj/item/device/mmi)))
-				return 0
-			else
-				return 1
-		if (ishuman(other))
+/mob/living/carbon/brain/say_understands(var/other)//Goddamn is this hackish, but this say code is so odd
+	if (issilicon(other))
+		if(!(container && istype(container, /obj/item/device/mmi)))
+			return 0
+		else
 			return 1
-		if (isslime(other))
-			return 1
-		return ..()
+	if (ishuman(other))
+		return 1
+	if (isslime(other))
+		return 1
+	return ..()
 
 
 /mob/living/carbon/brain/update_canmove()
 	if(in_contents_of(/obj/mecha))
 		canmove = 1
 		use_me = 1 //If it can move, let it emote
-	else							canmove = 0
+	else
+		canmove = 0
 	return canmove
 
 /mob/living/carbon/brain/binarycheck()
